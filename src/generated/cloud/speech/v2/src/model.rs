@@ -72,6 +72,13 @@ impl CreateRecognizerRequest {
     }
 
     /// Sets the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateRecognizerRequest;
+    /// use google_cloud_speech_v2::model::Recognizer;
+    /// let x = CreateRecognizerRequest::new().set_recognizer(Recognizer::default()/* use setters */);
+    /// ```
     pub fn set_recognizer<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Recognizer>,
@@ -81,6 +88,14 @@ impl CreateRecognizerRequest {
     }
 
     /// Sets or clears the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateRecognizerRequest;
+    /// use google_cloud_speech_v2::model::Recognizer;
+    /// let x = CreateRecognizerRequest::new().set_or_clear_recognizer(Some(Recognizer::default()/* use setters */));
+    /// let x = CreateRecognizerRequest::new().set_or_clear_recognizer(None::<Recognizer>);
+    /// ```
     pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Recognizer>,
@@ -90,18 +105,36 @@ impl CreateRecognizerRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateRecognizerRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateRecognizerRequest;
+    /// let x = CreateRecognizerRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [recognizer_id][crate::model::CreateRecognizerRequest::recognizer_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateRecognizerRequest;
+    /// let x = CreateRecognizerRequest::new().set_recognizer_id("example");
+    /// ```
     pub fn set_recognizer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recognizer_id = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::CreateRecognizerRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateRecognizerRequest;
+    /// let x = CreateRecognizerRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -161,6 +194,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -170,6 +210,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -179,6 +227,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::OperationMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -188,6 +243,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::OperationMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -197,24 +260,48 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [resource][crate::model::OperationMetadata::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [method][crate::model::OperationMetadata::method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_method("example");
+    /// ```
     pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.method = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::OperationMetadata::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::OperationMetadata::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -224,6 +311,12 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [progress_percent][crate::model::OperationMetadata::progress_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_progress_percent(42);
+    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
@@ -233,6 +326,14 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// let x = OperationMetadata::new().set_request(Some(
+    ///     google_cloud_speech_v2::model::operation_metadata::Request::BatchRecognizeRequest(BatchRecognizeRequest::default().into())));
+    /// ```
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Request>>,
     >(
@@ -263,6 +364,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// let x = OperationMetadata::new().set_batch_recognize_request(BatchRecognizeRequest::default()/* use setters */);
+    /// assert!(x.batch_recognize_request().is_some());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_batch_recognize_request<
         T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeRequest>>,
     >(
@@ -295,6 +417,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::CreateRecognizerRequest;
+    /// let x = OperationMetadata::new().set_create_recognizer_request(CreateRecognizerRequest::default()/* use setters */);
+    /// assert!(x.create_recognizer_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_create_recognizer_request<
         T: std::convert::Into<std::boxed::Box<crate::model::CreateRecognizerRequest>>,
     >(
@@ -327,6 +470,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::UpdateRecognizerRequest;
+    /// let x = OperationMetadata::new().set_update_recognizer_request(UpdateRecognizerRequest::default()/* use setters */);
+    /// assert!(x.update_recognizer_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_update_recognizer_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UpdateRecognizerRequest>>,
     >(
@@ -359,6 +523,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::DeleteRecognizerRequest;
+    /// let x = OperationMetadata::new().set_delete_recognizer_request(DeleteRecognizerRequest::default()/* use setters */);
+    /// assert!(x.delete_recognizer_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_delete_recognizer_request<
         T: std::convert::Into<std::boxed::Box<crate::model::DeleteRecognizerRequest>>,
     >(
@@ -391,6 +576,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::UndeleteRecognizerRequest;
+    /// let x = OperationMetadata::new().set_undelete_recognizer_request(UndeleteRecognizerRequest::default()/* use setters */);
+    /// assert!(x.undelete_recognizer_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_undelete_recognizer_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UndeleteRecognizerRequest>>,
     >(
@@ -423,6 +629,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::CreateCustomClassRequest;
+    /// let x = OperationMetadata::new().set_create_custom_class_request(CreateCustomClassRequest::default()/* use setters */);
+    /// assert!(x.create_custom_class_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_create_custom_class_request<
         T: std::convert::Into<std::boxed::Box<crate::model::CreateCustomClassRequest>>,
     >(
@@ -455,6 +682,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::UpdateCustomClassRequest;
+    /// let x = OperationMetadata::new().set_update_custom_class_request(UpdateCustomClassRequest::default()/* use setters */);
+    /// assert!(x.update_custom_class_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_update_custom_class_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UpdateCustomClassRequest>>,
     >(
@@ -487,6 +735,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::DeleteCustomClassRequest;
+    /// let x = OperationMetadata::new().set_delete_custom_class_request(DeleteCustomClassRequest::default()/* use setters */);
+    /// assert!(x.delete_custom_class_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_delete_custom_class_request<
         T: std::convert::Into<std::boxed::Box<crate::model::DeleteCustomClassRequest>>,
     >(
@@ -519,6 +788,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::UndeleteCustomClassRequest;
+    /// let x = OperationMetadata::new().set_undelete_custom_class_request(UndeleteCustomClassRequest::default()/* use setters */);
+    /// assert!(x.undelete_custom_class_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_undelete_custom_class_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UndeleteCustomClassRequest>>,
     >(
@@ -551,6 +841,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::CreatePhraseSetRequest;
+    /// let x = OperationMetadata::new().set_create_phrase_set_request(CreatePhraseSetRequest::default()/* use setters */);
+    /// assert!(x.create_phrase_set_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_create_phrase_set_request<
         T: std::convert::Into<std::boxed::Box<crate::model::CreatePhraseSetRequest>>,
     >(
@@ -583,6 +894,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::UpdatePhraseSetRequest;
+    /// let x = OperationMetadata::new().set_update_phrase_set_request(UpdatePhraseSetRequest::default()/* use setters */);
+    /// assert!(x.update_phrase_set_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_update_phrase_set_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UpdatePhraseSetRequest>>,
     >(
@@ -615,6 +947,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::DeletePhraseSetRequest;
+    /// let x = OperationMetadata::new().set_delete_phrase_set_request(DeletePhraseSetRequest::default()/* use setters */);
+    /// assert!(x.delete_phrase_set_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_delete_phrase_set_request<
         T: std::convert::Into<std::boxed::Box<crate::model::DeletePhraseSetRequest>>,
     >(
@@ -647,6 +1000,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::UndeletePhraseSetRequest;
+    /// let x = OperationMetadata::new().set_undelete_phrase_set_request(UndeletePhraseSetRequest::default()/* use setters */);
+    /// assert!(x.undelete_phrase_set_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.update_config_request().is_none());
+    /// ```
     pub fn set_undelete_phrase_set_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UndeletePhraseSetRequest>>,
     >(
@@ -680,6 +1054,27 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::UpdateConfigRequest;
+    /// let x = OperationMetadata::new().set_update_config_request(UpdateConfigRequest::default()/* use setters */);
+    /// assert!(x.update_config_request().is_some());
+    /// assert!(x.batch_recognize_request().is_none());
+    /// assert!(x.create_recognizer_request().is_none());
+    /// assert!(x.update_recognizer_request().is_none());
+    /// assert!(x.delete_recognizer_request().is_none());
+    /// assert!(x.undelete_recognizer_request().is_none());
+    /// assert!(x.create_custom_class_request().is_none());
+    /// assert!(x.update_custom_class_request().is_none());
+    /// assert!(x.delete_custom_class_request().is_none());
+    /// assert!(x.undelete_custom_class_request().is_none());
+    /// assert!(x.create_phrase_set_request().is_none());
+    /// assert!(x.update_phrase_set_request().is_none());
+    /// assert!(x.delete_phrase_set_request().is_none());
+    /// assert!(x.undelete_phrase_set_request().is_none());
+    /// ```
     #[deprecated]
     pub fn set_update_config_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UpdateConfigRequest>>,
@@ -697,6 +1092,14 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `metadata` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::BatchRecognizeMetadata;
+    /// let x = OperationMetadata::new().set_metadata(Some(
+    ///     google_cloud_speech_v2::model::operation_metadata::Metadata::BatchRecognizeMetadata(BatchRecognizeMetadata::default().into())));
+    /// ```
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Metadata>>,
     >(
@@ -727,6 +1130,14 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OperationMetadata;
+    /// use google_cloud_speech_v2::model::BatchRecognizeMetadata;
+    /// let x = OperationMetadata::new().set_batch_recognize_metadata(BatchRecognizeMetadata::default()/* use setters */);
+    /// assert!(x.batch_recognize_metadata().is_some());
+    /// ```
     pub fn set_batch_recognize_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeMetadata>>,
     >(
@@ -834,24 +1245,48 @@ impl ListRecognizersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRecognizersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListRecognizersRequest;
+    /// let x = ListRecognizersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRecognizersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListRecognizersRequest;
+    /// let x = ListRecognizersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRecognizersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListRecognizersRequest;
+    /// let x = ListRecognizersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListRecognizersRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListRecognizersRequest;
+    /// let x = ListRecognizersRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -891,6 +1326,17 @@ impl ListRecognizersResponse {
     }
 
     /// Sets the value of [recognizers][crate::model::ListRecognizersResponse::recognizers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListRecognizersResponse;
+    /// use google_cloud_speech_v2::model::Recognizer;
+    /// let x = ListRecognizersResponse::new()
+    ///     .set_recognizers([
+    ///         Recognizer::default()/* use setters */,
+    ///         Recognizer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_recognizers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -902,6 +1348,12 @@ impl ListRecognizersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRecognizersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListRecognizersResponse;
+    /// let x = ListRecognizersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -948,6 +1400,12 @@ impl GetRecognizerRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRecognizerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::GetRecognizerRequest;
+    /// let x = GetRecognizerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -990,6 +1448,13 @@ impl UpdateRecognizerRequest {
     }
 
     /// Sets the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateRecognizerRequest;
+    /// use google_cloud_speech_v2::model::Recognizer;
+    /// let x = UpdateRecognizerRequest::new().set_recognizer(Recognizer::default()/* use setters */);
+    /// ```
     pub fn set_recognizer<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Recognizer>,
@@ -999,6 +1464,14 @@ impl UpdateRecognizerRequest {
     }
 
     /// Sets or clears the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateRecognizerRequest;
+    /// use google_cloud_speech_v2::model::Recognizer;
+    /// let x = UpdateRecognizerRequest::new().set_or_clear_recognizer(Some(Recognizer::default()/* use setters */));
+    /// let x = UpdateRecognizerRequest::new().set_or_clear_recognizer(None::<Recognizer>);
+    /// ```
     pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Recognizer>,
@@ -1008,6 +1481,13 @@ impl UpdateRecognizerRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateRecognizerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRecognizerRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1017,6 +1497,14 @@ impl UpdateRecognizerRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateRecognizerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRecognizerRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRecognizerRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1026,6 +1514,12 @@ impl UpdateRecognizerRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateRecognizerRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateRecognizerRequest;
+    /// let x = UpdateRecognizerRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1071,24 +1565,48 @@ impl DeleteRecognizerRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRecognizerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteRecognizerRequest;
+    /// let x = DeleteRecognizerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteRecognizerRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteRecognizerRequest;
+    /// let x = DeleteRecognizerRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteRecognizerRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteRecognizerRequest;
+    /// let x = DeleteRecognizerRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteRecognizerRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteRecognizerRequest;
+    /// let x = DeleteRecognizerRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1131,18 +1649,36 @@ impl UndeleteRecognizerRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteRecognizerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeleteRecognizerRequest;
+    /// let x = UndeleteRecognizerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UndeleteRecognizerRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeleteRecognizerRequest;
+    /// let x = UndeleteRecognizerRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::UndeleteRecognizerRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeleteRecognizerRequest;
+    /// let x = UndeleteRecognizerRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1270,24 +1806,48 @@ impl Recognizer {
     }
 
     /// Sets the value of [name][crate::model::Recognizer::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Recognizer::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Recognizer::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::Recognizer::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_model("example");
+    /// ```
     #[deprecated]
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -1295,6 +1855,12 @@ impl Recognizer {
     }
 
     /// Sets the value of [language_codes][crate::model::Recognizer::language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_language_codes(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
@@ -1307,6 +1873,13 @@ impl Recognizer {
     }
 
     /// Sets the value of [default_recognition_config][crate::model::Recognizer::default_recognition_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = Recognizer::new().set_default_recognition_config(RecognitionConfig::default()/* use setters */);
+    /// ```
     pub fn set_default_recognition_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -1316,6 +1889,14 @@ impl Recognizer {
     }
 
     /// Sets or clears the value of [default_recognition_config][crate::model::Recognizer::default_recognition_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = Recognizer::new().set_or_clear_default_recognition_config(Some(RecognitionConfig::default()/* use setters */));
+    /// let x = Recognizer::new().set_or_clear_default_recognition_config(None::<RecognitionConfig>);
+    /// ```
     pub fn set_or_clear_default_recognition_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -1325,6 +1906,15 @@ impl Recognizer {
     }
 
     /// Sets the value of [annotations][crate::model::Recognizer::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1337,6 +1927,14 @@ impl Recognizer {
     }
 
     /// Sets the value of [state][crate::model::Recognizer::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use google_cloud_speech_v2::model::recognizer::State;
+    /// let x0 = Recognizer::new().set_state(State::Active);
+    /// let x1 = Recognizer::new().set_state(State::Deleted);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::recognizer::State>>(
         mut self,
         v: T,
@@ -1346,6 +1944,13 @@ impl Recognizer {
     }
 
     /// Sets the value of [create_time][crate::model::Recognizer::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1355,6 +1960,14 @@ impl Recognizer {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Recognizer::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Recognizer::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1364,6 +1977,13 @@ impl Recognizer {
     }
 
     /// Sets the value of [update_time][crate::model::Recognizer::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1373,6 +1993,14 @@ impl Recognizer {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Recognizer::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Recognizer::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1382,6 +2010,13 @@ impl Recognizer {
     }
 
     /// Sets the value of [delete_time][crate::model::Recognizer::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1391,6 +2026,14 @@ impl Recognizer {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Recognizer::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Recognizer::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1400,6 +2043,13 @@ impl Recognizer {
     }
 
     /// Sets the value of [expire_time][crate::model::Recognizer::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1409,6 +2059,14 @@ impl Recognizer {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Recognizer::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// use wkt::Timestamp;
+    /// let x = Recognizer::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Recognizer::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1418,24 +2076,48 @@ impl Recognizer {
     }
 
     /// Sets the value of [etag][crate::model::Recognizer::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::Recognizer::reconciling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::Recognizer::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::Recognizer::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Recognizer;
+    /// let x = Recognizer::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1665,6 +2347,15 @@ impl ExplicitDecodingConfig {
     }
 
     /// Sets the value of [encoding][crate::model::ExplicitDecodingConfig::encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ExplicitDecodingConfig;
+    /// use google_cloud_speech_v2::model::explicit_decoding_config::AudioEncoding;
+    /// let x0 = ExplicitDecodingConfig::new().set_encoding(AudioEncoding::Linear16);
+    /// let x1 = ExplicitDecodingConfig::new().set_encoding(AudioEncoding::Mulaw);
+    /// let x2 = ExplicitDecodingConfig::new().set_encoding(AudioEncoding::Alaw);
+    /// ```
     pub fn set_encoding<
         T: std::convert::Into<crate::model::explicit_decoding_config::AudioEncoding>,
     >(
@@ -1676,12 +2367,24 @@ impl ExplicitDecodingConfig {
     }
 
     /// Sets the value of [sample_rate_hertz][crate::model::ExplicitDecodingConfig::sample_rate_hertz].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ExplicitDecodingConfig;
+    /// let x = ExplicitDecodingConfig::new().set_sample_rate_hertz(42);
+    /// ```
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
         self
     }
 
     /// Sets the value of [audio_channel_count][crate::model::ExplicitDecodingConfig::audio_channel_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ExplicitDecodingConfig;
+    /// let x = ExplicitDecodingConfig::new().set_audio_channel_count(42);
+    /// ```
     pub fn set_audio_channel_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.audio_channel_count = v.into();
         self
@@ -1929,12 +2632,24 @@ impl SpeakerDiarizationConfig {
     }
 
     /// Sets the value of [min_speaker_count][crate::model::SpeakerDiarizationConfig::min_speaker_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeakerDiarizationConfig;
+    /// let x = SpeakerDiarizationConfig::new().set_min_speaker_count(42);
+    /// ```
     pub fn set_min_speaker_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_speaker_count = v.into();
         self
     }
 
     /// Sets the value of [max_speaker_count][crate::model::SpeakerDiarizationConfig::max_speaker_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeakerDiarizationConfig;
+    /// let x = SpeakerDiarizationConfig::new().set_max_speaker_count(42);
+    /// ```
     pub fn set_max_speaker_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_speaker_count = v.into();
         self
@@ -2013,42 +2728,85 @@ impl RecognitionFeatures {
     }
 
     /// Sets the value of [profanity_filter][crate::model::RecognitionFeatures::profanity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionFeatures::new().set_profanity_filter(true);
+    /// ```
     pub fn set_profanity_filter<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.profanity_filter = v.into();
         self
     }
 
     /// Sets the value of [enable_word_time_offsets][crate::model::RecognitionFeatures::enable_word_time_offsets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionFeatures::new().set_enable_word_time_offsets(true);
+    /// ```
     pub fn set_enable_word_time_offsets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_word_time_offsets = v.into();
         self
     }
 
     /// Sets the value of [enable_word_confidence][crate::model::RecognitionFeatures::enable_word_confidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionFeatures::new().set_enable_word_confidence(true);
+    /// ```
     pub fn set_enable_word_confidence<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_word_confidence = v.into();
         self
     }
 
     /// Sets the value of [enable_automatic_punctuation][crate::model::RecognitionFeatures::enable_automatic_punctuation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionFeatures::new().set_enable_automatic_punctuation(true);
+    /// ```
     pub fn set_enable_automatic_punctuation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_automatic_punctuation = v.into();
         self
     }
 
     /// Sets the value of [enable_spoken_punctuation][crate::model::RecognitionFeatures::enable_spoken_punctuation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionFeatures::new().set_enable_spoken_punctuation(true);
+    /// ```
     pub fn set_enable_spoken_punctuation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_spoken_punctuation = v.into();
         self
     }
 
     /// Sets the value of [enable_spoken_emojis][crate::model::RecognitionFeatures::enable_spoken_emojis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionFeatures::new().set_enable_spoken_emojis(true);
+    /// ```
     pub fn set_enable_spoken_emojis<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_spoken_emojis = v.into();
         self
     }
 
     /// Sets the value of [multi_channel_mode][crate::model::RecognitionFeatures::multi_channel_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// use google_cloud_speech_v2::model::recognition_features::MultiChannelMode;
+    /// let x0 = RecognitionFeatures::new().set_multi_channel_mode(MultiChannelMode::SeparateRecognitionPerChannel);
+    /// ```
     pub fn set_multi_channel_mode<
         T: std::convert::Into<crate::model::recognition_features::MultiChannelMode>,
     >(
@@ -2060,6 +2818,13 @@ impl RecognitionFeatures {
     }
 
     /// Sets the value of [diarization_config][crate::model::RecognitionFeatures::diarization_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// use google_cloud_speech_v2::model::SpeakerDiarizationConfig;
+    /// let x = RecognitionFeatures::new().set_diarization_config(SpeakerDiarizationConfig::default()/* use setters */);
+    /// ```
     pub fn set_diarization_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpeakerDiarizationConfig>,
@@ -2069,6 +2834,14 @@ impl RecognitionFeatures {
     }
 
     /// Sets or clears the value of [diarization_config][crate::model::RecognitionFeatures::diarization_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// use google_cloud_speech_v2::model::SpeakerDiarizationConfig;
+    /// let x = RecognitionFeatures::new().set_or_clear_diarization_config(Some(SpeakerDiarizationConfig::default()/* use setters */));
+    /// let x = RecognitionFeatures::new().set_or_clear_diarization_config(None::<SpeakerDiarizationConfig>);
+    /// ```
     pub fn set_or_clear_diarization_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeakerDiarizationConfig>,
@@ -2078,6 +2851,12 @@ impl RecognitionFeatures {
     }
 
     /// Sets the value of [max_alternatives][crate::model::RecognitionFeatures::max_alternatives].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionFeatures::new().set_max_alternatives(42);
+    /// ```
     pub fn set_max_alternatives<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_alternatives = v.into();
         self
@@ -2251,6 +3030,17 @@ impl TranscriptNormalization {
     }
 
     /// Sets the value of [entries][crate::model::TranscriptNormalization::entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::TranscriptNormalization;
+    /// use google_cloud_speech_v2::model::transcript_normalization::Entry;
+    /// let x = TranscriptNormalization::new()
+    ///     .set_entries([
+    ///         Entry::default()/* use setters */,
+    ///         Entry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2295,18 +3085,36 @@ pub mod transcript_normalization {
         }
 
         /// Sets the value of [search][crate::model::transcript_normalization::Entry::search].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::transcript_normalization::Entry;
+        /// let x = Entry::new().set_search("example");
+        /// ```
         pub fn set_search<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.search = v.into();
             self
         }
 
         /// Sets the value of [replace][crate::model::transcript_normalization::Entry::replace].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::transcript_normalization::Entry;
+        /// let x = Entry::new().set_replace("example");
+        /// ```
         pub fn set_replace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.replace = v.into();
             self
         }
 
         /// Sets the value of [case_sensitive][crate::model::transcript_normalization::Entry::case_sensitive].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::transcript_normalization::Entry;
+        /// let x = Entry::new().set_case_sensitive(true);
+        /// ```
         pub fn set_case_sensitive<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.case_sensitive = v.into();
             self
@@ -2337,6 +3145,12 @@ impl TranslationConfig {
     }
 
     /// Sets the value of [target_language][crate::model::TranslationConfig::target_language].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::TranslationConfig;
+    /// let x = TranslationConfig::new().set_target_language("example");
+    /// ```
     pub fn set_target_language<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_language = v.into();
         self
@@ -2371,6 +3185,17 @@ impl SpeechAdaptation {
     }
 
     /// Sets the value of [phrase_sets][crate::model::SpeechAdaptation::phrase_sets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechAdaptation;
+    /// use google_cloud_speech_v2::model::speech_adaptation::AdaptationPhraseSet;
+    /// let x = SpeechAdaptation::new()
+    ///     .set_phrase_sets([
+    ///         AdaptationPhraseSet::default()/* use setters */,
+    ///         AdaptationPhraseSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phrase_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2382,6 +3207,17 @@ impl SpeechAdaptation {
     }
 
     /// Sets the value of [custom_classes][crate::model::SpeechAdaptation::custom_classes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechAdaptation;
+    /// use google_cloud_speech_v2::model::CustomClass;
+    /// let x = SpeechAdaptation::new()
+    ///     .set_custom_classes([
+    ///         CustomClass::default()/* use setters */,
+    ///         CustomClass::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_custom_classes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2424,6 +3260,13 @@ pub mod speech_adaptation {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::speech_adaptation::AdaptationPhraseSet;
+        /// use google_cloud_speech_v2::model::speech_adaptation::adaptation_phrase_set::Value;
+        /// let x = AdaptationPhraseSet::new().set_value(Some(Value::PhraseSet("example".to_string())));
+        /// ```
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<
@@ -2456,6 +3299,14 @@ pub mod speech_adaptation {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::speech_adaptation::AdaptationPhraseSet;
+        /// let x = AdaptationPhraseSet::new().set_phrase_set("example");
+        /// assert!(x.phrase_set().is_some());
+        /// assert!(x.inline_phrase_set().is_none());
+        /// ```
         pub fn set_phrase_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::speech_adaptation::adaptation_phrase_set::Value::PhraseSet(v.into()),
@@ -2483,6 +3334,15 @@ pub mod speech_adaptation {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::speech_adaptation::AdaptationPhraseSet;
+        /// use google_cloud_speech_v2::model::PhraseSet;
+        /// let x = AdaptationPhraseSet::new().set_inline_phrase_set(PhraseSet::default()/* use setters */);
+        /// assert!(x.inline_phrase_set().is_some());
+        /// assert!(x.phrase_set().is_none());
+        /// ```
         pub fn set_inline_phrase_set<
             T: std::convert::Into<std::boxed::Box<crate::model::PhraseSet>>,
         >(
@@ -2546,12 +3406,24 @@ impl DenoiserConfig {
     }
 
     /// Sets the value of [denoise_audio][crate::model::DenoiserConfig::denoise_audio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DenoiserConfig;
+    /// let x = DenoiserConfig::new().set_denoise_audio(true);
+    /// ```
     pub fn set_denoise_audio<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.denoise_audio = v.into();
         self
     }
 
     /// Sets the value of [snr_threshold][crate::model::DenoiserConfig::snr_threshold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DenoiserConfig;
+    /// let x = DenoiserConfig::new().set_snr_threshold(42.0);
+    /// ```
     pub fn set_snr_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.snr_threshold = v.into();
         self
@@ -2626,12 +3498,24 @@ impl RecognitionConfig {
     }
 
     /// Sets the value of [model][crate::model::RecognitionConfig::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = RecognitionConfig::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [language_codes][crate::model::RecognitionConfig::language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = RecognitionConfig::new().set_language_codes(["a", "b", "c"]);
+    /// ```
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2643,6 +3527,13 @@ impl RecognitionConfig {
     }
 
     /// Sets the value of [features][crate::model::RecognitionConfig::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionConfig::new().set_features(RecognitionFeatures::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionFeatures>,
@@ -2652,6 +3543,14 @@ impl RecognitionConfig {
     }
 
     /// Sets or clears the value of [features][crate::model::RecognitionConfig::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// let x = RecognitionConfig::new().set_or_clear_features(Some(RecognitionFeatures::default()/* use setters */));
+    /// let x = RecognitionConfig::new().set_or_clear_features(None::<RecognitionFeatures>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionFeatures>,
@@ -2661,6 +3560,13 @@ impl RecognitionConfig {
     }
 
     /// Sets the value of [adaptation][crate::model::RecognitionConfig::adaptation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::SpeechAdaptation;
+    /// let x = RecognitionConfig::new().set_adaptation(SpeechAdaptation::default()/* use setters */);
+    /// ```
     pub fn set_adaptation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpeechAdaptation>,
@@ -2670,6 +3576,14 @@ impl RecognitionConfig {
     }
 
     /// Sets or clears the value of [adaptation][crate::model::RecognitionConfig::adaptation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::SpeechAdaptation;
+    /// let x = RecognitionConfig::new().set_or_clear_adaptation(Some(SpeechAdaptation::default()/* use setters */));
+    /// let x = RecognitionConfig::new().set_or_clear_adaptation(None::<SpeechAdaptation>);
+    /// ```
     pub fn set_or_clear_adaptation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeechAdaptation>,
@@ -2679,6 +3593,13 @@ impl RecognitionConfig {
     }
 
     /// Sets the value of [transcript_normalization][crate::model::RecognitionConfig::transcript_normalization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::TranscriptNormalization;
+    /// let x = RecognitionConfig::new().set_transcript_normalization(TranscriptNormalization::default()/* use setters */);
+    /// ```
     pub fn set_transcript_normalization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TranscriptNormalization>,
@@ -2688,6 +3609,14 @@ impl RecognitionConfig {
     }
 
     /// Sets or clears the value of [transcript_normalization][crate::model::RecognitionConfig::transcript_normalization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::TranscriptNormalization;
+    /// let x = RecognitionConfig::new().set_or_clear_transcript_normalization(Some(TranscriptNormalization::default()/* use setters */));
+    /// let x = RecognitionConfig::new().set_or_clear_transcript_normalization(None::<TranscriptNormalization>);
+    /// ```
     pub fn set_or_clear_transcript_normalization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranscriptNormalization>,
@@ -2697,6 +3626,13 @@ impl RecognitionConfig {
     }
 
     /// Sets the value of [translation_config][crate::model::RecognitionConfig::translation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::TranslationConfig;
+    /// let x = RecognitionConfig::new().set_translation_config(TranslationConfig::default()/* use setters */);
+    /// ```
     pub fn set_translation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TranslationConfig>,
@@ -2706,6 +3642,14 @@ impl RecognitionConfig {
     }
 
     /// Sets or clears the value of [translation_config][crate::model::RecognitionConfig::translation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::TranslationConfig;
+    /// let x = RecognitionConfig::new().set_or_clear_translation_config(Some(TranslationConfig::default()/* use setters */));
+    /// let x = RecognitionConfig::new().set_or_clear_translation_config(None::<TranslationConfig>);
+    /// ```
     pub fn set_or_clear_translation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslationConfig>,
@@ -2715,6 +3659,13 @@ impl RecognitionConfig {
     }
 
     /// Sets the value of [denoiser_config][crate::model::RecognitionConfig::denoiser_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::DenoiserConfig;
+    /// let x = RecognitionConfig::new().set_denoiser_config(DenoiserConfig::default()/* use setters */);
+    /// ```
     pub fn set_denoiser_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DenoiserConfig>,
@@ -2724,6 +3675,14 @@ impl RecognitionConfig {
     }
 
     /// Sets or clears the value of [denoiser_config][crate::model::RecognitionConfig::denoiser_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::DenoiserConfig;
+    /// let x = RecognitionConfig::new().set_or_clear_denoiser_config(Some(DenoiserConfig::default()/* use setters */));
+    /// let x = RecognitionConfig::new().set_or_clear_denoiser_config(None::<DenoiserConfig>);
+    /// ```
     pub fn set_or_clear_denoiser_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DenoiserConfig>,
@@ -2736,6 +3695,14 @@ impl RecognitionConfig {
     ///
     /// Note that all the setters affecting `decoding_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::AutoDetectDecodingConfig;
+    /// let x = RecognitionConfig::new().set_decoding_config(Some(
+    ///     google_cloud_speech_v2::model::recognition_config::DecodingConfig::AutoDecodingConfig(AutoDetectDecodingConfig::default().into())));
+    /// ```
     pub fn set_decoding_config<
         T: std::convert::Into<std::option::Option<crate::model::recognition_config::DecodingConfig>>,
     >(
@@ -2766,6 +3733,15 @@ impl RecognitionConfig {
     ///
     /// Note that all the setters affecting `decoding_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::AutoDetectDecodingConfig;
+    /// let x = RecognitionConfig::new().set_auto_decoding_config(AutoDetectDecodingConfig::default()/* use setters */);
+    /// assert!(x.auto_decoding_config().is_some());
+    /// assert!(x.explicit_decoding_config().is_none());
+    /// ```
     pub fn set_auto_decoding_config<
         T: std::convert::Into<std::boxed::Box<crate::model::AutoDetectDecodingConfig>>,
     >(
@@ -2798,6 +3774,15 @@ impl RecognitionConfig {
     ///
     /// Note that all the setters affecting `decoding_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionConfig;
+    /// use google_cloud_speech_v2::model::ExplicitDecodingConfig;
+    /// let x = RecognitionConfig::new().set_explicit_decoding_config(ExplicitDecodingConfig::default()/* use setters */);
+    /// assert!(x.explicit_decoding_config().is_some());
+    /// assert!(x.auto_decoding_config().is_none());
+    /// ```
     pub fn set_explicit_decoding_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ExplicitDecodingConfig>>,
     >(
@@ -2893,12 +3878,25 @@ impl RecognizeRequest {
     }
 
     /// Sets the value of [recognizer][crate::model::RecognizeRequest::recognizer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// let x = RecognizeRequest::new().set_recognizer("example");
+    /// ```
     pub fn set_recognizer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recognizer = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::RecognizeRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = RecognizeRequest::new().set_config(RecognitionConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -2908,6 +3906,14 @@ impl RecognizeRequest {
     }
 
     /// Sets or clears the value of [config][crate::model::RecognizeRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = RecognizeRequest::new().set_or_clear_config(Some(RecognitionConfig::default()/* use setters */));
+    /// let x = RecognizeRequest::new().set_or_clear_config(None::<RecognitionConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -2917,6 +3923,13 @@ impl RecognizeRequest {
     }
 
     /// Sets the value of [config_mask][crate::model::RecognizeRequest::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// use wkt::FieldMask;
+    /// let x = RecognizeRequest::new().set_config_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2926,6 +3939,14 @@ impl RecognizeRequest {
     }
 
     /// Sets or clears the value of [config_mask][crate::model::RecognizeRequest::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// use wkt::FieldMask;
+    /// let x = RecognizeRequest::new().set_or_clear_config_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = RecognizeRequest::new().set_or_clear_config_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2938,6 +3959,13 @@ impl RecognizeRequest {
     ///
     /// Note that all the setters affecting `audio_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// use google_cloud_speech_v2::model::recognize_request::AudioSource;
+    /// let x = RecognizeRequest::new().set_audio_source(Some(AudioSource::Content(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_audio_source<
         T: std::convert::Into<std::option::Option<crate::model::recognize_request::AudioSource>>,
     >(
@@ -2966,6 +3994,14 @@ impl RecognizeRequest {
     ///
     /// Note that all the setters affecting `audio_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// let x = RecognizeRequest::new().set_content(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.content().is_some());
+    /// assert!(x.uri().is_none());
+    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_source = std::option::Option::Some(
             crate::model::recognize_request::AudioSource::Content(v.into()),
@@ -2989,6 +4025,14 @@ impl RecognizeRequest {
     ///
     /// Note that all the setters affecting `audio_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeRequest;
+    /// let x = RecognizeRequest::new().set_uri("example");
+    /// assert!(x.uri().is_some());
+    /// assert!(x.content().is_none());
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audio_source =
             std::option::Option::Some(crate::model::recognize_request::AudioSource::Uri(v.into()));
@@ -3052,12 +4096,25 @@ impl RecognitionResponseMetadata {
     }
 
     /// Sets the value of [request_id][crate::model::RecognitionResponseMetadata::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = RecognitionResponseMetadata::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [total_billed_duration][crate::model::RecognitionResponseMetadata::total_billed_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// use wkt::Duration;
+    /// let x = RecognitionResponseMetadata::new().set_total_billed_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_total_billed_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3067,6 +4124,14 @@ impl RecognitionResponseMetadata {
     }
 
     /// Sets or clears the value of [total_billed_duration][crate::model::RecognitionResponseMetadata::total_billed_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// use wkt::Duration;
+    /// let x = RecognitionResponseMetadata::new().set_or_clear_total_billed_duration(Some(Duration::default()/* use setters */));
+    /// let x = RecognitionResponseMetadata::new().set_or_clear_total_billed_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_total_billed_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3118,18 +4183,41 @@ impl SpeechRecognitionAlternative {
     }
 
     /// Sets the value of [transcript][crate::model::SpeechRecognitionAlternative::transcript].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionAlternative;
+    /// let x = SpeechRecognitionAlternative::new().set_transcript("example");
+    /// ```
     pub fn set_transcript<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transcript = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::SpeechRecognitionAlternative::confidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionAlternative;
+    /// let x = SpeechRecognitionAlternative::new().set_confidence(42.0);
+    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [words][crate::model::SpeechRecognitionAlternative::words].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionAlternative;
+    /// use google_cloud_speech_v2::model::WordInfo;
+    /// let x = SpeechRecognitionAlternative::new()
+    ///     .set_words([
+    ///         WordInfo::default()/* use setters */,
+    ///         WordInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3204,6 +4292,13 @@ impl WordInfo {
     }
 
     /// Sets the value of [start_offset][crate::model::WordInfo::start_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::WordInfo;
+    /// use wkt::Duration;
+    /// let x = WordInfo::new().set_start_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_start_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3213,6 +4308,14 @@ impl WordInfo {
     }
 
     /// Sets or clears the value of [start_offset][crate::model::WordInfo::start_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::WordInfo;
+    /// use wkt::Duration;
+    /// let x = WordInfo::new().set_or_clear_start_offset(Some(Duration::default()/* use setters */));
+    /// let x = WordInfo::new().set_or_clear_start_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_start_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3222,6 +4325,13 @@ impl WordInfo {
     }
 
     /// Sets the value of [end_offset][crate::model::WordInfo::end_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::WordInfo;
+    /// use wkt::Duration;
+    /// let x = WordInfo::new().set_end_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_end_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3231,6 +4341,14 @@ impl WordInfo {
     }
 
     /// Sets or clears the value of [end_offset][crate::model::WordInfo::end_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::WordInfo;
+    /// use wkt::Duration;
+    /// let x = WordInfo::new().set_or_clear_end_offset(Some(Duration::default()/* use setters */));
+    /// let x = WordInfo::new().set_or_clear_end_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3240,18 +4358,36 @@ impl WordInfo {
     }
 
     /// Sets the value of [word][crate::model::WordInfo::word].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::WordInfo;
+    /// let x = WordInfo::new().set_word("example");
+    /// ```
     pub fn set_word<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.word = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::WordInfo::confidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::WordInfo;
+    /// let x = WordInfo::new().set_confidence(42.0);
+    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [speaker_label][crate::model::WordInfo::speaker_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::WordInfo;
+    /// let x = WordInfo::new().set_speaker_label("example");
+    /// ```
     pub fn set_speaker_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.speaker_label = v.into();
         self
@@ -3297,6 +4433,17 @@ impl SpeechRecognitionResult {
     }
 
     /// Sets the value of [alternatives][crate::model::SpeechRecognitionResult::alternatives].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionResult;
+    /// use google_cloud_speech_v2::model::SpeechRecognitionAlternative;
+    /// let x = SpeechRecognitionResult::new()
+    ///     .set_alternatives([
+    ///         SpeechRecognitionAlternative::default()/* use setters */,
+    ///         SpeechRecognitionAlternative::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3308,12 +4455,25 @@ impl SpeechRecognitionResult {
     }
 
     /// Sets the value of [channel_tag][crate::model::SpeechRecognitionResult::channel_tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionResult;
+    /// let x = SpeechRecognitionResult::new().set_channel_tag(42);
+    /// ```
     pub fn set_channel_tag<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.channel_tag = v.into();
         self
     }
 
     /// Sets the value of [result_end_offset][crate::model::SpeechRecognitionResult::result_end_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionResult;
+    /// use wkt::Duration;
+    /// let x = SpeechRecognitionResult::new().set_result_end_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_result_end_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3323,6 +4483,14 @@ impl SpeechRecognitionResult {
     }
 
     /// Sets or clears the value of [result_end_offset][crate::model::SpeechRecognitionResult::result_end_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionResult;
+    /// use wkt::Duration;
+    /// let x = SpeechRecognitionResult::new().set_or_clear_result_end_offset(Some(Duration::default()/* use setters */));
+    /// let x = SpeechRecognitionResult::new().set_or_clear_result_end_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_result_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3332,6 +4500,12 @@ impl SpeechRecognitionResult {
     }
 
     /// Sets the value of [language_code][crate::model::SpeechRecognitionResult::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::SpeechRecognitionResult;
+    /// let x = SpeechRecognitionResult::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -3367,6 +4541,17 @@ impl RecognizeResponse {
     }
 
     /// Sets the value of [results][crate::model::RecognizeResponse::results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeResponse;
+    /// use google_cloud_speech_v2::model::SpeechRecognitionResult;
+    /// let x = RecognizeResponse::new()
+    ///     .set_results([
+    ///         SpeechRecognitionResult::default()/* use setters */,
+    ///         SpeechRecognitionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3378,6 +4563,13 @@ impl RecognizeResponse {
     }
 
     /// Sets the value of [metadata][crate::model::RecognizeResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeResponse;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = RecognizeResponse::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -3387,6 +4579,14 @@ impl RecognizeResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::RecognizeResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognizeResponse;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = RecognizeResponse::new().set_or_clear_metadata(Some(RecognitionResponseMetadata::default()/* use setters */));
+    /// let x = RecognizeResponse::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -3430,18 +4630,37 @@ impl StreamingRecognitionFeatures {
     }
 
     /// Sets the value of [enable_voice_activity_events][crate::model::StreamingRecognitionFeatures::enable_voice_activity_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionFeatures;
+    /// let x = StreamingRecognitionFeatures::new().set_enable_voice_activity_events(true);
+    /// ```
     pub fn set_enable_voice_activity_events<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_voice_activity_events = v.into();
         self
     }
 
     /// Sets the value of [interim_results][crate::model::StreamingRecognitionFeatures::interim_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionFeatures;
+    /// let x = StreamingRecognitionFeatures::new().set_interim_results(true);
+    /// ```
     pub fn set_interim_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.interim_results = v.into();
         self
     }
 
     /// Sets the value of [voice_activity_timeout][crate::model::StreamingRecognitionFeatures::voice_activity_timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionFeatures;
+    /// use google_cloud_speech_v2::model::streaming_recognition_features::VoiceActivityTimeout;
+    /// let x = StreamingRecognitionFeatures::new().set_voice_activity_timeout(VoiceActivityTimeout::default()/* use setters */);
+    /// ```
     pub fn set_voice_activity_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
@@ -3451,6 +4670,14 @@ impl StreamingRecognitionFeatures {
     }
 
     /// Sets or clears the value of [voice_activity_timeout][crate::model::StreamingRecognitionFeatures::voice_activity_timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionFeatures;
+    /// use google_cloud_speech_v2::model::streaming_recognition_features::VoiceActivityTimeout;
+    /// let x = StreamingRecognitionFeatures::new().set_or_clear_voice_activity_timeout(Some(VoiceActivityTimeout::default()/* use setters */));
+    /// let x = StreamingRecognitionFeatures::new().set_or_clear_voice_activity_timeout(None::<VoiceActivityTimeout>);
+    /// ```
     pub fn set_or_clear_voice_activity_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
@@ -3494,6 +4721,13 @@ pub mod streaming_recognition_features {
         }
 
         /// Sets the value of [speech_start_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_start_timeout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::streaming_recognition_features::VoiceActivityTimeout;
+        /// use wkt::Duration;
+        /// let x = VoiceActivityTimeout::new().set_speech_start_timeout(Duration::default()/* use setters */);
+        /// ```
         pub fn set_speech_start_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3503,6 +4737,14 @@ pub mod streaming_recognition_features {
         }
 
         /// Sets or clears the value of [speech_start_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_start_timeout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::streaming_recognition_features::VoiceActivityTimeout;
+        /// use wkt::Duration;
+        /// let x = VoiceActivityTimeout::new().set_or_clear_speech_start_timeout(Some(Duration::default()/* use setters */));
+        /// let x = VoiceActivityTimeout::new().set_or_clear_speech_start_timeout(None::<Duration>);
+        /// ```
         pub fn set_or_clear_speech_start_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3512,6 +4754,13 @@ pub mod streaming_recognition_features {
         }
 
         /// Sets the value of [speech_end_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_end_timeout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::streaming_recognition_features::VoiceActivityTimeout;
+        /// use wkt::Duration;
+        /// let x = VoiceActivityTimeout::new().set_speech_end_timeout(Duration::default()/* use setters */);
+        /// ```
         pub fn set_speech_end_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3521,6 +4770,14 @@ pub mod streaming_recognition_features {
         }
 
         /// Sets or clears the value of [speech_end_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_end_timeout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::streaming_recognition_features::VoiceActivityTimeout;
+        /// use wkt::Duration;
+        /// let x = VoiceActivityTimeout::new().set_or_clear_speech_end_timeout(Some(Duration::default()/* use setters */));
+        /// let x = VoiceActivityTimeout::new().set_or_clear_speech_end_timeout(None::<Duration>);
+        /// ```
         pub fn set_or_clear_speech_end_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3583,6 +4840,13 @@ impl StreamingRecognitionConfig {
     }
 
     /// Sets the value of [config][crate::model::StreamingRecognitionConfig::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionConfig;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = StreamingRecognitionConfig::new().set_config(RecognitionConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -3592,6 +4856,14 @@ impl StreamingRecognitionConfig {
     }
 
     /// Sets or clears the value of [config][crate::model::StreamingRecognitionConfig::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionConfig;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = StreamingRecognitionConfig::new().set_or_clear_config(Some(RecognitionConfig::default()/* use setters */));
+    /// let x = StreamingRecognitionConfig::new().set_or_clear_config(None::<RecognitionConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -3601,6 +4873,13 @@ impl StreamingRecognitionConfig {
     }
 
     /// Sets the value of [config_mask][crate::model::StreamingRecognitionConfig::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionConfig;
+    /// use wkt::FieldMask;
+    /// let x = StreamingRecognitionConfig::new().set_config_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3610,6 +4889,14 @@ impl StreamingRecognitionConfig {
     }
 
     /// Sets or clears the value of [config_mask][crate::model::StreamingRecognitionConfig::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionConfig;
+    /// use wkt::FieldMask;
+    /// let x = StreamingRecognitionConfig::new().set_or_clear_config_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = StreamingRecognitionConfig::new().set_or_clear_config_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3619,6 +4906,13 @@ impl StreamingRecognitionConfig {
     }
 
     /// Sets the value of [streaming_features][crate::model::StreamingRecognitionConfig::streaming_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionConfig;
+    /// use google_cloud_speech_v2::model::StreamingRecognitionFeatures;
+    /// let x = StreamingRecognitionConfig::new().set_streaming_features(StreamingRecognitionFeatures::default()/* use setters */);
+    /// ```
     pub fn set_streaming_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StreamingRecognitionFeatures>,
@@ -3628,6 +4922,14 @@ impl StreamingRecognitionConfig {
     }
 
     /// Sets or clears the value of [streaming_features][crate::model::StreamingRecognitionConfig::streaming_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionConfig;
+    /// use google_cloud_speech_v2::model::StreamingRecognitionFeatures;
+    /// let x = StreamingRecognitionConfig::new().set_or_clear_streaming_features(Some(StreamingRecognitionFeatures::default()/* use setters */));
+    /// let x = StreamingRecognitionConfig::new().set_or_clear_streaming_features(None::<StreamingRecognitionFeatures>);
+    /// ```
     pub fn set_or_clear_streaming_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamingRecognitionFeatures>,
@@ -3690,6 +4992,12 @@ impl StreamingRecognizeRequest {
     }
 
     /// Sets the value of [recognizer][crate::model::StreamingRecognizeRequest::recognizer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
+    /// let x = StreamingRecognizeRequest::new().set_recognizer("example");
+    /// ```
     pub fn set_recognizer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recognizer = v.into();
         self
@@ -3699,6 +5007,13 @@ impl StreamingRecognizeRequest {
     ///
     /// Note that all the setters affecting `streaming_request` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
+    /// use google_cloud_speech_v2::model::streaming_recognize_request::StreamingRequest;
+    /// let x = StreamingRecognizeRequest::new().set_streaming_request(Some(StreamingRequest::Audio(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_streaming_request<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
@@ -3731,6 +5046,15 @@ impl StreamingRecognizeRequest {
     ///
     /// Note that all the setters affecting `streaming_request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
+    /// use google_cloud_speech_v2::model::StreamingRecognitionConfig;
+    /// let x = StreamingRecognizeRequest::new().set_streaming_config(StreamingRecognitionConfig::default()/* use setters */);
+    /// assert!(x.streaming_config().is_some());
+    /// assert!(x.audio().is_none());
+    /// ```
     pub fn set_streaming_config<
         T: std::convert::Into<std::boxed::Box<crate::model::StreamingRecognitionConfig>>,
     >(
@@ -3761,6 +5085,14 @@ impl StreamingRecognizeRequest {
     ///
     /// Note that all the setters affecting `streaming_request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
+    /// let x = StreamingRecognizeRequest::new().set_audio(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.audio().is_some());
+    /// assert!(x.streaming_config().is_none());
+    /// ```
     pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.streaming_request = std::option::Option::Some(
             crate::model::streaming_recognize_request::StreamingRequest::Audio(v.into()),
@@ -3855,12 +5187,25 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets the value of [recognizer][crate::model::BatchRecognizeRequest::recognizer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// let x = BatchRecognizeRequest::new().set_recognizer("example");
+    /// ```
     pub fn set_recognizer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recognizer = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::BatchRecognizeRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = BatchRecognizeRequest::new().set_config(RecognitionConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -3870,6 +5215,14 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets or clears the value of [config][crate::model::BatchRecognizeRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = BatchRecognizeRequest::new().set_or_clear_config(Some(RecognitionConfig::default()/* use setters */));
+    /// let x = BatchRecognizeRequest::new().set_or_clear_config(None::<RecognitionConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -3879,6 +5232,13 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use wkt::FieldMask;
+    /// let x = BatchRecognizeRequest::new().set_config_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3888,6 +5248,14 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets or clears the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use wkt::FieldMask;
+    /// let x = BatchRecognizeRequest::new().set_or_clear_config_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = BatchRecognizeRequest::new().set_or_clear_config_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3897,6 +5265,17 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets the value of [files][crate::model::BatchRecognizeRequest::files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use google_cloud_speech_v2::model::BatchRecognizeFileMetadata;
+    /// let x = BatchRecognizeRequest::new()
+    ///     .set_files([
+    ///         BatchRecognizeFileMetadata::default()/* use setters */,
+    ///         BatchRecognizeFileMetadata::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3908,6 +5287,13 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use google_cloud_speech_v2::model::RecognitionOutputConfig;
+    /// let x = BatchRecognizeRequest::new().set_recognition_output_config(RecognitionOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_recognition_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionOutputConfig>,
@@ -3917,6 +5303,14 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets or clears the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use google_cloud_speech_v2::model::RecognitionOutputConfig;
+    /// let x = BatchRecognizeRequest::new().set_or_clear_recognition_output_config(Some(RecognitionOutputConfig::default()/* use setters */));
+    /// let x = BatchRecognizeRequest::new().set_or_clear_recognition_output_config(None::<RecognitionOutputConfig>);
+    /// ```
     pub fn set_or_clear_recognition_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionOutputConfig>,
@@ -3926,6 +5320,13 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets the value of [processing_strategy][crate::model::BatchRecognizeRequest::processing_strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeRequest;
+    /// use google_cloud_speech_v2::model::batch_recognize_request::ProcessingStrategy;
+    /// let x0 = BatchRecognizeRequest::new().set_processing_strategy(ProcessingStrategy::DynamicBatching);
+    /// ```
     pub fn set_processing_strategy<
         T: std::convert::Into<crate::model::batch_recognize_request::ProcessingStrategy>,
     >(
@@ -4093,6 +5494,12 @@ impl GcsOutputConfig {
     }
 
     /// Sets the value of [uri][crate::model::GcsOutputConfig::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::GcsOutputConfig;
+    /// let x = GcsOutputConfig::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -4210,6 +5617,13 @@ impl OutputFormatConfig {
     }
 
     /// Sets the value of [native][crate::model::OutputFormatConfig::native].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// use google_cloud_speech_v2::model::NativeOutputFileFormatConfig;
+    /// let x = OutputFormatConfig::new().set_native(NativeOutputFileFormatConfig::default()/* use setters */);
+    /// ```
     pub fn set_native<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>,
@@ -4219,6 +5633,14 @@ impl OutputFormatConfig {
     }
 
     /// Sets or clears the value of [native][crate::model::OutputFormatConfig::native].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// use google_cloud_speech_v2::model::NativeOutputFileFormatConfig;
+    /// let x = OutputFormatConfig::new().set_or_clear_native(Some(NativeOutputFileFormatConfig::default()/* use setters */));
+    /// let x = OutputFormatConfig::new().set_or_clear_native(None::<NativeOutputFileFormatConfig>);
+    /// ```
     pub fn set_or_clear_native<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>,
@@ -4228,6 +5650,13 @@ impl OutputFormatConfig {
     }
 
     /// Sets the value of [vtt][crate::model::OutputFormatConfig::vtt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// use google_cloud_speech_v2::model::VttOutputFileFormatConfig;
+    /// let x = OutputFormatConfig::new().set_vtt(VttOutputFileFormatConfig::default()/* use setters */);
+    /// ```
     pub fn set_vtt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VttOutputFileFormatConfig>,
@@ -4237,6 +5666,14 @@ impl OutputFormatConfig {
     }
 
     /// Sets or clears the value of [vtt][crate::model::OutputFormatConfig::vtt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// use google_cloud_speech_v2::model::VttOutputFileFormatConfig;
+    /// let x = OutputFormatConfig::new().set_or_clear_vtt(Some(VttOutputFileFormatConfig::default()/* use setters */));
+    /// let x = OutputFormatConfig::new().set_or_clear_vtt(None::<VttOutputFileFormatConfig>);
+    /// ```
     pub fn set_or_clear_vtt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VttOutputFileFormatConfig>,
@@ -4246,6 +5683,13 @@ impl OutputFormatConfig {
     }
 
     /// Sets the value of [srt][crate::model::OutputFormatConfig::srt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// use google_cloud_speech_v2::model::SrtOutputFileFormatConfig;
+    /// let x = OutputFormatConfig::new().set_srt(SrtOutputFileFormatConfig::default()/* use setters */);
+    /// ```
     pub fn set_srt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>,
@@ -4255,6 +5699,14 @@ impl OutputFormatConfig {
     }
 
     /// Sets or clears the value of [srt][crate::model::OutputFormatConfig::srt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// use google_cloud_speech_v2::model::SrtOutputFileFormatConfig;
+    /// let x = OutputFormatConfig::new().set_or_clear_srt(Some(SrtOutputFileFormatConfig::default()/* use setters */));
+    /// let x = OutputFormatConfig::new().set_or_clear_srt(None::<SrtOutputFileFormatConfig>);
+    /// ```
     pub fn set_or_clear_srt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>,
@@ -4289,6 +5741,13 @@ impl RecognitionOutputConfig {
     }
 
     /// Sets the value of [output_format_config][crate::model::RecognitionOutputConfig::output_format_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionOutputConfig;
+    /// use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// let x = RecognitionOutputConfig::new().set_output_format_config(OutputFormatConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_format_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputFormatConfig>,
@@ -4298,6 +5757,14 @@ impl RecognitionOutputConfig {
     }
 
     /// Sets or clears the value of [output_format_config][crate::model::RecognitionOutputConfig::output_format_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionOutputConfig;
+    /// use google_cloud_speech_v2::model::OutputFormatConfig;
+    /// let x = RecognitionOutputConfig::new().set_or_clear_output_format_config(Some(OutputFormatConfig::default()/* use setters */));
+    /// let x = RecognitionOutputConfig::new().set_or_clear_output_format_config(None::<OutputFormatConfig>);
+    /// ```
     pub fn set_or_clear_output_format_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputFormatConfig>,
@@ -4310,6 +5777,14 @@ impl RecognitionOutputConfig {
     ///
     /// Note that all the setters affecting `output` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionOutputConfig;
+    /// use google_cloud_speech_v2::model::GcsOutputConfig;
+    /// let x = RecognitionOutputConfig::new().set_output(Some(
+    ///     google_cloud_speech_v2::model::recognition_output_config::Output::GcsOutputConfig(GcsOutputConfig::default().into())));
+    /// ```
     pub fn set_output<
         T: std::convert::Into<std::option::Option<crate::model::recognition_output_config::Output>>,
     >(
@@ -4340,6 +5815,15 @@ impl RecognitionOutputConfig {
     ///
     /// Note that all the setters affecting `output` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionOutputConfig;
+    /// use google_cloud_speech_v2::model::GcsOutputConfig;
+    /// let x = RecognitionOutputConfig::new().set_gcs_output_config(GcsOutputConfig::default()/* use setters */);
+    /// assert!(x.gcs_output_config().is_some());
+    /// assert!(x.inline_response_config().is_none());
+    /// ```
     pub fn set_gcs_output_config<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputConfig>>,
     >(
@@ -4372,6 +5856,15 @@ impl RecognitionOutputConfig {
     ///
     /// Note that all the setters affecting `output` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::RecognitionOutputConfig;
+    /// use google_cloud_speech_v2::model::InlineOutputConfig;
+    /// let x = RecognitionOutputConfig::new().set_inline_response_config(InlineOutputConfig::default()/* use setters */);
+    /// assert!(x.inline_response_config().is_some());
+    /// assert!(x.gcs_output_config().is_none());
+    /// ```
     pub fn set_inline_response_config<
         T: std::convert::Into<std::boxed::Box<crate::model::InlineOutputConfig>>,
     >(
@@ -4439,6 +5932,16 @@ impl BatchRecognizeResponse {
     }
 
     /// Sets the value of [results][crate::model::BatchRecognizeResponse::results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeResponse;
+    /// use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// let x = BatchRecognizeResponse::new().set_results([
+    ///     ("key0", BatchRecognizeFileResult::default()/* use setters */),
+    ///     ("key1", BatchRecognizeFileResult::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_results<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4451,6 +5954,13 @@ impl BatchRecognizeResponse {
     }
 
     /// Sets the value of [total_billed_duration][crate::model::BatchRecognizeResponse::total_billed_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeResponse;
+    /// use wkt::Duration;
+    /// let x = BatchRecognizeResponse::new().set_total_billed_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_total_billed_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4460,6 +5970,14 @@ impl BatchRecognizeResponse {
     }
 
     /// Sets or clears the value of [total_billed_duration][crate::model::BatchRecognizeResponse::total_billed_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeResponse;
+    /// use wkt::Duration;
+    /// let x = BatchRecognizeResponse::new().set_or_clear_total_billed_duration(Some(Duration::default()/* use setters */));
+    /// let x = BatchRecognizeResponse::new().set_or_clear_total_billed_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_total_billed_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4497,6 +6015,17 @@ impl BatchRecognizeResults {
     }
 
     /// Sets the value of [results][crate::model::BatchRecognizeResults::results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeResults;
+    /// use google_cloud_speech_v2::model::SpeechRecognitionResult;
+    /// let x = BatchRecognizeResults::new()
+    ///     .set_results([
+    ///         SpeechRecognitionResult::default()/* use setters */,
+    ///         SpeechRecognitionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4508,6 +6037,13 @@ impl BatchRecognizeResults {
     }
 
     /// Sets the value of [metadata][crate::model::BatchRecognizeResults::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeResults;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = BatchRecognizeResults::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -4517,6 +6053,14 @@ impl BatchRecognizeResults {
     }
 
     /// Sets or clears the value of [metadata][crate::model::BatchRecognizeResults::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeResults;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = BatchRecognizeResults::new().set_or_clear_metadata(Some(RecognitionResponseMetadata::default()/* use setters */));
+    /// let x = BatchRecognizeResults::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -4556,18 +6100,36 @@ impl CloudStorageResult {
     }
 
     /// Sets the value of [uri][crate::model::CloudStorageResult::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CloudStorageResult;
+    /// let x = CloudStorageResult::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [vtt_format_uri][crate::model::CloudStorageResult::vtt_format_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CloudStorageResult;
+    /// let x = CloudStorageResult::new().set_vtt_format_uri("example");
+    /// ```
     pub fn set_vtt_format_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vtt_format_uri = v.into();
         self
     }
 
     /// Sets the value of [srt_format_uri][crate::model::CloudStorageResult::srt_format_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CloudStorageResult;
+    /// let x = CloudStorageResult::new().set_srt_format_uri("example");
+    /// ```
     pub fn set_srt_format_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.srt_format_uri = v.into();
         self
@@ -4604,6 +6166,13 @@ impl InlineResult {
     }
 
     /// Sets the value of [transcript][crate::model::InlineResult::transcript].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::InlineResult;
+    /// use google_cloud_speech_v2::model::BatchRecognizeResults;
+    /// let x = InlineResult::new().set_transcript(BatchRecognizeResults::default()/* use setters */);
+    /// ```
     pub fn set_transcript<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BatchRecognizeResults>,
@@ -4613,6 +6182,14 @@ impl InlineResult {
     }
 
     /// Sets or clears the value of [transcript][crate::model::InlineResult::transcript].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::InlineResult;
+    /// use google_cloud_speech_v2::model::BatchRecognizeResults;
+    /// let x = InlineResult::new().set_or_clear_transcript(Some(BatchRecognizeResults::default()/* use setters */));
+    /// let x = InlineResult::new().set_or_clear_transcript(None::<BatchRecognizeResults>);
+    /// ```
     pub fn set_or_clear_transcript<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BatchRecognizeResults>,
@@ -4622,12 +6199,24 @@ impl InlineResult {
     }
 
     /// Sets the value of [vtt_captions][crate::model::InlineResult::vtt_captions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::InlineResult;
+    /// let x = InlineResult::new().set_vtt_captions("example");
+    /// ```
     pub fn set_vtt_captions<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vtt_captions = v.into();
         self
     }
 
     /// Sets the value of [srt_captions][crate::model::InlineResult::srt_captions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::InlineResult;
+    /// let x = InlineResult::new().set_srt_captions("example");
+    /// ```
     pub fn set_srt_captions<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.srt_captions = v.into();
         self
@@ -4668,6 +6257,13 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets the value of [error][crate::model::BatchRecognizeFileResult::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use rpc::model::Status;
+    /// let x = BatchRecognizeFileResult::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4677,6 +6273,14 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets or clears the value of [error][crate::model::BatchRecognizeFileResult::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use rpc::model::Status;
+    /// let x = BatchRecognizeFileResult::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = BatchRecognizeFileResult::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4686,6 +6290,13 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets the value of [metadata][crate::model::BatchRecognizeFileResult::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = BatchRecognizeFileResult::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -4695,6 +6306,14 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets or clears the value of [metadata][crate::model::BatchRecognizeFileResult::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = BatchRecognizeFileResult::new().set_or_clear_metadata(Some(RecognitionResponseMetadata::default()/* use setters */));
+    /// let x = BatchRecognizeFileResult::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -4704,6 +6323,12 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets the value of [uri][crate::model::BatchRecognizeFileResult::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// let x = BatchRecognizeFileResult::new().set_uri("example");
+    /// ```
     #[deprecated]
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -4711,6 +6336,13 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets the value of [transcript][crate::model::BatchRecognizeFileResult::transcript].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use google_cloud_speech_v2::model::BatchRecognizeResults;
+    /// let x = BatchRecognizeFileResult::new().set_transcript(BatchRecognizeResults::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_transcript<T>(mut self, v: T) -> Self
     where
@@ -4721,6 +6353,14 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets or clears the value of [transcript][crate::model::BatchRecognizeFileResult::transcript].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use google_cloud_speech_v2::model::BatchRecognizeResults;
+    /// let x = BatchRecognizeFileResult::new().set_or_clear_transcript(Some(BatchRecognizeResults::default()/* use setters */));
+    /// let x = BatchRecognizeFileResult::new().set_or_clear_transcript(None::<BatchRecognizeResults>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_transcript<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -4734,6 +6374,14 @@ impl BatchRecognizeFileResult {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use google_cloud_speech_v2::model::CloudStorageResult;
+    /// let x = BatchRecognizeFileResult::new().set_result(Some(
+    ///     google_cloud_speech_v2::model::batch_recognize_file_result::Result::CloudStorageResult(CloudStorageResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::batch_recognize_file_result::Result>>,
     >(
@@ -4764,6 +6412,15 @@ impl BatchRecognizeFileResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use google_cloud_speech_v2::model::CloudStorageResult;
+    /// let x = BatchRecognizeFileResult::new().set_cloud_storage_result(CloudStorageResult::default()/* use setters */);
+    /// assert!(x.cloud_storage_result().is_some());
+    /// assert!(x.inline_result().is_none());
+    /// ```
     pub fn set_cloud_storage_result<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageResult>>,
     >(
@@ -4796,6 +6453,15 @@ impl BatchRecognizeFileResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileResult;
+    /// use google_cloud_speech_v2::model::InlineResult;
+    /// let x = BatchRecognizeFileResult::new().set_inline_result(InlineResult::default()/* use setters */);
+    /// assert!(x.inline_result().is_some());
+    /// assert!(x.cloud_storage_result().is_none());
+    /// ```
     pub fn set_inline_result<T: std::convert::Into<std::boxed::Box<crate::model::InlineResult>>>(
         mut self,
         v: T,
@@ -4862,12 +6528,25 @@ impl BatchRecognizeTranscriptionMetadata {
     }
 
     /// Sets the value of [progress_percent][crate::model::BatchRecognizeTranscriptionMetadata::progress_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeTranscriptionMetadata;
+    /// let x = BatchRecognizeTranscriptionMetadata::new().set_progress_percent(42);
+    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::BatchRecognizeTranscriptionMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeTranscriptionMetadata;
+    /// use rpc::model::Status;
+    /// let x = BatchRecognizeTranscriptionMetadata::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4877,6 +6556,14 @@ impl BatchRecognizeTranscriptionMetadata {
     }
 
     /// Sets or clears the value of [error][crate::model::BatchRecognizeTranscriptionMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeTranscriptionMetadata;
+    /// use rpc::model::Status;
+    /// let x = BatchRecognizeTranscriptionMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = BatchRecognizeTranscriptionMetadata::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4886,6 +6573,12 @@ impl BatchRecognizeTranscriptionMetadata {
     }
 
     /// Sets the value of [uri][crate::model::BatchRecognizeTranscriptionMetadata::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeTranscriptionMetadata;
+    /// let x = BatchRecognizeTranscriptionMetadata::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -4920,6 +6613,16 @@ impl BatchRecognizeMetadata {
     }
 
     /// Sets the value of [transcription_metadata][crate::model::BatchRecognizeMetadata::transcription_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeMetadata;
+    /// use google_cloud_speech_v2::model::BatchRecognizeTranscriptionMetadata;
+    /// let x = BatchRecognizeMetadata::new().set_transcription_metadata([
+    ///     ("key0", BatchRecognizeTranscriptionMetadata::default()/* use setters */),
+    ///     ("key1", BatchRecognizeTranscriptionMetadata::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_transcription_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4986,6 +6689,13 @@ impl BatchRecognizeFileMetadata {
     }
 
     /// Sets the value of [config][crate::model::BatchRecognizeFileMetadata::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileMetadata;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = BatchRecognizeFileMetadata::new().set_config(RecognitionConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -4995,6 +6705,14 @@ impl BatchRecognizeFileMetadata {
     }
 
     /// Sets or clears the value of [config][crate::model::BatchRecognizeFileMetadata::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileMetadata;
+    /// use google_cloud_speech_v2::model::RecognitionConfig;
+    /// let x = BatchRecognizeFileMetadata::new().set_or_clear_config(Some(RecognitionConfig::default()/* use setters */));
+    /// let x = BatchRecognizeFileMetadata::new().set_or_clear_config(None::<RecognitionConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionConfig>,
@@ -5004,6 +6722,13 @@ impl BatchRecognizeFileMetadata {
     }
 
     /// Sets the value of [config_mask][crate::model::BatchRecognizeFileMetadata::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileMetadata;
+    /// use wkt::FieldMask;
+    /// let x = BatchRecognizeFileMetadata::new().set_config_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_config_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5013,6 +6738,14 @@ impl BatchRecognizeFileMetadata {
     }
 
     /// Sets or clears the value of [config_mask][crate::model::BatchRecognizeFileMetadata::config_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileMetadata;
+    /// use wkt::FieldMask;
+    /// let x = BatchRecognizeFileMetadata::new().set_or_clear_config_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = BatchRecognizeFileMetadata::new().set_or_clear_config_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5025,6 +6758,13 @@ impl BatchRecognizeFileMetadata {
     ///
     /// Note that all the setters affecting `audio_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileMetadata;
+    /// use google_cloud_speech_v2::model::batch_recognize_file_metadata::AudioSource;
+    /// let x = BatchRecognizeFileMetadata::new().set_audio_source(Some(AudioSource::Uri("example".to_string())));
+    /// ```
     pub fn set_audio_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_recognize_file_metadata::AudioSource>,
@@ -5055,6 +6795,13 @@ impl BatchRecognizeFileMetadata {
     ///
     /// Note that all the setters affecting `audio_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::BatchRecognizeFileMetadata;
+    /// let x = BatchRecognizeFileMetadata::new().set_uri("example");
+    /// assert!(x.uri().is_some());
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audio_source = std::option::Option::Some(
             crate::model::batch_recognize_file_metadata::AudioSource::Uri(v.into()),
@@ -5137,6 +6884,17 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [alternatives][crate::model::StreamingRecognitionResult::alternatives].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// use google_cloud_speech_v2::model::SpeechRecognitionAlternative;
+    /// let x = StreamingRecognitionResult::new()
+    ///     .set_alternatives([
+    ///         SpeechRecognitionAlternative::default()/* use setters */,
+    ///         SpeechRecognitionAlternative::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5148,18 +6906,37 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [is_final][crate::model::StreamingRecognitionResult::is_final].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// let x = StreamingRecognitionResult::new().set_is_final(true);
+    /// ```
     pub fn set_is_final<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_final = v.into();
         self
     }
 
     /// Sets the value of [stability][crate::model::StreamingRecognitionResult::stability].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// let x = StreamingRecognitionResult::new().set_stability(42.0);
+    /// ```
     pub fn set_stability<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.stability = v.into();
         self
     }
 
     /// Sets the value of [result_end_offset][crate::model::StreamingRecognitionResult::result_end_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// use wkt::Duration;
+    /// let x = StreamingRecognitionResult::new().set_result_end_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_result_end_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5169,6 +6946,14 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets or clears the value of [result_end_offset][crate::model::StreamingRecognitionResult::result_end_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// use wkt::Duration;
+    /// let x = StreamingRecognitionResult::new().set_or_clear_result_end_offset(Some(Duration::default()/* use setters */));
+    /// let x = StreamingRecognitionResult::new().set_or_clear_result_end_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_result_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5178,12 +6963,24 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [channel_tag][crate::model::StreamingRecognitionResult::channel_tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// let x = StreamingRecognitionResult::new().set_channel_tag(42);
+    /// ```
     pub fn set_channel_tag<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.channel_tag = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::StreamingRecognitionResult::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// let x = StreamingRecognitionResult::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -5278,6 +7075,17 @@ impl StreamingRecognizeResponse {
     }
 
     /// Sets the value of [results][crate::model::StreamingRecognizeResponse::results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeResponse;
+    /// use google_cloud_speech_v2::model::StreamingRecognitionResult;
+    /// let x = StreamingRecognizeResponse::new()
+    ///     .set_results([
+    ///         StreamingRecognitionResult::default()/* use setters */,
+    ///         StreamingRecognitionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5289,6 +7097,15 @@ impl StreamingRecognizeResponse {
     }
 
     /// Sets the value of [speech_event_type][crate::model::StreamingRecognizeResponse::speech_event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeResponse;
+    /// use google_cloud_speech_v2::model::streaming_recognize_response::SpeechEventType;
+    /// let x0 = StreamingRecognizeResponse::new().set_speech_event_type(SpeechEventType::EndOfSingleUtterance);
+    /// let x1 = StreamingRecognizeResponse::new().set_speech_event_type(SpeechEventType::SpeechActivityBegin);
+    /// let x2 = StreamingRecognizeResponse::new().set_speech_event_type(SpeechEventType::SpeechActivityEnd);
+    /// ```
     pub fn set_speech_event_type<
         T: std::convert::Into<crate::model::streaming_recognize_response::SpeechEventType>,
     >(
@@ -5300,6 +7117,13 @@ impl StreamingRecognizeResponse {
     }
 
     /// Sets the value of [speech_event_offset][crate::model::StreamingRecognizeResponse::speech_event_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeResponse;
+    /// use wkt::Duration;
+    /// let x = StreamingRecognizeResponse::new().set_speech_event_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_speech_event_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5309,6 +7133,14 @@ impl StreamingRecognizeResponse {
     }
 
     /// Sets or clears the value of [speech_event_offset][crate::model::StreamingRecognizeResponse::speech_event_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeResponse;
+    /// use wkt::Duration;
+    /// let x = StreamingRecognizeResponse::new().set_or_clear_speech_event_offset(Some(Duration::default()/* use setters */));
+    /// let x = StreamingRecognizeResponse::new().set_or_clear_speech_event_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_speech_event_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5318,6 +7150,13 @@ impl StreamingRecognizeResponse {
     }
 
     /// Sets the value of [metadata][crate::model::StreamingRecognizeResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeResponse;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = StreamingRecognizeResponse::new().set_metadata(RecognitionResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -5327,6 +7166,14 @@ impl StreamingRecognizeResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::StreamingRecognizeResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeResponse;
+    /// use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = StreamingRecognizeResponse::new().set_or_clear_metadata(Some(RecognitionResponseMetadata::default()/* use setters */));
+    /// let x = StreamingRecognizeResponse::new().set_or_clear_metadata(None::<RecognitionResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
@@ -5531,18 +7378,37 @@ impl Config {
     }
 
     /// Sets the value of [name][crate::model::Config::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Config;
+    /// let x = Config::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::Config::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Config;
+    /// let x = Config::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::Config::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Config;
+    /// use wkt::Timestamp;
+    /// let x = Config::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5552,6 +7418,14 @@ impl Config {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Config::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::Config;
+    /// use wkt::Timestamp;
+    /// let x = Config::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Config::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5588,6 +7462,12 @@ impl GetConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::GetConfigRequest;
+    /// let x = GetConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5625,6 +7505,13 @@ impl UpdateConfigRequest {
     }
 
     /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateConfigRequest;
+    /// use google_cloud_speech_v2::model::Config;
+    /// let x = UpdateConfigRequest::new().set_config(Config::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Config>,
@@ -5634,6 +7521,14 @@ impl UpdateConfigRequest {
     }
 
     /// Sets or clears the value of [config][crate::model::UpdateConfigRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateConfigRequest;
+    /// use google_cloud_speech_v2::model::Config;
+    /// let x = UpdateConfigRequest::new().set_or_clear_config(Some(Config::default()/* use setters */));
+    /// let x = UpdateConfigRequest::new().set_or_clear_config(None::<Config>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Config>,
@@ -5643,6 +7538,13 @@ impl UpdateConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5652,6 +7554,14 @@ impl UpdateConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5738,24 +7648,53 @@ impl CustomClass {
     }
 
     /// Sets the value of [name][crate::model::CustomClass::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::CustomClass::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::CustomClass::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::CustomClass::items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use google_cloud_speech_v2::model::custom_class::ClassItem;
+    /// let x = CustomClass::new()
+    ///     .set_items([
+    ///         ClassItem::default()/* use setters */,
+    ///         ClassItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5767,6 +7706,14 @@ impl CustomClass {
     }
 
     /// Sets the value of [state][crate::model::CustomClass::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use google_cloud_speech_v2::model::custom_class::State;
+    /// let x0 = CustomClass::new().set_state(State::Active);
+    /// let x1 = CustomClass::new().set_state(State::Deleted);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::custom_class::State>>(
         mut self,
         v: T,
@@ -5776,6 +7723,13 @@ impl CustomClass {
     }
 
     /// Sets the value of [create_time][crate::model::CustomClass::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5785,6 +7739,14 @@ impl CustomClass {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CustomClass::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomClass::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5794,6 +7756,13 @@ impl CustomClass {
     }
 
     /// Sets the value of [update_time][crate::model::CustomClass::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5803,6 +7772,14 @@ impl CustomClass {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CustomClass::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomClass::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5812,6 +7789,13 @@ impl CustomClass {
     }
 
     /// Sets the value of [delete_time][crate::model::CustomClass::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5821,6 +7805,14 @@ impl CustomClass {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::CustomClass::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomClass::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5830,6 +7822,13 @@ impl CustomClass {
     }
 
     /// Sets the value of [expire_time][crate::model::CustomClass::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5839,6 +7838,14 @@ impl CustomClass {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::CustomClass::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// use wkt::Timestamp;
+    /// let x = CustomClass::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomClass::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5848,6 +7855,15 @@ impl CustomClass {
     }
 
     /// Sets the value of [annotations][crate::model::CustomClass::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5860,24 +7876,48 @@ impl CustomClass {
     }
 
     /// Sets the value of [etag][crate::model::CustomClass::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::CustomClass::reconciling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::CustomClass::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::CustomClass::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CustomClass::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5914,6 +7954,12 @@ pub mod custom_class {
         }
 
         /// Sets the value of [value][crate::model::custom_class::ClassItem::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::custom_class::ClassItem;
+        /// let x = ClassItem::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -6138,18 +8184,41 @@ impl PhraseSet {
     }
 
     /// Sets the value of [name][crate::model::PhraseSet::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::PhraseSet::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [phrases][crate::model::PhraseSet::phrases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use google_cloud_speech_v2::model::phrase_set::Phrase;
+    /// let x = PhraseSet::new()
+    ///     .set_phrases([
+    ///         Phrase::default()/* use setters */,
+    ///         Phrase::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phrases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6161,18 +8230,38 @@ impl PhraseSet {
     }
 
     /// Sets the value of [boost][crate::model::PhraseSet::boost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_boost(42.0);
+    /// ```
     pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.boost = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PhraseSet::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::PhraseSet::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use google_cloud_speech_v2::model::phrase_set::State;
+    /// let x0 = PhraseSet::new().set_state(State::Active);
+    /// let x1 = PhraseSet::new().set_state(State::Deleted);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::phrase_set::State>>(
         mut self,
         v: T,
@@ -6182,6 +8271,13 @@ impl PhraseSet {
     }
 
     /// Sets the value of [create_time][crate::model::PhraseSet::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6191,6 +8287,14 @@ impl PhraseSet {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PhraseSet::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhraseSet::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6200,6 +8304,13 @@ impl PhraseSet {
     }
 
     /// Sets the value of [update_time][crate::model::PhraseSet::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6209,6 +8320,14 @@ impl PhraseSet {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PhraseSet::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhraseSet::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6218,6 +8337,13 @@ impl PhraseSet {
     }
 
     /// Sets the value of [delete_time][crate::model::PhraseSet::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6227,6 +8353,14 @@ impl PhraseSet {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::PhraseSet::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhraseSet::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6236,6 +8370,13 @@ impl PhraseSet {
     }
 
     /// Sets the value of [expire_time][crate::model::PhraseSet::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6245,6 +8386,14 @@ impl PhraseSet {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::PhraseSet::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// use wkt::Timestamp;
+    /// let x = PhraseSet::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhraseSet::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6254,6 +8403,15 @@ impl PhraseSet {
     }
 
     /// Sets the value of [annotations][crate::model::PhraseSet::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6266,24 +8424,48 @@ impl PhraseSet {
     }
 
     /// Sets the value of [etag][crate::model::PhraseSet::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::PhraseSet::reconciling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::PhraseSet::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::PhraseSet::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = PhraseSet::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6339,12 +8521,24 @@ pub mod phrase_set {
         }
 
         /// Sets the value of [value][crate::model::phrase_set::Phrase::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::phrase_set::Phrase;
+        /// let x = Phrase::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
         }
 
         /// Sets the value of [boost][crate::model::phrase_set::Phrase::boost].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_speech_v2::model::phrase_set::Phrase;
+        /// let x = Phrase::new().set_boost(42.0);
+        /// ```
         pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.boost = v.into();
             self
@@ -6525,6 +8719,13 @@ impl CreateCustomClassRequest {
     }
 
     /// Sets the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateCustomClassRequest;
+    /// use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CreateCustomClassRequest::new().set_custom_class(CustomClass::default()/* use setters */);
+    /// ```
     pub fn set_custom_class<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomClass>,
@@ -6534,6 +8735,14 @@ impl CreateCustomClassRequest {
     }
 
     /// Sets or clears the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateCustomClassRequest;
+    /// use google_cloud_speech_v2::model::CustomClass;
+    /// let x = CreateCustomClassRequest::new().set_or_clear_custom_class(Some(CustomClass::default()/* use setters */));
+    /// let x = CreateCustomClassRequest::new().set_or_clear_custom_class(None::<CustomClass>);
+    /// ```
     pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomClass>,
@@ -6543,18 +8752,36 @@ impl CreateCustomClassRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateCustomClassRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateCustomClassRequest;
+    /// let x = CreateCustomClassRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [custom_class_id][crate::model::CreateCustomClassRequest::custom_class_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateCustomClassRequest;
+    /// let x = CreateCustomClassRequest::new().set_custom_class_id("example");
+    /// ```
     pub fn set_custom_class_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_class_id = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::CreateCustomClassRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreateCustomClassRequest;
+    /// let x = CreateCustomClassRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -6607,24 +8834,48 @@ impl ListCustomClassesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCustomClassesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListCustomClassesRequest;
+    /// let x = ListCustomClassesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCustomClassesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListCustomClassesRequest;
+    /// let x = ListCustomClassesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCustomClassesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListCustomClassesRequest;
+    /// let x = ListCustomClassesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListCustomClassesRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListCustomClassesRequest;
+    /// let x = ListCustomClassesRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -6664,6 +8915,17 @@ impl ListCustomClassesResponse {
     }
 
     /// Sets the value of [custom_classes][crate::model::ListCustomClassesResponse::custom_classes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListCustomClassesResponse;
+    /// use google_cloud_speech_v2::model::CustomClass;
+    /// let x = ListCustomClassesResponse::new()
+    ///     .set_custom_classes([
+    ///         CustomClass::default()/* use setters */,
+    ///         CustomClass::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_custom_classes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6675,6 +8937,12 @@ impl ListCustomClassesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCustomClassesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListCustomClassesResponse;
+    /// let x = ListCustomClassesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6721,6 +8989,12 @@ impl GetCustomClassRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCustomClassRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::GetCustomClassRequest;
+    /// let x = GetCustomClassRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6764,6 +9038,13 @@ impl UpdateCustomClassRequest {
     }
 
     /// Sets the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateCustomClassRequest;
+    /// use google_cloud_speech_v2::model::CustomClass;
+    /// let x = UpdateCustomClassRequest::new().set_custom_class(CustomClass::default()/* use setters */);
+    /// ```
     pub fn set_custom_class<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomClass>,
@@ -6773,6 +9054,14 @@ impl UpdateCustomClassRequest {
     }
 
     /// Sets or clears the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateCustomClassRequest;
+    /// use google_cloud_speech_v2::model::CustomClass;
+    /// let x = UpdateCustomClassRequest::new().set_or_clear_custom_class(Some(CustomClass::default()/* use setters */));
+    /// let x = UpdateCustomClassRequest::new().set_or_clear_custom_class(None::<CustomClass>);
+    /// ```
     pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomClass>,
@@ -6782,6 +9071,13 @@ impl UpdateCustomClassRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateCustomClassRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCustomClassRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6791,6 +9087,14 @@ impl UpdateCustomClassRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateCustomClassRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCustomClassRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCustomClassRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6800,6 +9104,12 @@ impl UpdateCustomClassRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateCustomClassRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdateCustomClassRequest;
+    /// let x = UpdateCustomClassRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -6846,24 +9156,48 @@ impl DeleteCustomClassRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCustomClassRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteCustomClassRequest;
+    /// let x = DeleteCustomClassRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteCustomClassRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteCustomClassRequest;
+    /// let x = DeleteCustomClassRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteCustomClassRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteCustomClassRequest;
+    /// let x = DeleteCustomClassRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteCustomClassRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeleteCustomClassRequest;
+    /// let x = DeleteCustomClassRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6907,18 +9241,36 @@ impl UndeleteCustomClassRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteCustomClassRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeleteCustomClassRequest;
+    /// let x = UndeleteCustomClassRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UndeleteCustomClassRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeleteCustomClassRequest;
+    /// let x = UndeleteCustomClassRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::UndeleteCustomClassRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeleteCustomClassRequest;
+    /// let x = UndeleteCustomClassRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6965,6 +9317,13 @@ impl CreatePhraseSetRequest {
     }
 
     /// Sets the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreatePhraseSetRequest;
+    /// use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = CreatePhraseSetRequest::new().set_phrase_set(PhraseSet::default()/* use setters */);
+    /// ```
     pub fn set_phrase_set<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PhraseSet>,
@@ -6974,6 +9333,14 @@ impl CreatePhraseSetRequest {
     }
 
     /// Sets or clears the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreatePhraseSetRequest;
+    /// use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = CreatePhraseSetRequest::new().set_or_clear_phrase_set(Some(PhraseSet::default()/* use setters */));
+    /// let x = CreatePhraseSetRequest::new().set_or_clear_phrase_set(None::<PhraseSet>);
+    /// ```
     pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhraseSet>,
@@ -6983,18 +9350,36 @@ impl CreatePhraseSetRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreatePhraseSetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreatePhraseSetRequest;
+    /// let x = CreatePhraseSetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [phrase_set_id][crate::model::CreatePhraseSetRequest::phrase_set_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreatePhraseSetRequest;
+    /// let x = CreatePhraseSetRequest::new().set_phrase_set_id("example");
+    /// ```
     pub fn set_phrase_set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phrase_set_id = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::CreatePhraseSetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::CreatePhraseSetRequest;
+    /// let x = CreatePhraseSetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -7046,24 +9431,48 @@ impl ListPhraseSetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPhraseSetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListPhraseSetsRequest;
+    /// let x = ListPhraseSetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPhraseSetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListPhraseSetsRequest;
+    /// let x = ListPhraseSetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPhraseSetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListPhraseSetsRequest;
+    /// let x = ListPhraseSetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListPhraseSetsRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListPhraseSetsRequest;
+    /// let x = ListPhraseSetsRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -7103,6 +9512,17 @@ impl ListPhraseSetsResponse {
     }
 
     /// Sets the value of [phrase_sets][crate::model::ListPhraseSetsResponse::phrase_sets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListPhraseSetsResponse;
+    /// use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = ListPhraseSetsResponse::new()
+    ///     .set_phrase_sets([
+    ///         PhraseSet::default()/* use setters */,
+    ///         PhraseSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phrase_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7114,6 +9534,12 @@ impl ListPhraseSetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPhraseSetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ListPhraseSetsResponse;
+    /// let x = ListPhraseSetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7160,6 +9586,12 @@ impl GetPhraseSetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPhraseSetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::GetPhraseSetRequest;
+    /// let x = GetPhraseSetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7202,6 +9634,13 @@ impl UpdatePhraseSetRequest {
     }
 
     /// Sets the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdatePhraseSetRequest;
+    /// use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = UpdatePhraseSetRequest::new().set_phrase_set(PhraseSet::default()/* use setters */);
+    /// ```
     pub fn set_phrase_set<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PhraseSet>,
@@ -7211,6 +9650,14 @@ impl UpdatePhraseSetRequest {
     }
 
     /// Sets or clears the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdatePhraseSetRequest;
+    /// use google_cloud_speech_v2::model::PhraseSet;
+    /// let x = UpdatePhraseSetRequest::new().set_or_clear_phrase_set(Some(PhraseSet::default()/* use setters */));
+    /// let x = UpdatePhraseSetRequest::new().set_or_clear_phrase_set(None::<PhraseSet>);
+    /// ```
     pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhraseSet>,
@@ -7220,6 +9667,13 @@ impl UpdatePhraseSetRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdatePhraseSetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePhraseSetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7229,6 +9683,14 @@ impl UpdatePhraseSetRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdatePhraseSetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePhraseSetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePhraseSetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7238,6 +9700,12 @@ impl UpdatePhraseSetRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdatePhraseSetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UpdatePhraseSetRequest;
+    /// let x = UpdatePhraseSetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -7283,24 +9751,48 @@ impl DeletePhraseSetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePhraseSetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeletePhraseSetRequest;
+    /// let x = DeletePhraseSetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeletePhraseSetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeletePhraseSetRequest;
+    /// let x = DeletePhraseSetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeletePhraseSetRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeletePhraseSetRequest;
+    /// let x = DeletePhraseSetRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePhraseSetRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::DeletePhraseSetRequest;
+    /// let x = DeletePhraseSetRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -7343,18 +9835,36 @@ impl UndeletePhraseSetRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeletePhraseSetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeletePhraseSetRequest;
+    /// let x = UndeletePhraseSetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UndeletePhraseSetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeletePhraseSetRequest;
+    /// let x = UndeletePhraseSetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::UndeletePhraseSetRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::UndeletePhraseSetRequest;
+    /// let x = UndeletePhraseSetRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -7387,12 +9897,24 @@ impl ModelFeature {
     }
 
     /// Sets the value of [feature][crate::model::ModelFeature::feature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ModelFeature;
+    /// let x = ModelFeature::new().set_feature("example");
+    /// ```
     pub fn set_feature<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.feature = v.into();
         self
     }
 
     /// Sets the value of [release_state][crate::model::ModelFeature::release_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ModelFeature;
+    /// let x = ModelFeature::new().set_release_state("example");
+    /// ```
     pub fn set_release_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_state = v.into();
         self
@@ -7421,6 +9943,17 @@ impl ModelFeatures {
     }
 
     /// Sets the value of [model_feature][crate::model::ModelFeatures::model_feature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ModelFeatures;
+    /// use google_cloud_speech_v2::model::ModelFeature;
+    /// let x = ModelFeatures::new()
+    ///     .set_model_feature([
+    ///         ModelFeature::default()/* use setters */,
+    ///         ModelFeature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_model_feature<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7455,6 +9988,16 @@ impl ModelMetadata {
     }
 
     /// Sets the value of [model_features][crate::model::ModelMetadata::model_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::ModelMetadata;
+    /// use google_cloud_speech_v2::model::ModelFeatures;
+    /// let x = ModelMetadata::new().set_model_features([
+    ///     ("key0", ModelFeatures::default()/* use setters */),
+    ///     ("key1", ModelFeatures::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_model_features<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7490,6 +10033,16 @@ impl LanguageMetadata {
     }
 
     /// Sets the value of [models][crate::model::LanguageMetadata::models].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::LanguageMetadata;
+    /// use google_cloud_speech_v2::model::ModelMetadata;
+    /// let x = LanguageMetadata::new().set_models([
+    ///     ("key0", ModelMetadata::default()/* use setters */),
+    ///     ("key1", ModelMetadata::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_models<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7525,6 +10078,13 @@ impl AccessMetadata {
     }
 
     /// Sets the value of [constraint_type][crate::model::AccessMetadata::constraint_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::AccessMetadata;
+    /// use google_cloud_speech_v2::model::access_metadata::ConstraintType;
+    /// let x0 = AccessMetadata::new().set_constraint_type(ConstraintType::ResourceLocationsOrgPolicyCreateConstraint);
+    /// ```
     pub fn set_constraint_type<
         T: std::convert::Into<crate::model::access_metadata::ConstraintType>,
     >(
@@ -7699,6 +10259,13 @@ impl LocationsMetadata {
     }
 
     /// Sets the value of [languages][crate::model::LocationsMetadata::languages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::LocationsMetadata;
+    /// use google_cloud_speech_v2::model::LanguageMetadata;
+    /// let x = LocationsMetadata::new().set_languages(LanguageMetadata::default()/* use setters */);
+    /// ```
     pub fn set_languages<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LanguageMetadata>,
@@ -7708,6 +10275,14 @@ impl LocationsMetadata {
     }
 
     /// Sets or clears the value of [languages][crate::model::LocationsMetadata::languages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::LocationsMetadata;
+    /// use google_cloud_speech_v2::model::LanguageMetadata;
+    /// let x = LocationsMetadata::new().set_or_clear_languages(Some(LanguageMetadata::default()/* use setters */));
+    /// let x = LocationsMetadata::new().set_or_clear_languages(None::<LanguageMetadata>);
+    /// ```
     pub fn set_or_clear_languages<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LanguageMetadata>,
@@ -7717,6 +10292,13 @@ impl LocationsMetadata {
     }
 
     /// Sets the value of [access_metadata][crate::model::LocationsMetadata::access_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::LocationsMetadata;
+    /// use google_cloud_speech_v2::model::AccessMetadata;
+    /// let x = LocationsMetadata::new().set_access_metadata(AccessMetadata::default()/* use setters */);
+    /// ```
     pub fn set_access_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessMetadata>,
@@ -7726,6 +10308,14 @@ impl LocationsMetadata {
     }
 
     /// Sets or clears the value of [access_metadata][crate::model::LocationsMetadata::access_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::model::LocationsMetadata;
+    /// use google_cloud_speech_v2::model::AccessMetadata;
+    /// let x = LocationsMetadata::new().set_or_clear_access_metadata(Some(AccessMetadata::default()/* use setters */));
+    /// let x = LocationsMetadata::new().set_or_clear_access_metadata(None::<AccessMetadata>);
+    /// ```
     pub fn set_or_clear_access_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessMetadata>,

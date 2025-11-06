@@ -66,30 +66,60 @@ impl ListActiveDirectoriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListActiveDirectoriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesRequest;
+    /// let x = ListActiveDirectoriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListActiveDirectoriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesRequest;
+    /// let x = ListActiveDirectoriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListActiveDirectoriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesRequest;
+    /// let x = ListActiveDirectoriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListActiveDirectoriesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesRequest;
+    /// let x = ListActiveDirectoriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListActiveDirectoriesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesRequest;
+    /// let x = ListActiveDirectoriesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -124,6 +154,17 @@ impl ListActiveDirectoriesResponse {
     }
 
     /// Sets the value of [active_directories][crate::model::ListActiveDirectoriesResponse::active_directories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesResponse;
+    /// use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ListActiveDirectoriesResponse::new()
+    ///     .set_active_directories([
+    ///         ActiveDirectory::default()/* use setters */,
+    ///         ActiveDirectory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_active_directories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -135,12 +176,24 @@ impl ListActiveDirectoriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListActiveDirectoriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesResponse;
+    /// let x = ListActiveDirectoriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListActiveDirectoriesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListActiveDirectoriesResponse;
+    /// let x = ListActiveDirectoriesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -188,6 +241,12 @@ impl GetActiveDirectoryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetActiveDirectoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetActiveDirectoryRequest;
+    /// let x = GetActiveDirectoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -225,12 +284,25 @@ impl CreateActiveDirectoryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateActiveDirectoryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateActiveDirectoryRequest;
+    /// let x = CreateActiveDirectoryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [active_directory][crate::model::CreateActiveDirectoryRequest::active_directory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateActiveDirectoryRequest;
+    /// use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = CreateActiveDirectoryRequest::new().set_active_directory(ActiveDirectory::default()/* use setters */);
+    /// ```
     pub fn set_active_directory<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ActiveDirectory>,
@@ -240,6 +312,14 @@ impl CreateActiveDirectoryRequest {
     }
 
     /// Sets or clears the value of [active_directory][crate::model::CreateActiveDirectoryRequest::active_directory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateActiveDirectoryRequest;
+    /// use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = CreateActiveDirectoryRequest::new().set_or_clear_active_directory(Some(ActiveDirectory::default()/* use setters */));
+    /// let x = CreateActiveDirectoryRequest::new().set_or_clear_active_directory(None::<ActiveDirectory>);
+    /// ```
     pub fn set_or_clear_active_directory<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ActiveDirectory>,
@@ -249,6 +329,12 @@ impl CreateActiveDirectoryRequest {
     }
 
     /// Sets the value of [active_directory_id][crate::model::CreateActiveDirectoryRequest::active_directory_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateActiveDirectoryRequest;
+    /// let x = CreateActiveDirectoryRequest::new().set_active_directory_id("example");
+    /// ```
     pub fn set_active_directory_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -287,6 +373,13 @@ impl UpdateActiveDirectoryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateActiveDirectoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateActiveDirectoryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -296,6 +389,14 @@ impl UpdateActiveDirectoryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateActiveDirectoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateActiveDirectoryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateActiveDirectoryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -305,6 +406,13 @@ impl UpdateActiveDirectoryRequest {
     }
 
     /// Sets the value of [active_directory][crate::model::UpdateActiveDirectoryRequest::active_directory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateActiveDirectoryRequest;
+    /// use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = UpdateActiveDirectoryRequest::new().set_active_directory(ActiveDirectory::default()/* use setters */);
+    /// ```
     pub fn set_active_directory<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ActiveDirectory>,
@@ -314,6 +422,14 @@ impl UpdateActiveDirectoryRequest {
     }
 
     /// Sets or clears the value of [active_directory][crate::model::UpdateActiveDirectoryRequest::active_directory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateActiveDirectoryRequest;
+    /// use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = UpdateActiveDirectoryRequest::new().set_or_clear_active_directory(Some(ActiveDirectory::default()/* use setters */));
+    /// let x = UpdateActiveDirectoryRequest::new().set_or_clear_active_directory(None::<ActiveDirectory>);
+    /// ```
     pub fn set_or_clear_active_directory<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ActiveDirectory>,
@@ -345,6 +461,12 @@ impl DeleteActiveDirectoryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteActiveDirectoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteActiveDirectoryRequest;
+    /// let x = DeleteActiveDirectoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -445,12 +567,25 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [name][crate::model::ActiveDirectory::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ActiveDirectory::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// use wkt::Timestamp;
+    /// let x = ActiveDirectory::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -460,6 +595,14 @@ impl ActiveDirectory {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ActiveDirectory::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// use wkt::Timestamp;
+    /// let x = ActiveDirectory::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ActiveDirectory::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -469,6 +612,15 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [state][crate::model::ActiveDirectory::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// use google_cloud_netapp_v1::model::active_directory::State;
+    /// let x0 = ActiveDirectory::new().set_state(State::Creating);
+    /// let x1 = ActiveDirectory::new().set_state(State::Ready);
+    /// let x2 = ActiveDirectory::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::active_directory::State>>(
         mut self,
         v: T,
@@ -478,30 +630,60 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [domain][crate::model::ActiveDirectory::domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [site][crate::model::ActiveDirectory::site].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_site("example");
+    /// ```
     pub fn set_site<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.site = v.into();
         self
     }
 
     /// Sets the value of [dns][crate::model::ActiveDirectory::dns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_dns("example");
+    /// ```
     pub fn set_dns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dns = v.into();
         self
     }
 
     /// Sets the value of [net_bios_prefix][crate::model::ActiveDirectory::net_bios_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_net_bios_prefix("example");
+    /// ```
     pub fn set_net_bios_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.net_bios_prefix = v.into();
         self
     }
 
     /// Sets the value of [organizational_unit][crate::model::ActiveDirectory::organizational_unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_organizational_unit("example");
+    /// ```
     pub fn set_organizational_unit<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -511,24 +693,48 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [aes_encryption][crate::model::ActiveDirectory::aes_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_aes_encryption(true);
+    /// ```
     pub fn set_aes_encryption<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.aes_encryption = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::ActiveDirectory::username].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::ActiveDirectory::password].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [backup_operators][crate::model::ActiveDirectory::backup_operators].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_backup_operators(["a", "b", "c"]);
+    /// ```
     pub fn set_backup_operators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -540,6 +746,12 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [administrators][crate::model::ActiveDirectory::administrators].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_administrators(["a", "b", "c"]);
+    /// ```
     pub fn set_administrators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -551,6 +763,12 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [security_operators][crate::model::ActiveDirectory::security_operators].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_security_operators(["a", "b", "c"]);
+    /// ```
     pub fn set_security_operators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -562,42 +780,87 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [kdc_hostname][crate::model::ActiveDirectory::kdc_hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_kdc_hostname("example");
+    /// ```
     pub fn set_kdc_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kdc_hostname = v.into();
         self
     }
 
     /// Sets the value of [kdc_ip][crate::model::ActiveDirectory::kdc_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_kdc_ip("example");
+    /// ```
     pub fn set_kdc_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kdc_ip = v.into();
         self
     }
 
     /// Sets the value of [nfs_users_with_ldap][crate::model::ActiveDirectory::nfs_users_with_ldap].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_nfs_users_with_ldap(true);
+    /// ```
     pub fn set_nfs_users_with_ldap<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.nfs_users_with_ldap = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ActiveDirectory::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [ldap_signing][crate::model::ActiveDirectory::ldap_signing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_ldap_signing(true);
+    /// ```
     pub fn set_ldap_signing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ldap_signing = v.into();
         self
     }
 
     /// Sets the value of [encrypt_dc_connections][crate::model::ActiveDirectory::encrypt_dc_connections].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_encrypt_dc_connections(true);
+    /// ```
     pub fn set_encrypt_dc_connections<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.encrypt_dc_connections = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ActiveDirectory::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -610,6 +873,12 @@ impl ActiveDirectory {
     }
 
     /// Sets the value of [state_details][crate::model::ActiveDirectory::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// let x = ActiveDirectory::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
@@ -867,30 +1136,65 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use google_cloud_netapp_v1::model::backup::State;
+    /// let x0 = Backup::new().set_state(State::Creating);
+    /// let x1 = Backup::new().set_state(State::Uploading);
+    /// let x2 = Backup::new().set_state(State::Ready);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Backup::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [volume_usage_bytes][crate::model::Backup::volume_usage_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_volume_usage_bytes(42);
+    /// ```
     pub fn set_volume_usage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.volume_usage_bytes = v.into();
         self
     }
 
     /// Sets the value of [backup_type][crate::model::Backup::backup_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use google_cloud_netapp_v1::model::backup::Type;
+    /// let x0 = Backup::new().set_backup_type(Type::Manual);
+    /// let x1 = Backup::new().set_backup_type(Type::Scheduled);
+    /// ```
     pub fn set_backup_type<T: std::convert::Into<crate::model::backup::Type>>(
         mut self,
         v: T,
@@ -900,12 +1204,24 @@ impl Backup {
     }
 
     /// Sets the value of [source_volume][crate::model::Backup::source_volume].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_source_volume("example");
+    /// ```
     pub fn set_source_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_volume = v.into();
         self
     }
 
     /// Sets the value of [source_snapshot][crate::model::Backup::source_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_source_snapshot("example");
+    /// ```
     pub fn set_source_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -915,6 +1231,13 @@ impl Backup {
     }
 
     /// Sets or clears the value of [source_snapshot][crate::model::Backup::source_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_or_clear_source_snapshot(Some("example"));
+    /// let x = Backup::new().set_or_clear_source_snapshot(None::<String>);
+    /// ```
     pub fn set_or_clear_source_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -924,6 +1247,13 @@ impl Backup {
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -933,6 +1263,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -942,6 +1280,15 @@ impl Backup {
     }
 
     /// Sets the value of [labels][crate::model::Backup::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -954,36 +1301,73 @@ impl Backup {
     }
 
     /// Sets the value of [chain_storage_bytes][crate::model::Backup::chain_storage_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_chain_storage_bytes(42);
+    /// ```
     pub fn set_chain_storage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.chain_storage_bytes = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
     }
 
     /// Sets the value of [volume_region][crate::model::Backup::volume_region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_volume_region("example");
+    /// ```
     pub fn set_volume_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_region = v.into();
         self
     }
 
     /// Sets the value of [backup_region][crate::model::Backup::backup_region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// let x = Backup::new().set_backup_region("example");
+    /// ```
     pub fn set_backup_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_region = v.into();
         self
     }
 
     /// Sets the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_enforced_retention_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_enforced_retention_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -993,6 +1377,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_enforced_retention_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_enforced_retention_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_enforced_retention_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1352,30 +1744,60 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1411,6 +1833,17 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsResponse;
+    /// use google_cloud_netapp_v1::model::Backup;
+    /// let x = ListBackupsResponse::new()
+    ///     .set_backups([
+    ///         Backup::default()/* use setters */,
+    ///         Backup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1422,12 +1855,24 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsResponse;
+    /// let x = ListBackupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupsResponse;
+    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1476,6 +1921,12 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetBackupRequest;
+    /// let x = GetBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1515,18 +1966,37 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupRequest;
+    /// let x = CreateBackupRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupRequest;
+    /// let x = CreateBackupRequest::new().set_backup_id("example");
+    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupRequest;
+    /// use google_cloud_netapp_v1::model::Backup;
+    /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
+    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -1536,6 +2006,14 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupRequest;
+    /// use google_cloud_netapp_v1::model::Backup;
+    /// let x = CreateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
+    /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
+    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -1568,6 +2046,12 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteBackupRequest;
+    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1603,6 +2087,13 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1612,6 +2103,14 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1621,6 +2120,13 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupRequest;
+    /// use google_cloud_netapp_v1::model::Backup;
+    /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
+    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -1630,6 +2136,14 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupRequest;
+    /// use google_cloud_netapp_v1::model::Backup;
+    /// let x = UpdateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
+    /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
+    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -1695,12 +2209,24 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [name][crate::model::BackupPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [daily_backup_limit][crate::model::BackupPolicy::daily_backup_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_daily_backup_limit(42);
+    /// ```
     pub fn set_daily_backup_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1710,6 +2236,13 @@ impl BackupPolicy {
     }
 
     /// Sets or clears the value of [daily_backup_limit][crate::model::BackupPolicy::daily_backup_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_or_clear_daily_backup_limit(Some(42));
+    /// let x = BackupPolicy::new().set_or_clear_daily_backup_limit(None::<i32>);
+    /// ```
     pub fn set_or_clear_daily_backup_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1719,6 +2252,12 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [weekly_backup_limit][crate::model::BackupPolicy::weekly_backup_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_weekly_backup_limit(42);
+    /// ```
     pub fn set_weekly_backup_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1728,6 +2267,13 @@ impl BackupPolicy {
     }
 
     /// Sets or clears the value of [weekly_backup_limit][crate::model::BackupPolicy::weekly_backup_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_or_clear_weekly_backup_limit(Some(42));
+    /// let x = BackupPolicy::new().set_or_clear_weekly_backup_limit(None::<i32>);
+    /// ```
     pub fn set_or_clear_weekly_backup_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1737,6 +2283,12 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [monthly_backup_limit][crate::model::BackupPolicy::monthly_backup_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_monthly_backup_limit(42);
+    /// ```
     pub fn set_monthly_backup_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1746,6 +2298,13 @@ impl BackupPolicy {
     }
 
     /// Sets or clears the value of [monthly_backup_limit][crate::model::BackupPolicy::monthly_backup_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_or_clear_monthly_backup_limit(Some(42));
+    /// let x = BackupPolicy::new().set_or_clear_monthly_backup_limit(None::<i32>);
+    /// ```
     pub fn set_or_clear_monthly_backup_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1755,6 +2314,12 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [description][crate::model::BackupPolicy::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1764,6 +2329,13 @@ impl BackupPolicy {
     }
 
     /// Sets or clears the value of [description][crate::model::BackupPolicy::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_or_clear_description(Some("example"));
+    /// let x = BackupPolicy::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1773,6 +2345,12 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [enabled][crate::model::BackupPolicy::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1782,6 +2360,13 @@ impl BackupPolicy {
     }
 
     /// Sets or clears the value of [enabled][crate::model::BackupPolicy::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_or_clear_enabled(Some(false));
+    /// let x = BackupPolicy::new().set_or_clear_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1791,6 +2376,12 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [assigned_volume_count][crate::model::BackupPolicy::assigned_volume_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_assigned_volume_count(42);
+    /// ```
     pub fn set_assigned_volume_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1800,6 +2391,13 @@ impl BackupPolicy {
     }
 
     /// Sets or clears the value of [assigned_volume_count][crate::model::BackupPolicy::assigned_volume_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_or_clear_assigned_volume_count(Some(42));
+    /// let x = BackupPolicy::new().set_or_clear_assigned_volume_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_assigned_volume_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1809,6 +2407,13 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::BackupPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// use wkt::Timestamp;
+    /// let x = BackupPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1818,6 +2423,14 @@ impl BackupPolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// use wkt::Timestamp;
+    /// let x = BackupPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1827,6 +2440,15 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [labels][crate::model::BackupPolicy::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = BackupPolicy::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1839,6 +2461,15 @@ impl BackupPolicy {
     }
 
     /// Sets the value of [state][crate::model::BackupPolicy::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupPolicy;
+    /// use google_cloud_netapp_v1::model::backup_policy::State;
+    /// let x0 = BackupPolicy::new().set_state(State::Creating);
+    /// let x1 = BackupPolicy::new().set_state(State::Ready);
+    /// let x2 = BackupPolicy::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup_policy::State>>(
         mut self,
         v: T,
@@ -2039,12 +2670,25 @@ impl CreateBackupPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupPolicyRequest;
+    /// let x = CreateBackupPolicyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_policy][crate::model::CreateBackupPolicyRequest::backup_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupPolicyRequest;
+    /// use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = CreateBackupPolicyRequest::new().set_backup_policy(BackupPolicy::default()/* use setters */);
+    /// ```
     pub fn set_backup_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPolicy>,
@@ -2054,6 +2698,14 @@ impl CreateBackupPolicyRequest {
     }
 
     /// Sets or clears the value of [backup_policy][crate::model::CreateBackupPolicyRequest::backup_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupPolicyRequest;
+    /// use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = CreateBackupPolicyRequest::new().set_or_clear_backup_policy(Some(BackupPolicy::default()/* use setters */));
+    /// let x = CreateBackupPolicyRequest::new().set_or_clear_backup_policy(None::<BackupPolicy>);
+    /// ```
     pub fn set_or_clear_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPolicy>,
@@ -2063,6 +2715,12 @@ impl CreateBackupPolicyRequest {
     }
 
     /// Sets the value of [backup_policy_id][crate::model::CreateBackupPolicyRequest::backup_policy_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupPolicyRequest;
+    /// let x = CreateBackupPolicyRequest::new().set_backup_policy_id("example");
+    /// ```
     pub fn set_backup_policy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2095,6 +2753,12 @@ impl GetBackupPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetBackupPolicyRequest;
+    /// let x = GetBackupPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2136,30 +2800,60 @@ impl ListBackupPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesRequest;
+    /// let x = ListBackupPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesRequest;
+    /// let x = ListBackupPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesRequest;
+    /// let x = ListBackupPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesRequest;
+    /// let x = ListBackupPoliciesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesRequest;
+    /// let x = ListBackupPoliciesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2194,6 +2888,17 @@ impl ListBackupPoliciesResponse {
     }
 
     /// Sets the value of [backup_policies][crate::model::ListBackupPoliciesResponse::backup_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesResponse;
+    /// use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = ListBackupPoliciesResponse::new()
+    ///     .set_backup_policies([
+    ///         BackupPolicy::default()/* use setters */,
+    ///         BackupPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2205,12 +2910,24 @@ impl ListBackupPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesResponse;
+    /// let x = ListBackupPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupPoliciesResponse;
+    /// let x = ListBackupPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2265,6 +2982,13 @@ impl UpdateBackupPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2274,6 +2998,14 @@ impl UpdateBackupPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2283,6 +3015,13 @@ impl UpdateBackupPolicyRequest {
     }
 
     /// Sets the value of [backup_policy][crate::model::UpdateBackupPolicyRequest::backup_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupPolicyRequest;
+    /// use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = UpdateBackupPolicyRequest::new().set_backup_policy(BackupPolicy::default()/* use setters */);
+    /// ```
     pub fn set_backup_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPolicy>,
@@ -2292,6 +3031,14 @@ impl UpdateBackupPolicyRequest {
     }
 
     /// Sets or clears the value of [backup_policy][crate::model::UpdateBackupPolicyRequest::backup_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupPolicyRequest;
+    /// use google_cloud_netapp_v1::model::BackupPolicy;
+    /// let x = UpdateBackupPolicyRequest::new().set_or_clear_backup_policy(Some(BackupPolicy::default()/* use setters */));
+    /// let x = UpdateBackupPolicyRequest::new().set_or_clear_backup_policy(None::<BackupPolicy>);
+    /// ```
     pub fn set_or_clear_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPolicy>,
@@ -2324,6 +3071,12 @@ impl DeleteBackupPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteBackupPolicyRequest;
+    /// let x = DeleteBackupPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2392,12 +3145,27 @@ impl BackupVault {
     }
 
     /// Sets the value of [name][crate::model::BackupVault::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::BackupVault::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// use google_cloud_netapp_v1::model::backup_vault::State;
+    /// let x0 = BackupVault::new().set_state(State::Creating);
+    /// let x1 = BackupVault::new().set_state(State::Ready);
+    /// let x2 = BackupVault::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup_vault::State>>(
         mut self,
         v: T,
@@ -2407,6 +3175,13 @@ impl BackupVault {
     }
 
     /// Sets the value of [create_time][crate::model::BackupVault::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2416,6 +3191,14 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupVault::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupVault::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2425,12 +3208,27 @@ impl BackupVault {
     }
 
     /// Sets the value of [description][crate::model::BackupVault::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::BackupVault::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2443,6 +3241,14 @@ impl BackupVault {
     }
 
     /// Sets the value of [backup_vault_type][crate::model::BackupVault::backup_vault_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// use google_cloud_netapp_v1::model::backup_vault::BackupVaultType;
+    /// let x0 = BackupVault::new().set_backup_vault_type(BackupVaultType::InRegion);
+    /// let x1 = BackupVault::new().set_backup_vault_type(BackupVaultType::CrossRegion);
+    /// ```
     pub fn set_backup_vault_type<
         T: std::convert::Into<crate::model::backup_vault::BackupVaultType>,
     >(
@@ -2454,18 +3260,36 @@ impl BackupVault {
     }
 
     /// Sets the value of [source_region][crate::model::BackupVault::source_region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_source_region("example");
+    /// ```
     pub fn set_source_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_region = v.into();
         self
     }
 
     /// Sets the value of [backup_region][crate::model::BackupVault::backup_region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_backup_region("example");
+    /// ```
     pub fn set_backup_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_region = v.into();
         self
     }
 
     /// Sets the value of [source_backup_vault][crate::model::BackupVault::source_backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_source_backup_vault("example");
+    /// ```
     pub fn set_source_backup_vault<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2475,6 +3299,12 @@ impl BackupVault {
     }
 
     /// Sets the value of [destination_backup_vault][crate::model::BackupVault::destination_backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_destination_backup_vault("example");
+    /// ```
     pub fn set_destination_backup_vault<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2484,6 +3314,13 @@ impl BackupVault {
     }
 
     /// Sets the value of [backup_retention_policy][crate::model::BackupVault::backup_retention_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// use google_cloud_netapp_v1::model::backup_vault::BackupRetentionPolicy;
+    /// let x = BackupVault::new().set_backup_retention_policy(BackupRetentionPolicy::default()/* use setters */);
+    /// ```
     pub fn set_backup_retention_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup_vault::BackupRetentionPolicy>,
@@ -2493,6 +3330,14 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [backup_retention_policy][crate::model::BackupVault::backup_retention_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// use google_cloud_netapp_v1::model::backup_vault::BackupRetentionPolicy;
+    /// let x = BackupVault::new().set_or_clear_backup_retention_policy(Some(BackupRetentionPolicy::default()/* use setters */));
+    /// let x = BackupVault::new().set_or_clear_backup_retention_policy(None::<BackupRetentionPolicy>);
+    /// ```
     pub fn set_or_clear_backup_retention_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup_vault::BackupRetentionPolicy>,
@@ -2550,6 +3395,12 @@ pub mod backup_vault {
         }
 
         /// Sets the value of [backup_minimum_enforced_retention_days][crate::model::backup_vault::BackupRetentionPolicy::backup_minimum_enforced_retention_days].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_netapp_v1::model::backup_vault::BackupRetentionPolicy;
+        /// let x = BackupRetentionPolicy::new().set_backup_minimum_enforced_retention_days(42);
+        /// ```
         pub fn set_backup_minimum_enforced_retention_days<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -2559,24 +3410,48 @@ pub mod backup_vault {
         }
 
         /// Sets the value of [daily_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::daily_backup_immutable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_netapp_v1::model::backup_vault::BackupRetentionPolicy;
+        /// let x = BackupRetentionPolicy::new().set_daily_backup_immutable(true);
+        /// ```
         pub fn set_daily_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.daily_backup_immutable = v.into();
             self
         }
 
         /// Sets the value of [weekly_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::weekly_backup_immutable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_netapp_v1::model::backup_vault::BackupRetentionPolicy;
+        /// let x = BackupRetentionPolicy::new().set_weekly_backup_immutable(true);
+        /// ```
         pub fn set_weekly_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.weekly_backup_immutable = v.into();
             self
         }
 
         /// Sets the value of [monthly_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::monthly_backup_immutable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_netapp_v1::model::backup_vault::BackupRetentionPolicy;
+        /// let x = BackupRetentionPolicy::new().set_monthly_backup_immutable(true);
+        /// ```
         pub fn set_monthly_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.monthly_backup_immutable = v.into();
             self
         }
 
         /// Sets the value of [manual_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::manual_backup_immutable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_netapp_v1::model::backup_vault::BackupRetentionPolicy;
+        /// let x = BackupRetentionPolicy::new().set_manual_backup_immutable(true);
+        /// ```
         pub fn set_manual_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.manual_backup_immutable = v.into();
             self
@@ -2892,6 +3767,12 @@ impl GetBackupVaultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupVaultRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetBackupVaultRequest;
+    /// let x = GetBackupVaultRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2935,30 +3816,60 @@ impl ListBackupVaultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupVaultsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupVaultsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupVaultsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupVaultsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupVaultsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2994,6 +3905,17 @@ impl ListBackupVaultsResponse {
     }
 
     /// Sets the value of [backup_vaults][crate::model::ListBackupVaultsResponse::backup_vaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsResponse;
+    /// use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = ListBackupVaultsResponse::new()
+    ///     .set_backup_vaults([
+    ///         BackupVault::default()/* use setters */,
+    ///         BackupVault::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_vaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3005,12 +3927,24 @@ impl ListBackupVaultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupVaultsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsResponse;
+    /// let x = ListBackupVaultsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupVaultsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListBackupVaultsResponse;
+    /// let x = ListBackupVaultsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3069,18 +4003,37 @@ impl CreateBackupVaultRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupVaultRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupVaultRequest;
+    /// let x = CreateBackupVaultRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_vault_id][crate::model::CreateBackupVaultRequest::backup_vault_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupVaultRequest;
+    /// let x = CreateBackupVaultRequest::new().set_backup_vault_id("example");
+    /// ```
     pub fn set_backup_vault_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_vault_id = v.into();
         self
     }
 
     /// Sets the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupVaultRequest;
+    /// use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = CreateBackupVaultRequest::new().set_backup_vault(BackupVault::default()/* use setters */);
+    /// ```
     pub fn set_backup_vault<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -3090,6 +4043,14 @@ impl CreateBackupVaultRequest {
     }
 
     /// Sets or clears the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateBackupVaultRequest;
+    /// use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = CreateBackupVaultRequest::new().set_or_clear_backup_vault(Some(BackupVault::default()/* use setters */));
+    /// let x = CreateBackupVaultRequest::new().set_or_clear_backup_vault(None::<BackupVault>);
+    /// ```
     pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -3122,6 +4083,12 @@ impl DeleteBackupVaultRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3157,6 +4124,13 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupVaultRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupVaultRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3166,6 +4140,14 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupVaultRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3175,6 +4157,13 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupVaultRequest;
+    /// use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = UpdateBackupVaultRequest::new().set_backup_vault(BackupVault::default()/* use setters */);
+    /// ```
     pub fn set_backup_vault<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -3184,6 +4173,14 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets or clears the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateBackupVaultRequest;
+    /// use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_backup_vault(Some(BackupVault::default()/* use setters */));
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_backup_vault(None::<BackupVault>);
+    /// ```
     pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -3239,6 +4236,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3248,6 +4252,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3257,6 +4269,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3266,6 +4285,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3275,30 +4302,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -3336,6 +4393,17 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [supported_service_levels][crate::model::LocationMetadata::supported_service_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::LocationMetadata;
+    /// use google_cloud_netapp_v1::model::ServiceLevel;
+    /// let x = LocationMetadata::new().set_supported_service_levels([
+    ///     ServiceLevel::Premium,
+    ///     ServiceLevel::Extreme,
+    ///     ServiceLevel::Standard,
+    /// ]);
+    /// ```
     pub fn set_supported_service_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3347,6 +4415,16 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [supported_flex_performance][crate::model::LocationMetadata::supported_flex_performance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::LocationMetadata;
+    /// use google_cloud_netapp_v1::model::FlexPerformance;
+    /// let x = LocationMetadata::new().set_supported_flex_performance([
+    ///     FlexPerformance::Default,
+    ///     FlexPerformance::Custom,
+    /// ]);
+    /// ```
     pub fn set_supported_flex_performance<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3358,6 +4436,12 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [has_vcp][crate::model::LocationMetadata::has_vcp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::LocationMetadata;
+    /// let x = LocationMetadata::new().set_has_vcp(true);
+    /// ```
     pub fn set_has_vcp<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_vcp = v.into();
         self
@@ -3386,6 +4470,12 @@ impl UserCommands {
     }
 
     /// Sets the value of [commands][crate::model::UserCommands::commands].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UserCommands;
+    /// let x = UserCommands::new().set_commands(["a", "b", "c"]);
+    /// ```
     pub fn set_commands<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3419,6 +4509,12 @@ impl GetKmsConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetKmsConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetKmsConfigRequest;
+    /// let x = GetKmsConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3460,30 +4556,60 @@ impl ListKmsConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListKmsConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsRequest;
+    /// let x = ListKmsConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListKmsConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsRequest;
+    /// let x = ListKmsConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListKmsConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsRequest;
+    /// let x = ListKmsConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListKmsConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsRequest;
+    /// let x = ListKmsConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListKmsConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsRequest;
+    /// let x = ListKmsConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3518,6 +4644,17 @@ impl ListKmsConfigsResponse {
     }
 
     /// Sets the value of [kms_configs][crate::model::ListKmsConfigsResponse::kms_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsResponse;
+    /// use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = ListKmsConfigsResponse::new()
+    ///     .set_kms_configs([
+    ///         KmsConfig::default()/* use setters */,
+    ///         KmsConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_kms_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3529,12 +4666,24 @@ impl ListKmsConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListKmsConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsResponse;
+    /// let x = ListKmsConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListKmsConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListKmsConfigsResponse;
+    /// let x = ListKmsConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3591,18 +4740,37 @@ impl CreateKmsConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateKmsConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateKmsConfigRequest;
+    /// let x = CreateKmsConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [kms_config_id][crate::model::CreateKmsConfigRequest::kms_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateKmsConfigRequest;
+    /// let x = CreateKmsConfigRequest::new().set_kms_config_id("example");
+    /// ```
     pub fn set_kms_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_config_id = v.into();
         self
     }
 
     /// Sets the value of [kms_config][crate::model::CreateKmsConfigRequest::kms_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateKmsConfigRequest;
+    /// use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = CreateKmsConfigRequest::new().set_kms_config(KmsConfig::default()/* use setters */);
+    /// ```
     pub fn set_kms_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KmsConfig>,
@@ -3612,6 +4780,14 @@ impl CreateKmsConfigRequest {
     }
 
     /// Sets or clears the value of [kms_config][crate::model::CreateKmsConfigRequest::kms_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateKmsConfigRequest;
+    /// use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = CreateKmsConfigRequest::new().set_or_clear_kms_config(Some(KmsConfig::default()/* use setters */));
+    /// let x = CreateKmsConfigRequest::new().set_or_clear_kms_config(None::<KmsConfig>);
+    /// ```
     pub fn set_or_clear_kms_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KmsConfig>,
@@ -3650,6 +4826,13 @@ impl UpdateKmsConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateKmsConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateKmsConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3659,6 +4842,14 @@ impl UpdateKmsConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateKmsConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateKmsConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateKmsConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3668,6 +4859,13 @@ impl UpdateKmsConfigRequest {
     }
 
     /// Sets the value of [kms_config][crate::model::UpdateKmsConfigRequest::kms_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateKmsConfigRequest;
+    /// use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = UpdateKmsConfigRequest::new().set_kms_config(KmsConfig::default()/* use setters */);
+    /// ```
     pub fn set_kms_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KmsConfig>,
@@ -3677,6 +4875,14 @@ impl UpdateKmsConfigRequest {
     }
 
     /// Sets or clears the value of [kms_config][crate::model::UpdateKmsConfigRequest::kms_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateKmsConfigRequest;
+    /// use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = UpdateKmsConfigRequest::new().set_or_clear_kms_config(Some(KmsConfig::default()/* use setters */));
+    /// let x = UpdateKmsConfigRequest::new().set_or_clear_kms_config(None::<KmsConfig>);
+    /// ```
     pub fn set_or_clear_kms_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KmsConfig>,
@@ -3708,6 +4914,12 @@ impl DeleteKmsConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteKmsConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteKmsConfigRequest;
+    /// let x = DeleteKmsConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3736,6 +4948,12 @@ impl EncryptVolumesRequest {
     }
 
     /// Sets the value of [name][crate::model::EncryptVolumesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::EncryptVolumesRequest;
+    /// let x = EncryptVolumesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3764,6 +4982,12 @@ impl VerifyKmsConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::VerifyKmsConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::VerifyKmsConfigRequest;
+    /// let x = VerifyKmsConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3801,18 +5025,36 @@ impl VerifyKmsConfigResponse {
     }
 
     /// Sets the value of [healthy][crate::model::VerifyKmsConfigResponse::healthy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::VerifyKmsConfigResponse;
+    /// let x = VerifyKmsConfigResponse::new().set_healthy(true);
+    /// ```
     pub fn set_healthy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.healthy = v.into();
         self
     }
 
     /// Sets the value of [health_error][crate::model::VerifyKmsConfigResponse::health_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::VerifyKmsConfigResponse;
+    /// let x = VerifyKmsConfigResponse::new().set_health_error("example");
+    /// ```
     pub fn set_health_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.health_error = v.into();
         self
     }
 
     /// Sets the value of [instructions][crate::model::VerifyKmsConfigResponse::instructions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::VerifyKmsConfigResponse;
+    /// let x = VerifyKmsConfigResponse::new().set_instructions("example");
+    /// ```
     pub fn set_instructions<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instructions = v.into();
         self
@@ -3868,18 +5110,39 @@ impl KmsConfig {
     }
 
     /// Sets the value of [name][crate::model::KmsConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = KmsConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_name][crate::model::KmsConfig::crypto_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = KmsConfig::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::KmsConfig::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// use google_cloud_netapp_v1::model::kms_config::State;
+    /// let x0 = KmsConfig::new().set_state(State::Ready);
+    /// let x1 = KmsConfig::new().set_state(State::Creating);
+    /// let x2 = KmsConfig::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::kms_config::State>>(
         mut self,
         v: T,
@@ -3889,12 +5152,25 @@ impl KmsConfig {
     }
 
     /// Sets the value of [state_details][crate::model::KmsConfig::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = KmsConfig::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::KmsConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// use wkt::Timestamp;
+    /// let x = KmsConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3904,6 +5180,14 @@ impl KmsConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::KmsConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// use wkt::Timestamp;
+    /// let x = KmsConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = KmsConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3913,12 +5197,27 @@ impl KmsConfig {
     }
 
     /// Sets the value of [description][crate::model::KmsConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = KmsConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::KmsConfig::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = KmsConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3931,12 +5230,24 @@ impl KmsConfig {
     }
 
     /// Sets the value of [instructions][crate::model::KmsConfig::instructions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = KmsConfig::new().set_instructions("example");
+    /// ```
     pub fn set_instructions<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instructions = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::KmsConfig::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::KmsConfig;
+    /// let x = KmsConfig::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
@@ -4181,30 +5492,60 @@ impl ListQuotaRulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQuotaRulesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesRequest;
+    /// let x = ListQuotaRulesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQuotaRulesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesRequest;
+    /// let x = ListQuotaRulesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQuotaRulesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesRequest;
+    /// let x = ListQuotaRulesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListQuotaRulesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesRequest;
+    /// let x = ListQuotaRulesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListQuotaRulesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesRequest;
+    /// let x = ListQuotaRulesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4239,6 +5580,17 @@ impl ListQuotaRulesResponse {
     }
 
     /// Sets the value of [quota_rules][crate::model::ListQuotaRulesResponse::quota_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesResponse;
+    /// use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = ListQuotaRulesResponse::new()
+    ///     .set_quota_rules([
+    ///         QuotaRule::default()/* use setters */,
+    ///         QuotaRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_quota_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4250,12 +5602,24 @@ impl ListQuotaRulesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQuotaRulesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesResponse;
+    /// let x = ListQuotaRulesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListQuotaRulesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListQuotaRulesResponse;
+    /// let x = ListQuotaRulesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4303,6 +5667,12 @@ impl GetQuotaRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQuotaRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetQuotaRuleRequest;
+    /// let x = GetQuotaRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4340,12 +5710,25 @@ impl CreateQuotaRuleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQuotaRuleRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateQuotaRuleRequest;
+    /// let x = CreateQuotaRuleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [quota_rule][crate::model::CreateQuotaRuleRequest::quota_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateQuotaRuleRequest;
+    /// use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = CreateQuotaRuleRequest::new().set_quota_rule(QuotaRule::default()/* use setters */);
+    /// ```
     pub fn set_quota_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaRule>,
@@ -4355,6 +5738,14 @@ impl CreateQuotaRuleRequest {
     }
 
     /// Sets or clears the value of [quota_rule][crate::model::CreateQuotaRuleRequest::quota_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateQuotaRuleRequest;
+    /// use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = CreateQuotaRuleRequest::new().set_or_clear_quota_rule(Some(QuotaRule::default()/* use setters */));
+    /// let x = CreateQuotaRuleRequest::new().set_or_clear_quota_rule(None::<QuotaRule>);
+    /// ```
     pub fn set_or_clear_quota_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaRule>,
@@ -4364,6 +5755,12 @@ impl CreateQuotaRuleRequest {
     }
 
     /// Sets the value of [quota_rule_id][crate::model::CreateQuotaRuleRequest::quota_rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateQuotaRuleRequest;
+    /// let x = CreateQuotaRuleRequest::new().set_quota_rule_id("example");
+    /// ```
     pub fn set_quota_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.quota_rule_id = v.into();
         self
@@ -4399,6 +5796,13 @@ impl UpdateQuotaRuleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateQuotaRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateQuotaRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQuotaRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4408,6 +5812,14 @@ impl UpdateQuotaRuleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateQuotaRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQuotaRuleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateQuotaRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4417,6 +5829,13 @@ impl UpdateQuotaRuleRequest {
     }
 
     /// Sets the value of [quota_rule][crate::model::UpdateQuotaRuleRequest::quota_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateQuotaRuleRequest;
+    /// use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = UpdateQuotaRuleRequest::new().set_quota_rule(QuotaRule::default()/* use setters */);
+    /// ```
     pub fn set_quota_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaRule>,
@@ -4426,6 +5845,14 @@ impl UpdateQuotaRuleRequest {
     }
 
     /// Sets or clears the value of [quota_rule][crate::model::UpdateQuotaRuleRequest::quota_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateQuotaRuleRequest;
+    /// use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = UpdateQuotaRuleRequest::new().set_or_clear_quota_rule(Some(QuotaRule::default()/* use setters */));
+    /// let x = UpdateQuotaRuleRequest::new().set_or_clear_quota_rule(None::<QuotaRule>);
+    /// ```
     pub fn set_or_clear_quota_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaRule>,
@@ -4457,6 +5884,12 @@ impl DeleteQuotaRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteQuotaRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteQuotaRuleRequest;
+    /// let x = DeleteQuotaRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4513,30 +5946,66 @@ impl QuotaRule {
     }
 
     /// Sets the value of [name][crate::model::QuotaRule::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = QuotaRule::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target][crate::model::QuotaRule::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = QuotaRule::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::QuotaRule::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// use google_cloud_netapp_v1::model::quota_rule::Type;
+    /// let x0 = QuotaRule::new().set_type(Type::IndividualUserQuota);
+    /// let x1 = QuotaRule::new().set_type(Type::IndividualGroupQuota);
+    /// let x2 = QuotaRule::new().set_type(Type::DefaultUserQuota);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::quota_rule::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [disk_limit_mib][crate::model::QuotaRule::disk_limit_mib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = QuotaRule::new().set_disk_limit_mib(42);
+    /// ```
     pub fn set_disk_limit_mib<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_limit_mib = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::QuotaRule::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// use google_cloud_netapp_v1::model::quota_rule::State;
+    /// let x0 = QuotaRule::new().set_state(State::Creating);
+    /// let x1 = QuotaRule::new().set_state(State::Updating);
+    /// let x2 = QuotaRule::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::quota_rule::State>>(
         mut self,
         v: T,
@@ -4546,12 +6015,25 @@ impl QuotaRule {
     }
 
     /// Sets the value of [state_details][crate::model::QuotaRule::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = QuotaRule::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::QuotaRule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// use wkt::Timestamp;
+    /// let x = QuotaRule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4561,6 +6043,14 @@ impl QuotaRule {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QuotaRule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// use wkt::Timestamp;
+    /// let x = QuotaRule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QuotaRule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4570,12 +6060,27 @@ impl QuotaRule {
     }
 
     /// Sets the value of [description][crate::model::QuotaRule::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = QuotaRule::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::QuotaRule::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::QuotaRule;
+    /// let x = QuotaRule::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4938,6 +6443,12 @@ impl TransferStats {
     }
 
     /// Sets the value of [transfer_bytes][crate::model::TransferStats::transfer_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = TransferStats::new().set_transfer_bytes(42);
+    /// ```
     pub fn set_transfer_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4947,6 +6458,13 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [transfer_bytes][crate::model::TransferStats::transfer_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = TransferStats::new().set_or_clear_transfer_bytes(Some(42));
+    /// let x = TransferStats::new().set_or_clear_transfer_bytes(None::<i32>);
+    /// ```
     pub fn set_or_clear_transfer_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4956,6 +6474,13 @@ impl TransferStats {
     }
 
     /// Sets the value of [total_transfer_duration][crate::model::TransferStats::total_transfer_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Duration;
+    /// let x = TransferStats::new().set_total_transfer_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_total_transfer_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4965,6 +6490,14 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [total_transfer_duration][crate::model::TransferStats::total_transfer_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Duration;
+    /// let x = TransferStats::new().set_or_clear_total_transfer_duration(Some(Duration::default()/* use setters */));
+    /// let x = TransferStats::new().set_or_clear_total_transfer_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_total_transfer_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4974,6 +6507,12 @@ impl TransferStats {
     }
 
     /// Sets the value of [last_transfer_bytes][crate::model::TransferStats::last_transfer_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = TransferStats::new().set_last_transfer_bytes(42);
+    /// ```
     pub fn set_last_transfer_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4983,6 +6522,13 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [last_transfer_bytes][crate::model::TransferStats::last_transfer_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = TransferStats::new().set_or_clear_last_transfer_bytes(Some(42));
+    /// let x = TransferStats::new().set_or_clear_last_transfer_bytes(None::<i32>);
+    /// ```
     pub fn set_or_clear_last_transfer_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4992,6 +6538,13 @@ impl TransferStats {
     }
 
     /// Sets the value of [last_transfer_duration][crate::model::TransferStats::last_transfer_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Duration;
+    /// let x = TransferStats::new().set_last_transfer_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_last_transfer_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5001,6 +6554,14 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [last_transfer_duration][crate::model::TransferStats::last_transfer_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Duration;
+    /// let x = TransferStats::new().set_or_clear_last_transfer_duration(Some(Duration::default()/* use setters */));
+    /// let x = TransferStats::new().set_or_clear_last_transfer_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_last_transfer_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5010,6 +6571,13 @@ impl TransferStats {
     }
 
     /// Sets the value of [lag_duration][crate::model::TransferStats::lag_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Duration;
+    /// let x = TransferStats::new().set_lag_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_lag_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5019,6 +6587,14 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [lag_duration][crate::model::TransferStats::lag_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Duration;
+    /// let x = TransferStats::new().set_or_clear_lag_duration(Some(Duration::default()/* use setters */));
+    /// let x = TransferStats::new().set_or_clear_lag_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_lag_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5028,6 +6604,13 @@ impl TransferStats {
     }
 
     /// Sets the value of [update_time][crate::model::TransferStats::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Timestamp;
+    /// let x = TransferStats::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5037,6 +6620,14 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TransferStats::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Timestamp;
+    /// let x = TransferStats::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TransferStats::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5046,6 +6637,13 @@ impl TransferStats {
     }
 
     /// Sets the value of [last_transfer_end_time][crate::model::TransferStats::last_transfer_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Timestamp;
+    /// let x = TransferStats::new().set_last_transfer_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_transfer_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5055,6 +6653,14 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [last_transfer_end_time][crate::model::TransferStats::last_transfer_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// use wkt::Timestamp;
+    /// let x = TransferStats::new().set_or_clear_last_transfer_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TransferStats::new().set_or_clear_last_transfer_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_transfer_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5064,6 +6670,12 @@ impl TransferStats {
     }
 
     /// Sets the value of [last_transfer_error][crate::model::TransferStats::last_transfer_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = TransferStats::new().set_last_transfer_error("example");
+    /// ```
     pub fn set_last_transfer_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5073,6 +6685,13 @@ impl TransferStats {
     }
 
     /// Sets or clears the value of [last_transfer_error][crate::model::TransferStats::last_transfer_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = TransferStats::new().set_or_clear_last_transfer_error(Some("example"));
+    /// let x = TransferStats::new().set_or_clear_last_transfer_error(None::<String>);
+    /// ```
     pub fn set_or_clear_last_transfer_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5168,12 +6787,27 @@ impl Replication {
     }
 
     /// Sets the value of [name][crate::model::Replication::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Replication::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::replication::State;
+    /// let x0 = Replication::new().set_state(State::Creating);
+    /// let x1 = Replication::new().set_state(State::Ready);
+    /// let x2 = Replication::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::replication::State>>(
         mut self,
         v: T,
@@ -5183,12 +6817,26 @@ impl Replication {
     }
 
     /// Sets the value of [state_details][crate::model::Replication::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
     }
 
     /// Sets the value of [role][crate::model::Replication::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::replication::ReplicationRole;
+    /// let x0 = Replication::new().set_role(ReplicationRole::Source);
+    /// let x1 = Replication::new().set_role(ReplicationRole::Destination);
+    /// ```
     pub fn set_role<T: std::convert::Into<crate::model::replication::ReplicationRole>>(
         mut self,
         v: T,
@@ -5198,6 +6846,15 @@ impl Replication {
     }
 
     /// Sets the value of [replication_schedule][crate::model::Replication::replication_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::replication::ReplicationSchedule;
+    /// let x0 = Replication::new().set_replication_schedule(ReplicationSchedule::Every10Minutes);
+    /// let x1 = Replication::new().set_replication_schedule(ReplicationSchedule::Hourly);
+    /// let x2 = Replication::new().set_replication_schedule(ReplicationSchedule::Daily);
+    /// ```
     pub fn set_replication_schedule<
         T: std::convert::Into<crate::model::replication::ReplicationSchedule>,
     >(
@@ -5209,6 +6866,15 @@ impl Replication {
     }
 
     /// Sets the value of [mirror_state][crate::model::Replication::mirror_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::replication::MirrorState;
+    /// let x0 = Replication::new().set_mirror_state(MirrorState::Preparing);
+    /// let x1 = Replication::new().set_mirror_state(MirrorState::Mirrored);
+    /// let x2 = Replication::new().set_mirror_state(MirrorState::Stopped);
+    /// ```
     pub fn set_mirror_state<T: std::convert::Into<crate::model::replication::MirrorState>>(
         mut self,
         v: T,
@@ -5218,6 +6884,12 @@ impl Replication {
     }
 
     /// Sets the value of [healthy][crate::model::Replication::healthy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_healthy(true);
+    /// ```
     pub fn set_healthy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5227,6 +6899,13 @@ impl Replication {
     }
 
     /// Sets or clears the value of [healthy][crate::model::Replication::healthy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_or_clear_healthy(Some(false));
+    /// let x = Replication::new().set_or_clear_healthy(None::<bool>);
+    /// ```
     pub fn set_or_clear_healthy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5236,6 +6915,13 @@ impl Replication {
     }
 
     /// Sets the value of [create_time][crate::model::Replication::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use wkt::Timestamp;
+    /// let x = Replication::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5245,6 +6931,14 @@ impl Replication {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Replication::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use wkt::Timestamp;
+    /// let x = Replication::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Replication::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5254,6 +6948,12 @@ impl Replication {
     }
 
     /// Sets the value of [destination_volume][crate::model::Replication::destination_volume].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_destination_volume("example");
+    /// ```
     pub fn set_destination_volume<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5263,6 +6963,13 @@ impl Replication {
     }
 
     /// Sets the value of [transfer_stats][crate::model::Replication::transfer_stats].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = Replication::new().set_transfer_stats(TransferStats::default()/* use setters */);
+    /// ```
     pub fn set_transfer_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferStats>,
@@ -5272,6 +6979,14 @@ impl Replication {
     }
 
     /// Sets or clears the value of [transfer_stats][crate::model::Replication::transfer_stats].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::TransferStats;
+    /// let x = Replication::new().set_or_clear_transfer_stats(Some(TransferStats::default()/* use setters */));
+    /// let x = Replication::new().set_or_clear_transfer_stats(None::<TransferStats>);
+    /// ```
     pub fn set_or_clear_transfer_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferStats>,
@@ -5281,6 +6996,15 @@ impl Replication {
     }
 
     /// Sets the value of [labels][crate::model::Replication::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5293,6 +7017,12 @@ impl Replication {
     }
 
     /// Sets the value of [description][crate::model::Replication::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5302,6 +7032,13 @@ impl Replication {
     }
 
     /// Sets or clears the value of [description][crate::model::Replication::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_or_clear_description(Some("example"));
+    /// let x = Replication::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5311,6 +7048,13 @@ impl Replication {
     }
 
     /// Sets the value of [destination_volume_parameters][crate::model::Replication::destination_volume_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// let x = Replication::new().set_destination_volume_parameters(DestinationVolumeParameters::default()/* use setters */);
+    /// ```
     pub fn set_destination_volume_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DestinationVolumeParameters>,
@@ -5320,6 +7064,14 @@ impl Replication {
     }
 
     /// Sets or clears the value of [destination_volume_parameters][crate::model::Replication::destination_volume_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// let x = Replication::new().set_or_clear_destination_volume_parameters(Some(DestinationVolumeParameters::default()/* use setters */));
+    /// let x = Replication::new().set_or_clear_destination_volume_parameters(None::<DestinationVolumeParameters>);
+    /// ```
     pub fn set_or_clear_destination_volume_parameters<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5332,12 +7084,25 @@ impl Replication {
     }
 
     /// Sets the value of [source_volume][crate::model::Replication::source_volume].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_source_volume("example");
+    /// ```
     pub fn set_source_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_volume = v.into();
         self
     }
 
     /// Sets the value of [hybrid_peering_details][crate::model::Replication::hybrid_peering_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = Replication::new().set_hybrid_peering_details(HybridPeeringDetails::default()/* use setters */);
+    /// ```
     pub fn set_hybrid_peering_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HybridPeeringDetails>,
@@ -5347,6 +7112,14 @@ impl Replication {
     }
 
     /// Sets or clears the value of [hybrid_peering_details][crate::model::Replication::hybrid_peering_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = Replication::new().set_or_clear_hybrid_peering_details(Some(HybridPeeringDetails::default()/* use setters */));
+    /// let x = Replication::new().set_or_clear_hybrid_peering_details(None::<HybridPeeringDetails>);
+    /// ```
     pub fn set_or_clear_hybrid_peering_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HybridPeeringDetails>,
@@ -5356,6 +7129,12 @@ impl Replication {
     }
 
     /// Sets the value of [cluster_location][crate::model::Replication::cluster_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// let x = Replication::new().set_cluster_location("example");
+    /// ```
     pub fn set_cluster_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5365,6 +7144,15 @@ impl Replication {
     }
 
     /// Sets the value of [hybrid_replication_type][crate::model::Replication::hybrid_replication_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::replication::HybridReplicationType;
+    /// let x0 = Replication::new().set_hybrid_replication_type(HybridReplicationType::Migration);
+    /// let x1 = Replication::new().set_hybrid_replication_type(HybridReplicationType::ContinuousReplication);
+    /// let x2 = Replication::new().set_hybrid_replication_type(HybridReplicationType::OnpremReplication);
+    /// ```
     pub fn set_hybrid_replication_type<
         T: std::convert::Into<crate::model::replication::HybridReplicationType>,
     >(
@@ -5376,6 +7164,13 @@ impl Replication {
     }
 
     /// Sets the value of [hybrid_replication_user_commands][crate::model::Replication::hybrid_replication_user_commands].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::UserCommands;
+    /// let x = Replication::new().set_hybrid_replication_user_commands(UserCommands::default()/* use setters */);
+    /// ```
     pub fn set_hybrid_replication_user_commands<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserCommands>,
@@ -5385,6 +7180,14 @@ impl Replication {
     }
 
     /// Sets or clears the value of [hybrid_replication_user_commands][crate::model::Replication::hybrid_replication_user_commands].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::model::UserCommands;
+    /// let x = Replication::new().set_or_clear_hybrid_replication_user_commands(Some(UserCommands::default()/* use setters */));
+    /// let x = Replication::new().set_or_clear_hybrid_replication_user_commands(None::<UserCommands>);
+    /// ```
     pub fn set_or_clear_hybrid_replication_user_commands<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6236,18 +8039,37 @@ impl HybridPeeringDetails {
     }
 
     /// Sets the value of [subnet_ip][crate::model::HybridPeeringDetails::subnet_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = HybridPeeringDetails::new().set_subnet_ip("example");
+    /// ```
     pub fn set_subnet_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnet_ip = v.into();
         self
     }
 
     /// Sets the value of [command][crate::model::HybridPeeringDetails::command].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = HybridPeeringDetails::new().set_command("example");
+    /// ```
     pub fn set_command<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.command = v.into();
         self
     }
 
     /// Sets the value of [command_expiry_time][crate::model::HybridPeeringDetails::command_expiry_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// use wkt::Timestamp;
+    /// let x = HybridPeeringDetails::new().set_command_expiry_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_command_expiry_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6257,6 +8079,14 @@ impl HybridPeeringDetails {
     }
 
     /// Sets or clears the value of [command_expiry_time][crate::model::HybridPeeringDetails::command_expiry_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// use wkt::Timestamp;
+    /// let x = HybridPeeringDetails::new().set_or_clear_command_expiry_time(Some(Timestamp::default()/* use setters */));
+    /// let x = HybridPeeringDetails::new().set_or_clear_command_expiry_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_command_expiry_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6266,12 +8096,24 @@ impl HybridPeeringDetails {
     }
 
     /// Sets the value of [passphrase][crate::model::HybridPeeringDetails::passphrase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = HybridPeeringDetails::new().set_passphrase("example");
+    /// ```
     pub fn set_passphrase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.passphrase = v.into();
         self
     }
 
     /// Sets the value of [peer_volume_name][crate::model::HybridPeeringDetails::peer_volume_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = HybridPeeringDetails::new().set_peer_volume_name("example");
+    /// ```
     pub fn set_peer_volume_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6281,6 +8123,12 @@ impl HybridPeeringDetails {
     }
 
     /// Sets the value of [peer_cluster_name][crate::model::HybridPeeringDetails::peer_cluster_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = HybridPeeringDetails::new().set_peer_cluster_name("example");
+    /// ```
     pub fn set_peer_cluster_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6290,6 +8138,12 @@ impl HybridPeeringDetails {
     }
 
     /// Sets the value of [peer_svm_name][crate::model::HybridPeeringDetails::peer_svm_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridPeeringDetails;
+    /// let x = HybridPeeringDetails::new().set_peer_svm_name("example");
+    /// ```
     pub fn set_peer_svm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_svm_name = v.into();
         self
@@ -6333,30 +8187,60 @@ impl ListReplicationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReplicationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsRequest;
+    /// let x = ListReplicationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReplicationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsRequest;
+    /// let x = ListReplicationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReplicationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsRequest;
+    /// let x = ListReplicationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListReplicationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsRequest;
+    /// let x = ListReplicationsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListReplicationsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsRequest;
+    /// let x = ListReplicationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -6392,6 +8276,17 @@ impl ListReplicationsResponse {
     }
 
     /// Sets the value of [replications][crate::model::ListReplicationsResponse::replications].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsResponse;
+    /// use google_cloud_netapp_v1::model::Replication;
+    /// let x = ListReplicationsResponse::new()
+    ///     .set_replications([
+    ///         Replication::default()/* use setters */,
+    ///         Replication::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_replications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6403,12 +8298,24 @@ impl ListReplicationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReplicationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsResponse;
+    /// let x = ListReplicationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListReplicationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListReplicationsResponse;
+    /// let x = ListReplicationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6457,6 +8364,12 @@ impl GetReplicationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReplicationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetReplicationRequest;
+    /// let x = GetReplicationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6502,24 +8415,48 @@ impl DestinationVolumeParameters {
     }
 
     /// Sets the value of [storage_pool][crate::model::DestinationVolumeParameters::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// let x = DestinationVolumeParameters::new().set_storage_pool("example");
+    /// ```
     pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_pool = v.into();
         self
     }
 
     /// Sets the value of [volume_id][crate::model::DestinationVolumeParameters::volume_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// let x = DestinationVolumeParameters::new().set_volume_id("example");
+    /// ```
     pub fn set_volume_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_id = v.into();
         self
     }
 
     /// Sets the value of [share_name][crate::model::DestinationVolumeParameters::share_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// let x = DestinationVolumeParameters::new().set_share_name("example");
+    /// ```
     pub fn set_share_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.share_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DestinationVolumeParameters::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// let x = DestinationVolumeParameters::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6529,6 +8466,13 @@ impl DestinationVolumeParameters {
     }
 
     /// Sets or clears the value of [description][crate::model::DestinationVolumeParameters::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// let x = DestinationVolumeParameters::new().set_or_clear_description(Some("example"));
+    /// let x = DestinationVolumeParameters::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6538,6 +8482,13 @@ impl DestinationVolumeParameters {
     }
 
     /// Sets the value of [tiering_policy][crate::model::DestinationVolumeParameters::tiering_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = DestinationVolumeParameters::new().set_tiering_policy(TieringPolicy::default()/* use setters */);
+    /// ```
     pub fn set_tiering_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TieringPolicy>,
@@ -6547,6 +8498,14 @@ impl DestinationVolumeParameters {
     }
 
     /// Sets or clears the value of [tiering_policy][crate::model::DestinationVolumeParameters::tiering_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DestinationVolumeParameters;
+    /// use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = DestinationVolumeParameters::new().set_or_clear_tiering_policy(Some(TieringPolicy::default()/* use setters */));
+    /// let x = DestinationVolumeParameters::new().set_or_clear_tiering_policy(None::<TieringPolicy>);
+    /// ```
     pub fn set_or_clear_tiering_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TieringPolicy>,
@@ -6588,12 +8547,25 @@ impl CreateReplicationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReplicationRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateReplicationRequest;
+    /// let x = CreateReplicationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [replication][crate::model::CreateReplicationRequest::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateReplicationRequest;
+    /// use google_cloud_netapp_v1::model::Replication;
+    /// let x = CreateReplicationRequest::new().set_replication(Replication::default()/* use setters */);
+    /// ```
     pub fn set_replication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -6603,6 +8575,14 @@ impl CreateReplicationRequest {
     }
 
     /// Sets or clears the value of [replication][crate::model::CreateReplicationRequest::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateReplicationRequest;
+    /// use google_cloud_netapp_v1::model::Replication;
+    /// let x = CreateReplicationRequest::new().set_or_clear_replication(Some(Replication::default()/* use setters */));
+    /// let x = CreateReplicationRequest::new().set_or_clear_replication(None::<Replication>);
+    /// ```
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -6612,6 +8592,12 @@ impl CreateReplicationRequest {
     }
 
     /// Sets the value of [replication_id][crate::model::CreateReplicationRequest::replication_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateReplicationRequest;
+    /// let x = CreateReplicationRequest::new().set_replication_id("example");
+    /// ```
     pub fn set_replication_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.replication_id = v.into();
         self
@@ -6641,6 +8627,12 @@ impl DeleteReplicationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteReplicationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteReplicationRequest;
+    /// let x = DeleteReplicationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6673,6 +8665,13 @@ impl UpdateReplicationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateReplicationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReplicationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6682,6 +8681,14 @@ impl UpdateReplicationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateReplicationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReplicationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateReplicationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6691,6 +8698,13 @@ impl UpdateReplicationRequest {
     }
 
     /// Sets the value of [replication][crate::model::UpdateReplicationRequest::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateReplicationRequest;
+    /// use google_cloud_netapp_v1::model::Replication;
+    /// let x = UpdateReplicationRequest::new().set_replication(Replication::default()/* use setters */);
+    /// ```
     pub fn set_replication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -6700,6 +8714,14 @@ impl UpdateReplicationRequest {
     }
 
     /// Sets or clears the value of [replication][crate::model::UpdateReplicationRequest::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateReplicationRequest;
+    /// use google_cloud_netapp_v1::model::Replication;
+    /// let x = UpdateReplicationRequest::new().set_or_clear_replication(Some(Replication::default()/* use setters */));
+    /// let x = UpdateReplicationRequest::new().set_or_clear_replication(None::<Replication>);
+    /// ```
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -6740,12 +8762,24 @@ impl StopReplicationRequest {
     }
 
     /// Sets the value of [name][crate::model::StopReplicationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StopReplicationRequest;
+    /// let x = StopReplicationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::StopReplicationRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StopReplicationRequest;
+    /// let x = StopReplicationRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -6775,6 +8809,12 @@ impl ResumeReplicationRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumeReplicationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ResumeReplicationRequest;
+    /// let x = ResumeReplicationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6805,6 +8845,12 @@ impl ReverseReplicationDirectionRequest {
     }
 
     /// Sets the value of [name][crate::model::ReverseReplicationDirectionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ReverseReplicationDirectionRequest;
+    /// let x = ReverseReplicationDirectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6850,12 +8896,24 @@ impl EstablishPeeringRequest {
     }
 
     /// Sets the value of [name][crate::model::EstablishPeeringRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::EstablishPeeringRequest;
+    /// let x = EstablishPeeringRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [peer_cluster_name][crate::model::EstablishPeeringRequest::peer_cluster_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::EstablishPeeringRequest;
+    /// let x = EstablishPeeringRequest::new().set_peer_cluster_name("example");
+    /// ```
     pub fn set_peer_cluster_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6865,12 +8923,24 @@ impl EstablishPeeringRequest {
     }
 
     /// Sets the value of [peer_svm_name][crate::model::EstablishPeeringRequest::peer_svm_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::EstablishPeeringRequest;
+    /// let x = EstablishPeeringRequest::new().set_peer_svm_name("example");
+    /// ```
     pub fn set_peer_svm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_svm_name = v.into();
         self
     }
 
     /// Sets the value of [peer_ip_addresses][crate::model::EstablishPeeringRequest::peer_ip_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::EstablishPeeringRequest;
+    /// let x = EstablishPeeringRequest::new().set_peer_ip_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6882,6 +8952,12 @@ impl EstablishPeeringRequest {
     }
 
     /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::EstablishPeeringRequest;
+    /// let x = EstablishPeeringRequest::new().set_peer_volume_name("example");
+    /// ```
     pub fn set_peer_volume_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6914,6 +8990,12 @@ impl SyncReplicationRequest {
     }
 
     /// Sets the value of [name][crate::model::SyncReplicationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SyncReplicationRequest;
+    /// let x = SyncReplicationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6957,30 +9039,60 @@ impl ListSnapshotsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSnapshotsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSnapshotsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListSnapshotsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSnapshotsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -7016,6 +9128,17 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsResponse;
+    /// use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = ListSnapshotsResponse::new()
+    ///     .set_snapshots([
+    ///         Snapshot::default()/* use setters */,
+    ///         Snapshot::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7027,12 +9150,24 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsResponse;
+    /// let x = ListSnapshotsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListSnapshotsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListSnapshotsResponse;
+    /// let x = ListSnapshotsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7081,6 +9216,12 @@ impl GetSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetSnapshotRequest;
+    /// let x = GetSnapshotRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7119,12 +9260,25 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateSnapshotRequest;
+    /// let x = CreateSnapshotRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateSnapshotRequest;
+    /// use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = CreateSnapshotRequest::new().set_snapshot(Snapshot::default()/* use setters */);
+    /// ```
     pub fn set_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -7134,6 +9288,14 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateSnapshotRequest;
+    /// use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = CreateSnapshotRequest::new().set_or_clear_snapshot(Some(Snapshot::default()/* use setters */));
+    /// let x = CreateSnapshotRequest::new().set_or_clear_snapshot(None::<Snapshot>);
+    /// ```
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -7143,6 +9305,12 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets the value of [snapshot_id][crate::model::CreateSnapshotRequest::snapshot_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateSnapshotRequest;
+    /// let x = CreateSnapshotRequest::new().set_snapshot_id("example");
+    /// ```
     pub fn set_snapshot_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_id = v.into();
         self
@@ -7172,6 +9340,12 @@ impl DeleteSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteSnapshotRequest;
+    /// let x = DeleteSnapshotRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7204,6 +9378,13 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateSnapshotRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSnapshotRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7213,6 +9394,14 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateSnapshotRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7222,6 +9411,13 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateSnapshotRequest;
+    /// use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = UpdateSnapshotRequest::new().set_snapshot(Snapshot::default()/* use setters */);
+    /// ```
     pub fn set_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -7231,6 +9427,14 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateSnapshotRequest;
+    /// use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_snapshot(Some(Snapshot::default()/* use setters */));
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_snapshot(None::<Snapshot>);
+    /// ```
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -7283,36 +9487,76 @@ impl Snapshot {
     }
 
     /// Sets the value of [name][crate::model::Snapshot::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = Snapshot::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Snapshot::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// use google_cloud_netapp_v1::model::snapshot::State;
+    /// let x0 = Snapshot::new().set_state(State::Ready);
+    /// let x1 = Snapshot::new().set_state(State::Creating);
+    /// let x2 = Snapshot::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::snapshot::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_details][crate::model::Snapshot::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = Snapshot::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Snapshot::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = Snapshot::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [used_bytes][crate::model::Snapshot::used_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = Snapshot::new().set_used_bytes(42.0);
+    /// ```
     pub fn set_used_bytes<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.used_bytes = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Snapshot::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// use wkt::Timestamp;
+    /// let x = Snapshot::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7322,6 +9566,14 @@ impl Snapshot {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Snapshot::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// use wkt::Timestamp;
+    /// let x = Snapshot::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Snapshot::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7331,6 +9583,15 @@ impl Snapshot {
     }
 
     /// Sets the value of [labels][crate::model::Snapshot::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Snapshot;
+    /// let x = Snapshot::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7531,6 +9792,12 @@ impl GetStoragePoolRequest {
     }
 
     /// Sets the value of [name][crate::model::GetStoragePoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetStoragePoolRequest;
+    /// let x = GetStoragePoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7573,30 +9840,60 @@ impl ListStoragePoolsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListStoragePoolsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsRequest;
+    /// let x = ListStoragePoolsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListStoragePoolsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsRequest;
+    /// let x = ListStoragePoolsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListStoragePoolsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsRequest;
+    /// let x = ListStoragePoolsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListStoragePoolsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsRequest;
+    /// let x = ListStoragePoolsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListStoragePoolsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsRequest;
+    /// let x = ListStoragePoolsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -7631,6 +9928,17 @@ impl ListStoragePoolsResponse {
     }
 
     /// Sets the value of [storage_pools][crate::model::ListStoragePoolsResponse::storage_pools].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsResponse;
+    /// use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = ListStoragePoolsResponse::new()
+    ///     .set_storage_pools([
+    ///         StoragePool::default()/* use setters */,
+    ///         StoragePool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7642,12 +9950,24 @@ impl ListStoragePoolsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListStoragePoolsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsResponse;
+    /// let x = ListStoragePoolsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListStoragePoolsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListStoragePoolsResponse;
+    /// let x = ListStoragePoolsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7704,18 +10024,37 @@ impl CreateStoragePoolRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateStoragePoolRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateStoragePoolRequest;
+    /// let x = CreateStoragePoolRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [storage_pool_id][crate::model::CreateStoragePoolRequest::storage_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateStoragePoolRequest;
+    /// let x = CreateStoragePoolRequest::new().set_storage_pool_id("example");
+    /// ```
     pub fn set_storage_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_pool_id = v.into();
         self
     }
 
     /// Sets the value of [storage_pool][crate::model::CreateStoragePoolRequest::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateStoragePoolRequest;
+    /// use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = CreateStoragePoolRequest::new().set_storage_pool(StoragePool::default()/* use setters */);
+    /// ```
     pub fn set_storage_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StoragePool>,
@@ -7725,6 +10064,14 @@ impl CreateStoragePoolRequest {
     }
 
     /// Sets or clears the value of [storage_pool][crate::model::CreateStoragePoolRequest::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateStoragePoolRequest;
+    /// use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = CreateStoragePoolRequest::new().set_or_clear_storage_pool(Some(StoragePool::default()/* use setters */));
+    /// let x = CreateStoragePoolRequest::new().set_or_clear_storage_pool(None::<StoragePool>);
+    /// ```
     pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StoragePool>,
@@ -7763,6 +10110,13 @@ impl UpdateStoragePoolRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateStoragePoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateStoragePoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7772,6 +10126,14 @@ impl UpdateStoragePoolRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateStoragePoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateStoragePoolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateStoragePoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7781,6 +10143,13 @@ impl UpdateStoragePoolRequest {
     }
 
     /// Sets the value of [storage_pool][crate::model::UpdateStoragePoolRequest::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateStoragePoolRequest;
+    /// use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = UpdateStoragePoolRequest::new().set_storage_pool(StoragePool::default()/* use setters */);
+    /// ```
     pub fn set_storage_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StoragePool>,
@@ -7790,6 +10159,14 @@ impl UpdateStoragePoolRequest {
     }
 
     /// Sets or clears the value of [storage_pool][crate::model::UpdateStoragePoolRequest::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateStoragePoolRequest;
+    /// use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = UpdateStoragePoolRequest::new().set_or_clear_storage_pool(Some(StoragePool::default()/* use setters */));
+    /// let x = UpdateStoragePoolRequest::new().set_or_clear_storage_pool(None::<StoragePool>);
+    /// ```
     pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StoragePool>,
@@ -7821,6 +10198,12 @@ impl DeleteStoragePoolRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteStoragePoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteStoragePoolRequest;
+    /// let x = DeleteStoragePoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7850,6 +10233,12 @@ impl SwitchActiveReplicaZoneRequest {
     }
 
     /// Sets the value of [name][crate::model::SwitchActiveReplicaZoneRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SwitchActiveReplicaZoneRequest;
+    /// let x = SwitchActiveReplicaZoneRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7987,12 +10376,27 @@ impl StoragePool {
     }
 
     /// Sets the value of [name][crate::model::StoragePool::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [service_level][crate::model::StoragePool::service_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::ServiceLevel;
+    /// let x0 = StoragePool::new().set_service_level(ServiceLevel::Premium);
+    /// let x1 = StoragePool::new().set_service_level(ServiceLevel::Extreme);
+    /// let x2 = StoragePool::new().set_service_level(ServiceLevel::Standard);
+    /// ```
     pub fn set_service_level<T: std::convert::Into<crate::model::ServiceLevel>>(
         mut self,
         v: T,
@@ -8002,24 +10406,51 @@ impl StoragePool {
     }
 
     /// Sets the value of [capacity_gib][crate::model::StoragePool::capacity_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_capacity_gib(42);
+    /// ```
     pub fn set_capacity_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.capacity_gib = v.into();
         self
     }
 
     /// Sets the value of [volume_capacity_gib][crate::model::StoragePool::volume_capacity_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_volume_capacity_gib(42);
+    /// ```
     pub fn set_volume_capacity_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.volume_capacity_gib = v.into();
         self
     }
 
     /// Sets the value of [volume_count][crate::model::StoragePool::volume_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_volume_count(42);
+    /// ```
     pub fn set_volume_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volume_count = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::StoragePool::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::storage_pool::State;
+    /// let x0 = StoragePool::new().set_state(State::Ready);
+    /// let x1 = StoragePool::new().set_state(State::Creating);
+    /// let x2 = StoragePool::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::storage_pool::State>>(
         mut self,
         v: T,
@@ -8029,12 +10460,25 @@ impl StoragePool {
     }
 
     /// Sets the value of [state_details][crate::model::StoragePool::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::StoragePool::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use wkt::Timestamp;
+    /// let x = StoragePool::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8044,6 +10488,14 @@ impl StoragePool {
     }
 
     /// Sets or clears the value of [create_time][crate::model::StoragePool::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use wkt::Timestamp;
+    /// let x = StoragePool::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = StoragePool::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8053,12 +10505,27 @@ impl StoragePool {
     }
 
     /// Sets the value of [description][crate::model::StoragePool::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::StoragePool::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8071,12 +10538,24 @@ impl StoragePool {
     }
 
     /// Sets the value of [network][crate::model::StoragePool::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [active_directory][crate::model::StoragePool::active_directory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_active_directory("example");
+    /// ```
     pub fn set_active_directory<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8086,24 +10565,50 @@ impl StoragePool {
     }
 
     /// Sets the value of [kms_config][crate::model::StoragePool::kms_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_kms_config("example");
+    /// ```
     pub fn set_kms_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_config = v.into();
         self
     }
 
     /// Sets the value of [ldap_enabled][crate::model::StoragePool::ldap_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_ldap_enabled(true);
+    /// ```
     pub fn set_ldap_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ldap_enabled = v.into();
         self
     }
 
     /// Sets the value of [psa_range][crate::model::StoragePool::psa_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_psa_range("example");
+    /// ```
     pub fn set_psa_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.psa_range = v.into();
         self
     }
 
     /// Sets the value of [encryption_type][crate::model::StoragePool::encryption_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::EncryptionType;
+    /// let x0 = StoragePool::new().set_encryption_type(EncryptionType::ServiceManaged);
+    /// let x1 = StoragePool::new().set_encryption_type(EncryptionType::CloudKms);
+    /// ```
     pub fn set_encryption_type<T: std::convert::Into<crate::model::EncryptionType>>(
         mut self,
         v: T,
@@ -8113,6 +10618,12 @@ impl StoragePool {
     }
 
     /// Sets the value of [global_access_allowed][crate::model::StoragePool::global_access_allowed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_global_access_allowed(true);
+    /// ```
     #[deprecated]
     pub fn set_global_access_allowed<T>(mut self, v: T) -> Self
     where
@@ -8123,6 +10634,13 @@ impl StoragePool {
     }
 
     /// Sets or clears the value of [global_access_allowed][crate::model::StoragePool::global_access_allowed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_or_clear_global_access_allowed(Some(false));
+    /// let x = StoragePool::new().set_or_clear_global_access_allowed(None::<bool>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_global_access_allowed<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -8133,60 +10651,120 @@ impl StoragePool {
     }
 
     /// Sets the value of [allow_auto_tiering][crate::model::StoragePool::allow_auto_tiering].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_allow_auto_tiering(true);
+    /// ```
     pub fn set_allow_auto_tiering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_auto_tiering = v.into();
         self
     }
 
     /// Sets the value of [replica_zone][crate::model::StoragePool::replica_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_replica_zone("example");
+    /// ```
     pub fn set_replica_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.replica_zone = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::StoragePool::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::StoragePool::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::StoragePool::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
     }
 
     /// Sets the value of [custom_performance_enabled][crate::model::StoragePool::custom_performance_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_custom_performance_enabled(true);
+    /// ```
     pub fn set_custom_performance_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.custom_performance_enabled = v.into();
         self
     }
 
     /// Sets the value of [total_throughput_mibps][crate::model::StoragePool::total_throughput_mibps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_total_throughput_mibps(42);
+    /// ```
     pub fn set_total_throughput_mibps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_throughput_mibps = v.into();
         self
     }
 
     /// Sets the value of [total_iops][crate::model::StoragePool::total_iops].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_total_iops(42);
+    /// ```
     pub fn set_total_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_iops = v.into();
         self
     }
 
     /// Sets the value of [hot_tier_size_gib][crate::model::StoragePool::hot_tier_size_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_hot_tier_size_gib(42);
+    /// ```
     pub fn set_hot_tier_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.hot_tier_size_gib = v.into();
         self
     }
 
     /// Sets the value of [enable_hot_tier_auto_resize][crate::model::StoragePool::enable_hot_tier_auto_resize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_enable_hot_tier_auto_resize(true);
+    /// ```
     pub fn set_enable_hot_tier_auto_resize<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -8196,6 +10774,13 @@ impl StoragePool {
     }
 
     /// Sets or clears the value of [enable_hot_tier_auto_resize][crate::model::StoragePool::enable_hot_tier_auto_resize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_or_clear_enable_hot_tier_auto_resize(Some(false));
+    /// let x = StoragePool::new().set_or_clear_enable_hot_tier_auto_resize(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_hot_tier_auto_resize<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -8205,24 +10790,50 @@ impl StoragePool {
     }
 
     /// Sets the value of [qos_type][crate::model::StoragePool::qos_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::QosType;
+    /// let x0 = StoragePool::new().set_qos_type(QosType::Auto);
+    /// let x1 = StoragePool::new().set_qos_type(QosType::Manual);
+    /// ```
     pub fn set_qos_type<T: std::convert::Into<crate::model::QosType>>(mut self, v: T) -> Self {
         self.qos_type = v.into();
         self
     }
 
     /// Sets the value of [available_throughput_mibps][crate::model::StoragePool::available_throughput_mibps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_available_throughput_mibps(42.0);
+    /// ```
     pub fn set_available_throughput_mibps<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.available_throughput_mibps = v.into();
         self
     }
 
     /// Sets the value of [cold_tier_size_used_gib][crate::model::StoragePool::cold_tier_size_used_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_cold_tier_size_used_gib(42);
+    /// ```
     pub fn set_cold_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.cold_tier_size_used_gib = v.into();
         self
     }
 
     /// Sets the value of [hot_tier_size_used_gib][crate::model::StoragePool::hot_tier_size_used_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// let x = StoragePool::new().set_hot_tier_size_used_gib(42);
+    /// ```
     pub fn set_hot_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.hot_tier_size_used_gib = v.into();
         self
@@ -8428,12 +11039,25 @@ impl ValidateDirectoryServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::ValidateDirectoryServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ValidateDirectoryServiceRequest;
+    /// let x = ValidateDirectoryServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [directory_service_type][crate::model::ValidateDirectoryServiceRequest::directory_service_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ValidateDirectoryServiceRequest;
+    /// use google_cloud_netapp_v1::model::DirectoryServiceType;
+    /// let x0 = ValidateDirectoryServiceRequest::new().set_directory_service_type(DirectoryServiceType::ActiveDirectory);
+    /// ```
     pub fn set_directory_service_type<T: std::convert::Into<crate::model::DirectoryServiceType>>(
         mut self,
         v: T,
@@ -8478,30 +11102,60 @@ impl ListVolumesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVolumesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVolumesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVolumesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVolumesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListVolumesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8536,6 +11190,17 @@ impl ListVolumesResponse {
     }
 
     /// Sets the value of [volumes][crate::model::ListVolumesResponse::volumes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesResponse;
+    /// use google_cloud_netapp_v1::model::Volume;
+    /// let x = ListVolumesResponse::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8547,12 +11212,24 @@ impl ListVolumesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVolumesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesResponse;
+    /// let x = ListVolumesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListVolumesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ListVolumesResponse;
+    /// let x = ListVolumesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8600,6 +11277,12 @@ impl GetVolumeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVolumeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::GetVolumeRequest;
+    /// let x = GetVolumeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8637,18 +11320,37 @@ impl CreateVolumeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVolumeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateVolumeRequest;
+    /// let x = CreateVolumeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [volume_id][crate::model::CreateVolumeRequest::volume_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateVolumeRequest;
+    /// let x = CreateVolumeRequest::new().set_volume_id("example");
+    /// ```
     pub fn set_volume_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_id = v.into();
         self
     }
 
     /// Sets the value of [volume][crate::model::CreateVolumeRequest::volume].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateVolumeRequest;
+    /// use google_cloud_netapp_v1::model::Volume;
+    /// let x = CreateVolumeRequest::new().set_volume(Volume::default()/* use setters */);
+    /// ```
     pub fn set_volume<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Volume>,
@@ -8658,6 +11360,14 @@ impl CreateVolumeRequest {
     }
 
     /// Sets or clears the value of [volume][crate::model::CreateVolumeRequest::volume].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::CreateVolumeRequest;
+    /// use google_cloud_netapp_v1::model::Volume;
+    /// let x = CreateVolumeRequest::new().set_or_clear_volume(Some(Volume::default()/* use setters */));
+    /// let x = CreateVolumeRequest::new().set_or_clear_volume(None::<Volume>);
+    /// ```
     pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Volume>,
@@ -8696,6 +11406,13 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateVolumeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVolumeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8705,6 +11422,14 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateVolumeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVolumeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateVolumeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8714,6 +11439,13 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateVolumeRequest;
+    /// use google_cloud_netapp_v1::model::Volume;
+    /// let x = UpdateVolumeRequest::new().set_volume(Volume::default()/* use setters */);
+    /// ```
     pub fn set_volume<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Volume>,
@@ -8723,6 +11455,14 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets or clears the value of [volume][crate::model::UpdateVolumeRequest::volume].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::UpdateVolumeRequest;
+    /// use google_cloud_netapp_v1::model::Volume;
+    /// let x = UpdateVolumeRequest::new().set_or_clear_volume(Some(Volume::default()/* use setters */));
+    /// let x = UpdateVolumeRequest::new().set_or_clear_volume(None::<Volume>);
+    /// ```
     pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Volume>,
@@ -8759,12 +11499,24 @@ impl DeleteVolumeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVolumeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteVolumeRequest;
+    /// let x = DeleteVolumeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteVolumeRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DeleteVolumeRequest;
+    /// let x = DeleteVolumeRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -8799,12 +11551,24 @@ impl RevertVolumeRequest {
     }
 
     /// Sets the value of [name][crate::model::RevertVolumeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::RevertVolumeRequest;
+    /// let x = RevertVolumeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [snapshot_id][crate::model::RevertVolumeRequest::snapshot_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::RevertVolumeRequest;
+    /// let x = RevertVolumeRequest::new().set_snapshot_id("example");
+    /// ```
     pub fn set_snapshot_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_id = v.into();
         self
@@ -8965,24 +11729,52 @@ impl Volume {
     }
 
     /// Sets the value of [name][crate::model::Volume::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Volume::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::volume::State;
+    /// let x0 = Volume::new().set_state(State::Ready);
+    /// let x1 = Volume::new().set_state(State::Creating);
+    /// let x2 = Volume::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::volume::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_details][crate::model::Volume::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Volume::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use wkt::Timestamp;
+    /// let x = Volume::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8992,6 +11784,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Volume::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use wkt::Timestamp;
+    /// let x = Volume::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9001,30 +11801,63 @@ impl Volume {
     }
 
     /// Sets the value of [share_name][crate::model::Volume::share_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_share_name("example");
+    /// ```
     pub fn set_share_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.share_name = v.into();
         self
     }
 
     /// Sets the value of [psa_range][crate::model::Volume::psa_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_psa_range("example");
+    /// ```
     pub fn set_psa_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.psa_range = v.into();
         self
     }
 
     /// Sets the value of [storage_pool][crate::model::Volume::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_storage_pool("example");
+    /// ```
     pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_pool = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::Volume::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [service_level][crate::model::Volume::service_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::ServiceLevel;
+    /// let x0 = Volume::new().set_service_level(ServiceLevel::Premium);
+    /// let x1 = Volume::new().set_service_level(ServiceLevel::Extreme);
+    /// let x2 = Volume::new().set_service_level(ServiceLevel::Standard);
+    /// ```
     pub fn set_service_level<T: std::convert::Into<crate::model::ServiceLevel>>(
         mut self,
         v: T,
@@ -9034,12 +11867,25 @@ impl Volume {
     }
 
     /// Sets the value of [capacity_gib][crate::model::Volume::capacity_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_capacity_gib(42);
+    /// ```
     pub fn set_capacity_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.capacity_gib = v.into();
         self
     }
 
     /// Sets the value of [export_policy][crate::model::Volume::export_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::ExportPolicy;
+    /// let x = Volume::new().set_export_policy(ExportPolicy::default()/* use setters */);
+    /// ```
     pub fn set_export_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExportPolicy>,
@@ -9049,6 +11895,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [export_policy][crate::model::Volume::export_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::ExportPolicy;
+    /// let x = Volume::new().set_or_clear_export_policy(Some(ExportPolicy::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_export_policy(None::<ExportPolicy>);
+    /// ```
     pub fn set_or_clear_export_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExportPolicy>,
@@ -9058,6 +11912,17 @@ impl Volume {
     }
 
     /// Sets the value of [protocols][crate::model::Volume::protocols].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::Protocols;
+    /// let x = Volume::new().set_protocols([
+    ///     Protocols::Nfsv3,
+    ///     Protocols::Nfsv4,
+    ///     Protocols::Smb,
+    /// ]);
+    /// ```
     pub fn set_protocols<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9069,6 +11934,17 @@ impl Volume {
     }
 
     /// Sets the value of [smb_settings][crate::model::Volume::smb_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::SMBSettings;
+    /// let x = Volume::new().set_smb_settings([
+    ///     SMBSettings::EncryptData,
+    ///     SMBSettings::Browsable,
+    ///     SMBSettings::ChangeNotify,
+    /// ]);
+    /// ```
     pub fn set_smb_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9080,6 +11956,17 @@ impl Volume {
     }
 
     /// Sets the value of [mount_options][crate::model::Volume::mount_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::MountOption;
+    /// let x = Volume::new()
+    ///     .set_mount_options([
+    ///         MountOption::default()/* use setters */,
+    ///         MountOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mount_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9091,6 +11978,12 @@ impl Volume {
     }
 
     /// Sets the value of [unix_permissions][crate::model::Volume::unix_permissions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_unix_permissions("example");
+    /// ```
     pub fn set_unix_permissions<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9100,6 +11993,15 @@ impl Volume {
     }
 
     /// Sets the value of [labels][crate::model::Volume::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9112,12 +12014,25 @@ impl Volume {
     }
 
     /// Sets the value of [description][crate::model::Volume::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [snapshot_policy][crate::model::Volume::snapshot_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// let x = Volume::new().set_snapshot_policy(SnapshotPolicy::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SnapshotPolicy>,
@@ -9127,6 +12042,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [snapshot_policy][crate::model::Volume::snapshot_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// let x = Volume::new().set_or_clear_snapshot_policy(Some(SnapshotPolicy::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_snapshot_policy(None::<SnapshotPolicy>);
+    /// ```
     pub fn set_or_clear_snapshot_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SnapshotPolicy>,
@@ -9136,24 +12059,50 @@ impl Volume {
     }
 
     /// Sets the value of [snap_reserve][crate::model::Volume::snap_reserve].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_snap_reserve(42.0);
+    /// ```
     pub fn set_snap_reserve<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.snap_reserve = v.into();
         self
     }
 
     /// Sets the value of [snapshot_directory][crate::model::Volume::snapshot_directory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_snapshot_directory(true);
+    /// ```
     pub fn set_snapshot_directory<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.snapshot_directory = v.into();
         self
     }
 
     /// Sets the value of [used_gib][crate::model::Volume::used_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_used_gib(42);
+    /// ```
     pub fn set_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.used_gib = v.into();
         self
     }
 
     /// Sets the value of [security_style][crate::model::Volume::security_style].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::SecurityStyle;
+    /// let x0 = Volume::new().set_security_style(SecurityStyle::Ntfs);
+    /// let x1 = Volume::new().set_security_style(SecurityStyle::Unix);
+    /// ```
     pub fn set_security_style<T: std::convert::Into<crate::model::SecurityStyle>>(
         mut self,
         v: T,
@@ -9163,18 +12112,36 @@ impl Volume {
     }
 
     /// Sets the value of [kerberos_enabled][crate::model::Volume::kerberos_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_kerberos_enabled(true);
+    /// ```
     pub fn set_kerberos_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.kerberos_enabled = v.into();
         self
     }
 
     /// Sets the value of [ldap_enabled][crate::model::Volume::ldap_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_ldap_enabled(true);
+    /// ```
     pub fn set_ldap_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ldap_enabled = v.into();
         self
     }
 
     /// Sets the value of [active_directory][crate::model::Volume::active_directory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_active_directory("example");
+    /// ```
     pub fn set_active_directory<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9184,6 +12151,13 @@ impl Volume {
     }
 
     /// Sets the value of [restore_parameters][crate::model::Volume::restore_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::RestoreParameters;
+    /// let x = Volume::new().set_restore_parameters(RestoreParameters::default()/* use setters */);
+    /// ```
     pub fn set_restore_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreParameters>,
@@ -9193,6 +12167,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [restore_parameters][crate::model::Volume::restore_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::RestoreParameters;
+    /// let x = Volume::new().set_or_clear_restore_parameters(Some(RestoreParameters::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_restore_parameters(None::<RestoreParameters>);
+    /// ```
     pub fn set_or_clear_restore_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreParameters>,
@@ -9202,12 +12184,26 @@ impl Volume {
     }
 
     /// Sets the value of [kms_config][crate::model::Volume::kms_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_kms_config("example");
+    /// ```
     pub fn set_kms_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_config = v.into();
         self
     }
 
     /// Sets the value of [encryption_type][crate::model::Volume::encryption_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::EncryptionType;
+    /// let x0 = Volume::new().set_encryption_type(EncryptionType::ServiceManaged);
+    /// let x1 = Volume::new().set_encryption_type(EncryptionType::CloudKms);
+    /// ```
     pub fn set_encryption_type<T: std::convert::Into<crate::model::EncryptionType>>(
         mut self,
         v: T,
@@ -9217,12 +12213,25 @@ impl Volume {
     }
 
     /// Sets the value of [has_replication][crate::model::Volume::has_replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_has_replication(true);
+    /// ```
     pub fn set_has_replication<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_replication = v.into();
         self
     }
 
     /// Sets the value of [backup_config][crate::model::Volume::backup_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = Volume::new().set_backup_config(BackupConfig::default()/* use setters */);
+    /// ```
     pub fn set_backup_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupConfig>,
@@ -9232,6 +12241,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [backup_config][crate::model::Volume::backup_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = Volume::new().set_or_clear_backup_config(Some(BackupConfig::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_backup_config(None::<BackupConfig>);
+    /// ```
     pub fn set_or_clear_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupConfig>,
@@ -9241,6 +12258,15 @@ impl Volume {
     }
 
     /// Sets the value of [restricted_actions][crate::model::Volume::restricted_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::RestrictedAction;
+    /// let x = Volume::new().set_restricted_actions([
+    ///     RestrictedAction::Delete,
+    /// ]);
+    /// ```
     pub fn set_restricted_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9252,18 +12278,37 @@ impl Volume {
     }
 
     /// Sets the value of [large_capacity][crate::model::Volume::large_capacity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_large_capacity(true);
+    /// ```
     pub fn set_large_capacity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.large_capacity = v.into();
         self
     }
 
     /// Sets the value of [multiple_endpoints][crate::model::Volume::multiple_endpoints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_multiple_endpoints(true);
+    /// ```
     pub fn set_multiple_endpoints<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multiple_endpoints = v.into();
         self
     }
 
     /// Sets the value of [tiering_policy][crate::model::Volume::tiering_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = Volume::new().set_tiering_policy(TieringPolicy::default()/* use setters */);
+    /// ```
     pub fn set_tiering_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TieringPolicy>,
@@ -9273,6 +12318,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [tiering_policy][crate::model::Volume::tiering_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = Volume::new().set_or_clear_tiering_policy(Some(TieringPolicy::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_tiering_policy(None::<TieringPolicy>);
+    /// ```
     pub fn set_or_clear_tiering_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TieringPolicy>,
@@ -9282,24 +12335,49 @@ impl Volume {
     }
 
     /// Sets the value of [replica_zone][crate::model::Volume::replica_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_replica_zone("example");
+    /// ```
     pub fn set_replica_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.replica_zone = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::Volume::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cold_tier_size_gib][crate::model::Volume::cold_tier_size_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_cold_tier_size_gib(42);
+    /// ```
     pub fn set_cold_tier_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.cold_tier_size_gib = v.into();
         self
     }
 
     /// Sets the value of [hybrid_replication_parameters][crate::model::Volume::hybrid_replication_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = Volume::new().set_hybrid_replication_parameters(HybridReplicationParameters::default()/* use setters */);
+    /// ```
     pub fn set_hybrid_replication_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HybridReplicationParameters>,
@@ -9309,6 +12387,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [hybrid_replication_parameters][crate::model::Volume::hybrid_replication_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = Volume::new().set_or_clear_hybrid_replication_parameters(Some(HybridReplicationParameters::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_hybrid_replication_parameters(None::<HybridReplicationParameters>);
+    /// ```
     pub fn set_or_clear_hybrid_replication_parameters<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9321,12 +12407,24 @@ impl Volume {
     }
 
     /// Sets the value of [throughput_mibps][crate::model::Volume::throughput_mibps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_throughput_mibps(42.0);
+    /// ```
     pub fn set_throughput_mibps<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.throughput_mibps = v.into();
         self
     }
 
     /// Sets the value of [hot_tier_size_used_gib][crate::model::Volume::hot_tier_size_used_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// let x = Volume::new().set_hot_tier_size_used_gib(42);
+    /// ```
     pub fn set_hot_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.hot_tier_size_used_gib = v.into();
         self
@@ -9544,6 +12642,17 @@ impl ExportPolicy {
     }
 
     /// Sets the value of [rules][crate::model::ExportPolicy::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::ExportPolicy;
+    /// use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = ExportPolicy::new()
+    ///     .set_rules([
+    ///         SimpleExportPolicyRule::default()/* use setters */,
+    ///         SimpleExportPolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9622,6 +12731,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [allowed_clients][crate::model::SimpleExportPolicyRule::allowed_clients].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_allowed_clients("example");
+    /// ```
     pub fn set_allowed_clients<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9631,6 +12746,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [allowed_clients][crate::model::SimpleExportPolicyRule::allowed_clients].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_allowed_clients(Some("example"));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_allowed_clients(None::<String>);
+    /// ```
     pub fn set_or_clear_allowed_clients<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9640,6 +12762,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [has_root_access][crate::model::SimpleExportPolicyRule::has_root_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_has_root_access("example");
+    /// ```
     pub fn set_has_root_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9649,6 +12777,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [has_root_access][crate::model::SimpleExportPolicyRule::has_root_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_has_root_access(Some("example"));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_has_root_access(None::<String>);
+    /// ```
     pub fn set_or_clear_has_root_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9658,6 +12793,15 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [access_type][crate::model::SimpleExportPolicyRule::access_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// use google_cloud_netapp_v1::model::AccessType;
+    /// let x0 = SimpleExportPolicyRule::new().set_access_type(AccessType::ReadOnly);
+    /// let x1 = SimpleExportPolicyRule::new().set_access_type(AccessType::ReadWrite);
+    /// let x2 = SimpleExportPolicyRule::new().set_access_type(AccessType::ReadNone);
+    /// ```
     pub fn set_access_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessType>,
@@ -9667,6 +12811,16 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [access_type][crate::model::SimpleExportPolicyRule::access_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// use google_cloud_netapp_v1::model::AccessType;
+    /// let x0 = SimpleExportPolicyRule::new().set_or_clear_access_type(Some(AccessType::ReadOnly));
+    /// let x1 = SimpleExportPolicyRule::new().set_or_clear_access_type(Some(AccessType::ReadWrite));
+    /// let x2 = SimpleExportPolicyRule::new().set_or_clear_access_type(Some(AccessType::ReadNone));
+    /// let x_none = SimpleExportPolicyRule::new().set_or_clear_access_type(None::<AccessType>);
+    /// ```
     pub fn set_or_clear_access_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessType>,
@@ -9676,6 +12830,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [nfsv3][crate::model::SimpleExportPolicyRule::nfsv3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_nfsv3(true);
+    /// ```
     pub fn set_nfsv3<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9685,6 +12845,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [nfsv3][crate::model::SimpleExportPolicyRule::nfsv3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_nfsv3(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_nfsv3(None::<bool>);
+    /// ```
     pub fn set_or_clear_nfsv3<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9694,6 +12861,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [nfsv4][crate::model::SimpleExportPolicyRule::nfsv4].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_nfsv4(true);
+    /// ```
     pub fn set_nfsv4<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9703,6 +12876,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [nfsv4][crate::model::SimpleExportPolicyRule::nfsv4].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_nfsv4(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_nfsv4(None::<bool>);
+    /// ```
     pub fn set_or_clear_nfsv4<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9712,6 +12892,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [kerberos_5_read_only][crate::model::SimpleExportPolicyRule::kerberos_5_read_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_kerberos_5_read_only(true);
+    /// ```
     pub fn set_kerberos_5_read_only<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9721,6 +12907,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [kerberos_5_read_only][crate::model::SimpleExportPolicyRule::kerberos_5_read_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5_read_only(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5_read_only(None::<bool>);
+    /// ```
     pub fn set_or_clear_kerberos_5_read_only<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9730,6 +12923,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [kerberos_5_read_write][crate::model::SimpleExportPolicyRule::kerberos_5_read_write].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_kerberos_5_read_write(true);
+    /// ```
     pub fn set_kerberos_5_read_write<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9739,6 +12938,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [kerberos_5_read_write][crate::model::SimpleExportPolicyRule::kerberos_5_read_write].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5_read_write(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5_read_write(None::<bool>);
+    /// ```
     pub fn set_or_clear_kerberos_5_read_write<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9748,6 +12954,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [kerberos_5i_read_only][crate::model::SimpleExportPolicyRule::kerberos_5i_read_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_kerberos_5i_read_only(true);
+    /// ```
     pub fn set_kerberos_5i_read_only<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9757,6 +12969,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [kerberos_5i_read_only][crate::model::SimpleExportPolicyRule::kerberos_5i_read_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5i_read_only(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5i_read_only(None::<bool>);
+    /// ```
     pub fn set_or_clear_kerberos_5i_read_only<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9766,6 +12985,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [kerberos_5i_read_write][crate::model::SimpleExportPolicyRule::kerberos_5i_read_write].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_kerberos_5i_read_write(true);
+    /// ```
     pub fn set_kerberos_5i_read_write<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9775,6 +13000,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [kerberos_5i_read_write][crate::model::SimpleExportPolicyRule::kerberos_5i_read_write].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5i_read_write(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5i_read_write(None::<bool>);
+    /// ```
     pub fn set_or_clear_kerberos_5i_read_write<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9784,6 +13016,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [kerberos_5p_read_only][crate::model::SimpleExportPolicyRule::kerberos_5p_read_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_kerberos_5p_read_only(true);
+    /// ```
     pub fn set_kerberos_5p_read_only<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9793,6 +13031,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [kerberos_5p_read_only][crate::model::SimpleExportPolicyRule::kerberos_5p_read_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5p_read_only(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5p_read_only(None::<bool>);
+    /// ```
     pub fn set_or_clear_kerberos_5p_read_only<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9802,6 +13047,12 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets the value of [kerberos_5p_read_write][crate::model::SimpleExportPolicyRule::kerberos_5p_read_write].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_kerberos_5p_read_write(true);
+    /// ```
     pub fn set_kerberos_5p_read_write<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9811,6 +13062,13 @@ impl SimpleExportPolicyRule {
     }
 
     /// Sets or clears the value of [kerberos_5p_read_write][crate::model::SimpleExportPolicyRule::kerberos_5p_read_write].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SimpleExportPolicyRule;
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5p_read_write(Some(false));
+    /// let x = SimpleExportPolicyRule::new().set_or_clear_kerberos_5p_read_write(None::<bool>);
+    /// ```
     pub fn set_or_clear_kerberos_5p_read_write<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9855,6 +13113,12 @@ impl SnapshotPolicy {
     }
 
     /// Sets the value of [enabled][crate::model::SnapshotPolicy::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// let x = SnapshotPolicy::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9864,6 +13128,13 @@ impl SnapshotPolicy {
     }
 
     /// Sets or clears the value of [enabled][crate::model::SnapshotPolicy::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// let x = SnapshotPolicy::new().set_or_clear_enabled(Some(false));
+    /// let x = SnapshotPolicy::new().set_or_clear_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9873,6 +13144,13 @@ impl SnapshotPolicy {
     }
 
     /// Sets the value of [hourly_schedule][crate::model::SnapshotPolicy::hourly_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::HourlySchedule;
+    /// let x = SnapshotPolicy::new().set_hourly_schedule(HourlySchedule::default()/* use setters */);
+    /// ```
     pub fn set_hourly_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HourlySchedule>,
@@ -9882,6 +13160,14 @@ impl SnapshotPolicy {
     }
 
     /// Sets or clears the value of [hourly_schedule][crate::model::SnapshotPolicy::hourly_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::HourlySchedule;
+    /// let x = SnapshotPolicy::new().set_or_clear_hourly_schedule(Some(HourlySchedule::default()/* use setters */));
+    /// let x = SnapshotPolicy::new().set_or_clear_hourly_schedule(None::<HourlySchedule>);
+    /// ```
     pub fn set_or_clear_hourly_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HourlySchedule>,
@@ -9891,6 +13177,13 @@ impl SnapshotPolicy {
     }
 
     /// Sets the value of [daily_schedule][crate::model::SnapshotPolicy::daily_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = SnapshotPolicy::new().set_daily_schedule(DailySchedule::default()/* use setters */);
+    /// ```
     pub fn set_daily_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DailySchedule>,
@@ -9900,6 +13193,14 @@ impl SnapshotPolicy {
     }
 
     /// Sets or clears the value of [daily_schedule][crate::model::SnapshotPolicy::daily_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = SnapshotPolicy::new().set_or_clear_daily_schedule(Some(DailySchedule::default()/* use setters */));
+    /// let x = SnapshotPolicy::new().set_or_clear_daily_schedule(None::<DailySchedule>);
+    /// ```
     pub fn set_or_clear_daily_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DailySchedule>,
@@ -9909,6 +13210,13 @@ impl SnapshotPolicy {
     }
 
     /// Sets the value of [weekly_schedule][crate::model::SnapshotPolicy::weekly_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = SnapshotPolicy::new().set_weekly_schedule(WeeklySchedule::default()/* use setters */);
+    /// ```
     pub fn set_weekly_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WeeklySchedule>,
@@ -9918,6 +13226,14 @@ impl SnapshotPolicy {
     }
 
     /// Sets or clears the value of [weekly_schedule][crate::model::SnapshotPolicy::weekly_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = SnapshotPolicy::new().set_or_clear_weekly_schedule(Some(WeeklySchedule::default()/* use setters */));
+    /// let x = SnapshotPolicy::new().set_or_clear_weekly_schedule(None::<WeeklySchedule>);
+    /// ```
     pub fn set_or_clear_weekly_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WeeklySchedule>,
@@ -9927,6 +13243,13 @@ impl SnapshotPolicy {
     }
 
     /// Sets the value of [monthly_schedule][crate::model::SnapshotPolicy::monthly_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = SnapshotPolicy::new().set_monthly_schedule(MonthlySchedule::default()/* use setters */);
+    /// ```
     pub fn set_monthly_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MonthlySchedule>,
@@ -9936,6 +13259,14 @@ impl SnapshotPolicy {
     }
 
     /// Sets or clears the value of [monthly_schedule][crate::model::SnapshotPolicy::monthly_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::SnapshotPolicy;
+    /// use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = SnapshotPolicy::new().set_or_clear_monthly_schedule(Some(MonthlySchedule::default()/* use setters */));
+    /// let x = SnapshotPolicy::new().set_or_clear_monthly_schedule(None::<MonthlySchedule>);
+    /// ```
     pub fn set_or_clear_monthly_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonthlySchedule>,
@@ -9971,6 +13302,12 @@ impl HourlySchedule {
     }
 
     /// Sets the value of [snapshots_to_keep][crate::model::HourlySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HourlySchedule;
+    /// let x = HourlySchedule::new().set_snapshots_to_keep(42.0);
+    /// ```
     pub fn set_snapshots_to_keep<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -9980,6 +13317,13 @@ impl HourlySchedule {
     }
 
     /// Sets or clears the value of [snapshots_to_keep][crate::model::HourlySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HourlySchedule;
+    /// let x = HourlySchedule::new().set_or_clear_snapshots_to_keep(Some(42.0));
+    /// let x = HourlySchedule::new().set_or_clear_snapshots_to_keep(None::<f32>);
+    /// ```
     pub fn set_or_clear_snapshots_to_keep<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -9989,6 +13333,12 @@ impl HourlySchedule {
     }
 
     /// Sets the value of [minute][crate::model::HourlySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HourlySchedule;
+    /// let x = HourlySchedule::new().set_minute(42.0);
+    /// ```
     pub fn set_minute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -9998,6 +13348,13 @@ impl HourlySchedule {
     }
 
     /// Sets or clears the value of [minute][crate::model::HourlySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HourlySchedule;
+    /// let x = HourlySchedule::new().set_or_clear_minute(Some(42.0));
+    /// let x = HourlySchedule::new().set_or_clear_minute(None::<f32>);
+    /// ```
     pub fn set_or_clear_minute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10036,6 +13393,12 @@ impl DailySchedule {
     }
 
     /// Sets the value of [snapshots_to_keep][crate::model::DailySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = DailySchedule::new().set_snapshots_to_keep(42.0);
+    /// ```
     pub fn set_snapshots_to_keep<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10045,6 +13408,13 @@ impl DailySchedule {
     }
 
     /// Sets or clears the value of [snapshots_to_keep][crate::model::DailySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = DailySchedule::new().set_or_clear_snapshots_to_keep(Some(42.0));
+    /// let x = DailySchedule::new().set_or_clear_snapshots_to_keep(None::<f32>);
+    /// ```
     pub fn set_or_clear_snapshots_to_keep<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10054,6 +13424,12 @@ impl DailySchedule {
     }
 
     /// Sets the value of [minute][crate::model::DailySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = DailySchedule::new().set_minute(42.0);
+    /// ```
     pub fn set_minute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10063,6 +13439,13 @@ impl DailySchedule {
     }
 
     /// Sets or clears the value of [minute][crate::model::DailySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = DailySchedule::new().set_or_clear_minute(Some(42.0));
+    /// let x = DailySchedule::new().set_or_clear_minute(None::<f32>);
+    /// ```
     pub fn set_or_clear_minute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10072,6 +13455,12 @@ impl DailySchedule {
     }
 
     /// Sets the value of [hour][crate::model::DailySchedule::hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = DailySchedule::new().set_hour(42.0);
+    /// ```
     pub fn set_hour<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10081,6 +13470,13 @@ impl DailySchedule {
     }
 
     /// Sets or clears the value of [hour][crate::model::DailySchedule::hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::DailySchedule;
+    /// let x = DailySchedule::new().set_or_clear_hour(Some(42.0));
+    /// let x = DailySchedule::new().set_or_clear_hour(None::<f32>);
+    /// ```
     pub fn set_or_clear_hour<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10124,6 +13520,12 @@ impl WeeklySchedule {
     }
 
     /// Sets the value of [snapshots_to_keep][crate::model::WeeklySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_snapshots_to_keep(42.0);
+    /// ```
     pub fn set_snapshots_to_keep<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10133,6 +13535,13 @@ impl WeeklySchedule {
     }
 
     /// Sets or clears the value of [snapshots_to_keep][crate::model::WeeklySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_or_clear_snapshots_to_keep(Some(42.0));
+    /// let x = WeeklySchedule::new().set_or_clear_snapshots_to_keep(None::<f32>);
+    /// ```
     pub fn set_or_clear_snapshots_to_keep<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10142,6 +13551,12 @@ impl WeeklySchedule {
     }
 
     /// Sets the value of [minute][crate::model::WeeklySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_minute(42.0);
+    /// ```
     pub fn set_minute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10151,6 +13566,13 @@ impl WeeklySchedule {
     }
 
     /// Sets or clears the value of [minute][crate::model::WeeklySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_or_clear_minute(Some(42.0));
+    /// let x = WeeklySchedule::new().set_or_clear_minute(None::<f32>);
+    /// ```
     pub fn set_or_clear_minute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10160,6 +13582,12 @@ impl WeeklySchedule {
     }
 
     /// Sets the value of [hour][crate::model::WeeklySchedule::hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_hour(42.0);
+    /// ```
     pub fn set_hour<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10169,6 +13597,13 @@ impl WeeklySchedule {
     }
 
     /// Sets or clears the value of [hour][crate::model::WeeklySchedule::hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_or_clear_hour(Some(42.0));
+    /// let x = WeeklySchedule::new().set_or_clear_hour(None::<f32>);
+    /// ```
     pub fn set_or_clear_hour<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10178,6 +13613,12 @@ impl WeeklySchedule {
     }
 
     /// Sets the value of [day][crate::model::WeeklySchedule::day].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_day("example");
+    /// ```
     pub fn set_day<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10187,6 +13628,13 @@ impl WeeklySchedule {
     }
 
     /// Sets or clears the value of [day][crate::model::WeeklySchedule::day].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::WeeklySchedule;
+    /// let x = WeeklySchedule::new().set_or_clear_day(Some("example"));
+    /// let x = WeeklySchedule::new().set_or_clear_day(None::<String>);
+    /// ```
     pub fn set_or_clear_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10229,6 +13677,12 @@ impl MonthlySchedule {
     }
 
     /// Sets the value of [snapshots_to_keep][crate::model::MonthlySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_snapshots_to_keep(42.0);
+    /// ```
     pub fn set_snapshots_to_keep<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10238,6 +13692,13 @@ impl MonthlySchedule {
     }
 
     /// Sets or clears the value of [snapshots_to_keep][crate::model::MonthlySchedule::snapshots_to_keep].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_or_clear_snapshots_to_keep(Some(42.0));
+    /// let x = MonthlySchedule::new().set_or_clear_snapshots_to_keep(None::<f32>);
+    /// ```
     pub fn set_or_clear_snapshots_to_keep<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10247,6 +13708,12 @@ impl MonthlySchedule {
     }
 
     /// Sets the value of [minute][crate::model::MonthlySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_minute(42.0);
+    /// ```
     pub fn set_minute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10256,6 +13723,13 @@ impl MonthlySchedule {
     }
 
     /// Sets or clears the value of [minute][crate::model::MonthlySchedule::minute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_or_clear_minute(Some(42.0));
+    /// let x = MonthlySchedule::new().set_or_clear_minute(None::<f32>);
+    /// ```
     pub fn set_or_clear_minute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10265,6 +13739,12 @@ impl MonthlySchedule {
     }
 
     /// Sets the value of [hour][crate::model::MonthlySchedule::hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_hour(42.0);
+    /// ```
     pub fn set_hour<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10274,6 +13754,13 @@ impl MonthlySchedule {
     }
 
     /// Sets or clears the value of [hour][crate::model::MonthlySchedule::hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_or_clear_hour(Some(42.0));
+    /// let x = MonthlySchedule::new().set_or_clear_hour(None::<f32>);
+    /// ```
     pub fn set_or_clear_hour<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -10283,6 +13770,12 @@ impl MonthlySchedule {
     }
 
     /// Sets the value of [days_of_month][crate::model::MonthlySchedule::days_of_month].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_days_of_month("example");
+    /// ```
     pub fn set_days_of_month<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10292,6 +13785,13 @@ impl MonthlySchedule {
     }
 
     /// Sets or clears the value of [days_of_month][crate::model::MonthlySchedule::days_of_month].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MonthlySchedule;
+    /// let x = MonthlySchedule::new().set_or_clear_days_of_month(Some("example"));
+    /// let x = MonthlySchedule::new().set_or_clear_days_of_month(None::<String>);
+    /// ```
     pub fn set_or_clear_days_of_month<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10335,30 +13835,63 @@ impl MountOption {
     }
 
     /// Sets the value of [export][crate::model::MountOption::export].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MountOption;
+    /// let x = MountOption::new().set_export("example");
+    /// ```
     pub fn set_export<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.export = v.into();
         self
     }
 
     /// Sets the value of [export_full][crate::model::MountOption::export_full].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MountOption;
+    /// let x = MountOption::new().set_export_full("example");
+    /// ```
     pub fn set_export_full<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.export_full = v.into();
         self
     }
 
     /// Sets the value of [protocol][crate::model::MountOption::protocol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MountOption;
+    /// use google_cloud_netapp_v1::model::Protocols;
+    /// let x0 = MountOption::new().set_protocol(Protocols::Nfsv3);
+    /// let x1 = MountOption::new().set_protocol(Protocols::Nfsv4);
+    /// let x2 = MountOption::new().set_protocol(Protocols::Smb);
+    /// ```
     pub fn set_protocol<T: std::convert::Into<crate::model::Protocols>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
     }
 
     /// Sets the value of [instructions][crate::model::MountOption::instructions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MountOption;
+    /// let x = MountOption::new().set_instructions("example");
+    /// ```
     pub fn set_instructions<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instructions = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::MountOption::ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::MountOption;
+    /// let x = MountOption::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
@@ -10390,6 +13923,13 @@ impl RestoreParameters {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::RestoreParameters;
+    /// use google_cloud_netapp_v1::model::restore_parameters::Source;
+    /// let x = RestoreParameters::new().set_source(Some(Source::SourceSnapshot("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_parameters::Source>>,
     >(
@@ -10418,6 +13958,14 @@ impl RestoreParameters {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::RestoreParameters;
+    /// let x = RestoreParameters::new().set_source_snapshot("example");
+    /// assert!(x.source_snapshot().is_some());
+    /// assert!(x.source_backup().is_none());
+    /// ```
     pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::restore_parameters::Source::SourceSnapshot(v.into()),
@@ -10443,6 +13991,14 @@ impl RestoreParameters {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::RestoreParameters;
+    /// let x = RestoreParameters::new().set_source_backup("example");
+    /// assert!(x.source_backup().is_some());
+    /// assert!(x.source_snapshot().is_none());
+    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::restore_parameters::Source::SourceBackup(v.into()),
@@ -10507,6 +14063,12 @@ impl BackupConfig {
     }
 
     /// Sets the value of [backup_policies][crate::model::BackupConfig::backup_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = BackupConfig::new().set_backup_policies(["a", "b", "c"]);
+    /// ```
     pub fn set_backup_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10518,12 +14080,24 @@ impl BackupConfig {
     }
 
     /// Sets the value of [backup_vault][crate::model::BackupConfig::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = BackupConfig::new().set_backup_vault("example");
+    /// ```
     pub fn set_backup_vault<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_vault = v.into();
         self
     }
 
     /// Sets the value of [scheduled_backup_enabled][crate::model::BackupConfig::scheduled_backup_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = BackupConfig::new().set_scheduled_backup_enabled(true);
+    /// ```
     pub fn set_scheduled_backup_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -10533,6 +14107,13 @@ impl BackupConfig {
     }
 
     /// Sets or clears the value of [scheduled_backup_enabled][crate::model::BackupConfig::scheduled_backup_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = BackupConfig::new().set_or_clear_scheduled_backup_enabled(Some(false));
+    /// let x = BackupConfig::new().set_or_clear_scheduled_backup_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_scheduled_backup_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -10542,6 +14123,12 @@ impl BackupConfig {
     }
 
     /// Sets the value of [backup_chain_bytes][crate::model::BackupConfig::backup_chain_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = BackupConfig::new().set_backup_chain_bytes(42);
+    /// ```
     pub fn set_backup_chain_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10551,6 +14138,13 @@ impl BackupConfig {
     }
 
     /// Sets or clears the value of [backup_chain_bytes][crate::model::BackupConfig::backup_chain_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::BackupConfig;
+    /// let x = BackupConfig::new().set_or_clear_backup_chain_bytes(Some(42));
+    /// let x = BackupConfig::new().set_or_clear_backup_chain_bytes(None::<i32>);
+    /// ```
     pub fn set_or_clear_backup_chain_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10591,6 +14185,14 @@ impl TieringPolicy {
     }
 
     /// Sets the value of [tier_action][crate::model::TieringPolicy::tier_action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TieringPolicy;
+    /// use google_cloud_netapp_v1::model::tiering_policy::TierAction;
+    /// let x0 = TieringPolicy::new().set_tier_action(TierAction::Enabled);
+    /// let x1 = TieringPolicy::new().set_tier_action(TierAction::Paused);
+    /// ```
     pub fn set_tier_action<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::tiering_policy::TierAction>,
@@ -10600,6 +14202,15 @@ impl TieringPolicy {
     }
 
     /// Sets or clears the value of [tier_action][crate::model::TieringPolicy::tier_action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TieringPolicy;
+    /// use google_cloud_netapp_v1::model::tiering_policy::TierAction;
+    /// let x0 = TieringPolicy::new().set_or_clear_tier_action(Some(TierAction::Enabled));
+    /// let x1 = TieringPolicy::new().set_or_clear_tier_action(Some(TierAction::Paused));
+    /// let x_none = TieringPolicy::new().set_or_clear_tier_action(None::<TierAction>);
+    /// ```
     pub fn set_or_clear_tier_action<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::tiering_policy::TierAction>,
@@ -10609,6 +14220,12 @@ impl TieringPolicy {
     }
 
     /// Sets the value of [cooling_threshold_days][crate::model::TieringPolicy::cooling_threshold_days].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = TieringPolicy::new().set_cooling_threshold_days(42);
+    /// ```
     pub fn set_cooling_threshold_days<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -10618,6 +14235,13 @@ impl TieringPolicy {
     }
 
     /// Sets or clears the value of [cooling_threshold_days][crate::model::TieringPolicy::cooling_threshold_days].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = TieringPolicy::new().set_or_clear_cooling_threshold_days(Some(42));
+    /// let x = TieringPolicy::new().set_or_clear_cooling_threshold_days(None::<i32>);
+    /// ```
     pub fn set_or_clear_cooling_threshold_days<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -10627,6 +14251,12 @@ impl TieringPolicy {
     }
 
     /// Sets the value of [hot_tier_bypass_mode_enabled][crate::model::TieringPolicy::hot_tier_bypass_mode_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = TieringPolicy::new().set_hot_tier_bypass_mode_enabled(true);
+    /// ```
     pub fn set_hot_tier_bypass_mode_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -10636,6 +14266,13 @@ impl TieringPolicy {
     }
 
     /// Sets or clears the value of [hot_tier_bypass_mode_enabled][crate::model::TieringPolicy::hot_tier_bypass_mode_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::TieringPolicy;
+    /// let x = TieringPolicy::new().set_or_clear_hot_tier_bypass_mode_enabled(Some(false));
+    /// let x = TieringPolicy::new().set_or_clear_hot_tier_bypass_mode_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_hot_tier_bypass_mode_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -10841,12 +14478,24 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [replication][crate::model::HybridReplicationParameters::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_replication("example");
+    /// ```
     pub fn set_replication<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.replication = v.into();
         self
     }
 
     /// Sets the value of [peer_volume_name][crate::model::HybridReplicationParameters::peer_volume_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_peer_volume_name("example");
+    /// ```
     pub fn set_peer_volume_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10856,6 +14505,12 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [peer_cluster_name][crate::model::HybridReplicationParameters::peer_cluster_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_peer_cluster_name("example");
+    /// ```
     pub fn set_peer_cluster_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10865,12 +14520,24 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [peer_svm_name][crate::model::HybridReplicationParameters::peer_svm_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_peer_svm_name("example");
+    /// ```
     pub fn set_peer_svm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_svm_name = v.into();
         self
     }
 
     /// Sets the value of [peer_ip_addresses][crate::model::HybridReplicationParameters::peer_ip_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_peer_ip_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10882,6 +14549,12 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [cluster_location][crate::model::HybridReplicationParameters::cluster_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_cluster_location("example");
+    /// ```
     pub fn set_cluster_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10891,12 +14564,27 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [description][crate::model::HybridReplicationParameters::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::HybridReplicationParameters::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10909,6 +14597,15 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [replication_schedule][crate::model::HybridReplicationParameters::replication_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// use google_cloud_netapp_v1::model::HybridReplicationSchedule;
+    /// let x0 = HybridReplicationParameters::new().set_replication_schedule(HybridReplicationSchedule::Every10Minutes);
+    /// let x1 = HybridReplicationParameters::new().set_replication_schedule(HybridReplicationSchedule::Hourly);
+    /// let x2 = HybridReplicationParameters::new().set_replication_schedule(HybridReplicationSchedule::Daily);
+    /// ```
     pub fn set_replication_schedule<
         T: std::convert::Into<crate::model::HybridReplicationSchedule>,
     >(
@@ -10920,6 +14617,15 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [hybrid_replication_type][crate::model::HybridReplicationParameters::hybrid_replication_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// use google_cloud_netapp_v1::model::hybrid_replication_parameters::VolumeHybridReplicationType;
+    /// let x0 = HybridReplicationParameters::new().set_hybrid_replication_type(VolumeHybridReplicationType::Migration);
+    /// let x1 = HybridReplicationParameters::new().set_hybrid_replication_type(VolumeHybridReplicationType::ContinuousReplication);
+    /// let x2 = HybridReplicationParameters::new().set_hybrid_replication_type(VolumeHybridReplicationType::OnpremReplication);
+    /// ```
     pub fn set_hybrid_replication_type<
         T: std::convert::Into<
                 crate::model::hybrid_replication_parameters::VolumeHybridReplicationType,
@@ -10933,6 +14639,12 @@ impl HybridReplicationParameters {
     }
 
     /// Sets the value of [large_volume_constituent_count][crate::model::HybridReplicationParameters::large_volume_constituent_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::model::HybridReplicationParameters;
+    /// let x = HybridReplicationParameters::new().set_large_volume_constituent_count(42);
+    /// ```
     pub fn set_large_volume_constituent_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.large_volume_constituent_count = v.into();
         self

@@ -61,12 +61,25 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network][crate::model::NetworkConfig::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [peering_mode][crate::model::NetworkConfig::peering_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkConfig;
+    /// use google_cloud_backupdr_v1::model::network_config::PeeringMode;
+    /// let x0 = NetworkConfig::new().set_peering_mode(PeeringMode::PrivateServiceAccess);
+    /// ```
     pub fn set_peering_mode<T: std::convert::Into<crate::model::network_config::PeeringMode>>(
         mut self,
         v: T,
@@ -234,12 +247,24 @@ impl ManagementURI {
     }
 
     /// Sets the value of [web_ui][crate::model::ManagementURI::web_ui].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementURI;
+    /// let x = ManagementURI::new().set_web_ui("example");
+    /// ```
     pub fn set_web_ui<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.web_ui = v.into();
         self
     }
 
     /// Sets the value of [api][crate::model::ManagementURI::api].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementURI;
+    /// let x = ManagementURI::new().set_api("example");
+    /// ```
     pub fn set_api<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api = v.into();
         self
@@ -271,6 +296,12 @@ impl WorkforceIdentityBasedManagementURI {
     }
 
     /// Sets the value of [first_party_management_uri][crate::model::WorkforceIdentityBasedManagementURI::first_party_management_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::WorkforceIdentityBasedManagementURI;
+    /// let x = WorkforceIdentityBasedManagementURI::new().set_first_party_management_uri("example");
+    /// ```
     pub fn set_first_party_management_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -280,6 +311,12 @@ impl WorkforceIdentityBasedManagementURI {
     }
 
     /// Sets the value of [third_party_management_uri][crate::model::WorkforceIdentityBasedManagementURI::third_party_management_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::WorkforceIdentityBasedManagementURI;
+    /// let x = WorkforceIdentityBasedManagementURI::new().set_third_party_management_uri("example");
+    /// ```
     pub fn set_third_party_management_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -314,6 +351,12 @@ impl WorkforceIdentityBasedOAuth2ClientID {
     }
 
     /// Sets the value of [first_party_oauth2_client_id][crate::model::WorkforceIdentityBasedOAuth2ClientID::first_party_oauth2_client_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::WorkforceIdentityBasedOAuth2ClientID;
+    /// let x = WorkforceIdentityBasedOAuth2ClientID::new().set_first_party_oauth2_client_id("example");
+    /// ```
     pub fn set_first_party_oauth2_client_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -323,6 +366,12 @@ impl WorkforceIdentityBasedOAuth2ClientID {
     }
 
     /// Sets the value of [third_party_oauth2_client_id][crate::model::WorkforceIdentityBasedOAuth2ClientID::third_party_oauth2_client_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::WorkforceIdentityBasedOAuth2ClientID;
+    /// let x = WorkforceIdentityBasedOAuth2ClientID::new().set_third_party_oauth2_client_id("example");
+    /// ```
     pub fn set_third_party_oauth2_client_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -416,18 +465,39 @@ impl ManagementServer {
     }
 
     /// Sets the value of [name][crate::model::ManagementServer::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ManagementServer::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ManagementServer::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ManagementServer::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ManagementServer::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ManagementServer::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -440,6 +510,13 @@ impl ManagementServer {
     }
 
     /// Sets the value of [create_time][crate::model::ManagementServer::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use wkt::Timestamp;
+    /// let x = ManagementServer::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -449,6 +526,14 @@ impl ManagementServer {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ManagementServer::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use wkt::Timestamp;
+    /// let x = ManagementServer::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ManagementServer::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -458,6 +543,13 @@ impl ManagementServer {
     }
 
     /// Sets the value of [update_time][crate::model::ManagementServer::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use wkt::Timestamp;
+    /// let x = ManagementServer::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -467,6 +559,14 @@ impl ManagementServer {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ManagementServer::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use wkt::Timestamp;
+    /// let x = ManagementServer::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ManagementServer::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -476,6 +576,13 @@ impl ManagementServer {
     }
 
     /// Sets the value of [r#type][crate::model::ManagementServer::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::management_server::InstanceType;
+    /// let x0 = ManagementServer::new().set_type(InstanceType::BackupRestore);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::management_server::InstanceType>>(
         mut self,
         v: T,
@@ -485,6 +592,13 @@ impl ManagementServer {
     }
 
     /// Sets the value of [management_uri][crate::model::ManagementServer::management_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::ManagementURI;
+    /// let x = ManagementServer::new().set_management_uri(ManagementURI::default()/* use setters */);
+    /// ```
     pub fn set_management_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagementURI>,
@@ -494,6 +608,14 @@ impl ManagementServer {
     }
 
     /// Sets or clears the value of [management_uri][crate::model::ManagementServer::management_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::ManagementURI;
+    /// let x = ManagementServer::new().set_or_clear_management_uri(Some(ManagementURI::default()/* use setters */));
+    /// let x = ManagementServer::new().set_or_clear_management_uri(None::<ManagementURI>);
+    /// ```
     pub fn set_or_clear_management_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementURI>,
@@ -503,6 +625,13 @@ impl ManagementServer {
     }
 
     /// Sets the value of [workforce_identity_based_management_uri][crate::model::ManagementServer::workforce_identity_based_management_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::WorkforceIdentityBasedManagementURI;
+    /// let x = ManagementServer::new().set_workforce_identity_based_management_uri(WorkforceIdentityBasedManagementURI::default()/* use setters */);
+    /// ```
     pub fn set_workforce_identity_based_management_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkforceIdentityBasedManagementURI>,
@@ -512,6 +641,14 @@ impl ManagementServer {
     }
 
     /// Sets or clears the value of [workforce_identity_based_management_uri][crate::model::ManagementServer::workforce_identity_based_management_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::WorkforceIdentityBasedManagementURI;
+    /// let x = ManagementServer::new().set_or_clear_workforce_identity_based_management_uri(Some(WorkforceIdentityBasedManagementURI::default()/* use setters */));
+    /// let x = ManagementServer::new().set_or_clear_workforce_identity_based_management_uri(None::<WorkforceIdentityBasedManagementURI>);
+    /// ```
     pub fn set_or_clear_workforce_identity_based_management_uri<T>(
         mut self,
         v: std::option::Option<T>,
@@ -524,6 +661,15 @@ impl ManagementServer {
     }
 
     /// Sets the value of [state][crate::model::ManagementServer::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::management_server::InstanceState;
+    /// let x0 = ManagementServer::new().set_state(InstanceState::Creating);
+    /// let x1 = ManagementServer::new().set_state(InstanceState::Ready);
+    /// let x2 = ManagementServer::new().set_state(InstanceState::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::management_server::InstanceState>>(
         mut self,
         v: T,
@@ -533,6 +679,17 @@ impl ManagementServer {
     }
 
     /// Sets the value of [networks][crate::model::ManagementServer::networks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::NetworkConfig;
+    /// let x = ManagementServer::new()
+    ///     .set_networks([
+    ///         NetworkConfig::default()/* use setters */,
+    ///         NetworkConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -544,12 +701,24 @@ impl ManagementServer {
     }
 
     /// Sets the value of [etag][crate::model::ManagementServer::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ManagementServer::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [oauth2_client_id][crate::model::ManagementServer::oauth2_client_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ManagementServer::new().set_oauth2_client_id("example");
+    /// ```
     pub fn set_oauth2_client_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -559,6 +728,13 @@ impl ManagementServer {
     }
 
     /// Sets the value of [workforce_identity_based_oauth2_client_id][crate::model::ManagementServer::workforce_identity_based_oauth2_client_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::WorkforceIdentityBasedOAuth2ClientID;
+    /// let x = ManagementServer::new().set_workforce_identity_based_oauth2_client_id(WorkforceIdentityBasedOAuth2ClientID::default()/* use setters */);
+    /// ```
     pub fn set_workforce_identity_based_oauth2_client_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkforceIdentityBasedOAuth2ClientID>,
@@ -568,6 +744,14 @@ impl ManagementServer {
     }
 
     /// Sets or clears the value of [workforce_identity_based_oauth2_client_id][crate::model::ManagementServer::workforce_identity_based_oauth2_client_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::model::WorkforceIdentityBasedOAuth2ClientID;
+    /// let x = ManagementServer::new().set_or_clear_workforce_identity_based_oauth2_client_id(Some(WorkforceIdentityBasedOAuth2ClientID::default()/* use setters */));
+    /// let x = ManagementServer::new().set_or_clear_workforce_identity_based_oauth2_client_id(None::<WorkforceIdentityBasedOAuth2ClientID>);
+    /// ```
     pub fn set_or_clear_workforce_identity_based_oauth2_client_id<T>(
         mut self,
         v: std::option::Option<T>,
@@ -580,6 +764,12 @@ impl ManagementServer {
     }
 
     /// Sets the value of [ba_proxy_uri][crate::model::ManagementServer::ba_proxy_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ManagementServer::new().set_ba_proxy_uri(["a", "b", "c"]);
+    /// ```
     pub fn set_ba_proxy_uri<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -591,6 +781,13 @@ impl ManagementServer {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::ManagementServer::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use wkt::BoolValue;
+    /// let x = ManagementServer::new().set_satisfies_pzs(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -600,6 +797,14 @@ impl ManagementServer {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::ManagementServer::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use wkt::BoolValue;
+    /// let x = ManagementServer::new().set_or_clear_satisfies_pzs(Some(BoolValue::default()/* use setters */));
+    /// let x = ManagementServer::new().set_or_clear_satisfies_pzs(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -609,6 +814,12 @@ impl ManagementServer {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::ManagementServer::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ManagementServer::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
@@ -956,24 +1167,48 @@ impl ListManagementServersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListManagementServersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
+    /// let x = ListManagementServersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListManagementServersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
+    /// let x = ListManagementServersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListManagementServersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
+    /// let x = ListManagementServersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListManagementServersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
+    /// let x = ListManagementServersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -983,6 +1218,13 @@ impl ListManagementServersRequest {
     }
 
     /// Sets or clears the value of [filter][crate::model::ListManagementServersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
+    /// let x = ListManagementServersRequest::new().set_or_clear_filter(Some("example"));
+    /// let x = ListManagementServersRequest::new().set_or_clear_filter(None::<String>);
+    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -992,6 +1234,12 @@ impl ListManagementServersRequest {
     }
 
     /// Sets the value of [order_by][crate::model::ListManagementServersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
+    /// let x = ListManagementServersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1001,6 +1249,13 @@ impl ListManagementServersRequest {
     }
 
     /// Sets or clears the value of [order_by][crate::model::ListManagementServersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersRequest;
+    /// let x = ListManagementServersRequest::new().set_or_clear_order_by(Some("example"));
+    /// let x = ListManagementServersRequest::new().set_or_clear_order_by(None::<String>);
+    /// ```
     pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1045,6 +1300,17 @@ impl ListManagementServersResponse {
     }
 
     /// Sets the value of [management_servers][crate::model::ListManagementServersResponse::management_servers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersResponse;
+    /// use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = ListManagementServersResponse::new()
+    ///     .set_management_servers([
+    ///         ManagementServer::default()/* use setters */,
+    ///         ManagementServer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_management_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1056,12 +1322,24 @@ impl ListManagementServersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListManagementServersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersResponse;
+    /// let x = ListManagementServersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListManagementServersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListManagementServersResponse;
+    /// let x = ListManagementServersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1110,6 +1388,12 @@ impl GetManagementServerRequest {
     }
 
     /// Sets the value of [name][crate::model::GetManagementServerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetManagementServerRequest;
+    /// let x = GetManagementServerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1165,12 +1449,24 @@ impl CreateManagementServerRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateManagementServerRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateManagementServerRequest;
+    /// let x = CreateManagementServerRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [management_server_id][crate::model::CreateManagementServerRequest::management_server_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateManagementServerRequest;
+    /// let x = CreateManagementServerRequest::new().set_management_server_id("example");
+    /// ```
     pub fn set_management_server_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1180,6 +1476,13 @@ impl CreateManagementServerRequest {
     }
 
     /// Sets the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateManagementServerRequest;
+    /// use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = CreateManagementServerRequest::new().set_management_server(ManagementServer::default()/* use setters */);
+    /// ```
     pub fn set_management_server<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagementServer>,
@@ -1189,6 +1492,14 @@ impl CreateManagementServerRequest {
     }
 
     /// Sets or clears the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateManagementServerRequest;
+    /// use google_cloud_backupdr_v1::model::ManagementServer;
+    /// let x = CreateManagementServerRequest::new().set_or_clear_management_server(Some(ManagementServer::default()/* use setters */));
+    /// let x = CreateManagementServerRequest::new().set_or_clear_management_server(None::<ManagementServer>);
+    /// ```
     pub fn set_or_clear_management_server<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementServer>,
@@ -1198,6 +1509,12 @@ impl CreateManagementServerRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateManagementServerRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateManagementServerRequest;
+    /// let x = CreateManagementServerRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1241,12 +1558,24 @@ impl DeleteManagementServerRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteManagementServerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteManagementServerRequest;
+    /// let x = DeleteManagementServerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteManagementServerRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteManagementServerRequest;
+    /// let x = DeleteManagementServerRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1301,18 +1630,36 @@ impl InitializeServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::InitializeServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InitializeServiceRequest;
+    /// let x = InitializeServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::InitializeServiceRequest::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InitializeServiceRequest;
+    /// let x = InitializeServiceRequest::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::InitializeServiceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InitializeServiceRequest;
+    /// let x = InitializeServiceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1322,6 +1669,14 @@ impl InitializeServiceRequest {
     ///
     /// Note that all the setters affecting `initialization_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InitializeServiceRequest;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceInitializationConfig;
+    /// let x = InitializeServiceRequest::new().set_initialization_config(Some(
+    ///     google_cloud_backupdr_v1::model::initialize_service_request::InitializationConfig::CloudSqlInstanceInitializationConfig(CloudSqlInstanceInitializationConfig::default().into())));
+    /// ```
     pub fn set_initialization_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::initialize_service_request::InitializationConfig>,
@@ -1353,6 +1708,14 @@ impl InitializeServiceRequest {
     ///
     /// Note that all the setters affecting `initialization_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InitializeServiceRequest;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceInitializationConfig;
+    /// let x = InitializeServiceRequest::new().set_cloud_sql_instance_initialization_config(CloudSqlInstanceInitializationConfig::default()/* use setters */);
+    /// assert!(x.cloud_sql_instance_initialization_config().is_some());
+    /// ```
     pub fn set_cloud_sql_instance_initialization_config<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstanceInitializationConfig>>,
     >(
@@ -1413,6 +1776,12 @@ impl InitializeServiceResponse {
     }
 
     /// Sets the value of [backup_vault_name][crate::model::InitializeServiceResponse::backup_vault_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InitializeServiceResponse;
+    /// let x = InitializeServiceResponse::new().set_backup_vault_name("example");
+    /// ```
     pub fn set_backup_vault_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1422,6 +1791,12 @@ impl InitializeServiceResponse {
     }
 
     /// Sets the value of [backup_plan_name][crate::model::InitializeServiceResponse::backup_plan_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InitializeServiceResponse;
+    /// let x = InitializeServiceResponse::new().set_backup_plan_name("example");
+    /// ```
     pub fn set_backup_plan_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1483,6 +1858,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1492,6 +1874,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1501,6 +1891,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1510,6 +1907,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1519,36 +1924,75 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [additional_info][crate::model::OperationMetadata::additional_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_additional_info([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_additional_info<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1655,18 +2099,39 @@ impl BackupPlan {
     }
 
     /// Sets the value of [name][crate::model::BackupPlan::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::BackupPlan::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::BackupPlan::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1679,6 +2144,13 @@ impl BackupPlan {
     }
 
     /// Sets the value of [create_time][crate::model::BackupPlan::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlan::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1688,6 +2160,14 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupPlan::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlan::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupPlan::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1697,6 +2177,13 @@ impl BackupPlan {
     }
 
     /// Sets the value of [update_time][crate::model::BackupPlan::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlan::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1706,6 +2193,14 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupPlan::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlan::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupPlan::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1715,6 +2210,17 @@ impl BackupPlan {
     }
 
     /// Sets the value of [backup_rules][crate::model::BackupPlan::backup_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use google_cloud_backupdr_v1::model::BackupRule;
+    /// let x = BackupPlan::new()
+    ///     .set_backup_rules([
+    ///         BackupRule::default()/* use setters */,
+    ///         BackupRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1726,6 +2232,15 @@ impl BackupPlan {
     }
 
     /// Sets the value of [state][crate::model::BackupPlan::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use google_cloud_backupdr_v1::model::backup_plan::State;
+    /// let x0 = BackupPlan::new().set_state(State::Creating);
+    /// let x1 = BackupPlan::new().set_state(State::Active);
+    /// let x2 = BackupPlan::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup_plan::State>>(
         mut self,
         v: T,
@@ -1735,24 +2250,48 @@ impl BackupPlan {
     }
 
     /// Sets the value of [resource_type][crate::model::BackupPlan::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::BackupPlan::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [backup_vault][crate::model::BackupPlan::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_backup_vault("example");
+    /// ```
     pub fn set_backup_vault<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_vault = v.into();
         self
     }
 
     /// Sets the value of [backup_vault_service_account][crate::model::BackupPlan::backup_vault_service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_backup_vault_service_account("example");
+    /// ```
     pub fn set_backup_vault_service_account<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1762,12 +2301,24 @@ impl BackupPlan {
     }
 
     /// Sets the value of [log_retention_days][crate::model::BackupPlan::log_retention_days].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_log_retention_days(42);
+    /// ```
     pub fn set_log_retention_days<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.log_retention_days = v.into();
         self
     }
 
     /// Sets the value of [supported_resource_types][crate::model::BackupPlan::supported_resource_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_supported_resource_types(["a", "b", "c"]);
+    /// ```
     pub fn set_supported_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1779,12 +2330,24 @@ impl BackupPlan {
     }
 
     /// Sets the value of [revision_id][crate::model::BackupPlan::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [revision_name][crate::model::BackupPlan::revision_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlan::new().set_revision_name("example");
+    /// ```
     pub fn set_revision_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_name = v.into();
         self
@@ -1988,12 +2551,24 @@ impl BackupRule {
     }
 
     /// Sets the value of [rule_id][crate::model::BackupRule::rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupRule;
+    /// let x = BackupRule::new().set_rule_id("example");
+    /// ```
     pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_id = v.into();
         self
     }
 
     /// Sets the value of [backup_retention_days][crate::model::BackupRule::backup_retention_days].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupRule;
+    /// let x = BackupRule::new().set_backup_retention_days(42);
+    /// ```
     pub fn set_backup_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.backup_retention_days = v.into();
         self
@@ -2003,6 +2578,14 @@ impl BackupRule {
     ///
     /// Note that all the setters affecting `backup_schedule_oneof` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupRule;
+    /// use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// let x = BackupRule::new().set_backup_schedule_oneof(Some(
+    ///     google_cloud_backupdr_v1::model::backup_rule::BackupScheduleOneof::StandardSchedule(StandardSchedule::default().into())));
+    /// ```
     pub fn set_backup_schedule_oneof<
         T: std::convert::Into<std::option::Option<crate::model::backup_rule::BackupScheduleOneof>>,
     >(
@@ -2033,6 +2616,14 @@ impl BackupRule {
     ///
     /// Note that all the setters affecting `backup_schedule_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupRule;
+    /// use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// let x = BackupRule::new().set_standard_schedule(StandardSchedule::default()/* use setters */);
+    /// assert!(x.standard_schedule().is_some());
+    /// ```
     pub fn set_standard_schedule<
         T: std::convert::Into<std::boxed::Box<crate::model::StandardSchedule>>,
     >(
@@ -2145,6 +2736,15 @@ impl StandardSchedule {
     }
 
     /// Sets the value of [recurrence_type][crate::model::StandardSchedule::recurrence_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// use google_cloud_backupdr_v1::model::standard_schedule::RecurrenceType;
+    /// let x0 = StandardSchedule::new().set_recurrence_type(RecurrenceType::Hourly);
+    /// let x1 = StandardSchedule::new().set_recurrence_type(RecurrenceType::Daily);
+    /// let x2 = StandardSchedule::new().set_recurrence_type(RecurrenceType::Weekly);
+    /// ```
     pub fn set_recurrence_type<
         T: std::convert::Into<crate::model::standard_schedule::RecurrenceType>,
     >(
@@ -2156,12 +2756,29 @@ impl StandardSchedule {
     }
 
     /// Sets the value of [hourly_frequency][crate::model::StandardSchedule::hourly_frequency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// let x = StandardSchedule::new().set_hourly_frequency(42);
+    /// ```
     pub fn set_hourly_frequency<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hourly_frequency = v.into();
         self
     }
 
     /// Sets the value of [days_of_week][crate::model::StandardSchedule::days_of_week].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// use gtype::model::DayOfWeek;
+    /// let x = StandardSchedule::new().set_days_of_week([
+    ///     DayOfWeek::Monday,
+    ///     DayOfWeek::Tuesday,
+    ///     DayOfWeek::Wednesday,
+    /// ]);
+    /// ```
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2173,6 +2790,12 @@ impl StandardSchedule {
     }
 
     /// Sets the value of [days_of_month][crate::model::StandardSchedule::days_of_month].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// let x = StandardSchedule::new().set_days_of_month([1, 2, 3]);
+    /// ```
     pub fn set_days_of_month<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2184,6 +2807,13 @@ impl StandardSchedule {
     }
 
     /// Sets the value of [week_day_of_month][crate::model::StandardSchedule::week_day_of_month].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// use google_cloud_backupdr_v1::model::WeekDayOfMonth;
+    /// let x = StandardSchedule::new().set_week_day_of_month(WeekDayOfMonth::default()/* use setters */);
+    /// ```
     pub fn set_week_day_of_month<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WeekDayOfMonth>,
@@ -2193,6 +2823,14 @@ impl StandardSchedule {
     }
 
     /// Sets or clears the value of [week_day_of_month][crate::model::StandardSchedule::week_day_of_month].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// use google_cloud_backupdr_v1::model::WeekDayOfMonth;
+    /// let x = StandardSchedule::new().set_or_clear_week_day_of_month(Some(WeekDayOfMonth::default()/* use setters */));
+    /// let x = StandardSchedule::new().set_or_clear_week_day_of_month(None::<WeekDayOfMonth>);
+    /// ```
     pub fn set_or_clear_week_day_of_month<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WeekDayOfMonth>,
@@ -2202,6 +2840,17 @@ impl StandardSchedule {
     }
 
     /// Sets the value of [months][crate::model::StandardSchedule::months].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// use gtype::model::Month;
+    /// let x = StandardSchedule::new().set_months([
+    ///     Month::January,
+    ///     Month::February,
+    ///     Month::March,
+    /// ]);
+    /// ```
     pub fn set_months<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2213,6 +2862,13 @@ impl StandardSchedule {
     }
 
     /// Sets the value of [backup_window][crate::model::StandardSchedule::backup_window].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// use google_cloud_backupdr_v1::model::BackupWindow;
+    /// let x = StandardSchedule::new().set_backup_window(BackupWindow::default()/* use setters */);
+    /// ```
     pub fn set_backup_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupWindow>,
@@ -2222,6 +2878,14 @@ impl StandardSchedule {
     }
 
     /// Sets or clears the value of [backup_window][crate::model::StandardSchedule::backup_window].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// use google_cloud_backupdr_v1::model::BackupWindow;
+    /// let x = StandardSchedule::new().set_or_clear_backup_window(Some(BackupWindow::default()/* use setters */));
+    /// let x = StandardSchedule::new().set_or_clear_backup_window(None::<BackupWindow>);
+    /// ```
     pub fn set_or_clear_backup_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupWindow>,
@@ -2231,6 +2895,12 @@ impl StandardSchedule {
     }
 
     /// Sets the value of [time_zone][crate::model::StandardSchedule::time_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::StandardSchedule;
+    /// let x = StandardSchedule::new().set_time_zone("example");
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
@@ -2429,12 +3099,24 @@ impl BackupWindow {
     }
 
     /// Sets the value of [start_hour_of_day][crate::model::BackupWindow::start_hour_of_day].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupWindow;
+    /// let x = BackupWindow::new().set_start_hour_of_day(42);
+    /// ```
     pub fn set_start_hour_of_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.start_hour_of_day = v.into();
         self
     }
 
     /// Sets the value of [end_hour_of_day][crate::model::BackupWindow::end_hour_of_day].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupWindow;
+    /// let x = BackupWindow::new().set_end_hour_of_day(42);
+    /// ```
     pub fn set_end_hour_of_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.end_hour_of_day = v.into();
         self
@@ -2468,6 +3150,15 @@ impl WeekDayOfMonth {
     }
 
     /// Sets the value of [week_of_month][crate::model::WeekDayOfMonth::week_of_month].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::WeekDayOfMonth;
+    /// use google_cloud_backupdr_v1::model::week_day_of_month::WeekOfMonth;
+    /// let x0 = WeekDayOfMonth::new().set_week_of_month(WeekOfMonth::First);
+    /// let x1 = WeekDayOfMonth::new().set_week_of_month(WeekOfMonth::Second);
+    /// let x2 = WeekDayOfMonth::new().set_week_of_month(WeekOfMonth::Third);
+    /// ```
     pub fn set_week_of_month<
         T: std::convert::Into<crate::model::week_day_of_month::WeekOfMonth>,
     >(
@@ -2479,6 +3170,15 @@ impl WeekDayOfMonth {
     }
 
     /// Sets the value of [day_of_week][crate::model::WeekDayOfMonth::day_of_week].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::WeekDayOfMonth;
+    /// use gtype::model::DayOfWeek;
+    /// let x0 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Monday);
+    /// let x1 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Tuesday);
+    /// let x2 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Wednesday);
+    /// ```
     pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day_of_week = v.into();
         self
@@ -2693,18 +3393,37 @@ impl CreateBackupPlanRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupPlanRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanRequest;
+    /// let x = CreateBackupPlanRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_plan_id][crate::model::CreateBackupPlanRequest::backup_plan_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanRequest;
+    /// let x = CreateBackupPlanRequest::new().set_backup_plan_id("example");
+    /// ```
     pub fn set_backup_plan_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan_id = v.into();
         self
     }
 
     /// Sets the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = CreateBackupPlanRequest::new().set_backup_plan(BackupPlan::default()/* use setters */);
+    /// ```
     pub fn set_backup_plan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -2714,6 +3433,14 @@ impl CreateBackupPlanRequest {
     }
 
     /// Sets or clears the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = CreateBackupPlanRequest::new().set_or_clear_backup_plan(Some(BackupPlan::default()/* use setters */));
+    /// let x = CreateBackupPlanRequest::new().set_or_clear_backup_plan(None::<BackupPlan>);
+    /// ```
     pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -2723,6 +3450,12 @@ impl CreateBackupPlanRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateBackupPlanRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanRequest;
+    /// let x = CreateBackupPlanRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2781,30 +3514,60 @@ impl ListBackupPlansRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupPlansRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansRequest;
+    /// let x = ListBackupPlansRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupPlansRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansRequest;
+    /// let x = ListBackupPlansRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupPlansRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansRequest;
+    /// let x = ListBackupPlansRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupPlansRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansRequest;
+    /// let x = ListBackupPlansRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupPlansRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansRequest;
+    /// let x = ListBackupPlansRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2853,6 +3616,17 @@ impl ListBackupPlansResponse {
     }
 
     /// Sets the value of [backup_plans][crate::model::ListBackupPlansResponse::backup_plans].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansResponse;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = ListBackupPlansResponse::new()
+    ///     .set_backup_plans([
+    ///         BackupPlan::default()/* use setters */,
+    ///         BackupPlan::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_plans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2864,12 +3638,24 @@ impl ListBackupPlansResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansResponse;
+    /// let x = ListBackupPlansResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupPlansResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlansResponse;
+    /// let x = ListBackupPlansResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2919,6 +3705,12 @@ impl GetBackupPlanRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupPlanRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetBackupPlanRequest;
+    /// let x = GetBackupPlanRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2964,12 +3756,24 @@ impl DeleteBackupPlanRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupPlanRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupPlanRequest;
+    /// let x = DeleteBackupPlanRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupPlanRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupPlanRequest;
+    /// let x = DeleteBackupPlanRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3023,6 +3827,13 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = UpdateBackupPlanRequest::new().set_backup_plan(BackupPlan::default()/* use setters */);
+    /// ```
     pub fn set_backup_plan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -3032,6 +3843,14 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets or clears the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = UpdateBackupPlanRequest::new().set_or_clear_backup_plan(Some(BackupPlan::default()/* use setters */));
+    /// let x = UpdateBackupPlanRequest::new().set_or_clear_backup_plan(None::<BackupPlan>);
+    /// ```
     pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -3041,6 +3860,13 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupPlanRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3050,6 +3876,14 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupPlanRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupPlanRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3059,6 +3893,12 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateBackupPlanRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanRequest;
+    /// let x = UpdateBackupPlanRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3105,18 +3945,39 @@ impl BackupPlanRevision {
     }
 
     /// Sets the value of [name][crate::model::BackupPlanRevision::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// let x = BackupPlanRevision::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::BackupPlanRevision::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// let x = BackupPlanRevision::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::BackupPlanRevision::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// use google_cloud_backupdr_v1::model::backup_plan_revision::State;
+    /// let x0 = BackupPlanRevision::new().set_state(State::Creating);
+    /// let x1 = BackupPlanRevision::new().set_state(State::Active);
+    /// let x2 = BackupPlanRevision::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup_plan_revision::State>>(
         mut self,
         v: T,
@@ -3126,6 +3987,13 @@ impl BackupPlanRevision {
     }
 
     /// Sets the value of [backup_plan_snapshot][crate::model::BackupPlanRevision::backup_plan_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlanRevision::new().set_backup_plan_snapshot(BackupPlan::default()/* use setters */);
+    /// ```
     pub fn set_backup_plan_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -3135,6 +4003,14 @@ impl BackupPlanRevision {
     }
 
     /// Sets or clears the value of [backup_plan_snapshot][crate::model::BackupPlanRevision::backup_plan_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// let x = BackupPlanRevision::new().set_or_clear_backup_plan_snapshot(Some(BackupPlan::default()/* use setters */));
+    /// let x = BackupPlanRevision::new().set_or_clear_backup_plan_snapshot(None::<BackupPlan>);
+    /// ```
     pub fn set_or_clear_backup_plan_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -3144,6 +4020,13 @@ impl BackupPlanRevision {
     }
 
     /// Sets the value of [create_time][crate::model::BackupPlanRevision::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlanRevision::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3153,6 +4036,14 @@ impl BackupPlanRevision {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupPlanRevision::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlanRevision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupPlanRevision::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3339,6 +4230,12 @@ impl GetBackupPlanRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupPlanRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetBackupPlanRevisionRequest;
+    /// let x = GetBackupPlanRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3390,18 +4287,36 @@ impl ListBackupPlanRevisionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupPlanRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanRevisionsRequest;
+    /// let x = ListBackupPlanRevisionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupPlanRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanRevisionsRequest;
+    /// let x = ListBackupPlanRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupPlanRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanRevisionsRequest;
+    /// let x = ListBackupPlanRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3449,6 +4364,17 @@ impl ListBackupPlanRevisionsResponse {
     }
 
     /// Sets the value of [backup_plan_revisions][crate::model::ListBackupPlanRevisionsResponse::backup_plan_revisions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanRevisionsResponse;
+    /// use google_cloud_backupdr_v1::model::BackupPlanRevision;
+    /// let x = ListBackupPlanRevisionsResponse::new()
+    ///     .set_backup_plan_revisions([
+    ///         BackupPlanRevision::default()/* use setters */,
+    ///         BackupPlanRevision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_plan_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3460,12 +4386,24 @@ impl ListBackupPlanRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupPlanRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanRevisionsResponse;
+    /// let x = ListBackupPlanRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupPlanRevisionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanRevisionsResponse;
+    /// let x = ListBackupPlanRevisionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3566,30 +4504,61 @@ impl BackupPlanAssociation {
     }
 
     /// Sets the value of [name][crate::model::BackupPlanAssociation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = BackupPlanAssociation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::BackupPlanAssociation::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = BackupPlanAssociation::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::BackupPlanAssociation::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = BackupPlanAssociation::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [backup_plan][crate::model::BackupPlanAssociation::backup_plan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = BackupPlanAssociation::new().set_backup_plan("example");
+    /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupPlanAssociation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlanAssociation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3599,6 +4568,14 @@ impl BackupPlanAssociation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupPlanAssociation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlanAssociation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupPlanAssociation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3608,6 +4585,13 @@ impl BackupPlanAssociation {
     }
 
     /// Sets the value of [update_time][crate::model::BackupPlanAssociation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlanAssociation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3617,6 +4601,14 @@ impl BackupPlanAssociation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupPlanAssociation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = BackupPlanAssociation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupPlanAssociation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3626,6 +4618,15 @@ impl BackupPlanAssociation {
     }
 
     /// Sets the value of [state][crate::model::BackupPlanAssociation::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::backup_plan_association::State;
+    /// let x0 = BackupPlanAssociation::new().set_state(State::Creating);
+    /// let x1 = BackupPlanAssociation::new().set_state(State::Active);
+    /// let x2 = BackupPlanAssociation::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup_plan_association::State>>(
         mut self,
         v: T,
@@ -3635,6 +4636,17 @@ impl BackupPlanAssociation {
     }
 
     /// Sets the value of [rules_config_info][crate::model::BackupPlanAssociation::rules_config_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::RuleConfigInfo;
+    /// let x = BackupPlanAssociation::new()
+    ///     .set_rules_config_info([
+    ///         RuleConfigInfo::default()/* use setters */,
+    ///         RuleConfigInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules_config_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3646,12 +4658,24 @@ impl BackupPlanAssociation {
     }
 
     /// Sets the value of [data_source][crate::model::BackupPlanAssociation::data_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = BackupPlanAssociation::new().set_data_source("example");
+    /// ```
     pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source = v.into();
         self
     }
 
     /// Sets the value of [backup_plan_revision_id][crate::model::BackupPlanAssociation::backup_plan_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = BackupPlanAssociation::new().set_backup_plan_revision_id("example");
+    /// ```
     pub fn set_backup_plan_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3661,6 +4685,12 @@ impl BackupPlanAssociation {
     }
 
     /// Sets the value of [backup_plan_revision_name][crate::model::BackupPlanAssociation::backup_plan_revision_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = BackupPlanAssociation::new().set_backup_plan_revision_name("example");
+    /// ```
     pub fn set_backup_plan_revision_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3673,6 +4703,14 @@ impl BackupPlanAssociation {
     ///
     /// Note that all the setters affecting `resource_properties` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupPlanAssociationProperties;
+    /// let x = BackupPlanAssociation::new().set_resource_properties(Some(
+    ///     google_cloud_backupdr_v1::model::backup_plan_association::ResourceProperties::CloudSqlInstanceBackupPlanAssociationProperties(CloudSqlInstanceBackupPlanAssociationProperties::default().into())));
+    /// ```
     pub fn set_resource_properties<
         T: std::convert::Into<
                 std::option::Option<crate::model::backup_plan_association::ResourceProperties>,
@@ -3705,6 +4743,14 @@ impl BackupPlanAssociation {
     ///
     /// Note that all the setters affecting `resource_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupPlanAssociationProperties;
+    /// let x = BackupPlanAssociation::new().set_cloud_sql_instance_backup_plan_association_properties(CloudSqlInstanceBackupPlanAssociationProperties::default()/* use setters */);
+    /// assert!(x.cloud_sql_instance_backup_plan_association_properties().is_some());
+    /// ```
     pub fn set_cloud_sql_instance_backup_plan_association_properties<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::CloudSqlInstanceBackupPlanAssociationProperties>,
@@ -3923,12 +4969,27 @@ impl RuleConfigInfo {
     }
 
     /// Sets the value of [rule_id][crate::model::RuleConfigInfo::rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
+    /// let x = RuleConfigInfo::new().set_rule_id("example");
+    /// ```
     pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_id = v.into();
         self
     }
 
     /// Sets the value of [last_backup_state][crate::model::RuleConfigInfo::last_backup_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
+    /// use google_cloud_backupdr_v1::model::rule_config_info::LastBackupState;
+    /// let x0 = RuleConfigInfo::new().set_last_backup_state(LastBackupState::FirstBackupPending);
+    /// let x1 = RuleConfigInfo::new().set_last_backup_state(LastBackupState::PermissionDenied);
+    /// let x2 = RuleConfigInfo::new().set_last_backup_state(LastBackupState::Succeeded);
+    /// ```
     pub fn set_last_backup_state<
         T: std::convert::Into<crate::model::rule_config_info::LastBackupState>,
     >(
@@ -3940,6 +5001,13 @@ impl RuleConfigInfo {
     }
 
     /// Sets the value of [last_backup_error][crate::model::RuleConfigInfo::last_backup_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
+    /// use rpc::model::Status;
+    /// let x = RuleConfigInfo::new().set_last_backup_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_last_backup_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3949,6 +5017,14 @@ impl RuleConfigInfo {
     }
 
     /// Sets or clears the value of [last_backup_error][crate::model::RuleConfigInfo::last_backup_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
+    /// use rpc::model::Status;
+    /// let x = RuleConfigInfo::new().set_or_clear_last_backup_error(Some(Status::default()/* use setters */));
+    /// let x = RuleConfigInfo::new().set_or_clear_last_backup_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3958,6 +5034,13 @@ impl RuleConfigInfo {
     }
 
     /// Sets the value of [last_successful_backup_consistency_time][crate::model::RuleConfigInfo::last_successful_backup_consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
+    /// use wkt::Timestamp;
+    /// let x = RuleConfigInfo::new().set_last_successful_backup_consistency_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_successful_backup_consistency_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3967,6 +5050,14 @@ impl RuleConfigInfo {
     }
 
     /// Sets or clears the value of [last_successful_backup_consistency_time][crate::model::RuleConfigInfo::last_successful_backup_consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RuleConfigInfo;
+    /// use wkt::Timestamp;
+    /// let x = RuleConfigInfo::new().set_or_clear_last_successful_backup_consistency_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RuleConfigInfo::new().set_or_clear_last_successful_backup_consistency_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_successful_backup_consistency_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -4178,12 +5269,24 @@ impl CreateBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupPlanAssociationRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanAssociationRequest;
+    /// let x = CreateBackupPlanAssociationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_plan_association_id][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanAssociationRequest;
+    /// let x = CreateBackupPlanAssociationRequest::new().set_backup_plan_association_id("example");
+    /// ```
     pub fn set_backup_plan_association_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4193,6 +5296,13 @@ impl CreateBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanAssociationRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = CreateBackupPlanAssociationRequest::new().set_backup_plan_association(BackupPlanAssociation::default()/* use setters */);
+    /// ```
     pub fn set_backup_plan_association<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlanAssociation>,
@@ -4202,6 +5312,14 @@ impl CreateBackupPlanAssociationRequest {
     }
 
     /// Sets or clears the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanAssociationRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = CreateBackupPlanAssociationRequest::new().set_or_clear_backup_plan_association(Some(BackupPlanAssociation::default()/* use setters */));
+    /// let x = CreateBackupPlanAssociationRequest::new().set_or_clear_backup_plan_association(None::<BackupPlanAssociation>);
+    /// ```
     pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlanAssociation>,
@@ -4211,6 +5329,12 @@ impl CreateBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateBackupPlanAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupPlanAssociationRequest;
+    /// let x = CreateBackupPlanAssociationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4254,24 +5378,48 @@ impl ListBackupPlanAssociationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupPlanAssociationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsRequest;
+    /// let x = ListBackupPlanAssociationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupPlanAssociationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsRequest;
+    /// let x = ListBackupPlanAssociationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupPlanAssociationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsRequest;
+    /// let x = ListBackupPlanAssociationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupPlanAssociationsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsRequest;
+    /// let x = ListBackupPlanAssociationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4313,6 +5461,17 @@ impl ListBackupPlanAssociationsResponse {
     }
 
     /// Sets the value of [backup_plan_associations][crate::model::ListBackupPlanAssociationsResponse::backup_plan_associations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsResponse;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = ListBackupPlanAssociationsResponse::new()
+    ///     .set_backup_plan_associations([
+    ///         BackupPlanAssociation::default()/* use setters */,
+    ///         BackupPlanAssociation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_plan_associations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4324,12 +5483,24 @@ impl ListBackupPlanAssociationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupPlanAssociationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsResponse;
+    /// let x = ListBackupPlanAssociationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupPlanAssociationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupPlanAssociationsResponse;
+    /// let x = ListBackupPlanAssociationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4417,36 +5588,72 @@ impl FetchBackupPlanAssociationsForResourceTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeRequest;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeRequest;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeRequest;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeRequest;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeRequest;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeRequest;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4479,6 +5686,17 @@ impl FetchBackupPlanAssociationsForResourceTypeResponse {
     }
 
     /// Sets the value of [backup_plan_associations][crate::model::FetchBackupPlanAssociationsForResourceTypeResponse::backup_plan_associations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeResponse;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeResponse::new()
+    ///     .set_backup_plan_associations([
+    ///         BackupPlanAssociation::default()/* use setters */,
+    ///         BackupPlanAssociation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_plan_associations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4490,6 +5708,12 @@ impl FetchBackupPlanAssociationsForResourceTypeResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchBackupPlanAssociationsForResourceTypeResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchBackupPlanAssociationsForResourceTypeResponse;
+    /// let x = FetchBackupPlanAssociationsForResourceTypeResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4535,6 +5759,12 @@ impl GetBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupPlanAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetBackupPlanAssociationRequest;
+    /// let x = GetBackupPlanAssociationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4579,12 +5809,24 @@ impl DeleteBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupPlanAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupPlanAssociationRequest;
+    /// let x = DeleteBackupPlanAssociationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupPlanAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupPlanAssociationRequest;
+    /// let x = DeleteBackupPlanAssociationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4637,6 +5879,13 @@ impl UpdateBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [backup_plan_association][crate::model::UpdateBackupPlanAssociationRequest::backup_plan_association].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanAssociationRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = UpdateBackupPlanAssociationRequest::new().set_backup_plan_association(BackupPlanAssociation::default()/* use setters */);
+    /// ```
     pub fn set_backup_plan_association<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlanAssociation>,
@@ -4646,6 +5895,14 @@ impl UpdateBackupPlanAssociationRequest {
     }
 
     /// Sets or clears the value of [backup_plan_association][crate::model::UpdateBackupPlanAssociationRequest::backup_plan_association].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanAssociationRequest;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// let x = UpdateBackupPlanAssociationRequest::new().set_or_clear_backup_plan_association(Some(BackupPlanAssociation::default()/* use setters */));
+    /// let x = UpdateBackupPlanAssociationRequest::new().set_or_clear_backup_plan_association(None::<BackupPlanAssociation>);
+    /// ```
     pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlanAssociation>,
@@ -4655,6 +5912,13 @@ impl UpdateBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupPlanAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupPlanAssociationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4664,6 +5928,14 @@ impl UpdateBackupPlanAssociationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupPlanAssociationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupPlanAssociationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4673,6 +5945,12 @@ impl UpdateBackupPlanAssociationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateBackupPlanAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupPlanAssociationRequest;
+    /// let x = UpdateBackupPlanAssociationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4720,18 +5998,36 @@ impl TriggerBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::TriggerBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::TriggerBackupRequest;
+    /// let x = TriggerBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [rule_id][crate::model::TriggerBackupRequest::rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::TriggerBackupRequest;
+    /// let x = TriggerBackupRequest::new().set_rule_id("example");
+    /// ```
     pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_id = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::TriggerBackupRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::TriggerBackupRequest;
+    /// let x = TriggerBackupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4821,12 +6117,24 @@ impl BackupVault {
     }
 
     /// Sets the value of [name][crate::model::BackupVault::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::BackupVault::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4836,6 +6144,13 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [description][crate::model::BackupVault::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_or_clear_description(Some("example"));
+    /// let x = BackupVault::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4845,6 +6160,15 @@ impl BackupVault {
     }
 
     /// Sets the value of [labels][crate::model::BackupVault::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4857,6 +6181,13 @@ impl BackupVault {
     }
 
     /// Sets the value of [create_time][crate::model::BackupVault::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4866,6 +6197,14 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupVault::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupVault::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4875,6 +6214,13 @@ impl BackupVault {
     }
 
     /// Sets the value of [update_time][crate::model::BackupVault::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4884,6 +6230,14 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupVault::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupVault::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4893,6 +6247,13 @@ impl BackupVault {
     }
 
     /// Sets the value of [backup_minimum_enforced_retention_duration][crate::model::BackupVault::backup_minimum_enforced_retention_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Duration;
+    /// let x = BackupVault::new().set_backup_minimum_enforced_retention_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_backup_minimum_enforced_retention_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4902,6 +6263,14 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [backup_minimum_enforced_retention_duration][crate::model::BackupVault::backup_minimum_enforced_retention_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Duration;
+    /// let x = BackupVault::new().set_or_clear_backup_minimum_enforced_retention_duration(Some(Duration::default()/* use setters */));
+    /// let x = BackupVault::new().set_or_clear_backup_minimum_enforced_retention_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_backup_minimum_enforced_retention_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -4914,6 +6283,12 @@ impl BackupVault {
     }
 
     /// Sets the value of [deletable][crate::model::BackupVault::deletable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_deletable(true);
+    /// ```
     pub fn set_deletable<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -4923,6 +6298,13 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [deletable][crate::model::BackupVault::deletable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_or_clear_deletable(Some(false));
+    /// let x = BackupVault::new().set_or_clear_deletable(None::<bool>);
+    /// ```
     pub fn set_or_clear_deletable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -4932,6 +6314,12 @@ impl BackupVault {
     }
 
     /// Sets the value of [etag][crate::model::BackupVault::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4941,6 +6329,13 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [etag][crate::model::BackupVault::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_or_clear_etag(Some("example"));
+    /// let x = BackupVault::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4950,6 +6345,15 @@ impl BackupVault {
     }
 
     /// Sets the value of [state][crate::model::BackupVault::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use google_cloud_backupdr_v1::model::backup_vault::State;
+    /// let x0 = BackupVault::new().set_state(State::Creating);
+    /// let x1 = BackupVault::new().set_state(State::Active);
+    /// let x2 = BackupVault::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup_vault::State>>(
         mut self,
         v: T,
@@ -4959,6 +6363,13 @@ impl BackupVault {
     }
 
     /// Sets the value of [effective_time][crate::model::BackupVault::effective_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_effective_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_effective_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4968,6 +6379,14 @@ impl BackupVault {
     }
 
     /// Sets or clears the value of [effective_time][crate::model::BackupVault::effective_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use wkt::Timestamp;
+    /// let x = BackupVault::new().set_or_clear_effective_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupVault::new().set_or_clear_effective_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4977,30 +6396,63 @@ impl BackupVault {
     }
 
     /// Sets the value of [backup_count][crate::model::BackupVault::backup_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_backup_count(42);
+    /// ```
     pub fn set_backup_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.backup_count = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::BackupVault::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [total_stored_bytes][crate::model::BackupVault::total_stored_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_total_stored_bytes(42);
+    /// ```
     pub fn set_total_stored_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_stored_bytes = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::BackupVault::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::BackupVault::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5013,6 +6465,15 @@ impl BackupVault {
     }
 
     /// Sets the value of [access_restriction][crate::model::BackupVault::access_restriction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupVault;
+    /// use google_cloud_backupdr_v1::model::backup_vault::AccessRestriction;
+    /// let x0 = BackupVault::new().set_access_restriction(AccessRestriction::WithinProject);
+    /// let x1 = BackupVault::new().set_access_restriction(AccessRestriction::WithinOrganization);
+    /// let x2 = BackupVault::new().set_access_restriction(AccessRestriction::Unrestricted);
+    /// ```
     pub fn set_access_restriction<
         T: std::convert::Into<crate::model::backup_vault::AccessRestriction>,
     >(
@@ -5399,12 +6860,27 @@ impl DataSource {
     }
 
     /// Sets the value of [name][crate::model::DataSource::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DataSource::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::model::data_source::State;
+    /// let x0 = DataSource::new().set_state(State::Creating);
+    /// let x1 = DataSource::new().set_state(State::Active);
+    /// let x2 = DataSource::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::data_source::State>>(
         mut self,
         v: T,
@@ -5414,6 +6890,15 @@ impl DataSource {
     }
 
     /// Sets the value of [labels][crate::model::DataSource::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5426,6 +6911,13 @@ impl DataSource {
     }
 
     /// Sets the value of [create_time][crate::model::DataSource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use wkt::Timestamp;
+    /// let x = DataSource::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5435,6 +6927,14 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataSource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use wkt::Timestamp;
+    /// let x = DataSource::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataSource::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5444,6 +6944,13 @@ impl DataSource {
     }
 
     /// Sets the value of [update_time][crate::model::DataSource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use wkt::Timestamp;
+    /// let x = DataSource::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5453,6 +6960,14 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DataSource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use wkt::Timestamp;
+    /// let x = DataSource::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataSource::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5462,6 +6977,12 @@ impl DataSource {
     }
 
     /// Sets the value of [backup_count][crate::model::DataSource::backup_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_backup_count(42);
+    /// ```
     pub fn set_backup_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5471,6 +6992,13 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [backup_count][crate::model::DataSource::backup_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_or_clear_backup_count(Some(42));
+    /// let x = DataSource::new().set_or_clear_backup_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_backup_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5480,6 +7008,12 @@ impl DataSource {
     }
 
     /// Sets the value of [etag][crate::model::DataSource::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5489,6 +7023,13 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [etag][crate::model::DataSource::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_or_clear_etag(Some("example"));
+    /// let x = DataSource::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5498,6 +7039,12 @@ impl DataSource {
     }
 
     /// Sets the value of [total_stored_bytes][crate::model::DataSource::total_stored_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_total_stored_bytes(42);
+    /// ```
     pub fn set_total_stored_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5507,6 +7054,13 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [total_stored_bytes][crate::model::DataSource::total_stored_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_or_clear_total_stored_bytes(Some(42));
+    /// let x = DataSource::new().set_or_clear_total_stored_bytes(None::<i32>);
+    /// ```
     pub fn set_or_clear_total_stored_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5516,6 +7070,14 @@ impl DataSource {
     }
 
     /// Sets the value of [config_state][crate::model::DataSource::config_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::model::BackupConfigState;
+    /// let x0 = DataSource::new().set_config_state(BackupConfigState::Active);
+    /// let x1 = DataSource::new().set_config_state(BackupConfigState::Passive);
+    /// ```
     pub fn set_config_state<T: std::convert::Into<crate::model::BackupConfigState>>(
         mut self,
         v: T,
@@ -5525,6 +7087,13 @@ impl DataSource {
     }
 
     /// Sets the value of [backup_config_info][crate::model::DataSource::backup_config_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// let x = DataSource::new().set_backup_config_info(BackupConfigInfo::default()/* use setters */);
+    /// ```
     pub fn set_backup_config_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupConfigInfo>,
@@ -5534,6 +7103,14 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [backup_config_info][crate::model::DataSource::backup_config_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// let x = DataSource::new().set_or_clear_backup_config_info(Some(BackupConfigInfo::default()/* use setters */));
+    /// let x = DataSource::new().set_or_clear_backup_config_info(None::<BackupConfigInfo>);
+    /// ```
     pub fn set_or_clear_backup_config_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupConfigInfo>,
@@ -5543,6 +7120,12 @@ impl DataSource {
     }
 
     /// Sets the value of [backup_blocked_by_vault_access_restriction][crate::model::DataSource::backup_blocked_by_vault_access_restriction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = DataSource::new().set_backup_blocked_by_vault_access_restriction(true);
+    /// ```
     pub fn set_backup_blocked_by_vault_access_restriction<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -5555,6 +7138,14 @@ impl DataSource {
     ///
     /// Note that all the setters affecting `source_resource` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// let x = DataSource::new().set_source_resource(Some(
+    ///     google_cloud_backupdr_v1::model::data_source::SourceResource::DataSourceGcpResource(DataSourceGcpResource::default().into())));
+    /// ```
     pub fn set_source_resource<
         T: std::convert::Into<std::option::Option<crate::model::data_source::SourceResource>>,
     >(
@@ -5585,6 +7176,15 @@ impl DataSource {
     ///
     /// Note that all the setters affecting `source_resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// let x = DataSource::new().set_data_source_gcp_resource(DataSourceGcpResource::default()/* use setters */);
+    /// assert!(x.data_source_gcp_resource().is_some());
+    /// assert!(x.data_source_backup_appliance_application().is_none());
+    /// ```
     pub fn set_data_source_gcp_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::DataSourceGcpResource>>,
     >(
@@ -5618,6 +7218,15 @@ impl DataSource {
     ///
     /// Note that all the setters affecting `source_resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSource::new().set_data_source_backup_appliance_application(DataSourceBackupApplianceApplication::default()/* use setters */);
+    /// assert!(x.data_source_backup_appliance_application().is_some());
+    /// assert!(x.data_source_gcp_resource().is_none());
+    /// ```
     pub fn set_data_source_backup_appliance_application<
         T: std::convert::Into<std::boxed::Box<crate::model::DataSourceBackupApplianceApplication>>,
     >(
@@ -5834,6 +7443,15 @@ impl BackupConfigInfo {
     }
 
     /// Sets the value of [last_backup_state][crate::model::BackupConfigInfo::last_backup_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use google_cloud_backupdr_v1::model::backup_config_info::LastBackupState;
+    /// let x0 = BackupConfigInfo::new().set_last_backup_state(LastBackupState::FirstBackupPending);
+    /// let x1 = BackupConfigInfo::new().set_last_backup_state(LastBackupState::Succeeded);
+    /// let x2 = BackupConfigInfo::new().set_last_backup_state(LastBackupState::Failed);
+    /// ```
     pub fn set_last_backup_state<
         T: std::convert::Into<crate::model::backup_config_info::LastBackupState>,
     >(
@@ -5845,6 +7463,13 @@ impl BackupConfigInfo {
     }
 
     /// Sets the value of [last_successful_backup_consistency_time][crate::model::BackupConfigInfo::last_successful_backup_consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use wkt::Timestamp;
+    /// let x = BackupConfigInfo::new().set_last_successful_backup_consistency_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_successful_backup_consistency_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5854,6 +7479,14 @@ impl BackupConfigInfo {
     }
 
     /// Sets or clears the value of [last_successful_backup_consistency_time][crate::model::BackupConfigInfo::last_successful_backup_consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use wkt::Timestamp;
+    /// let x = BackupConfigInfo::new().set_or_clear_last_successful_backup_consistency_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupConfigInfo::new().set_or_clear_last_successful_backup_consistency_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_successful_backup_consistency_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5866,6 +7499,13 @@ impl BackupConfigInfo {
     }
 
     /// Sets the value of [last_backup_error][crate::model::BackupConfigInfo::last_backup_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use rpc::model::Status;
+    /// let x = BackupConfigInfo::new().set_last_backup_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_last_backup_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -5875,6 +7515,14 @@ impl BackupConfigInfo {
     }
 
     /// Sets or clears the value of [last_backup_error][crate::model::BackupConfigInfo::last_backup_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use rpc::model::Status;
+    /// let x = BackupConfigInfo::new().set_or_clear_last_backup_error(Some(Status::default()/* use setters */));
+    /// let x = BackupConfigInfo::new().set_or_clear_last_backup_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -5887,6 +7535,14 @@ impl BackupConfigInfo {
     ///
     /// Note that all the setters affecting `backup_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = BackupConfigInfo::new().set_backup_config(Some(
+    ///     google_cloud_backupdr_v1::model::backup_config_info::BackupConfig::GcpBackupConfig(GcpBackupConfig::default().into())));
+    /// ```
     pub fn set_backup_config<
         T: std::convert::Into<std::option::Option<crate::model::backup_config_info::BackupConfig>>,
     >(
@@ -5917,6 +7573,15 @@ impl BackupConfigInfo {
     ///
     /// Note that all the setters affecting `backup_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = BackupConfigInfo::new().set_gcp_backup_config(GcpBackupConfig::default()/* use setters */);
+    /// assert!(x.gcp_backup_config().is_some());
+    /// assert!(x.backup_appliance_backup_config().is_none());
+    /// ```
     pub fn set_gcp_backup_config<
         T: std::convert::Into<std::boxed::Box<crate::model::GcpBackupConfig>>,
     >(
@@ -5949,6 +7614,15 @@ impl BackupConfigInfo {
     ///
     /// Note that all the setters affecting `backup_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupConfigInfo;
+    /// use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupConfigInfo::new().set_backup_appliance_backup_config(BackupApplianceBackupConfig::default()/* use setters */);
+    /// assert!(x.backup_appliance_backup_config().is_some());
+    /// assert!(x.gcp_backup_config().is_none());
+    /// ```
     pub fn set_backup_appliance_backup_config<
         T: std::convert::Into<std::boxed::Box<crate::model::BackupApplianceBackupConfig>>,
     >(
@@ -6166,12 +7840,24 @@ impl GcpBackupConfig {
     }
 
     /// Sets the value of [backup_plan][crate::model::GcpBackupConfig::backup_plan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = GcpBackupConfig::new().set_backup_plan("example");
+    /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
         self
     }
 
     /// Sets the value of [backup_plan_description][crate::model::GcpBackupConfig::backup_plan_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = GcpBackupConfig::new().set_backup_plan_description("example");
+    /// ```
     pub fn set_backup_plan_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6181,6 +7867,12 @@ impl GcpBackupConfig {
     }
 
     /// Sets the value of [backup_plan_association][crate::model::GcpBackupConfig::backup_plan_association].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = GcpBackupConfig::new().set_backup_plan_association("example");
+    /// ```
     pub fn set_backup_plan_association<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6190,6 +7882,12 @@ impl GcpBackupConfig {
     }
 
     /// Sets the value of [backup_plan_rules][crate::model::GcpBackupConfig::backup_plan_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = GcpBackupConfig::new().set_backup_plan_rules(["a", "b", "c"]);
+    /// ```
     pub fn set_backup_plan_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6201,6 +7899,12 @@ impl GcpBackupConfig {
     }
 
     /// Sets the value of [backup_plan_revision_name][crate::model::GcpBackupConfig::backup_plan_revision_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = GcpBackupConfig::new().set_backup_plan_revision_name("example");
+    /// ```
     pub fn set_backup_plan_revision_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6210,6 +7914,12 @@ impl GcpBackupConfig {
     }
 
     /// Sets the value of [backup_plan_revision_id][crate::model::GcpBackupConfig::backup_plan_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// let x = GcpBackupConfig::new().set_backup_plan_revision_id("example");
+    /// ```
     pub fn set_backup_plan_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6260,6 +7970,12 @@ impl BackupApplianceBackupConfig {
     }
 
     /// Sets the value of [backup_appliance_name][crate::model::BackupApplianceBackupConfig::backup_appliance_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupApplianceBackupConfig::new().set_backup_appliance_name("example");
+    /// ```
     pub fn set_backup_appliance_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6269,18 +7985,36 @@ impl BackupApplianceBackupConfig {
     }
 
     /// Sets the value of [backup_appliance_id][crate::model::BackupApplianceBackupConfig::backup_appliance_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupApplianceBackupConfig::new().set_backup_appliance_id(42);
+    /// ```
     pub fn set_backup_appliance_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.backup_appliance_id = v.into();
         self
     }
 
     /// Sets the value of [sla_id][crate::model::BackupApplianceBackupConfig::sla_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupApplianceBackupConfig::new().set_sla_id(42);
+    /// ```
     pub fn set_sla_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.sla_id = v.into();
         self
     }
 
     /// Sets the value of [application_name][crate::model::BackupApplianceBackupConfig::application_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupApplianceBackupConfig::new().set_application_name("example");
+    /// ```
     pub fn set_application_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6290,18 +8024,36 @@ impl BackupApplianceBackupConfig {
     }
 
     /// Sets the value of [host_name][crate::model::BackupApplianceBackupConfig::host_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupApplianceBackupConfig::new().set_host_name("example");
+    /// ```
     pub fn set_host_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_name = v.into();
         self
     }
 
     /// Sets the value of [slt_name][crate::model::BackupApplianceBackupConfig::slt_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupApplianceBackupConfig::new().set_slt_name("example");
+    /// ```
     pub fn set_slt_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.slt_name = v.into();
         self
     }
 
     /// Sets the value of [slp_name][crate::model::BackupApplianceBackupConfig::slp_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupConfig;
+    /// let x = BackupApplianceBackupConfig::new().set_slp_name("example");
+    /// ```
     pub fn set_slp_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.slp_name = v.into();
         self
@@ -6344,6 +8096,12 @@ impl DataSourceGcpResource {
     }
 
     /// Sets the value of [gcp_resourcename][crate::model::DataSourceGcpResource::gcp_resourcename].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// let x = DataSourceGcpResource::new().set_gcp_resourcename("example");
+    /// ```
     pub fn set_gcp_resourcename<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6353,12 +8111,24 @@ impl DataSourceGcpResource {
     }
 
     /// Sets the value of [location][crate::model::DataSourceGcpResource::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// let x = DataSourceGcpResource::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::DataSourceGcpResource::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// let x = DataSourceGcpResource::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -6368,6 +8138,14 @@ impl DataSourceGcpResource {
     ///
     /// Note that all the setters affecting `gcp_resource_properties` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceDataSourceProperties;
+    /// let x = DataSourceGcpResource::new().set_gcp_resource_properties(Some(
+    ///     google_cloud_backupdr_v1::model::data_source_gcp_resource::GcpResourceProperties::ComputeInstanceDatasourceProperties(ComputeInstanceDataSourceProperties::default().into())));
+    /// ```
     pub fn set_gcp_resource_properties<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_source_gcp_resource::GcpResourceProperties>,
@@ -6399,6 +8177,16 @@ impl DataSourceGcpResource {
     ///
     /// Note that all the setters affecting `gcp_resource_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceDataSourceProperties;
+    /// let x = DataSourceGcpResource::new().set_compute_instance_datasource_properties(ComputeInstanceDataSourceProperties::default()/* use setters */);
+    /// assert!(x.compute_instance_datasource_properties().is_some());
+    /// assert!(x.cloud_sql_instance_datasource_properties().is_none());
+    /// assert!(x.disk_datasource_properties().is_none());
+    /// ```
     pub fn set_compute_instance_datasource_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceDataSourceProperties>>,
     >(
@@ -6432,6 +8220,16 @@ impl DataSourceGcpResource {
     ///
     /// Note that all the setters affecting `gcp_resource_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceProperties;
+    /// let x = DataSourceGcpResource::new().set_cloud_sql_instance_datasource_properties(CloudSqlInstanceDataSourceProperties::default()/* use setters */);
+    /// assert!(x.cloud_sql_instance_datasource_properties().is_some());
+    /// assert!(x.compute_instance_datasource_properties().is_none());
+    /// assert!(x.disk_datasource_properties().is_none());
+    /// ```
     pub fn set_cloud_sql_instance_datasource_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstanceDataSourceProperties>>,
     >(
@@ -6464,6 +8262,16 @@ impl DataSourceGcpResource {
     ///
     /// Note that all the setters affecting `gcp_resource_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResource;
+    /// use google_cloud_backupdr_v1::model::DiskDataSourceProperties;
+    /// let x = DataSourceGcpResource::new().set_disk_datasource_properties(DiskDataSourceProperties::default()/* use setters */);
+    /// assert!(x.disk_datasource_properties().is_some());
+    /// assert!(x.compute_instance_datasource_properties().is_none());
+    /// assert!(x.cloud_sql_instance_datasource_properties().is_none());
+    /// ```
     pub fn set_disk_datasource_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskDataSourceProperties>>,
     >(
@@ -6545,6 +8353,12 @@ impl DataSourceBackupApplianceApplication {
     }
 
     /// Sets the value of [application_name][crate::model::DataSourceBackupApplianceApplication::application_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSourceBackupApplianceApplication::new().set_application_name("example");
+    /// ```
     pub fn set_application_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6554,6 +8368,12 @@ impl DataSourceBackupApplianceApplication {
     }
 
     /// Sets the value of [backup_appliance][crate::model::DataSourceBackupApplianceApplication::backup_appliance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSourceBackupApplianceApplication::new().set_backup_appliance("example");
+    /// ```
     pub fn set_backup_appliance<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6563,30 +8383,60 @@ impl DataSourceBackupApplianceApplication {
     }
 
     /// Sets the value of [appliance_id][crate::model::DataSourceBackupApplianceApplication::appliance_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSourceBackupApplianceApplication::new().set_appliance_id(42);
+    /// ```
     pub fn set_appliance_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.appliance_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::DataSourceBackupApplianceApplication::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSourceBackupApplianceApplication::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [application_id][crate::model::DataSourceBackupApplianceApplication::application_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSourceBackupApplianceApplication::new().set_application_id(42);
+    /// ```
     pub fn set_application_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.application_id = v.into();
         self
     }
 
     /// Sets the value of [hostname][crate::model::DataSourceBackupApplianceApplication::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSourceBackupApplianceApplication::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [host_id][crate::model::DataSourceBackupApplianceApplication::host_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupApplianceApplication;
+    /// let x = DataSourceBackupApplianceApplication::new().set_host_id(42);
+    /// ```
     pub fn set_host_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.host_id = v.into();
         self
@@ -6617,6 +8467,12 @@ impl ServiceLockInfo {
     }
 
     /// Sets the value of [operation][crate::model::ServiceLockInfo::operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ServiceLockInfo;
+    /// let x = ServiceLockInfo::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
@@ -6657,12 +8513,24 @@ impl BackupApplianceLockInfo {
     }
 
     /// Sets the value of [backup_appliance_id][crate::model::BackupApplianceLockInfo::backup_appliance_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupApplianceLockInfo::new().set_backup_appliance_id(42);
+    /// ```
     pub fn set_backup_appliance_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.backup_appliance_id = v.into();
         self
     }
 
     /// Sets the value of [backup_appliance_name][crate::model::BackupApplianceLockInfo::backup_appliance_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupApplianceLockInfo::new().set_backup_appliance_name("example");
+    /// ```
     pub fn set_backup_appliance_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6672,6 +8540,12 @@ impl BackupApplianceLockInfo {
     }
 
     /// Sets the value of [lock_reason][crate::model::BackupApplianceLockInfo::lock_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupApplianceLockInfo::new().set_lock_reason("example");
+    /// ```
     pub fn set_lock_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lock_reason = v.into();
         self
@@ -6681,6 +8555,13 @@ impl BackupApplianceLockInfo {
     ///
     /// Note that all the setters affecting `lock_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// use google_cloud_backupdr_v1::model::backup_appliance_lock_info::LockSource;
+    /// let x = BackupApplianceLockInfo::new().set_lock_source(Some(LockSource::JobName("example".to_string())));
+    /// ```
     pub fn set_lock_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::backup_appliance_lock_info::LockSource>,
@@ -6711,6 +8592,15 @@ impl BackupApplianceLockInfo {
     ///
     /// Note that all the setters affecting `lock_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupApplianceLockInfo::new().set_job_name("example");
+    /// assert!(x.job_name().is_some());
+    /// assert!(x.backup_image().is_none());
+    /// assert!(x.sla_id().is_none());
+    /// ```
     pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lock_source = std::option::Option::Some(
             crate::model::backup_appliance_lock_info::LockSource::JobName(v.into()),
@@ -6736,6 +8626,15 @@ impl BackupApplianceLockInfo {
     ///
     /// Note that all the setters affecting `lock_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupApplianceLockInfo::new().set_backup_image("example");
+    /// assert!(x.backup_image().is_some());
+    /// assert!(x.job_name().is_none());
+    /// assert!(x.sla_id().is_none());
+    /// ```
     pub fn set_backup_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lock_source = std::option::Option::Some(
             crate::model::backup_appliance_lock_info::LockSource::BackupImage(v.into()),
@@ -6761,6 +8660,15 @@ impl BackupApplianceLockInfo {
     ///
     /// Note that all the setters affecting `lock_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupApplianceLockInfo::new().set_sla_id(42);
+    /// assert!(x.sla_id().is_some());
+    /// assert!(x.job_name().is_none());
+    /// assert!(x.backup_image().is_none());
+    /// ```
     pub fn set_sla_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.lock_source = std::option::Option::Some(
             crate::model::backup_appliance_lock_info::LockSource::SlaId(v.into()),
@@ -6814,6 +8722,13 @@ impl BackupLock {
     }
 
     /// Sets the value of [lock_until_time][crate::model::BackupLock::lock_until_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupLock;
+    /// use wkt::Timestamp;
+    /// let x = BackupLock::new().set_lock_until_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_lock_until_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6823,6 +8738,14 @@ impl BackupLock {
     }
 
     /// Sets or clears the value of [lock_until_time][crate::model::BackupLock::lock_until_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupLock;
+    /// use wkt::Timestamp;
+    /// let x = BackupLock::new().set_or_clear_lock_until_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupLock::new().set_or_clear_lock_until_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_lock_until_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6835,6 +8758,14 @@ impl BackupLock {
     ///
     /// Note that all the setters affecting `client_lock_info` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupLock;
+    /// use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupLock::new().set_client_lock_info(Some(
+    ///     google_cloud_backupdr_v1::model::backup_lock::ClientLockInfo::BackupApplianceLockInfo(BackupApplianceLockInfo::default().into())));
+    /// ```
     pub fn set_client_lock_info<
         T: std::convert::Into<std::option::Option<crate::model::backup_lock::ClientLockInfo>>,
     >(
@@ -6865,6 +8796,15 @@ impl BackupLock {
     ///
     /// Note that all the setters affecting `client_lock_info` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupLock;
+    /// use google_cloud_backupdr_v1::model::BackupApplianceLockInfo;
+    /// let x = BackupLock::new().set_backup_appliance_lock_info(BackupApplianceLockInfo::default()/* use setters */);
+    /// assert!(x.backup_appliance_lock_info().is_some());
+    /// assert!(x.service_lock_info().is_none());
+    /// ```
     pub fn set_backup_appliance_lock_info<
         T: std::convert::Into<std::boxed::Box<crate::model::BackupApplianceLockInfo>>,
     >(
@@ -6897,6 +8837,15 @@ impl BackupLock {
     ///
     /// Note that all the setters affecting `client_lock_info` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupLock;
+    /// use google_cloud_backupdr_v1::model::ServiceLockInfo;
+    /// let x = BackupLock::new().set_service_lock_info(ServiceLockInfo::default()/* use setters */);
+    /// assert!(x.service_lock_info().is_some());
+    /// assert!(x.backup_appliance_lock_info().is_none());
+    /// ```
     pub fn set_service_lock_info<
         T: std::convert::Into<std::boxed::Box<crate::model::ServiceLockInfo>>,
     >(
@@ -7012,12 +8961,24 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Backup::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -7027,6 +8988,13 @@ impl Backup {
     }
 
     /// Sets or clears the value of [description][crate::model::Backup::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_or_clear_description(Some("example"));
+    /// let x = Backup::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -7036,6 +9004,13 @@ impl Backup {
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7045,6 +9020,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7054,6 +9037,13 @@ impl Backup {
     }
 
     /// Sets the value of [update_time][crate::model::Backup::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7063,6 +9053,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Backup::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7072,6 +9070,15 @@ impl Backup {
     }
 
     /// Sets the value of [labels][crate::model::Backup::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7084,6 +9091,13 @@ impl Backup {
     }
 
     /// Sets the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_enforced_retention_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_enforced_retention_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7093,6 +9107,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_enforced_retention_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_enforced_retention_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_enforced_retention_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7102,6 +9124,13 @@ impl Backup {
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7111,6 +9140,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Backup::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7120,6 +9157,13 @@ impl Backup {
     }
 
     /// Sets the value of [consistency_time][crate::model::Backup::consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_consistency_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_consistency_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7129,6 +9173,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [consistency_time][crate::model::Backup::consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_consistency_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_consistency_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_consistency_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7138,6 +9190,12 @@ impl Backup {
     }
 
     /// Sets the value of [etag][crate::model::Backup::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -7147,6 +9205,13 @@ impl Backup {
     }
 
     /// Sets or clears the value of [etag][crate::model::Backup::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_or_clear_etag(Some("example"));
+    /// let x = Backup::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -7156,12 +9221,32 @@ impl Backup {
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::backup::State;
+    /// let x0 = Backup::new().set_state(State::Creating);
+    /// let x1 = Backup::new().set_state(State::Active);
+    /// let x2 = Backup::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [service_locks][crate::model::Backup::service_locks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::BackupLock;
+    /// let x = Backup::new()
+    ///     .set_service_locks([
+    ///         BackupLock::default()/* use setters */,
+    ///         BackupLock::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_locks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7173,6 +9258,17 @@ impl Backup {
     }
 
     /// Sets the value of [backup_appliance_locks][crate::model::Backup::backup_appliance_locks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::BackupLock;
+    /// let x = Backup::new()
+    ///     .set_backup_appliance_locks([
+    ///         BackupLock::default()/* use setters */,
+    ///         BackupLock::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_appliance_locks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7184,6 +9280,15 @@ impl Backup {
     }
 
     /// Sets the value of [backup_type][crate::model::Backup::backup_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::backup::BackupType;
+    /// let x0 = Backup::new().set_backup_type(BackupType::Scheduled);
+    /// let x1 = Backup::new().set_backup_type(BackupType::OnDemand);
+    /// let x2 = Backup::new().set_backup_type(BackupType::OnDemandOperational);
+    /// ```
     pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
         mut self,
         v: T,
@@ -7193,12 +9298,24 @@ impl Backup {
     }
 
     /// Sets the value of [resource_size_bytes][crate::model::Backup::resource_size_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_resource_size_bytes(42);
+    /// ```
     pub fn set_resource_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.resource_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7208,6 +9325,13 @@ impl Backup {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = Backup::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7217,6 +9341,12 @@ impl Backup {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7226,6 +9356,13 @@ impl Backup {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// let x = Backup::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = Backup::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -7238,6 +9375,14 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_properties` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = Backup::new().set_backup_properties(Some(
+    ///     google_cloud_backupdr_v1::model::backup::BackupProperties::ComputeInstanceBackupProperties(ComputeInstanceBackupProperties::default().into())));
+    /// ```
     pub fn set_backup_properties<
         T: std::convert::Into<std::option::Option<crate::model::backup::BackupProperties>>,
     >(
@@ -7268,6 +9413,17 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = Backup::new().set_compute_instance_backup_properties(ComputeInstanceBackupProperties::default()/* use setters */);
+    /// assert!(x.compute_instance_backup_properties().is_some());
+    /// assert!(x.cloud_sql_instance_backup_properties().is_none());
+    /// assert!(x.backup_appliance_backup_properties().is_none());
+    /// assert!(x.disk_backup_properties().is_none());
+    /// ```
     pub fn set_compute_instance_backup_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceBackupProperties>>,
     >(
@@ -7300,6 +9456,17 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupProperties;
+    /// let x = Backup::new().set_cloud_sql_instance_backup_properties(CloudSqlInstanceBackupProperties::default()/* use setters */);
+    /// assert!(x.cloud_sql_instance_backup_properties().is_some());
+    /// assert!(x.compute_instance_backup_properties().is_none());
+    /// assert!(x.backup_appliance_backup_properties().is_none());
+    /// assert!(x.disk_backup_properties().is_none());
+    /// ```
     pub fn set_cloud_sql_instance_backup_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstanceBackupProperties>>,
     >(
@@ -7332,6 +9499,17 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// let x = Backup::new().set_backup_appliance_backup_properties(BackupApplianceBackupProperties::default()/* use setters */);
+    /// assert!(x.backup_appliance_backup_properties().is_some());
+    /// assert!(x.compute_instance_backup_properties().is_none());
+    /// assert!(x.cloud_sql_instance_backup_properties().is_none());
+    /// assert!(x.disk_backup_properties().is_none());
+    /// ```
     pub fn set_backup_appliance_backup_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::BackupApplianceBackupProperties>>,
     >(
@@ -7364,6 +9542,17 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = Backup::new().set_disk_backup_properties(DiskBackupProperties::default()/* use setters */);
+    /// assert!(x.disk_backup_properties().is_some());
+    /// assert!(x.compute_instance_backup_properties().is_none());
+    /// assert!(x.cloud_sql_instance_backup_properties().is_none());
+    /// assert!(x.backup_appliance_backup_properties().is_none());
+    /// ```
     pub fn set_disk_backup_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskBackupProperties>>,
     >(
@@ -7380,6 +9569,14 @@ impl Backup {
     ///
     /// Note that all the setters affecting `plan_info` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::backup::GCPBackupPlanInfo;
+    /// let x = Backup::new().set_plan_info(Some(
+    ///     google_cloud_backupdr_v1::model::backup::PlanInfo::GcpBackupPlanInfo(GCPBackupPlanInfo::default().into())));
+    /// ```
     pub fn set_plan_info<
         T: std::convert::Into<std::option::Option<crate::model::backup::PlanInfo>>,
     >(
@@ -7408,6 +9605,14 @@ impl Backup {
     ///
     /// Note that all the setters affecting `plan_info` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::backup::GCPBackupPlanInfo;
+    /// let x = Backup::new().set_gcp_backup_plan_info(GCPBackupPlanInfo::default()/* use setters */);
+    /// assert!(x.gcp_backup_plan_info().is_some());
+    /// ```
     pub fn set_gcp_backup_plan_info<
         T: std::convert::Into<std::boxed::Box<crate::model::backup::GCPBackupPlanInfo>>,
     >(
@@ -7508,12 +9713,24 @@ pub mod backup {
         }
 
         /// Sets the value of [backup_plan][crate::model::backup::GCPBackupPlanInfo::backup_plan].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::backup::GCPBackupPlanInfo;
+        /// let x = GCPBackupPlanInfo::new().set_backup_plan("example");
+        /// ```
         pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.backup_plan = v.into();
             self
         }
 
         /// Sets the value of [backup_plan_rule_id][crate::model::backup::GCPBackupPlanInfo::backup_plan_rule_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::backup::GCPBackupPlanInfo;
+        /// let x = GCPBackupPlanInfo::new().set_backup_plan_rule_id("example");
+        /// ```
         pub fn set_backup_plan_rule_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7523,6 +9740,12 @@ pub mod backup {
         }
 
         /// Sets the value of [backup_plan_revision_name][crate::model::backup::GCPBackupPlanInfo::backup_plan_revision_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::backup::GCPBackupPlanInfo;
+        /// let x = GCPBackupPlanInfo::new().set_backup_plan_revision_name("example");
+        /// ```
         pub fn set_backup_plan_revision_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7532,6 +9755,12 @@ pub mod backup {
         }
 
         /// Sets the value of [backup_plan_revision_id][crate::model::backup::GCPBackupPlanInfo::backup_plan_revision_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::backup::GCPBackupPlanInfo;
+        /// let x = GCPBackupPlanInfo::new().set_backup_plan_revision_id("example");
+        /// ```
         pub fn set_backup_plan_revision_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7920,18 +10149,37 @@ impl CreateBackupVaultRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupVaultRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupVaultRequest;
+    /// let x = CreateBackupVaultRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_vault_id][crate::model::CreateBackupVaultRequest::backup_vault_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupVaultRequest;
+    /// let x = CreateBackupVaultRequest::new().set_backup_vault_id("example");
+    /// ```
     pub fn set_backup_vault_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_vault_id = v.into();
         self
     }
 
     /// Sets the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupVaultRequest;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = CreateBackupVaultRequest::new().set_backup_vault(BackupVault::default()/* use setters */);
+    /// ```
     pub fn set_backup_vault<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -7941,6 +10189,14 @@ impl CreateBackupVaultRequest {
     }
 
     /// Sets or clears the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupVaultRequest;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = CreateBackupVaultRequest::new().set_or_clear_backup_vault(Some(BackupVault::default()/* use setters */));
+    /// let x = CreateBackupVaultRequest::new().set_or_clear_backup_vault(None::<BackupVault>);
+    /// ```
     pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -7950,12 +10206,24 @@ impl CreateBackupVaultRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateBackupVaultRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupVaultRequest;
+    /// let x = CreateBackupVaultRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateBackupVaultRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CreateBackupVaultRequest;
+    /// let x = CreateBackupVaultRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -8006,36 +10274,74 @@ impl ListBackupVaultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupVaultsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupVaultsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupVaultsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupVaultsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupVaultsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsRequest;
+    /// let x = ListBackupVaultsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListBackupVaultsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsRequest;
+    /// use google_cloud_backupdr_v1::model::BackupVaultView;
+    /// let x0 = ListBackupVaultsRequest::new().set_view(BackupVaultView::Basic);
+    /// let x1 = ListBackupVaultsRequest::new().set_view(BackupVaultView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::BackupVaultView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -8077,6 +10383,17 @@ impl ListBackupVaultsResponse {
     }
 
     /// Sets the value of [backup_vaults][crate::model::ListBackupVaultsResponse::backup_vaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsResponse;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = ListBackupVaultsResponse::new()
+    ///     .set_backup_vaults([
+    ///         BackupVault::default()/* use setters */,
+    ///         BackupVault::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_vaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8088,12 +10405,24 @@ impl ListBackupVaultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupVaultsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsResponse;
+    /// let x = ListBackupVaultsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupVaultsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupVaultsResponse;
+    /// let x = ListBackupVaultsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8159,30 +10488,60 @@ impl FetchUsableBackupVaultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::FetchUsableBackupVaultsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsRequest;
+    /// let x = FetchUsableBackupVaultsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchUsableBackupVaultsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsRequest;
+    /// let x = FetchUsableBackupVaultsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchUsableBackupVaultsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsRequest;
+    /// let x = FetchUsableBackupVaultsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::FetchUsableBackupVaultsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsRequest;
+    /// let x = FetchUsableBackupVaultsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::FetchUsableBackupVaultsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsRequest;
+    /// let x = FetchUsableBackupVaultsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8224,6 +10583,17 @@ impl FetchUsableBackupVaultsResponse {
     }
 
     /// Sets the value of [backup_vaults][crate::model::FetchUsableBackupVaultsResponse::backup_vaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsResponse;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = FetchUsableBackupVaultsResponse::new()
+    ///     .set_backup_vaults([
+    ///         BackupVault::default()/* use setters */,
+    ///         BackupVault::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_vaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8235,12 +10605,24 @@ impl FetchUsableBackupVaultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchUsableBackupVaultsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsResponse;
+    /// let x = FetchUsableBackupVaultsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::FetchUsableBackupVaultsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchUsableBackupVaultsResponse;
+    /// let x = FetchUsableBackupVaultsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8449,12 +10831,26 @@ impl GetBackupVaultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupVaultRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetBackupVaultRequest;
+    /// let x = GetBackupVaultRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetBackupVaultRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetBackupVaultRequest;
+    /// use google_cloud_backupdr_v1::model::BackupVaultView;
+    /// let x0 = GetBackupVaultRequest::new().set_view(BackupVaultView::Basic);
+    /// let x1 = GetBackupVaultRequest::new().set_view(BackupVaultView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::BackupVaultView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -8517,6 +10913,13 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupVaultRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8526,6 +10929,14 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8535,6 +10946,13 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = UpdateBackupVaultRequest::new().set_backup_vault(BackupVault::default()/* use setters */);
+    /// ```
     pub fn set_backup_vault<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -8544,6 +10962,14 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets or clears the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_backup_vault(Some(BackupVault::default()/* use setters */));
+    /// let x = UpdateBackupVaultRequest::new().set_or_clear_backup_vault(None::<BackupVault>);
+    /// ```
     pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
@@ -8553,24 +10979,48 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateBackupVaultRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// let x = UpdateBackupVaultRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateBackupVaultRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// let x = UpdateBackupVaultRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::UpdateBackupVaultRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// let x = UpdateBackupVaultRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [force_update_access_restriction][crate::model::UpdateBackupVaultRequest::force_update_access_restriction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupVaultRequest;
+    /// let x = UpdateBackupVaultRequest::new().set_force_update_access_restriction(true);
+    /// ```
     pub fn set_force_update_access_restriction<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -8638,42 +11088,84 @@ impl DeleteBackupVaultRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupVaultRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteBackupVaultRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteBackupVaultRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteBackupVaultRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteBackupVaultRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [ignore_backup_plan_references][crate::model::DeleteBackupVaultRequest::ignore_backup_plan_references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupVaultRequest;
+    /// let x = DeleteBackupVaultRequest::new().set_ignore_backup_plan_references(true);
+    /// ```
     pub fn set_ignore_backup_plan_references<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_backup_plan_references = v.into();
         self
@@ -8720,30 +11212,60 @@ impl ListDataSourcesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataSourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesRequest;
+    /// let x = ListDataSourcesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataSourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesRequest;
+    /// let x = ListDataSourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataSourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesRequest;
+    /// let x = ListDataSourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataSourcesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesRequest;
+    /// let x = ListDataSourcesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDataSourcesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesRequest;
+    /// let x = ListDataSourcesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8785,6 +11307,17 @@ impl ListDataSourcesResponse {
     }
 
     /// Sets the value of [data_sources][crate::model::ListDataSourcesResponse::data_sources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesResponse;
+    /// use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = ListDataSourcesResponse::new()
+    ///     .set_data_sources([
+    ///         DataSource::default()/* use setters */,
+    ///         DataSource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8796,12 +11329,24 @@ impl ListDataSourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataSourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesResponse;
+    /// let x = ListDataSourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDataSourcesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListDataSourcesResponse;
+    /// let x = ListDataSourcesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8850,6 +11395,12 @@ impl GetDataSourceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataSourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetDataSourceRequest;
+    /// let x = GetDataSourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8903,6 +11454,13 @@ impl UpdateDataSourceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateDataSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataSourceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8912,6 +11470,14 @@ impl UpdateDataSourceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateDataSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataSourceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataSourceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8921,6 +11487,13 @@ impl UpdateDataSourceRequest {
     }
 
     /// Sets the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateDataSourceRequest;
+    /// use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = UpdateDataSourceRequest::new().set_data_source(DataSource::default()/* use setters */);
+    /// ```
     pub fn set_data_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSource>,
@@ -8930,6 +11503,14 @@ impl UpdateDataSourceRequest {
     }
 
     /// Sets or clears the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateDataSourceRequest;
+    /// use google_cloud_backupdr_v1::model::DataSource;
+    /// let x = UpdateDataSourceRequest::new().set_or_clear_data_source(Some(DataSource::default()/* use setters */));
+    /// let x = UpdateDataSourceRequest::new().set_or_clear_data_source(None::<DataSource>);
+    /// ```
     pub fn set_or_clear_data_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSource>,
@@ -8939,12 +11520,24 @@ impl UpdateDataSourceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDataSourceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateDataSourceRequest;
+    /// let x = UpdateDataSourceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateDataSourceRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateDataSourceRequest;
+    /// let x = UpdateDataSourceRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -8995,36 +11588,74 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListBackupsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsRequest;
+    /// use google_cloud_backupdr_v1::model::BackupView;
+    /// let x0 = ListBackupsRequest::new().set_view(BackupView::Basic);
+    /// let x1 = ListBackupsRequest::new().set_view(BackupView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::BackupView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -9066,6 +11697,17 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsResponse;
+    /// use google_cloud_backupdr_v1::model::Backup;
+    /// let x = ListBackupsResponse::new()
+    ///     .set_backups([
+    ///         Backup::default()/* use setters */,
+    ///         Backup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9077,12 +11719,24 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsResponse;
+    /// let x = ListBackupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ListBackupsResponse;
+    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9135,12 +11789,26 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetBackupRequest;
+    /// let x = GetBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetBackupRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetBackupRequest;
+    /// use google_cloud_backupdr_v1::model::BackupView;
+    /// let x0 = GetBackupRequest::new().set_view(BackupView::Basic);
+    /// let x1 = GetBackupRequest::new().set_view(BackupView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::BackupView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -9191,6 +11859,13 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9200,6 +11875,14 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9209,6 +11892,13 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupRequest;
+    /// use google_cloud_backupdr_v1::model::Backup;
+    /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
+    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -9218,6 +11908,14 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupRequest;
+    /// use google_cloud_backupdr_v1::model::Backup;
+    /// let x = UpdateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
+    /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
+    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -9227,6 +11925,12 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateBackupRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::UpdateBackupRequest;
+    /// let x = UpdateBackupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9270,12 +11974,24 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupRequest;
+    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupRequest;
+    /// let x = DeleteBackupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9328,12 +12044,24 @@ impl RestoreBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::RestoreBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// let x = RestoreBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::RestoreBackupRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// let x = RestoreBackupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9343,6 +12071,14 @@ impl RestoreBackupRequest {
     ///
     /// Note that all the setters affecting `target_environment` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceTargetEnvironment;
+    /// let x = RestoreBackupRequest::new().set_target_environment(Some(
+    ///     google_cloud_backupdr_v1::model::restore_backup_request::TargetEnvironment::ComputeInstanceTargetEnvironment(ComputeInstanceTargetEnvironment::default().into())));
+    /// ```
     pub fn set_target_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_backup_request::TargetEnvironment>,
@@ -9373,6 +12109,16 @@ impl RestoreBackupRequest {
     ///
     /// Note that all the setters affecting `target_environment` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceTargetEnvironment;
+    /// let x = RestoreBackupRequest::new().set_compute_instance_target_environment(ComputeInstanceTargetEnvironment::default()/* use setters */);
+    /// assert!(x.compute_instance_target_environment().is_some());
+    /// assert!(x.disk_target_environment().is_none());
+    /// assert!(x.region_disk_target_environment().is_none());
+    /// ```
     pub fn set_compute_instance_target_environment<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceTargetEnvironment>>,
     >(
@@ -9407,6 +12153,16 @@ impl RestoreBackupRequest {
     ///
     /// Note that all the setters affecting `target_environment` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// use google_cloud_backupdr_v1::model::DiskTargetEnvironment;
+    /// let x = RestoreBackupRequest::new().set_disk_target_environment(DiskTargetEnvironment::default()/* use setters */);
+    /// assert!(x.disk_target_environment().is_some());
+    /// assert!(x.compute_instance_target_environment().is_none());
+    /// assert!(x.region_disk_target_environment().is_none());
+    /// ```
     pub fn set_disk_target_environment<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskTargetEnvironment>>,
     >(
@@ -9439,6 +12195,16 @@ impl RestoreBackupRequest {
     ///
     /// Note that all the setters affecting `target_environment` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// use google_cloud_backupdr_v1::model::RegionDiskTargetEnvironment;
+    /// let x = RestoreBackupRequest::new().set_region_disk_target_environment(RegionDiskTargetEnvironment::default()/* use setters */);
+    /// assert!(x.region_disk_target_environment().is_some());
+    /// assert!(x.compute_instance_target_environment().is_none());
+    /// assert!(x.disk_target_environment().is_none());
+    /// ```
     pub fn set_region_disk_target_environment<
         T: std::convert::Into<std::boxed::Box<crate::model::RegionDiskTargetEnvironment>>,
     >(
@@ -9457,6 +12223,14 @@ impl RestoreBackupRequest {
     ///
     /// Note that all the setters affecting `instance_properties` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = RestoreBackupRequest::new().set_instance_properties(Some(
+    ///     google_cloud_backupdr_v1::model::restore_backup_request::InstanceProperties::ComputeInstanceRestoreProperties(ComputeInstanceRestoreProperties::default().into())));
+    /// ```
     pub fn set_instance_properties<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_backup_request::InstanceProperties>,
@@ -9487,6 +12261,15 @@ impl RestoreBackupRequest {
     ///
     /// Note that all the setters affecting `instance_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = RestoreBackupRequest::new().set_compute_instance_restore_properties(ComputeInstanceRestoreProperties::default()/* use setters */);
+    /// assert!(x.compute_instance_restore_properties().is_some());
+    /// assert!(x.disk_restore_properties().is_none());
+    /// ```
     pub fn set_compute_instance_restore_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceRestoreProperties>>,
     >(
@@ -9521,6 +12304,15 @@ impl RestoreBackupRequest {
     ///
     /// Note that all the setters affecting `instance_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupRequest;
+    /// use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = RestoreBackupRequest::new().set_disk_restore_properties(DiskRestoreProperties::default()/* use setters */);
+    /// assert!(x.disk_restore_properties().is_some());
+    /// assert!(x.compute_instance_restore_properties().is_none());
+    /// ```
     pub fn set_disk_restore_properties<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskRestoreProperties>>,
     >(
@@ -9590,6 +12382,13 @@ impl RestoreBackupResponse {
     }
 
     /// Sets the value of [target_resource][crate::model::RestoreBackupResponse::target_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupResponse;
+    /// use google_cloud_backupdr_v1::model::TargetResource;
+    /// let x = RestoreBackupResponse::new().set_target_resource(TargetResource::default()/* use setters */);
+    /// ```
     pub fn set_target_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetResource>,
@@ -9599,6 +12398,14 @@ impl RestoreBackupResponse {
     }
 
     /// Sets or clears the value of [target_resource][crate::model::RestoreBackupResponse::target_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RestoreBackupResponse;
+    /// use google_cloud_backupdr_v1::model::TargetResource;
+    /// let x = RestoreBackupResponse::new().set_or_clear_target_resource(Some(TargetResource::default()/* use setters */));
+    /// let x = RestoreBackupResponse::new().set_or_clear_target_resource(None::<TargetResource>);
+    /// ```
     pub fn set_or_clear_target_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetResource>,
@@ -9634,6 +12441,14 @@ impl TargetResource {
     ///
     /// Note that all the setters affecting `target_resource_info` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::TargetResource;
+    /// use google_cloud_backupdr_v1::model::GcpResource;
+    /// let x = TargetResource::new().set_target_resource_info(Some(
+    ///     google_cloud_backupdr_v1::model::target_resource::TargetResourceInfo::GcpResource(GcpResource::default().into())));
+    /// ```
     pub fn set_target_resource_info<
         T: std::convert::Into<std::option::Option<crate::model::target_resource::TargetResourceInfo>>,
     >(
@@ -9662,6 +12477,14 @@ impl TargetResource {
     ///
     /// Note that all the setters affecting `target_resource_info` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::TargetResource;
+    /// use google_cloud_backupdr_v1::model::GcpResource;
+    /// let x = TargetResource::new().set_gcp_resource(GcpResource::default()/* use setters */);
+    /// assert!(x.gcp_resource().is_some());
+    /// ```
     pub fn set_gcp_resource<T: std::convert::Into<std::boxed::Box<crate::model::GcpResource>>>(
         mut self,
         v: T,
@@ -9716,6 +12539,12 @@ impl GcpResource {
     }
 
     /// Sets the value of [gcp_resourcename][crate::model::GcpResource::gcp_resourcename].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpResource;
+    /// let x = GcpResource::new().set_gcp_resourcename("example");
+    /// ```
     pub fn set_gcp_resourcename<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9725,12 +12554,24 @@ impl GcpResource {
     }
 
     /// Sets the value of [location][crate::model::GcpResource::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpResource;
+    /// let x = GcpResource::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::GcpResource::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GcpResource;
+    /// let x = GcpResource::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -9821,6 +12662,12 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets the value of [generation_id][crate::model::BackupApplianceBackupProperties::generation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// let x = BackupApplianceBackupProperties::new().set_generation_id(42);
+    /// ```
     pub fn set_generation_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -9830,6 +12677,13 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clears the value of [generation_id][crate::model::BackupApplianceBackupProperties::generation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_generation_id(Some(42));
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_generation_id(None::<i32>);
+    /// ```
     pub fn set_or_clear_generation_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -9839,6 +12693,13 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets the value of [finalize_time][crate::model::BackupApplianceBackupProperties::finalize_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// use wkt::Timestamp;
+    /// let x = BackupApplianceBackupProperties::new().set_finalize_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_finalize_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9848,6 +12709,14 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clears the value of [finalize_time][crate::model::BackupApplianceBackupProperties::finalize_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// use wkt::Timestamp;
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_finalize_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_finalize_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_finalize_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9857,6 +12726,13 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets the value of [recovery_range_start_time][crate::model::BackupApplianceBackupProperties::recovery_range_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// use wkt::Timestamp;
+    /// let x = BackupApplianceBackupProperties::new().set_recovery_range_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_recovery_range_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9866,6 +12742,14 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clears the value of [recovery_range_start_time][crate::model::BackupApplianceBackupProperties::recovery_range_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// use wkt::Timestamp;
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_recovery_range_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_recovery_range_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_recovery_range_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9875,6 +12759,13 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets the value of [recovery_range_end_time][crate::model::BackupApplianceBackupProperties::recovery_range_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// use wkt::Timestamp;
+    /// let x = BackupApplianceBackupProperties::new().set_recovery_range_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_recovery_range_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9884,6 +12775,14 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clears the value of [recovery_range_end_time][crate::model::BackupApplianceBackupProperties::recovery_range_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::BackupApplianceBackupProperties;
+    /// use wkt::Timestamp;
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_recovery_range_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupApplianceBackupProperties::new().set_or_clear_recovery_range_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_recovery_range_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9928,12 +12827,24 @@ impl CloudSqlInstanceDataSourceProperties {
     }
 
     /// Sets the value of [name][crate::model::CloudSqlInstanceDataSourceProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceProperties;
+    /// let x = CloudSqlInstanceDataSourceProperties::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [database_installed_version][crate::model::CloudSqlInstanceDataSourceProperties::database_installed_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceProperties;
+    /// let x = CloudSqlInstanceDataSourceProperties::new().set_database_installed_version("example");
+    /// ```
     pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9943,6 +12854,13 @@ impl CloudSqlInstanceDataSourceProperties {
     }
 
     /// Sets the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceProperties::instance_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceProperties;
+    /// use wkt::Timestamp;
+    /// let x = CloudSqlInstanceDataSourceProperties::new().set_instance_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_instance_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9952,6 +12870,14 @@ impl CloudSqlInstanceDataSourceProperties {
     }
 
     /// Sets or clears the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceProperties::instance_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceProperties;
+    /// use wkt::Timestamp;
+    /// let x = CloudSqlInstanceDataSourceProperties::new().set_or_clear_instance_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloudSqlInstanceDataSourceProperties::new().set_or_clear_instance_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_instance_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9961,6 +12887,12 @@ impl CloudSqlInstanceDataSourceProperties {
     }
 
     /// Sets the value of [instance_tier][crate::model::CloudSqlInstanceDataSourceProperties::instance_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceProperties;
+    /// let x = CloudSqlInstanceDataSourceProperties::new().set_instance_tier("example");
+    /// ```
     pub fn set_instance_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_tier = v.into();
         self
@@ -10009,6 +12941,12 @@ impl CloudSqlInstanceBackupProperties {
     }
 
     /// Sets the value of [database_installed_version][crate::model::CloudSqlInstanceBackupProperties::database_installed_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupProperties;
+    /// let x = CloudSqlInstanceBackupProperties::new().set_database_installed_version("example");
+    /// ```
     pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10018,12 +12956,24 @@ impl CloudSqlInstanceBackupProperties {
     }
 
     /// Sets the value of [final_backup][crate::model::CloudSqlInstanceBackupProperties::final_backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupProperties;
+    /// let x = CloudSqlInstanceBackupProperties::new().set_final_backup(true);
+    /// ```
     pub fn set_final_backup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.final_backup = v.into();
         self
     }
 
     /// Sets the value of [source_instance][crate::model::CloudSqlInstanceBackupProperties::source_instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupProperties;
+    /// let x = CloudSqlInstanceBackupProperties::new().set_source_instance("example");
+    /// ```
     pub fn set_source_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_instance = v.into();
         self
@@ -10048,6 +12998,12 @@ impl CloudSqlInstanceBackupProperties {
     }
 
     /// Sets the value of [instance_tier][crate::model::CloudSqlInstanceBackupProperties::instance_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupProperties;
+    /// let x = CloudSqlInstanceBackupProperties::new().set_instance_tier("example");
+    /// ```
     pub fn set_instance_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_tier = v.into();
         self
@@ -10107,12 +13063,24 @@ impl CloudSqlInstanceDataSourceReferenceProperties {
     }
 
     /// Sets the value of [name][crate::model::CloudSqlInstanceDataSourceReferenceProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceReferenceProperties;
+    /// let x = CloudSqlInstanceDataSourceReferenceProperties::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [database_installed_version][crate::model::CloudSqlInstanceDataSourceReferenceProperties::database_installed_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceReferenceProperties;
+    /// let x = CloudSqlInstanceDataSourceReferenceProperties::new().set_database_installed_version("example");
+    /// ```
     pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10122,6 +13090,13 @@ impl CloudSqlInstanceDataSourceReferenceProperties {
     }
 
     /// Sets the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceReferenceProperties::instance_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceReferenceProperties;
+    /// use wkt::Timestamp;
+    /// let x = CloudSqlInstanceDataSourceReferenceProperties::new().set_instance_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_instance_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10131,6 +13106,14 @@ impl CloudSqlInstanceDataSourceReferenceProperties {
     }
 
     /// Sets or clears the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceReferenceProperties::instance_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceReferenceProperties;
+    /// use wkt::Timestamp;
+    /// let x = CloudSqlInstanceDataSourceReferenceProperties::new().set_or_clear_instance_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloudSqlInstanceDataSourceReferenceProperties::new().set_or_clear_instance_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_instance_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10140,6 +13123,12 @@ impl CloudSqlInstanceDataSourceReferenceProperties {
     }
 
     /// Sets the value of [instance_tier][crate::model::CloudSqlInstanceDataSourceReferenceProperties::instance_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceReferenceProperties;
+    /// let x = CloudSqlInstanceDataSourceReferenceProperties::new().set_instance_tier("example");
+    /// ```
     pub fn set_instance_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_tier = v.into();
         self
@@ -10169,6 +13158,14 @@ impl CloudSqlInstanceInitializationConfig {
     }
 
     /// Sets the value of [edition][crate::model::CloudSqlInstanceInitializationConfig::edition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceInitializationConfig;
+    /// use google_cloud_backupdr_v1::model::cloud_sql_instance_initialization_config::Edition;
+    /// let x0 = CloudSqlInstanceInitializationConfig::new().set_edition(Edition::Enterprise);
+    /// let x1 = CloudSqlInstanceInitializationConfig::new().set_edition(Edition::EnterprisePlus);
+    /// ```
     pub fn set_edition<
         T: std::convert::Into<crate::model::cloud_sql_instance_initialization_config::Edition>,
     >(
@@ -10341,6 +13338,13 @@ impl CloudSqlInstanceBackupPlanAssociationProperties {
     }
 
     /// Sets the value of [instance_create_time][crate::model::CloudSqlInstanceBackupPlanAssociationProperties::instance_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupPlanAssociationProperties;
+    /// use wkt::Timestamp;
+    /// let x = CloudSqlInstanceBackupPlanAssociationProperties::new().set_instance_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_instance_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10350,6 +13354,14 @@ impl CloudSqlInstanceBackupPlanAssociationProperties {
     }
 
     /// Sets or clears the value of [instance_create_time][crate::model::CloudSqlInstanceBackupPlanAssociationProperties::instance_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupPlanAssociationProperties;
+    /// use wkt::Timestamp;
+    /// let x = CloudSqlInstanceBackupPlanAssociationProperties::new().set_or_clear_instance_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloudSqlInstanceBackupPlanAssociationProperties::new().set_or_clear_instance_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_instance_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10384,12 +13396,24 @@ impl DiskTargetEnvironment {
     }
 
     /// Sets the value of [project][crate::model::DiskTargetEnvironment::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskTargetEnvironment;
+    /// let x = DiskTargetEnvironment::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::DiskTargetEnvironment::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskTargetEnvironment;
+    /// let x = DiskTargetEnvironment::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -10424,18 +13448,36 @@ impl RegionDiskTargetEnvironment {
     }
 
     /// Sets the value of [project][crate::model::RegionDiskTargetEnvironment::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RegionDiskTargetEnvironment;
+    /// let x = RegionDiskTargetEnvironment::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::RegionDiskTargetEnvironment::region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RegionDiskTargetEnvironment;
+    /// let x = RegionDiskTargetEnvironment::new().set_region("example");
+    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
     }
 
     /// Sets the value of [replica_zones][crate::model::RegionDiskTargetEnvironment::replica_zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::RegionDiskTargetEnvironment;
+    /// let x = RegionDiskTargetEnvironment::new().set_replica_zones(["a", "b", "c"]);
+    /// ```
     pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10531,6 +13573,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [name][crate::model::DiskRestoreProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10540,6 +13588,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [name][crate::model::DiskRestoreProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_name(Some("example"));
+    /// let x = DiskRestoreProperties::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10549,6 +13604,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [description][crate::model::DiskRestoreProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10558,6 +13619,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [description][crate::model::DiskRestoreProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_description(Some("example"));
+    /// let x = DiskRestoreProperties::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10567,6 +13635,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [size_gb][crate::model::DiskRestoreProperties::size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_size_gb(42);
+    /// ```
     pub fn set_size_gb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10576,6 +13650,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [size_gb][crate::model::DiskRestoreProperties::size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_size_gb(Some(42));
+    /// let x = DiskRestoreProperties::new().set_or_clear_size_gb(None::<i32>);
+    /// ```
     pub fn set_or_clear_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10585,6 +13666,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [licenses][crate::model::DiskRestoreProperties::licenses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_licenses(["a", "b", "c"]);
+    /// ```
     pub fn set_licenses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10596,6 +13683,17 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [guest_os_feature][crate::model::DiskRestoreProperties::guest_os_feature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::GuestOsFeature;
+    /// let x = DiskRestoreProperties::new()
+    ///     .set_guest_os_feature([
+    ///         GuestOsFeature::default()/* use setters */,
+    ///         GuestOsFeature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_guest_os_feature<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10607,6 +13705,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [disk_encryption_key][crate::model::DiskRestoreProperties::disk_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = DiskRestoreProperties::new().set_disk_encryption_key(CustomerEncryptionKey::default()/* use setters */);
+    /// ```
     pub fn set_disk_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
@@ -10616,6 +13721,14 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [disk_encryption_key][crate::model::DiskRestoreProperties::disk_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = DiskRestoreProperties::new().set_or_clear_disk_encryption_key(Some(CustomerEncryptionKey::default()/* use setters */));
+    /// let x = DiskRestoreProperties::new().set_or_clear_disk_encryption_key(None::<CustomerEncryptionKey>);
+    /// ```
     pub fn set_or_clear_disk_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
@@ -10625,6 +13738,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [physical_block_size_bytes][crate::model::DiskRestoreProperties::physical_block_size_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_physical_block_size_bytes(42);
+    /// ```
     pub fn set_physical_block_size_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10634,6 +13753,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [physical_block_size_bytes][crate::model::DiskRestoreProperties::physical_block_size_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_physical_block_size_bytes(Some(42));
+    /// let x = DiskRestoreProperties::new().set_or_clear_physical_block_size_bytes(None::<i32>);
+    /// ```
     pub fn set_or_clear_physical_block_size_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10643,6 +13769,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [provisioned_iops][crate::model::DiskRestoreProperties::provisioned_iops].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_provisioned_iops(42);
+    /// ```
     pub fn set_provisioned_iops<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10652,6 +13784,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [provisioned_iops][crate::model::DiskRestoreProperties::provisioned_iops].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_provisioned_iops(Some(42));
+    /// let x = DiskRestoreProperties::new().set_or_clear_provisioned_iops(None::<i32>);
+    /// ```
     pub fn set_or_clear_provisioned_iops<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10661,6 +13800,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [provisioned_throughput][crate::model::DiskRestoreProperties::provisioned_throughput].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_provisioned_throughput(42);
+    /// ```
     pub fn set_provisioned_throughput<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10670,6 +13815,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [provisioned_throughput][crate::model::DiskRestoreProperties::provisioned_throughput].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_provisioned_throughput(Some(42));
+    /// let x = DiskRestoreProperties::new().set_or_clear_provisioned_throughput(None::<i32>);
+    /// ```
     pub fn set_or_clear_provisioned_throughput<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -10679,6 +13831,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [enable_confidential_compute][crate::model::DiskRestoreProperties::enable_confidential_compute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_enable_confidential_compute(true);
+    /// ```
     pub fn set_enable_confidential_compute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -10688,6 +13846,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [enable_confidential_compute][crate::model::DiskRestoreProperties::enable_confidential_compute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_enable_confidential_compute(Some(false));
+    /// let x = DiskRestoreProperties::new().set_or_clear_enable_confidential_compute(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -10697,6 +13862,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [storage_pool][crate::model::DiskRestoreProperties::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_storage_pool("example");
+    /// ```
     pub fn set_storage_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10706,6 +13877,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [storage_pool][crate::model::DiskRestoreProperties::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_storage_pool(Some("example"));
+    /// let x = DiskRestoreProperties::new().set_or_clear_storage_pool(None::<String>);
+    /// ```
     pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10715,6 +13893,14 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [access_mode][crate::model::DiskRestoreProperties::access_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::disk_restore_properties::AccessMode;
+    /// let x0 = DiskRestoreProperties::new().set_access_mode(AccessMode::ReadWriteMany);
+    /// let x1 = DiskRestoreProperties::new().set_access_mode(AccessMode::ReadOnlyMany);
+    /// ```
     pub fn set_access_mode<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::disk_restore_properties::AccessMode>,
@@ -10724,6 +13910,15 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [access_mode][crate::model::DiskRestoreProperties::access_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::disk_restore_properties::AccessMode;
+    /// let x0 = DiskRestoreProperties::new().set_or_clear_access_mode(Some(AccessMode::ReadWriteMany));
+    /// let x1 = DiskRestoreProperties::new().set_or_clear_access_mode(Some(AccessMode::ReadOnlyMany));
+    /// let x_none = DiskRestoreProperties::new().set_or_clear_access_mode(None::<AccessMode>);
+    /// ```
     pub fn set_or_clear_access_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::disk_restore_properties::AccessMode>,
@@ -10733,6 +13928,14 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [architecture][crate::model::DiskRestoreProperties::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::disk_restore_properties::Architecture;
+    /// let x0 = DiskRestoreProperties::new().set_architecture(Architecture::X8664);
+    /// let x1 = DiskRestoreProperties::new().set_architecture(Architecture::Arm64);
+    /// ```
     pub fn set_architecture<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::disk_restore_properties::Architecture>,
@@ -10742,6 +13945,15 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [architecture][crate::model::DiskRestoreProperties::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::disk_restore_properties::Architecture;
+    /// let x0 = DiskRestoreProperties::new().set_or_clear_architecture(Some(Architecture::X8664));
+    /// let x1 = DiskRestoreProperties::new().set_or_clear_architecture(Some(Architecture::Arm64));
+    /// let x_none = DiskRestoreProperties::new().set_or_clear_architecture(None::<Architecture>);
+    /// ```
     pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::disk_restore_properties::Architecture>,
@@ -10751,6 +13963,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [resource_policy][crate::model::DiskRestoreProperties::resource_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_resource_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10762,6 +13980,12 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [r#type][crate::model::DiskRestoreProperties::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_type("example");
+    /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10771,6 +13995,13 @@ impl DiskRestoreProperties {
     }
 
     /// Sets or clears the value of [r#type][crate::model::DiskRestoreProperties::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_or_clear_type(Some("example"));
+    /// let x = DiskRestoreProperties::new().set_or_clear_type(None::<String>);
+    /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -10780,6 +14011,15 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [labels][crate::model::DiskRestoreProperties::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10792,6 +14032,15 @@ impl DiskRestoreProperties {
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::DiskRestoreProperties::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskRestoreProperties;
+    /// let x = DiskRestoreProperties::new().set_resource_manager_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_manager_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11130,6 +14379,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [description][crate::model::DiskBackupProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11139,6 +14394,13 @@ impl DiskBackupProperties {
     }
 
     /// Sets or clears the value of [description][crate::model::DiskBackupProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_or_clear_description(Some("example"));
+    /// let x = DiskBackupProperties::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11148,6 +14410,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [licenses][crate::model::DiskBackupProperties::licenses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_licenses(["a", "b", "c"]);
+    /// ```
     pub fn set_licenses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11159,6 +14427,17 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [guest_os_feature][crate::model::DiskBackupProperties::guest_os_feature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// use google_cloud_backupdr_v1::model::GuestOsFeature;
+    /// let x = DiskBackupProperties::new()
+    ///     .set_guest_os_feature([
+    ///         GuestOsFeature::default()/* use setters */,
+    ///         GuestOsFeature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_guest_os_feature<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11170,6 +14449,14 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [architecture][crate::model::DiskBackupProperties::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// use google_cloud_backupdr_v1::model::disk_backup_properties::Architecture;
+    /// let x0 = DiskBackupProperties::new().set_architecture(Architecture::X8664);
+    /// let x1 = DiskBackupProperties::new().set_architecture(Architecture::Arm64);
+    /// ```
     pub fn set_architecture<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::disk_backup_properties::Architecture>,
@@ -11179,6 +14466,15 @@ impl DiskBackupProperties {
     }
 
     /// Sets or clears the value of [architecture][crate::model::DiskBackupProperties::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// use google_cloud_backupdr_v1::model::disk_backup_properties::Architecture;
+    /// let x0 = DiskBackupProperties::new().set_or_clear_architecture(Some(Architecture::X8664));
+    /// let x1 = DiskBackupProperties::new().set_or_clear_architecture(Some(Architecture::Arm64));
+    /// let x_none = DiskBackupProperties::new().set_or_clear_architecture(None::<Architecture>);
+    /// ```
     pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::disk_backup_properties::Architecture>,
@@ -11188,6 +14484,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [r#type][crate::model::DiskBackupProperties::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_type("example");
+    /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11197,6 +14499,13 @@ impl DiskBackupProperties {
     }
 
     /// Sets or clears the value of [r#type][crate::model::DiskBackupProperties::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_or_clear_type(Some("example"));
+    /// let x = DiskBackupProperties::new().set_or_clear_type(None::<String>);
+    /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11206,6 +14515,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [size_gb][crate::model::DiskBackupProperties::size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_size_gb(42);
+    /// ```
     pub fn set_size_gb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -11215,6 +14530,13 @@ impl DiskBackupProperties {
     }
 
     /// Sets or clears the value of [size_gb][crate::model::DiskBackupProperties::size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_or_clear_size_gb(Some(42));
+    /// let x = DiskBackupProperties::new().set_or_clear_size_gb(None::<i32>);
+    /// ```
     pub fn set_or_clear_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -11224,6 +14546,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [region][crate::model::DiskBackupProperties::region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_region("example");
+    /// ```
     pub fn set_region<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11233,6 +14561,13 @@ impl DiskBackupProperties {
     }
 
     /// Sets or clears the value of [region][crate::model::DiskBackupProperties::region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_or_clear_region(Some("example"));
+    /// let x = DiskBackupProperties::new().set_or_clear_region(None::<String>);
+    /// ```
     pub fn set_or_clear_region<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11242,6 +14577,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [zone][crate::model::DiskBackupProperties::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_zone("example");
+    /// ```
     pub fn set_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11251,6 +14592,13 @@ impl DiskBackupProperties {
     }
 
     /// Sets or clears the value of [zone][crate::model::DiskBackupProperties::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_or_clear_zone(Some("example"));
+    /// let x = DiskBackupProperties::new().set_or_clear_zone(None::<String>);
+    /// ```
     pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11260,6 +14608,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [replica_zones][crate::model::DiskBackupProperties::replica_zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_replica_zones(["a", "b", "c"]);
+    /// ```
     pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11271,6 +14625,12 @@ impl DiskBackupProperties {
     }
 
     /// Sets the value of [source_disk][crate::model::DiskBackupProperties::source_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_source_disk("example");
+    /// ```
     pub fn set_source_disk<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11280,6 +14640,13 @@ impl DiskBackupProperties {
     }
 
     /// Sets or clears the value of [source_disk][crate::model::DiskBackupProperties::source_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskBackupProperties;
+    /// let x = DiskBackupProperties::new().set_or_clear_source_disk(Some("example"));
+    /// let x = DiskBackupProperties::new().set_or_clear_source_disk(None::<String>);
+    /// ```
     pub fn set_or_clear_source_disk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11460,24 +14827,48 @@ impl DiskDataSourceProperties {
     }
 
     /// Sets the value of [name][crate::model::DiskDataSourceProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskDataSourceProperties;
+    /// let x = DiskDataSourceProperties::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DiskDataSourceProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskDataSourceProperties;
+    /// let x = DiskDataSourceProperties::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::DiskDataSourceProperties::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskDataSourceProperties;
+    /// let x = DiskDataSourceProperties::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [size_gb][crate::model::DiskDataSourceProperties::size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DiskDataSourceProperties;
+    /// let x = DiskDataSourceProperties::new().set_size_gb(42);
+    /// ```
     pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_gb = v.into();
         self
@@ -11575,6 +14966,12 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [description][crate::model::ComputeInstanceBackupProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11584,6 +14981,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [description][crate::model::ComputeInstanceBackupProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_description(Some("example"));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11593,6 +14997,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [tags][crate::model::ComputeInstanceBackupProperties::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::Tags;
+    /// let x = ComputeInstanceBackupProperties::new().set_tags(Tags::default()/* use setters */);
+    /// ```
     pub fn set_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Tags>,
@@ -11602,6 +15013,14 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [tags][crate::model::ComputeInstanceBackupProperties::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::Tags;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_tags(Some(Tags::default()/* use setters */));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_tags(None::<Tags>);
+    /// ```
     pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tags>,
@@ -11611,6 +15030,12 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [machine_type][crate::model::ComputeInstanceBackupProperties::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11620,6 +15045,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [machine_type][crate::model::ComputeInstanceBackupProperties::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_machine_type(Some("example"));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_machine_type(None::<String>);
+    /// ```
     pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11629,6 +15061,12 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [can_ip_forward][crate::model::ComputeInstanceBackupProperties::can_ip_forward].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_can_ip_forward(true);
+    /// ```
     pub fn set_can_ip_forward<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11638,6 +15076,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [can_ip_forward][crate::model::ComputeInstanceBackupProperties::can_ip_forward].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_can_ip_forward(Some(false));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_can_ip_forward(None::<bool>);
+    /// ```
     pub fn set_or_clear_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11647,6 +15092,17 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [network_interface][crate::model::ComputeInstanceBackupProperties::network_interface].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = ComputeInstanceBackupProperties::new()
+    ///     .set_network_interface([
+    ///         NetworkInterface::default()/* use setters */,
+    ///         NetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_interface<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11658,6 +15114,17 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [disk][crate::model::ComputeInstanceBackupProperties::disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = ComputeInstanceBackupProperties::new()
+    ///     .set_disk([
+    ///         AttachedDisk::default()/* use setters */,
+    ///         AttachedDisk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disk<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11669,6 +15136,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [metadata][crate::model::ComputeInstanceBackupProperties::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::Metadata;
+    /// let x = ComputeInstanceBackupProperties::new().set_metadata(Metadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -11678,6 +15152,14 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [metadata][crate::model::ComputeInstanceBackupProperties::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::Metadata;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_metadata(Some(Metadata::default()/* use setters */));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_metadata(None::<Metadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -11687,6 +15169,17 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [service_account][crate::model::ComputeInstanceBackupProperties::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::ServiceAccount;
+    /// let x = ComputeInstanceBackupProperties::new()
+    ///     .set_service_account([
+    ///         ServiceAccount::default()/* use setters */,
+    ///         ServiceAccount::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_account<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11698,6 +15191,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [scheduling][crate::model::ComputeInstanceBackupProperties::scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = ComputeInstanceBackupProperties::new().set_scheduling(Scheduling::default()/* use setters */);
+    /// ```
     pub fn set_scheduling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Scheduling>,
@@ -11707,6 +15207,14 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [scheduling][crate::model::ComputeInstanceBackupProperties::scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_scheduling(Some(Scheduling::default()/* use setters */));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_scheduling(None::<Scheduling>);
+    /// ```
     pub fn set_or_clear_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Scheduling>,
@@ -11716,6 +15224,17 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [guest_accelerator][crate::model::ComputeInstanceBackupProperties::guest_accelerator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::AcceleratorConfig;
+    /// let x = ComputeInstanceBackupProperties::new()
+    ///     .set_guest_accelerator([
+    ///         AcceleratorConfig::default()/* use setters */,
+    ///         AcceleratorConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_guest_accelerator<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11727,6 +15246,12 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::ComputeInstanceBackupProperties::min_cpu_platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_min_cpu_platform("example");
+    /// ```
     pub fn set_min_cpu_platform<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11736,6 +15261,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [min_cpu_platform][crate::model::ComputeInstanceBackupProperties::min_cpu_platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_min_cpu_platform(Some("example"));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_min_cpu_platform(None::<String>);
+    /// ```
     pub fn set_or_clear_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11745,6 +15277,14 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [key_revocation_action_type][crate::model::ComputeInstanceBackupProperties::key_revocation_action_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::KeyRevocationActionType;
+    /// let x0 = ComputeInstanceBackupProperties::new().set_key_revocation_action_type(KeyRevocationActionType::None);
+    /// let x1 = ComputeInstanceBackupProperties::new().set_key_revocation_action_type(KeyRevocationActionType::Stop);
+    /// ```
     pub fn set_key_revocation_action_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyRevocationActionType>,
@@ -11754,6 +15294,15 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [key_revocation_action_type][crate::model::ComputeInstanceBackupProperties::key_revocation_action_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// use google_cloud_backupdr_v1::model::KeyRevocationActionType;
+    /// let x0 = ComputeInstanceBackupProperties::new().set_or_clear_key_revocation_action_type(Some(KeyRevocationActionType::None));
+    /// let x1 = ComputeInstanceBackupProperties::new().set_or_clear_key_revocation_action_type(Some(KeyRevocationActionType::Stop));
+    /// let x_none = ComputeInstanceBackupProperties::new().set_or_clear_key_revocation_action_type(None::<KeyRevocationActionType>);
+    /// ```
     pub fn set_or_clear_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyRevocationActionType>,
@@ -11763,6 +15312,12 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [source_instance][crate::model::ComputeInstanceBackupProperties::source_instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_source_instance("example");
+    /// ```
     pub fn set_source_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11772,6 +15327,13 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clears the value of [source_instance][crate::model::ComputeInstanceBackupProperties::source_instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_source_instance(Some("example"));
+    /// let x = ComputeInstanceBackupProperties::new().set_or_clear_source_instance(None::<String>);
+    /// ```
     pub fn set_or_clear_source_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11781,6 +15343,15 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets the value of [labels][crate::model::ComputeInstanceBackupProperties::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceBackupProperties;
+    /// let x = ComputeInstanceBackupProperties::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11911,6 +15482,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [name][crate::model::ComputeInstanceRestoreProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11920,6 +15497,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [name][crate::model::ComputeInstanceRestoreProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_name(Some("example"));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -11929,6 +15513,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [advanced_machine_features][crate::model::ComputeInstanceRestoreProperties::advanced_machine_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = ComputeInstanceRestoreProperties::new().set_advanced_machine_features(AdvancedMachineFeatures::default()/* use setters */);
+    /// ```
     pub fn set_advanced_machine_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
@@ -11938,6 +15529,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [advanced_machine_features][crate::model::ComputeInstanceRestoreProperties::advanced_machine_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_advanced_machine_features(Some(AdvancedMachineFeatures::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_advanced_machine_features(None::<AdvancedMachineFeatures>);
+    /// ```
     pub fn set_or_clear_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
@@ -11947,6 +15546,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [can_ip_forward][crate::model::ComputeInstanceRestoreProperties::can_ip_forward].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_can_ip_forward(true);
+    /// ```
     pub fn set_can_ip_forward<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11956,6 +15561,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [can_ip_forward][crate::model::ComputeInstanceRestoreProperties::can_ip_forward].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_can_ip_forward(Some(false));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_can_ip_forward(None::<bool>);
+    /// ```
     pub fn set_or_clear_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11965,6 +15577,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [confidential_instance_config][crate::model::ComputeInstanceRestoreProperties::confidential_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::ConfidentialInstanceConfig;
+    /// let x = ComputeInstanceRestoreProperties::new().set_confidential_instance_config(ConfidentialInstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_confidential_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialInstanceConfig>,
@@ -11974,6 +15593,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [confidential_instance_config][crate::model::ComputeInstanceRestoreProperties::confidential_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::ConfidentialInstanceConfig;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_confidential_instance_config(Some(ConfidentialInstanceConfig::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_confidential_instance_config(None::<ConfidentialInstanceConfig>);
+    /// ```
     pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialInstanceConfig>,
@@ -11983,6 +15610,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [deletion_protection][crate::model::ComputeInstanceRestoreProperties::deletion_protection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_deletion_protection(true);
+    /// ```
     pub fn set_deletion_protection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11992,6 +15625,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [deletion_protection][crate::model::ComputeInstanceRestoreProperties::deletion_protection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_deletion_protection(Some(false));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_deletion_protection(None::<bool>);
+    /// ```
     pub fn set_or_clear_deletion_protection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12001,6 +15641,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [description][crate::model::ComputeInstanceRestoreProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12010,6 +15656,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [description][crate::model::ComputeInstanceRestoreProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_description(Some("example"));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12019,6 +15672,17 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [disks][crate::model::ComputeInstanceRestoreProperties::disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = ComputeInstanceRestoreProperties::new()
+    ///     .set_disks([
+    ///         AttachedDisk::default()/* use setters */,
+    ///         AttachedDisk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12030,6 +15694,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [display_device][crate::model::ComputeInstanceRestoreProperties::display_device].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::DisplayDevice;
+    /// let x = ComputeInstanceRestoreProperties::new().set_display_device(DisplayDevice::default()/* use setters */);
+    /// ```
     pub fn set_display_device<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DisplayDevice>,
@@ -12039,6 +15710,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [display_device][crate::model::ComputeInstanceRestoreProperties::display_device].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::DisplayDevice;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_display_device(Some(DisplayDevice::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_display_device(None::<DisplayDevice>);
+    /// ```
     pub fn set_or_clear_display_device<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DisplayDevice>,
@@ -12048,6 +15727,17 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [guest_accelerators][crate::model::ComputeInstanceRestoreProperties::guest_accelerators].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::AcceleratorConfig;
+    /// let x = ComputeInstanceRestoreProperties::new()
+    ///     .set_guest_accelerators([
+    ///         AcceleratorConfig::default()/* use setters */,
+    ///         AcceleratorConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_guest_accelerators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12059,6 +15749,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [hostname][crate::model::ComputeInstanceRestoreProperties::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12068,6 +15764,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [hostname][crate::model::ComputeInstanceRestoreProperties::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_hostname(Some("example"));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_hostname(None::<String>);
+    /// ```
     pub fn set_or_clear_hostname<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12077,6 +15780,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [instance_encryption_key][crate::model::ComputeInstanceRestoreProperties::instance_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = ComputeInstanceRestoreProperties::new().set_instance_encryption_key(CustomerEncryptionKey::default()/* use setters */);
+    /// ```
     pub fn set_instance_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
@@ -12086,6 +15796,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [instance_encryption_key][crate::model::ComputeInstanceRestoreProperties::instance_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_instance_encryption_key(Some(CustomerEncryptionKey::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_instance_encryption_key(None::<CustomerEncryptionKey>);
+    /// ```
     pub fn set_or_clear_instance_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
@@ -12095,6 +15813,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [key_revocation_action_type][crate::model::ComputeInstanceRestoreProperties::key_revocation_action_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::KeyRevocationActionType;
+    /// let x0 = ComputeInstanceRestoreProperties::new().set_key_revocation_action_type(KeyRevocationActionType::None);
+    /// let x1 = ComputeInstanceRestoreProperties::new().set_key_revocation_action_type(KeyRevocationActionType::Stop);
+    /// ```
     pub fn set_key_revocation_action_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyRevocationActionType>,
@@ -12104,6 +15830,15 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [key_revocation_action_type][crate::model::ComputeInstanceRestoreProperties::key_revocation_action_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::KeyRevocationActionType;
+    /// let x0 = ComputeInstanceRestoreProperties::new().set_or_clear_key_revocation_action_type(Some(KeyRevocationActionType::None));
+    /// let x1 = ComputeInstanceRestoreProperties::new().set_or_clear_key_revocation_action_type(Some(KeyRevocationActionType::Stop));
+    /// let x_none = ComputeInstanceRestoreProperties::new().set_or_clear_key_revocation_action_type(None::<KeyRevocationActionType>);
+    /// ```
     pub fn set_or_clear_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyRevocationActionType>,
@@ -12113,6 +15848,15 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [labels][crate::model::ComputeInstanceRestoreProperties::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12125,6 +15869,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [machine_type][crate::model::ComputeInstanceRestoreProperties::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12134,6 +15884,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [machine_type][crate::model::ComputeInstanceRestoreProperties::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_machine_type(Some("example"));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_machine_type(None::<String>);
+    /// ```
     pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12143,6 +15900,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [metadata][crate::model::ComputeInstanceRestoreProperties::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::Metadata;
+    /// let x = ComputeInstanceRestoreProperties::new().set_metadata(Metadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -12152,6 +15916,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [metadata][crate::model::ComputeInstanceRestoreProperties::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::Metadata;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_metadata(Some(Metadata::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_metadata(None::<Metadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -12161,6 +15933,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::ComputeInstanceRestoreProperties::min_cpu_platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_min_cpu_platform("example");
+    /// ```
     pub fn set_min_cpu_platform<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12170,6 +15948,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [min_cpu_platform][crate::model::ComputeInstanceRestoreProperties::min_cpu_platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_min_cpu_platform(Some("example"));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_min_cpu_platform(None::<String>);
+    /// ```
     pub fn set_or_clear_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12179,6 +15964,17 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [network_interfaces][crate::model::ComputeInstanceRestoreProperties::network_interfaces].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = ComputeInstanceRestoreProperties::new()
+    ///     .set_network_interfaces([
+    ///         NetworkInterface::default()/* use setters */,
+    ///         NetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12190,6 +15986,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [network_performance_config][crate::model::ComputeInstanceRestoreProperties::network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::NetworkPerformanceConfig;
+    /// let x = ComputeInstanceRestoreProperties::new().set_network_performance_config(NetworkPerformanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_performance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPerformanceConfig>,
@@ -12199,6 +16002,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [network_performance_config][crate::model::ComputeInstanceRestoreProperties::network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::NetworkPerformanceConfig;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_network_performance_config(Some(NetworkPerformanceConfig::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_network_performance_config(None::<NetworkPerformanceConfig>);
+    /// ```
     pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPerformanceConfig>,
@@ -12208,6 +16019,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [params][crate::model::ComputeInstanceRestoreProperties::params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::InstanceParams;
+    /// let x = ComputeInstanceRestoreProperties::new().set_params(InstanceParams::default()/* use setters */);
+    /// ```
     pub fn set_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstanceParams>,
@@ -12217,6 +16035,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [params][crate::model::ComputeInstanceRestoreProperties::params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::InstanceParams;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_params(Some(InstanceParams::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_params(None::<InstanceParams>);
+    /// ```
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceParams>,
@@ -12226,6 +16052,15 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [private_ipv6_google_access][crate::model::ComputeInstanceRestoreProperties::private_ipv6_google_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::compute_instance_restore_properties::InstancePrivateIpv6GoogleAccess;
+    /// let x0 = ComputeInstanceRestoreProperties::new().set_private_ipv6_google_access(InstancePrivateIpv6GoogleAccess::InheritFromSubnetwork);
+    /// let x1 = ComputeInstanceRestoreProperties::new().set_private_ipv6_google_access(InstancePrivateIpv6GoogleAccess::EnableOutboundVmAccessToGoogle);
+    /// let x2 = ComputeInstanceRestoreProperties::new().set_private_ipv6_google_access(InstancePrivateIpv6GoogleAccess::EnableBidirectionalAccessToGoogle);
+    /// ```
     pub fn set_private_ipv6_google_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -12237,6 +16072,16 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [private_ipv6_google_access][crate::model::ComputeInstanceRestoreProperties::private_ipv6_google_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::compute_instance_restore_properties::InstancePrivateIpv6GoogleAccess;
+    /// let x0 = ComputeInstanceRestoreProperties::new().set_or_clear_private_ipv6_google_access(Some(InstancePrivateIpv6GoogleAccess::InheritFromSubnetwork));
+    /// let x1 = ComputeInstanceRestoreProperties::new().set_or_clear_private_ipv6_google_access(Some(InstancePrivateIpv6GoogleAccess::EnableOutboundVmAccessToGoogle));
+    /// let x2 = ComputeInstanceRestoreProperties::new().set_or_clear_private_ipv6_google_access(Some(InstancePrivateIpv6GoogleAccess::EnableBidirectionalAccessToGoogle));
+    /// let x_none = ComputeInstanceRestoreProperties::new().set_or_clear_private_ipv6_google_access(None::<InstancePrivateIpv6GoogleAccess>);
+    /// ```
     pub fn set_or_clear_private_ipv6_google_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -12248,6 +16093,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [allocation_affinity][crate::model::ComputeInstanceRestoreProperties::allocation_affinity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::AllocationAffinity;
+    /// let x = ComputeInstanceRestoreProperties::new().set_allocation_affinity(AllocationAffinity::default()/* use setters */);
+    /// ```
     pub fn set_allocation_affinity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AllocationAffinity>,
@@ -12257,6 +16109,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [allocation_affinity][crate::model::ComputeInstanceRestoreProperties::allocation_affinity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::AllocationAffinity;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_allocation_affinity(Some(AllocationAffinity::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_allocation_affinity(None::<AllocationAffinity>);
+    /// ```
     pub fn set_or_clear_allocation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllocationAffinity>,
@@ -12266,6 +16126,12 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [resource_policies][crate::model::ComputeInstanceRestoreProperties::resource_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// let x = ComputeInstanceRestoreProperties::new().set_resource_policies(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12277,6 +16143,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [scheduling][crate::model::ComputeInstanceRestoreProperties::scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = ComputeInstanceRestoreProperties::new().set_scheduling(Scheduling::default()/* use setters */);
+    /// ```
     pub fn set_scheduling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Scheduling>,
@@ -12286,6 +16159,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [scheduling][crate::model::ComputeInstanceRestoreProperties::scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_scheduling(Some(Scheduling::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_scheduling(None::<Scheduling>);
+    /// ```
     pub fn set_or_clear_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Scheduling>,
@@ -12295,6 +16176,17 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [service_accounts][crate::model::ComputeInstanceRestoreProperties::service_accounts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::ServiceAccount;
+    /// let x = ComputeInstanceRestoreProperties::new()
+    ///     .set_service_accounts([
+    ///         ServiceAccount::default()/* use setters */,
+    ///         ServiceAccount::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12306,6 +16198,13 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets the value of [tags][crate::model::ComputeInstanceRestoreProperties::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::Tags;
+    /// let x = ComputeInstanceRestoreProperties::new().set_tags(Tags::default()/* use setters */);
+    /// ```
     pub fn set_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Tags>,
@@ -12315,6 +16214,14 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clears the value of [tags][crate::model::ComputeInstanceRestoreProperties::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceRestoreProperties;
+    /// use google_cloud_backupdr_v1::model::Tags;
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_tags(Some(Tags::default()/* use setters */));
+    /// let x = ComputeInstanceRestoreProperties::new().set_or_clear_tags(None::<Tags>);
+    /// ```
     pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tags>,
@@ -12507,12 +16414,24 @@ impl ComputeInstanceTargetEnvironment {
     }
 
     /// Sets the value of [project][crate::model::ComputeInstanceTargetEnvironment::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceTargetEnvironment;
+    /// let x = ComputeInstanceTargetEnvironment::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ComputeInstanceTargetEnvironment::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceTargetEnvironment;
+    /// let x = ComputeInstanceTargetEnvironment::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -12554,30 +16473,60 @@ impl ComputeInstanceDataSourceProperties {
     }
 
     /// Sets the value of [name][crate::model::ComputeInstanceDataSourceProperties::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceDataSourceProperties;
+    /// let x = ComputeInstanceDataSourceProperties::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ComputeInstanceDataSourceProperties::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceDataSourceProperties;
+    /// let x = ComputeInstanceDataSourceProperties::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [machine_type][crate::model::ComputeInstanceDataSourceProperties::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceDataSourceProperties;
+    /// let x = ComputeInstanceDataSourceProperties::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [total_disk_count][crate::model::ComputeInstanceDataSourceProperties::total_disk_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceDataSourceProperties;
+    /// let x = ComputeInstanceDataSourceProperties::new().set_total_disk_count(42);
+    /// ```
     pub fn set_total_disk_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_disk_count = v.into();
         self
     }
 
     /// Sets the value of [total_disk_size_gb][crate::model::ComputeInstanceDataSourceProperties::total_disk_size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ComputeInstanceDataSourceProperties;
+    /// let x = ComputeInstanceDataSourceProperties::new().set_total_disk_size_gb(42);
+    /// ```
     pub fn set_total_disk_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_disk_size_gb = v.into();
         self
@@ -12623,6 +16572,12 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_enable_nested_virtualization(true);
+    /// ```
     pub fn set_enable_nested_virtualization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12632,6 +16587,13 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clears the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_enable_nested_virtualization(Some(false));
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_enable_nested_virtualization(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12641,6 +16603,12 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_threads_per_core(42);
+    /// ```
     pub fn set_threads_per_core<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -12650,6 +16618,13 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clears the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_threads_per_core(Some(42));
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_threads_per_core(None::<i32>);
+    /// ```
     pub fn set_or_clear_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -12659,6 +16634,12 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [visible_core_count][crate::model::AdvancedMachineFeatures::visible_core_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_visible_core_count(42);
+    /// ```
     pub fn set_visible_core_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -12668,6 +16649,13 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clears the value of [visible_core_count][crate::model::AdvancedMachineFeatures::visible_core_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_visible_core_count(Some(42));
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_visible_core_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_visible_core_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -12677,6 +16665,12 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [enable_uefi_networking][crate::model::AdvancedMachineFeatures::enable_uefi_networking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_enable_uefi_networking(true);
+    /// ```
     pub fn set_enable_uefi_networking<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12686,6 +16680,13 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clears the value of [enable_uefi_networking][crate::model::AdvancedMachineFeatures::enable_uefi_networking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_enable_uefi_networking(Some(false));
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_enable_uefi_networking(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_uefi_networking<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12718,6 +16719,12 @@ impl ConfidentialInstanceConfig {
     }
 
     /// Sets the value of [enable_confidential_compute][crate::model::ConfidentialInstanceConfig::enable_confidential_compute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ConfidentialInstanceConfig;
+    /// let x = ConfidentialInstanceConfig::new().set_enable_confidential_compute(true);
+    /// ```
     pub fn set_enable_confidential_compute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12727,6 +16734,13 @@ impl ConfidentialInstanceConfig {
     }
 
     /// Sets or clears the value of [enable_confidential_compute][crate::model::ConfidentialInstanceConfig::enable_confidential_compute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ConfidentialInstanceConfig;
+    /// let x = ConfidentialInstanceConfig::new().set_or_clear_enable_confidential_compute(Some(false));
+    /// let x = ConfidentialInstanceConfig::new().set_or_clear_enable_confidential_compute(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12758,6 +16772,12 @@ impl DisplayDevice {
     }
 
     /// Sets the value of [enable_display][crate::model::DisplayDevice::enable_display].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DisplayDevice;
+    /// let x = DisplayDevice::new().set_enable_display(true);
+    /// ```
     pub fn set_enable_display<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12767,6 +16787,13 @@ impl DisplayDevice {
     }
 
     /// Sets or clears the value of [enable_display][crate::model::DisplayDevice::enable_display].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DisplayDevice;
+    /// let x = DisplayDevice::new().set_or_clear_enable_display(Some(false));
+    /// let x = DisplayDevice::new().set_or_clear_enable_display(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_display<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12804,6 +16831,12 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [accelerator_type][crate::model::AcceleratorConfig::accelerator_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_accelerator_type("example");
+    /// ```
     pub fn set_accelerator_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12813,6 +16846,13 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clears the value of [accelerator_type][crate::model::AcceleratorConfig::accelerator_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_or_clear_accelerator_type(Some("example"));
+    /// let x = AcceleratorConfig::new().set_or_clear_accelerator_type(None::<String>);
+    /// ```
     pub fn set_or_clear_accelerator_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12822,6 +16862,12 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [accelerator_count][crate::model::AcceleratorConfig::accelerator_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_accelerator_count(42);
+    /// ```
     pub fn set_accelerator_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -12831,6 +16877,13 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clears the value of [accelerator_count][crate::model::AcceleratorConfig::accelerator_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_or_clear_accelerator_count(Some(42));
+    /// let x = AcceleratorConfig::new().set_or_clear_accelerator_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_accelerator_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -12867,6 +16920,12 @@ impl CustomerEncryptionKey {
     }
 
     /// Sets the value of [kms_key_service_account][crate::model::CustomerEncryptionKey::kms_key_service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = CustomerEncryptionKey::new().set_kms_key_service_account("example");
+    /// ```
     pub fn set_kms_key_service_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12876,6 +16935,13 @@ impl CustomerEncryptionKey {
     }
 
     /// Sets or clears the value of [kms_key_service_account][crate::model::CustomerEncryptionKey::kms_key_service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = CustomerEncryptionKey::new().set_or_clear_kms_key_service_account(Some("example"));
+    /// let x = CustomerEncryptionKey::new().set_or_clear_kms_key_service_account(None::<String>);
+    /// ```
     pub fn set_or_clear_kms_key_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -12888,6 +16954,13 @@ impl CustomerEncryptionKey {
     ///
     /// Note that all the setters affecting `key` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// use google_cloud_backupdr_v1::model::customer_encryption_key::Key;
+    /// let x = CustomerEncryptionKey::new().set_key(Some(Key::RawKey("example".to_string())));
+    /// ```
     pub fn set_key<
         T: std::convert::Into<std::option::Option<crate::model::customer_encryption_key::Key>>,
     >(
@@ -12914,6 +16987,15 @@ impl CustomerEncryptionKey {
     ///
     /// Note that all the setters affecting `key` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = CustomerEncryptionKey::new().set_raw_key("example");
+    /// assert!(x.raw_key().is_some());
+    /// assert!(x.rsa_encrypted_key().is_none());
+    /// assert!(x.kms_key_name().is_none());
+    /// ```
     pub fn set_raw_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key =
             std::option::Option::Some(crate::model::customer_encryption_key::Key::RawKey(v.into()));
@@ -12938,6 +17020,15 @@ impl CustomerEncryptionKey {
     ///
     /// Note that all the setters affecting `key` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = CustomerEncryptionKey::new().set_rsa_encrypted_key("example");
+    /// assert!(x.rsa_encrypted_key().is_some());
+    /// assert!(x.raw_key().is_none());
+    /// assert!(x.kms_key_name().is_none());
+    /// ```
     pub fn set_rsa_encrypted_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12966,6 +17057,15 @@ impl CustomerEncryptionKey {
     ///
     /// Note that all the setters affecting `key` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = CustomerEncryptionKey::new().set_kms_key_name("example");
+    /// assert!(x.kms_key_name().is_some());
+    /// assert!(x.raw_key().is_none());
+    /// assert!(x.rsa_encrypted_key().is_none());
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = std::option::Option::Some(
             crate::model::customer_encryption_key::Key::KmsKeyName(v.into()),
@@ -13024,6 +17124,12 @@ impl Entry {
     }
 
     /// Sets the value of [key][crate::model::Entry::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Entry;
+    /// let x = Entry::new().set_key("example");
+    /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13033,6 +17139,13 @@ impl Entry {
     }
 
     /// Sets or clears the value of [key][crate::model::Entry::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Entry;
+    /// let x = Entry::new().set_or_clear_key(Some("example"));
+    /// let x = Entry::new().set_or_clear_key(None::<String>);
+    /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13042,6 +17155,12 @@ impl Entry {
     }
 
     /// Sets the value of [value][crate::model::Entry::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Entry;
+    /// let x = Entry::new().set_value("example");
+    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13051,6 +17170,13 @@ impl Entry {
     }
 
     /// Sets or clears the value of [value][crate::model::Entry::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Entry;
+    /// let x = Entry::new().set_or_clear_value(Some("example"));
+    /// let x = Entry::new().set_or_clear_value(None::<String>);
+    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13083,6 +17209,17 @@ impl Metadata {
     }
 
     /// Sets the value of [items][crate::model::Metadata::items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Metadata;
+    /// use google_cloud_backupdr_v1::model::Entry;
+    /// let x = Metadata::new()
+    ///     .set_items([
+    ///         Entry::default()/* use setters */,
+    ///         Entry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13176,6 +17313,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [network][crate::model::NetworkInterface::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_network("example");
+    /// ```
     pub fn set_network<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13185,6 +17328,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [network][crate::model::NetworkInterface::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_network(Some("example"));
+    /// let x = NetworkInterface::new().set_or_clear_network(None::<String>);
+    /// ```
     pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13194,6 +17344,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [subnetwork][crate::model::NetworkInterface::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13203,6 +17359,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [subnetwork][crate::model::NetworkInterface::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_subnetwork(Some("example"));
+    /// let x = NetworkInterface::new().set_or_clear_subnetwork(None::<String>);
+    /// ```
     pub fn set_or_clear_subnetwork<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13212,6 +17375,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [ip_address][crate::model::NetworkInterface::ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13221,6 +17390,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [ip_address][crate::model::NetworkInterface::ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_ip_address(Some("example"));
+    /// let x = NetworkInterface::new().set_or_clear_ip_address(None::<String>);
+    /// ```
     pub fn set_or_clear_ip_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13230,6 +17406,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [ipv6_address][crate::model::NetworkInterface::ipv6_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_ipv6_address("example");
+    /// ```
     pub fn set_ipv6_address<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13239,6 +17421,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [ipv6_address][crate::model::NetworkInterface::ipv6_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_ipv6_address(Some("example"));
+    /// let x = NetworkInterface::new().set_or_clear_ipv6_address(None::<String>);
+    /// ```
     pub fn set_or_clear_ipv6_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13248,6 +17437,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [internal_ipv6_prefix_length][crate::model::NetworkInterface::internal_ipv6_prefix_length].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_internal_ipv6_prefix_length(42);
+    /// ```
     pub fn set_internal_ipv6_prefix_length<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -13257,6 +17452,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [internal_ipv6_prefix_length][crate::model::NetworkInterface::internal_ipv6_prefix_length].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_internal_ipv6_prefix_length(Some(42));
+    /// let x = NetworkInterface::new().set_or_clear_internal_ipv6_prefix_length(None::<i32>);
+    /// ```
     pub fn set_or_clear_internal_ipv6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -13266,6 +17468,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [name][crate::model::NetworkInterface::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13275,6 +17483,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [name][crate::model::NetworkInterface::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_name(Some("example"));
+    /// let x = NetworkInterface::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13284,6 +17499,17 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [access_configs][crate::model::NetworkInterface::access_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = NetworkInterface::new()
+    ///     .set_access_configs([
+    ///         AccessConfig::default()/* use setters */,
+    ///         AccessConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_access_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13295,6 +17521,17 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [ipv6_access_configs][crate::model::NetworkInterface::ipv6_access_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = NetworkInterface::new()
+    ///     .set_ipv6_access_configs([
+    ///         AccessConfig::default()/* use setters */,
+    ///         AccessConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ipv6_access_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13306,6 +17543,17 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [alias_ip_ranges][crate::model::NetworkInterface::alias_ip_ranges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::AliasIpRange;
+    /// let x = NetworkInterface::new()
+    ///     .set_alias_ip_ranges([
+    ///         AliasIpRange::default()/* use setters */,
+    ///         AliasIpRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_alias_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13317,6 +17565,14 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [stack_type][crate::model::NetworkInterface::stack_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::network_interface::StackType;
+    /// let x0 = NetworkInterface::new().set_stack_type(StackType::Ipv4Only);
+    /// let x1 = NetworkInterface::new().set_stack_type(StackType::Ipv4Ipv6);
+    /// ```
     pub fn set_stack_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::StackType>,
@@ -13326,6 +17582,15 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [stack_type][crate::model::NetworkInterface::stack_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::network_interface::StackType;
+    /// let x0 = NetworkInterface::new().set_or_clear_stack_type(Some(StackType::Ipv4Only));
+    /// let x1 = NetworkInterface::new().set_or_clear_stack_type(Some(StackType::Ipv4Ipv6));
+    /// let x_none = NetworkInterface::new().set_or_clear_stack_type(None::<StackType>);
+    /// ```
     pub fn set_or_clear_stack_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::StackType>,
@@ -13335,6 +17600,14 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [ipv6_access_type][crate::model::NetworkInterface::ipv6_access_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::network_interface::Ipv6AccessType;
+    /// let x0 = NetworkInterface::new().set_ipv6_access_type(Ipv6AccessType::Internal);
+    /// let x1 = NetworkInterface::new().set_ipv6_access_type(Ipv6AccessType::External);
+    /// ```
     pub fn set_ipv6_access_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::Ipv6AccessType>,
@@ -13344,6 +17617,15 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [ipv6_access_type][crate::model::NetworkInterface::ipv6_access_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::network_interface::Ipv6AccessType;
+    /// let x0 = NetworkInterface::new().set_or_clear_ipv6_access_type(Some(Ipv6AccessType::Internal));
+    /// let x1 = NetworkInterface::new().set_or_clear_ipv6_access_type(Some(Ipv6AccessType::External));
+    /// let x_none = NetworkInterface::new().set_or_clear_ipv6_access_type(None::<Ipv6AccessType>);
+    /// ```
     pub fn set_or_clear_ipv6_access_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::Ipv6AccessType>,
@@ -13353,6 +17635,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [queue_count][crate::model::NetworkInterface::queue_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_queue_count(42);
+    /// ```
     pub fn set_queue_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -13362,6 +17650,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [queue_count][crate::model::NetworkInterface::queue_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_queue_count(Some(42));
+    /// let x = NetworkInterface::new().set_or_clear_queue_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_queue_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -13371,6 +17666,14 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [nic_type][crate::model::NetworkInterface::nic_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::network_interface::NicType;
+    /// let x0 = NetworkInterface::new().set_nic_type(NicType::VirtioNet);
+    /// let x1 = NetworkInterface::new().set_nic_type(NicType::Gvnic);
+    /// ```
     pub fn set_nic_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::NicType>,
@@ -13380,6 +17683,15 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [nic_type][crate::model::NetworkInterface::nic_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// use google_cloud_backupdr_v1::model::network_interface::NicType;
+    /// let x0 = NetworkInterface::new().set_or_clear_nic_type(Some(NicType::VirtioNet));
+    /// let x1 = NetworkInterface::new().set_or_clear_nic_type(Some(NicType::Gvnic));
+    /// let x_none = NetworkInterface::new().set_or_clear_nic_type(None::<NicType>);
+    /// ```
     pub fn set_or_clear_nic_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::NicType>,
@@ -13389,6 +17701,12 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [network_attachment][crate::model::NetworkInterface::network_attachment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_network_attachment("example");
+    /// ```
     pub fn set_network_attachment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13398,6 +17716,13 @@ impl NetworkInterface {
     }
 
     /// Sets or clears the value of [network_attachment][crate::model::NetworkInterface::network_attachment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_or_clear_network_attachment(Some("example"));
+    /// let x = NetworkInterface::new().set_or_clear_network_attachment(None::<String>);
+    /// ```
     pub fn set_or_clear_network_attachment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -13835,6 +18160,14 @@ impl NetworkPerformanceConfig {
     }
 
     /// Sets the value of [total_egress_bandwidth_tier][crate::model::NetworkPerformanceConfig::total_egress_bandwidth_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkPerformanceConfig;
+    /// use google_cloud_backupdr_v1::model::network_performance_config::Tier;
+    /// let x0 = NetworkPerformanceConfig::new().set_total_egress_bandwidth_tier(Tier::Default);
+    /// let x1 = NetworkPerformanceConfig::new().set_total_egress_bandwidth_tier(Tier::Tier1);
+    /// ```
     pub fn set_total_egress_bandwidth_tier<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_performance_config::Tier>,
@@ -13844,6 +18177,15 @@ impl NetworkPerformanceConfig {
     }
 
     /// Sets or clears the value of [total_egress_bandwidth_tier][crate::model::NetworkPerformanceConfig::total_egress_bandwidth_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::NetworkPerformanceConfig;
+    /// use google_cloud_backupdr_v1::model::network_performance_config::Tier;
+    /// let x0 = NetworkPerformanceConfig::new().set_or_clear_total_egress_bandwidth_tier(Some(Tier::Default));
+    /// let x1 = NetworkPerformanceConfig::new().set_or_clear_total_egress_bandwidth_tier(Some(Tier::Tier1));
+    /// let x_none = NetworkPerformanceConfig::new().set_or_clear_total_egress_bandwidth_tier(None::<Tier>);
+    /// ```
     pub fn set_or_clear_total_egress_bandwidth_tier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_performance_config::Tier>,
@@ -14040,6 +18382,14 @@ impl AccessConfig {
     }
 
     /// Sets the value of [r#type][crate::model::AccessConfig::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// use google_cloud_backupdr_v1::model::access_config::AccessType;
+    /// let x0 = AccessConfig::new().set_type(AccessType::OneToOneNat);
+    /// let x1 = AccessConfig::new().set_type(AccessType::DirectIpv6);
+    /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::access_config::AccessType>,
@@ -14049,6 +18399,15 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [r#type][crate::model::AccessConfig::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// use google_cloud_backupdr_v1::model::access_config::AccessType;
+    /// let x0 = AccessConfig::new().set_or_clear_type(Some(AccessType::OneToOneNat));
+    /// let x1 = AccessConfig::new().set_or_clear_type(Some(AccessType::DirectIpv6));
+    /// let x_none = AccessConfig::new().set_or_clear_type(None::<AccessType>);
+    /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::access_config::AccessType>,
@@ -14058,6 +18417,12 @@ impl AccessConfig {
     }
 
     /// Sets the value of [name][crate::model::AccessConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14067,6 +18432,13 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [name][crate::model::AccessConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_or_clear_name(Some("example"));
+    /// let x = AccessConfig::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14076,6 +18448,12 @@ impl AccessConfig {
     }
 
     /// Sets the value of [external_ip][crate::model::AccessConfig::external_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_external_ip("example");
+    /// ```
     pub fn set_external_ip<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14085,6 +18463,13 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [external_ip][crate::model::AccessConfig::external_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_or_clear_external_ip(Some("example"));
+    /// let x = AccessConfig::new().set_or_clear_external_ip(None::<String>);
+    /// ```
     pub fn set_or_clear_external_ip<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14094,6 +18479,12 @@ impl AccessConfig {
     }
 
     /// Sets the value of [external_ipv6][crate::model::AccessConfig::external_ipv6].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_external_ipv6("example");
+    /// ```
     pub fn set_external_ipv6<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14103,6 +18494,13 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [external_ipv6][crate::model::AccessConfig::external_ipv6].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_or_clear_external_ipv6(Some("example"));
+    /// let x = AccessConfig::new().set_or_clear_external_ipv6(None::<String>);
+    /// ```
     pub fn set_or_clear_external_ipv6<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14112,6 +18510,12 @@ impl AccessConfig {
     }
 
     /// Sets the value of [external_ipv6_prefix_length][crate::model::AccessConfig::external_ipv6_prefix_length].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_external_ipv6_prefix_length(42);
+    /// ```
     pub fn set_external_ipv6_prefix_length<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -14121,6 +18525,13 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [external_ipv6_prefix_length][crate::model::AccessConfig::external_ipv6_prefix_length].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_or_clear_external_ipv6_prefix_length(Some(42));
+    /// let x = AccessConfig::new().set_or_clear_external_ipv6_prefix_length(None::<i32>);
+    /// ```
     pub fn set_or_clear_external_ipv6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -14130,6 +18541,12 @@ impl AccessConfig {
     }
 
     /// Sets the value of [set_public_ptr][crate::model::AccessConfig::set_public_ptr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_set_public_ptr(true);
+    /// ```
     pub fn set_set_public_ptr<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14139,6 +18556,13 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [set_public_ptr][crate::model::AccessConfig::set_public_ptr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_or_clear_set_public_ptr(Some(false));
+    /// let x = AccessConfig::new().set_or_clear_set_public_ptr(None::<bool>);
+    /// ```
     pub fn set_or_clear_set_public_ptr<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14148,6 +18572,12 @@ impl AccessConfig {
     }
 
     /// Sets the value of [public_ptr_domain_name][crate::model::AccessConfig::public_ptr_domain_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_public_ptr_domain_name("example");
+    /// ```
     pub fn set_public_ptr_domain_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14157,6 +18587,13 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [public_ptr_domain_name][crate::model::AccessConfig::public_ptr_domain_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_or_clear_public_ptr_domain_name(Some("example"));
+    /// let x = AccessConfig::new().set_or_clear_public_ptr_domain_name(None::<String>);
+    /// ```
     pub fn set_or_clear_public_ptr_domain_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14166,6 +18603,14 @@ impl AccessConfig {
     }
 
     /// Sets the value of [network_tier][crate::model::AccessConfig::network_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// use google_cloud_backupdr_v1::model::access_config::NetworkTier;
+    /// let x0 = AccessConfig::new().set_network_tier(NetworkTier::Premium);
+    /// let x1 = AccessConfig::new().set_network_tier(NetworkTier::Standard);
+    /// ```
     pub fn set_network_tier<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::access_config::NetworkTier>,
@@ -14175,6 +18620,15 @@ impl AccessConfig {
     }
 
     /// Sets or clears the value of [network_tier][crate::model::AccessConfig::network_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AccessConfig;
+    /// use google_cloud_backupdr_v1::model::access_config::NetworkTier;
+    /// let x0 = AccessConfig::new().set_or_clear_network_tier(Some(NetworkTier::Premium));
+    /// let x1 = AccessConfig::new().set_or_clear_network_tier(Some(NetworkTier::Standard));
+    /// let x_none = AccessConfig::new().set_or_clear_network_tier(None::<NetworkTier>);
+    /// ```
     pub fn set_or_clear_network_tier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::access_config::NetworkTier>,
@@ -14483,6 +18937,12 @@ impl AliasIpRange {
     }
 
     /// Sets the value of [ip_cidr_range][crate::model::AliasIpRange::ip_cidr_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AliasIpRange;
+    /// let x = AliasIpRange::new().set_ip_cidr_range("example");
+    /// ```
     pub fn set_ip_cidr_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14492,6 +18952,13 @@ impl AliasIpRange {
     }
 
     /// Sets or clears the value of [ip_cidr_range][crate::model::AliasIpRange::ip_cidr_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AliasIpRange;
+    /// let x = AliasIpRange::new().set_or_clear_ip_cidr_range(Some("example"));
+    /// let x = AliasIpRange::new().set_or_clear_ip_cidr_range(None::<String>);
+    /// ```
     pub fn set_or_clear_ip_cidr_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14501,6 +18968,12 @@ impl AliasIpRange {
     }
 
     /// Sets the value of [subnetwork_range_name][crate::model::AliasIpRange::subnetwork_range_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AliasIpRange;
+    /// let x = AliasIpRange::new().set_subnetwork_range_name("example");
+    /// ```
     pub fn set_subnetwork_range_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14510,6 +18983,13 @@ impl AliasIpRange {
     }
 
     /// Sets or clears the value of [subnetwork_range_name][crate::model::AliasIpRange::subnetwork_range_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AliasIpRange;
+    /// let x = AliasIpRange::new().set_or_clear_subnetwork_range_name(Some("example"));
+    /// let x = AliasIpRange::new().set_or_clear_subnetwork_range_name(None::<String>);
+    /// ```
     pub fn set_or_clear_subnetwork_range_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14541,6 +19021,15 @@ impl InstanceParams {
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::InstanceParams::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::InstanceParams;
+    /// let x = InstanceParams::new().set_resource_manager_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_manager_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14582,6 +19071,15 @@ impl AllocationAffinity {
     }
 
     /// Sets the value of [consume_allocation_type][crate::model::AllocationAffinity::consume_allocation_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AllocationAffinity;
+    /// use google_cloud_backupdr_v1::model::allocation_affinity::Type;
+    /// let x0 = AllocationAffinity::new().set_consume_allocation_type(Type::NoReservation);
+    /// let x1 = AllocationAffinity::new().set_consume_allocation_type(Type::AnyReservation);
+    /// let x2 = AllocationAffinity::new().set_consume_allocation_type(Type::SpecificReservation);
+    /// ```
     pub fn set_consume_allocation_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::allocation_affinity::Type>,
@@ -14591,6 +19089,16 @@ impl AllocationAffinity {
     }
 
     /// Sets or clears the value of [consume_allocation_type][crate::model::AllocationAffinity::consume_allocation_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AllocationAffinity;
+    /// use google_cloud_backupdr_v1::model::allocation_affinity::Type;
+    /// let x0 = AllocationAffinity::new().set_or_clear_consume_allocation_type(Some(Type::NoReservation));
+    /// let x1 = AllocationAffinity::new().set_or_clear_consume_allocation_type(Some(Type::AnyReservation));
+    /// let x2 = AllocationAffinity::new().set_or_clear_consume_allocation_type(Some(Type::SpecificReservation));
+    /// let x_none = AllocationAffinity::new().set_or_clear_consume_allocation_type(None::<Type>);
+    /// ```
     pub fn set_or_clear_consume_allocation_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::allocation_affinity::Type>,
@@ -14600,6 +19108,12 @@ impl AllocationAffinity {
     }
 
     /// Sets the value of [key][crate::model::AllocationAffinity::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AllocationAffinity;
+    /// let x = AllocationAffinity::new().set_key("example");
+    /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14609,6 +19123,13 @@ impl AllocationAffinity {
     }
 
     /// Sets or clears the value of [key][crate::model::AllocationAffinity::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AllocationAffinity;
+    /// let x = AllocationAffinity::new().set_or_clear_key(Some("example"));
+    /// let x = AllocationAffinity::new().set_or_clear_key(None::<String>);
+    /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14618,6 +19139,12 @@ impl AllocationAffinity {
     }
 
     /// Sets the value of [values][crate::model::AllocationAffinity::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AllocationAffinity;
+    /// let x = AllocationAffinity::new().set_values(["a", "b", "c"]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14825,6 +19352,14 @@ impl Scheduling {
     }
 
     /// Sets the value of [on_host_maintenance][crate::model::Scheduling::on_host_maintenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::scheduling::OnHostMaintenance;
+    /// let x0 = Scheduling::new().set_on_host_maintenance(OnHostMaintenance::Terminate);
+    /// let x1 = Scheduling::new().set_on_host_maintenance(OnHostMaintenance::Migrate);
+    /// ```
     pub fn set_on_host_maintenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::OnHostMaintenance>,
@@ -14834,6 +19369,15 @@ impl Scheduling {
     }
 
     /// Sets or clears the value of [on_host_maintenance][crate::model::Scheduling::on_host_maintenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::scheduling::OnHostMaintenance;
+    /// let x0 = Scheduling::new().set_or_clear_on_host_maintenance(Some(OnHostMaintenance::Terminate));
+    /// let x1 = Scheduling::new().set_or_clear_on_host_maintenance(Some(OnHostMaintenance::Migrate));
+    /// let x_none = Scheduling::new().set_or_clear_on_host_maintenance(None::<OnHostMaintenance>);
+    /// ```
     pub fn set_or_clear_on_host_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::OnHostMaintenance>,
@@ -14843,6 +19387,12 @@ impl Scheduling {
     }
 
     /// Sets the value of [automatic_restart][crate::model::Scheduling::automatic_restart].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = Scheduling::new().set_automatic_restart(true);
+    /// ```
     pub fn set_automatic_restart<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14852,6 +19402,13 @@ impl Scheduling {
     }
 
     /// Sets or clears the value of [automatic_restart][crate::model::Scheduling::automatic_restart].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = Scheduling::new().set_or_clear_automatic_restart(Some(false));
+    /// let x = Scheduling::new().set_or_clear_automatic_restart(None::<bool>);
+    /// ```
     pub fn set_or_clear_automatic_restart<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14861,6 +19418,12 @@ impl Scheduling {
     }
 
     /// Sets the value of [preemptible][crate::model::Scheduling::preemptible].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = Scheduling::new().set_preemptible(true);
+    /// ```
     pub fn set_preemptible<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14870,6 +19433,13 @@ impl Scheduling {
     }
 
     /// Sets or clears the value of [preemptible][crate::model::Scheduling::preemptible].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = Scheduling::new().set_or_clear_preemptible(Some(false));
+    /// let x = Scheduling::new().set_or_clear_preemptible(None::<bool>);
+    /// ```
     pub fn set_or_clear_preemptible<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14879,6 +19449,17 @@ impl Scheduling {
     }
 
     /// Sets the value of [node_affinities][crate::model::Scheduling::node_affinities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::scheduling::NodeAffinity;
+    /// let x = Scheduling::new()
+    ///     .set_node_affinities([
+    ///         NodeAffinity::default()/* use setters */,
+    ///         NodeAffinity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_node_affinities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14890,6 +19471,12 @@ impl Scheduling {
     }
 
     /// Sets the value of [min_node_cpus][crate::model::Scheduling::min_node_cpus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = Scheduling::new().set_min_node_cpus(42);
+    /// ```
     pub fn set_min_node_cpus<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -14899,6 +19486,13 @@ impl Scheduling {
     }
 
     /// Sets or clears the value of [min_node_cpus][crate::model::Scheduling::min_node_cpus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// let x = Scheduling::new().set_or_clear_min_node_cpus(Some(42));
+    /// let x = Scheduling::new().set_or_clear_min_node_cpus(None::<i32>);
+    /// ```
     pub fn set_or_clear_min_node_cpus<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -14908,6 +19502,14 @@ impl Scheduling {
     }
 
     /// Sets the value of [provisioning_model][crate::model::Scheduling::provisioning_model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::scheduling::ProvisioningModel;
+    /// let x0 = Scheduling::new().set_provisioning_model(ProvisioningModel::Standard);
+    /// let x1 = Scheduling::new().set_provisioning_model(ProvisioningModel::Spot);
+    /// ```
     pub fn set_provisioning_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::ProvisioningModel>,
@@ -14917,6 +19519,15 @@ impl Scheduling {
     }
 
     /// Sets or clears the value of [provisioning_model][crate::model::Scheduling::provisioning_model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::scheduling::ProvisioningModel;
+    /// let x0 = Scheduling::new().set_or_clear_provisioning_model(Some(ProvisioningModel::Standard));
+    /// let x1 = Scheduling::new().set_or_clear_provisioning_model(Some(ProvisioningModel::Spot));
+    /// let x_none = Scheduling::new().set_or_clear_provisioning_model(None::<ProvisioningModel>);
+    /// ```
     pub fn set_or_clear_provisioning_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::ProvisioningModel>,
@@ -14926,6 +19537,14 @@ impl Scheduling {
     }
 
     /// Sets the value of [instance_termination_action][crate::model::Scheduling::instance_termination_action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::scheduling::InstanceTerminationAction;
+    /// let x0 = Scheduling::new().set_instance_termination_action(InstanceTerminationAction::Delete);
+    /// let x1 = Scheduling::new().set_instance_termination_action(InstanceTerminationAction::Stop);
+    /// ```
     pub fn set_instance_termination_action<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::InstanceTerminationAction>,
@@ -14935,6 +19554,15 @@ impl Scheduling {
     }
 
     /// Sets or clears the value of [instance_termination_action][crate::model::Scheduling::instance_termination_action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::scheduling::InstanceTerminationAction;
+    /// let x0 = Scheduling::new().set_or_clear_instance_termination_action(Some(InstanceTerminationAction::Delete));
+    /// let x1 = Scheduling::new().set_or_clear_instance_termination_action(Some(InstanceTerminationAction::Stop));
+    /// let x_none = Scheduling::new().set_or_clear_instance_termination_action(None::<InstanceTerminationAction>);
+    /// ```
     pub fn set_or_clear_instance_termination_action<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::InstanceTerminationAction>,
@@ -14944,6 +19572,13 @@ impl Scheduling {
     }
 
     /// Sets the value of [local_ssd_recovery_timeout][crate::model::Scheduling::local_ssd_recovery_timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::SchedulingDuration;
+    /// let x = Scheduling::new().set_local_ssd_recovery_timeout(SchedulingDuration::default()/* use setters */);
+    /// ```
     pub fn set_local_ssd_recovery_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingDuration>,
@@ -14953,6 +19588,14 @@ impl Scheduling {
     }
 
     /// Sets or clears the value of [local_ssd_recovery_timeout][crate::model::Scheduling::local_ssd_recovery_timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Scheduling;
+    /// use google_cloud_backupdr_v1::model::SchedulingDuration;
+    /// let x = Scheduling::new().set_or_clear_local_ssd_recovery_timeout(Some(SchedulingDuration::default()/* use setters */));
+    /// let x = Scheduling::new().set_or_clear_local_ssd_recovery_timeout(None::<SchedulingDuration>);
+    /// ```
     pub fn set_or_clear_local_ssd_recovery_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingDuration>,
@@ -14996,6 +19639,12 @@ pub mod scheduling {
         }
 
         /// Sets the value of [key][crate::model::scheduling::NodeAffinity::key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::scheduling::NodeAffinity;
+        /// let x = NodeAffinity::new().set_key("example");
+        /// ```
         pub fn set_key<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -15005,6 +19654,13 @@ pub mod scheduling {
         }
 
         /// Sets or clears the value of [key][crate::model::scheduling::NodeAffinity::key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::scheduling::NodeAffinity;
+        /// let x = NodeAffinity::new().set_or_clear_key(Some("example"));
+        /// let x = NodeAffinity::new().set_or_clear_key(None::<String>);
+        /// ```
         pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -15014,6 +19670,14 @@ pub mod scheduling {
         }
 
         /// Sets the value of [operator][crate::model::scheduling::NodeAffinity::operator].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::scheduling::NodeAffinity;
+        /// use google_cloud_backupdr_v1::model::scheduling::node_affinity::Operator;
+        /// let x0 = NodeAffinity::new().set_operator(Operator::In);
+        /// let x1 = NodeAffinity::new().set_operator(Operator::NotIn);
+        /// ```
         pub fn set_operator<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::scheduling::node_affinity::Operator>,
@@ -15023,6 +19687,15 @@ pub mod scheduling {
         }
 
         /// Sets or clears the value of [operator][crate::model::scheduling::NodeAffinity::operator].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::scheduling::NodeAffinity;
+        /// use google_cloud_backupdr_v1::model::scheduling::node_affinity::Operator;
+        /// let x0 = NodeAffinity::new().set_or_clear_operator(Some(Operator::In));
+        /// let x1 = NodeAffinity::new().set_or_clear_operator(Some(Operator::NotIn));
+        /// let x_none = NodeAffinity::new().set_or_clear_operator(None::<Operator>);
+        /// ```
         pub fn set_or_clear_operator<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::scheduling::node_affinity::Operator>,
@@ -15032,6 +19705,12 @@ pub mod scheduling {
         }
 
         /// Sets the value of [values][crate::model::scheduling::NodeAffinity::values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::scheduling::NodeAffinity;
+        /// let x = NodeAffinity::new().set_values(["a", "b", "c"]);
+        /// ```
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -15616,6 +20295,12 @@ impl SchedulingDuration {
     }
 
     /// Sets the value of [seconds][crate::model::SchedulingDuration::seconds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::SchedulingDuration;
+    /// let x = SchedulingDuration::new().set_seconds(42);
+    /// ```
     pub fn set_seconds<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -15625,6 +20310,13 @@ impl SchedulingDuration {
     }
 
     /// Sets or clears the value of [seconds][crate::model::SchedulingDuration::seconds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::SchedulingDuration;
+    /// let x = SchedulingDuration::new().set_or_clear_seconds(Some(42));
+    /// let x = SchedulingDuration::new().set_or_clear_seconds(None::<i32>);
+    /// ```
     pub fn set_or_clear_seconds<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -15634,6 +20326,12 @@ impl SchedulingDuration {
     }
 
     /// Sets the value of [nanos][crate::model::SchedulingDuration::nanos].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::SchedulingDuration;
+    /// let x = SchedulingDuration::new().set_nanos(42);
+    /// ```
     pub fn set_nanos<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -15643,6 +20341,13 @@ impl SchedulingDuration {
     }
 
     /// Sets or clears the value of [nanos][crate::model::SchedulingDuration::nanos].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::SchedulingDuration;
+    /// let x = SchedulingDuration::new().set_or_clear_nanos(Some(42));
+    /// let x = SchedulingDuration::new().set_or_clear_nanos(None::<i32>);
+    /// ```
     pub fn set_or_clear_nanos<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -15677,6 +20382,12 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [email][crate::model::ServiceAccount::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_email("example");
+    /// ```
     pub fn set_email<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15686,6 +20397,13 @@ impl ServiceAccount {
     }
 
     /// Sets or clears the value of [email][crate::model::ServiceAccount::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_or_clear_email(Some("example"));
+    /// let x = ServiceAccount::new().set_or_clear_email(None::<String>);
+    /// ```
     pub fn set_or_clear_email<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15695,6 +20413,12 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [scopes][crate::model::ServiceAccount::scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_scopes(["a", "b", "c"]);
+    /// ```
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15729,6 +20453,12 @@ impl Tags {
     }
 
     /// Sets the value of [items][crate::model::Tags::items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::Tags;
+    /// let x = Tags::new().set_items(["a", "b", "c"]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15820,6 +20550,13 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [initialize_params][crate::model::AttachedDisk::initialize_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::InitializeParams;
+    /// let x = AttachedDisk::new().set_initialize_params(InitializeParams::default()/* use setters */);
+    /// ```
     pub fn set_initialize_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::InitializeParams>,
@@ -15829,6 +20566,14 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [initialize_params][crate::model::AttachedDisk::initialize_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::InitializeParams;
+    /// let x = AttachedDisk::new().set_or_clear_initialize_params(Some(InitializeParams::default()/* use setters */));
+    /// let x = AttachedDisk::new().set_or_clear_initialize_params(None::<InitializeParams>);
+    /// ```
     pub fn set_or_clear_initialize_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::InitializeParams>,
@@ -15838,6 +20583,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [device_name][crate::model::AttachedDisk::device_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_device_name("example");
+    /// ```
     pub fn set_device_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15847,6 +20598,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [device_name][crate::model::AttachedDisk::device_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_device_name(Some("example"));
+    /// let x = AttachedDisk::new().set_or_clear_device_name(None::<String>);
+    /// ```
     pub fn set_or_clear_device_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15856,6 +20614,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [kind][crate::model::AttachedDisk::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_kind("example");
+    /// ```
     pub fn set_kind<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15865,6 +20629,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [kind][crate::model::AttachedDisk::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_kind(Some("example"));
+    /// let x = AttachedDisk::new().set_or_clear_kind(None::<String>);
+    /// ```
     pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15874,6 +20645,14 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [disk_type_deprecated][crate::model::AttachedDisk::disk_type_deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskType;
+    /// let x0 = AttachedDisk::new().set_disk_type_deprecated(DiskType::Scratch);
+    /// let x1 = AttachedDisk::new().set_disk_type_deprecated(DiskType::Persistent);
+    /// ```
     #[deprecated]
     pub fn set_disk_type_deprecated<T>(mut self, v: T) -> Self
     where
@@ -15884,6 +20663,15 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [disk_type_deprecated][crate::model::AttachedDisk::disk_type_deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskType;
+    /// let x0 = AttachedDisk::new().set_or_clear_disk_type_deprecated(Some(DiskType::Scratch));
+    /// let x1 = AttachedDisk::new().set_or_clear_disk_type_deprecated(Some(DiskType::Persistent));
+    /// let x_none = AttachedDisk::new().set_or_clear_disk_type_deprecated(None::<DiskType>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_disk_type_deprecated<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -15894,6 +20682,15 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [mode][crate::model::AttachedDisk::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskMode;
+    /// let x0 = AttachedDisk::new().set_mode(DiskMode::ReadWrite);
+    /// let x1 = AttachedDisk::new().set_mode(DiskMode::ReadOnly);
+    /// let x2 = AttachedDisk::new().set_mode(DiskMode::Locked);
+    /// ```
     pub fn set_mode<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskMode>,
@@ -15903,6 +20700,16 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [mode][crate::model::AttachedDisk::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskMode;
+    /// let x0 = AttachedDisk::new().set_or_clear_mode(Some(DiskMode::ReadWrite));
+    /// let x1 = AttachedDisk::new().set_or_clear_mode(Some(DiskMode::ReadOnly));
+    /// let x2 = AttachedDisk::new().set_or_clear_mode(Some(DiskMode::Locked));
+    /// let x_none = AttachedDisk::new().set_or_clear_mode(None::<DiskMode>);
+    /// ```
     pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskMode>,
@@ -15912,6 +20719,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [source][crate::model::AttachedDisk::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_source("example");
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15921,6 +20734,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [source][crate::model::AttachedDisk::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_source(Some("example"));
+    /// let x = AttachedDisk::new().set_or_clear_source(None::<String>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15930,6 +20750,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [index][crate::model::AttachedDisk::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_index(42);
+    /// ```
     pub fn set_index<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -15939,6 +20765,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [index][crate::model::AttachedDisk::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_index(Some(42));
+    /// let x = AttachedDisk::new().set_or_clear_index(None::<i32>);
+    /// ```
     pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -15948,6 +20781,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [boot][crate::model::AttachedDisk::boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_boot(true);
+    /// ```
     pub fn set_boot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -15957,6 +20796,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [boot][crate::model::AttachedDisk::boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_boot(Some(false));
+    /// let x = AttachedDisk::new().set_or_clear_boot(None::<bool>);
+    /// ```
     pub fn set_or_clear_boot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -15966,6 +20812,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [auto_delete][crate::model::AttachedDisk::auto_delete].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_auto_delete(true);
+    /// ```
     pub fn set_auto_delete<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -15975,6 +20827,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [auto_delete][crate::model::AttachedDisk::auto_delete].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_auto_delete(Some(false));
+    /// let x = AttachedDisk::new().set_or_clear_auto_delete(None::<bool>);
+    /// ```
     pub fn set_or_clear_auto_delete<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -15984,6 +20843,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [license][crate::model::AttachedDisk::license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_license(["a", "b", "c"]);
+    /// ```
     pub fn set_license<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15995,6 +20860,15 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [disk_interface][crate::model::AttachedDisk::disk_interface].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskInterface;
+    /// let x0 = AttachedDisk::new().set_disk_interface(DiskInterface::Scsi);
+    /// let x1 = AttachedDisk::new().set_disk_interface(DiskInterface::Nvme);
+    /// let x2 = AttachedDisk::new().set_disk_interface(DiskInterface::Nvdimm);
+    /// ```
     pub fn set_disk_interface<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskInterface>,
@@ -16004,6 +20878,16 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [disk_interface][crate::model::AttachedDisk::disk_interface].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskInterface;
+    /// let x0 = AttachedDisk::new().set_or_clear_disk_interface(Some(DiskInterface::Scsi));
+    /// let x1 = AttachedDisk::new().set_or_clear_disk_interface(Some(DiskInterface::Nvme));
+    /// let x2 = AttachedDisk::new().set_or_clear_disk_interface(Some(DiskInterface::Nvdimm));
+    /// let x_none = AttachedDisk::new().set_or_clear_disk_interface(None::<DiskInterface>);
+    /// ```
     pub fn set_or_clear_disk_interface<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskInterface>,
@@ -16013,6 +20897,17 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [guest_os_feature][crate::model::AttachedDisk::guest_os_feature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::GuestOsFeature;
+    /// let x = AttachedDisk::new()
+    ///     .set_guest_os_feature([
+    ///         GuestOsFeature::default()/* use setters */,
+    ///         GuestOsFeature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_guest_os_feature<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16024,6 +20919,13 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [disk_encryption_key][crate::model::AttachedDisk::disk_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = AttachedDisk::new().set_disk_encryption_key(CustomerEncryptionKey::default()/* use setters */);
+    /// ```
     pub fn set_disk_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
@@ -16033,6 +20935,14 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [disk_encryption_key][crate::model::AttachedDisk::disk_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::CustomerEncryptionKey;
+    /// let x = AttachedDisk::new().set_or_clear_disk_encryption_key(Some(CustomerEncryptionKey::default()/* use setters */));
+    /// let x = AttachedDisk::new().set_or_clear_disk_encryption_key(None::<CustomerEncryptionKey>);
+    /// ```
     pub fn set_or_clear_disk_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
@@ -16042,6 +20952,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [disk_size_gb][crate::model::AttachedDisk::disk_size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_disk_size_gb(42);
+    /// ```
     pub fn set_disk_size_gb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -16051,6 +20967,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [disk_size_gb][crate::model::AttachedDisk::disk_size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_disk_size_gb(Some(42));
+    /// let x = AttachedDisk::new().set_or_clear_disk_size_gb(None::<i32>);
+    /// ```
     pub fn set_or_clear_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -16060,6 +20983,13 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [saved_state][crate::model::AttachedDisk::saved_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskSavedState;
+    /// let x0 = AttachedDisk::new().set_saved_state(DiskSavedState::Preserved);
+    /// ```
     pub fn set_saved_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskSavedState>,
@@ -16069,6 +20999,14 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [saved_state][crate::model::AttachedDisk::saved_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskSavedState;
+    /// let x0 = AttachedDisk::new().set_or_clear_saved_state(Some(DiskSavedState::Preserved));
+    /// let x_none = AttachedDisk::new().set_or_clear_saved_state(None::<DiskSavedState>);
+    /// ```
     pub fn set_or_clear_saved_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskSavedState>,
@@ -16078,6 +21016,12 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [disk_type][crate::model::AttachedDisk::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_disk_type("example");
+    /// ```
     pub fn set_disk_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -16087,6 +21031,13 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [disk_type][crate::model::AttachedDisk::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_or_clear_disk_type(Some("example"));
+    /// let x = AttachedDisk::new().set_or_clear_disk_type(None::<String>);
+    /// ```
     pub fn set_or_clear_disk_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -16096,6 +21047,14 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [r#type][crate::model::AttachedDisk::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskType;
+    /// let x0 = AttachedDisk::new().set_type(DiskType::Scratch);
+    /// let x1 = AttachedDisk::new().set_type(DiskType::Persistent);
+    /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskType>,
@@ -16105,6 +21064,15 @@ impl AttachedDisk {
     }
 
     /// Sets or clears the value of [r#type][crate::model::AttachedDisk::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::AttachedDisk;
+    /// use google_cloud_backupdr_v1::model::attached_disk::DiskType;
+    /// let x0 = AttachedDisk::new().set_or_clear_type(Some(DiskType::Scratch));
+    /// let x1 = AttachedDisk::new().set_or_clear_type(Some(DiskType::Persistent));
+    /// let x_none = AttachedDisk::new().set_or_clear_type(None::<DiskType>);
+    /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskType>,
@@ -16146,6 +21114,12 @@ pub mod attached_disk {
         }
 
         /// Sets the value of [disk_name][crate::model::attached_disk::InitializeParams::disk_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::attached_disk::InitializeParams;
+        /// let x = InitializeParams::new().set_disk_name("example");
+        /// ```
         pub fn set_disk_name<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -16155,6 +21129,13 @@ pub mod attached_disk {
         }
 
         /// Sets or clears the value of [disk_name][crate::model::attached_disk::InitializeParams::disk_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::attached_disk::InitializeParams;
+        /// let x = InitializeParams::new().set_or_clear_disk_name(Some("example"));
+        /// let x = InitializeParams::new().set_or_clear_disk_name(None::<String>);
+        /// ```
         pub fn set_or_clear_disk_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -16164,6 +21145,12 @@ pub mod attached_disk {
         }
 
         /// Sets the value of [replica_zones][crate::model::attached_disk::InitializeParams::replica_zones].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_backupdr_v1::model::attached_disk::InitializeParams;
+        /// let x = InitializeParams::new().set_replica_zones(["a", "b", "c"]);
+        /// ```
         pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -16745,6 +21732,15 @@ impl GuestOsFeature {
     }
 
     /// Sets the value of [r#type][crate::model::GuestOsFeature::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GuestOsFeature;
+    /// use google_cloud_backupdr_v1::model::guest_os_feature::FeatureType;
+    /// let x0 = GuestOsFeature::new().set_type(FeatureType::VirtioScsiMultiqueue);
+    /// let x1 = GuestOsFeature::new().set_type(FeatureType::Windows);
+    /// let x2 = GuestOsFeature::new().set_type(FeatureType::MultiIpSubnet);
+    /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::guest_os_feature::FeatureType>,
@@ -16754,6 +21750,16 @@ impl GuestOsFeature {
     }
 
     /// Sets or clears the value of [r#type][crate::model::GuestOsFeature::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GuestOsFeature;
+    /// use google_cloud_backupdr_v1::model::guest_os_feature::FeatureType;
+    /// let x0 = GuestOsFeature::new().set_or_clear_type(Some(FeatureType::VirtioScsiMultiqueue));
+    /// let x1 = GuestOsFeature::new().set_or_clear_type(Some(FeatureType::Windows));
+    /// let x2 = GuestOsFeature::new().set_or_clear_type(Some(FeatureType::MultiIpSubnet));
+    /// let x_none = GuestOsFeature::new().set_or_clear_type(None::<FeatureType>);
+    /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::guest_os_feature::FeatureType>,
@@ -17038,18 +22044,37 @@ impl DataSourceReference {
     }
 
     /// Sets the value of [name][crate::model::DataSourceReference::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// let x = DataSourceReference::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_source][crate::model::DataSourceReference::data_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// let x = DataSourceReference::new().set_data_source("example");
+    /// ```
     pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataSourceReference::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// use wkt::Timestamp;
+    /// let x = DataSourceReference::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17059,6 +22084,14 @@ impl DataSourceReference {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataSourceReference::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// use wkt::Timestamp;
+    /// let x = DataSourceReference::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataSourceReference::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17068,6 +22101,14 @@ impl DataSourceReference {
     }
 
     /// Sets the value of [data_source_backup_config_state][crate::model::DataSourceReference::data_source_backup_config_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// use google_cloud_backupdr_v1::model::BackupConfigState;
+    /// let x0 = DataSourceReference::new().set_data_source_backup_config_state(BackupConfigState::Active);
+    /// let x1 = DataSourceReference::new().set_data_source_backup_config_state(BackupConfigState::Passive);
+    /// ```
     pub fn set_data_source_backup_config_state<
         T: std::convert::Into<crate::model::BackupConfigState>,
     >(
@@ -17079,12 +22120,25 @@ impl DataSourceReference {
     }
 
     /// Sets the value of [data_source_backup_count][crate::model::DataSourceReference::data_source_backup_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// let x = DataSourceReference::new().set_data_source_backup_count(42);
+    /// ```
     pub fn set_data_source_backup_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.data_source_backup_count = v.into();
         self
     }
 
     /// Sets the value of [data_source_backup_config_info][crate::model::DataSourceReference::data_source_backup_config_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// use google_cloud_backupdr_v1::model::DataSourceBackupConfigInfo;
+    /// let x = DataSourceReference::new().set_data_source_backup_config_info(DataSourceBackupConfigInfo::default()/* use setters */);
+    /// ```
     pub fn set_data_source_backup_config_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceBackupConfigInfo>,
@@ -17094,6 +22148,14 @@ impl DataSourceReference {
     }
 
     /// Sets or clears the value of [data_source_backup_config_info][crate::model::DataSourceReference::data_source_backup_config_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// use google_cloud_backupdr_v1::model::DataSourceBackupConfigInfo;
+    /// let x = DataSourceReference::new().set_or_clear_data_source_backup_config_info(Some(DataSourceBackupConfigInfo::default()/* use setters */));
+    /// let x = DataSourceReference::new().set_or_clear_data_source_backup_config_info(None::<DataSourceBackupConfigInfo>);
+    /// ```
     pub fn set_or_clear_data_source_backup_config_info<T>(
         mut self,
         v: std::option::Option<T>,
@@ -17106,6 +22168,13 @@ impl DataSourceReference {
     }
 
     /// Sets the value of [data_source_gcp_resource_info][crate::model::DataSourceReference::data_source_gcp_resource_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// use google_cloud_backupdr_v1::model::DataSourceGcpResourceInfo;
+    /// let x = DataSourceReference::new().set_data_source_gcp_resource_info(DataSourceGcpResourceInfo::default()/* use setters */);
+    /// ```
     pub fn set_data_source_gcp_resource_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceGcpResourceInfo>,
@@ -17115,6 +22184,14 @@ impl DataSourceReference {
     }
 
     /// Sets or clears the value of [data_source_gcp_resource_info][crate::model::DataSourceReference::data_source_gcp_resource_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// use google_cloud_backupdr_v1::model::DataSourceGcpResourceInfo;
+    /// let x = DataSourceReference::new().set_or_clear_data_source_gcp_resource_info(Some(DataSourceGcpResourceInfo::default()/* use setters */));
+    /// let x = DataSourceReference::new().set_or_clear_data_source_gcp_resource_info(None::<DataSourceGcpResourceInfo>);
+    /// ```
     pub fn set_or_clear_data_source_gcp_resource_info<T>(
         mut self,
         v: std::option::Option<T>,
@@ -17170,6 +22247,15 @@ impl DataSourceBackupConfigInfo {
     }
 
     /// Sets the value of [last_backup_state][crate::model::DataSourceBackupConfigInfo::last_backup_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupConfigInfo;
+    /// use google_cloud_backupdr_v1::model::backup_config_info::LastBackupState;
+    /// let x0 = DataSourceBackupConfigInfo::new().set_last_backup_state(LastBackupState::FirstBackupPending);
+    /// let x1 = DataSourceBackupConfigInfo::new().set_last_backup_state(LastBackupState::Succeeded);
+    /// let x2 = DataSourceBackupConfigInfo::new().set_last_backup_state(LastBackupState::Failed);
+    /// ```
     pub fn set_last_backup_state<
         T: std::convert::Into<crate::model::backup_config_info::LastBackupState>,
     >(
@@ -17181,6 +22267,13 @@ impl DataSourceBackupConfigInfo {
     }
 
     /// Sets the value of [last_successful_backup_consistency_time][crate::model::DataSourceBackupConfigInfo::last_successful_backup_consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupConfigInfo;
+    /// use wkt::Timestamp;
+    /// let x = DataSourceBackupConfigInfo::new().set_last_successful_backup_consistency_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_successful_backup_consistency_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17190,6 +22283,14 @@ impl DataSourceBackupConfigInfo {
     }
 
     /// Sets or clears the value of [last_successful_backup_consistency_time][crate::model::DataSourceBackupConfigInfo::last_successful_backup_consistency_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceBackupConfigInfo;
+    /// use wkt::Timestamp;
+    /// let x = DataSourceBackupConfigInfo::new().set_or_clear_last_successful_backup_consistency_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataSourceBackupConfigInfo::new().set_or_clear_last_successful_backup_consistency_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_successful_backup_consistency_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -17237,6 +22338,12 @@ impl DataSourceGcpResourceInfo {
     }
 
     /// Sets the value of [gcp_resourcename][crate::model::DataSourceGcpResourceInfo::gcp_resourcename].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResourceInfo;
+    /// let x = DataSourceGcpResourceInfo::new().set_gcp_resourcename("example");
+    /// ```
     pub fn set_gcp_resourcename<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17246,12 +22353,24 @@ impl DataSourceGcpResourceInfo {
     }
 
     /// Sets the value of [r#type][crate::model::DataSourceGcpResourceInfo::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResourceInfo;
+    /// let x = DataSourceGcpResourceInfo::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::DataSourceGcpResourceInfo::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResourceInfo;
+    /// let x = DataSourceGcpResourceInfo::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -17261,6 +22380,14 @@ impl DataSourceGcpResourceInfo {
     ///
     /// Note that all the setters affecting `resource_properties` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResourceInfo;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceReferenceProperties;
+    /// let x = DataSourceGcpResourceInfo::new().set_resource_properties(Some(
+    ///     google_cloud_backupdr_v1::model::data_source_gcp_resource_info::ResourceProperties::CloudSqlInstanceProperties(CloudSqlInstanceDataSourceReferenceProperties::default().into())));
+    /// ```
     pub fn set_resource_properties<
         T: std::convert::Into<
                 std::option::Option<
@@ -17295,6 +22422,14 @@ impl DataSourceGcpResourceInfo {
     ///
     /// Note that all the setters affecting `resource_properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::DataSourceGcpResourceInfo;
+    /// use google_cloud_backupdr_v1::model::CloudSqlInstanceDataSourceReferenceProperties;
+    /// let x = DataSourceGcpResourceInfo::new().set_cloud_sql_instance_properties(CloudSqlInstanceDataSourceReferenceProperties::default()/* use setters */);
+    /// assert!(x.cloud_sql_instance_properties().is_some());
+    /// ```
     pub fn set_cloud_sql_instance_properties<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::CloudSqlInstanceDataSourceReferenceProperties>,
@@ -17352,6 +22487,12 @@ impl GetDataSourceReferenceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataSourceReferenceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::GetDataSourceReferenceRequest;
+    /// let x = GetDataSourceReferenceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -17581,36 +22722,72 @@ impl FetchDataSourceReferencesForResourceTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::FetchDataSourceReferencesForResourceTypeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeRequest;
+    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::FetchDataSourceReferencesForResourceTypeRequest::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeRequest;
+    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchDataSourceReferencesForResourceTypeRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeRequest;
+    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchDataSourceReferencesForResourceTypeRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeRequest;
+    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::FetchDataSourceReferencesForResourceTypeRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeRequest;
+    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::FetchDataSourceReferencesForResourceTypeRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeRequest;
+    /// let x = FetchDataSourceReferencesForResourceTypeRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -17643,6 +22820,17 @@ impl FetchDataSourceReferencesForResourceTypeResponse {
     }
 
     /// Sets the value of [data_source_references][crate::model::FetchDataSourceReferencesForResourceTypeResponse::data_source_references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeResponse;
+    /// use google_cloud_backupdr_v1::model::DataSourceReference;
+    /// let x = FetchDataSourceReferencesForResourceTypeResponse::new()
+    ///     .set_data_source_references([
+    ///         DataSourceReference::default()/* use setters */,
+    ///         DataSourceReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_source_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17654,6 +22842,12 @@ impl FetchDataSourceReferencesForResourceTypeResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchDataSourceReferencesForResourceTypeResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::model::FetchDataSourceReferencesForResourceTypeResponse;
+    /// let x = FetchDataSourceReferencesForResourceTypeResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self

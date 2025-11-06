@@ -46,6 +46,15 @@ impl MessageWithEnum {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithEnum::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithEnum;
+    /// use google_cloud_rust_sdk_test::model::message_with_enum::TestEnum;
+    /// let x0 = MessageWithEnum::new().set_singular(TestEnum::Red);
+    /// let x1 = MessageWithEnum::new().set_singular(TestEnum::Green);
+    /// let x2 = MessageWithEnum::new().set_singular(TestEnum::Blue);
+    /// ```
     pub fn set_singular<T: std::convert::Into<crate::generated::message_with_enum::TestEnum>>(
         mut self,
         v: T,
@@ -55,6 +64,15 @@ impl MessageWithEnum {
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithEnum::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithEnum;
+    /// use google_cloud_rust_sdk_test::model::message_with_enum::TestEnum;
+    /// let x0 = MessageWithEnum::new().set_optional(TestEnum::Red);
+    /// let x1 = MessageWithEnum::new().set_optional(TestEnum::Green);
+    /// let x2 = MessageWithEnum::new().set_optional(TestEnum::Blue);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::generated::message_with_enum::TestEnum>,
@@ -64,6 +82,16 @@ impl MessageWithEnum {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithEnum::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithEnum;
+    /// use google_cloud_rust_sdk_test::model::message_with_enum::TestEnum;
+    /// let x0 = MessageWithEnum::new().set_or_clear_optional(Some(TestEnum::Red));
+    /// let x1 = MessageWithEnum::new().set_or_clear_optional(Some(TestEnum::Green));
+    /// let x2 = MessageWithEnum::new().set_or_clear_optional(Some(TestEnum::Blue));
+    /// let x_none = MessageWithEnum::new().set_or_clear_optional(None::<TestEnum>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::generated::message_with_enum::TestEnum>,
@@ -73,6 +101,17 @@ impl MessageWithEnum {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithEnum::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithEnum;
+    /// use google_cloud_rust_sdk_test::model::message_with_enum::TestEnum;
+    /// let x = MessageWithEnum::new().set_repeated([
+    ///     TestEnum::Red,
+    ///     TestEnum::Green,
+    ///     TestEnum::Blue,
+    /// ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -84,6 +123,17 @@ impl MessageWithEnum {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithEnum::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithEnum;
+    /// use google_cloud_rust_sdk_test::model::message_with_enum::TestEnum;
+    /// let x = MessageWithEnum::new().set_map([
+    ///     ("key0", TestEnum::Red),
+    ///     ("key1", TestEnum::Green),
+    ///     ("key2", TestEnum::Blue),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -271,6 +321,13 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `single_string` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_one_of::SingleString;
+    /// let x = MessageWithOneOf::new().set_single_string(Some(SingleString::StringContents("example".to_string())));
+    /// ```
     pub fn set_single_string<
         T: std::convert::Into<
                 std::option::Option<crate::generated::message_with_one_of::SingleString>,
@@ -301,6 +358,13 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `single_string` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// let x = MessageWithOneOf::new().set_string_contents("example");
+    /// assert!(x.string_contents().is_some());
+    /// ```
     pub fn set_string_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.single_string = std::option::Option::Some(
             crate::generated::message_with_one_of::SingleString::StringContents(v.into()),
@@ -312,6 +376,13 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `two_strings` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_one_of::TwoStrings;
+    /// let x = MessageWithOneOf::new().set_two_strings(Some(TwoStrings::StringContentsOne("example".to_string())));
+    /// ```
     pub fn set_two_strings<
         T: std::convert::Into<std::option::Option<crate::generated::message_with_one_of::TwoStrings>>,
     >(
@@ -340,6 +411,14 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `two_strings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// let x = MessageWithOneOf::new().set_string_contents_one("example");
+    /// assert!(x.string_contents_one().is_some());
+    /// assert!(x.string_contents_two().is_none());
+    /// ```
     pub fn set_string_contents_one<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -368,6 +447,14 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `two_strings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// let x = MessageWithOneOf::new().set_string_contents_two("example");
+    /// assert!(x.string_contents_two().is_some());
+    /// assert!(x.string_contents_one().is_none());
+    /// ```
     pub fn set_string_contents_two<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -382,6 +469,14 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `one_message` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_one_of::Message;
+    /// let x = MessageWithOneOf::new().set_one_message(Some(
+    ///     google_cloud_rust_sdk_test::model::message_with_one_of::OneMessage::MessageValue(Message::default().into())));
+    /// ```
     pub fn set_one_message<
         T: std::convert::Into<std::option::Option<crate::generated::message_with_one_of::OneMessage>>,
     >(
@@ -412,6 +507,14 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `one_message` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_one_of::Message;
+    /// let x = MessageWithOneOf::new().set_message_value(Message::default()/* use setters */);
+    /// assert!(x.message_value().is_some());
+    /// ```
     pub fn set_message_value<
         T: std::convert::Into<std::boxed::Box<crate::generated::message_with_one_of::Message>>,
     >(
@@ -428,6 +531,13 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `mixed` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_one_of::Mixed;
+    /// let x = MessageWithOneOf::new().set_mixed(Some(Mixed::String("example".to_string())));
+    /// ```
     pub fn set_mixed<
         T: std::convert::Into<std::option::Option<crate::generated::message_with_one_of::Mixed>>,
     >(
@@ -458,6 +568,16 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `mixed` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_one_of::Message;
+    /// let x = MessageWithOneOf::new().set_another_message(Message::default()/* use setters */);
+    /// assert!(x.another_message().is_some());
+    /// assert!(x.string().is_none());
+    /// assert!(x.duration().is_none());
+    /// ```
     pub fn set_another_message<
         T: std::convert::Into<std::boxed::Box<crate::generated::message_with_one_of::Message>>,
     >(
@@ -486,6 +606,15 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `mixed` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// let x = MessageWithOneOf::new().set_string("example");
+    /// assert!(x.string().is_some());
+    /// assert!(x.another_message().is_none());
+    /// assert!(x.duration().is_none());
+    /// ```
     pub fn set_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mixed = std::option::Option::Some(
             crate::generated::message_with_one_of::Mixed::String(v.into()),
@@ -511,6 +640,16 @@ impl MessageWithOneOf {
     ///
     /// Note that all the setters affecting `mixed` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithOneOf;
+    /// use wkt::Duration;
+    /// let x = MessageWithOneOf::new().set_duration(Duration::default()/* use setters */);
+    /// assert!(x.duration().is_some());
+    /// assert!(x.another_message().is_none());
+    /// assert!(x.string().is_none());
+    /// ```
     pub fn set_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -547,6 +686,12 @@ pub mod message_with_one_of {
         }
 
         /// Sets the value of [parent][crate::generated::message_with_one_of::Message::parent].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_one_of::Message;
+        /// let x = Message::new().set_parent("example");
+        /// ```
         pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.parent = v.into();
             self
@@ -605,6 +750,14 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// use wkt::NullValue;
+    /// let x = MessageWithComplexOneOf::new().set_complex(Some(
+    ///     google_cloud_rust_sdk_test::model::message_with_complex_one_of::Complex::Null(NullValue)));
+    /// ```
     pub fn set_complex<
         T: std::convert::Into<
                 std::option::Option<crate::generated::message_with_complex_one_of::Complex>,
@@ -635,6 +788,26 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// use wkt::NullValue;
+    /// let x = MessageWithComplexOneOf::new().set_null(NullValue);
+    /// assert!(x.null().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_null<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::Null(v.into()),
@@ -660,6 +833,25 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// let x = MessageWithComplexOneOf::new().set_bool_value(true);
+    /// assert!(x.bool_value().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::BoolValue(v.into()),
@@ -685,6 +877,25 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// let x = MessageWithComplexOneOf::new().set_bytes_value(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.bytes_value().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_bytes_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::BytesValue(v.into()),
@@ -710,6 +921,25 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// let x = MessageWithComplexOneOf::new().set_string_value("example");
+    /// assert!(x.string_value().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::StringValue(v.into()),
@@ -735,6 +965,25 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// let x = MessageWithComplexOneOf::new().set_float_value(42.0);
+    /// assert!(x.float_value().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_float_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::FloatValue(v.into()),
@@ -760,6 +1009,25 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// let x = MessageWithComplexOneOf::new().set_double_value(42.0);
+    /// assert!(x.double_value().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::DoubleValue(v.into()),
@@ -785,6 +1053,25 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// let x = MessageWithComplexOneOf::new().set_int32(42);
+    /// assert!(x.int32().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_int32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::Int32(v.into()),
@@ -810,6 +1097,25 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// let x = MessageWithComplexOneOf::new().set_int64(42);
+    /// assert!(x.int64().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_int64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::Int64(v.into()),
@@ -837,6 +1143,26 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_complex_one_of::TestEnum;
+    /// let x0 = MessageWithComplexOneOf::new().set_enum(TestEnum::Black);
+    /// assert!(x0.r#enum().is_some());
+    /// assert!(x0.null().is_none());
+    /// assert!(x0.bool_value().is_none());
+    /// assert!(x0.bytes_value().is_none());
+    /// assert!(x0.string_value().is_none());
+    /// assert!(x0.float_value().is_none());
+    /// assert!(x0.double_value().is_none());
+    /// assert!(x0.int32().is_none());
+    /// assert!(x0.int64().is_none());
+    /// assert!(x0.inner().is_none());
+    /// assert!(x0.duration().is_none());
+    /// assert!(x0.value().is_none());
+    /// assert!(x0.optional_double().is_none());
+    /// ```
     pub fn set_enum<
         T: std::convert::Into<crate::generated::message_with_complex_one_of::TestEnum>,
     >(
@@ -870,6 +1196,26 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// use google_cloud_rust_sdk_test::model::message_with_complex_one_of::Inner;
+    /// let x = MessageWithComplexOneOf::new().set_inner(Inner::default()/* use setters */);
+    /// assert!(x.inner().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_inner<
         T: std::convert::Into<std::boxed::Box<crate::generated::message_with_complex_one_of::Inner>>,
     >(
@@ -900,6 +1246,26 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// use wkt::Duration;
+    /// let x = MessageWithComplexOneOf::new().set_duration(Duration::default()/* use setters */);
+    /// assert!(x.duration().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.value().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -928,6 +1294,26 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// use wkt::Value;
+    /// let x = MessageWithComplexOneOf::new().set_value(Value::default()/* use setters */);
+    /// assert!(x.value().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.optional_double().is_none());
+    /// ```
     pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
             crate::generated::message_with_complex_one_of::Complex::Value(v.into()),
@@ -953,6 +1339,26 @@ impl MessageWithComplexOneOf {
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithComplexOneOf;
+    /// use wkt::DoubleValue;
+    /// let x = MessageWithComplexOneOf::new().set_optional_double(DoubleValue::default()/* use setters */);
+    /// assert!(x.optional_double().is_some());
+    /// assert!(x.null().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.int32().is_none());
+    /// assert!(x.int64().is_none());
+    /// assert!(x.r#enum().is_none());
+    /// assert!(x.inner().is_none());
+    /// assert!(x.duration().is_none());
+    /// assert!(x.value().is_none());
+    /// ```
     pub fn set_optional_double<T: std::convert::Into<std::boxed::Box<wkt::DoubleValue>>>(
         mut self,
         v: T,
@@ -989,6 +1395,12 @@ pub mod message_with_complex_one_of {
         }
 
         /// Sets the value of [strings][crate::generated::message_with_complex_one_of::Inner::strings].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_complex_one_of::Inner;
+        /// let x = Inner::new().set_strings(["a", "b", "c"]);
+        /// ```
         pub fn set_strings<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1173,12 +1585,24 @@ impl MessageWithF32 {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithF32::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF32;
+    /// let x = MessageWithF32::new().set_singular(42.0);
+    /// ```
     pub fn set_singular<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithF32::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF32;
+    /// let x = MessageWithF32::new().set_optional(42.0);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f32>,
@@ -1188,6 +1612,13 @@ impl MessageWithF32 {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithF32::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF32;
+    /// let x = MessageWithF32::new().set_or_clear_optional(Some(42.0));
+    /// let x = MessageWithF32::new().set_or_clear_optional(None::<f32>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
@@ -1197,6 +1628,12 @@ impl MessageWithF32 {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithF32::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF32;
+    /// let x = MessageWithF32::new().set_repeated([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1208,6 +1645,15 @@ impl MessageWithF32 {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithF32::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF32;
+    /// let x = MessageWithF32::new().set_map([
+    ///     ("key0", 123.5),
+    ///     ("key1", 456.5),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1252,12 +1698,24 @@ impl MessageWithF64 {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithF64::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF64;
+    /// let x = MessageWithF64::new().set_singular(42.0);
+    /// ```
     pub fn set_singular<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithF64::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF64;
+    /// let x = MessageWithF64::new().set_optional(42.0);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1267,6 +1725,13 @@ impl MessageWithF64 {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithF64::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF64;
+    /// let x = MessageWithF64::new().set_or_clear_optional(Some(42.0));
+    /// let x = MessageWithF64::new().set_or_clear_optional(None::<f32>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1276,6 +1741,12 @@ impl MessageWithF64 {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithF64::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF64;
+    /// let x = MessageWithF64::new().set_repeated([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1287,6 +1758,15 @@ impl MessageWithF64 {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithF64::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithF64;
+    /// let x = MessageWithF64::new().set_map([
+    ///     ("key0", 123.5),
+    ///     ("key1", 456.5),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1336,12 +1816,24 @@ impl MessageWithI32 {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithI32::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI32;
+    /// let x = MessageWithI32::new().set_singular(42);
+    /// ```
     pub fn set_singular<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithI32::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI32;
+    /// let x = MessageWithI32::new().set_optional(42);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1351,6 +1843,13 @@ impl MessageWithI32 {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithI32::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI32;
+    /// let x = MessageWithI32::new().set_or_clear_optional(Some(42));
+    /// let x = MessageWithI32::new().set_or_clear_optional(None::<i32>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1360,6 +1859,12 @@ impl MessageWithI32 {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithI32::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI32;
+    /// let x = MessageWithI32::new().set_repeated([1, 2, 3]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1371,6 +1876,15 @@ impl MessageWithI32 {
     }
 
     /// Sets the value of [map_value][crate::generated::MessageWithI32::map_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI32;
+    /// let x = MessageWithI32::new().set_map_value([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1383,6 +1897,15 @@ impl MessageWithI32 {
     }
 
     /// Sets the value of [map_key][crate::generated::MessageWithI32::map_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI32;
+    /// let x = MessageWithI32::new().set_map_key([
+    ///     (0, "abc"),
+    ///     (1, "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1395,6 +1918,15 @@ impl MessageWithI32 {
     }
 
     /// Sets the value of [map_key_value][crate::generated::MessageWithI32::map_key_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI32;
+    /// let x = MessageWithI32::new().set_map_key_value([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1444,12 +1976,24 @@ impl MessageWithU32 {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithU32::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU32;
+    /// let x = MessageWithU32::new().set_singular(42u32);
+    /// ```
     pub fn set_singular<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithU32::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU32;
+    /// let x = MessageWithU32::new().set_optional(42u32);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<u32>,
@@ -1459,6 +2003,13 @@ impl MessageWithU32 {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithU32::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU32;
+    /// let x = MessageWithU32::new().set_or_clear_optional(Some(42u32));
+    /// let x = MessageWithU32::new().set_or_clear_optional(None::<u32>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<u32>,
@@ -1468,6 +2019,12 @@ impl MessageWithU32 {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithU32::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU32;
+    /// let x = MessageWithU32::new().set_repeated([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1479,6 +2036,15 @@ impl MessageWithU32 {
     }
 
     /// Sets the value of [map_value][crate::generated::MessageWithU32::map_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU32;
+    /// let x = MessageWithU32::new().set_map_value([
+    ///     ("key0", 123u32),
+    ///     ("key1", 456u32),
+    /// ]);
+    /// ```
     pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1491,6 +2057,15 @@ impl MessageWithU32 {
     }
 
     /// Sets the value of [map_key][crate::generated::MessageWithU32::map_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU32;
+    /// let x = MessageWithU32::new().set_map_key([
+    ///     (0u32, "abc"),
+    ///     (1u32, "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1503,6 +2078,15 @@ impl MessageWithU32 {
     }
 
     /// Sets the value of [map_key_value][crate::generated::MessageWithU32::map_key_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU32;
+    /// let x = MessageWithU32::new().set_map_key_value([
+    ///     (0u32, 123u32),
+    ///     (1u32, 456u32),
+    /// ]);
+    /// ```
     pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1552,12 +2136,24 @@ impl MessageWithI64 {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithI64::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI64;
+    /// let x = MessageWithI64::new().set_singular(42);
+    /// ```
     pub fn set_singular<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithI64::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI64;
+    /// let x = MessageWithI64::new().set_optional(42);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1567,6 +2163,13 @@ impl MessageWithI64 {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithI64::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI64;
+    /// let x = MessageWithI64::new().set_or_clear_optional(Some(42));
+    /// let x = MessageWithI64::new().set_or_clear_optional(None::<i32>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1576,6 +2179,12 @@ impl MessageWithI64 {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithI64::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI64;
+    /// let x = MessageWithI64::new().set_repeated([1, 2, 3]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1587,6 +2196,15 @@ impl MessageWithI64 {
     }
 
     /// Sets the value of [map_value][crate::generated::MessageWithI64::map_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI64;
+    /// let x = MessageWithI64::new().set_map_value([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1599,6 +2217,15 @@ impl MessageWithI64 {
     }
 
     /// Sets the value of [map_key][crate::generated::MessageWithI64::map_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI64;
+    /// let x = MessageWithI64::new().set_map_key([
+    ///     (0, "abc"),
+    ///     (1, "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1611,6 +2238,15 @@ impl MessageWithI64 {
     }
 
     /// Sets the value of [map_key_value][crate::generated::MessageWithI64::map_key_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithI64;
+    /// let x = MessageWithI64::new().set_map_key_value([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1660,12 +2296,24 @@ impl MessageWithU64 {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithU64::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU64;
+    /// let x = MessageWithU64::new().set_singular(42u32);
+    /// ```
     pub fn set_singular<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithU64::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU64;
+    /// let x = MessageWithU64::new().set_optional(42u32);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<u64>,
@@ -1675,6 +2323,13 @@ impl MessageWithU64 {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithU64::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU64;
+    /// let x = MessageWithU64::new().set_or_clear_optional(Some(42u32));
+    /// let x = MessageWithU64::new().set_or_clear_optional(None::<u32>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<u64>,
@@ -1684,6 +2339,12 @@ impl MessageWithU64 {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithU64::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU64;
+    /// let x = MessageWithU64::new().set_repeated([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1695,6 +2356,15 @@ impl MessageWithU64 {
     }
 
     /// Sets the value of [map_value][crate::generated::MessageWithU64::map_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU64;
+    /// let x = MessageWithU64::new().set_map_value([
+    ///     ("key0", 123u32),
+    ///     ("key1", 456u32),
+    /// ]);
+    /// ```
     pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1707,6 +2377,15 @@ impl MessageWithU64 {
     }
 
     /// Sets the value of [map_key][crate::generated::MessageWithU64::map_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU64;
+    /// let x = MessageWithU64::new().set_map_key([
+    ///     (0u32, "abc"),
+    ///     (1u32, "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1719,6 +2398,15 @@ impl MessageWithU64 {
     }
 
     /// Sets the value of [map_key_value][crate::generated::MessageWithU64::map_key_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithU64;
+    /// let x = MessageWithU64::new().set_map_key_value([
+    ///     (0u32, 123u32),
+    ///     (1u32, 456u32),
+    /// ]);
+    /// ```
     pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1763,12 +2451,24 @@ impl MessageWithBytes {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithBytes::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytes;
+    /// let x = MessageWithBytes::new().set_singular(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_singular<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithBytes::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytes;
+    /// let x = MessageWithBytes::new().set_optional(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<::bytes::Bytes>,
@@ -1778,6 +2478,13 @@ impl MessageWithBytes {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithBytes::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytes;
+    /// let x = MessageWithBytes::new().set_or_clear_optional(Some(bytes::Bytes::from_static(b"example")));
+    /// let x = MessageWithBytes::new().set_or_clear_optional(None::<bytes::Bytes>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<::bytes::Bytes>,
@@ -1787,6 +2494,14 @@ impl MessageWithBytes {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithBytes::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytes;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = MessageWithBytes::new().set_repeated([b1, b2]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1798,6 +2513,15 @@ impl MessageWithBytes {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithBytes::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytes;
+    /// let x = MessageWithBytes::new().set_map([
+    ///     ("key0", bytes::Bytes::from_static(b"abc")),
+    ///     ("key1", bytes::Bytes::from_static(b"xyz")),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1847,12 +2571,24 @@ impl MessageWithBool {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithBool::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBool;
+    /// let x = MessageWithBool::new().set_singular(true);
+    /// ```
     pub fn set_singular<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithBool::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBool;
+    /// let x = MessageWithBool::new().set_optional(true);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1862,6 +2598,13 @@ impl MessageWithBool {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithBool::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBool;
+    /// let x = MessageWithBool::new().set_or_clear_optional(Some(false));
+    /// let x = MessageWithBool::new().set_or_clear_optional(None::<bool>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1871,6 +2614,10 @@ impl MessageWithBool {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithBool::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1882,6 +2629,15 @@ impl MessageWithBool {
     }
 
     /// Sets the value of [map_value][crate::generated::MessageWithBool::map_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBool;
+    /// let x = MessageWithBool::new().set_map_value([
+    ///     ("key0", true),
+    ///     ("key1", false),
+    /// ]);
+    /// ```
     pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1894,6 +2650,15 @@ impl MessageWithBool {
     }
 
     /// Sets the value of [map_key][crate::generated::MessageWithBool::map_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBool;
+    /// let x = MessageWithBool::new().set_map_key([
+    ///     (true, "abc"),
+    ///     (false, "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1906,6 +2671,15 @@ impl MessageWithBool {
     }
 
     /// Sets the value of [map_key_value][crate::generated::MessageWithBool::map_key_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBool;
+    /// let x = MessageWithBool::new().set_map_key_value([
+    ///     (true, true),
+    ///     (false, false),
+    /// ]);
+    /// ```
     pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1955,12 +2729,24 @@ impl MessageWithString {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithString::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithString;
+    /// let x = MessageWithString::new().set_singular("example");
+    /// ```
     pub fn set_singular<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithString::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithString;
+    /// let x = MessageWithString::new().set_optional("example");
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1970,6 +2756,13 @@ impl MessageWithString {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithString::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithString;
+    /// let x = MessageWithString::new().set_or_clear_optional(Some("example"));
+    /// let x = MessageWithString::new().set_or_clear_optional(None::<String>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1979,6 +2772,12 @@ impl MessageWithString {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithString::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithString;
+    /// let x = MessageWithString::new().set_repeated(["a", "b", "c"]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1990,6 +2789,15 @@ impl MessageWithString {
     }
 
     /// Sets the value of [map_value][crate::generated::MessageWithString::map_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithString;
+    /// let x = MessageWithString::new().set_map_value([
+    ///     (0, "abc"),
+    ///     (1, "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2002,6 +2810,15 @@ impl MessageWithString {
     }
 
     /// Sets the value of [map_key][crate::generated::MessageWithString::map_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithString;
+    /// let x = MessageWithString::new().set_map_key([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2014,6 +2831,15 @@ impl MessageWithString {
     }
 
     /// Sets the value of [map_key_value][crate::generated::MessageWithString::map_key_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithString;
+    /// let x = MessageWithString::new().set_map_key_value([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2062,6 +2888,13 @@ impl MessageWithRecursion {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithRecursion::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+    /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+    /// let x = MessageWithRecursion::new().set_singular(Level0::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::generated::message_with_recursion::Level0>,
@@ -2071,6 +2904,14 @@ impl MessageWithRecursion {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithRecursion::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+    /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+    /// let x = MessageWithRecursion::new().set_or_clear_singular(Some(Level0::default()/* use setters */));
+    /// let x = MessageWithRecursion::new().set_or_clear_singular(None::<Level0>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::generated::message_with_recursion::Level0>,
@@ -2080,6 +2921,13 @@ impl MessageWithRecursion {
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithRecursion::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+    /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+    /// let x = MessageWithRecursion::new().set_optional(Level0::default()/* use setters */);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::generated::message_with_recursion::Level0>,
@@ -2089,6 +2937,14 @@ impl MessageWithRecursion {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithRecursion::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+    /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+    /// let x = MessageWithRecursion::new().set_or_clear_optional(Some(Level0::default()/* use setters */));
+    /// let x = MessageWithRecursion::new().set_or_clear_optional(None::<Level0>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::generated::message_with_recursion::Level0>,
@@ -2098,6 +2954,17 @@ impl MessageWithRecursion {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithRecursion::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+    /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+    /// let x = MessageWithRecursion::new()
+    ///     .set_repeated([
+    ///         Level0::default()/* use setters */,
+    ///         Level0::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2109,6 +2976,16 @@ impl MessageWithRecursion {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithRecursion::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+    /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+    /// let x = MessageWithRecursion::new().set_map([
+    ///     ("key0", Level0::default()/* use setters */),
+    ///     ("key1", Level0::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2149,6 +3026,13 @@ pub mod message_with_recursion {
         }
 
         /// Sets the value of [level_1][crate::generated::message_with_recursion::Level0::level_1].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+        /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level1;
+        /// let x = Level0::new().set_level_1(Level1::default()/* use setters */);
+        /// ```
         pub fn set_level_1<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::generated::message_with_recursion::Level1>,
@@ -2158,6 +3042,14 @@ pub mod message_with_recursion {
         }
 
         /// Sets or clears the value of [level_1][crate::generated::message_with_recursion::Level0::level_1].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+        /// use google_cloud_rust_sdk_test::model::message_with_recursion::Level1;
+        /// let x = Level0::new().set_or_clear_level_1(Some(Level1::default()/* use setters */));
+        /// let x = Level0::new().set_or_clear_level_1(None::<Level1>);
+        /// ```
         pub fn set_or_clear_level_1<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::generated::message_with_recursion::Level1>,
@@ -2167,6 +3059,13 @@ pub mod message_with_recursion {
         }
 
         /// Sets the value of [side][crate::generated::message_with_recursion::Level0::side].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+        /// use google_cloud_rust_sdk_test::model::message_with_recursion::NonRecursive;
+        /// let x = Level0::new().set_side(NonRecursive::default()/* use setters */);
+        /// ```
         pub fn set_side<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::generated::message_with_recursion::NonRecursive>,
@@ -2176,6 +3075,14 @@ pub mod message_with_recursion {
         }
 
         /// Sets or clears the value of [side][crate::generated::message_with_recursion::Level0::side].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_recursion::Level0;
+        /// use google_cloud_rust_sdk_test::model::message_with_recursion::NonRecursive;
+        /// let x = Level0::new().set_or_clear_side(Some(NonRecursive::default()/* use setters */));
+        /// let x = Level0::new().set_or_clear_side(None::<NonRecursive>);
+        /// ```
         pub fn set_or_clear_side<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::generated::message_with_recursion::NonRecursive>,
@@ -2205,6 +3112,13 @@ pub mod message_with_recursion {
         }
 
         /// Sets the value of [recurse][crate::generated::message_with_recursion::Level1::recurse].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_recursion::Level1;
+        /// use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+        /// let x = Level1::new().set_recurse(MessageWithRecursion::default()/* use setters */);
+        /// ```
         pub fn set_recurse<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::generated::MessageWithRecursion>,
@@ -2214,6 +3128,14 @@ pub mod message_with_recursion {
         }
 
         /// Sets or clears the value of [recurse][crate::generated::message_with_recursion::Level1::recurse].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_recursion::Level1;
+        /// use google_cloud_rust_sdk_test::model::MessageWithRecursion;
+        /// let x = Level1::new().set_or_clear_recurse(Some(MessageWithRecursion::default()/* use setters */));
+        /// let x = Level1::new().set_or_clear_recurse(None::<MessageWithRecursion>);
+        /// ```
         pub fn set_or_clear_recurse<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::generated::MessageWithRecursion>,
@@ -2243,6 +3165,12 @@ pub mod message_with_recursion {
         }
 
         /// Sets the value of [value][crate::generated::message_with_recursion::NonRecursive::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rust_sdk_test::model::message_with_recursion::NonRecursive;
+        /// let x = NonRecursive::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -2281,6 +3209,13 @@ impl MessageWithValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithValue;
+    /// use wkt::Value;
+    /// let x = MessageWithValue::new().set_singular(Value::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -2290,6 +3225,14 @@ impl MessageWithValue {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithValue;
+    /// use wkt::Value;
+    /// let x = MessageWithValue::new().set_or_clear_singular(Some(Value::default()/* use setters */));
+    /// let x = MessageWithValue::new().set_or_clear_singular(None::<Value>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -2299,6 +3242,13 @@ impl MessageWithValue {
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithValue::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithValue;
+    /// use wkt::Value;
+    /// let x = MessageWithValue::new().set_optional(Value::default()/* use setters */);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -2308,6 +3258,14 @@ impl MessageWithValue {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithValue::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithValue;
+    /// use wkt::Value;
+    /// let x = MessageWithValue::new().set_or_clear_optional(Some(Value::default()/* use setters */));
+    /// let x = MessageWithValue::new().set_or_clear_optional(None::<Value>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -2317,6 +3275,17 @@ impl MessageWithValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithValue;
+    /// use wkt::Value;
+    /// let x = MessageWithValue::new()
+    ///     .set_repeated([
+    ///         Value::default()/* use setters */,
+    ///         Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2328,6 +3297,16 @@ impl MessageWithValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithValue;
+    /// use wkt::Value;
+    /// let x = MessageWithValue::new().set_map([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2371,6 +3350,13 @@ impl MessageWithStruct {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithStruct::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStruct;
+    /// use wkt::Struct;
+    /// let x = MessageWithStruct::new().set_singular(Struct::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2380,6 +3366,14 @@ impl MessageWithStruct {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithStruct::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStruct;
+    /// use wkt::Struct;
+    /// let x = MessageWithStruct::new().set_or_clear_singular(Some(Struct::default()/* use setters */));
+    /// let x = MessageWithStruct::new().set_or_clear_singular(None::<Struct>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2389,6 +3383,13 @@ impl MessageWithStruct {
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithStruct::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStruct;
+    /// use wkt::Struct;
+    /// let x = MessageWithStruct::new().set_optional(Struct::default()/* use setters */);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2398,6 +3399,14 @@ impl MessageWithStruct {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithStruct::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStruct;
+    /// use wkt::Struct;
+    /// let x = MessageWithStruct::new().set_or_clear_optional(Some(Struct::default()/* use setters */));
+    /// let x = MessageWithStruct::new().set_or_clear_optional(None::<Struct>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2407,6 +3416,17 @@ impl MessageWithStruct {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithStruct::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStruct;
+    /// use wkt::Struct;
+    /// let x = MessageWithStruct::new()
+    ///     .set_repeated([
+    ///         Struct::default()/* use setters */,
+    ///         Struct::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2418,6 +3438,16 @@ impl MessageWithStruct {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithStruct::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStruct;
+    /// use wkt::Struct;
+    /// let x = MessageWithStruct::new().set_map([
+    ///     ("key0", Struct::default()/* use setters */),
+    ///     ("key1", Struct::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2461,6 +3491,13 @@ impl MessageWithListValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithListValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithListValue;
+    /// use wkt::ListValue;
+    /// let x = MessageWithListValue::new().set_singular(ListValue::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::ListValue>,
@@ -2470,6 +3507,14 @@ impl MessageWithListValue {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithListValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithListValue;
+    /// use wkt::ListValue;
+    /// let x = MessageWithListValue::new().set_or_clear_singular(Some(ListValue::default()/* use setters */));
+    /// let x = MessageWithListValue::new().set_or_clear_singular(None::<ListValue>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::ListValue>,
@@ -2479,6 +3524,13 @@ impl MessageWithListValue {
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithListValue::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithListValue;
+    /// use wkt::ListValue;
+    /// let x = MessageWithListValue::new().set_optional(ListValue::default()/* use setters */);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::ListValue>,
@@ -2488,6 +3540,14 @@ impl MessageWithListValue {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithListValue::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithListValue;
+    /// use wkt::ListValue;
+    /// let x = MessageWithListValue::new().set_or_clear_optional(Some(ListValue::default()/* use setters */));
+    /// let x = MessageWithListValue::new().set_or_clear_optional(None::<ListValue>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::ListValue>,
@@ -2497,6 +3557,17 @@ impl MessageWithListValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithListValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithListValue;
+    /// use wkt::ListValue;
+    /// let x = MessageWithListValue::new()
+    ///     .set_repeated([
+    ///         ListValue::default()/* use setters */,
+    ///         ListValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2508,6 +3579,16 @@ impl MessageWithListValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithListValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithListValue;
+    /// use wkt::ListValue;
+    /// let x = MessageWithListValue::new().set_map([
+    ///     ("key0", ListValue::default()/* use setters */),
+    ///     ("key1", ListValue::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2551,12 +3632,26 @@ impl MessageWithNullValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithNullValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithNullValue;
+    /// use wkt::NullValue;
+    /// let x = MessageWithNullValue::new().set_singular(NullValue);
+    /// ```
     pub fn set_singular<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithNullValue::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithNullValue;
+    /// use wkt::NullValue;
+    /// let x = MessageWithNullValue::new().set_optional(NullValue);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::NullValue>,
@@ -2566,6 +3661,14 @@ impl MessageWithNullValue {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithNullValue::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithNullValue;
+    /// use wkt::NullValue;
+    /// let x = MessageWithNullValue::new().set_or_clear_optional(Some(NullValue));
+    /// let x_none = MessageWithNullValue::new().set_or_clear_optional(None::<NullValue>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::NullValue>,
@@ -2575,6 +3678,15 @@ impl MessageWithNullValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithNullValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithNullValue;
+    /// use wkt::NullValue;
+    /// let x = MessageWithNullValue::new().set_repeated([
+    ///     NullValue::NullValue,
+    /// ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2586,6 +3698,15 @@ impl MessageWithNullValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithNullValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithNullValue;
+    /// use wkt::NullValue;
+    /// let x = MessageWithNullValue::new().set_map([
+    ///     ("key0", NullValue::NullValue),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2629,6 +3750,13 @@ impl MessageWithFieldMask {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithFieldMask::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFieldMask;
+    /// use wkt::FieldMask;
+    /// let x = MessageWithFieldMask::new().set_singular(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2638,6 +3766,14 @@ impl MessageWithFieldMask {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithFieldMask::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFieldMask;
+    /// use wkt::FieldMask;
+    /// let x = MessageWithFieldMask::new().set_or_clear_singular(Some(FieldMask::default()/* use setters */));
+    /// let x = MessageWithFieldMask::new().set_or_clear_singular(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2647,6 +3783,13 @@ impl MessageWithFieldMask {
     }
 
     /// Sets the value of [optional][crate::generated::MessageWithFieldMask::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFieldMask;
+    /// use wkt::FieldMask;
+    /// let x = MessageWithFieldMask::new().set_optional(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_optional<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2656,6 +3799,14 @@ impl MessageWithFieldMask {
     }
 
     /// Sets or clears the value of [optional][crate::generated::MessageWithFieldMask::optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFieldMask;
+    /// use wkt::FieldMask;
+    /// let x = MessageWithFieldMask::new().set_or_clear_optional(Some(FieldMask::default()/* use setters */));
+    /// let x = MessageWithFieldMask::new().set_or_clear_optional(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2665,6 +3816,17 @@ impl MessageWithFieldMask {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithFieldMask::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFieldMask;
+    /// use wkt::FieldMask;
+    /// let x = MessageWithFieldMask::new()
+    ///     .set_repeated([
+    ///         FieldMask::default()/* use setters */,
+    ///         FieldMask::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2676,6 +3838,16 @@ impl MessageWithFieldMask {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithFieldMask::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFieldMask;
+    /// use wkt::FieldMask;
+    /// let x = MessageWithFieldMask::new().set_map([
+    ///     ("key0", FieldMask::default()/* use setters */),
+    ///     ("key1", FieldMask::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2716,6 +3888,13 @@ impl MessageWithFloatValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithFloatValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFloatValue;
+    /// use wkt::FloatValue;
+    /// let x = MessageWithFloatValue::new().set_singular(FloatValue::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -2725,6 +3904,14 @@ impl MessageWithFloatValue {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithFloatValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFloatValue;
+    /// use wkt::FloatValue;
+    /// let x = MessageWithFloatValue::new().set_or_clear_singular(Some(FloatValue::default()/* use setters */));
+    /// let x = MessageWithFloatValue::new().set_or_clear_singular(None::<FloatValue>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -2734,6 +3921,17 @@ impl MessageWithFloatValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithFloatValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFloatValue;
+    /// use wkt::FloatValue;
+    /// let x = MessageWithFloatValue::new()
+    ///     .set_repeated([
+    ///         FloatValue::default()/* use setters */,
+    ///         FloatValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2745,6 +3943,16 @@ impl MessageWithFloatValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithFloatValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithFloatValue;
+    /// use wkt::FloatValue;
+    /// let x = MessageWithFloatValue::new().set_map([
+    ///     ("key0", FloatValue::default()/* use setters */),
+    ///     ("key1", FloatValue::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2785,6 +3993,13 @@ impl MessageWithDoubleValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithDoubleValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithDoubleValue;
+    /// use wkt::DoubleValue;
+    /// let x = MessageWithDoubleValue::new().set_singular(DoubleValue::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -2794,6 +4009,14 @@ impl MessageWithDoubleValue {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithDoubleValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithDoubleValue;
+    /// use wkt::DoubleValue;
+    /// let x = MessageWithDoubleValue::new().set_or_clear_singular(Some(DoubleValue::default()/* use setters */));
+    /// let x = MessageWithDoubleValue::new().set_or_clear_singular(None::<DoubleValue>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -2803,6 +4026,17 @@ impl MessageWithDoubleValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithDoubleValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithDoubleValue;
+    /// use wkt::DoubleValue;
+    /// let x = MessageWithDoubleValue::new()
+    ///     .set_repeated([
+    ///         DoubleValue::default()/* use setters */,
+    ///         DoubleValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2814,6 +4048,16 @@ impl MessageWithDoubleValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithDoubleValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithDoubleValue;
+    /// use wkt::DoubleValue;
+    /// let x = MessageWithDoubleValue::new().set_map([
+    ///     ("key0", DoubleValue::default()/* use setters */),
+    ///     ("key1", DoubleValue::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2854,6 +4098,13 @@ impl MessageWithInt32Value {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithInt32Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt32Value;
+    /// use wkt::Int32Value;
+    /// let x = MessageWithInt32Value::new().set_singular(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -2863,6 +4114,14 @@ impl MessageWithInt32Value {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithInt32Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt32Value;
+    /// use wkt::Int32Value;
+    /// let x = MessageWithInt32Value::new().set_or_clear_singular(Some(Int32Value::default()/* use setters */));
+    /// let x = MessageWithInt32Value::new().set_or_clear_singular(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -2872,6 +4131,17 @@ impl MessageWithInt32Value {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithInt32Value::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt32Value;
+    /// use wkt::Int32Value;
+    /// let x = MessageWithInt32Value::new()
+    ///     .set_repeated([
+    ///         Int32Value::default()/* use setters */,
+    ///         Int32Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2883,6 +4153,16 @@ impl MessageWithInt32Value {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithInt32Value::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt32Value;
+    /// use wkt::Int32Value;
+    /// let x = MessageWithInt32Value::new().set_map([
+    ///     ("key0", Int32Value::default()/* use setters */),
+    ///     ("key1", Int32Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2923,6 +4203,13 @@ impl MessageWithUInt32Value {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithUInt32Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt32Value;
+    /// use wkt::UInt32Value;
+    /// let x = MessageWithUInt32Value::new().set_singular(UInt32Value::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -2932,6 +4219,14 @@ impl MessageWithUInt32Value {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithUInt32Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt32Value;
+    /// use wkt::UInt32Value;
+    /// let x = MessageWithUInt32Value::new().set_or_clear_singular(Some(UInt32Value::default()/* use setters */));
+    /// let x = MessageWithUInt32Value::new().set_or_clear_singular(None::<UInt32Value>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -2941,6 +4236,17 @@ impl MessageWithUInt32Value {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithUInt32Value::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt32Value;
+    /// use wkt::UInt32Value;
+    /// let x = MessageWithUInt32Value::new()
+    ///     .set_repeated([
+    ///         UInt32Value::default()/* use setters */,
+    ///         UInt32Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2952,6 +4258,16 @@ impl MessageWithUInt32Value {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithUInt32Value::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt32Value;
+    /// use wkt::UInt32Value;
+    /// let x = MessageWithUInt32Value::new().set_map([
+    ///     ("key0", UInt32Value::default()/* use setters */),
+    ///     ("key1", UInt32Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2992,6 +4308,13 @@ impl MessageWithInt64Value {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithInt64Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithInt64Value::new().set_singular(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -3001,6 +4324,14 @@ impl MessageWithInt64Value {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithInt64Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithInt64Value::new().set_or_clear_singular(Some(Int64Value::default()/* use setters */));
+    /// let x = MessageWithInt64Value::new().set_or_clear_singular(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -3010,6 +4341,17 @@ impl MessageWithInt64Value {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithInt64Value::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithInt64Value::new()
+    ///     .set_repeated([
+    ///         Int64Value::default()/* use setters */,
+    ///         Int64Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3021,6 +4363,16 @@ impl MessageWithInt64Value {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithInt64Value::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithInt64Value::new().set_map([
+    ///     ("key0", Int64Value::default()/* use setters */),
+    ///     ("key1", Int64Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3061,6 +4413,13 @@ impl MessageWithUInt64Value {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithUInt64Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithUInt64Value::new().set_singular(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -3070,6 +4429,14 @@ impl MessageWithUInt64Value {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithUInt64Value::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithUInt64Value::new().set_or_clear_singular(Some(Int64Value::default()/* use setters */));
+    /// let x = MessageWithUInt64Value::new().set_or_clear_singular(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -3079,6 +4446,17 @@ impl MessageWithUInt64Value {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithUInt64Value::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithUInt64Value::new()
+    ///     .set_repeated([
+    ///         Int64Value::default()/* use setters */,
+    ///         Int64Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3090,6 +4468,16 @@ impl MessageWithUInt64Value {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithUInt64Value::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithUInt64Value;
+    /// use wkt::Int64Value;
+    /// let x = MessageWithUInt64Value::new().set_map([
+    ///     ("key0", Int64Value::default()/* use setters */),
+    ///     ("key1", Int64Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3131,6 +4519,13 @@ impl MessageWithBytesValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithBytesValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytesValue;
+    /// use wkt::BytesValue;
+    /// let x = MessageWithBytesValue::new().set_singular(BytesValue::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BytesValue>,
@@ -3140,6 +4535,14 @@ impl MessageWithBytesValue {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithBytesValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytesValue;
+    /// use wkt::BytesValue;
+    /// let x = MessageWithBytesValue::new().set_or_clear_singular(Some(BytesValue::default()/* use setters */));
+    /// let x = MessageWithBytesValue::new().set_or_clear_singular(None::<BytesValue>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BytesValue>,
@@ -3149,6 +4552,17 @@ impl MessageWithBytesValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithBytesValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytesValue;
+    /// use wkt::BytesValue;
+    /// let x = MessageWithBytesValue::new()
+    ///     .set_repeated([
+    ///         BytesValue::default()/* use setters */,
+    ///         BytesValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3160,6 +4574,16 @@ impl MessageWithBytesValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithBytesValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBytesValue;
+    /// use wkt::BytesValue;
+    /// let x = MessageWithBytesValue::new().set_map([
+    ///     ("key0", BytesValue::default()/* use setters */),
+    ///     ("key1", BytesValue::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3200,6 +4624,13 @@ impl MessageWithBoolValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithBoolValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBoolValue;
+    /// use wkt::BoolValue;
+    /// let x = MessageWithBoolValue::new().set_singular(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -3209,6 +4640,14 @@ impl MessageWithBoolValue {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithBoolValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBoolValue;
+    /// use wkt::BoolValue;
+    /// let x = MessageWithBoolValue::new().set_or_clear_singular(Some(BoolValue::default()/* use setters */));
+    /// let x = MessageWithBoolValue::new().set_or_clear_singular(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -3218,6 +4657,17 @@ impl MessageWithBoolValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithBoolValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBoolValue;
+    /// use wkt::BoolValue;
+    /// let x = MessageWithBoolValue::new()
+    ///     .set_repeated([
+    ///         BoolValue::default()/* use setters */,
+    ///         BoolValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3229,6 +4679,16 @@ impl MessageWithBoolValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithBoolValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithBoolValue;
+    /// use wkt::BoolValue;
+    /// let x = MessageWithBoolValue::new().set_map([
+    ///     ("key0", BoolValue::default()/* use setters */),
+    ///     ("key1", BoolValue::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3269,6 +4729,13 @@ impl MessageWithStringValue {
     }
 
     /// Sets the value of [singular][crate::generated::MessageWithStringValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStringValue;
+    /// use wkt::StringValue;
+    /// let x = MessageWithStringValue::new().set_singular(StringValue::default()/* use setters */);
+    /// ```
     pub fn set_singular<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -3278,6 +4745,14 @@ impl MessageWithStringValue {
     }
 
     /// Sets or clears the value of [singular][crate::generated::MessageWithStringValue::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStringValue;
+    /// use wkt::StringValue;
+    /// let x = MessageWithStringValue::new().set_or_clear_singular(Some(StringValue::default()/* use setters */));
+    /// let x = MessageWithStringValue::new().set_or_clear_singular(None::<StringValue>);
+    /// ```
     pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -3287,6 +4762,17 @@ impl MessageWithStringValue {
     }
 
     /// Sets the value of [repeated][crate::generated::MessageWithStringValue::repeated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStringValue;
+    /// use wkt::StringValue;
+    /// let x = MessageWithStringValue::new()
+    ///     .set_repeated([
+    ///         StringValue::default()/* use setters */,
+    ///         StringValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3298,6 +4784,16 @@ impl MessageWithStringValue {
     }
 
     /// Sets the value of [map][crate::generated::MessageWithStringValue::map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rust_sdk_test::model::MessageWithStringValue;
+    /// use wkt::StringValue;
+    /// let x = MessageWithStringValue::new().set_map([
+    ///     ("key0", StringValue::default()/* use setters */),
+    ///     ("key1", StringValue::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,

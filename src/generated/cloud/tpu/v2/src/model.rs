@@ -60,12 +60,25 @@ impl GuestAttributes {
     }
 
     /// Sets the value of [query_path][crate::model::GuestAttributes::query_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GuestAttributes;
+    /// let x = GuestAttributes::new().set_query_path("example");
+    /// ```
     pub fn set_query_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_path = v.into();
         self
     }
 
     /// Sets the value of [query_value][crate::model::GuestAttributes::query_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GuestAttributes;
+    /// use google_cloud_tpu_v2::model::GuestAttributesValue;
+    /// let x = GuestAttributes::new().set_query_value(GuestAttributesValue::default()/* use setters */);
+    /// ```
     pub fn set_query_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GuestAttributesValue>,
@@ -75,6 +88,14 @@ impl GuestAttributes {
     }
 
     /// Sets or clears the value of [query_value][crate::model::GuestAttributes::query_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GuestAttributes;
+    /// use google_cloud_tpu_v2::model::GuestAttributesValue;
+    /// let x = GuestAttributes::new().set_or_clear_query_value(Some(GuestAttributesValue::default()/* use setters */));
+    /// let x = GuestAttributes::new().set_or_clear_query_value(None::<GuestAttributesValue>);
+    /// ```
     pub fn set_or_clear_query_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GuestAttributesValue>,
@@ -106,6 +127,17 @@ impl GuestAttributesValue {
     }
 
     /// Sets the value of [items][crate::model::GuestAttributesValue::items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GuestAttributesValue;
+    /// use google_cloud_tpu_v2::model::GuestAttributesEntry;
+    /// let x = GuestAttributesValue::new()
+    ///     .set_items([
+    ///         GuestAttributesEntry::default()/* use setters */,
+    ///         GuestAttributesEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -145,18 +177,36 @@ impl GuestAttributesEntry {
     }
 
     /// Sets the value of [namespace][crate::model::GuestAttributesEntry::namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GuestAttributesEntry;
+    /// let x = GuestAttributesEntry::new().set_namespace("example");
+    /// ```
     pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespace = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::GuestAttributesEntry::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GuestAttributesEntry;
+    /// let x = GuestAttributesEntry::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::GuestAttributesEntry::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GuestAttributesEntry;
+    /// let x = GuestAttributesEntry::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -192,12 +242,26 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [source_disk][crate::model::AttachedDisk::source_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AttachedDisk;
+    /// let x = AttachedDisk::new().set_source_disk("example");
+    /// ```
     pub fn set_source_disk<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_disk = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::AttachedDisk::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AttachedDisk;
+    /// use google_cloud_tpu_v2::model::attached_disk::DiskMode;
+    /// let x0 = AttachedDisk::new().set_mode(DiskMode::ReadWrite);
+    /// let x1 = AttachedDisk::new().set_mode(DiskMode::ReadOnly);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::attached_disk::DiskMode>>(
         mut self,
         v: T,
@@ -375,18 +439,36 @@ impl SchedulingConfig {
     }
 
     /// Sets the value of [preemptible][crate::model::SchedulingConfig::preemptible].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::SchedulingConfig;
+    /// let x = SchedulingConfig::new().set_preemptible(true);
+    /// ```
     pub fn set_preemptible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.preemptible = v.into();
         self
     }
 
     /// Sets the value of [reserved][crate::model::SchedulingConfig::reserved].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::SchedulingConfig;
+    /// let x = SchedulingConfig::new().set_reserved(true);
+    /// ```
     pub fn set_reserved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reserved = v.into();
         self
     }
 
     /// Sets the value of [spot][crate::model::SchedulingConfig::spot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::SchedulingConfig;
+    /// let x = SchedulingConfig::new().set_spot(true);
+    /// ```
     pub fn set_spot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.spot = v.into();
         self
@@ -421,18 +503,37 @@ impl NetworkEndpoint {
     }
 
     /// Sets the value of [ip_address][crate::model::NetworkEndpoint::ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkEndpoint;
+    /// let x = NetworkEndpoint::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::NetworkEndpoint::port].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkEndpoint;
+    /// let x = NetworkEndpoint::new().set_port(42);
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [access_config][crate::model::NetworkEndpoint::access_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkEndpoint;
+    /// use google_cloud_tpu_v2::model::AccessConfig;
+    /// let x = NetworkEndpoint::new().set_access_config(AccessConfig::default()/* use setters */);
+    /// ```
     pub fn set_access_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessConfig>,
@@ -442,6 +543,14 @@ impl NetworkEndpoint {
     }
 
     /// Sets or clears the value of [access_config][crate::model::NetworkEndpoint::access_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkEndpoint;
+    /// use google_cloud_tpu_v2::model::AccessConfig;
+    /// let x = NetworkEndpoint::new().set_or_clear_access_config(Some(AccessConfig::default()/* use setters */));
+    /// let x = NetworkEndpoint::new().set_or_clear_access_config(None::<AccessConfig>);
+    /// ```
     pub fn set_or_clear_access_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessConfig>,
@@ -473,6 +582,12 @@ impl AccessConfig {
     }
 
     /// Sets the value of [external_ip][crate::model::AccessConfig::external_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AccessConfig;
+    /// let x = AccessConfig::new().set_external_ip("example");
+    /// ```
     pub fn set_external_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_ip = v.into();
         self
@@ -521,30 +636,60 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network][crate::model::NetworkConfig::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::NetworkConfig::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [enable_external_ips][crate::model::NetworkConfig::enable_external_ips].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_enable_external_ips(true);
+    /// ```
     pub fn set_enable_external_ips<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_external_ips = v.into();
         self
     }
 
     /// Sets the value of [can_ip_forward][crate::model::NetworkConfig::can_ip_forward].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_can_ip_forward(true);
+    /// ```
     pub fn set_can_ip_forward<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.can_ip_forward = v.into();
         self
     }
 
     /// Sets the value of [queue_count][crate::model::NetworkConfig::queue_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_queue_count(42);
+    /// ```
     pub fn set_queue_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.queue_count = v.into();
         self
@@ -578,12 +723,24 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [email][crate::model::ServiceAccount::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::ServiceAccount::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_scope(["a", "b", "c"]);
+    /// ```
     pub fn set_scope<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -708,18 +865,36 @@ impl Node {
     }
 
     /// Sets the value of [name][crate::model::Node::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Node::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [accelerator_type][crate::model::Node::accelerator_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_accelerator_type("example");
+    /// ```
     pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -729,12 +904,27 @@ impl Node {
     }
 
     /// Sets the value of [state][crate::model::Node::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::node::State;
+    /// let x0 = Node::new().set_state(State::Creating);
+    /// let x1 = Node::new().set_state(State::Ready);
+    /// let x2 = Node::new().set_state(State::Restarting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::node::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [health_description][crate::model::Node::health_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_health_description("example");
+    /// ```
     pub fn set_health_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -744,12 +934,25 @@ impl Node {
     }
 
     /// Sets the value of [runtime_version][crate::model::Node::runtime_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_runtime_version("example");
+    /// ```
     pub fn set_runtime_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.runtime_version = v.into();
         self
     }
 
     /// Sets the value of [network_config][crate::model::Node::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = Node::new().set_network_config(NetworkConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -759,6 +962,14 @@ impl Node {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Node::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = Node::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
+    /// let x = Node::new().set_or_clear_network_config(None::<NetworkConfig>);
+    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -768,6 +979,17 @@ impl Node {
     }
 
     /// Sets the value of [network_configs][crate::model::Node::network_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::NetworkConfig;
+    /// let x = Node::new()
+    ///     .set_network_configs([
+    ///         NetworkConfig::default()/* use setters */,
+    ///         NetworkConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -779,12 +1001,25 @@ impl Node {
     }
 
     /// Sets the value of [cidr_block][crate::model::Node::cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_cidr_block("example");
+    /// ```
     pub fn set_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr_block = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::Node::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::ServiceAccount;
+    /// let x = Node::new().set_service_account(ServiceAccount::default()/* use setters */);
+    /// ```
     pub fn set_service_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -794,6 +1029,14 @@ impl Node {
     }
 
     /// Sets or clears the value of [service_account][crate::model::Node::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::ServiceAccount;
+    /// let x = Node::new().set_or_clear_service_account(Some(ServiceAccount::default()/* use setters */));
+    /// let x = Node::new().set_or_clear_service_account(None::<ServiceAccount>);
+    /// ```
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -803,6 +1046,13 @@ impl Node {
     }
 
     /// Sets the value of [create_time][crate::model::Node::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use wkt::Timestamp;
+    /// let x = Node::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -812,6 +1062,14 @@ impl Node {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Node::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use wkt::Timestamp;
+    /// let x = Node::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Node::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -821,6 +1079,13 @@ impl Node {
     }
 
     /// Sets the value of [scheduling_config][crate::model::Node::scheduling_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::SchedulingConfig;
+    /// let x = Node::new().set_scheduling_config(SchedulingConfig::default()/* use setters */);
+    /// ```
     pub fn set_scheduling_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingConfig>,
@@ -830,6 +1095,14 @@ impl Node {
     }
 
     /// Sets or clears the value of [scheduling_config][crate::model::Node::scheduling_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::SchedulingConfig;
+    /// let x = Node::new().set_or_clear_scheduling_config(Some(SchedulingConfig::default()/* use setters */));
+    /// let x = Node::new().set_or_clear_scheduling_config(None::<SchedulingConfig>);
+    /// ```
     pub fn set_or_clear_scheduling_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingConfig>,
@@ -839,6 +1112,17 @@ impl Node {
     }
 
     /// Sets the value of [network_endpoints][crate::model::Node::network_endpoints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::NetworkEndpoint;
+    /// let x = Node::new()
+    ///     .set_network_endpoints([
+    ///         NetworkEndpoint::default()/* use setters */,
+    ///         NetworkEndpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -850,12 +1134,30 @@ impl Node {
     }
 
     /// Sets the value of [health][crate::model::Node::health].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::node::Health;
+    /// let x0 = Node::new().set_health(Health::Healthy);
+    /// let x1 = Node::new().set_health(Health::Timeout);
+    /// let x2 = Node::new().set_health(Health::UnhealthyTensorflow);
+    /// ```
     pub fn set_health<T: std::convert::Into<crate::model::node::Health>>(mut self, v: T) -> Self {
         self.health = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Node::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -868,6 +1170,15 @@ impl Node {
     }
 
     /// Sets the value of [metadata][crate::model::Node::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -880,6 +1191,12 @@ impl Node {
     }
 
     /// Sets the value of [tags][crate::model::Node::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -891,12 +1208,29 @@ impl Node {
     }
 
     /// Sets the value of [id][crate::model::Node::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_id(42);
+    /// ```
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [data_disks][crate::model::Node::data_disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::AttachedDisk;
+    /// let x = Node::new()
+    ///     .set_data_disks([
+    ///         AttachedDisk::default()/* use setters */,
+    ///         AttachedDisk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -908,6 +1242,15 @@ impl Node {
     }
 
     /// Sets the value of [api_version][crate::model::Node::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::node::ApiVersion;
+    /// let x0 = Node::new().set_api_version(ApiVersion::V1Alpha1);
+    /// let x1 = Node::new().set_api_version(ApiVersion::V1);
+    /// let x2 = Node::new().set_api_version(ApiVersion::V2Alpha1);
+    /// ```
     pub fn set_api_version<T: std::convert::Into<crate::model::node::ApiVersion>>(
         mut self,
         v: T,
@@ -917,6 +1260,17 @@ impl Node {
     }
 
     /// Sets the value of [symptoms][crate::model::Node::symptoms].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::Symptom;
+    /// let x = Node::new()
+    ///     .set_symptoms([
+    ///         Symptom::default()/* use setters */,
+    ///         Symptom::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_symptoms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -928,6 +1282,13 @@ impl Node {
     }
 
     /// Sets the value of [shielded_instance_config][crate::model::Node::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::ShieldedInstanceConfig;
+    /// let x = Node::new().set_shielded_instance_config(ShieldedInstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -937,6 +1298,14 @@ impl Node {
     }
 
     /// Sets or clears the value of [shielded_instance_config][crate::model::Node::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::ShieldedInstanceConfig;
+    /// let x = Node::new().set_or_clear_shielded_instance_config(Some(ShieldedInstanceConfig::default()/* use setters */));
+    /// let x = Node::new().set_or_clear_shielded_instance_config(None::<ShieldedInstanceConfig>);
+    /// ```
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -946,6 +1315,13 @@ impl Node {
     }
 
     /// Sets the value of [accelerator_config][crate::model::Node::accelerator_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::AcceleratorConfig;
+    /// let x = Node::new().set_accelerator_config(AcceleratorConfig::default()/* use setters */);
+    /// ```
     pub fn set_accelerator_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AcceleratorConfig>,
@@ -955,6 +1331,14 @@ impl Node {
     }
 
     /// Sets or clears the value of [accelerator_config][crate::model::Node::accelerator_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::model::AcceleratorConfig;
+    /// let x = Node::new().set_or_clear_accelerator_config(Some(AcceleratorConfig::default()/* use setters */));
+    /// let x = Node::new().set_or_clear_accelerator_config(None::<AcceleratorConfig>);
+    /// ```
     pub fn set_or_clear_accelerator_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AcceleratorConfig>,
@@ -964,12 +1348,24 @@ impl Node {
     }
 
     /// Sets the value of [queued_resource][crate::model::Node::queued_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_queued_resource("example");
+    /// ```
     pub fn set_queued_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.queued_resource = v.into();
         self
     }
 
     /// Sets the value of [multislice_node][crate::model::Node::multislice_node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Node;
+    /// let x = Node::new().set_multislice_node(true);
+    /// ```
     pub fn set_multislice_node<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multislice_node = v.into();
         self
@@ -1544,12 +1940,25 @@ impl QueuedResource {
     }
 
     /// Sets the value of [name][crate::model::QueuedResource::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// let x = QueuedResource::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::QueuedResource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use wkt::Timestamp;
+    /// let x = QueuedResource::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1559,6 +1968,14 @@ impl QueuedResource {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QueuedResource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use wkt::Timestamp;
+    /// let x = QueuedResource::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QueuedResource::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1568,6 +1985,13 @@ impl QueuedResource {
     }
 
     /// Sets the value of [queueing_policy][crate::model::QueuedResource::queueing_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+    /// let x = QueuedResource::new().set_queueing_policy(QueueingPolicy::default()/* use setters */);
+    /// ```
     pub fn set_queueing_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::queued_resource::QueueingPolicy>,
@@ -1577,6 +2001,14 @@ impl QueuedResource {
     }
 
     /// Sets or clears the value of [queueing_policy][crate::model::QueuedResource::queueing_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+    /// let x = QueuedResource::new().set_or_clear_queueing_policy(Some(QueueingPolicy::default()/* use setters */));
+    /// let x = QueuedResource::new().set_or_clear_queueing_policy(None::<QueueingPolicy>);
+    /// ```
     pub fn set_or_clear_queueing_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::queued_resource::QueueingPolicy>,
@@ -1586,6 +2018,13 @@ impl QueuedResource {
     }
 
     /// Sets the value of [state][crate::model::QueuedResource::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// let x = QueuedResource::new().set_state(QueuedResourceState::default()/* use setters */);
+    /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueuedResourceState>,
@@ -1595,6 +2034,14 @@ impl QueuedResource {
     }
 
     /// Sets or clears the value of [state][crate::model::QueuedResource::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// let x = QueuedResource::new().set_or_clear_state(Some(QueuedResourceState::default()/* use setters */));
+    /// let x = QueuedResource::new().set_or_clear_state(None::<QueuedResourceState>);
+    /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueuedResourceState>,
@@ -1604,6 +2051,12 @@ impl QueuedResource {
     }
 
     /// Sets the value of [reservation_name][crate::model::QueuedResource::reservation_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// let x = QueuedResource::new().set_reservation_name("example");
+    /// ```
     pub fn set_reservation_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1616,6 +2069,14 @@ impl QueuedResource {
     ///
     /// Note that all the setters affecting `resource` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::queued_resource::Tpu;
+    /// let x = QueuedResource::new().set_resource(Some(
+    ///     google_cloud_tpu_v2::model::queued_resource::Resource::Tpu(Tpu::default().into())));
+    /// ```
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::queued_resource::Resource>>,
     >(
@@ -1642,6 +2103,14 @@ impl QueuedResource {
     ///
     /// Note that all the setters affecting `resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::queued_resource::Tpu;
+    /// let x = QueuedResource::new().set_tpu(Tpu::default()/* use setters */);
+    /// assert!(x.tpu().is_some());
+    /// ```
     pub fn set_tpu<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Tpu>>>(
         mut self,
         v: T,
@@ -1655,6 +2124,14 @@ impl QueuedResource {
     ///
     /// Note that all the setters affecting `tier` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::queued_resource::Spot;
+    /// let x = QueuedResource::new().set_tier(Some(
+    ///     google_cloud_tpu_v2::model::queued_resource::Tier::Spot(Spot::default().into())));
+    /// ```
     pub fn set_tier<
         T: std::convert::Into<std::option::Option<crate::model::queued_resource::Tier>>,
     >(
@@ -1683,6 +2160,15 @@ impl QueuedResource {
     ///
     /// Note that all the setters affecting `tier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::queued_resource::Spot;
+    /// let x = QueuedResource::new().set_spot(Spot::default()/* use setters */);
+    /// assert!(x.spot().is_some());
+    /// assert!(x.guaranteed().is_none());
+    /// ```
     pub fn set_spot<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Spot>>>(
         mut self,
         v: T,
@@ -1709,6 +2195,15 @@ impl QueuedResource {
     ///
     /// Note that all the setters affecting `tier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::model::queued_resource::Guaranteed;
+    /// let x = QueuedResource::new().set_guaranteed(Guaranteed::default()/* use setters */);
+    /// assert!(x.guaranteed().is_some());
+    /// assert!(x.spot().is_none());
+    /// ```
     pub fn set_guaranteed<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Guaranteed>>,
     >(
@@ -1748,6 +2243,17 @@ pub mod queued_resource {
         }
 
         /// Sets the value of [node_spec][crate::model::queued_resource::Tpu::node_spec].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::Tpu;
+        /// use google_cloud_tpu_v2::model::queued_resource::tpu::NodeSpec;
+        /// let x = Tpu::new()
+        ///     .set_node_spec([
+        ///         NodeSpec::default()/* use setters */,
+        ///         NodeSpec::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_node_spec<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1795,12 +2301,25 @@ pub mod queued_resource {
             }
 
             /// Sets the value of [parent][crate::model::queued_resource::tpu::NodeSpec::parent].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_tpu_v2::model::queued_resource::tpu::NodeSpec;
+            /// let x = NodeSpec::new().set_parent("example");
+            /// ```
             pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.parent = v.into();
                 self
             }
 
             /// Sets the value of [node][crate::model::queued_resource::tpu::NodeSpec::node].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_tpu_v2::model::queued_resource::tpu::NodeSpec;
+            /// use google_cloud_tpu_v2::model::Node;
+            /// let x = NodeSpec::new().set_node(Node::default()/* use setters */);
+            /// ```
             pub fn set_node<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::Node>,
@@ -1810,6 +2329,14 @@ pub mod queued_resource {
             }
 
             /// Sets or clears the value of [node][crate::model::queued_resource::tpu::NodeSpec::node].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_tpu_v2::model::queued_resource::tpu::NodeSpec;
+            /// use google_cloud_tpu_v2::model::Node;
+            /// let x = NodeSpec::new().set_or_clear_node(Some(Node::default()/* use setters */));
+            /// let x = NodeSpec::new().set_or_clear_node(None::<Node>);
+            /// ```
             pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::Node>,
@@ -1822,6 +2349,13 @@ pub mod queued_resource {
             ///
             /// Note that all the setters affecting `name_strategy` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_tpu_v2::model::queued_resource::tpu::NodeSpec;
+            /// use google_cloud_tpu_v2::model::queued_resource::tpu::node_spec::NameStrategy;
+            /// let x = NodeSpec::new().set_name_strategy(Some(NameStrategy::NodeId("example".to_string())));
+            /// ```
             pub fn set_name_strategy<
                 T: std::convert::Into<
                         std::option::Option<
@@ -1854,6 +2388,14 @@ pub mod queued_resource {
             ///
             /// Note that all the setters affecting `name_strategy` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_tpu_v2::model::queued_resource::tpu::NodeSpec;
+            /// let x = NodeSpec::new().set_node_id("example");
+            /// assert!(x.node_id().is_some());
+            /// assert!(x.multislice_params().is_none());
+            /// ```
             pub fn set_node_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name_strategy = std::option::Option::Some(
                     crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v.into()),
@@ -1881,6 +2423,15 @@ pub mod queued_resource {
             ///
             /// Note that all the setters affecting `name_strategy` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_tpu_v2::model::queued_resource::tpu::NodeSpec;
+            /// use google_cloud_tpu_v2::model::queued_resource::tpu::node_spec::MultisliceParams;
+            /// let x = NodeSpec::new().set_multislice_params(MultisliceParams::default()/* use setters */);
+            /// assert!(x.multislice_params().is_some());
+            /// assert!(x.node_id().is_none());
+            /// ```
             pub fn set_multislice_params<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -1938,12 +2489,24 @@ pub mod queued_resource {
                 }
 
                 /// Sets the value of [node_count][crate::model::queued_resource::tpu::node_spec::MultisliceParams::node_count].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_tpu_v2::model::queued_resource::tpu::node_spec::MultisliceParams;
+                /// let x = MultisliceParams::new().set_node_count(42);
+                /// ```
                 pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.node_count = v.into();
                     self
                 }
 
                 /// Sets the value of [node_id_prefix][crate::model::queued_resource::tpu::node_spec::MultisliceParams::node_id_prefix].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_tpu_v2::model::queued_resource::tpu::node_spec::MultisliceParams;
+                /// let x = MultisliceParams::new().set_node_id_prefix("example");
+                /// ```
                 pub fn set_node_id_prefix<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2015,6 +2578,13 @@ pub mod queued_resource {
         }
 
         /// Sets the value of [min_duration][crate::model::queued_resource::Guaranteed::min_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::Guaranteed;
+        /// use wkt::Duration;
+        /// let x = Guaranteed::new().set_min_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2024,6 +2594,14 @@ pub mod queued_resource {
         }
 
         /// Sets or clears the value of [min_duration][crate::model::queued_resource::Guaranteed::min_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::Guaranteed;
+        /// use wkt::Duration;
+        /// let x = Guaranteed::new().set_or_clear_min_duration(Some(Duration::default()/* use setters */));
+        /// let x = Guaranteed::new().set_or_clear_min_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2060,6 +2638,14 @@ pub mod queued_resource {
         ///
         /// Note that all the setters affecting `start_timing_constraints` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+        /// use wkt::Duration;
+        /// let x = QueueingPolicy::new().set_start_timing_constraints(Some(
+        ///     google_cloud_tpu_v2::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilDuration(Duration::default().into())));
+        /// ```
         pub fn set_start_timing_constraints<
             T: std::convert::Into<
                     std::option::Option<
@@ -2090,6 +2676,18 @@ pub mod queued_resource {
         ///
         /// Note that all the setters affecting `start_timing_constraints` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+        /// use wkt::Duration;
+        /// let x = QueueingPolicy::new().set_valid_until_duration(Duration::default()/* use setters */);
+        /// assert!(x.valid_until_duration().is_some());
+        /// assert!(x.valid_until_time().is_none());
+        /// assert!(x.valid_after_duration().is_none());
+        /// assert!(x.valid_after_time().is_none());
+        /// assert!(x.valid_interval().is_none());
+        /// ```
         pub fn set_valid_until_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
             mut self,
             v: T,
@@ -2118,6 +2716,18 @@ pub mod queued_resource {
         ///
         /// Note that all the setters affecting `start_timing_constraints` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+        /// use wkt::Timestamp;
+        /// let x = QueueingPolicy::new().set_valid_until_time(Timestamp::default()/* use setters */);
+        /// assert!(x.valid_until_time().is_some());
+        /// assert!(x.valid_until_duration().is_none());
+        /// assert!(x.valid_after_duration().is_none());
+        /// assert!(x.valid_after_time().is_none());
+        /// assert!(x.valid_interval().is_none());
+        /// ```
         pub fn set_valid_until_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -2146,6 +2756,18 @@ pub mod queued_resource {
         ///
         /// Note that all the setters affecting `start_timing_constraints` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+        /// use wkt::Duration;
+        /// let x = QueueingPolicy::new().set_valid_after_duration(Duration::default()/* use setters */);
+        /// assert!(x.valid_after_duration().is_some());
+        /// assert!(x.valid_until_duration().is_none());
+        /// assert!(x.valid_until_time().is_none());
+        /// assert!(x.valid_after_time().is_none());
+        /// assert!(x.valid_interval().is_none());
+        /// ```
         pub fn set_valid_after_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
             mut self,
             v: T,
@@ -2174,6 +2796,18 @@ pub mod queued_resource {
         ///
         /// Note that all the setters affecting `start_timing_constraints` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+        /// use wkt::Timestamp;
+        /// let x = QueueingPolicy::new().set_valid_after_time(Timestamp::default()/* use setters */);
+        /// assert!(x.valid_after_time().is_some());
+        /// assert!(x.valid_until_duration().is_none());
+        /// assert!(x.valid_until_time().is_none());
+        /// assert!(x.valid_after_duration().is_none());
+        /// assert!(x.valid_interval().is_none());
+        /// ```
         pub fn set_valid_after_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -2204,6 +2838,18 @@ pub mod queued_resource {
         ///
         /// Note that all the setters affecting `start_timing_constraints` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource::QueueingPolicy;
+        /// use gtype::model::Interval;
+        /// let x = QueueingPolicy::new().set_valid_interval(Interval::default()/* use setters */);
+        /// assert!(x.valid_interval().is_some());
+        /// assert!(x.valid_until_duration().is_none());
+        /// assert!(x.valid_until_time().is_none());
+        /// assert!(x.valid_after_duration().is_none());
+        /// assert!(x.valid_after_time().is_none());
+        /// ```
         pub fn set_valid_interval<
             T: std::convert::Into<std::boxed::Box<gtype::model::Interval>>,
         >(
@@ -2295,6 +2941,15 @@ impl QueuedResourceState {
     }
 
     /// Sets the value of [state][crate::model::QueuedResourceState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::State;
+    /// let x0 = QueuedResourceState::new().set_state(State::Creating);
+    /// let x1 = QueuedResourceState::new().set_state(State::Accepted);
+    /// let x2 = QueuedResourceState::new().set_state(State::Provisioning);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::queued_resource_state::State>>(
         mut self,
         v: T,
@@ -2304,6 +2959,14 @@ impl QueuedResourceState {
     }
 
     /// Sets the value of [state_initiator][crate::model::QueuedResourceState::state_initiator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::StateInitiator;
+    /// let x0 = QueuedResourceState::new().set_state_initiator(StateInitiator::User);
+    /// let x1 = QueuedResourceState::new().set_state_initiator(StateInitiator::Service);
+    /// ```
     pub fn set_state_initiator<
         T: std::convert::Into<crate::model::queued_resource_state::StateInitiator>,
     >(
@@ -2318,6 +2981,14 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::CreatingData;
+    /// let x = QueuedResourceState::new().set_state_data(Some(
+    ///     google_cloud_tpu_v2::model::queued_resource_state::StateData::CreatingData(CreatingData::default().into())));
+    /// ```
     pub fn set_state_data<
         T: std::convert::Into<std::option::Option<crate::model::queued_resource_state::StateData>>,
     >(
@@ -2349,6 +3020,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::CreatingData;
+    /// let x = QueuedResourceState::new().set_creating_data(CreatingData::default()/* use setters */);
+    /// assert!(x.creating_data().is_some());
+    /// assert!(x.accepted_data().is_none());
+    /// assert!(x.provisioning_data().is_none());
+    /// assert!(x.failed_data().is_none());
+    /// assert!(x.deleting_data().is_none());
+    /// assert!(x.active_data().is_none());
+    /// assert!(x.suspending_data().is_none());
+    /// assert!(x.suspended_data().is_none());
+    /// ```
     pub fn set_creating_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::CreatingData>>,
     >(
@@ -2382,6 +3068,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::AcceptedData;
+    /// let x = QueuedResourceState::new().set_accepted_data(AcceptedData::default()/* use setters */);
+    /// assert!(x.accepted_data().is_some());
+    /// assert!(x.creating_data().is_none());
+    /// assert!(x.provisioning_data().is_none());
+    /// assert!(x.failed_data().is_none());
+    /// assert!(x.deleting_data().is_none());
+    /// assert!(x.active_data().is_none());
+    /// assert!(x.suspending_data().is_none());
+    /// assert!(x.suspended_data().is_none());
+    /// ```
     pub fn set_accepted_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>,
     >(
@@ -2415,6 +3116,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::ProvisioningData;
+    /// let x = QueuedResourceState::new().set_provisioning_data(ProvisioningData::default()/* use setters */);
+    /// assert!(x.provisioning_data().is_some());
+    /// assert!(x.creating_data().is_none());
+    /// assert!(x.accepted_data().is_none());
+    /// assert!(x.failed_data().is_none());
+    /// assert!(x.deleting_data().is_none());
+    /// assert!(x.active_data().is_none());
+    /// assert!(x.suspending_data().is_none());
+    /// assert!(x.suspended_data().is_none());
+    /// ```
     pub fn set_provisioning_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>,
     >(
@@ -2448,6 +3164,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::FailedData;
+    /// let x = QueuedResourceState::new().set_failed_data(FailedData::default()/* use setters */);
+    /// assert!(x.failed_data().is_some());
+    /// assert!(x.creating_data().is_none());
+    /// assert!(x.accepted_data().is_none());
+    /// assert!(x.provisioning_data().is_none());
+    /// assert!(x.deleting_data().is_none());
+    /// assert!(x.active_data().is_none());
+    /// assert!(x.suspending_data().is_none());
+    /// assert!(x.suspended_data().is_none());
+    /// ```
     pub fn set_failed_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::FailedData>>,
     >(
@@ -2481,6 +3212,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::DeletingData;
+    /// let x = QueuedResourceState::new().set_deleting_data(DeletingData::default()/* use setters */);
+    /// assert!(x.deleting_data().is_some());
+    /// assert!(x.creating_data().is_none());
+    /// assert!(x.accepted_data().is_none());
+    /// assert!(x.provisioning_data().is_none());
+    /// assert!(x.failed_data().is_none());
+    /// assert!(x.active_data().is_none());
+    /// assert!(x.suspending_data().is_none());
+    /// assert!(x.suspended_data().is_none());
+    /// ```
     pub fn set_deleting_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::DeletingData>>,
     >(
@@ -2514,6 +3260,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::ActiveData;
+    /// let x = QueuedResourceState::new().set_active_data(ActiveData::default()/* use setters */);
+    /// assert!(x.active_data().is_some());
+    /// assert!(x.creating_data().is_none());
+    /// assert!(x.accepted_data().is_none());
+    /// assert!(x.provisioning_data().is_none());
+    /// assert!(x.failed_data().is_none());
+    /// assert!(x.deleting_data().is_none());
+    /// assert!(x.suspending_data().is_none());
+    /// assert!(x.suspended_data().is_none());
+    /// ```
     pub fn set_active_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ActiveData>>,
     >(
@@ -2547,6 +3308,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::SuspendingData;
+    /// let x = QueuedResourceState::new().set_suspending_data(SuspendingData::default()/* use setters */);
+    /// assert!(x.suspending_data().is_some());
+    /// assert!(x.creating_data().is_none());
+    /// assert!(x.accepted_data().is_none());
+    /// assert!(x.provisioning_data().is_none());
+    /// assert!(x.failed_data().is_none());
+    /// assert!(x.deleting_data().is_none());
+    /// assert!(x.active_data().is_none());
+    /// assert!(x.suspended_data().is_none());
+    /// ```
     pub fn set_suspending_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>,
     >(
@@ -2580,6 +3356,21 @@ impl QueuedResourceState {
     ///
     /// Note that all the setters affecting `state_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::QueuedResourceState;
+    /// use google_cloud_tpu_v2::model::queued_resource_state::SuspendedData;
+    /// let x = QueuedResourceState::new().set_suspended_data(SuspendedData::default()/* use setters */);
+    /// assert!(x.suspended_data().is_some());
+    /// assert!(x.creating_data().is_none());
+    /// assert!(x.accepted_data().is_none());
+    /// assert!(x.provisioning_data().is_none());
+    /// assert!(x.failed_data().is_none());
+    /// assert!(x.deleting_data().is_none());
+    /// assert!(x.active_data().is_none());
+    /// assert!(x.suspending_data().is_none());
+    /// ```
     pub fn set_suspended_data<
         T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>,
     >(
@@ -2678,6 +3469,13 @@ pub mod queued_resource_state {
         }
 
         /// Sets the value of [error][crate::model::queued_resource_state::FailedData::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource_state::FailedData;
+        /// use rpc::model::Status;
+        /// let x = FailedData::new().set_error(Status::default()/* use setters */);
+        /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -2687,6 +3485,14 @@ pub mod queued_resource_state {
         }
 
         /// Sets or clears the value of [error][crate::model::queued_resource_state::FailedData::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_tpu_v2::model::queued_resource_state::FailedData;
+        /// use rpc::model::Status;
+        /// let x = FailedData::new().set_or_clear_error(Some(Status::default()/* use setters */));
+        /// let x = FailedData::new().set_or_clear_error(None::<Status>);
+        /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -3157,18 +3963,36 @@ impl ListNodesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNodesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListNodesRequest;
+    /// let x = ListNodesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNodesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListNodesRequest;
+    /// let x = ListNodesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNodesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListNodesRequest;
+    /// let x = ListNodesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3205,6 +4029,17 @@ impl ListNodesResponse {
     }
 
     /// Sets the value of [nodes][crate::model::ListNodesResponse::nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListNodesResponse;
+    /// use google_cloud_tpu_v2::model::Node;
+    /// let x = ListNodesResponse::new()
+    ///     .set_nodes([
+    ///         Node::default()/* use setters */,
+    ///         Node::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3216,12 +4051,24 @@ impl ListNodesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNodesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListNodesResponse;
+    /// let x = ListNodesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNodesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListNodesResponse;
+    /// let x = ListNodesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3271,6 +4118,12 @@ impl GetNodeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNodeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetNodeRequest;
+    /// let x = GetNodeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3307,18 +4160,37 @@ impl CreateNodeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNodeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateNodeRequest;
+    /// let x = CreateNodeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [node_id][crate::model::CreateNodeRequest::node_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateNodeRequest;
+    /// let x = CreateNodeRequest::new().set_node_id("example");
+    /// ```
     pub fn set_node_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_id = v.into();
         self
     }
 
     /// Sets the value of [node][crate::model::CreateNodeRequest::node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateNodeRequest;
+    /// use google_cloud_tpu_v2::model::Node;
+    /// let x = CreateNodeRequest::new().set_node(Node::default()/* use setters */);
+    /// ```
     pub fn set_node<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Node>,
@@ -3328,6 +4200,14 @@ impl CreateNodeRequest {
     }
 
     /// Sets or clears the value of [node][crate::model::CreateNodeRequest::node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateNodeRequest;
+    /// use google_cloud_tpu_v2::model::Node;
+    /// let x = CreateNodeRequest::new().set_or_clear_node(Some(Node::default()/* use setters */));
+    /// let x = CreateNodeRequest::new().set_or_clear_node(None::<Node>);
+    /// ```
     pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Node>,
@@ -3361,6 +4241,12 @@ impl DeleteNodeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNodeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::DeleteNodeRequest;
+    /// let x = DeleteNodeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3391,6 +4277,12 @@ impl StopNodeRequest {
     }
 
     /// Sets the value of [name][crate::model::StopNodeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::StopNodeRequest;
+    /// let x = StopNodeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3421,6 +4313,12 @@ impl StartNodeRequest {
     }
 
     /// Sets the value of [name][crate::model::StartNodeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::StartNodeRequest;
+    /// let x = StartNodeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3456,6 +4354,13 @@ impl UpdateNodeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::UpdateNodeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNodeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3465,6 +4370,14 @@ impl UpdateNodeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::UpdateNodeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNodeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNodeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3474,6 +4387,13 @@ impl UpdateNodeRequest {
     }
 
     /// Sets the value of [node][crate::model::UpdateNodeRequest::node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::UpdateNodeRequest;
+    /// use google_cloud_tpu_v2::model::Node;
+    /// let x = UpdateNodeRequest::new().set_node(Node::default()/* use setters */);
+    /// ```
     pub fn set_node<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Node>,
@@ -3483,6 +4403,14 @@ impl UpdateNodeRequest {
     }
 
     /// Sets or clears the value of [node][crate::model::UpdateNodeRequest::node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::UpdateNodeRequest;
+    /// use google_cloud_tpu_v2::model::Node;
+    /// let x = UpdateNodeRequest::new().set_or_clear_node(Some(Node::default()/* use setters */));
+    /// let x = UpdateNodeRequest::new().set_or_clear_node(None::<Node>);
+    /// ```
     pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Node>,
@@ -3524,18 +4452,36 @@ impl ListQueuedResourcesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQueuedResourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListQueuedResourcesRequest;
+    /// let x = ListQueuedResourcesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQueuedResourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListQueuedResourcesRequest;
+    /// let x = ListQueuedResourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQueuedResourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListQueuedResourcesRequest;
+    /// let x = ListQueuedResourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3573,6 +4519,17 @@ impl ListQueuedResourcesResponse {
     }
 
     /// Sets the value of [queued_resources][crate::model::ListQueuedResourcesResponse::queued_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListQueuedResourcesResponse;
+    /// use google_cloud_tpu_v2::model::QueuedResource;
+    /// let x = ListQueuedResourcesResponse::new()
+    ///     .set_queued_resources([
+    ///         QueuedResource::default()/* use setters */,
+    ///         QueuedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_queued_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3584,12 +4541,24 @@ impl ListQueuedResourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQueuedResourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListQueuedResourcesResponse;
+    /// let x = ListQueuedResourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListQueuedResourcesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListQueuedResourcesResponse;
+    /// let x = ListQueuedResourcesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3639,6 +4608,12 @@ impl GetQueuedResourceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQueuedResourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetQueuedResourceRequest;
+    /// let x = GetQueuedResourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3680,12 +4655,24 @@ impl CreateQueuedResourceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQueuedResourceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateQueuedResourceRequest;
+    /// let x = CreateQueuedResourceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [queued_resource_id][crate::model::CreateQueuedResourceRequest::queued_resource_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateQueuedResourceRequest;
+    /// let x = CreateQueuedResourceRequest::new().set_queued_resource_id("example");
+    /// ```
     pub fn set_queued_resource_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3695,6 +4682,13 @@ impl CreateQueuedResourceRequest {
     }
 
     /// Sets the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateQueuedResourceRequest;
+    /// use google_cloud_tpu_v2::model::QueuedResource;
+    /// let x = CreateQueuedResourceRequest::new().set_queued_resource(QueuedResource::default()/* use setters */);
+    /// ```
     pub fn set_queued_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueuedResource>,
@@ -3704,6 +4698,14 @@ impl CreateQueuedResourceRequest {
     }
 
     /// Sets or clears the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateQueuedResourceRequest;
+    /// use google_cloud_tpu_v2::model::QueuedResource;
+    /// let x = CreateQueuedResourceRequest::new().set_or_clear_queued_resource(Some(QueuedResource::default()/* use setters */));
+    /// let x = CreateQueuedResourceRequest::new().set_or_clear_queued_resource(None::<QueuedResource>);
+    /// ```
     pub fn set_or_clear_queued_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueuedResource>,
@@ -3713,6 +4715,12 @@ impl CreateQueuedResourceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateQueuedResourceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::CreateQueuedResourceRequest;
+    /// let x = CreateQueuedResourceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3754,18 +4762,36 @@ impl DeleteQueuedResourceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteQueuedResourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::DeleteQueuedResourceRequest;
+    /// let x = DeleteQueuedResourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteQueuedResourceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::DeleteQueuedResourceRequest;
+    /// let x = DeleteQueuedResourceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteQueuedResourceRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::DeleteQueuedResourceRequest;
+    /// let x = DeleteQueuedResourceRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -3797,6 +4823,12 @@ impl ResetQueuedResourceRequest {
     }
 
     /// Sets the value of [name][crate::model::ResetQueuedResourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ResetQueuedResourceRequest;
+    /// let x = ResetQueuedResourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3825,6 +4857,12 @@ impl ServiceIdentity {
     }
 
     /// Sets the value of [email][crate::model::ServiceIdentity::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ServiceIdentity;
+    /// let x = ServiceIdentity::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -3856,6 +4894,12 @@ impl GenerateServiceIdentityRequest {
     }
 
     /// Sets the value of [parent][crate::model::GenerateServiceIdentityRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GenerateServiceIdentityRequest;
+    /// let x = GenerateServiceIdentityRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -3887,6 +4931,13 @@ impl GenerateServiceIdentityResponse {
     }
 
     /// Sets the value of [identity][crate::model::GenerateServiceIdentityResponse::identity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GenerateServiceIdentityResponse;
+    /// use google_cloud_tpu_v2::model::ServiceIdentity;
+    /// let x = GenerateServiceIdentityResponse::new().set_identity(ServiceIdentity::default()/* use setters */);
+    /// ```
     pub fn set_identity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceIdentity>,
@@ -3896,6 +4947,14 @@ impl GenerateServiceIdentityResponse {
     }
 
     /// Sets or clears the value of [identity][crate::model::GenerateServiceIdentityResponse::identity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GenerateServiceIdentityResponse;
+    /// use google_cloud_tpu_v2::model::ServiceIdentity;
+    /// let x = GenerateServiceIdentityResponse::new().set_or_clear_identity(Some(ServiceIdentity::default()/* use setters */));
+    /// let x = GenerateServiceIdentityResponse::new().set_or_clear_identity(None::<ServiceIdentity>);
+    /// ```
     pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceIdentity>,
@@ -3933,18 +4992,41 @@ impl AcceleratorType {
     }
 
     /// Sets the value of [name][crate::model::AcceleratorType::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AcceleratorType;
+    /// let x = AcceleratorType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::AcceleratorType::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AcceleratorType;
+    /// let x = AcceleratorType::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [accelerator_configs][crate::model::AcceleratorType::accelerator_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AcceleratorType;
+    /// use google_cloud_tpu_v2::model::AcceleratorConfig;
+    /// let x = AcceleratorType::new()
+    ///     .set_accelerator_configs([
+    ///         AcceleratorConfig::default()/* use setters */,
+    ///         AcceleratorConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_accelerator_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3980,6 +5062,12 @@ impl GetAcceleratorTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAcceleratorTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetAcceleratorTypeRequest;
+    /// let x = GetAcceleratorTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4023,30 +5111,60 @@ impl ListAcceleratorTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAcceleratorTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesRequest;
+    /// let x = ListAcceleratorTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAcceleratorTypesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesRequest;
+    /// let x = ListAcceleratorTypesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAcceleratorTypesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesRequest;
+    /// let x = ListAcceleratorTypesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAcceleratorTypesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesRequest;
+    /// let x = ListAcceleratorTypesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAcceleratorTypesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesRequest;
+    /// let x = ListAcceleratorTypesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4084,6 +5202,17 @@ impl ListAcceleratorTypesResponse {
     }
 
     /// Sets the value of [accelerator_types][crate::model::ListAcceleratorTypesResponse::accelerator_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesResponse;
+    /// use google_cloud_tpu_v2::model::AcceleratorType;
+    /// let x = ListAcceleratorTypesResponse::new()
+    ///     .set_accelerator_types([
+    ///         AcceleratorType::default()/* use setters */,
+    ///         AcceleratorType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_accelerator_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4095,12 +5224,24 @@ impl ListAcceleratorTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAcceleratorTypesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesResponse;
+    /// let x = ListAcceleratorTypesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAcceleratorTypesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListAcceleratorTypesResponse;
+    /// let x = ListAcceleratorTypesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4151,12 +5292,24 @@ impl RuntimeVersion {
     }
 
     /// Sets the value of [name][crate::model::RuntimeVersion::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::RuntimeVersion;
+    /// let x = RuntimeVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::RuntimeVersion::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::RuntimeVersion;
+    /// let x = RuntimeVersion::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -4187,6 +5340,12 @@ impl GetRuntimeVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRuntimeVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetRuntimeVersionRequest;
+    /// let x = GetRuntimeVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4230,30 +5389,60 @@ impl ListRuntimeVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRuntimeVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsRequest;
+    /// let x = ListRuntimeVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRuntimeVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsRequest;
+    /// let x = ListRuntimeVersionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRuntimeVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsRequest;
+    /// let x = ListRuntimeVersionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRuntimeVersionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsRequest;
+    /// let x = ListRuntimeVersionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRuntimeVersionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsRequest;
+    /// let x = ListRuntimeVersionsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4291,6 +5480,17 @@ impl ListRuntimeVersionsResponse {
     }
 
     /// Sets the value of [runtime_versions][crate::model::ListRuntimeVersionsResponse::runtime_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsResponse;
+    /// use google_cloud_tpu_v2::model::RuntimeVersion;
+    /// let x = ListRuntimeVersionsResponse::new()
+    ///     .set_runtime_versions([
+    ///         RuntimeVersion::default()/* use setters */,
+    ///         RuntimeVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_runtime_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4302,12 +5502,24 @@ impl ListRuntimeVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRuntimeVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsResponse;
+    /// let x = ListRuntimeVersionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRuntimeVersionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ListRuntimeVersionsResponse;
+    /// let x = ListRuntimeVersionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4376,6 +5588,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4385,6 +5604,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4394,6 +5621,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4403,6 +5637,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4412,30 +5654,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_detail][crate::model::OperationMetadata::status_detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_detail("example");
+    /// ```
     pub fn set_status_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_detail = v.into();
         self
     }
 
     /// Sets the value of [cancel_requested][crate::model::OperationMetadata::cancel_requested].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_cancel_requested(true);
+    /// ```
     pub fn set_cancel_requested<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cancel_requested = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -4473,6 +5745,13 @@ impl Symptom {
     }
 
     /// Sets the value of [create_time][crate::model::Symptom::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Symptom;
+    /// use wkt::Timestamp;
+    /// let x = Symptom::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4482,6 +5761,14 @@ impl Symptom {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Symptom::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Symptom;
+    /// use wkt::Timestamp;
+    /// let x = Symptom::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Symptom::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4491,6 +5778,15 @@ impl Symptom {
     }
 
     /// Sets the value of [symptom_type][crate::model::Symptom::symptom_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Symptom;
+    /// use google_cloud_tpu_v2::model::symptom::SymptomType;
+    /// let x0 = Symptom::new().set_symptom_type(SymptomType::LowMemory);
+    /// let x1 = Symptom::new().set_symptom_type(SymptomType::OutOfMemory);
+    /// let x2 = Symptom::new().set_symptom_type(SymptomType::ExecuteTimedOut);
+    /// ```
     pub fn set_symptom_type<T: std::convert::Into<crate::model::symptom::SymptomType>>(
         mut self,
         v: T,
@@ -4500,12 +5796,24 @@ impl Symptom {
     }
 
     /// Sets the value of [details][crate::model::Symptom::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Symptom;
+    /// let x = Symptom::new().set_details("example");
+    /// ```
     pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.details = v.into();
         self
     }
 
     /// Sets the value of [worker_id][crate::model::Symptom::worker_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::Symptom;
+    /// let x = Symptom::new().set_worker_id("example");
+    /// ```
     pub fn set_worker_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_id = v.into();
         self
@@ -4711,18 +6019,36 @@ impl GetGuestAttributesRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGuestAttributesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetGuestAttributesRequest;
+    /// let x = GetGuestAttributesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [query_path][crate::model::GetGuestAttributesRequest::query_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetGuestAttributesRequest;
+    /// let x = GetGuestAttributesRequest::new().set_query_path("example");
+    /// ```
     pub fn set_query_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_path = v.into();
         self
     }
 
     /// Sets the value of [worker_ids][crate::model::GetGuestAttributesRequest::worker_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetGuestAttributesRequest;
+    /// let x = GetGuestAttributesRequest::new().set_worker_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_worker_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4759,6 +6085,17 @@ impl GetGuestAttributesResponse {
     }
 
     /// Sets the value of [guest_attributes][crate::model::GetGuestAttributesResponse::guest_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::GetGuestAttributesResponse;
+    /// use google_cloud_tpu_v2::model::GuestAttributes;
+    /// let x = GetGuestAttributesResponse::new()
+    ///     .set_guest_attributes([
+    ///         GuestAttributes::default()/* use setters */,
+    ///         GuestAttributes::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_guest_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4795,6 +6132,15 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [r#type][crate::model::AcceleratorConfig::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AcceleratorConfig;
+    /// use google_cloud_tpu_v2::model::accelerator_config::Type;
+    /// let x0 = AcceleratorConfig::new().set_type(Type::V2);
+    /// let x1 = AcceleratorConfig::new().set_type(Type::V3);
+    /// let x2 = AcceleratorConfig::new().set_type(Type::V4);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::accelerator_config::Type>>(
         mut self,
         v: T,
@@ -4804,6 +6150,12 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [topology][crate::model::AcceleratorConfig::topology].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_topology("example");
+    /// ```
     pub fn set_topology<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topology = v.into();
         self
@@ -4998,6 +6350,12 @@ impl ShieldedInstanceConfig {
     }
 
     /// Sets the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::model::ShieldedInstanceConfig;
+    /// let x = ShieldedInstanceConfig::new().set_enable_secure_boot(true);
+    /// ```
     pub fn set_enable_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_secure_boot = v.into();
         self

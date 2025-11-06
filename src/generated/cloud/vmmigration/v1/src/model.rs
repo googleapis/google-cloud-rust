@@ -86,18 +86,37 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [name][crate::model::ReplicationCycle::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = ReplicationCycle::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cycle_number][crate::model::ReplicationCycle::cycle_number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = ReplicationCycle::new().set_cycle_number(42);
+    /// ```
     pub fn set_cycle_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cycle_number = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ReplicationCycle::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use wkt::Timestamp;
+    /// let x = ReplicationCycle::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -107,6 +126,14 @@ impl ReplicationCycle {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ReplicationCycle::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use wkt::Timestamp;
+    /// let x = ReplicationCycle::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReplicationCycle::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -116,6 +143,13 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [end_time][crate::model::ReplicationCycle::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use wkt::Timestamp;
+    /// let x = ReplicationCycle::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -125,6 +159,14 @@ impl ReplicationCycle {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ReplicationCycle::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use wkt::Timestamp;
+    /// let x = ReplicationCycle::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReplicationCycle::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -134,6 +176,13 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [total_pause_duration][crate::model::ReplicationCycle::total_pause_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use wkt::Duration;
+    /// let x = ReplicationCycle::new().set_total_pause_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_total_pause_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -143,6 +192,14 @@ impl ReplicationCycle {
     }
 
     /// Sets or clears the value of [total_pause_duration][crate::model::ReplicationCycle::total_pause_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use wkt::Duration;
+    /// let x = ReplicationCycle::new().set_or_clear_total_pause_duration(Some(Duration::default()/* use setters */));
+    /// let x = ReplicationCycle::new().set_or_clear_total_pause_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_total_pause_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -152,6 +209,12 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [progress_percent][crate::model::ReplicationCycle::progress_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = ReplicationCycle::new().set_progress_percent(42);
+    /// ```
     #[deprecated]
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
@@ -159,6 +222,17 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [steps][crate::model::ReplicationCycle::steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use google_cloud_vmmigration_v1::model::CycleStep;
+    /// let x = ReplicationCycle::new()
+    ///     .set_steps([
+    ///         CycleStep::default()/* use setters */,
+    ///         CycleStep::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -170,6 +244,15 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [state][crate::model::ReplicationCycle::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use google_cloud_vmmigration_v1::model::replication_cycle::State;
+    /// let x0 = ReplicationCycle::new().set_state(State::Running);
+    /// let x1 = ReplicationCycle::new().set_state(State::Paused);
+    /// let x2 = ReplicationCycle::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::replication_cycle::State>>(
         mut self,
         v: T,
@@ -179,6 +262,13 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [error][crate::model::ReplicationCycle::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use rpc::model::Status;
+    /// let x = ReplicationCycle::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -188,6 +278,14 @@ impl ReplicationCycle {
     }
 
     /// Sets or clears the value of [error][crate::model::ReplicationCycle::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use rpc::model::Status;
+    /// let x = ReplicationCycle::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = ReplicationCycle::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -197,6 +295,17 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [warnings][crate::model::ReplicationCycle::warnings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// let x = ReplicationCycle::new()
+    ///     .set_warnings([
+    ///         MigrationWarning::default()/* use setters */,
+    ///         MigrationWarning::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -388,6 +497,13 @@ impl CycleStep {
     }
 
     /// Sets the value of [start_time][crate::model::CycleStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use wkt::Timestamp;
+    /// let x = CycleStep::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -397,6 +513,14 @@ impl CycleStep {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CycleStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use wkt::Timestamp;
+    /// let x = CycleStep::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CycleStep::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -406,6 +530,13 @@ impl CycleStep {
     }
 
     /// Sets the value of [end_time][crate::model::CycleStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use wkt::Timestamp;
+    /// let x = CycleStep::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -415,6 +546,14 @@ impl CycleStep {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CycleStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use wkt::Timestamp;
+    /// let x = CycleStep::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CycleStep::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -427,6 +566,14 @@ impl CycleStep {
     ///
     /// Note that all the setters affecting `step` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use google_cloud_vmmigration_v1::model::InitializingReplicationStep;
+    /// let x = CycleStep::new().set_step(Some(
+    ///     google_cloud_vmmigration_v1::model::cycle_step::Step::InitializingReplication(InitializingReplicationStep::default().into())));
+    /// ```
     pub fn set_step<T: std::convert::Into<std::option::Option<crate::model::cycle_step::Step>>>(
         mut self,
         v: T,
@@ -455,6 +602,16 @@ impl CycleStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use google_cloud_vmmigration_v1::model::InitializingReplicationStep;
+    /// let x = CycleStep::new().set_initializing_replication(InitializingReplicationStep::default()/* use setters */);
+    /// assert!(x.initializing_replication().is_some());
+    /// assert!(x.replicating().is_none());
+    /// assert!(x.post_processing().is_none());
+    /// ```
     pub fn set_initializing_replication<
         T: std::convert::Into<std::boxed::Box<crate::model::InitializingReplicationStep>>,
     >(
@@ -485,6 +642,16 @@ impl CycleStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use google_cloud_vmmigration_v1::model::ReplicatingStep;
+    /// let x = CycleStep::new().set_replicating(ReplicatingStep::default()/* use setters */);
+    /// assert!(x.replicating().is_some());
+    /// assert!(x.initializing_replication().is_none());
+    /// assert!(x.post_processing().is_none());
+    /// ```
     pub fn set_replicating<
         T: std::convert::Into<std::boxed::Box<crate::model::ReplicatingStep>>,
     >(
@@ -514,6 +681,16 @@ impl CycleStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CycleStep;
+    /// use google_cloud_vmmigration_v1::model::PostProcessingStep;
+    /// let x = CycleStep::new().set_post_processing(PostProcessingStep::default()/* use setters */);
+    /// assert!(x.post_processing().is_some());
+    /// assert!(x.initializing_replication().is_none());
+    /// assert!(x.replicating().is_none());
+    /// ```
     pub fn set_post_processing<
         T: std::convert::Into<std::boxed::Box<crate::model::PostProcessingStep>>,
     >(
@@ -595,18 +772,36 @@ impl ReplicatingStep {
     }
 
     /// Sets the value of [total_bytes][crate::model::ReplicatingStep::total_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicatingStep;
+    /// let x = ReplicatingStep::new().set_total_bytes(42);
+    /// ```
     pub fn set_total_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_bytes = v.into();
         self
     }
 
     /// Sets the value of [replicated_bytes][crate::model::ReplicatingStep::replicated_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicatingStep;
+    /// let x = ReplicatingStep::new().set_replicated_bytes(42);
+    /// ```
     pub fn set_replicated_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.replicated_bytes = v.into();
         self
     }
 
     /// Sets the value of [last_two_minutes_average_bytes_per_second][crate::model::ReplicatingStep::last_two_minutes_average_bytes_per_second].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicatingStep;
+    /// let x = ReplicatingStep::new().set_last_two_minutes_average_bytes_per_second(42);
+    /// ```
     pub fn set_last_two_minutes_average_bytes_per_second<T: std::convert::Into<i64>>(
         mut self,
         v: T,
@@ -616,6 +811,12 @@ impl ReplicatingStep {
     }
 
     /// Sets the value of [last_thirty_minutes_average_bytes_per_second][crate::model::ReplicatingStep::last_thirty_minutes_average_bytes_per_second].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicatingStep;
+    /// let x = ReplicatingStep::new().set_last_thirty_minutes_average_bytes_per_second(42);
+    /// ```
     pub fn set_last_thirty_minutes_average_bytes_per_second<T: std::convert::Into<i64>>(
         mut self,
         v: T,
@@ -667,6 +868,13 @@ impl ReplicationSync {
     }
 
     /// Sets the value of [last_sync_time][crate::model::ReplicationSync::last_sync_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationSync;
+    /// use wkt::Timestamp;
+    /// let x = ReplicationSync::new().set_last_sync_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_sync_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -676,6 +884,14 @@ impl ReplicationSync {
     }
 
     /// Sets or clears the value of [last_sync_time][crate::model::ReplicationSync::last_sync_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ReplicationSync;
+    /// use wkt::Timestamp;
+    /// let x = ReplicationSync::new().set_or_clear_last_sync_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReplicationSync::new().set_or_clear_last_sync_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -792,30 +1008,61 @@ impl MigratingVm {
     }
 
     /// Sets the value of [name][crate::model::MigratingVm::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = MigratingVm::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_vm_id][crate::model::MigratingVm::source_vm_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = MigratingVm::new().set_source_vm_id("example");
+    /// ```
     pub fn set_source_vm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_vm_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::MigratingVm::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = MigratingVm::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::MigratingVm::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = MigratingVm::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::MigratingVm::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::SchedulePolicy;
+    /// let x = MigratingVm::new().set_policy(SchedulePolicy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchedulePolicy>,
@@ -825,6 +1072,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [policy][crate::model::MigratingVm::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::SchedulePolicy;
+    /// let x = MigratingVm::new().set_or_clear_policy(Some(SchedulePolicy::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_policy(None::<SchedulePolicy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchedulePolicy>,
@@ -834,6 +1089,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [create_time][crate::model::MigratingVm::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use wkt::Timestamp;
+    /// let x = MigratingVm::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -843,6 +1105,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MigratingVm::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use wkt::Timestamp;
+    /// let x = MigratingVm::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -852,6 +1122,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [update_time][crate::model::MigratingVm::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use wkt::Timestamp;
+    /// let x = MigratingVm::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -861,6 +1138,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MigratingVm::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use wkt::Timestamp;
+    /// let x = MigratingVm::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -870,6 +1155,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [last_sync][crate::model::MigratingVm::last_sync].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ReplicationSync;
+    /// let x = MigratingVm::new().set_last_sync(ReplicationSync::default()/* use setters */);
+    /// ```
     pub fn set_last_sync<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationSync>,
@@ -879,6 +1171,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [last_sync][crate::model::MigratingVm::last_sync].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ReplicationSync;
+    /// let x = MigratingVm::new().set_or_clear_last_sync(Some(ReplicationSync::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_last_sync(None::<ReplicationSync>);
+    /// ```
     pub fn set_or_clear_last_sync<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationSync>,
@@ -888,6 +1188,15 @@ impl MigratingVm {
     }
 
     /// Sets the value of [state][crate::model::MigratingVm::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::migrating_vm::State;
+    /// let x0 = MigratingVm::new().set_state(State::Pending);
+    /// let x1 = MigratingVm::new().set_state(State::Ready);
+    /// let x2 = MigratingVm::new().set_state(State::FirstSync);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::migrating_vm::State>>(
         mut self,
         v: T,
@@ -897,6 +1206,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [state_time][crate::model::MigratingVm::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use wkt::Timestamp;
+    /// let x = MigratingVm::new().set_state_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_state_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -906,6 +1222,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [state_time][crate::model::MigratingVm::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use wkt::Timestamp;
+    /// let x = MigratingVm::new().set_or_clear_state_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_state_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_state_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -915,6 +1239,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [current_sync_info][crate::model::MigratingVm::current_sync_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = MigratingVm::new().set_current_sync_info(ReplicationCycle::default()/* use setters */);
+    /// ```
     pub fn set_current_sync_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationCycle>,
@@ -924,6 +1255,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [current_sync_info][crate::model::MigratingVm::current_sync_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = MigratingVm::new().set_or_clear_current_sync_info(Some(ReplicationCycle::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_current_sync_info(None::<ReplicationCycle>);
+    /// ```
     pub fn set_or_clear_current_sync_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationCycle>,
@@ -933,6 +1272,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [last_replication_cycle][crate::model::MigratingVm::last_replication_cycle].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = MigratingVm::new().set_last_replication_cycle(ReplicationCycle::default()/* use setters */);
+    /// ```
     pub fn set_last_replication_cycle<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationCycle>,
@@ -942,6 +1288,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [last_replication_cycle][crate::model::MigratingVm::last_replication_cycle].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = MigratingVm::new().set_or_clear_last_replication_cycle(Some(ReplicationCycle::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_last_replication_cycle(None::<ReplicationCycle>);
+    /// ```
     pub fn set_or_clear_last_replication_cycle<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationCycle>,
@@ -951,12 +1305,27 @@ impl MigratingVm {
     }
 
     /// Sets the value of [group][crate::model::MigratingVm::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = MigratingVm::new().set_group("example");
+    /// ```
     pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::MigratingVm::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = MigratingVm::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -969,6 +1338,17 @@ impl MigratingVm {
     }
 
     /// Sets the value of [recent_clone_jobs][crate::model::MigratingVm::recent_clone_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::CloneJob;
+    /// let x = MigratingVm::new()
+    ///     .set_recent_clone_jobs([
+    ///         CloneJob::default()/* use setters */,
+    ///         CloneJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_recent_clone_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -980,6 +1360,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [error][crate::model::MigratingVm::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use rpc::model::Status;
+    /// let x = MigratingVm::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -989,6 +1376,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [error][crate::model::MigratingVm::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use rpc::model::Status;
+    /// let x = MigratingVm::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -998,6 +1393,17 @@ impl MigratingVm {
     }
 
     /// Sets the value of [recent_cutover_jobs][crate::model::MigratingVm::recent_cutover_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// let x = MigratingVm::new()
+    ///     .set_recent_cutover_jobs([
+    ///         CutoverJob::default()/* use setters */,
+    ///         CutoverJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_recent_cutover_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1009,6 +1415,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [cutover_forecast][crate::model::MigratingVm::cutover_forecast].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::CutoverForecast;
+    /// let x = MigratingVm::new().set_cutover_forecast(CutoverForecast::default()/* use setters */);
+    /// ```
     pub fn set_cutover_forecast<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CutoverForecast>,
@@ -1018,6 +1431,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [cutover_forecast][crate::model::MigratingVm::cutover_forecast].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::CutoverForecast;
+    /// let x = MigratingVm::new().set_or_clear_cutover_forecast(Some(CutoverForecast::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_cutover_forecast(None::<CutoverForecast>);
+    /// ```
     pub fn set_or_clear_cutover_forecast<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CutoverForecast>,
@@ -1027,6 +1448,13 @@ impl MigratingVm {
     }
 
     /// Sets the value of [expiration][crate::model::MigratingVm::expiration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::migrating_vm::Expiration;
+    /// let x = MigratingVm::new().set_expiration(Expiration::default()/* use setters */);
+    /// ```
     pub fn set_expiration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::migrating_vm::Expiration>,
@@ -1036,6 +1464,14 @@ impl MigratingVm {
     }
 
     /// Sets or clears the value of [expiration][crate::model::MigratingVm::expiration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::migrating_vm::Expiration;
+    /// let x = MigratingVm::new().set_or_clear_expiration(Some(Expiration::default()/* use setters */));
+    /// let x = MigratingVm::new().set_or_clear_expiration(None::<Expiration>);
+    /// ```
     pub fn set_or_clear_expiration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::migrating_vm::Expiration>,
@@ -1048,6 +1484,14 @@ impl MigratingVm {
     ///
     /// Note that all the setters affecting `target_vm_defaults` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = MigratingVm::new().set_target_vm_defaults(Some(
+    ///     google_cloud_vmmigration_v1::model::migrating_vm::TargetVmDefaults::ComputeEngineTargetDefaults(ComputeEngineTargetDefaults::default().into())));
+    /// ```
     pub fn set_target_vm_defaults<
         T: std::convert::Into<std::option::Option<crate::model::migrating_vm::TargetVmDefaults>>,
     >(
@@ -1078,6 +1522,15 @@ impl MigratingVm {
     ///
     /// Note that all the setters affecting `target_vm_defaults` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = MigratingVm::new().set_compute_engine_target_defaults(ComputeEngineTargetDefaults::default()/* use setters */);
+    /// assert!(x.compute_engine_target_defaults().is_some());
+    /// assert!(x.compute_engine_disks_target_defaults().is_none());
+    /// ```
     pub fn set_compute_engine_target_defaults<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineTargetDefaults>>,
     >(
@@ -1110,6 +1563,15 @@ impl MigratingVm {
     ///
     /// Note that all the setters affecting `target_vm_defaults` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// let x = MigratingVm::new().set_compute_engine_disks_target_defaults(ComputeEngineDisksTargetDefaults::default()/* use setters */);
+    /// assert!(x.compute_engine_disks_target_defaults().is_some());
+    /// assert!(x.compute_engine_target_defaults().is_none());
+    /// ```
     pub fn set_compute_engine_disks_target_defaults<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineDisksTargetDefaults>>,
     >(
@@ -1128,6 +1590,14 @@ impl MigratingVm {
     ///
     /// Note that all the setters affecting `source_vm_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// let x = MigratingVm::new().set_source_vm_details(Some(
+    ///     google_cloud_vmmigration_v1::model::migrating_vm::SourceVmDetails::VmwareSourceVmDetails(VmwareSourceVmDetails::default().into())));
+    /// ```
     pub fn set_source_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::migrating_vm::SourceVmDetails>>,
     >(
@@ -1158,6 +1628,16 @@ impl MigratingVm {
     ///
     /// Note that all the setters affecting `source_vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// let x = MigratingVm::new().set_vmware_source_vm_details(VmwareSourceVmDetails::default()/* use setters */);
+    /// assert!(x.vmware_source_vm_details().is_some());
+    /// assert!(x.aws_source_vm_details().is_none());
+    /// assert!(x.azure_source_vm_details().is_none());
+    /// ```
     pub fn set_vmware_source_vm_details<
         T: std::convert::Into<std::boxed::Box<crate::model::VmwareSourceVmDetails>>,
     >(
@@ -1190,6 +1670,16 @@ impl MigratingVm {
     ///
     /// Note that all the setters affecting `source_vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::AwsSourceVmDetails;
+    /// let x = MigratingVm::new().set_aws_source_vm_details(AwsSourceVmDetails::default()/* use setters */);
+    /// assert!(x.aws_source_vm_details().is_some());
+    /// assert!(x.vmware_source_vm_details().is_none());
+    /// assert!(x.azure_source_vm_details().is_none());
+    /// ```
     pub fn set_aws_source_vm_details<
         T: std::convert::Into<std::boxed::Box<crate::model::AwsSourceVmDetails>>,
     >(
@@ -1222,6 +1712,16 @@ impl MigratingVm {
     ///
     /// Note that all the setters affecting `source_vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::model::AzureSourceVmDetails;
+    /// let x = MigratingVm::new().set_azure_source_vm_details(AzureSourceVmDetails::default()/* use setters */);
+    /// assert!(x.azure_source_vm_details().is_some());
+    /// assert!(x.vmware_source_vm_details().is_none());
+    /// assert!(x.aws_source_vm_details().is_none());
+    /// ```
     pub fn set_azure_source_vm_details<
         T: std::convert::Into<std::boxed::Box<crate::model::AzureSourceVmDetails>>,
     >(
@@ -1268,6 +1768,13 @@ pub mod migrating_vm {
         }
 
         /// Sets the value of [expire_time][crate::model::migrating_vm::Expiration::expire_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::migrating_vm::Expiration;
+        /// use wkt::Timestamp;
+        /// let x = Expiration::new().set_expire_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_expire_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1277,6 +1784,14 @@ pub mod migrating_vm {
         }
 
         /// Sets or clears the value of [expire_time][crate::model::migrating_vm::Expiration::expire_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::migrating_vm::Expiration;
+        /// use wkt::Timestamp;
+        /// let x = Expiration::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Expiration::new().set_or_clear_expire_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1286,12 +1801,24 @@ pub mod migrating_vm {
         }
 
         /// Sets the value of [extension_count][crate::model::migrating_vm::Expiration::extension_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::migrating_vm::Expiration;
+        /// let x = Expiration::new().set_extension_count(42);
+        /// ```
         pub fn set_extension_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.extension_count = v.into();
             self
         }
 
         /// Sets the value of [extendable][crate::model::migrating_vm::Expiration::extendable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::migrating_vm::Expiration;
+        /// let x = Expiration::new().set_extendable(true);
+        /// ```
         pub fn set_extendable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.extendable = v.into();
             self
@@ -1564,6 +2091,13 @@ impl CutoverForecast {
     }
 
     /// Sets the value of [estimated_cutover_job_duration][crate::model::CutoverForecast::estimated_cutover_job_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverForecast;
+    /// use wkt::Duration;
+    /// let x = CutoverForecast::new().set_estimated_cutover_job_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_estimated_cutover_job_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1573,6 +2107,14 @@ impl CutoverForecast {
     }
 
     /// Sets or clears the value of [estimated_cutover_job_duration][crate::model::CutoverForecast::estimated_cutover_job_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverForecast;
+    /// use wkt::Duration;
+    /// let x = CutoverForecast::new().set_or_clear_estimated_cutover_job_duration(Some(Duration::default()/* use setters */));
+    /// let x = CutoverForecast::new().set_or_clear_estimated_cutover_job_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_estimated_cutover_job_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1641,6 +2183,13 @@ impl CloneJob {
     }
 
     /// Sets the value of [create_time][crate::model::CloneJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use wkt::Timestamp;
+    /// let x = CloneJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1650,6 +2199,14 @@ impl CloneJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CloneJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use wkt::Timestamp;
+    /// let x = CloneJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1659,6 +2216,13 @@ impl CloneJob {
     }
 
     /// Sets the value of [end_time][crate::model::CloneJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use wkt::Timestamp;
+    /// let x = CloneJob::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1668,6 +2232,14 @@ impl CloneJob {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CloneJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use wkt::Timestamp;
+    /// let x = CloneJob::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneJob::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1677,12 +2249,27 @@ impl CloneJob {
     }
 
     /// Sets the value of [name][crate::model::CloneJob::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// let x = CloneJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CloneJob::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use google_cloud_vmmigration_v1::model::clone_job::State;
+    /// let x0 = CloneJob::new().set_state(State::Pending);
+    /// let x1 = CloneJob::new().set_state(State::Active);
+    /// let x2 = CloneJob::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::clone_job::State>>(
         mut self,
         v: T,
@@ -1692,6 +2279,13 @@ impl CloneJob {
     }
 
     /// Sets the value of [state_time][crate::model::CloneJob::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use wkt::Timestamp;
+    /// let x = CloneJob::new().set_state_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_state_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1701,6 +2295,14 @@ impl CloneJob {
     }
 
     /// Sets or clears the value of [state_time][crate::model::CloneJob::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use wkt::Timestamp;
+    /// let x = CloneJob::new().set_or_clear_state_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneJob::new().set_or_clear_state_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_state_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1710,6 +2312,13 @@ impl CloneJob {
     }
 
     /// Sets the value of [error][crate::model::CloneJob::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use rpc::model::Status;
+    /// let x = CloneJob::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1719,6 +2328,14 @@ impl CloneJob {
     }
 
     /// Sets or clears the value of [error][crate::model::CloneJob::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use rpc::model::Status;
+    /// let x = CloneJob::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = CloneJob::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1728,6 +2345,17 @@ impl CloneJob {
     }
 
     /// Sets the value of [steps][crate::model::CloneJob::steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use google_cloud_vmmigration_v1::model::CloneStep;
+    /// let x = CloneJob::new()
+    ///     .set_steps([
+    ///         CloneStep::default()/* use setters */,
+    ///         CloneStep::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1742,6 +2370,14 @@ impl CloneJob {
     ///
     /// Note that all the setters affecting `target_vm_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = CloneJob::new().set_target_vm_details(Some(
+    ///     google_cloud_vmmigration_v1::model::clone_job::TargetVmDetails::ComputeEngineTargetDetails(ComputeEngineTargetDetails::default().into())));
+    /// ```
     pub fn set_target_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::clone_job::TargetVmDetails>>,
     >(
@@ -1772,6 +2408,15 @@ impl CloneJob {
     ///
     /// Note that all the setters affecting `target_vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = CloneJob::new().set_compute_engine_target_details(ComputeEngineTargetDetails::default()/* use setters */);
+    /// assert!(x.compute_engine_target_details().is_some());
+    /// assert!(x.compute_engine_disks_target_details().is_none());
+    /// ```
     pub fn set_compute_engine_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineTargetDetails>>,
     >(
@@ -1804,6 +2449,15 @@ impl CloneJob {
     ///
     /// Note that all the setters affecting `target_vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDetails;
+    /// let x = CloneJob::new().set_compute_engine_disks_target_details(ComputeEngineDisksTargetDetails::default()/* use setters */);
+    /// assert!(x.compute_engine_disks_target_details().is_some());
+    /// assert!(x.compute_engine_target_details().is_none());
+    /// ```
     pub fn set_compute_engine_disks_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineDisksTargetDetails>>,
     >(
@@ -2030,6 +2684,13 @@ impl CloneStep {
     }
 
     /// Sets the value of [start_time][crate::model::CloneStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use wkt::Timestamp;
+    /// let x = CloneStep::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2039,6 +2700,14 @@ impl CloneStep {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CloneStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use wkt::Timestamp;
+    /// let x = CloneStep::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneStep::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2048,6 +2717,13 @@ impl CloneStep {
     }
 
     /// Sets the value of [end_time][crate::model::CloneStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use wkt::Timestamp;
+    /// let x = CloneStep::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2057,6 +2733,14 @@ impl CloneStep {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CloneStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use wkt::Timestamp;
+    /// let x = CloneStep::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneStep::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2069,6 +2753,14 @@ impl CloneStep {
     ///
     /// Note that all the setters affecting `step` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use google_cloud_vmmigration_v1::model::AdaptingOSStep;
+    /// let x = CloneStep::new().set_step(Some(
+    ///     google_cloud_vmmigration_v1::model::clone_step::Step::AdaptingOs(AdaptingOSStep::default().into())));
+    /// ```
     pub fn set_step<T: std::convert::Into<std::option::Option<crate::model::clone_step::Step>>>(
         mut self,
         v: T,
@@ -2095,6 +2787,16 @@ impl CloneStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use google_cloud_vmmigration_v1::model::AdaptingOSStep;
+    /// let x = CloneStep::new().set_adapting_os(AdaptingOSStep::default()/* use setters */);
+    /// assert!(x.adapting_os().is_some());
+    /// assert!(x.preparing_vm_disks().is_none());
+    /// assert!(x.instantiating_migrated_vm().is_none());
+    /// ```
     pub fn set_adapting_os<T: std::convert::Into<std::boxed::Box<crate::model::AdaptingOSStep>>>(
         mut self,
         v: T,
@@ -2121,6 +2823,16 @@ impl CloneStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use google_cloud_vmmigration_v1::model::PreparingVMDisksStep;
+    /// let x = CloneStep::new().set_preparing_vm_disks(PreparingVMDisksStep::default()/* use setters */);
+    /// assert!(x.preparing_vm_disks().is_some());
+    /// assert!(x.adapting_os().is_none());
+    /// assert!(x.instantiating_migrated_vm().is_none());
+    /// ```
     pub fn set_preparing_vm_disks<
         T: std::convert::Into<std::boxed::Box<crate::model::PreparingVMDisksStep>>,
     >(
@@ -2152,6 +2864,16 @@ impl CloneStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CloneStep;
+    /// use google_cloud_vmmigration_v1::model::InstantiatingMigratedVMStep;
+    /// let x = CloneStep::new().set_instantiating_migrated_vm(InstantiatingMigratedVMStep::default()/* use setters */);
+    /// assert!(x.instantiating_migrated_vm().is_some());
+    /// assert!(x.adapting_os().is_none());
+    /// assert!(x.preparing_vm_disks().is_none());
+    /// ```
     pub fn set_instantiating_migrated_vm<
         T: std::convert::Into<std::boxed::Box<crate::model::InstantiatingMigratedVMStep>>,
     >(
@@ -2293,6 +3015,13 @@ impl CutoverJob {
     }
 
     /// Sets the value of [create_time][crate::model::CutoverJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use wkt::Timestamp;
+    /// let x = CutoverJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2302,6 +3031,14 @@ impl CutoverJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CutoverJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use wkt::Timestamp;
+    /// let x = CutoverJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CutoverJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2311,6 +3048,13 @@ impl CutoverJob {
     }
 
     /// Sets the value of [end_time][crate::model::CutoverJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use wkt::Timestamp;
+    /// let x = CutoverJob::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2320,6 +3064,14 @@ impl CutoverJob {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CutoverJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use wkt::Timestamp;
+    /// let x = CutoverJob::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CutoverJob::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2329,12 +3081,27 @@ impl CutoverJob {
     }
 
     /// Sets the value of [name][crate::model::CutoverJob::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// let x = CutoverJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CutoverJob::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use google_cloud_vmmigration_v1::model::cutover_job::State;
+    /// let x0 = CutoverJob::new().set_state(State::Pending);
+    /// let x1 = CutoverJob::new().set_state(State::Failed);
+    /// let x2 = CutoverJob::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cutover_job::State>>(
         mut self,
         v: T,
@@ -2344,6 +3111,13 @@ impl CutoverJob {
     }
 
     /// Sets the value of [state_time][crate::model::CutoverJob::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use wkt::Timestamp;
+    /// let x = CutoverJob::new().set_state_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_state_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2353,6 +3127,14 @@ impl CutoverJob {
     }
 
     /// Sets or clears the value of [state_time][crate::model::CutoverJob::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use wkt::Timestamp;
+    /// let x = CutoverJob::new().set_or_clear_state_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CutoverJob::new().set_or_clear_state_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_state_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2362,12 +3144,25 @@ impl CutoverJob {
     }
 
     /// Sets the value of [progress_percent][crate::model::CutoverJob::progress_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// let x = CutoverJob::new().set_progress_percent(42);
+    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::CutoverJob::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use rpc::model::Status;
+    /// let x = CutoverJob::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2377,6 +3172,14 @@ impl CutoverJob {
     }
 
     /// Sets or clears the value of [error][crate::model::CutoverJob::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use rpc::model::Status;
+    /// let x = CutoverJob::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = CutoverJob::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2386,12 +3189,29 @@ impl CutoverJob {
     }
 
     /// Sets the value of [state_message][crate::model::CutoverJob::state_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// let x = CutoverJob::new().set_state_message("example");
+    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [steps][crate::model::CutoverJob::steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// let x = CutoverJob::new()
+    ///     .set_steps([
+    ///         CutoverStep::default()/* use setters */,
+    ///         CutoverStep::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2406,6 +3226,14 @@ impl CutoverJob {
     ///
     /// Note that all the setters affecting `target_vm_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = CutoverJob::new().set_target_vm_details(Some(
+    ///     google_cloud_vmmigration_v1::model::cutover_job::TargetVmDetails::ComputeEngineTargetDetails(ComputeEngineTargetDetails::default().into())));
+    /// ```
     pub fn set_target_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::cutover_job::TargetVmDetails>>,
     >(
@@ -2436,6 +3264,15 @@ impl CutoverJob {
     ///
     /// Note that all the setters affecting `target_vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = CutoverJob::new().set_compute_engine_target_details(ComputeEngineTargetDetails::default()/* use setters */);
+    /// assert!(x.compute_engine_target_details().is_some());
+    /// assert!(x.compute_engine_disks_target_details().is_none());
+    /// ```
     pub fn set_compute_engine_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineTargetDetails>>,
     >(
@@ -2468,6 +3305,15 @@ impl CutoverJob {
     ///
     /// Note that all the setters affecting `target_vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDetails;
+    /// let x = CutoverJob::new().set_compute_engine_disks_target_details(ComputeEngineDisksTargetDetails::default()/* use setters */);
+    /// assert!(x.compute_engine_disks_target_details().is_some());
+    /// assert!(x.compute_engine_target_details().is_none());
+    /// ```
     pub fn set_compute_engine_disks_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineDisksTargetDetails>>,
     >(
@@ -2694,6 +3540,13 @@ impl CutoverStep {
     }
 
     /// Sets the value of [start_time][crate::model::CutoverStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use wkt::Timestamp;
+    /// let x = CutoverStep::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2703,6 +3556,14 @@ impl CutoverStep {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CutoverStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use wkt::Timestamp;
+    /// let x = CutoverStep::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CutoverStep::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2712,6 +3573,13 @@ impl CutoverStep {
     }
 
     /// Sets the value of [end_time][crate::model::CutoverStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use wkt::Timestamp;
+    /// let x = CutoverStep::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2721,6 +3589,14 @@ impl CutoverStep {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CutoverStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use wkt::Timestamp;
+    /// let x = CutoverStep::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CutoverStep::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2733,6 +3609,14 @@ impl CutoverStep {
     ///
     /// Note that all the setters affecting `step` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = CutoverStep::new().set_step(Some(
+    ///     google_cloud_vmmigration_v1::model::cutover_step::Step::PreviousReplicationCycle(ReplicationCycle::default().into())));
+    /// ```
     pub fn set_step<
         T: std::convert::Into<std::option::Option<crate::model::cutover_step::Step>>,
     >(
@@ -2763,6 +3647,18 @@ impl CutoverStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = CutoverStep::new().set_previous_replication_cycle(ReplicationCycle::default()/* use setters */);
+    /// assert!(x.previous_replication_cycle().is_some());
+    /// assert!(x.shutting_down_source_vm().is_none());
+    /// assert!(x.final_sync().is_none());
+    /// assert!(x.preparing_vm_disks().is_none());
+    /// assert!(x.instantiating_migrated_vm().is_none());
+    /// ```
     pub fn set_previous_replication_cycle<
         T: std::convert::Into<std::boxed::Box<crate::model::ReplicationCycle>>,
     >(
@@ -2795,6 +3691,18 @@ impl CutoverStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use google_cloud_vmmigration_v1::model::ShuttingDownSourceVMStep;
+    /// let x = CutoverStep::new().set_shutting_down_source_vm(ShuttingDownSourceVMStep::default()/* use setters */);
+    /// assert!(x.shutting_down_source_vm().is_some());
+    /// assert!(x.previous_replication_cycle().is_none());
+    /// assert!(x.final_sync().is_none());
+    /// assert!(x.preparing_vm_disks().is_none());
+    /// assert!(x.instantiating_migrated_vm().is_none());
+    /// ```
     pub fn set_shutting_down_source_vm<
         T: std::convert::Into<std::boxed::Box<crate::model::ShuttingDownSourceVMStep>>,
     >(
@@ -2825,6 +3733,18 @@ impl CutoverStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = CutoverStep::new().set_final_sync(ReplicationCycle::default()/* use setters */);
+    /// assert!(x.final_sync().is_some());
+    /// assert!(x.previous_replication_cycle().is_none());
+    /// assert!(x.shutting_down_source_vm().is_none());
+    /// assert!(x.preparing_vm_disks().is_none());
+    /// assert!(x.instantiating_migrated_vm().is_none());
+    /// ```
     pub fn set_final_sync<
         T: std::convert::Into<std::boxed::Box<crate::model::ReplicationCycle>>,
     >(
@@ -2854,6 +3774,18 @@ impl CutoverStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use google_cloud_vmmigration_v1::model::PreparingVMDisksStep;
+    /// let x = CutoverStep::new().set_preparing_vm_disks(PreparingVMDisksStep::default()/* use setters */);
+    /// assert!(x.preparing_vm_disks().is_some());
+    /// assert!(x.previous_replication_cycle().is_none());
+    /// assert!(x.shutting_down_source_vm().is_none());
+    /// assert!(x.final_sync().is_none());
+    /// assert!(x.instantiating_migrated_vm().is_none());
+    /// ```
     pub fn set_preparing_vm_disks<
         T: std::convert::Into<std::boxed::Box<crate::model::PreparingVMDisksStep>>,
     >(
@@ -2885,6 +3817,18 @@ impl CutoverStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CutoverStep;
+    /// use google_cloud_vmmigration_v1::model::InstantiatingMigratedVMStep;
+    /// let x = CutoverStep::new().set_instantiating_migrated_vm(InstantiatingMigratedVMStep::default()/* use setters */);
+    /// assert!(x.instantiating_migrated_vm().is_some());
+    /// assert!(x.previous_replication_cycle().is_none());
+    /// assert!(x.shutting_down_source_vm().is_none());
+    /// assert!(x.final_sync().is_none());
+    /// assert!(x.preparing_vm_disks().is_none());
+    /// ```
     pub fn set_instantiating_migrated_vm<
         T: std::convert::Into<std::boxed::Box<crate::model::InstantiatingMigratedVMStep>>,
     >(
@@ -2981,18 +3925,37 @@ impl CreateCloneJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCloneJobRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCloneJobRequest;
+    /// let x = CreateCloneJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [clone_job_id][crate::model::CreateCloneJobRequest::clone_job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCloneJobRequest;
+    /// let x = CreateCloneJobRequest::new().set_clone_job_id("example");
+    /// ```
     pub fn set_clone_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.clone_job_id = v.into();
         self
     }
 
     /// Sets the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCloneJobRequest;
+    /// use google_cloud_vmmigration_v1::model::CloneJob;
+    /// let x = CreateCloneJobRequest::new().set_clone_job(CloneJob::default()/* use setters */);
+    /// ```
     pub fn set_clone_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloneJob>,
@@ -3002,6 +3965,14 @@ impl CreateCloneJobRequest {
     }
 
     /// Sets or clears the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCloneJobRequest;
+    /// use google_cloud_vmmigration_v1::model::CloneJob;
+    /// let x = CreateCloneJobRequest::new().set_or_clear_clone_job(Some(CloneJob::default()/* use setters */));
+    /// let x = CreateCloneJobRequest::new().set_or_clear_clone_job(None::<CloneJob>);
+    /// ```
     pub fn set_or_clear_clone_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloneJob>,
@@ -3011,6 +3982,12 @@ impl CreateCloneJobRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCloneJobRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCloneJobRequest;
+    /// let x = CreateCloneJobRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3039,6 +4016,12 @@ impl CancelCloneJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelCloneJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CancelCloneJobRequest;
+    /// let x = CancelCloneJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3105,30 +4088,60 @@ impl ListCloneJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCloneJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsRequest;
+    /// let x = ListCloneJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCloneJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsRequest;
+    /// let x = ListCloneJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCloneJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsRequest;
+    /// let x = ListCloneJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCloneJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsRequest;
+    /// let x = ListCloneJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCloneJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsRequest;
+    /// let x = ListCloneJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3164,6 +4177,17 @@ impl ListCloneJobsResponse {
     }
 
     /// Sets the value of [clone_jobs][crate::model::ListCloneJobsResponse::clone_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsResponse;
+    /// use google_cloud_vmmigration_v1::model::CloneJob;
+    /// let x = ListCloneJobsResponse::new()
+    ///     .set_clone_jobs([
+    ///         CloneJob::default()/* use setters */,
+    ///         CloneJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_clone_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3175,12 +4199,24 @@ impl ListCloneJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCloneJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsResponse;
+    /// let x = ListCloneJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCloneJobsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCloneJobsResponse;
+    /// let x = ListCloneJobsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3228,6 +4264,12 @@ impl GetCloneJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCloneJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetCloneJobRequest;
+    /// let x = GetCloneJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3275,12 +4317,25 @@ impl Source {
     }
 
     /// Sets the value of [name][crate::model::Source::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// let x = Source::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Source::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use wkt::Timestamp;
+    /// let x = Source::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3290,6 +4345,14 @@ impl Source {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Source::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use wkt::Timestamp;
+    /// let x = Source::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Source::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3299,6 +4362,13 @@ impl Source {
     }
 
     /// Sets the value of [update_time][crate::model::Source::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use wkt::Timestamp;
+    /// let x = Source::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3308,6 +4378,14 @@ impl Source {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Source::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use wkt::Timestamp;
+    /// let x = Source::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Source::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3317,6 +4395,15 @@ impl Source {
     }
 
     /// Sets the value of [labels][crate::model::Source::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// let x = Source::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3329,12 +4416,25 @@ impl Source {
     }
 
     /// Sets the value of [description][crate::model::Source::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// let x = Source::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [encryption][crate::model::Source::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = Source::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -3344,6 +4444,14 @@ impl Source {
     }
 
     /// Sets or clears the value of [encryption][crate::model::Source::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = Source::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = Source::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -3356,6 +4464,14 @@ impl Source {
     ///
     /// Note that all the setters affecting `source_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::model::VmwareSourceDetails;
+    /// let x = Source::new().set_source_details(Some(
+    ///     google_cloud_vmmigration_v1::model::source::SourceDetails::Vmware(VmwareSourceDetails::default().into())));
+    /// ```
     pub fn set_source_details<
         T: std::convert::Into<std::option::Option<crate::model::source::SourceDetails>>,
     >(
@@ -3384,6 +4500,16 @@ impl Source {
     ///
     /// Note that all the setters affecting `source_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::model::VmwareSourceDetails;
+    /// let x = Source::new().set_vmware(VmwareSourceDetails::default()/* use setters */);
+    /// assert!(x.vmware().is_some());
+    /// assert!(x.aws().is_none());
+    /// assert!(x.azure().is_none());
+    /// ```
     pub fn set_vmware<T: std::convert::Into<std::boxed::Box<crate::model::VmwareSourceDetails>>>(
         mut self,
         v: T,
@@ -3409,6 +4535,16 @@ impl Source {
     ///
     /// Note that all the setters affecting `source_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// let x = Source::new().set_aws(AwsSourceDetails::default()/* use setters */);
+    /// assert!(x.aws().is_some());
+    /// assert!(x.vmware().is_none());
+    /// assert!(x.azure().is_none());
+    /// ```
     pub fn set_aws<T: std::convert::Into<std::boxed::Box<crate::model::AwsSourceDetails>>>(
         mut self,
         v: T,
@@ -3434,6 +4570,16 @@ impl Source {
     ///
     /// Note that all the setters affecting `source_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// let x = Source::new().set_azure(AzureSourceDetails::default()/* use setters */);
+    /// assert!(x.azure().is_some());
+    /// assert!(x.vmware().is_none());
+    /// assert!(x.aws().is_none());
+    /// ```
     pub fn set_azure<T: std::convert::Into<std::boxed::Box<crate::model::AzureSourceDetails>>>(
         mut self,
         v: T,
@@ -3484,6 +4630,12 @@ impl Encryption {
     }
 
     /// Sets the value of [kms_key][crate::model::Encryption::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = Encryption::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -3526,30 +4678,60 @@ impl VmwareSourceDetails {
     }
 
     /// Sets the value of [username][crate::model::VmwareSourceDetails::username].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceDetails;
+    /// let x = VmwareSourceDetails::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::VmwareSourceDetails::password].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceDetails;
+    /// let x = VmwareSourceDetails::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [vcenter_ip][crate::model::VmwareSourceDetails::vcenter_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceDetails;
+    /// let x = VmwareSourceDetails::new().set_vcenter_ip("example");
+    /// ```
     pub fn set_vcenter_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vcenter_ip = v.into();
         self
     }
 
     /// Sets the value of [thumbprint][crate::model::VmwareSourceDetails::thumbprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceDetails;
+    /// let x = VmwareSourceDetails::new().set_thumbprint("example");
+    /// ```
     pub fn set_thumbprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.thumbprint = v.into();
         self
     }
 
     /// Sets the value of [resolved_vcenter_host][crate::model::VmwareSourceDetails::resolved_vcenter_host].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceDetails;
+    /// let x = VmwareSourceDetails::new().set_resolved_vcenter_host("example");
+    /// ```
     pub fn set_resolved_vcenter_host<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3609,12 +4791,27 @@ impl AwsSourceDetails {
     }
 
     /// Sets the value of [aws_region][crate::model::AwsSourceDetails::aws_region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// let x = AwsSourceDetails::new().set_aws_region("example");
+    /// ```
     pub fn set_aws_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aws_region = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::AwsSourceDetails::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_source_details::State;
+    /// let x0 = AwsSourceDetails::new().set_state(State::Pending);
+    /// let x1 = AwsSourceDetails::new().set_state(State::Failed);
+    /// let x2 = AwsSourceDetails::new().set_state(State::Active);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::aws_source_details::State>>(
         mut self,
         v: T,
@@ -3624,6 +4821,13 @@ impl AwsSourceDetails {
     }
 
     /// Sets the value of [error][crate::model::AwsSourceDetails::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// use rpc::model::Status;
+    /// let x = AwsSourceDetails::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3633,6 +4837,14 @@ impl AwsSourceDetails {
     }
 
     /// Sets or clears the value of [error][crate::model::AwsSourceDetails::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// use rpc::model::Status;
+    /// let x = AwsSourceDetails::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = AwsSourceDetails::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3642,6 +4854,17 @@ impl AwsSourceDetails {
     }
 
     /// Sets the value of [inventory_tag_list][crate::model::AwsSourceDetails::inventory_tag_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_source_details::Tag;
+    /// let x = AwsSourceDetails::new()
+    ///     .set_inventory_tag_list([
+    ///         Tag::default()/* use setters */,
+    ///         Tag::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_inventory_tag_list<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3653,6 +4876,12 @@ impl AwsSourceDetails {
     }
 
     /// Sets the value of [inventory_security_group_names][crate::model::AwsSourceDetails::inventory_security_group_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// let x = AwsSourceDetails::new().set_inventory_security_group_names(["a", "b", "c"]);
+    /// ```
     pub fn set_inventory_security_group_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3664,6 +4893,15 @@ impl AwsSourceDetails {
     }
 
     /// Sets the value of [migration_resources_user_tags][crate::model::AwsSourceDetails::migration_resources_user_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// let x = AwsSourceDetails::new().set_migration_resources_user_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_migration_resources_user_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3677,6 +4915,12 @@ impl AwsSourceDetails {
     }
 
     /// Sets the value of [public_ip][crate::model::AwsSourceDetails::public_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// let x = AwsSourceDetails::new().set_public_ip("example");
+    /// ```
     pub fn set_public_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_ip = v.into();
         self
@@ -3686,6 +4930,14 @@ impl AwsSourceDetails {
     ///
     /// Note that all the setters affecting `credentials_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_source_details::AccessKeyCredentials;
+    /// let x = AwsSourceDetails::new().set_credentials_type(Some(
+    ///     google_cloud_vmmigration_v1::model::aws_source_details::CredentialsType::AccessKeyCreds(AccessKeyCredentials::default().into())));
+    /// ```
     pub fn set_credentials_type<
         T: std::convert::Into<std::option::Option<crate::model::aws_source_details::CredentialsType>>,
     >(
@@ -3717,6 +4969,14 @@ impl AwsSourceDetails {
     ///
     /// Note that all the setters affecting `credentials_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_source_details::AccessKeyCredentials;
+    /// let x = AwsSourceDetails::new().set_access_key_creds(AccessKeyCredentials::default()/* use setters */);
+    /// assert!(x.access_key_creds().is_some());
+    /// ```
     pub fn set_access_key_creds<
         T: std::convert::Into<std::boxed::Box<crate::model::aws_source_details::AccessKeyCredentials>>,
     >(
@@ -3765,6 +5025,12 @@ pub mod aws_source_details {
         }
 
         /// Sets the value of [access_key_id][crate::model::aws_source_details::AccessKeyCredentials::access_key_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_details::AccessKeyCredentials;
+        /// let x = AccessKeyCredentials::new().set_access_key_id("example");
+        /// ```
         pub fn set_access_key_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3774,6 +5040,12 @@ pub mod aws_source_details {
         }
 
         /// Sets the value of [secret_access_key][crate::model::aws_source_details::AccessKeyCredentials::secret_access_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_details::AccessKeyCredentials;
+        /// let x = AccessKeyCredentials::new().set_secret_access_key("example");
+        /// ```
         pub fn set_secret_access_key<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3783,6 +5055,12 @@ pub mod aws_source_details {
         }
 
         /// Sets the value of [session_token][crate::model::aws_source_details::AccessKeyCredentials::session_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_details::AccessKeyCredentials;
+        /// let x = AccessKeyCredentials::new().set_session_token("example");
+        /// ```
         pub fn set_session_token<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3817,12 +5095,24 @@ pub mod aws_source_details {
         }
 
         /// Sets the value of [key][crate::model::aws_source_details::Tag::key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_details::Tag;
+        /// let x = Tag::new().set_key("example");
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::aws_source_details::Tag::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_details::Tag;
+        /// let x = Tag::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -4026,18 +5316,39 @@ impl AzureSourceDetails {
     }
 
     /// Sets the value of [subscription_id][crate::model::AzureSourceDetails::subscription_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// let x = AzureSourceDetails::new().set_subscription_id("example");
+    /// ```
     pub fn set_subscription_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription_id = v.into();
         self
     }
 
     /// Sets the value of [azure_location][crate::model::AzureSourceDetails::azure_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// let x = AzureSourceDetails::new().set_azure_location("example");
+    /// ```
     pub fn set_azure_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.azure_location = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::AzureSourceDetails::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_source_details::State;
+    /// let x0 = AzureSourceDetails::new().set_state(State::Pending);
+    /// let x1 = AzureSourceDetails::new().set_state(State::Failed);
+    /// let x2 = AzureSourceDetails::new().set_state(State::Active);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::azure_source_details::State>>(
         mut self,
         v: T,
@@ -4047,6 +5358,13 @@ impl AzureSourceDetails {
     }
 
     /// Sets the value of [error][crate::model::AzureSourceDetails::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// use rpc::model::Status;
+    /// let x = AzureSourceDetails::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4056,6 +5374,14 @@ impl AzureSourceDetails {
     }
 
     /// Sets or clears the value of [error][crate::model::AzureSourceDetails::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// use rpc::model::Status;
+    /// let x = AzureSourceDetails::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = AzureSourceDetails::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4065,6 +5391,15 @@ impl AzureSourceDetails {
     }
 
     /// Sets the value of [migration_resources_user_tags][crate::model::AzureSourceDetails::migration_resources_user_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// let x = AzureSourceDetails::new().set_migration_resources_user_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_migration_resources_user_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4078,6 +5413,12 @@ impl AzureSourceDetails {
     }
 
     /// Sets the value of [resource_group_id][crate::model::AzureSourceDetails::resource_group_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// let x = AzureSourceDetails::new().set_resource_group_id("example");
+    /// ```
     pub fn set_resource_group_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4090,6 +5431,14 @@ impl AzureSourceDetails {
     ///
     /// Note that all the setters affecting `credentials_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_source_details::ClientSecretCredentials;
+    /// let x = AzureSourceDetails::new().set_credentials_type(Some(
+    ///     google_cloud_vmmigration_v1::model::azure_source_details::CredentialsType::ClientSecretCreds(ClientSecretCredentials::default().into())));
+    /// ```
     pub fn set_credentials_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::azure_source_details::CredentialsType>,
@@ -4124,6 +5473,14 @@ impl AzureSourceDetails {
     ///
     /// Note that all the setters affecting `credentials_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_source_details::ClientSecretCredentials;
+    /// let x = AzureSourceDetails::new().set_client_secret_creds(ClientSecretCredentials::default()/* use setters */);
+    /// assert!(x.client_secret_creds().is_some());
+    /// ```
     pub fn set_client_secret_creds<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::azure_source_details::ClientSecretCredentials>,
@@ -4172,18 +5529,36 @@ pub mod azure_source_details {
         }
 
         /// Sets the value of [tenant_id][crate::model::azure_source_details::ClientSecretCredentials::tenant_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_source_details::ClientSecretCredentials;
+        /// let x = ClientSecretCredentials::new().set_tenant_id("example");
+        /// ```
         pub fn set_tenant_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tenant_id = v.into();
             self
         }
 
         /// Sets the value of [client_id][crate::model::azure_source_details::ClientSecretCredentials::client_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_source_details::ClientSecretCredentials;
+        /// let x = ClientSecretCredentials::new().set_client_id("example");
+        /// ```
         pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client_id = v.into();
             self
         }
 
         /// Sets the value of [client_secret][crate::model::azure_source_details::ClientSecretCredentials::client_secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_source_details::ClientSecretCredentials;
+        /// let x = ClientSecretCredentials::new().set_client_secret("example");
+        /// ```
         pub fn set_client_secret<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4421,6 +5796,13 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [create_time][crate::model::DatacenterConnector::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use wkt::Timestamp;
+    /// let x = DatacenterConnector::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4430,6 +5812,14 @@ impl DatacenterConnector {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DatacenterConnector::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use wkt::Timestamp;
+    /// let x = DatacenterConnector::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatacenterConnector::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4439,6 +5829,13 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [update_time][crate::model::DatacenterConnector::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use wkt::Timestamp;
+    /// let x = DatacenterConnector::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4448,6 +5845,14 @@ impl DatacenterConnector {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DatacenterConnector::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use wkt::Timestamp;
+    /// let x = DatacenterConnector::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatacenterConnector::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4457,36 +5862,75 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [name][crate::model::DatacenterConnector::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = DatacenterConnector::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [registration_id][crate::model::DatacenterConnector::registration_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = DatacenterConnector::new().set_registration_id("example");
+    /// ```
     pub fn set_registration_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration_id = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::DatacenterConnector::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = DatacenterConnector::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::DatacenterConnector::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = DatacenterConnector::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [bucket][crate::model::DatacenterConnector::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = DatacenterConnector::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DatacenterConnector::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use google_cloud_vmmigration_v1::model::datacenter_connector::State;
+    /// let x0 = DatacenterConnector::new().set_state(State::Pending);
+    /// let x1 = DatacenterConnector::new().set_state(State::Offline);
+    /// let x2 = DatacenterConnector::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::datacenter_connector::State>>(
         mut self,
         v: T,
@@ -4496,6 +5940,13 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [state_time][crate::model::DatacenterConnector::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use wkt::Timestamp;
+    /// let x = DatacenterConnector::new().set_state_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_state_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4505,6 +5956,14 @@ impl DatacenterConnector {
     }
 
     /// Sets or clears the value of [state_time][crate::model::DatacenterConnector::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use wkt::Timestamp;
+    /// let x = DatacenterConnector::new().set_or_clear_state_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatacenterConnector::new().set_or_clear_state_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_state_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4514,6 +5973,13 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [error][crate::model::DatacenterConnector::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use rpc::model::Status;
+    /// let x = DatacenterConnector::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4523,6 +5989,14 @@ impl DatacenterConnector {
     }
 
     /// Sets or clears the value of [error][crate::model::DatacenterConnector::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use rpc::model::Status;
+    /// let x = DatacenterConnector::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = DatacenterConnector::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4532,6 +6006,12 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [appliance_infrastructure_version][crate::model::DatacenterConnector::appliance_infrastructure_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = DatacenterConnector::new().set_appliance_infrastructure_version("example");
+    /// ```
     pub fn set_appliance_infrastructure_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4541,6 +6021,12 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [appliance_software_version][crate::model::DatacenterConnector::appliance_software_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = DatacenterConnector::new().set_appliance_software_version("example");
+    /// ```
     pub fn set_appliance_software_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4550,6 +6036,13 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [available_versions][crate::model::DatacenterConnector::available_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use google_cloud_vmmigration_v1::model::AvailableUpdates;
+    /// let x = DatacenterConnector::new().set_available_versions(AvailableUpdates::default()/* use setters */);
+    /// ```
     pub fn set_available_versions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AvailableUpdates>,
@@ -4559,6 +6052,14 @@ impl DatacenterConnector {
     }
 
     /// Sets or clears the value of [available_versions][crate::model::DatacenterConnector::available_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use google_cloud_vmmigration_v1::model::AvailableUpdates;
+    /// let x = DatacenterConnector::new().set_or_clear_available_versions(Some(AvailableUpdates::default()/* use setters */));
+    /// let x = DatacenterConnector::new().set_or_clear_available_versions(None::<AvailableUpdates>);
+    /// ```
     pub fn set_or_clear_available_versions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AvailableUpdates>,
@@ -4568,6 +6069,13 @@ impl DatacenterConnector {
     }
 
     /// Sets the value of [upgrade_status][crate::model::DatacenterConnector::upgrade_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// let x = DatacenterConnector::new().set_upgrade_status(UpgradeStatus::default()/* use setters */);
+    /// ```
     pub fn set_upgrade_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UpgradeStatus>,
@@ -4577,6 +6085,14 @@ impl DatacenterConnector {
     }
 
     /// Sets or clears the value of [upgrade_status][crate::model::DatacenterConnector::upgrade_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// let x = DatacenterConnector::new().set_or_clear_upgrade_status(Some(UpgradeStatus::default()/* use setters */));
+    /// let x = DatacenterConnector::new().set_or_clear_upgrade_status(None::<UpgradeStatus>);
+    /// ```
     pub fn set_or_clear_upgrade_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpgradeStatus>,
@@ -4776,12 +6292,27 @@ impl UpgradeStatus {
     }
 
     /// Sets the value of [version][crate::model::UpgradeStatus::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// let x = UpgradeStatus::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::UpgradeStatus::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// use google_cloud_vmmigration_v1::model::upgrade_status::State;
+    /// let x0 = UpgradeStatus::new().set_state(State::Running);
+    /// let x1 = UpgradeStatus::new().set_state(State::Failed);
+    /// let x2 = UpgradeStatus::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::upgrade_status::State>>(
         mut self,
         v: T,
@@ -4791,6 +6322,13 @@ impl UpgradeStatus {
     }
 
     /// Sets the value of [error][crate::model::UpgradeStatus::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// use rpc::model::Status;
+    /// let x = UpgradeStatus::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4800,6 +6338,14 @@ impl UpgradeStatus {
     }
 
     /// Sets or clears the value of [error][crate::model::UpgradeStatus::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// use rpc::model::Status;
+    /// let x = UpgradeStatus::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = UpgradeStatus::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4809,6 +6355,13 @@ impl UpgradeStatus {
     }
 
     /// Sets the value of [start_time][crate::model::UpgradeStatus::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeStatus::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4818,6 +6371,14 @@ impl UpgradeStatus {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpgradeStatus::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeStatus::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeStatus::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4827,6 +6388,12 @@ impl UpgradeStatus {
     }
 
     /// Sets the value of [previous_version][crate::model::UpgradeStatus::previous_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeStatus;
+    /// let x = UpgradeStatus::new().set_previous_version("example");
+    /// ```
     pub fn set_previous_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5010,6 +6577,13 @@ impl AvailableUpdates {
     }
 
     /// Sets the value of [new_deployable_appliance][crate::model::AvailableUpdates::new_deployable_appliance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AvailableUpdates;
+    /// use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = AvailableUpdates::new().set_new_deployable_appliance(ApplianceVersion::default()/* use setters */);
+    /// ```
     pub fn set_new_deployable_appliance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ApplianceVersion>,
@@ -5019,6 +6593,14 @@ impl AvailableUpdates {
     }
 
     /// Sets or clears the value of [new_deployable_appliance][crate::model::AvailableUpdates::new_deployable_appliance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AvailableUpdates;
+    /// use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = AvailableUpdates::new().set_or_clear_new_deployable_appliance(Some(ApplianceVersion::default()/* use setters */));
+    /// let x = AvailableUpdates::new().set_or_clear_new_deployable_appliance(None::<ApplianceVersion>);
+    /// ```
     pub fn set_or_clear_new_deployable_appliance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApplianceVersion>,
@@ -5028,6 +6610,13 @@ impl AvailableUpdates {
     }
 
     /// Sets the value of [in_place_update][crate::model::AvailableUpdates::in_place_update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AvailableUpdates;
+    /// use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = AvailableUpdates::new().set_in_place_update(ApplianceVersion::default()/* use setters */);
+    /// ```
     pub fn set_in_place_update<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ApplianceVersion>,
@@ -5037,6 +6626,14 @@ impl AvailableUpdates {
     }
 
     /// Sets or clears the value of [in_place_update][crate::model::AvailableUpdates::in_place_update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AvailableUpdates;
+    /// use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = AvailableUpdates::new().set_or_clear_in_place_update(Some(ApplianceVersion::default()/* use setters */));
+    /// let x = AvailableUpdates::new().set_or_clear_in_place_update(None::<ApplianceVersion>);
+    /// ```
     pub fn set_or_clear_in_place_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApplianceVersion>,
@@ -5077,24 +6674,48 @@ impl ApplianceVersion {
     }
 
     /// Sets the value of [version][crate::model::ApplianceVersion::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = ApplianceVersion::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::ApplianceVersion::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = ApplianceVersion::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [critical][crate::model::ApplianceVersion::critical].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = ApplianceVersion::new().set_critical(true);
+    /// ```
     pub fn set_critical<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.critical = v.into();
         self
     }
 
     /// Sets the value of [release_notes_uri][crate::model::ApplianceVersion::release_notes_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ApplianceVersion;
+    /// let x = ApplianceVersion::new().set_release_notes_uri("example");
+    /// ```
     pub fn set_release_notes_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5145,30 +6766,60 @@ impl ListSourcesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSourcesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListSourcesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5204,6 +6855,17 @@ impl ListSourcesResponse {
     }
 
     /// Sets the value of [sources][crate::model::ListSourcesResponse::sources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesResponse;
+    /// use google_cloud_vmmigration_v1::model::Source;
+    /// let x = ListSourcesResponse::new()
+    ///     .set_sources([
+    ///         Source::default()/* use setters */,
+    ///         Source::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5215,12 +6877,24 @@ impl ListSourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesResponse;
+    /// let x = ListSourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListSourcesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListSourcesResponse;
+    /// let x = ListSourcesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5268,6 +6942,12 @@ impl GetSourceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetSourceRequest;
+    /// let x = GetSourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5317,18 +6997,37 @@ impl CreateSourceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateSourceRequest;
+    /// let x = CreateSourceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [source_id][crate::model::CreateSourceRequest::source_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateSourceRequest;
+    /// let x = CreateSourceRequest::new().set_source_id("example");
+    /// ```
     pub fn set_source_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_id = v.into();
         self
     }
 
     /// Sets the value of [source][crate::model::CreateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateSourceRequest;
+    /// use google_cloud_vmmigration_v1::model::Source;
+    /// let x = CreateSourceRequest::new().set_source(Source::default()/* use setters */);
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -5338,6 +7037,14 @@ impl CreateSourceRequest {
     }
 
     /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateSourceRequest;
+    /// use google_cloud_vmmigration_v1::model::Source;
+    /// let x = CreateSourceRequest::new().set_or_clear_source(Some(Source::default()/* use setters */));
+    /// let x = CreateSourceRequest::new().set_or_clear_source(None::<Source>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -5347,6 +7054,12 @@ impl CreateSourceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateSourceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateSourceRequest;
+    /// let x = CreateSourceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5397,6 +7110,13 @@ impl UpdateSourceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSourceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5406,6 +7126,14 @@ impl UpdateSourceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSourceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSourceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5415,6 +7143,13 @@ impl UpdateSourceRequest {
     }
 
     /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateSourceRequest;
+    /// use google_cloud_vmmigration_v1::model::Source;
+    /// let x = UpdateSourceRequest::new().set_source(Source::default()/* use setters */);
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -5424,6 +7159,14 @@ impl UpdateSourceRequest {
     }
 
     /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateSourceRequest;
+    /// use google_cloud_vmmigration_v1::model::Source;
+    /// let x = UpdateSourceRequest::new().set_or_clear_source(Some(Source::default()/* use setters */));
+    /// let x = UpdateSourceRequest::new().set_or_clear_source(None::<Source>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -5433,6 +7176,12 @@ impl UpdateSourceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateSourceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateSourceRequest;
+    /// let x = UpdateSourceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5476,12 +7225,24 @@ impl DeleteSourceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteSourceRequest;
+    /// let x = DeleteSourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteSourceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteSourceRequest;
+    /// let x = DeleteSourceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5517,12 +7278,24 @@ impl FetchInventoryRequest {
     }
 
     /// Sets the value of [source][crate::model::FetchInventoryRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryRequest;
+    /// let x = FetchInventoryRequest::new().set_source("example");
+    /// ```
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
         self
     }
 
     /// Sets the value of [force_refresh][crate::model::FetchInventoryRequest::force_refresh].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryRequest;
+    /// let x = FetchInventoryRequest::new().set_force_refresh(true);
+    /// ```
     pub fn set_force_refresh<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force_refresh = v.into();
         self
@@ -5590,18 +7363,36 @@ impl VmwareVmDetails {
     }
 
     /// Sets the value of [vm_id][crate::model::VmwareVmDetails::vm_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_vm_id("example");
+    /// ```
     pub fn set_vm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_id = v.into();
         self
     }
 
     /// Sets the value of [datacenter_id][crate::model::VmwareVmDetails::datacenter_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_datacenter_id("example");
+    /// ```
     pub fn set_datacenter_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.datacenter_id = v.into();
         self
     }
 
     /// Sets the value of [datacenter_description][crate::model::VmwareVmDetails::datacenter_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_datacenter_description("example");
+    /// ```
     pub fn set_datacenter_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5611,18 +7402,39 @@ impl VmwareVmDetails {
     }
 
     /// Sets the value of [uuid][crate::model::VmwareVmDetails::uuid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_uuid("example");
+    /// ```
     pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uuid = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::VmwareVmDetails::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [power_state][crate::model::VmwareVmDetails::power_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// use google_cloud_vmmigration_v1::model::vmware_vm_details::PowerState;
+    /// let x0 = VmwareVmDetails::new().set_power_state(PowerState::On);
+    /// let x1 = VmwareVmDetails::new().set_power_state(PowerState::Off);
+    /// let x2 = VmwareVmDetails::new().set_power_state(PowerState::Suspended);
+    /// ```
     pub fn set_power_state<T: std::convert::Into<crate::model::vmware_vm_details::PowerState>>(
         mut self,
         v: T,
@@ -5632,30 +7444,60 @@ impl VmwareVmDetails {
     }
 
     /// Sets the value of [cpu_count][crate::model::VmwareVmDetails::cpu_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_cpu_count(42);
+    /// ```
     pub fn set_cpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_mb][crate::model::VmwareVmDetails::memory_mb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_memory_mb(42);
+    /// ```
     pub fn set_memory_mb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_mb = v.into();
         self
     }
 
     /// Sets the value of [disk_count][crate::model::VmwareVmDetails::disk_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_disk_count(42);
+    /// ```
     pub fn set_disk_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_count = v.into();
         self
     }
 
     /// Sets the value of [committed_storage_mb][crate::model::VmwareVmDetails::committed_storage_mb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_committed_storage_mb(42);
+    /// ```
     pub fn set_committed_storage_mb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.committed_storage_mb = v.into();
         self
     }
 
     /// Sets the value of [guest_description][crate::model::VmwareVmDetails::guest_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmDetails::new().set_guest_description("example");
+    /// ```
     pub fn set_guest_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5665,6 +7507,14 @@ impl VmwareVmDetails {
     }
 
     /// Sets the value of [boot_option][crate::model::VmwareVmDetails::boot_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// use google_cloud_vmmigration_v1::model::vmware_vm_details::BootOption;
+    /// let x0 = VmwareVmDetails::new().set_boot_option(BootOption::Efi);
+    /// let x1 = VmwareVmDetails::new().set_boot_option(BootOption::Bios);
+    /// ```
     pub fn set_boot_option<T: std::convert::Into<crate::model::vmware_vm_details::BootOption>>(
         mut self,
         v: T,
@@ -5674,6 +7524,14 @@ impl VmwareVmDetails {
     }
 
     /// Sets the value of [architecture][crate::model::VmwareVmDetails::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// use google_cloud_vmmigration_v1::model::vmware_vm_details::VmArchitecture;
+    /// let x0 = VmwareVmDetails::new().set_architecture(VmArchitecture::X86Family);
+    /// let x1 = VmwareVmDetails::new().set_architecture(VmArchitecture::Arm64);
+    /// ```
     pub fn set_architecture<
         T: std::convert::Into<crate::model::vmware_vm_details::VmArchitecture>,
     >(
@@ -6171,24 +8029,48 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [vm_id][crate::model::AwsVmDetails::vm_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_vm_id("example");
+    /// ```
     pub fn set_vm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::AwsVmDetails::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [source_id][crate::model::AwsVmDetails::source_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_source_id("example");
+    /// ```
     pub fn set_source_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_id = v.into();
         self
     }
 
     /// Sets the value of [source_description][crate::model::AwsVmDetails::source_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_source_description("example");
+    /// ```
     pub fn set_source_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6198,6 +8080,15 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [power_state][crate::model::AwsVmDetails::power_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_vm_details::PowerState;
+    /// let x0 = AwsVmDetails::new().set_power_state(PowerState::On);
+    /// let x1 = AwsVmDetails::new().set_power_state(PowerState::Off);
+    /// let x2 = AwsVmDetails::new().set_power_state(PowerState::Suspended);
+    /// ```
     pub fn set_power_state<T: std::convert::Into<crate::model::aws_vm_details::PowerState>>(
         mut self,
         v: T,
@@ -6207,36 +8098,74 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [cpu_count][crate::model::AwsVmDetails::cpu_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_cpu_count(42);
+    /// ```
     pub fn set_cpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_mb][crate::model::AwsVmDetails::memory_mb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_memory_mb(42);
+    /// ```
     pub fn set_memory_mb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_mb = v.into();
         self
     }
 
     /// Sets the value of [disk_count][crate::model::AwsVmDetails::disk_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_disk_count(42);
+    /// ```
     pub fn set_disk_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_count = v.into();
         self
     }
 
     /// Sets the value of [committed_storage_mb][crate::model::AwsVmDetails::committed_storage_mb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_committed_storage_mb(42);
+    /// ```
     pub fn set_committed_storage_mb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.committed_storage_mb = v.into();
         self
     }
 
     /// Sets the value of [os_description][crate::model::AwsVmDetails::os_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_os_description("example");
+    /// ```
     pub fn set_os_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.os_description = v.into();
         self
     }
 
     /// Sets the value of [boot_option][crate::model::AwsVmDetails::boot_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_vm_details::BootOption;
+    /// let x0 = AwsVmDetails::new().set_boot_option(BootOption::Efi);
+    /// let x1 = AwsVmDetails::new().set_boot_option(BootOption::Bios);
+    /// ```
     pub fn set_boot_option<T: std::convert::Into<crate::model::aws_vm_details::BootOption>>(
         mut self,
         v: T,
@@ -6246,18 +8175,41 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [instance_type][crate::model::AwsVmDetails::instance_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_instance_type("example");
+    /// ```
     pub fn set_instance_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_type = v.into();
         self
     }
 
     /// Sets the value of [vpc_id][crate::model::AwsVmDetails::vpc_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_vpc_id("example");
+    /// ```
     pub fn set_vpc_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vpc_id = v.into();
         self
     }
 
     /// Sets the value of [security_groups][crate::model::AwsVmDetails::security_groups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// use google_cloud_vmmigration_v1::model::AwsSecurityGroup;
+    /// let x = AwsVmDetails::new()
+    ///     .set_security_groups([
+    ///         AwsSecurityGroup::default()/* use setters */,
+    ///         AwsSecurityGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_security_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6269,6 +8221,15 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [tags][crate::model::AwsVmDetails::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6281,12 +8242,26 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [zone][crate::model::AwsVmDetails::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [virtualization_type][crate::model::AwsVmDetails::virtualization_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_vm_details::VmVirtualizationType;
+    /// let x0 = AwsVmDetails::new().set_virtualization_type(VmVirtualizationType::Hvm);
+    /// let x1 = AwsVmDetails::new().set_virtualization_type(VmVirtualizationType::Paravirtual);
+    /// ```
     pub fn set_virtualization_type<
         T: std::convert::Into<crate::model::aws_vm_details::VmVirtualizationType>,
     >(
@@ -6298,6 +8273,15 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [architecture][crate::model::AwsVmDetails::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_vm_details::VmArchitecture;
+    /// let x0 = AwsVmDetails::new().set_architecture(VmArchitecture::I386);
+    /// let x1 = AwsVmDetails::new().set_architecture(VmArchitecture::X8664);
+    /// let x2 = AwsVmDetails::new().set_architecture(VmArchitecture::Arm64);
+    /// ```
     pub fn set_architecture<T: std::convert::Into<crate::model::aws_vm_details::VmArchitecture>>(
         mut self,
         v: T,
@@ -6307,6 +8291,12 @@ impl AwsVmDetails {
     }
 
     /// Sets the value of [vcpu_count][crate::model::AwsVmDetails::vcpu_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmDetails::new().set_vcpu_count(42);
+    /// ```
     pub fn set_vcpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vcpu_count = v.into();
         self
@@ -6903,12 +8893,24 @@ impl AwsSecurityGroup {
     }
 
     /// Sets the value of [id][crate::model::AwsSecurityGroup::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSecurityGroup;
+    /// let x = AwsSecurityGroup::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::AwsSecurityGroup::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSecurityGroup;
+    /// let x = AwsSecurityGroup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6976,12 +8978,27 @@ impl AzureVmDetails {
     }
 
     /// Sets the value of [vm_id][crate::model::AzureVmDetails::vm_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_vm_id("example");
+    /// ```
     pub fn set_vm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_id = v.into();
         self
     }
 
     /// Sets the value of [power_state][crate::model::AzureVmDetails::power_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::PowerState;
+    /// let x0 = AzureVmDetails::new().set_power_state(PowerState::Starting);
+    /// let x1 = AzureVmDetails::new().set_power_state(PowerState::Running);
+    /// let x2 = AzureVmDetails::new().set_power_state(PowerState::Stopping);
+    /// ```
     pub fn set_power_state<T: std::convert::Into<crate::model::azure_vm_details::PowerState>>(
         mut self,
         v: T,
@@ -6991,36 +9008,73 @@ impl AzureVmDetails {
     }
 
     /// Sets the value of [vm_size][crate::model::AzureVmDetails::vm_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_vm_size("example");
+    /// ```
     pub fn set_vm_size<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_size = v.into();
         self
     }
 
     /// Sets the value of [cpu_count][crate::model::AzureVmDetails::cpu_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_cpu_count(42);
+    /// ```
     pub fn set_cpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_mb][crate::model::AzureVmDetails::memory_mb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_memory_mb(42);
+    /// ```
     pub fn set_memory_mb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_mb = v.into();
         self
     }
 
     /// Sets the value of [disk_count][crate::model::AzureVmDetails::disk_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_disk_count(42);
+    /// ```
     pub fn set_disk_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_count = v.into();
         self
     }
 
     /// Sets the value of [committed_storage_mb][crate::model::AzureVmDetails::committed_storage_mb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_committed_storage_mb(42);
+    /// ```
     pub fn set_committed_storage_mb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.committed_storage_mb = v.into();
         self
     }
 
     /// Sets the value of [os_disk][crate::model::AzureVmDetails::os_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::OSDisk;
+    /// let x = AzureVmDetails::new().set_os_disk(OSDisk::default()/* use setters */);
+    /// ```
     pub fn set_os_disk<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::azure_vm_details::OSDisk>,
@@ -7030,6 +9084,14 @@ impl AzureVmDetails {
     }
 
     /// Sets or clears the value of [os_disk][crate::model::AzureVmDetails::os_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::OSDisk;
+    /// let x = AzureVmDetails::new().set_or_clear_os_disk(Some(OSDisk::default()/* use setters */));
+    /// let x = AzureVmDetails::new().set_or_clear_os_disk(None::<OSDisk>);
+    /// ```
     pub fn set_or_clear_os_disk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::azure_vm_details::OSDisk>,
@@ -7039,6 +9101,17 @@ impl AzureVmDetails {
     }
 
     /// Sets the value of [disks][crate::model::AzureVmDetails::disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::Disk;
+    /// let x = AzureVmDetails::new()
+    ///     .set_disks([
+    ///         Disk::default()/* use setters */,
+    ///         Disk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7050,6 +9123,13 @@ impl AzureVmDetails {
     }
 
     /// Sets the value of [os_description][crate::model::AzureVmDetails::os_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::OSDescription;
+    /// let x = AzureVmDetails::new().set_os_description(OSDescription::default()/* use setters */);
+    /// ```
     pub fn set_os_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::azure_vm_details::OSDescription>,
@@ -7059,6 +9139,14 @@ impl AzureVmDetails {
     }
 
     /// Sets or clears the value of [os_description][crate::model::AzureVmDetails::os_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::OSDescription;
+    /// let x = AzureVmDetails::new().set_or_clear_os_description(Some(OSDescription::default()/* use setters */));
+    /// let x = AzureVmDetails::new().set_or_clear_os_description(None::<OSDescription>);
+    /// ```
     pub fn set_or_clear_os_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::azure_vm_details::OSDescription>,
@@ -7068,6 +9156,14 @@ impl AzureVmDetails {
     }
 
     /// Sets the value of [boot_option][crate::model::AzureVmDetails::boot_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::BootOption;
+    /// let x0 = AzureVmDetails::new().set_boot_option(BootOption::Efi);
+    /// let x1 = AzureVmDetails::new().set_boot_option(BootOption::Bios);
+    /// ```
     pub fn set_boot_option<T: std::convert::Into<crate::model::azure_vm_details::BootOption>>(
         mut self,
         v: T,
@@ -7077,6 +9173,15 @@ impl AzureVmDetails {
     }
 
     /// Sets the value of [tags][crate::model::AzureVmDetails::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7089,12 +9194,26 @@ impl AzureVmDetails {
     }
 
     /// Sets the value of [computer_name][crate::model::AzureVmDetails::computer_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmDetails::new().set_computer_name("example");
+    /// ```
     pub fn set_computer_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.computer_name = v.into();
         self
     }
 
     /// Sets the value of [architecture][crate::model::AzureVmDetails::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_vm_details::VmArchitecture;
+    /// let x0 = AzureVmDetails::new().set_architecture(VmArchitecture::X86Family);
+    /// let x1 = AzureVmDetails::new().set_architecture(VmArchitecture::Arm64);
+    /// ```
     pub fn set_architecture<
         T: std::convert::Into<crate::model::azure_vm_details::VmArchitecture>,
     >(
@@ -7139,18 +9258,36 @@ pub mod azure_vm_details {
         }
 
         /// Sets the value of [r#type][crate::model::azure_vm_details::OSDisk::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::OSDisk;
+        /// let x = OSDisk::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::azure_vm_details::OSDisk::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::OSDisk;
+        /// let x = OSDisk::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [size_gb][crate::model::azure_vm_details::OSDisk::size_gb].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::OSDisk;
+        /// let x = OSDisk::new().set_size_gb(42);
+        /// ```
         pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.size_gb = v.into();
             self
@@ -7185,18 +9322,36 @@ pub mod azure_vm_details {
         }
 
         /// Sets the value of [name][crate::model::azure_vm_details::Disk::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::Disk;
+        /// let x = Disk::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [size_gb][crate::model::azure_vm_details::Disk::size_gb].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::Disk;
+        /// let x = Disk::new().set_size_gb(42);
+        /// ```
         pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.size_gb = v.into();
             self
         }
 
         /// Sets the value of [lun][crate::model::azure_vm_details::Disk::lun].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::Disk;
+        /// let x = Disk::new().set_lun(42);
+        /// ```
         pub fn set_lun<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.lun = v.into();
             self
@@ -7235,24 +9390,48 @@ pub mod azure_vm_details {
         }
 
         /// Sets the value of [r#type][crate::model::azure_vm_details::OSDescription::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::OSDescription;
+        /// let x = OSDescription::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [publisher][crate::model::azure_vm_details::OSDescription::publisher].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::OSDescription;
+        /// let x = OSDescription::new().set_publisher("example");
+        /// ```
         pub fn set_publisher<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.publisher = v.into();
             self
         }
 
         /// Sets the value of [offer][crate::model::azure_vm_details::OSDescription::offer].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::OSDescription;
+        /// let x = OSDescription::new().set_offer("example");
+        /// ```
         pub fn set_offer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.offer = v.into();
             self
         }
 
         /// Sets the value of [plan][crate::model::azure_vm_details::OSDescription::plan].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_vm_details::OSDescription;
+        /// let x = OSDescription::new().set_plan("example");
+        /// ```
         pub fn set_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.plan = v.into();
             self
@@ -7713,6 +9892,17 @@ impl VmwareVmsDetails {
     }
 
     /// Sets the value of [details][crate::model::VmwareVmsDetails::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareVmsDetails;
+    /// use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmwareVmsDetails::new()
+    ///     .set_details([
+    ///         VmwareVmDetails::default()/* use setters */,
+    ///         VmwareVmDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7746,6 +9936,17 @@ impl AwsVmsDetails {
     }
 
     /// Sets the value of [details][crate::model::AwsVmsDetails::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsVmsDetails;
+    /// use google_cloud_vmmigration_v1::model::AwsVmDetails;
+    /// let x = AwsVmsDetails::new()
+    ///     .set_details([
+    ///         AwsVmDetails::default()/* use setters */,
+    ///         AwsVmDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7779,6 +9980,17 @@ impl AzureVmsDetails {
     }
 
     /// Sets the value of [details][crate::model::AzureVmsDetails::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureVmsDetails;
+    /// use google_cloud_vmmigration_v1::model::AzureVmDetails;
+    /// let x = AzureVmsDetails::new()
+    ///     .set_details([
+    ///         AzureVmDetails::default()/* use setters */,
+    ///         AzureVmDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7818,6 +10030,13 @@ impl FetchInventoryResponse {
     }
 
     /// Sets the value of [update_time][crate::model::FetchInventoryResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryResponse;
+    /// use wkt::Timestamp;
+    /// let x = FetchInventoryResponse::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7827,6 +10046,14 @@ impl FetchInventoryResponse {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FetchInventoryResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryResponse;
+    /// use wkt::Timestamp;
+    /// let x = FetchInventoryResponse::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FetchInventoryResponse::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7839,6 +10066,14 @@ impl FetchInventoryResponse {
     ///
     /// Note that all the setters affecting `source_vms` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryResponse;
+    /// use google_cloud_vmmigration_v1::model::VmwareVmsDetails;
+    /// let x = FetchInventoryResponse::new().set_source_vms(Some(
+    ///     google_cloud_vmmigration_v1::model::fetch_inventory_response::SourceVms::VmwareVms(VmwareVmsDetails::default().into())));
+    /// ```
     pub fn set_source_vms<
         T: std::convert::Into<std::option::Option<crate::model::fetch_inventory_response::SourceVms>>,
     >(
@@ -7869,6 +10104,16 @@ impl FetchInventoryResponse {
     ///
     /// Note that all the setters affecting `source_vms` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryResponse;
+    /// use google_cloud_vmmigration_v1::model::VmwareVmsDetails;
+    /// let x = FetchInventoryResponse::new().set_vmware_vms(VmwareVmsDetails::default()/* use setters */);
+    /// assert!(x.vmware_vms().is_some());
+    /// assert!(x.aws_vms().is_none());
+    /// assert!(x.azure_vms().is_none());
+    /// ```
     pub fn set_vmware_vms<
         T: std::convert::Into<std::boxed::Box<crate::model::VmwareVmsDetails>>,
     >(
@@ -7899,6 +10144,16 @@ impl FetchInventoryResponse {
     ///
     /// Note that all the setters affecting `source_vms` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryResponse;
+    /// use google_cloud_vmmigration_v1::model::AwsVmsDetails;
+    /// let x = FetchInventoryResponse::new().set_aws_vms(AwsVmsDetails::default()/* use setters */);
+    /// assert!(x.aws_vms().is_some());
+    /// assert!(x.vmware_vms().is_none());
+    /// assert!(x.azure_vms().is_none());
+    /// ```
     pub fn set_aws_vms<T: std::convert::Into<std::boxed::Box<crate::model::AwsVmsDetails>>>(
         mut self,
         v: T,
@@ -7929,6 +10184,16 @@ impl FetchInventoryResponse {
     ///
     /// Note that all the setters affecting `source_vms` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchInventoryResponse;
+    /// use google_cloud_vmmigration_v1::model::AzureVmsDetails;
+    /// let x = FetchInventoryResponse::new().set_azure_vms(AzureVmsDetails::default()/* use setters */);
+    /// assert!(x.azure_vms().is_some());
+    /// assert!(x.vmware_vms().is_none());
+    /// assert!(x.aws_vms().is_none());
+    /// ```
     pub fn set_azure_vms<T: std::convert::Into<std::boxed::Box<crate::model::AzureVmsDetails>>>(
         mut self,
         v: T,
@@ -7999,12 +10264,26 @@ impl FetchStorageInventoryRequest {
     }
 
     /// Sets the value of [source][crate::model::FetchStorageInventoryRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryRequest;
+    /// let x = FetchStorageInventoryRequest::new().set_source("example");
+    /// ```
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::FetchStorageInventoryRequest::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryRequest;
+    /// use google_cloud_vmmigration_v1::model::fetch_storage_inventory_request::StorageType;
+    /// let x0 = FetchStorageInventoryRequest::new().set_type(StorageType::Disks);
+    /// let x1 = FetchStorageInventoryRequest::new().set_type(StorageType::Snapshots);
+    /// ```
     pub fn set_type<
         T: std::convert::Into<crate::model::fetch_storage_inventory_request::StorageType>,
     >(
@@ -8016,18 +10295,36 @@ impl FetchStorageInventoryRequest {
     }
 
     /// Sets the value of [force_refresh][crate::model::FetchStorageInventoryRequest::force_refresh].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryRequest;
+    /// let x = FetchStorageInventoryRequest::new().set_force_refresh(true);
+    /// ```
     pub fn set_force_refresh<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force_refresh = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchStorageInventoryRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryRequest;
+    /// let x = FetchStorageInventoryRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchStorageInventoryRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryRequest;
+    /// let x = FetchStorageInventoryRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8205,6 +10502,17 @@ impl FetchStorageInventoryResponse {
     }
 
     /// Sets the value of [resources][crate::model::FetchStorageInventoryResponse::resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryResponse;
+    /// use google_cloud_vmmigration_v1::model::SourceStorageResource;
+    /// let x = FetchStorageInventoryResponse::new()
+    ///     .set_resources([
+    ///         SourceStorageResource::default()/* use setters */,
+    ///         SourceStorageResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8216,6 +10524,13 @@ impl FetchStorageInventoryResponse {
     }
 
     /// Sets the value of [update_time][crate::model::FetchStorageInventoryResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryResponse;
+    /// use wkt::Timestamp;
+    /// let x = FetchStorageInventoryResponse::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8225,6 +10540,14 @@ impl FetchStorageInventoryResponse {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FetchStorageInventoryResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryResponse;
+    /// use wkt::Timestamp;
+    /// let x = FetchStorageInventoryResponse::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FetchStorageInventoryResponse::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8234,6 +10557,12 @@ impl FetchStorageInventoryResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchStorageInventoryResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FetchStorageInventoryResponse;
+    /// let x = FetchStorageInventoryResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8280,6 +10609,14 @@ impl SourceStorageResource {
     ///
     /// Note that all the setters affecting `storage_resource` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SourceStorageResource;
+    /// use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// let x = SourceStorageResource::new().set_storage_resource(Some(
+    ///     google_cloud_vmmigration_v1::model::source_storage_resource::StorageResource::AwsDiskDetails(AwsSourceDiskDetails::default().into())));
+    /// ```
     pub fn set_storage_resource<
         T: std::convert::Into<
                 std::option::Option<crate::model::source_storage_resource::StorageResource>,
@@ -8312,6 +10649,14 @@ impl SourceStorageResource {
     ///
     /// Note that all the setters affecting `storage_resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SourceStorageResource;
+    /// use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// let x = SourceStorageResource::new().set_aws_disk_details(AwsSourceDiskDetails::default()/* use setters */);
+    /// assert!(x.aws_disk_details().is_some());
+    /// ```
     pub fn set_aws_disk_details<
         T: std::convert::Into<std::boxed::Box<crate::model::AwsSourceDiskDetails>>,
     >(
@@ -8397,18 +10742,39 @@ impl UtilizationReport {
     }
 
     /// Sets the value of [name][crate::model::UtilizationReport::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// let x = UtilizationReport::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::UtilizationReport::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// let x = UtilizationReport::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::UtilizationReport::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use google_cloud_vmmigration_v1::model::utilization_report::State;
+    /// let x0 = UtilizationReport::new().set_state(State::Creating);
+    /// let x1 = UtilizationReport::new().set_state(State::Succeeded);
+    /// let x2 = UtilizationReport::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::utilization_report::State>>(
         mut self,
         v: T,
@@ -8418,6 +10784,13 @@ impl UtilizationReport {
     }
 
     /// Sets the value of [state_time][crate::model::UtilizationReport::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use wkt::Timestamp;
+    /// let x = UtilizationReport::new().set_state_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_state_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8427,6 +10800,14 @@ impl UtilizationReport {
     }
 
     /// Sets or clears the value of [state_time][crate::model::UtilizationReport::state_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use wkt::Timestamp;
+    /// let x = UtilizationReport::new().set_or_clear_state_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UtilizationReport::new().set_or_clear_state_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_state_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8436,6 +10817,13 @@ impl UtilizationReport {
     }
 
     /// Sets the value of [error][crate::model::UtilizationReport::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use rpc::model::Status;
+    /// let x = UtilizationReport::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -8445,6 +10833,14 @@ impl UtilizationReport {
     }
 
     /// Sets or clears the value of [error][crate::model::UtilizationReport::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use rpc::model::Status;
+    /// let x = UtilizationReport::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = UtilizationReport::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -8454,6 +10850,13 @@ impl UtilizationReport {
     }
 
     /// Sets the value of [create_time][crate::model::UtilizationReport::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use wkt::Timestamp;
+    /// let x = UtilizationReport::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8463,6 +10866,14 @@ impl UtilizationReport {
     }
 
     /// Sets or clears the value of [create_time][crate::model::UtilizationReport::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use wkt::Timestamp;
+    /// let x = UtilizationReport::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UtilizationReport::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8472,6 +10883,15 @@ impl UtilizationReport {
     }
 
     /// Sets the value of [time_frame][crate::model::UtilizationReport::time_frame].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use google_cloud_vmmigration_v1::model::utilization_report::TimeFrame;
+    /// let x0 = UtilizationReport::new().set_time_frame(TimeFrame::Week);
+    /// let x1 = UtilizationReport::new().set_time_frame(TimeFrame::Month);
+    /// let x2 = UtilizationReport::new().set_time_frame(TimeFrame::Year);
+    /// ```
     pub fn set_time_frame<T: std::convert::Into<crate::model::utilization_report::TimeFrame>>(
         mut self,
         v: T,
@@ -8481,6 +10901,13 @@ impl UtilizationReport {
     }
 
     /// Sets the value of [frame_end_time][crate::model::UtilizationReport::frame_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use wkt::Timestamp;
+    /// let x = UtilizationReport::new().set_frame_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_frame_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8490,6 +10917,14 @@ impl UtilizationReport {
     }
 
     /// Sets or clears the value of [frame_end_time][crate::model::UtilizationReport::frame_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use wkt::Timestamp;
+    /// let x = UtilizationReport::new().set_or_clear_frame_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UtilizationReport::new().set_or_clear_frame_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_frame_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8499,12 +10934,29 @@ impl UtilizationReport {
     }
 
     /// Sets the value of [vm_count][crate::model::UtilizationReport::vm_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// let x = UtilizationReport::new().set_vm_count(42);
+    /// ```
     pub fn set_vm_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vm_count = v.into();
         self
     }
 
     /// Sets the value of [vms][crate::model::UtilizationReport::vms].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use google_cloud_vmmigration_v1::model::VmUtilizationInfo;
+    /// let x = UtilizationReport::new()
+    ///     .set_vms([
+    ///         VmUtilizationInfo::default()/* use setters */,
+    ///         VmUtilizationInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8827,12 +11279,25 @@ impl VmUtilizationInfo {
     }
 
     /// Sets the value of [vm_id][crate::model::VmUtilizationInfo::vm_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationInfo;
+    /// let x = VmUtilizationInfo::new().set_vm_id("example");
+    /// ```
     pub fn set_vm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_id = v.into();
         self
     }
 
     /// Sets the value of [utilization][crate::model::VmUtilizationInfo::utilization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationInfo;
+    /// use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationInfo::new().set_utilization(VmUtilizationMetrics::default()/* use setters */);
+    /// ```
     pub fn set_utilization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VmUtilizationMetrics>,
@@ -8842,6 +11307,14 @@ impl VmUtilizationInfo {
     }
 
     /// Sets or clears the value of [utilization][crate::model::VmUtilizationInfo::utilization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationInfo;
+    /// use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationInfo::new().set_or_clear_utilization(Some(VmUtilizationMetrics::default()/* use setters */));
+    /// let x = VmUtilizationInfo::new().set_or_clear_utilization(None::<VmUtilizationMetrics>);
+    /// ```
     pub fn set_or_clear_utilization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VmUtilizationMetrics>,
@@ -8854,6 +11327,14 @@ impl VmUtilizationInfo {
     ///
     /// Note that all the setters affecting `vm_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationInfo;
+    /// use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmUtilizationInfo::new().set_vm_details(Some(
+    ///     google_cloud_vmmigration_v1::model::vm_utilization_info::VmDetails::VmwareVmDetails(VmwareVmDetails::default().into())));
+    /// ```
     pub fn set_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::vm_utilization_info::VmDetails>>,
     >(
@@ -8884,6 +11365,14 @@ impl VmUtilizationInfo {
     ///
     /// Note that all the setters affecting `vm_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationInfo;
+    /// use google_cloud_vmmigration_v1::model::VmwareVmDetails;
+    /// let x = VmUtilizationInfo::new().set_vmware_vm_details(VmwareVmDetails::default()/* use setters */);
+    /// assert!(x.vmware_vm_details().is_some());
+    /// ```
     pub fn set_vmware_vm_details<
         T: std::convert::Into<std::boxed::Box<crate::model::VmwareVmDetails>>,
     >(
@@ -8955,48 +11444,96 @@ impl VmUtilizationMetrics {
     }
 
     /// Sets the value of [cpu_max_percent][crate::model::VmUtilizationMetrics::cpu_max_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_cpu_max_percent(42);
+    /// ```
     pub fn set_cpu_max_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_max_percent = v.into();
         self
     }
 
     /// Sets the value of [cpu_average_percent][crate::model::VmUtilizationMetrics::cpu_average_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_cpu_average_percent(42);
+    /// ```
     pub fn set_cpu_average_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_average_percent = v.into();
         self
     }
 
     /// Sets the value of [memory_max_percent][crate::model::VmUtilizationMetrics::memory_max_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_memory_max_percent(42);
+    /// ```
     pub fn set_memory_max_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_max_percent = v.into();
         self
     }
 
     /// Sets the value of [memory_average_percent][crate::model::VmUtilizationMetrics::memory_average_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_memory_average_percent(42);
+    /// ```
     pub fn set_memory_average_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_average_percent = v.into();
         self
     }
 
     /// Sets the value of [disk_io_rate_max_kbps][crate::model::VmUtilizationMetrics::disk_io_rate_max_kbps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_disk_io_rate_max_kbps(42);
+    /// ```
     pub fn set_disk_io_rate_max_kbps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.disk_io_rate_max_kbps = v.into();
         self
     }
 
     /// Sets the value of [disk_io_rate_average_kbps][crate::model::VmUtilizationMetrics::disk_io_rate_average_kbps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_disk_io_rate_average_kbps(42);
+    /// ```
     pub fn set_disk_io_rate_average_kbps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.disk_io_rate_average_kbps = v.into();
         self
     }
 
     /// Sets the value of [network_throughput_max_kbps][crate::model::VmUtilizationMetrics::network_throughput_max_kbps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_network_throughput_max_kbps(42);
+    /// ```
     pub fn set_network_throughput_max_kbps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.network_throughput_max_kbps = v.into();
         self
     }
 
     /// Sets the value of [network_throughput_average_kbps][crate::model::VmUtilizationMetrics::network_throughput_average_kbps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmUtilizationMetrics;
+    /// let x = VmUtilizationMetrics::new().set_network_throughput_average_kbps(42);
+    /// ```
     pub fn set_network_throughput_average_kbps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.network_throughput_average_kbps = v.into();
         self
@@ -9048,12 +11585,26 @@ impl ListUtilizationReportsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUtilizationReportsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsRequest;
+    /// let x = ListUtilizationReportsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListUtilizationReportsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsRequest;
+    /// use google_cloud_vmmigration_v1::model::UtilizationReportView;
+    /// let x0 = ListUtilizationReportsRequest::new().set_view(UtilizationReportView::Basic);
+    /// let x1 = ListUtilizationReportsRequest::new().set_view(UtilizationReportView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::UtilizationReportView>>(
         mut self,
         v: T,
@@ -9063,24 +11614,48 @@ impl ListUtilizationReportsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListUtilizationReportsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsRequest;
+    /// let x = ListUtilizationReportsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUtilizationReportsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsRequest;
+    /// let x = ListUtilizationReportsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListUtilizationReportsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsRequest;
+    /// let x = ListUtilizationReportsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListUtilizationReportsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsRequest;
+    /// let x = ListUtilizationReportsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -9116,6 +11691,17 @@ impl ListUtilizationReportsResponse {
     }
 
     /// Sets the value of [utilization_reports][crate::model::ListUtilizationReportsResponse::utilization_reports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsResponse;
+    /// use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// let x = ListUtilizationReportsResponse::new()
+    ///     .set_utilization_reports([
+    ///         UtilizationReport::default()/* use setters */,
+    ///         UtilizationReport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_utilization_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9127,12 +11713,24 @@ impl ListUtilizationReportsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUtilizationReportsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsResponse;
+    /// let x = ListUtilizationReportsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListUtilizationReportsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListUtilizationReportsResponse;
+    /// let x = ListUtilizationReportsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9184,12 +11782,26 @@ impl GetUtilizationReportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetUtilizationReportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetUtilizationReportRequest;
+    /// let x = GetUtilizationReportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetUtilizationReportRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetUtilizationReportRequest;
+    /// use google_cloud_vmmigration_v1::model::UtilizationReportView;
+    /// let x0 = GetUtilizationReportRequest::new().set_view(UtilizationReportView::Basic);
+    /// let x1 = GetUtilizationReportRequest::new().set_view(UtilizationReportView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::UtilizationReportView>>(
         mut self,
         v: T,
@@ -9247,12 +11859,25 @@ impl CreateUtilizationReportRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateUtilizationReportRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateUtilizationReportRequest;
+    /// let x = CreateUtilizationReportRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateUtilizationReportRequest;
+    /// use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// let x = CreateUtilizationReportRequest::new().set_utilization_report(UtilizationReport::default()/* use setters */);
+    /// ```
     pub fn set_utilization_report<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UtilizationReport>,
@@ -9262,6 +11887,14 @@ impl CreateUtilizationReportRequest {
     }
 
     /// Sets or clears the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateUtilizationReportRequest;
+    /// use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// let x = CreateUtilizationReportRequest::new().set_or_clear_utilization_report(Some(UtilizationReport::default()/* use setters */));
+    /// let x = CreateUtilizationReportRequest::new().set_or_clear_utilization_report(None::<UtilizationReport>);
+    /// ```
     pub fn set_or_clear_utilization_report<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UtilizationReport>,
@@ -9271,6 +11904,12 @@ impl CreateUtilizationReportRequest {
     }
 
     /// Sets the value of [utilization_report_id][crate::model::CreateUtilizationReportRequest::utilization_report_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateUtilizationReportRequest;
+    /// let x = CreateUtilizationReportRequest::new().set_utilization_report_id("example");
+    /// ```
     pub fn set_utilization_report_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9280,6 +11919,12 @@ impl CreateUtilizationReportRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateUtilizationReportRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateUtilizationReportRequest;
+    /// let x = CreateUtilizationReportRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9323,12 +11968,24 @@ impl DeleteUtilizationReportRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteUtilizationReportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteUtilizationReportRequest;
+    /// let x = DeleteUtilizationReportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteUtilizationReportRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteUtilizationReportRequest;
+    /// let x = DeleteUtilizationReportRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9364,6 +12021,17 @@ impl ListDatacenterConnectorsResponse {
     }
 
     /// Sets the value of [datacenter_connectors][crate::model::ListDatacenterConnectorsResponse::datacenter_connectors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsResponse;
+    /// use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = ListDatacenterConnectorsResponse::new()
+    ///     .set_datacenter_connectors([
+    ///         DatacenterConnector::default()/* use setters */,
+    ///         DatacenterConnector::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_datacenter_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9375,12 +12043,24 @@ impl ListDatacenterConnectorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatacenterConnectorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsResponse;
+    /// let x = ListDatacenterConnectorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDatacenterConnectorsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsResponse;
+    /// let x = ListDatacenterConnectorsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9428,6 +12108,12 @@ impl GetDatacenterConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDatacenterConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetDatacenterConnectorRequest;
+    /// let x = GetDatacenterConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9480,12 +12166,24 @@ impl CreateDatacenterConnectorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDatacenterConnectorRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDatacenterConnectorRequest;
+    /// let x = CreateDatacenterConnectorRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [datacenter_connector_id][crate::model::CreateDatacenterConnectorRequest::datacenter_connector_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDatacenterConnectorRequest;
+    /// let x = CreateDatacenterConnectorRequest::new().set_datacenter_connector_id("example");
+    /// ```
     pub fn set_datacenter_connector_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9495,6 +12193,13 @@ impl CreateDatacenterConnectorRequest {
     }
 
     /// Sets the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDatacenterConnectorRequest;
+    /// use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = CreateDatacenterConnectorRequest::new().set_datacenter_connector(DatacenterConnector::default()/* use setters */);
+    /// ```
     pub fn set_datacenter_connector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatacenterConnector>,
@@ -9504,6 +12209,14 @@ impl CreateDatacenterConnectorRequest {
     }
 
     /// Sets or clears the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDatacenterConnectorRequest;
+    /// use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// let x = CreateDatacenterConnectorRequest::new().set_or_clear_datacenter_connector(Some(DatacenterConnector::default()/* use setters */));
+    /// let x = CreateDatacenterConnectorRequest::new().set_or_clear_datacenter_connector(None::<DatacenterConnector>);
+    /// ```
     pub fn set_or_clear_datacenter_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatacenterConnector>,
@@ -9513,6 +12226,12 @@ impl CreateDatacenterConnectorRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDatacenterConnectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDatacenterConnectorRequest;
+    /// let x = CreateDatacenterConnectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9556,12 +12275,24 @@ impl DeleteDatacenterConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDatacenterConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteDatacenterConnectorRequest;
+    /// let x = DeleteDatacenterConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteDatacenterConnectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteDatacenterConnectorRequest;
+    /// let x = DeleteDatacenterConnectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9605,6 +12336,12 @@ impl UpgradeApplianceRequest {
     }
 
     /// Sets the value of [datacenter_connector][crate::model::UpgradeApplianceRequest::datacenter_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeApplianceRequest;
+    /// let x = UpgradeApplianceRequest::new().set_datacenter_connector("example");
+    /// ```
     pub fn set_datacenter_connector<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9614,6 +12351,12 @@ impl UpgradeApplianceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpgradeApplianceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpgradeApplianceRequest;
+    /// let x = UpgradeApplianceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9681,30 +12424,60 @@ impl ListDatacenterConnectorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatacenterConnectorsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsRequest;
+    /// let x = ListDatacenterConnectorsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatacenterConnectorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsRequest;
+    /// let x = ListDatacenterConnectorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatacenterConnectorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsRequest;
+    /// let x = ListDatacenterConnectorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDatacenterConnectorsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsRequest;
+    /// let x = ListDatacenterConnectorsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDatacenterConnectorsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDatacenterConnectorsRequest;
+    /// let x = ListDatacenterConnectorsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -9817,24 +12590,48 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [vm_name][crate::model::ComputeEngineTargetDefaults::vm_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_vm_name("example");
+    /// ```
     pub fn set_vm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_name = v.into();
         self
     }
 
     /// Sets the value of [target_project][crate::model::ComputeEngineTargetDefaults::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_target_project("example");
+    /// ```
     pub fn set_target_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_project = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ComputeEngineTargetDefaults::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [machine_type_series][crate::model::ComputeEngineTargetDefaults::machine_type_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_machine_type_series("example");
+    /// ```
     pub fn set_machine_type_series<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9844,12 +12641,24 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [machine_type][crate::model::ComputeEngineTargetDefaults::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [network_tags][crate::model::ComputeEngineTargetDefaults::network_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_network_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_network_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9861,6 +12670,17 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [network_interfaces][crate::model::ComputeEngineTargetDefaults::network_interfaces].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = ComputeEngineTargetDefaults::new()
+    ///     .set_network_interfaces([
+    ///         NetworkInterface::default()/* use setters */,
+    ///         NetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9872,12 +12692,27 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [service_account][crate::model::ComputeEngineTargetDefaults::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::ComputeEngineTargetDefaults::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDiskType;
+    /// let x0 = ComputeEngineTargetDefaults::new().set_disk_type(ComputeEngineDiskType::Standard);
+    /// let x1 = ComputeEngineTargetDefaults::new().set_disk_type(ComputeEngineDiskType::Ssd);
+    /// let x2 = ComputeEngineTargetDefaults::new().set_disk_type(ComputeEngineDiskType::Balanced);
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::ComputeEngineDiskType>>(
         mut self,
         v: T,
@@ -9887,6 +12722,15 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [labels][crate::model::ComputeEngineTargetDefaults::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9899,6 +12743,14 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [license_type][crate::model::ComputeEngineTargetDefaults::license_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineLicenseType;
+    /// let x0 = ComputeEngineTargetDefaults::new().set_license_type(ComputeEngineLicenseType::Payg);
+    /// let x1 = ComputeEngineTargetDefaults::new().set_license_type(ComputeEngineLicenseType::Byol);
+    /// ```
     pub fn set_license_type<T: std::convert::Into<crate::model::ComputeEngineLicenseType>>(
         mut self,
         v: T,
@@ -9908,6 +12760,13 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [applied_license][crate::model::ComputeEngineTargetDefaults::applied_license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::AppliedLicense;
+    /// let x = ComputeEngineTargetDefaults::new().set_applied_license(AppliedLicense::default()/* use setters */);
+    /// ```
     pub fn set_applied_license<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppliedLicense>,
@@ -9917,6 +12776,14 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets or clears the value of [applied_license][crate::model::ComputeEngineTargetDefaults::applied_license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::AppliedLicense;
+    /// let x = ComputeEngineTargetDefaults::new().set_or_clear_applied_license(Some(AppliedLicense::default()/* use setters */));
+    /// let x = ComputeEngineTargetDefaults::new().set_or_clear_applied_license(None::<AppliedLicense>);
+    /// ```
     pub fn set_or_clear_applied_license<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppliedLicense>,
@@ -9926,6 +12793,13 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [compute_scheduling][crate::model::ComputeEngineTargetDefaults::compute_scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// let x = ComputeEngineTargetDefaults::new().set_compute_scheduling(ComputeScheduling::default()/* use setters */);
+    /// ```
     pub fn set_compute_scheduling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComputeScheduling>,
@@ -9935,6 +12809,14 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets or clears the value of [compute_scheduling][crate::model::ComputeEngineTargetDefaults::compute_scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// let x = ComputeEngineTargetDefaults::new().set_or_clear_compute_scheduling(Some(ComputeScheduling::default()/* use setters */));
+    /// let x = ComputeEngineTargetDefaults::new().set_or_clear_compute_scheduling(None::<ComputeScheduling>);
+    /// ```
     pub fn set_or_clear_compute_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComputeScheduling>,
@@ -9944,24 +12826,50 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [secure_boot][crate::model::ComputeEngineTargetDefaults::secure_boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_secure_boot(true);
+    /// ```
     pub fn set_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.secure_boot = v.into();
         self
     }
 
     /// Sets the value of [enable_vtpm][crate::model::ComputeEngineTargetDefaults::enable_vtpm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_enable_vtpm(true);
+    /// ```
     pub fn set_enable_vtpm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_vtpm = v.into();
         self
     }
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::ComputeEngineTargetDefaults::enable_integrity_monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_enable_integrity_monitoring(true);
+    /// ```
     pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_integrity_monitoring = v.into();
         self
     }
 
     /// Sets the value of [boot_option][crate::model::ComputeEngineTargetDefaults::boot_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineBootOption;
+    /// let x0 = ComputeEngineTargetDefaults::new().set_boot_option(ComputeEngineBootOption::Efi);
+    /// let x1 = ComputeEngineTargetDefaults::new().set_boot_option(ComputeEngineBootOption::Bios);
+    /// ```
     pub fn set_boot_option<T: std::convert::Into<crate::model::ComputeEngineBootOption>>(
         mut self,
         v: T,
@@ -9971,6 +12879,15 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [metadata][crate::model::ComputeEngineTargetDefaults::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9983,6 +12900,12 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [additional_licenses][crate::model::ComputeEngineTargetDefaults::additional_licenses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_additional_licenses(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_licenses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9994,12 +12917,25 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [hostname][crate::model::ComputeEngineTargetDefaults::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [encryption][crate::model::ComputeEngineTargetDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = ComputeEngineTargetDefaults::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -10009,6 +12945,14 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets or clears the value of [encryption][crate::model::ComputeEngineTargetDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = ComputeEngineTargetDefaults::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = ComputeEngineTargetDefaults::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -10018,6 +12962,14 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [boot_conversion][crate::model::ComputeEngineTargetDefaults::boot_conversion].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::BootConversion;
+    /// let x0 = ComputeEngineTargetDefaults::new().set_boot_conversion(BootConversion::None);
+    /// let x1 = ComputeEngineTargetDefaults::new().set_boot_conversion(BootConversion::BiosToEfi);
+    /// ```
     pub fn set_boot_conversion<T: std::convert::Into<crate::model::BootConversion>>(
         mut self,
         v: T,
@@ -10027,6 +12979,12 @@ impl ComputeEngineTargetDefaults {
     }
 
     /// Sets the value of [disk_replica_zones][crate::model::ComputeEngineTargetDefaults::disk_replica_zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDefaults;
+    /// let x = ComputeEngineTargetDefaults::new().set_disk_replica_zones(["a", "b", "c"]);
+    /// ```
     pub fn set_disk_replica_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10140,24 +13098,48 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [vm_name][crate::model::ComputeEngineTargetDetails::vm_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_vm_name("example");
+    /// ```
     pub fn set_vm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_name = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::ComputeEngineTargetDetails::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ComputeEngineTargetDetails::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [machine_type_series][crate::model::ComputeEngineTargetDetails::machine_type_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_machine_type_series("example");
+    /// ```
     pub fn set_machine_type_series<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10167,12 +13149,24 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [machine_type][crate::model::ComputeEngineTargetDetails::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [network_tags][crate::model::ComputeEngineTargetDetails::network_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_network_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_network_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10184,6 +13178,17 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [network_interfaces][crate::model::ComputeEngineTargetDetails::network_interfaces].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = ComputeEngineTargetDetails::new()
+    ///     .set_network_interfaces([
+    ///         NetworkInterface::default()/* use setters */,
+    ///         NetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10195,12 +13200,27 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [service_account][crate::model::ComputeEngineTargetDetails::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::ComputeEngineTargetDetails::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDiskType;
+    /// let x0 = ComputeEngineTargetDetails::new().set_disk_type(ComputeEngineDiskType::Standard);
+    /// let x1 = ComputeEngineTargetDetails::new().set_disk_type(ComputeEngineDiskType::Ssd);
+    /// let x2 = ComputeEngineTargetDetails::new().set_disk_type(ComputeEngineDiskType::Balanced);
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::ComputeEngineDiskType>>(
         mut self,
         v: T,
@@ -10210,6 +13230,15 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [labels][crate::model::ComputeEngineTargetDetails::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10222,6 +13251,14 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [license_type][crate::model::ComputeEngineTargetDetails::license_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineLicenseType;
+    /// let x0 = ComputeEngineTargetDetails::new().set_license_type(ComputeEngineLicenseType::Payg);
+    /// let x1 = ComputeEngineTargetDetails::new().set_license_type(ComputeEngineLicenseType::Byol);
+    /// ```
     pub fn set_license_type<T: std::convert::Into<crate::model::ComputeEngineLicenseType>>(
         mut self,
         v: T,
@@ -10231,6 +13268,13 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [applied_license][crate::model::ComputeEngineTargetDetails::applied_license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::AppliedLicense;
+    /// let x = ComputeEngineTargetDetails::new().set_applied_license(AppliedLicense::default()/* use setters */);
+    /// ```
     pub fn set_applied_license<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppliedLicense>,
@@ -10240,6 +13284,14 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets or clears the value of [applied_license][crate::model::ComputeEngineTargetDetails::applied_license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::AppliedLicense;
+    /// let x = ComputeEngineTargetDetails::new().set_or_clear_applied_license(Some(AppliedLicense::default()/* use setters */));
+    /// let x = ComputeEngineTargetDetails::new().set_or_clear_applied_license(None::<AppliedLicense>);
+    /// ```
     pub fn set_or_clear_applied_license<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppliedLicense>,
@@ -10249,6 +13301,13 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [compute_scheduling][crate::model::ComputeEngineTargetDetails::compute_scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// let x = ComputeEngineTargetDetails::new().set_compute_scheduling(ComputeScheduling::default()/* use setters */);
+    /// ```
     pub fn set_compute_scheduling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComputeScheduling>,
@@ -10258,6 +13317,14 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets or clears the value of [compute_scheduling][crate::model::ComputeEngineTargetDetails::compute_scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// let x = ComputeEngineTargetDetails::new().set_or_clear_compute_scheduling(Some(ComputeScheduling::default()/* use setters */));
+    /// let x = ComputeEngineTargetDetails::new().set_or_clear_compute_scheduling(None::<ComputeScheduling>);
+    /// ```
     pub fn set_or_clear_compute_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComputeScheduling>,
@@ -10267,24 +13334,50 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [secure_boot][crate::model::ComputeEngineTargetDetails::secure_boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_secure_boot(true);
+    /// ```
     pub fn set_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.secure_boot = v.into();
         self
     }
 
     /// Sets the value of [enable_vtpm][crate::model::ComputeEngineTargetDetails::enable_vtpm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_enable_vtpm(true);
+    /// ```
     pub fn set_enable_vtpm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_vtpm = v.into();
         self
     }
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::ComputeEngineTargetDetails::enable_integrity_monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_enable_integrity_monitoring(true);
+    /// ```
     pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_integrity_monitoring = v.into();
         self
     }
 
     /// Sets the value of [boot_option][crate::model::ComputeEngineTargetDetails::boot_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineBootOption;
+    /// let x0 = ComputeEngineTargetDetails::new().set_boot_option(ComputeEngineBootOption::Efi);
+    /// let x1 = ComputeEngineTargetDetails::new().set_boot_option(ComputeEngineBootOption::Bios);
+    /// ```
     pub fn set_boot_option<T: std::convert::Into<crate::model::ComputeEngineBootOption>>(
         mut self,
         v: T,
@@ -10294,6 +13387,15 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [metadata][crate::model::ComputeEngineTargetDetails::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10306,6 +13408,12 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [additional_licenses][crate::model::ComputeEngineTargetDetails::additional_licenses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_additional_licenses(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_licenses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10317,12 +13425,25 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [hostname][crate::model::ComputeEngineTargetDetails::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [encryption][crate::model::ComputeEngineTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = ComputeEngineTargetDetails::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -10332,6 +13453,14 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets or clears the value of [encryption][crate::model::ComputeEngineTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = ComputeEngineTargetDetails::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = ComputeEngineTargetDetails::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -10341,6 +13470,14 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [boot_conversion][crate::model::ComputeEngineTargetDetails::boot_conversion].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::BootConversion;
+    /// let x0 = ComputeEngineTargetDetails::new().set_boot_conversion(BootConversion::None);
+    /// let x1 = ComputeEngineTargetDetails::new().set_boot_conversion(BootConversion::BiosToEfi);
+    /// ```
     pub fn set_boot_conversion<T: std::convert::Into<crate::model::BootConversion>>(
         mut self,
         v: T,
@@ -10350,6 +13487,12 @@ impl ComputeEngineTargetDetails {
     }
 
     /// Sets the value of [disk_replica_zones][crate::model::ComputeEngineTargetDetails::disk_replica_zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineTargetDetails;
+    /// let x = ComputeEngineTargetDetails::new().set_disk_replica_zones(["a", "b", "c"]);
+    /// ```
     pub fn set_disk_replica_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10399,30 +13542,62 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [network][crate::model::NetworkInterface::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::NetworkInterface::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [internal_ip][crate::model::NetworkInterface::internal_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_internal_ip("example");
+    /// ```
     pub fn set_internal_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.internal_ip = v.into();
         self
     }
 
     /// Sets the value of [external_ip][crate::model::NetworkInterface::external_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = NetworkInterface::new().set_external_ip("example");
+    /// ```
     pub fn set_external_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_ip = v.into();
         self
     }
 
     /// Sets the value of [network_tier][crate::model::NetworkInterface::network_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineNetworkTier;
+    /// let x0 = NetworkInterface::new().set_network_tier(ComputeEngineNetworkTier::NetworkTierStandard);
+    /// let x1 = NetworkInterface::new().set_network_tier(ComputeEngineNetworkTier::NetworkTierPremium);
+    /// ```
     pub fn set_network_tier<T: std::convert::Into<crate::model::ComputeEngineNetworkTier>>(
         mut self,
         v: T,
@@ -10457,6 +13632,15 @@ impl AppliedLicense {
     }
 
     /// Sets the value of [r#type][crate::model::AppliedLicense::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AppliedLicense;
+    /// use google_cloud_vmmigration_v1::model::applied_license::Type;
+    /// let x0 = AppliedLicense::new().set_type(Type::None);
+    /// let x1 = AppliedLicense::new().set_type(Type::Payg);
+    /// let x2 = AppliedLicense::new().set_type(Type::Byol);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::applied_license::Type>>(
         mut self,
         v: T,
@@ -10466,6 +13650,12 @@ impl AppliedLicense {
     }
 
     /// Sets the value of [os_license][crate::model::AppliedLicense::os_license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AppliedLicense;
+    /// let x = AppliedLicense::new().set_os_license("example");
+    /// ```
     pub fn set_os_license<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.os_license = v.into();
         self
@@ -10648,12 +13838,26 @@ impl SchedulingNodeAffinity {
     }
 
     /// Sets the value of [key][crate::model::SchedulingNodeAffinity::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SchedulingNodeAffinity;
+    /// let x = SchedulingNodeAffinity::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [operator][crate::model::SchedulingNodeAffinity::operator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SchedulingNodeAffinity;
+    /// use google_cloud_vmmigration_v1::model::scheduling_node_affinity::Operator;
+    /// let x0 = SchedulingNodeAffinity::new().set_operator(Operator::In);
+    /// let x1 = SchedulingNodeAffinity::new().set_operator(Operator::NotIn);
+    /// ```
     pub fn set_operator<T: std::convert::Into<crate::model::scheduling_node_affinity::Operator>>(
         mut self,
         v: T,
@@ -10663,6 +13867,12 @@ impl SchedulingNodeAffinity {
     }
 
     /// Sets the value of [values][crate::model::SchedulingNodeAffinity::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SchedulingNodeAffinity;
+    /// let x = SchedulingNodeAffinity::new().set_values(["a", "b", "c"]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10856,6 +14066,14 @@ impl ComputeScheduling {
     }
 
     /// Sets the value of [on_host_maintenance][crate::model::ComputeScheduling::on_host_maintenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// use google_cloud_vmmigration_v1::model::compute_scheduling::OnHostMaintenance;
+    /// let x0 = ComputeScheduling::new().set_on_host_maintenance(OnHostMaintenance::Terminate);
+    /// let x1 = ComputeScheduling::new().set_on_host_maintenance(OnHostMaintenance::Migrate);
+    /// ```
     pub fn set_on_host_maintenance<
         T: std::convert::Into<crate::model::compute_scheduling::OnHostMaintenance>,
     >(
@@ -10867,6 +14085,14 @@ impl ComputeScheduling {
     }
 
     /// Sets the value of [restart_type][crate::model::ComputeScheduling::restart_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// use google_cloud_vmmigration_v1::model::compute_scheduling::RestartType;
+    /// let x0 = ComputeScheduling::new().set_restart_type(RestartType::AutomaticRestart);
+    /// let x1 = ComputeScheduling::new().set_restart_type(RestartType::NoAutomaticRestart);
+    /// ```
     pub fn set_restart_type<
         T: std::convert::Into<crate::model::compute_scheduling::RestartType>,
     >(
@@ -10878,6 +14104,17 @@ impl ComputeScheduling {
     }
 
     /// Sets the value of [node_affinities][crate::model::ComputeScheduling::node_affinities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// use google_cloud_vmmigration_v1::model::SchedulingNodeAffinity;
+    /// let x = ComputeScheduling::new()
+    ///     .set_node_affinities([
+    ///         SchedulingNodeAffinity::default()/* use setters */,
+    ///         SchedulingNodeAffinity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_node_affinities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10889,6 +14126,12 @@ impl ComputeScheduling {
     }
 
     /// Sets the value of [min_node_cpus][crate::model::ComputeScheduling::min_node_cpus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// let x = ComputeScheduling::new().set_min_node_cpus(42);
+    /// ```
     pub fn set_min_node_cpus<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_node_cpus = v.into();
         self
@@ -11200,12 +14443,29 @@ impl ComputeEngineDisksTargetDefaults {
     }
 
     /// Sets the value of [target_project][crate::model::ComputeEngineDisksTargetDefaults::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// let x = ComputeEngineDisksTargetDefaults::new().set_target_project("example");
+    /// ```
     pub fn set_target_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_project = v.into();
         self
     }
 
     /// Sets the value of [disks][crate::model::ComputeEngineDisksTargetDefaults::disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// let x = ComputeEngineDisksTargetDefaults::new()
+    ///     .set_disks([
+    ///         PersistentDiskDefaults::default()/* use setters */,
+    ///         PersistentDiskDefaults::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11220,6 +14480,13 @@ impl ComputeEngineDisksTargetDefaults {
     ///
     /// Note that all the setters affecting `location` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::compute_engine_disks_target_defaults::Location;
+    /// let x = ComputeEngineDisksTargetDefaults::new().set_location(Some(Location::Zone("example".to_string())));
+    /// ```
     pub fn set_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::compute_engine_disks_target_defaults::Location>,
@@ -11250,6 +14517,13 @@ impl ComputeEngineDisksTargetDefaults {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// let x = ComputeEngineDisksTargetDefaults::new().set_zone("example");
+    /// assert!(x.zone().is_some());
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = std::option::Option::Some(
             crate::model::compute_engine_disks_target_defaults::Location::Zone(v.into()),
@@ -11261,6 +14535,14 @@ impl ComputeEngineDisksTargetDefaults {
     ///
     /// Note that all the setters affecting `vm_target` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::DisksMigrationDisksTargetDefaults;
+    /// let x = ComputeEngineDisksTargetDefaults::new().set_vm_target(Some(
+    ///     google_cloud_vmmigration_v1::model::compute_engine_disks_target_defaults::VmTarget::DisksTargetDefaults(DisksMigrationDisksTargetDefaults::default().into())));
+    /// ```
     pub fn set_vm_target<
         T: std::convert::Into<
                 std::option::Option<crate::model::compute_engine_disks_target_defaults::VmTarget>,
@@ -11294,6 +14576,15 @@ impl ComputeEngineDisksTargetDefaults {
     ///
     /// Note that all the setters affecting `vm_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::DisksMigrationDisksTargetDefaults;
+    /// let x = ComputeEngineDisksTargetDefaults::new().set_disks_target_defaults(DisksMigrationDisksTargetDefaults::default()/* use setters */);
+    /// assert!(x.disks_target_defaults().is_some());
+    /// assert!(x.vm_target_defaults().is_none());
+    /// ```
     pub fn set_disks_target_defaults<
         T: std::convert::Into<std::boxed::Box<crate::model::DisksMigrationDisksTargetDefaults>>,
     >(
@@ -11328,6 +14619,15 @@ impl ComputeEngineDisksTargetDefaults {
     ///
     /// Note that all the setters affecting `vm_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = ComputeEngineDisksTargetDefaults::new().set_vm_target_defaults(DisksMigrationVmTargetDefaults::default()/* use setters */);
+    /// assert!(x.vm_target_defaults().is_some());
+    /// assert!(x.disks_target_defaults().is_none());
+    /// ```
     pub fn set_vm_target_defaults<
         T: std::convert::Into<std::boxed::Box<crate::model::DisksMigrationVmTargetDefaults>>,
     >(
@@ -11404,18 +14704,39 @@ impl PersistentDiskDefaults {
     }
 
     /// Sets the value of [source_disk_number][crate::model::PersistentDiskDefaults::source_disk_number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// let x = PersistentDiskDefaults::new().set_source_disk_number(42);
+    /// ```
     pub fn set_source_disk_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.source_disk_number = v.into();
         self
     }
 
     /// Sets the value of [disk_name][crate::model::PersistentDiskDefaults::disk_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// let x = PersistentDiskDefaults::new().set_disk_name("example");
+    /// ```
     pub fn set_disk_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_name = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::PersistentDiskDefaults::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDiskType;
+    /// let x0 = PersistentDiskDefaults::new().set_disk_type(ComputeEngineDiskType::Standard);
+    /// let x1 = PersistentDiskDefaults::new().set_disk_type(ComputeEngineDiskType::Ssd);
+    /// let x2 = PersistentDiskDefaults::new().set_disk_type(ComputeEngineDiskType::Balanced);
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::ComputeEngineDiskType>>(
         mut self,
         v: T,
@@ -11425,6 +14746,15 @@ impl PersistentDiskDefaults {
     }
 
     /// Sets the value of [additional_labels][crate::model::PersistentDiskDefaults::additional_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// let x = PersistentDiskDefaults::new().set_additional_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_additional_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11437,6 +14767,13 @@ impl PersistentDiskDefaults {
     }
 
     /// Sets the value of [encryption][crate::model::PersistentDiskDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = PersistentDiskDefaults::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -11446,6 +14783,14 @@ impl PersistentDiskDefaults {
     }
 
     /// Sets or clears the value of [encryption][crate::model::PersistentDiskDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = PersistentDiskDefaults::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = PersistentDiskDefaults::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -11455,6 +14800,13 @@ impl PersistentDiskDefaults {
     }
 
     /// Sets the value of [vm_attachment_details][crate::model::PersistentDiskDefaults::vm_attachment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::VmAttachmentDetails;
+    /// let x = PersistentDiskDefaults::new().set_vm_attachment_details(VmAttachmentDetails::default()/* use setters */);
+    /// ```
     pub fn set_vm_attachment_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VmAttachmentDetails>,
@@ -11464,6 +14816,14 @@ impl PersistentDiskDefaults {
     }
 
     /// Sets or clears the value of [vm_attachment_details][crate::model::PersistentDiskDefaults::vm_attachment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::VmAttachmentDetails;
+    /// let x = PersistentDiskDefaults::new().set_or_clear_vm_attachment_details(Some(VmAttachmentDetails::default()/* use setters */));
+    /// let x = PersistentDiskDefaults::new().set_or_clear_vm_attachment_details(None::<VmAttachmentDetails>);
+    /// ```
     pub fn set_or_clear_vm_attachment_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VmAttachmentDetails>,
@@ -11500,6 +14860,12 @@ impl VmAttachmentDetails {
     }
 
     /// Sets the value of [device_name][crate::model::VmAttachmentDetails::device_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmAttachmentDetails;
+    /// let x = VmAttachmentDetails::new().set_device_name("example");
+    /// ```
     pub fn set_device_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.device_name = v.into();
         self
@@ -11595,12 +14961,24 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [vm_name][crate::model::DisksMigrationVmTargetDefaults::vm_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_vm_name("example");
+    /// ```
     pub fn set_vm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_name = v.into();
         self
     }
 
     /// Sets the value of [machine_type_series][crate::model::DisksMigrationVmTargetDefaults::machine_type_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_machine_type_series("example");
+    /// ```
     pub fn set_machine_type_series<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11610,12 +14988,24 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [machine_type][crate::model::DisksMigrationVmTargetDefaults::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [network_tags][crate::model::DisksMigrationVmTargetDefaults::network_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_network_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_network_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11627,6 +15017,17 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [network_interfaces][crate::model::DisksMigrationVmTargetDefaults::network_interfaces].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = DisksMigrationVmTargetDefaults::new()
+    ///     .set_network_interfaces([
+    ///         NetworkInterface::default()/* use setters */,
+    ///         NetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11638,12 +15039,25 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [service_account][crate::model::DisksMigrationVmTargetDefaults::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [compute_scheduling][crate::model::DisksMigrationVmTargetDefaults::compute_scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_compute_scheduling(ComputeScheduling::default()/* use setters */);
+    /// ```
     pub fn set_compute_scheduling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComputeScheduling>,
@@ -11653,6 +15067,14 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets or clears the value of [compute_scheduling][crate::model::DisksMigrationVmTargetDefaults::compute_scheduling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeScheduling;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_or_clear_compute_scheduling(Some(ComputeScheduling::default()/* use setters */));
+    /// let x = DisksMigrationVmTargetDefaults::new().set_or_clear_compute_scheduling(None::<ComputeScheduling>);
+    /// ```
     pub fn set_or_clear_compute_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComputeScheduling>,
@@ -11662,24 +15084,51 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [secure_boot][crate::model::DisksMigrationVmTargetDefaults::secure_boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_secure_boot(true);
+    /// ```
     pub fn set_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.secure_boot = v.into();
         self
     }
 
     /// Sets the value of [enable_vtpm][crate::model::DisksMigrationVmTargetDefaults::enable_vtpm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_enable_vtpm(true);
+    /// ```
     pub fn set_enable_vtpm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_vtpm = v.into();
         self
     }
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::DisksMigrationVmTargetDefaults::enable_integrity_monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_enable_integrity_monitoring(true);
+    /// ```
     pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_integrity_monitoring = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::DisksMigrationVmTargetDefaults::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11692,6 +15141,12 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [additional_licenses][crate::model::DisksMigrationVmTargetDefaults::additional_licenses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_additional_licenses(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_licenses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11703,12 +15158,27 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [hostname][crate::model::DisksMigrationVmTargetDefaults::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DisksMigrationVmTargetDefaults::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11721,6 +15191,13 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [boot_disk_defaults][crate::model::DisksMigrationVmTargetDefaults::boot_disk_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_boot_disk_defaults(BootDiskDefaults::default()/* use setters */);
+    /// ```
     pub fn set_boot_disk_defaults<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BootDiskDefaults>,
@@ -11730,6 +15207,14 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets or clears the value of [boot_disk_defaults][crate::model::DisksMigrationVmTargetDefaults::boot_disk_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_or_clear_boot_disk_defaults(Some(BootDiskDefaults::default()/* use setters */));
+    /// let x = DisksMigrationVmTargetDefaults::new().set_or_clear_boot_disk_defaults(None::<BootDiskDefaults>);
+    /// ```
     pub fn set_or_clear_boot_disk_defaults<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BootDiskDefaults>,
@@ -11739,6 +15224,13 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets the value of [encryption][crate::model::DisksMigrationVmTargetDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -11748,6 +15240,14 @@ impl DisksMigrationVmTargetDefaults {
     }
 
     /// Sets or clears the value of [encryption][crate::model::DisksMigrationVmTargetDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = DisksMigrationVmTargetDefaults::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = DisksMigrationVmTargetDefaults::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -11795,12 +15295,27 @@ impl BootDiskDefaults {
     }
 
     /// Sets the value of [disk_name][crate::model::BootDiskDefaults::disk_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// let x = BootDiskDefaults::new().set_disk_name("example");
+    /// ```
     pub fn set_disk_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_name = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::BootDiskDefaults::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDiskType;
+    /// let x0 = BootDiskDefaults::new().set_disk_type(ComputeEngineDiskType::Standard);
+    /// let x1 = BootDiskDefaults::new().set_disk_type(ComputeEngineDiskType::Ssd);
+    /// let x2 = BootDiskDefaults::new().set_disk_type(ComputeEngineDiskType::Balanced);
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::ComputeEngineDiskType>>(
         mut self,
         v: T,
@@ -11810,12 +15325,25 @@ impl BootDiskDefaults {
     }
 
     /// Sets the value of [device_name][crate::model::BootDiskDefaults::device_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// let x = BootDiskDefaults::new().set_device_name("example");
+    /// ```
     pub fn set_device_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.device_name = v.into();
         self
     }
 
     /// Sets the value of [encryption][crate::model::BootDiskDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = BootDiskDefaults::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -11825,6 +15353,14 @@ impl BootDiskDefaults {
     }
 
     /// Sets or clears the value of [encryption][crate::model::BootDiskDefaults::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = BootDiskDefaults::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = BootDiskDefaults::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -11837,6 +15373,14 @@ impl BootDiskDefaults {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::boot_disk_defaults::DiskImageDefaults;
+    /// let x = BootDiskDefaults::new().set_source(Some(
+    ///     google_cloud_vmmigration_v1::model::boot_disk_defaults::Source::Image(DiskImageDefaults::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::boot_disk_defaults::Source>>,
     >(
@@ -11866,6 +15410,14 @@ impl BootDiskDefaults {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::BootDiskDefaults;
+    /// use google_cloud_vmmigration_v1::model::boot_disk_defaults::DiskImageDefaults;
+    /// let x = BootDiskDefaults::new().set_image(DiskImageDefaults::default()/* use setters */);
+    /// assert!(x.image().is_some());
+    /// ```
     pub fn set_image<
         T: std::convert::Into<std::boxed::Box<crate::model::boot_disk_defaults::DiskImageDefaults>>,
     >(
@@ -11905,6 +15457,12 @@ pub mod boot_disk_defaults {
         }
 
         /// Sets the value of [source_image][crate::model::boot_disk_defaults::DiskImageDefaults::source_image].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::boot_disk_defaults::DiskImageDefaults;
+        /// let x = DiskImageDefaults::new().set_source_image("example");
+        /// ```
         pub fn set_source_image<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11948,6 +15506,17 @@ impl ComputeEngineDisksTargetDetails {
     }
 
     /// Sets the value of [disks][crate::model::ComputeEngineDisksTargetDetails::disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::PersistentDisk;
+    /// let x = ComputeEngineDisksTargetDetails::new()
+    ///     .set_disks([
+    ///         PersistentDisk::default()/* use setters */,
+    ///         PersistentDisk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11962,6 +15531,14 @@ impl ComputeEngineDisksTargetDetails {
     ///
     /// Note that all the setters affecting `vm_target` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::DisksMigrationDisksTargetDetails;
+    /// let x = ComputeEngineDisksTargetDetails::new().set_vm_target(Some(
+    ///     google_cloud_vmmigration_v1::model::compute_engine_disks_target_details::VmTarget::DisksTargetDetails(DisksMigrationDisksTargetDetails::default().into())));
+    /// ```
     pub fn set_vm_target<
         T: std::convert::Into<
                 std::option::Option<crate::model::compute_engine_disks_target_details::VmTarget>,
@@ -11994,6 +15571,15 @@ impl ComputeEngineDisksTargetDetails {
     ///
     /// Note that all the setters affecting `vm_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::DisksMigrationDisksTargetDetails;
+    /// let x = ComputeEngineDisksTargetDetails::new().set_disks_target_details(DisksMigrationDisksTargetDetails::default()/* use setters */);
+    /// assert!(x.disks_target_details().is_some());
+    /// assert!(x.vm_target_details().is_none());
+    /// ```
     pub fn set_disks_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::DisksMigrationDisksTargetDetails>>,
     >(
@@ -12028,6 +15614,15 @@ impl ComputeEngineDisksTargetDetails {
     ///
     /// Note that all the setters affecting `vm_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisksTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDetails;
+    /// let x = ComputeEngineDisksTargetDetails::new().set_vm_target_details(DisksMigrationVmTargetDetails::default()/* use setters */);
+    /// assert!(x.vm_target_details().is_some());
+    /// assert!(x.disks_target_details().is_none());
+    /// ```
     pub fn set_vm_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::DisksMigrationVmTargetDetails>>,
     >(
@@ -12082,12 +15677,24 @@ impl PersistentDisk {
     }
 
     /// Sets the value of [source_disk_number][crate::model::PersistentDisk::source_disk_number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDisk;
+    /// let x = PersistentDisk::new().set_source_disk_number(42);
+    /// ```
     pub fn set_source_disk_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.source_disk_number = v.into();
         self
     }
 
     /// Sets the value of [disk_uri][crate::model::PersistentDisk::disk_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PersistentDisk;
+    /// let x = PersistentDisk::new().set_disk_uri("example");
+    /// ```
     pub fn set_disk_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_uri = v.into();
         self
@@ -12135,6 +15742,12 @@ impl DisksMigrationVmTargetDetails {
     }
 
     /// Sets the value of [vm_uri][crate::model::DisksMigrationVmTargetDetails::vm_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DisksMigrationVmTargetDetails;
+    /// let x = DisksMigrationVmTargetDetails::new().set_vm_uri("example");
+    /// ```
     pub fn set_vm_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_uri = v.into();
         self
@@ -12168,6 +15781,13 @@ impl SchedulePolicy {
     }
 
     /// Sets the value of [idle_duration][crate::model::SchedulePolicy::idle_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SchedulePolicy;
+    /// use wkt::Duration;
+    /// let x = SchedulePolicy::new().set_idle_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_idle_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12177,6 +15797,14 @@ impl SchedulePolicy {
     }
 
     /// Sets or clears the value of [idle_duration][crate::model::SchedulePolicy::idle_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SchedulePolicy;
+    /// use wkt::Duration;
+    /// let x = SchedulePolicy::new().set_or_clear_idle_duration(Some(Duration::default()/* use setters */));
+    /// let x = SchedulePolicy::new().set_or_clear_idle_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_idle_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12186,6 +15814,12 @@ impl SchedulePolicy {
     }
 
     /// Sets the value of [skip_os_adaptation][crate::model::SchedulePolicy::skip_os_adaptation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::SchedulePolicy;
+    /// let x = SchedulePolicy::new().set_skip_os_adaptation(true);
+    /// ```
     pub fn set_skip_os_adaptation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_os_adaptation = v.into();
         self
@@ -12235,18 +15869,37 @@ impl CreateMigratingVmRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMigratingVmRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateMigratingVmRequest;
+    /// let x = CreateMigratingVmRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [migrating_vm_id][crate::model::CreateMigratingVmRequest::migrating_vm_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateMigratingVmRequest;
+    /// let x = CreateMigratingVmRequest::new().set_migrating_vm_id("example");
+    /// ```
     pub fn set_migrating_vm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm_id = v.into();
         self
     }
 
     /// Sets the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateMigratingVmRequest;
+    /// use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = CreateMigratingVmRequest::new().set_migrating_vm(MigratingVm::default()/* use setters */);
+    /// ```
     pub fn set_migrating_vm<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MigratingVm>,
@@ -12256,6 +15909,14 @@ impl CreateMigratingVmRequest {
     }
 
     /// Sets or clears the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateMigratingVmRequest;
+    /// use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = CreateMigratingVmRequest::new().set_or_clear_migrating_vm(Some(MigratingVm::default()/* use setters */));
+    /// let x = CreateMigratingVmRequest::new().set_or_clear_migrating_vm(None::<MigratingVm>);
+    /// ```
     pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigratingVm>,
@@ -12265,6 +15926,12 @@ impl CreateMigratingVmRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateMigratingVmRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateMigratingVmRequest;
+    /// let x = CreateMigratingVmRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -12315,36 +15982,74 @@ impl ListMigratingVmsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMigratingVmsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsRequest;
+    /// let x = ListMigratingVmsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMigratingVmsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsRequest;
+    /// let x = ListMigratingVmsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMigratingVmsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsRequest;
+    /// let x = ListMigratingVmsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMigratingVmsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsRequest;
+    /// let x = ListMigratingVmsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListMigratingVmsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsRequest;
+    /// let x = ListMigratingVmsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListMigratingVmsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsRequest;
+    /// use google_cloud_vmmigration_v1::model::MigratingVmView;
+    /// let x0 = ListMigratingVmsRequest::new().set_view(MigratingVmView::Basic);
+    /// let x1 = ListMigratingVmsRequest::new().set_view(MigratingVmView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::MigratingVmView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -12380,6 +16085,17 @@ impl ListMigratingVmsResponse {
     }
 
     /// Sets the value of [migrating_vms][crate::model::ListMigratingVmsResponse::migrating_vms].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsResponse;
+    /// use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = ListMigratingVmsResponse::new()
+    ///     .set_migrating_vms([
+    ///         MigratingVm::default()/* use setters */,
+    ///         MigratingVm::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_migrating_vms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12391,12 +16107,24 @@ impl ListMigratingVmsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMigratingVmsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsResponse;
+    /// let x = ListMigratingVmsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMigratingVmsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListMigratingVmsResponse;
+    /// let x = ListMigratingVmsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12447,12 +16175,26 @@ impl GetMigratingVmRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMigratingVmRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetMigratingVmRequest;
+    /// let x = GetMigratingVmRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetMigratingVmRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetMigratingVmRequest;
+    /// use google_cloud_vmmigration_v1::model::MigratingVmView;
+    /// let x0 = GetMigratingVmRequest::new().set_view(MigratingVmView::Basic);
+    /// let x1 = GetMigratingVmRequest::new().set_view(MigratingVmView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::MigratingVmView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -12503,6 +16245,13 @@ impl UpdateMigratingVmRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateMigratingVmRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMigratingVmRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12512,6 +16261,14 @@ impl UpdateMigratingVmRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateMigratingVmRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMigratingVmRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMigratingVmRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12521,6 +16278,13 @@ impl UpdateMigratingVmRequest {
     }
 
     /// Sets the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateMigratingVmRequest;
+    /// use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = UpdateMigratingVmRequest::new().set_migrating_vm(MigratingVm::default()/* use setters */);
+    /// ```
     pub fn set_migrating_vm<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MigratingVm>,
@@ -12530,6 +16294,14 @@ impl UpdateMigratingVmRequest {
     }
 
     /// Sets or clears the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateMigratingVmRequest;
+    /// use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// let x = UpdateMigratingVmRequest::new().set_or_clear_migrating_vm(Some(MigratingVm::default()/* use setters */));
+    /// let x = UpdateMigratingVmRequest::new().set_or_clear_migrating_vm(None::<MigratingVm>);
+    /// ```
     pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigratingVm>,
@@ -12539,6 +16311,12 @@ impl UpdateMigratingVmRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateMigratingVmRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateMigratingVmRequest;
+    /// let x = UpdateMigratingVmRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -12567,6 +16345,12 @@ impl DeleteMigratingVmRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMigratingVmRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteMigratingVmRequest;
+    /// let x = DeleteMigratingVmRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -12595,6 +16379,12 @@ impl StartMigrationRequest {
     }
 
     /// Sets the value of [migrating_vm][crate::model::StartMigrationRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::StartMigrationRequest;
+    /// let x = StartMigrationRequest::new().set_migrating_vm("example");
+    /// ```
     pub fn set_migrating_vm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm = v.into();
         self
@@ -12642,6 +16432,12 @@ impl PauseMigrationRequest {
     }
 
     /// Sets the value of [migrating_vm][crate::model::PauseMigrationRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::PauseMigrationRequest;
+    /// let x = PauseMigrationRequest::new().set_migrating_vm("example");
+    /// ```
     pub fn set_migrating_vm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm = v.into();
         self
@@ -12689,6 +16485,12 @@ impl ResumeMigrationRequest {
     }
 
     /// Sets the value of [migrating_vm][crate::model::ResumeMigrationRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ResumeMigrationRequest;
+    /// let x = ResumeMigrationRequest::new().set_migrating_vm("example");
+    /// ```
     pub fn set_migrating_vm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm = v.into();
         self
@@ -12736,6 +16538,12 @@ impl FinalizeMigrationRequest {
     }
 
     /// Sets the value of [migrating_vm][crate::model::FinalizeMigrationRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::FinalizeMigrationRequest;
+    /// let x = FinalizeMigrationRequest::new().set_migrating_vm("example");
+    /// ```
     pub fn set_migrating_vm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm = v.into();
         self
@@ -12764,6 +16572,12 @@ impl ExtendMigrationRequest {
     }
 
     /// Sets the value of [migrating_vm][crate::model::ExtendMigrationRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ExtendMigrationRequest;
+    /// let x = ExtendMigrationRequest::new().set_migrating_vm("example");
+    /// ```
     pub fn set_migrating_vm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm = v.into();
         self
@@ -12844,24 +16658,49 @@ impl TargetProject {
     }
 
     /// Sets the value of [name][crate::model::TargetProject::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = TargetProject::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::TargetProject::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = TargetProject::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::TargetProject::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = TargetProject::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TargetProject::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::TargetProject;
+    /// use wkt::Timestamp;
+    /// let x = TargetProject::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12871,6 +16710,14 @@ impl TargetProject {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TargetProject::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::TargetProject;
+    /// use wkt::Timestamp;
+    /// let x = TargetProject::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TargetProject::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12880,6 +16727,13 @@ impl TargetProject {
     }
 
     /// Sets the value of [update_time][crate::model::TargetProject::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::TargetProject;
+    /// use wkt::Timestamp;
+    /// let x = TargetProject::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12889,6 +16743,14 @@ impl TargetProject {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TargetProject::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::TargetProject;
+    /// use wkt::Timestamp;
+    /// let x = TargetProject::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TargetProject::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12920,6 +16782,12 @@ impl GetTargetProjectRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTargetProjectRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetTargetProjectRequest;
+    /// let x = GetTargetProjectRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -12967,30 +16835,60 @@ impl ListTargetProjectsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTargetProjectsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsRequest;
+    /// let x = ListTargetProjectsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTargetProjectsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsRequest;
+    /// let x = ListTargetProjectsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTargetProjectsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsRequest;
+    /// let x = ListTargetProjectsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTargetProjectsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsRequest;
+    /// let x = ListTargetProjectsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTargetProjectsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsRequest;
+    /// let x = ListTargetProjectsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -13026,6 +16924,17 @@ impl ListTargetProjectsResponse {
     }
 
     /// Sets the value of [target_projects][crate::model::ListTargetProjectsResponse::target_projects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsResponse;
+    /// use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = ListTargetProjectsResponse::new()
+    ///     .set_target_projects([
+    ///         TargetProject::default()/* use setters */,
+    ///         TargetProject::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_target_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13037,12 +16946,24 @@ impl ListTargetProjectsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTargetProjectsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsResponse;
+    /// let x = ListTargetProjectsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListTargetProjectsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListTargetProjectsResponse;
+    /// let x = ListTargetProjectsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13111,12 +17032,24 @@ impl CreateTargetProjectRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTargetProjectRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateTargetProjectRequest;
+    /// let x = CreateTargetProjectRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [target_project_id][crate::model::CreateTargetProjectRequest::target_project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateTargetProjectRequest;
+    /// let x = CreateTargetProjectRequest::new().set_target_project_id("example");
+    /// ```
     pub fn set_target_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13126,6 +17059,13 @@ impl CreateTargetProjectRequest {
     }
 
     /// Sets the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateTargetProjectRequest;
+    /// use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = CreateTargetProjectRequest::new().set_target_project(TargetProject::default()/* use setters */);
+    /// ```
     pub fn set_target_project<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetProject>,
@@ -13135,6 +17075,14 @@ impl CreateTargetProjectRequest {
     }
 
     /// Sets or clears the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateTargetProjectRequest;
+    /// use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = CreateTargetProjectRequest::new().set_or_clear_target_project(Some(TargetProject::default()/* use setters */));
+    /// let x = CreateTargetProjectRequest::new().set_or_clear_target_project(None::<TargetProject>);
+    /// ```
     pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetProject>,
@@ -13144,6 +17092,12 @@ impl CreateTargetProjectRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateTargetProjectRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateTargetProjectRequest;
+    /// let x = CreateTargetProjectRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -13194,6 +17148,13 @@ impl UpdateTargetProjectRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateTargetProjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTargetProjectRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13203,6 +17164,14 @@ impl UpdateTargetProjectRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateTargetProjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTargetProjectRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTargetProjectRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13212,6 +17181,13 @@ impl UpdateTargetProjectRequest {
     }
 
     /// Sets the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateTargetProjectRequest;
+    /// use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = UpdateTargetProjectRequest::new().set_target_project(TargetProject::default()/* use setters */);
+    /// ```
     pub fn set_target_project<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetProject>,
@@ -13221,6 +17197,14 @@ impl UpdateTargetProjectRequest {
     }
 
     /// Sets or clears the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateTargetProjectRequest;
+    /// use google_cloud_vmmigration_v1::model::TargetProject;
+    /// let x = UpdateTargetProjectRequest::new().set_or_clear_target_project(Some(TargetProject::default()/* use setters */));
+    /// let x = UpdateTargetProjectRequest::new().set_or_clear_target_project(None::<TargetProject>);
+    /// ```
     pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetProject>,
@@ -13230,6 +17214,12 @@ impl UpdateTargetProjectRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateTargetProjectRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateTargetProjectRequest;
+    /// let x = UpdateTargetProjectRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -13273,12 +17263,24 @@ impl DeleteTargetProjectRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTargetProjectRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteTargetProjectRequest;
+    /// let x = DeleteTargetProjectRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteTargetProjectRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteTargetProjectRequest;
+    /// let x = DeleteTargetProjectRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -13323,12 +17325,25 @@ impl Group {
     }
 
     /// Sets the value of [name][crate::model::Group::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// let x = Group::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Group::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// use wkt::Timestamp;
+    /// let x = Group::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13338,6 +17353,14 @@ impl Group {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Group::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// use wkt::Timestamp;
+    /// let x = Group::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Group::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13347,6 +17370,13 @@ impl Group {
     }
 
     /// Sets the value of [update_time][crate::model::Group::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// use wkt::Timestamp;
+    /// let x = Group::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13356,6 +17386,14 @@ impl Group {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Group::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// use wkt::Timestamp;
+    /// let x = Group::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Group::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13365,18 +17403,38 @@ impl Group {
     }
 
     /// Sets the value of [description][crate::model::Group::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// let x = Group::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Group::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// let x = Group::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [migration_target_type][crate::model::Group::migration_target_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::Group;
+    /// use google_cloud_vmmigration_v1::model::group::MigrationTargetType;
+    /// let x0 = Group::new().set_migration_target_type(MigrationTargetType::Gce);
+    /// let x1 = Group::new().set_migration_target_type(MigrationTargetType::Disks);
+    /// ```
     pub fn set_migration_target_type<
         T: std::convert::Into<crate::model::group::MigrationTargetType>,
     >(
@@ -13567,30 +17625,60 @@ impl ListGroupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -13626,6 +17714,17 @@ impl ListGroupsResponse {
     }
 
     /// Sets the value of [groups][crate::model::ListGroupsResponse::groups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsResponse;
+    /// use google_cloud_vmmigration_v1::model::Group;
+    /// let x = ListGroupsResponse::new()
+    ///     .set_groups([
+    ///         Group::default()/* use setters */,
+    ///         Group::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13637,12 +17736,24 @@ impl ListGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsResponse;
+    /// let x = ListGroupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListGroupsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListGroupsResponse;
+    /// let x = ListGroupsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13690,6 +17801,12 @@ impl GetGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGroupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetGroupRequest;
+    /// let x = GetGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13739,18 +17856,37 @@ impl CreateGroupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateGroupRequest;
+    /// let x = CreateGroupRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [group_id][crate::model::CreateGroupRequest::group_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateGroupRequest;
+    /// let x = CreateGroupRequest::new().set_group_id("example");
+    /// ```
     pub fn set_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group_id = v.into();
         self
     }
 
     /// Sets the value of [group][crate::model::CreateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateGroupRequest;
+    /// use google_cloud_vmmigration_v1::model::Group;
+    /// let x = CreateGroupRequest::new().set_group(Group::default()/* use setters */);
+    /// ```
     pub fn set_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -13760,6 +17896,14 @@ impl CreateGroupRequest {
     }
 
     /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateGroupRequest;
+    /// use google_cloud_vmmigration_v1::model::Group;
+    /// let x = CreateGroupRequest::new().set_or_clear_group(Some(Group::default()/* use setters */));
+    /// let x = CreateGroupRequest::new().set_or_clear_group(None::<Group>);
+    /// ```
     pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -13769,6 +17913,12 @@ impl CreateGroupRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateGroupRequest;
+    /// let x = CreateGroupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -13819,6 +17969,13 @@ impl UpdateGroupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13828,6 +17985,14 @@ impl UpdateGroupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13837,6 +18002,13 @@ impl UpdateGroupRequest {
     }
 
     /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateGroupRequest;
+    /// use google_cloud_vmmigration_v1::model::Group;
+    /// let x = UpdateGroupRequest::new().set_group(Group::default()/* use setters */);
+    /// ```
     pub fn set_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -13846,6 +18018,14 @@ impl UpdateGroupRequest {
     }
 
     /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateGroupRequest;
+    /// use google_cloud_vmmigration_v1::model::Group;
+    /// let x = UpdateGroupRequest::new().set_or_clear_group(Some(Group::default()/* use setters */));
+    /// let x = UpdateGroupRequest::new().set_or_clear_group(None::<Group>);
+    /// ```
     pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -13855,6 +18035,12 @@ impl UpdateGroupRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateGroupRequest;
+    /// let x = UpdateGroupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -13898,12 +18084,24 @@ impl DeleteGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteGroupRequest;
+    /// let x = DeleteGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteGroupRequest;
+    /// let x = DeleteGroupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -13935,12 +18133,24 @@ impl AddGroupMigrationRequest {
     }
 
     /// Sets the value of [group][crate::model::AddGroupMigrationRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AddGroupMigrationRequest;
+    /// let x = AddGroupMigrationRequest::new().set_group("example");
+    /// ```
     pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group = v.into();
         self
     }
 
     /// Sets the value of [migrating_vm][crate::model::AddGroupMigrationRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AddGroupMigrationRequest;
+    /// let x = AddGroupMigrationRequest::new().set_migrating_vm("example");
+    /// ```
     pub fn set_migrating_vm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm = v.into();
         self
@@ -13991,12 +18201,24 @@ impl RemoveGroupMigrationRequest {
     }
 
     /// Sets the value of [group][crate::model::RemoveGroupMigrationRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::RemoveGroupMigrationRequest;
+    /// let x = RemoveGroupMigrationRequest::new().set_group("example");
+    /// ```
     pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group = v.into();
         self
     }
 
     /// Sets the value of [migrating_vm][crate::model::RemoveGroupMigrationRequest::migrating_vm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::RemoveGroupMigrationRequest;
+    /// let x = RemoveGroupMigrationRequest::new().set_migrating_vm("example");
+    /// ```
     pub fn set_migrating_vm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.migrating_vm = v.into();
         self
@@ -14065,18 +18287,37 @@ impl CreateCutoverJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCutoverJobRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCutoverJobRequest;
+    /// let x = CreateCutoverJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cutover_job_id][crate::model::CreateCutoverJobRequest::cutover_job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCutoverJobRequest;
+    /// let x = CreateCutoverJobRequest::new().set_cutover_job_id("example");
+    /// ```
     pub fn set_cutover_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cutover_job_id = v.into();
         self
     }
 
     /// Sets the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCutoverJobRequest;
+    /// use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// let x = CreateCutoverJobRequest::new().set_cutover_job(CutoverJob::default()/* use setters */);
+    /// ```
     pub fn set_cutover_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CutoverJob>,
@@ -14086,6 +18327,14 @@ impl CreateCutoverJobRequest {
     }
 
     /// Sets or clears the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCutoverJobRequest;
+    /// use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// let x = CreateCutoverJobRequest::new().set_or_clear_cutover_job(Some(CutoverJob::default()/* use setters */));
+    /// let x = CreateCutoverJobRequest::new().set_or_clear_cutover_job(None::<CutoverJob>);
+    /// ```
     pub fn set_or_clear_cutover_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CutoverJob>,
@@ -14095,6 +18344,12 @@ impl CreateCutoverJobRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCutoverJobRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateCutoverJobRequest;
+    /// let x = CreateCutoverJobRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -14123,6 +18378,12 @@ impl CancelCutoverJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelCutoverJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CancelCutoverJobRequest;
+    /// let x = CancelCutoverJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14189,30 +18450,60 @@ impl ListCutoverJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCutoverJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsRequest;
+    /// let x = ListCutoverJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCutoverJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsRequest;
+    /// let x = ListCutoverJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCutoverJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsRequest;
+    /// let x = ListCutoverJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCutoverJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsRequest;
+    /// let x = ListCutoverJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCutoverJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsRequest;
+    /// let x = ListCutoverJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -14248,6 +18539,17 @@ impl ListCutoverJobsResponse {
     }
 
     /// Sets the value of [cutover_jobs][crate::model::ListCutoverJobsResponse::cutover_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsResponse;
+    /// use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// let x = ListCutoverJobsResponse::new()
+    ///     .set_cutover_jobs([
+    ///         CutoverJob::default()/* use setters */,
+    ///         CutoverJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cutover_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14259,12 +18561,24 @@ impl ListCutoverJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCutoverJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsResponse;
+    /// let x = ListCutoverJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCutoverJobsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListCutoverJobsResponse;
+    /// let x = ListCutoverJobsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14312,6 +18626,12 @@ impl GetCutoverJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCutoverJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetCutoverJobRequest;
+    /// let x = GetCutoverJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14364,6 +18684,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14373,6 +18700,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14382,6 +18717,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14391,6 +18733,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14400,30 +18750,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -14467,6 +18847,15 @@ impl MigrationError {
     }
 
     /// Sets the value of [code][crate::model::MigrationError::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use google_cloud_vmmigration_v1::model::migration_error::ErrorCode;
+    /// let x0 = MigrationError::new().set_code(ErrorCode::UnknownError);
+    /// let x1 = MigrationError::new().set_code(ErrorCode::SourceValidationError);
+    /// let x2 = MigrationError::new().set_code(ErrorCode::SourceReplicationError);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::migration_error::ErrorCode>>(
         mut self,
         v: T,
@@ -14476,6 +18865,13 @@ impl MigrationError {
     }
 
     /// Sets the value of [error_message][crate::model::MigrationError::error_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationError::new().set_error_message(LocalizedMessage::default()/* use setters */);
+    /// ```
     pub fn set_error_message<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14485,6 +18881,14 @@ impl MigrationError {
     }
 
     /// Sets or clears the value of [error_message][crate::model::MigrationError::error_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationError::new().set_or_clear_error_message(Some(LocalizedMessage::default()/* use setters */));
+    /// let x = MigrationError::new().set_or_clear_error_message(None::<LocalizedMessage>);
+    /// ```
     pub fn set_or_clear_error_message<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14494,6 +18898,13 @@ impl MigrationError {
     }
 
     /// Sets the value of [action_item][crate::model::MigrationError::action_item].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationError::new().set_action_item(LocalizedMessage::default()/* use setters */);
+    /// ```
     pub fn set_action_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14503,6 +18914,14 @@ impl MigrationError {
     }
 
     /// Sets or clears the value of [action_item][crate::model::MigrationError::action_item].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationError::new().set_or_clear_action_item(Some(LocalizedMessage::default()/* use setters */));
+    /// let x = MigrationError::new().set_or_clear_action_item(None::<LocalizedMessage>);
+    /// ```
     pub fn set_or_clear_action_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14512,6 +18931,17 @@ impl MigrationError {
     }
 
     /// Sets the value of [help_links][crate::model::MigrationError::help_links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use rpc::model::help::Link;
+    /// let x = MigrationError::new()
+    ///     .set_help_links([
+    ///         Link::default()/* use setters */,
+    ///         Link::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_help_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14523,6 +18953,13 @@ impl MigrationError {
     }
 
     /// Sets the value of [error_time][crate::model::MigrationError::error_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use wkt::Timestamp;
+    /// let x = MigrationError::new().set_error_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_error_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14532,6 +18969,14 @@ impl MigrationError {
     }
 
     /// Sets or clears the value of [error_time][crate::model::MigrationError::error_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationError;
+    /// use wkt::Timestamp;
+    /// let x = MigrationError::new().set_or_clear_error_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MigrationError::new().set_or_clear_error_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_error_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14792,6 +19237,13 @@ impl MigrationWarning {
     }
 
     /// Sets the value of [code][crate::model::MigrationWarning::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use google_cloud_vmmigration_v1::model::migration_warning::WarningCode;
+    /// let x0 = MigrationWarning::new().set_code(WarningCode::AdaptationWarning);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::migration_warning::WarningCode>>(
         mut self,
         v: T,
@@ -14801,6 +19253,13 @@ impl MigrationWarning {
     }
 
     /// Sets the value of [warning_message][crate::model::MigrationWarning::warning_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationWarning::new().set_warning_message(LocalizedMessage::default()/* use setters */);
+    /// ```
     pub fn set_warning_message<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14810,6 +19269,14 @@ impl MigrationWarning {
     }
 
     /// Sets or clears the value of [warning_message][crate::model::MigrationWarning::warning_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationWarning::new().set_or_clear_warning_message(Some(LocalizedMessage::default()/* use setters */));
+    /// let x = MigrationWarning::new().set_or_clear_warning_message(None::<LocalizedMessage>);
+    /// ```
     pub fn set_or_clear_warning_message<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14819,6 +19286,13 @@ impl MigrationWarning {
     }
 
     /// Sets the value of [action_item][crate::model::MigrationWarning::action_item].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationWarning::new().set_action_item(LocalizedMessage::default()/* use setters */);
+    /// ```
     pub fn set_action_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14828,6 +19302,14 @@ impl MigrationWarning {
     }
 
     /// Sets or clears the value of [action_item][crate::model::MigrationWarning::action_item].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use rpc::model::LocalizedMessage;
+    /// let x = MigrationWarning::new().set_or_clear_action_item(Some(LocalizedMessage::default()/* use setters */));
+    /// let x = MigrationWarning::new().set_or_clear_action_item(None::<LocalizedMessage>);
+    /// ```
     pub fn set_or_clear_action_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::LocalizedMessage>,
@@ -14837,6 +19319,17 @@ impl MigrationWarning {
     }
 
     /// Sets the value of [help_links][crate::model::MigrationWarning::help_links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use rpc::model::help::Link;
+    /// let x = MigrationWarning::new()
+    ///     .set_help_links([
+    ///         Link::default()/* use setters */,
+    ///         Link::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_help_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14848,6 +19341,13 @@ impl MigrationWarning {
     }
 
     /// Sets the value of [warning_time][crate::model::MigrationWarning::warning_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use wkt::Timestamp;
+    /// let x = MigrationWarning::new().set_warning_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_warning_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14857,6 +19357,14 @@ impl MigrationWarning {
     }
 
     /// Sets or clears the value of [warning_time][crate::model::MigrationWarning::warning_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// use wkt::Timestamp;
+    /// let x = MigrationWarning::new().set_or_clear_warning_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MigrationWarning::new().set_or_clear_warning_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_warning_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15032,6 +19540,14 @@ impl VmwareSourceVmDetails {
     }
 
     /// Sets the value of [firmware][crate::model::VmwareSourceVmDetails::firmware].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::vmware_source_vm_details::Firmware;
+    /// let x0 = VmwareSourceVmDetails::new().set_firmware(Firmware::Efi);
+    /// let x1 = VmwareSourceVmDetails::new().set_firmware(Firmware::Bios);
+    /// ```
     pub fn set_firmware<T: std::convert::Into<crate::model::vmware_source_vm_details::Firmware>>(
         mut self,
         v: T,
@@ -15041,12 +19557,29 @@ impl VmwareSourceVmDetails {
     }
 
     /// Sets the value of [committed_storage_bytes][crate::model::VmwareSourceVmDetails::committed_storage_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// let x = VmwareSourceVmDetails::new().set_committed_storage_bytes(42);
+    /// ```
     pub fn set_committed_storage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.committed_storage_bytes = v.into();
         self
     }
 
     /// Sets the value of [disks][crate::model::VmwareSourceVmDetails::disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::vmware_source_vm_details::VmwareDiskDetails;
+    /// let x = VmwareSourceVmDetails::new()
+    ///     .set_disks([
+    ///         VmwareDiskDetails::default()/* use setters */,
+    ///         VmwareDiskDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15058,6 +19591,13 @@ impl VmwareSourceVmDetails {
     }
 
     /// Sets the value of [vm_capabilities_info][crate::model::VmwareSourceVmDetails::vm_capabilities_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// let x = VmwareSourceVmDetails::new().set_vm_capabilities_info(VmCapabilities::default()/* use setters */);
+    /// ```
     pub fn set_vm_capabilities_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VmCapabilities>,
@@ -15067,6 +19607,14 @@ impl VmwareSourceVmDetails {
     }
 
     /// Sets or clears the value of [vm_capabilities_info][crate::model::VmwareSourceVmDetails::vm_capabilities_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// let x = VmwareSourceVmDetails::new().set_or_clear_vm_capabilities_info(Some(VmCapabilities::default()/* use setters */));
+    /// let x = VmwareSourceVmDetails::new().set_or_clear_vm_capabilities_info(None::<VmCapabilities>);
+    /// ```
     pub fn set_or_clear_vm_capabilities_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VmCapabilities>,
@@ -15076,6 +19624,14 @@ impl VmwareSourceVmDetails {
     }
 
     /// Sets the value of [architecture][crate::model::VmwareSourceVmDetails::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmwareSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmArchitecture;
+    /// let x0 = VmwareSourceVmDetails::new().set_architecture(VmArchitecture::X86Family);
+    /// let x1 = VmwareSourceVmDetails::new().set_architecture(VmArchitecture::Arm64);
+    /// ```
     pub fn set_architecture<T: std::convert::Into<crate::model::VmArchitecture>>(
         mut self,
         v: T,
@@ -15118,18 +19674,36 @@ pub mod vmware_source_vm_details {
         }
 
         /// Sets the value of [disk_number][crate::model::vmware_source_vm_details::VmwareDiskDetails::disk_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::vmware_source_vm_details::VmwareDiskDetails;
+        /// let x = VmwareDiskDetails::new().set_disk_number(42);
+        /// ```
         pub fn set_disk_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.disk_number = v.into();
             self
         }
 
         /// Sets the value of [size_gb][crate::model::vmware_source_vm_details::VmwareDiskDetails::size_gb].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::vmware_source_vm_details::VmwareDiskDetails;
+        /// let x = VmwareDiskDetails::new().set_size_gb(42);
+        /// ```
         pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.size_gb = v.into();
             self
         }
 
         /// Sets the value of [label][crate::model::vmware_source_vm_details::VmwareDiskDetails::label].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::vmware_source_vm_details::VmwareDiskDetails;
+        /// let x = VmwareDiskDetails::new().set_label("example");
+        /// ```
         pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.label = v.into();
             self
@@ -15304,6 +19878,14 @@ impl AwsSourceVmDetails {
     }
 
     /// Sets the value of [firmware][crate::model::AwsSourceVmDetails::firmware].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_source_vm_details::Firmware;
+    /// let x0 = AwsSourceVmDetails::new().set_firmware(Firmware::Efi);
+    /// let x1 = AwsSourceVmDetails::new().set_firmware(Firmware::Bios);
+    /// ```
     pub fn set_firmware<T: std::convert::Into<crate::model::aws_source_vm_details::Firmware>>(
         mut self,
         v: T,
@@ -15313,12 +19895,29 @@ impl AwsSourceVmDetails {
     }
 
     /// Sets the value of [committed_storage_bytes][crate::model::AwsSourceVmDetails::committed_storage_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceVmDetails;
+    /// let x = AwsSourceVmDetails::new().set_committed_storage_bytes(42);
+    /// ```
     pub fn set_committed_storage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.committed_storage_bytes = v.into();
         self
     }
 
     /// Sets the value of [disks][crate::model::AwsSourceVmDetails::disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_source_vm_details::AwsDiskDetails;
+    /// let x = AwsSourceVmDetails::new()
+    ///     .set_disks([
+    ///         AwsDiskDetails::default()/* use setters */,
+    ///         AwsDiskDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15330,6 +19929,13 @@ impl AwsSourceVmDetails {
     }
 
     /// Sets the value of [vm_capabilities_info][crate::model::AwsSourceVmDetails::vm_capabilities_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// let x = AwsSourceVmDetails::new().set_vm_capabilities_info(VmCapabilities::default()/* use setters */);
+    /// ```
     pub fn set_vm_capabilities_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VmCapabilities>,
@@ -15339,6 +19945,14 @@ impl AwsSourceVmDetails {
     }
 
     /// Sets or clears the value of [vm_capabilities_info][crate::model::AwsSourceVmDetails::vm_capabilities_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// let x = AwsSourceVmDetails::new().set_or_clear_vm_capabilities_info(Some(VmCapabilities::default()/* use setters */));
+    /// let x = AwsSourceVmDetails::new().set_or_clear_vm_capabilities_info(None::<VmCapabilities>);
+    /// ```
     pub fn set_or_clear_vm_capabilities_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VmCapabilities>,
@@ -15348,6 +19962,14 @@ impl AwsSourceVmDetails {
     }
 
     /// Sets the value of [architecture][crate::model::AwsSourceVmDetails::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmArchitecture;
+    /// let x0 = AwsSourceVmDetails::new().set_architecture(VmArchitecture::X86Family);
+    /// let x1 = AwsSourceVmDetails::new().set_architecture(VmArchitecture::Arm64);
+    /// ```
     pub fn set_architecture<T: std::convert::Into<crate::model::VmArchitecture>>(
         mut self,
         v: T,
@@ -15390,18 +20012,36 @@ pub mod aws_source_vm_details {
         }
 
         /// Sets the value of [disk_number][crate::model::aws_source_vm_details::AwsDiskDetails::disk_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_vm_details::AwsDiskDetails;
+        /// let x = AwsDiskDetails::new().set_disk_number(42);
+        /// ```
         pub fn set_disk_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.disk_number = v.into();
             self
         }
 
         /// Sets the value of [volume_id][crate::model::aws_source_vm_details::AwsDiskDetails::volume_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_vm_details::AwsDiskDetails;
+        /// let x = AwsDiskDetails::new().set_volume_id("example");
+        /// ```
         pub fn set_volume_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.volume_id = v.into();
             self
         }
 
         /// Sets the value of [size_gb][crate::model::aws_source_vm_details::AwsDiskDetails::size_gb].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::aws_source_vm_details::AwsDiskDetails;
+        /// let x = AwsDiskDetails::new().set_size_gb(42);
+        /// ```
         pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.size_gb = v.into();
             self
@@ -15576,6 +20216,14 @@ impl AzureSourceVmDetails {
     }
 
     /// Sets the value of [firmware][crate::model::AzureSourceVmDetails::firmware].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_source_vm_details::Firmware;
+    /// let x0 = AzureSourceVmDetails::new().set_firmware(Firmware::Efi);
+    /// let x1 = AzureSourceVmDetails::new().set_firmware(Firmware::Bios);
+    /// ```
     pub fn set_firmware<T: std::convert::Into<crate::model::azure_source_vm_details::Firmware>>(
         mut self,
         v: T,
@@ -15585,12 +20233,29 @@ impl AzureSourceVmDetails {
     }
 
     /// Sets the value of [committed_storage_bytes][crate::model::AzureSourceVmDetails::committed_storage_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceVmDetails;
+    /// let x = AzureSourceVmDetails::new().set_committed_storage_bytes(42);
+    /// ```
     pub fn set_committed_storage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.committed_storage_bytes = v.into();
         self
     }
 
     /// Sets the value of [disks][crate::model::AzureSourceVmDetails::disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::azure_source_vm_details::AzureDiskDetails;
+    /// let x = AzureSourceVmDetails::new()
+    ///     .set_disks([
+    ///         AzureDiskDetails::default()/* use setters */,
+    ///         AzureDiskDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15602,6 +20267,13 @@ impl AzureSourceVmDetails {
     }
 
     /// Sets the value of [vm_capabilities_info][crate::model::AzureSourceVmDetails::vm_capabilities_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// let x = AzureSourceVmDetails::new().set_vm_capabilities_info(VmCapabilities::default()/* use setters */);
+    /// ```
     pub fn set_vm_capabilities_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VmCapabilities>,
@@ -15611,6 +20283,14 @@ impl AzureSourceVmDetails {
     }
 
     /// Sets or clears the value of [vm_capabilities_info][crate::model::AzureSourceVmDetails::vm_capabilities_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// let x = AzureSourceVmDetails::new().set_or_clear_vm_capabilities_info(Some(VmCapabilities::default()/* use setters */));
+    /// let x = AzureSourceVmDetails::new().set_or_clear_vm_capabilities_info(None::<VmCapabilities>);
+    /// ```
     pub fn set_or_clear_vm_capabilities_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VmCapabilities>,
@@ -15620,6 +20300,14 @@ impl AzureSourceVmDetails {
     }
 
     /// Sets the value of [architecture][crate::model::AzureSourceVmDetails::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AzureSourceVmDetails;
+    /// use google_cloud_vmmigration_v1::model::VmArchitecture;
+    /// let x0 = AzureSourceVmDetails::new().set_architecture(VmArchitecture::X86Family);
+    /// let x1 = AzureSourceVmDetails::new().set_architecture(VmArchitecture::Arm64);
+    /// ```
     pub fn set_architecture<T: std::convert::Into<crate::model::VmArchitecture>>(
         mut self,
         v: T,
@@ -15662,18 +20350,36 @@ pub mod azure_source_vm_details {
         }
 
         /// Sets the value of [disk_number][crate::model::azure_source_vm_details::AzureDiskDetails::disk_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_source_vm_details::AzureDiskDetails;
+        /// let x = AzureDiskDetails::new().set_disk_number(42);
+        /// ```
         pub fn set_disk_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.disk_number = v.into();
             self
         }
 
         /// Sets the value of [disk_id][crate::model::azure_source_vm_details::AzureDiskDetails::disk_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_source_vm_details::AzureDiskDetails;
+        /// let x = AzureDiskDetails::new().set_disk_id("example");
+        /// ```
         pub fn set_disk_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.disk_id = v.into();
             self
         }
 
         /// Sets the value of [size_gb][crate::model::azure_source_vm_details::AzureDiskDetails::size_gb].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmmigration_v1::model::azure_source_vm_details::AzureDiskDetails;
+        /// let x = AzureDiskDetails::new().set_size_gb(42);
+        /// ```
         pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.size_gb = v.into();
             self
@@ -15854,30 +20560,60 @@ impl ListReplicationCyclesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReplicationCyclesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesRequest;
+    /// let x = ListReplicationCyclesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReplicationCyclesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesRequest;
+    /// let x = ListReplicationCyclesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReplicationCyclesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesRequest;
+    /// let x = ListReplicationCyclesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListReplicationCyclesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesRequest;
+    /// let x = ListReplicationCyclesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListReplicationCyclesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesRequest;
+    /// let x = ListReplicationCyclesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -15913,6 +20649,17 @@ impl ListReplicationCyclesResponse {
     }
 
     /// Sets the value of [replication_cycles][crate::model::ListReplicationCyclesResponse::replication_cycles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesResponse;
+    /// use google_cloud_vmmigration_v1::model::ReplicationCycle;
+    /// let x = ListReplicationCyclesResponse::new()
+    ///     .set_replication_cycles([
+    ///         ReplicationCycle::default()/* use setters */,
+    ///         ReplicationCycle::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_replication_cycles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15924,12 +20671,24 @@ impl ListReplicationCyclesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReplicationCyclesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesResponse;
+    /// let x = ListReplicationCyclesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListReplicationCyclesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListReplicationCyclesResponse;
+    /// let x = ListReplicationCyclesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15977,6 +20736,12 @@ impl GetReplicationCycleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReplicationCycleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetReplicationCycleRequest;
+    /// let x = GetReplicationCycleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16010,6 +20775,17 @@ impl VmCapabilities {
     }
 
     /// Sets the value of [os_capabilities][crate::model::VmCapabilities::os_capabilities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// use google_cloud_vmmigration_v1::model::OsCapability;
+    /// let x = VmCapabilities::new().set_os_capabilities([
+    ///     OsCapability::NvmeStorageAccess,
+    ///     OsCapability::GvnicNetworkInterface,
+    ///     OsCapability::IdpfNetworkInterface,
+    /// ]);
+    /// ```
     pub fn set_os_capabilities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16021,6 +20797,13 @@ impl VmCapabilities {
     }
 
     /// Sets the value of [last_os_capabilities_update_time][crate::model::VmCapabilities::last_os_capabilities_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// use wkt::Timestamp;
+    /// let x = VmCapabilities::new().set_last_os_capabilities_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_os_capabilities_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16030,6 +20813,14 @@ impl VmCapabilities {
     }
 
     /// Sets or clears the value of [last_os_capabilities_update_time][crate::model::VmCapabilities::last_os_capabilities_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::VmCapabilities;
+    /// use wkt::Timestamp;
+    /// let x = VmCapabilities::new().set_or_clear_last_os_capabilities_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VmCapabilities::new().set_or_clear_last_os_capabilities_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_os_capabilities_update_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -16081,12 +20872,25 @@ impl ImageImport {
     }
 
     /// Sets the value of [name][crate::model::ImageImport::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// let x = ImageImport::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ImageImport::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use wkt::Timestamp;
+    /// let x = ImageImport::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16096,6 +20900,14 @@ impl ImageImport {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ImageImport::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use wkt::Timestamp;
+    /// let x = ImageImport::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImageImport::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16105,6 +20917,17 @@ impl ImageImport {
     }
 
     /// Sets the value of [recent_image_import_jobs][crate::model::ImageImport::recent_image_import_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// let x = ImageImport::new()
+    ///     .set_recent_image_import_jobs([
+    ///         ImageImportJob::default()/* use setters */,
+    ///         ImageImportJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_recent_image_import_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16116,6 +20939,13 @@ impl ImageImport {
     }
 
     /// Sets the value of [encryption][crate::model::ImageImport::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = ImageImport::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -16125,6 +20955,14 @@ impl ImageImport {
     }
 
     /// Sets or clears the value of [encryption][crate::model::ImageImport::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = ImageImport::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = ImageImport::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -16137,6 +20975,13 @@ impl ImageImport {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::model::image_import::Source;
+    /// let x = ImageImport::new().set_source(Some(Source::CloudStorageUri("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::image_import::Source>>,
     >(
@@ -16163,6 +21008,13 @@ impl ImageImport {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// let x = ImageImport::new().set_cloud_storage_uri("example");
+    /// assert!(x.cloud_storage_uri().is_some());
+    /// ```
     pub fn set_cloud_storage_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16177,6 +21029,14 @@ impl ImageImport {
     ///
     /// Note that all the setters affecting `target_defaults` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = ImageImport::new().set_target_defaults(Some(
+    ///     google_cloud_vmmigration_v1::model::image_import::TargetDefaults::DiskImageTargetDefaults(DiskImageTargetDetails::default().into())));
+    /// ```
     pub fn set_target_defaults<
         T: std::convert::Into<std::option::Option<crate::model::image_import::TargetDefaults>>,
     >(
@@ -16207,6 +21067,15 @@ impl ImageImport {
     ///
     /// Note that all the setters affecting `target_defaults` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = ImageImport::new().set_disk_image_target_defaults(DiskImageTargetDetails::default()/* use setters */);
+    /// assert!(x.disk_image_target_defaults().is_some());
+    /// assert!(x.machine_image_target_defaults().is_none());
+    /// ```
     pub fn set_disk_image_target_defaults<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskImageTargetDetails>>,
     >(
@@ -16239,6 +21108,15 @@ impl ImageImport {
     ///
     /// Note that all the setters affecting `target_defaults` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = ImageImport::new().set_machine_image_target_defaults(MachineImageTargetDetails::default()/* use setters */);
+    /// assert!(x.machine_image_target_defaults().is_some());
+    /// assert!(x.disk_image_target_defaults().is_none());
+    /// ```
     pub fn set_machine_image_target_defaults<
         T: std::convert::Into<std::boxed::Box<crate::model::MachineImageTargetDetails>>,
     >(
@@ -16331,12 +21209,24 @@ impl ImageImportJob {
     }
 
     /// Sets the value of [name][crate::model::ImageImportJob::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// let x = ImageImportJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [created_resources][crate::model::ImageImportJob::created_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// let x = ImageImportJob::new().set_created_resources(["a", "b", "c"]);
+    /// ```
     pub fn set_created_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16348,6 +21238,15 @@ impl ImageImportJob {
     }
 
     /// Sets the value of [state][crate::model::ImageImportJob::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use google_cloud_vmmigration_v1::model::image_import_job::State;
+    /// let x0 = ImageImportJob::new().set_state(State::Pending);
+    /// let x1 = ImageImportJob::new().set_state(State::Running);
+    /// let x2 = ImageImportJob::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::image_import_job::State>>(
         mut self,
         v: T,
@@ -16357,6 +21256,13 @@ impl ImageImportJob {
     }
 
     /// Sets the value of [create_time][crate::model::ImageImportJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16366,6 +21272,14 @@ impl ImageImportJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ImageImportJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImageImportJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16375,6 +21289,13 @@ impl ImageImportJob {
     }
 
     /// Sets the value of [end_time][crate::model::ImageImportJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportJob::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16384,6 +21305,14 @@ impl ImageImportJob {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ImageImportJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportJob::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImageImportJob::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16393,6 +21322,17 @@ impl ImageImportJob {
     }
 
     /// Sets the value of [errors][crate::model::ImageImportJob::errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use rpc::model::Status;
+    /// let x = ImageImportJob::new()
+    ///     .set_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16404,6 +21344,17 @@ impl ImageImportJob {
     }
 
     /// Sets the value of [warnings][crate::model::ImageImportJob::warnings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use google_cloud_vmmigration_v1::model::MigrationWarning;
+    /// let x = ImageImportJob::new()
+    ///     .set_warnings([
+    ///         MigrationWarning::default()/* use setters */,
+    ///         MigrationWarning::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16415,6 +21366,17 @@ impl ImageImportJob {
     }
 
     /// Sets the value of [steps][crate::model::ImageImportJob::steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// let x = ImageImportJob::new()
+    ///     .set_steps([
+    ///         ImageImportStep::default()/* use setters */,
+    ///         ImageImportStep::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16429,6 +21391,13 @@ impl ImageImportJob {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use google_cloud_vmmigration_v1::model::image_import_job::Source;
+    /// let x = ImageImportJob::new().set_source(Some(Source::CloudStorageUri("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::image_import_job::Source>>,
     >(
@@ -16457,6 +21426,13 @@ impl ImageImportJob {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// let x = ImageImportJob::new().set_cloud_storage_uri("example");
+    /// assert!(x.cloud_storage_uri().is_some());
+    /// ```
     pub fn set_cloud_storage_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16471,6 +21447,14 @@ impl ImageImportJob {
     ///
     /// Note that all the setters affecting `target_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = ImageImportJob::new().set_target_details(Some(
+    ///     google_cloud_vmmigration_v1::model::image_import_job::TargetDetails::DiskImageTargetDetails(DiskImageTargetDetails::default().into())));
+    /// ```
     pub fn set_target_details<
         T: std::convert::Into<std::option::Option<crate::model::image_import_job::TargetDetails>>,
     >(
@@ -16501,6 +21485,15 @@ impl ImageImportJob {
     ///
     /// Note that all the setters affecting `target_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = ImageImportJob::new().set_disk_image_target_details(DiskImageTargetDetails::default()/* use setters */);
+    /// assert!(x.disk_image_target_details().is_some());
+    /// assert!(x.machine_image_target_details().is_none());
+    /// ```
     pub fn set_disk_image_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::DiskImageTargetDetails>>,
     >(
@@ -16533,6 +21526,15 @@ impl ImageImportJob {
     ///
     /// Note that all the setters affecting `target_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = ImageImportJob::new().set_machine_image_target_details(MachineImageTargetDetails::default()/* use setters */);
+    /// assert!(x.machine_image_target_details().is_some());
+    /// assert!(x.disk_image_target_details().is_none());
+    /// ```
     pub fn set_machine_image_target_details<
         T: std::convert::Into<std::boxed::Box<crate::model::MachineImageTargetDetails>>,
     >(
@@ -16758,6 +21760,13 @@ impl ImageImportStep {
     }
 
     /// Sets the value of [start_time][crate::model::ImageImportStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportStep::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16767,6 +21776,14 @@ impl ImageImportStep {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ImageImportStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportStep::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImageImportStep::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16776,6 +21793,13 @@ impl ImageImportStep {
     }
 
     /// Sets the value of [end_time][crate::model::ImageImportStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportStep::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16785,6 +21809,14 @@ impl ImageImportStep {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ImageImportStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use wkt::Timestamp;
+    /// let x = ImageImportStep::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImageImportStep::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16797,6 +21829,14 @@ impl ImageImportStep {
     ///
     /// Note that all the setters affecting `step` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use google_cloud_vmmigration_v1::model::InitializingImageImportStep;
+    /// let x = ImageImportStep::new().set_step(Some(
+    ///     google_cloud_vmmigration_v1::model::image_import_step::Step::Initializing(InitializingImageImportStep::default().into())));
+    /// ```
     pub fn set_step<
         T: std::convert::Into<std::option::Option<crate::model::image_import_step::Step>>,
     >(
@@ -16825,6 +21865,17 @@ impl ImageImportStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use google_cloud_vmmigration_v1::model::InitializingImageImportStep;
+    /// let x = ImageImportStep::new().set_initializing(InitializingImageImportStep::default()/* use setters */);
+    /// assert!(x.initializing().is_some());
+    /// assert!(x.loading_source_files().is_none());
+    /// assert!(x.adapting_os().is_none());
+    /// assert!(x.creating_image().is_none());
+    /// ```
     pub fn set_initializing<
         T: std::convert::Into<std::boxed::Box<crate::model::InitializingImageImportStep>>,
     >(
@@ -16857,6 +21908,17 @@ impl ImageImportStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use google_cloud_vmmigration_v1::model::LoadingImageSourceFilesStep;
+    /// let x = ImageImportStep::new().set_loading_source_files(LoadingImageSourceFilesStep::default()/* use setters */);
+    /// assert!(x.loading_source_files().is_some());
+    /// assert!(x.initializing().is_none());
+    /// assert!(x.adapting_os().is_none());
+    /// assert!(x.creating_image().is_none());
+    /// ```
     pub fn set_loading_source_files<
         T: std::convert::Into<std::boxed::Box<crate::model::LoadingImageSourceFilesStep>>,
     >(
@@ -16887,6 +21949,17 @@ impl ImageImportStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use google_cloud_vmmigration_v1::model::AdaptingOSStep;
+    /// let x = ImageImportStep::new().set_adapting_os(AdaptingOSStep::default()/* use setters */);
+    /// assert!(x.adapting_os().is_some());
+    /// assert!(x.initializing().is_none());
+    /// assert!(x.loading_source_files().is_none());
+    /// assert!(x.creating_image().is_none());
+    /// ```
     pub fn set_adapting_os<T: std::convert::Into<std::boxed::Box<crate::model::AdaptingOSStep>>>(
         mut self,
         v: T,
@@ -16914,6 +21987,17 @@ impl ImageImportStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportStep;
+    /// use google_cloud_vmmigration_v1::model::CreatingImageStep;
+    /// let x = ImageImportStep::new().set_creating_image(CreatingImageStep::default()/* use setters */);
+    /// assert!(x.creating_image().is_some());
+    /// assert!(x.initializing().is_none());
+    /// assert!(x.loading_source_files().is_none());
+    /// assert!(x.adapting_os().is_none());
+    /// ```
     pub fn set_creating_image<
         T: std::convert::Into<std::boxed::Box<crate::model::CreatingImageStep>>,
     >(
@@ -17056,30 +22140,63 @@ impl DiskImageTargetDetails {
     }
 
     /// Sets the value of [image_name][crate::model::DiskImageTargetDetails::image_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = DiskImageTargetDetails::new().set_image_name("example");
+    /// ```
     pub fn set_image_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_name = v.into();
         self
     }
 
     /// Sets the value of [target_project][crate::model::DiskImageTargetDetails::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = DiskImageTargetDetails::new().set_target_project("example");
+    /// ```
     pub fn set_target_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_project = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DiskImageTargetDetails::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = DiskImageTargetDetails::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [family_name][crate::model::DiskImageTargetDetails::family_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = DiskImageTargetDetails::new().set_family_name("example");
+    /// ```
     pub fn set_family_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.family_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DiskImageTargetDetails::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = DiskImageTargetDetails::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -17092,6 +22209,12 @@ impl DiskImageTargetDetails {
     }
 
     /// Sets the value of [additional_licenses][crate::model::DiskImageTargetDetails::additional_licenses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = DiskImageTargetDetails::new().set_additional_licenses(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_licenses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17103,12 +22226,25 @@ impl DiskImageTargetDetails {
     }
 
     /// Sets the value of [single_region_storage][crate::model::DiskImageTargetDetails::single_region_storage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// let x = DiskImageTargetDetails::new().set_single_region_storage(true);
+    /// ```
     pub fn set_single_region_storage<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.single_region_storage = v.into();
         self
     }
 
     /// Sets the value of [encryption][crate::model::DiskImageTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = DiskImageTargetDetails::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -17118,6 +22254,14 @@ impl DiskImageTargetDetails {
     }
 
     /// Sets or clears the value of [encryption][crate::model::DiskImageTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = DiskImageTargetDetails::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = DiskImageTargetDetails::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -17130,6 +22274,14 @@ impl DiskImageTargetDetails {
     ///
     /// Note that all the setters affecting `os_adaptation_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ImageImportOsAdaptationParameters;
+    /// let x = DiskImageTargetDetails::new().set_os_adaptation_config(Some(
+    ///     google_cloud_vmmigration_v1::model::disk_image_target_details::OsAdaptationConfig::OsAdaptationParameters(ImageImportOsAdaptationParameters::default().into())));
+    /// ```
     pub fn set_os_adaptation_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::disk_image_target_details::OsAdaptationConfig>,
@@ -17163,6 +22315,15 @@ impl DiskImageTargetDetails {
     ///
     /// Note that all the setters affecting `os_adaptation_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ImageImportOsAdaptationParameters;
+    /// let x = DiskImageTargetDetails::new().set_os_adaptation_parameters(ImageImportOsAdaptationParameters::default()/* use setters */);
+    /// assert!(x.os_adaptation_parameters().is_some());
+    /// assert!(x.data_disk_image_import().is_none());
+    /// ```
     pub fn set_os_adaptation_parameters<
         T: std::convert::Into<std::boxed::Box<crate::model::ImageImportOsAdaptationParameters>>,
     >(
@@ -17197,6 +22358,15 @@ impl DiskImageTargetDetails {
     ///
     /// Note that all the setters affecting `os_adaptation_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::DataDiskImageImport;
+    /// let x = DiskImageTargetDetails::new().set_data_disk_image_import(DataDiskImageImport::default()/* use setters */);
+    /// assert!(x.data_disk_image_import().is_some());
+    /// assert!(x.os_adaptation_parameters().is_none());
+    /// ```
     pub fn set_data_disk_image_import<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDiskImageImport>>,
     >(
@@ -17301,6 +22471,12 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [machine_image_name][crate::model::MachineImageTargetDetails::machine_image_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = MachineImageTargetDetails::new().set_machine_image_name("example");
+    /// ```
     pub fn set_machine_image_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17310,24 +22486,49 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [target_project][crate::model::MachineImageTargetDetails::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = MachineImageTargetDetails::new().set_target_project("example");
+    /// ```
     pub fn set_target_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_project = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::MachineImageTargetDetails::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = MachineImageTargetDetails::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [single_region_storage][crate::model::MachineImageTargetDetails::single_region_storage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = MachineImageTargetDetails::new().set_single_region_storage(true);
+    /// ```
     pub fn set_single_region_storage<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.single_region_storage = v.into();
         self
     }
 
     /// Sets the value of [encryption][crate::model::MachineImageTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = MachineImageTargetDetails::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -17337,6 +22538,14 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets or clears the value of [encryption][crate::model::MachineImageTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = MachineImageTargetDetails::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = MachineImageTargetDetails::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -17346,6 +22555,13 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [machine_image_parameters_overrides][crate::model::MachineImageTargetDetails::machine_image_parameters_overrides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::MachineImageParametersOverrides;
+    /// let x = MachineImageTargetDetails::new().set_machine_image_parameters_overrides(MachineImageParametersOverrides::default()/* use setters */);
+    /// ```
     pub fn set_machine_image_parameters_overrides<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MachineImageParametersOverrides>,
@@ -17355,6 +22571,14 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets or clears the value of [machine_image_parameters_overrides][crate::model::MachineImageTargetDetails::machine_image_parameters_overrides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::MachineImageParametersOverrides;
+    /// let x = MachineImageTargetDetails::new().set_or_clear_machine_image_parameters_overrides(Some(MachineImageParametersOverrides::default()/* use setters */));
+    /// let x = MachineImageTargetDetails::new().set_or_clear_machine_image_parameters_overrides(None::<MachineImageParametersOverrides>);
+    /// ```
     pub fn set_or_clear_machine_image_parameters_overrides<T>(
         mut self,
         v: std::option::Option<T>,
@@ -17367,6 +22591,13 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [service_account][crate::model::MachineImageTargetDetails::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ServiceAccount;
+    /// let x = MachineImageTargetDetails::new().set_service_account(ServiceAccount::default()/* use setters */);
+    /// ```
     pub fn set_service_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -17376,6 +22607,14 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets or clears the value of [service_account][crate::model::MachineImageTargetDetails::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ServiceAccount;
+    /// let x = MachineImageTargetDetails::new().set_or_clear_service_account(Some(ServiceAccount::default()/* use setters */));
+    /// let x = MachineImageTargetDetails::new().set_or_clear_service_account(None::<ServiceAccount>);
+    /// ```
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -17385,6 +22624,12 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [additional_licenses][crate::model::MachineImageTargetDetails::additional_licenses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = MachineImageTargetDetails::new().set_additional_licenses(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_licenses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17396,6 +22641,15 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [labels][crate::model::MachineImageTargetDetails::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = MachineImageTargetDetails::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -17408,6 +22662,12 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [tags][crate::model::MachineImageTargetDetails::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// let x = MachineImageTargetDetails::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17419,6 +22679,13 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [shielded_instance_config][crate::model::MachineImageTargetDetails::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ShieldedInstanceConfig;
+    /// let x = MachineImageTargetDetails::new().set_shielded_instance_config(ShieldedInstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -17428,6 +22695,14 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets or clears the value of [shielded_instance_config][crate::model::MachineImageTargetDetails::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ShieldedInstanceConfig;
+    /// let x = MachineImageTargetDetails::new().set_or_clear_shielded_instance_config(Some(ShieldedInstanceConfig::default()/* use setters */));
+    /// let x = MachineImageTargetDetails::new().set_or_clear_shielded_instance_config(None::<ShieldedInstanceConfig>);
+    /// ```
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -17437,6 +22712,17 @@ impl MachineImageTargetDetails {
     }
 
     /// Sets the value of [network_interfaces][crate::model::MachineImageTargetDetails::network_interfaces].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::NetworkInterface;
+    /// let x = MachineImageTargetDetails::new()
+    ///     .set_network_interfaces([
+    ///         NetworkInterface::default()/* use setters */,
+    ///         NetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17451,6 +22737,14 @@ impl MachineImageTargetDetails {
     ///
     /// Note that all the setters affecting `os_adaptation_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ImageImportOsAdaptationParameters;
+    /// let x = MachineImageTargetDetails::new().set_os_adaptation_config(Some(
+    ///     google_cloud_vmmigration_v1::model::machine_image_target_details::OsAdaptationConfig::OsAdaptationParameters(ImageImportOsAdaptationParameters::default().into())));
+    /// ```
     pub fn set_os_adaptation_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::machine_image_target_details::OsAdaptationConfig>,
@@ -17482,6 +22776,15 @@ impl MachineImageTargetDetails {
     ///
     /// Note that all the setters affecting `os_adaptation_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ImageImportOsAdaptationParameters;
+    /// let x = MachineImageTargetDetails::new().set_os_adaptation_parameters(ImageImportOsAdaptationParameters::default()/* use setters */);
+    /// assert!(x.os_adaptation_parameters().is_some());
+    /// assert!(x.skip_os_adaptation().is_none());
+    /// ```
     pub fn set_os_adaptation_parameters<
         T: std::convert::Into<std::boxed::Box<crate::model::ImageImportOsAdaptationParameters>>,
     >(
@@ -17516,6 +22819,15 @@ impl MachineImageTargetDetails {
     ///
     /// Note that all the setters affecting `os_adaptation_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::SkipOsAdaptation;
+    /// let x = MachineImageTargetDetails::new().set_skip_os_adaptation(SkipOsAdaptation::default()/* use setters */);
+    /// assert!(x.skip_os_adaptation().is_some());
+    /// assert!(x.os_adaptation_parameters().is_none());
+    /// ```
     pub fn set_skip_os_adaptation<
         T: std::convert::Into<std::boxed::Box<crate::model::SkipOsAdaptation>>,
     >(
@@ -17572,12 +22884,24 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [email][crate::model::ServiceAccount::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [scopes][crate::model::ServiceAccount::scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_scopes(["a", "b", "c"]);
+    /// ```
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17622,6 +22946,14 @@ impl ShieldedInstanceConfig {
     }
 
     /// Sets the value of [secure_boot][crate::model::ShieldedInstanceConfig::secure_boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ShieldedInstanceConfig;
+    /// use google_cloud_vmmigration_v1::model::shielded_instance_config::SecureBoot;
+    /// let x0 = ShieldedInstanceConfig::new().set_secure_boot(SecureBoot::True);
+    /// let x1 = ShieldedInstanceConfig::new().set_secure_boot(SecureBoot::False);
+    /// ```
     pub fn set_secure_boot<
         T: std::convert::Into<crate::model::shielded_instance_config::SecureBoot>,
     >(
@@ -17633,12 +22965,24 @@ impl ShieldedInstanceConfig {
     }
 
     /// Sets the value of [enable_vtpm][crate::model::ShieldedInstanceConfig::enable_vtpm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ShieldedInstanceConfig;
+    /// let x = ShieldedInstanceConfig::new().set_enable_vtpm(true);
+    /// ```
     pub fn set_enable_vtpm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_vtpm = v.into();
         self
     }
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::ShieldedInstanceConfig::enable_integrity_monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ShieldedInstanceConfig;
+    /// let x = ShieldedInstanceConfig::new().set_enable_integrity_monitoring(true);
+    /// ```
     pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_integrity_monitoring = v.into();
         self
@@ -17812,6 +23156,12 @@ impl MachineImageParametersOverrides {
     }
 
     /// Sets the value of [machine_type][crate::model::MachineImageParametersOverrides::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::MachineImageParametersOverrides;
+    /// let x = MachineImageParametersOverrides::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
@@ -17853,12 +23203,26 @@ impl ImageImportOsAdaptationParameters {
     }
 
     /// Sets the value of [generalize][crate::model::ImageImportOsAdaptationParameters::generalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportOsAdaptationParameters;
+    /// let x = ImageImportOsAdaptationParameters::new().set_generalize(true);
+    /// ```
     pub fn set_generalize<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.generalize = v.into();
         self
     }
 
     /// Sets the value of [license_type][crate::model::ImageImportOsAdaptationParameters::license_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportOsAdaptationParameters;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineLicenseType;
+    /// let x0 = ImageImportOsAdaptationParameters::new().set_license_type(ComputeEngineLicenseType::Payg);
+    /// let x1 = ImageImportOsAdaptationParameters::new().set_license_type(ComputeEngineLicenseType::Byol);
+    /// ```
     pub fn set_license_type<T: std::convert::Into<crate::model::ComputeEngineLicenseType>>(
         mut self,
         v: T,
@@ -17868,6 +23232,14 @@ impl ImageImportOsAdaptationParameters {
     }
 
     /// Sets the value of [boot_conversion][crate::model::ImageImportOsAdaptationParameters::boot_conversion].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ImageImportOsAdaptationParameters;
+    /// use google_cloud_vmmigration_v1::model::BootConversion;
+    /// let x0 = ImageImportOsAdaptationParameters::new().set_boot_conversion(BootConversion::None);
+    /// let x1 = ImageImportOsAdaptationParameters::new().set_boot_conversion(BootConversion::BiosToEfi);
+    /// ```
     pub fn set_boot_conversion<T: std::convert::Into<crate::model::BootConversion>>(
         mut self,
         v: T,
@@ -17937,6 +23309,12 @@ impl GetImageImportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetImageImportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetImageImportRequest;
+    /// let x = GetImageImportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -17987,30 +23365,60 @@ impl ListImageImportsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListImageImportsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsRequest;
+    /// let x = ListImageImportsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListImageImportsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsRequest;
+    /// let x = ListImageImportsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListImageImportsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsRequest;
+    /// let x = ListImageImportsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListImageImportsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsRequest;
+    /// let x = ListImageImportsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListImageImportsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsRequest;
+    /// let x = ListImageImportsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -18046,6 +23454,17 @@ impl ListImageImportsResponse {
     }
 
     /// Sets the value of [image_imports][crate::model::ListImageImportsResponse::image_imports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsResponse;
+    /// use google_cloud_vmmigration_v1::model::ImageImport;
+    /// let x = ListImageImportsResponse::new()
+    ///     .set_image_imports([
+    ///         ImageImport::default()/* use setters */,
+    ///         ImageImport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_image_imports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18057,12 +23476,24 @@ impl ListImageImportsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListImageImportsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsResponse;
+    /// let x = ListImageImportsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListImageImportsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportsResponse;
+    /// let x = ListImageImportsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18134,18 +23565,37 @@ impl CreateImageImportRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateImageImportRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateImageImportRequest;
+    /// let x = CreateImageImportRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [image_import_id][crate::model::CreateImageImportRequest::image_import_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateImageImportRequest;
+    /// let x = CreateImageImportRequest::new().set_image_import_id("example");
+    /// ```
     pub fn set_image_import_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_import_id = v.into();
         self
     }
 
     /// Sets the value of [image_import][crate::model::CreateImageImportRequest::image_import].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateImageImportRequest;
+    /// use google_cloud_vmmigration_v1::model::ImageImport;
+    /// let x = CreateImageImportRequest::new().set_image_import(ImageImport::default()/* use setters */);
+    /// ```
     pub fn set_image_import<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageImport>,
@@ -18155,6 +23605,14 @@ impl CreateImageImportRequest {
     }
 
     /// Sets or clears the value of [image_import][crate::model::CreateImageImportRequest::image_import].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateImageImportRequest;
+    /// use google_cloud_vmmigration_v1::model::ImageImport;
+    /// let x = CreateImageImportRequest::new().set_or_clear_image_import(Some(ImageImport::default()/* use setters */));
+    /// let x = CreateImageImportRequest::new().set_or_clear_image_import(None::<ImageImport>);
+    /// ```
     pub fn set_or_clear_image_import<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageImport>,
@@ -18164,6 +23622,12 @@ impl CreateImageImportRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateImageImportRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateImageImportRequest;
+    /// let x = CreateImageImportRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -18207,12 +23671,24 @@ impl DeleteImageImportRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteImageImportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteImageImportRequest;
+    /// let x = DeleteImageImportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteImageImportRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteImageImportRequest;
+    /// let x = DeleteImageImportRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -18241,6 +23717,12 @@ impl GetImageImportJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetImageImportJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetImageImportJobRequest;
+    /// let x = GetImageImportJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18291,30 +23773,60 @@ impl ListImageImportJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListImageImportJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsRequest;
+    /// let x = ListImageImportJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListImageImportJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsRequest;
+    /// let x = ListImageImportJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListImageImportJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsRequest;
+    /// let x = ListImageImportJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListImageImportJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsRequest;
+    /// let x = ListImageImportJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListImageImportJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsRequest;
+    /// let x = ListImageImportJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -18350,6 +23862,17 @@ impl ListImageImportJobsResponse {
     }
 
     /// Sets the value of [image_import_jobs][crate::model::ListImageImportJobsResponse::image_import_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsResponse;
+    /// use google_cloud_vmmigration_v1::model::ImageImportJob;
+    /// let x = ListImageImportJobsResponse::new()
+    ///     .set_image_import_jobs([
+    ///         ImageImportJob::default()/* use setters */,
+    ///         ImageImportJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_image_import_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18361,12 +23884,24 @@ impl ListImageImportJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListImageImportJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsResponse;
+    /// let x = ListImageImportJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListImageImportJobsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListImageImportJobsResponse;
+    /// let x = ListImageImportJobsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18414,6 +23949,12 @@ impl CancelImageImportJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelImageImportJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CancelImageImportJobRequest;
+    /// let x = CancelImageImportJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18485,12 +24026,25 @@ impl DiskMigrationJob {
     }
 
     /// Sets the value of [name][crate::model::DiskMigrationJob::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// let x = DiskMigrationJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_details][crate::model::DiskMigrationJob::target_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// let x = DiskMigrationJob::new().set_target_details(DiskMigrationJobTargetDetails::default()/* use setters */);
+    /// ```
     pub fn set_target_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiskMigrationJobTargetDetails>,
@@ -18500,6 +24054,14 @@ impl DiskMigrationJob {
     }
 
     /// Sets or clears the value of [target_details][crate::model::DiskMigrationJob::target_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// let x = DiskMigrationJob::new().set_or_clear_target_details(Some(DiskMigrationJobTargetDetails::default()/* use setters */));
+    /// let x = DiskMigrationJob::new().set_or_clear_target_details(None::<DiskMigrationJobTargetDetails>);
+    /// ```
     pub fn set_or_clear_target_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiskMigrationJobTargetDetails>,
@@ -18509,6 +24071,13 @@ impl DiskMigrationJob {
     }
 
     /// Sets the value of [create_time][crate::model::DiskMigrationJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18518,6 +24087,14 @@ impl DiskMigrationJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DiskMigrationJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiskMigrationJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18527,6 +24104,13 @@ impl DiskMigrationJob {
     }
 
     /// Sets the value of [update_time][crate::model::DiskMigrationJob::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationJob::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18536,6 +24120,14 @@ impl DiskMigrationJob {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DiskMigrationJob::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationJob::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiskMigrationJob::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18545,6 +24137,15 @@ impl DiskMigrationJob {
     }
 
     /// Sets the value of [state][crate::model::DiskMigrationJob::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::model::disk_migration_job::State;
+    /// let x0 = DiskMigrationJob::new().set_state(State::Ready);
+    /// let x1 = DiskMigrationJob::new().set_state(State::Running);
+    /// let x2 = DiskMigrationJob::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::disk_migration_job::State>>(
         mut self,
         v: T,
@@ -18554,6 +24155,17 @@ impl DiskMigrationJob {
     }
 
     /// Sets the value of [errors][crate::model::DiskMigrationJob::errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use rpc::model::Status;
+    /// let x = DiskMigrationJob::new()
+    ///     .set_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18565,6 +24177,17 @@ impl DiskMigrationJob {
     }
 
     /// Sets the value of [steps][crate::model::DiskMigrationJob::steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// let x = DiskMigrationJob::new()
+    ///     .set_steps([
+    ///         DiskMigrationStep::default()/* use setters */,
+    ///         DiskMigrationStep::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18579,6 +24202,14 @@ impl DiskMigrationJob {
     ///
     /// Note that all the setters affecting `source_disk_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// let x = DiskMigrationJob::new().set_source_disk_details(Some(
+    ///     google_cloud_vmmigration_v1::model::disk_migration_job::SourceDiskDetails::AwsSourceDiskDetails(AwsSourceDiskDetails::default().into())));
+    /// ```
     pub fn set_source_disk_details<
         T: std::convert::Into<
                 std::option::Option<crate::model::disk_migration_job::SourceDiskDetails>,
@@ -18611,6 +24242,14 @@ impl DiskMigrationJob {
     ///
     /// Note that all the setters affecting `source_disk_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// let x = DiskMigrationJob::new().set_aws_source_disk_details(AwsSourceDiskDetails::default()/* use setters */);
+    /// assert!(x.aws_source_disk_details().is_some());
+    /// ```
     pub fn set_aws_source_disk_details<
         T: std::convert::Into<std::boxed::Box<crate::model::AwsSourceDiskDetails>>,
     >(
@@ -18835,12 +24474,27 @@ impl DiskMigrationJobTargetDetails {
     }
 
     /// Sets the value of [target_project][crate::model::DiskMigrationJobTargetDetails::target_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// let x = DiskMigrationJobTargetDetails::new().set_target_project("example");
+    /// ```
     pub fn set_target_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_project = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DiskMigrationJobTargetDetails::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// let x = DiskMigrationJobTargetDetails::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -18853,6 +24507,13 @@ impl DiskMigrationJobTargetDetails {
     }
 
     /// Sets the value of [encryption][crate::model::DiskMigrationJobTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = DiskMigrationJobTargetDetails::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -18862,6 +24523,14 @@ impl DiskMigrationJobTargetDetails {
     }
 
     /// Sets or clears the value of [encryption][crate::model::DiskMigrationJobTargetDetails::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::Encryption;
+    /// let x = DiskMigrationJobTargetDetails::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = DiskMigrationJobTargetDetails::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Encryption>,
@@ -18874,6 +24543,14 @@ impl DiskMigrationJobTargetDetails {
     ///
     /// Note that all the setters affecting `target_storage` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDisk;
+    /// let x = DiskMigrationJobTargetDetails::new().set_target_storage(Some(
+    ///     google_cloud_vmmigration_v1::model::disk_migration_job_target_details::TargetStorage::TargetDisk(ComputeEngineDisk::default().into())));
+    /// ```
     pub fn set_target_storage<
         T: std::convert::Into<
                 std::option::Option<crate::model::disk_migration_job_target_details::TargetStorage>,
@@ -18906,6 +24583,14 @@ impl DiskMigrationJobTargetDetails {
     ///
     /// Note that all the setters affecting `target_storage` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationJobTargetDetails;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDisk;
+    /// let x = DiskMigrationJobTargetDetails::new().set_target_disk(ComputeEngineDisk::default()/* use setters */);
+    /// assert!(x.target_disk().is_some());
+    /// ```
     pub fn set_target_disk<
         T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineDisk>>,
     >(
@@ -18961,6 +24646,13 @@ impl DiskMigrationStep {
     }
 
     /// Sets the value of [start_time][crate::model::DiskMigrationStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationStep::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18970,6 +24662,14 @@ impl DiskMigrationStep {
     }
 
     /// Sets or clears the value of [start_time][crate::model::DiskMigrationStep::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationStep::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiskMigrationStep::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18979,6 +24679,13 @@ impl DiskMigrationStep {
     }
 
     /// Sets the value of [end_time][crate::model::DiskMigrationStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationStep::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18988,6 +24695,14 @@ impl DiskMigrationStep {
     }
 
     /// Sets or clears the value of [end_time][crate::model::DiskMigrationStep::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use wkt::Timestamp;
+    /// let x = DiskMigrationStep::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiskMigrationStep::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19000,6 +24715,14 @@ impl DiskMigrationStep {
     ///
     /// Note that all the setters affecting `step` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use google_cloud_vmmigration_v1::model::CreatingSourceDiskSnapshotStep;
+    /// let x = DiskMigrationStep::new().set_step(Some(
+    ///     google_cloud_vmmigration_v1::model::disk_migration_step::Step::CreatingSourceDiskSnapshot(CreatingSourceDiskSnapshotStep::default().into())));
+    /// ```
     pub fn set_step<
         T: std::convert::Into<std::option::Option<crate::model::disk_migration_step::Step>>,
     >(
@@ -19030,6 +24753,16 @@ impl DiskMigrationStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use google_cloud_vmmigration_v1::model::CreatingSourceDiskSnapshotStep;
+    /// let x = DiskMigrationStep::new().set_creating_source_disk_snapshot(CreatingSourceDiskSnapshotStep::default()/* use setters */);
+    /// assert!(x.creating_source_disk_snapshot().is_some());
+    /// assert!(x.copying_source_disk_snapshot().is_none());
+    /// assert!(x.provisioning_target_disk().is_none());
+    /// ```
     pub fn set_creating_source_disk_snapshot<
         T: std::convert::Into<std::boxed::Box<crate::model::CreatingSourceDiskSnapshotStep>>,
     >(
@@ -19062,6 +24795,16 @@ impl DiskMigrationStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use google_cloud_vmmigration_v1::model::CopyingSourceDiskSnapshotStep;
+    /// let x = DiskMigrationStep::new().set_copying_source_disk_snapshot(CopyingSourceDiskSnapshotStep::default()/* use setters */);
+    /// assert!(x.copying_source_disk_snapshot().is_some());
+    /// assert!(x.creating_source_disk_snapshot().is_none());
+    /// assert!(x.provisioning_target_disk().is_none());
+    /// ```
     pub fn set_copying_source_disk_snapshot<
         T: std::convert::Into<std::boxed::Box<crate::model::CopyingSourceDiskSnapshotStep>>,
     >(
@@ -19094,6 +24837,16 @@ impl DiskMigrationStep {
     ///
     /// Note that all the setters affecting `step` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DiskMigrationStep;
+    /// use google_cloud_vmmigration_v1::model::ProvisioningTargetDiskStep;
+    /// let x = DiskMigrationStep::new().set_provisioning_target_disk(ProvisioningTargetDiskStep::default()/* use setters */);
+    /// assert!(x.provisioning_target_disk().is_some());
+    /// assert!(x.creating_source_disk_snapshot().is_none());
+    /// assert!(x.copying_source_disk_snapshot().is_none());
+    /// ```
     pub fn set_provisioning_target_disk<
         T: std::convert::Into<std::boxed::Box<crate::model::ProvisioningTargetDiskStep>>,
     >(
@@ -19219,18 +24972,36 @@ impl ComputeEngineDisk {
     }
 
     /// Sets the value of [disk_id][crate::model::ComputeEngineDisk::disk_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisk;
+    /// let x = ComputeEngineDisk::new().set_disk_id("example");
+    /// ```
     pub fn set_disk_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ComputeEngineDisk::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisk;
+    /// let x = ComputeEngineDisk::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [replica_zones][crate::model::ComputeEngineDisk::replica_zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisk;
+    /// let x = ComputeEngineDisk::new().set_replica_zones(["a", "b", "c"]);
+    /// ```
     pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19242,6 +25013,15 @@ impl ComputeEngineDisk {
     }
 
     /// Sets the value of [disk_type][crate::model::ComputeEngineDisk::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ComputeEngineDisk;
+    /// use google_cloud_vmmigration_v1::model::ComputeEngineDiskType;
+    /// let x0 = ComputeEngineDisk::new().set_disk_type(ComputeEngineDiskType::Standard);
+    /// let x1 = ComputeEngineDisk::new().set_disk_type(ComputeEngineDiskType::Ssd);
+    /// let x2 = ComputeEngineDisk::new().set_disk_type(ComputeEngineDiskType::Balanced);
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::ComputeEngineDiskType>>(
         mut self,
         v: T,
@@ -19282,18 +25062,39 @@ impl AwsSourceDiskDetails {
     }
 
     /// Sets the value of [volume_id][crate::model::AwsSourceDiskDetails::volume_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// let x = AwsSourceDiskDetails::new().set_volume_id("example");
+    /// ```
     pub fn set_volume_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_id = v.into();
         self
     }
 
     /// Sets the value of [size_gib][crate::model::AwsSourceDiskDetails::size_gib].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// let x = AwsSourceDiskDetails::new().set_size_gib(42);
+    /// ```
     pub fn set_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_gib = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::AwsSourceDiskDetails::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// use google_cloud_vmmigration_v1::model::aws_source_disk_details::Type;
+    /// let x0 = AwsSourceDiskDetails::new().set_disk_type(Type::Gp2);
+    /// let x1 = AwsSourceDiskDetails::new().set_disk_type(Type::Gp3);
+    /// let x2 = AwsSourceDiskDetails::new().set_disk_type(Type::Io1);
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::aws_source_disk_details::Type>>(
         mut self,
         v: T,
@@ -19303,6 +25104,15 @@ impl AwsSourceDiskDetails {
     }
 
     /// Sets the value of [tags][crate::model::AwsSourceDiskDetails::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::AwsSourceDiskDetails;
+    /// let x = AwsSourceDiskDetails::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -19534,12 +25344,24 @@ impl CreateDiskMigrationJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDiskMigrationJobRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDiskMigrationJobRequest;
+    /// let x = CreateDiskMigrationJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [disk_migration_job_id][crate::model::CreateDiskMigrationJobRequest::disk_migration_job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDiskMigrationJobRequest;
+    /// let x = CreateDiskMigrationJobRequest::new().set_disk_migration_job_id("example");
+    /// ```
     pub fn set_disk_migration_job_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -19549,6 +25371,13 @@ impl CreateDiskMigrationJobRequest {
     }
 
     /// Sets the value of [disk_migration_job][crate::model::CreateDiskMigrationJobRequest::disk_migration_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDiskMigrationJobRequest;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// let x = CreateDiskMigrationJobRequest::new().set_disk_migration_job(DiskMigrationJob::default()/* use setters */);
+    /// ```
     pub fn set_disk_migration_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiskMigrationJob>,
@@ -19558,6 +25387,14 @@ impl CreateDiskMigrationJobRequest {
     }
 
     /// Sets or clears the value of [disk_migration_job][crate::model::CreateDiskMigrationJobRequest::disk_migration_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDiskMigrationJobRequest;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// let x = CreateDiskMigrationJobRequest::new().set_or_clear_disk_migration_job(Some(DiskMigrationJob::default()/* use setters */));
+    /// let x = CreateDiskMigrationJobRequest::new().set_or_clear_disk_migration_job(None::<DiskMigrationJob>);
+    /// ```
     pub fn set_or_clear_disk_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiskMigrationJob>,
@@ -19567,6 +25404,12 @@ impl CreateDiskMigrationJobRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDiskMigrationJobRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CreateDiskMigrationJobRequest;
+    /// let x = CreateDiskMigrationJobRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -19615,30 +25458,60 @@ impl ListDiskMigrationJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDiskMigrationJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsRequest;
+    /// let x = ListDiskMigrationJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDiskMigrationJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsRequest;
+    /// let x = ListDiskMigrationJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDiskMigrationJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsRequest;
+    /// let x = ListDiskMigrationJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDiskMigrationJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsRequest;
+    /// let x = ListDiskMigrationJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDiskMigrationJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsRequest;
+    /// let x = ListDiskMigrationJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -19675,6 +25548,17 @@ impl ListDiskMigrationJobsResponse {
     }
 
     /// Sets the value of [disk_migration_jobs][crate::model::ListDiskMigrationJobsResponse::disk_migration_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsResponse;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// let x = ListDiskMigrationJobsResponse::new()
+    ///     .set_disk_migration_jobs([
+    ///         DiskMigrationJob::default()/* use setters */,
+    ///         DiskMigrationJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_disk_migration_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19686,12 +25570,24 @@ impl ListDiskMigrationJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDiskMigrationJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsResponse;
+    /// let x = ListDiskMigrationJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDiskMigrationJobsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::ListDiskMigrationJobsResponse;
+    /// let x = ListDiskMigrationJobsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19739,6 +25635,12 @@ impl GetDiskMigrationJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDiskMigrationJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::GetDiskMigrationJobRequest;
+    /// let x = GetDiskMigrationJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19790,6 +25692,13 @@ impl UpdateDiskMigrationJobRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDiskMigrationJobRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateDiskMigrationJobRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDiskMigrationJobRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -19799,6 +25708,14 @@ impl UpdateDiskMigrationJobRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDiskMigrationJobRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateDiskMigrationJobRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDiskMigrationJobRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDiskMigrationJobRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -19808,6 +25725,13 @@ impl UpdateDiskMigrationJobRequest {
     }
 
     /// Sets the value of [disk_migration_job][crate::model::UpdateDiskMigrationJobRequest::disk_migration_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateDiskMigrationJobRequest;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// let x = UpdateDiskMigrationJobRequest::new().set_disk_migration_job(DiskMigrationJob::default()/* use setters */);
+    /// ```
     pub fn set_disk_migration_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiskMigrationJob>,
@@ -19817,6 +25741,14 @@ impl UpdateDiskMigrationJobRequest {
     }
 
     /// Sets or clears the value of [disk_migration_job][crate::model::UpdateDiskMigrationJobRequest::disk_migration_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateDiskMigrationJobRequest;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// let x = UpdateDiskMigrationJobRequest::new().set_or_clear_disk_migration_job(Some(DiskMigrationJob::default()/* use setters */));
+    /// let x = UpdateDiskMigrationJobRequest::new().set_or_clear_disk_migration_job(None::<DiskMigrationJob>);
+    /// ```
     pub fn set_or_clear_disk_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiskMigrationJob>,
@@ -19826,6 +25758,12 @@ impl UpdateDiskMigrationJobRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDiskMigrationJobRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::UpdateDiskMigrationJobRequest;
+    /// let x = UpdateDiskMigrationJobRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -19854,6 +25792,12 @@ impl DeleteDiskMigrationJobRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDiskMigrationJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::DeleteDiskMigrationJobRequest;
+    /// let x = DeleteDiskMigrationJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19882,6 +25826,12 @@ impl RunDiskMigrationJobRequest {
     }
 
     /// Sets the value of [name][crate::model::RunDiskMigrationJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::RunDiskMigrationJobRequest;
+    /// let x = RunDiskMigrationJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19929,6 +25879,12 @@ impl CancelDiskMigrationJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelDiskMigrationJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::model::CancelDiskMigrationJobRequest;
+    /// let x = CancelDiskMigrationJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

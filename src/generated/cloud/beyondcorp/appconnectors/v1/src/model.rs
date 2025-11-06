@@ -67,12 +67,25 @@ impl AppConnectorInstanceConfig {
     }
 
     /// Sets the value of [sequence_number][crate::model::AppConnectorInstanceConfig::sequence_number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// let x = AppConnectorInstanceConfig::new().set_sequence_number(42);
+    /// ```
     pub fn set_sequence_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.sequence_number = v.into();
         self
     }
 
     /// Sets the value of [instance_config][crate::model::AppConnectorInstanceConfig::instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// use wkt::Any;
+    /// let x = AppConnectorInstanceConfig::new().set_instance_config(Any::default()/* use setters */);
+    /// ```
     pub fn set_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -82,6 +95,14 @@ impl AppConnectorInstanceConfig {
     }
 
     /// Sets or clears the value of [instance_config][crate::model::AppConnectorInstanceConfig::instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// use wkt::Any;
+    /// let x = AppConnectorInstanceConfig::new().set_or_clear_instance_config(Some(Any::default()/* use setters */));
+    /// let x = AppConnectorInstanceConfig::new().set_or_clear_instance_config(None::<Any>);
+    /// ```
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -91,6 +112,13 @@ impl AppConnectorInstanceConfig {
     }
 
     /// Sets the value of [notification_config][crate::model::AppConnectorInstanceConfig::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::NotificationConfig;
+    /// let x = AppConnectorInstanceConfig::new().set_notification_config(NotificationConfig::default()/* use setters */);
+    /// ```
     pub fn set_notification_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -100,6 +128,14 @@ impl AppConnectorInstanceConfig {
     }
 
     /// Sets or clears the value of [notification_config][crate::model::AppConnectorInstanceConfig::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::NotificationConfig;
+    /// let x = AppConnectorInstanceConfig::new().set_or_clear_notification_config(Some(NotificationConfig::default()/* use setters */));
+    /// let x = AppConnectorInstanceConfig::new().set_or_clear_notification_config(None::<NotificationConfig>);
+    /// ```
     pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -109,6 +145,13 @@ impl AppConnectorInstanceConfig {
     }
 
     /// Sets the value of [image_config][crate::model::AppConnectorInstanceConfig::image_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::ImageConfig;
+    /// let x = AppConnectorInstanceConfig::new().set_image_config(ImageConfig::default()/* use setters */);
+    /// ```
     pub fn set_image_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImageConfig>,
@@ -118,6 +161,14 @@ impl AppConnectorInstanceConfig {
     }
 
     /// Sets or clears the value of [image_config][crate::model::AppConnectorInstanceConfig::image_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorInstanceConfig;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::ImageConfig;
+    /// let x = AppConnectorInstanceConfig::new().set_or_clear_image_config(Some(ImageConfig::default()/* use setters */));
+    /// let x = AppConnectorInstanceConfig::new().set_or_clear_image_config(None::<ImageConfig>);
+    /// ```
     pub fn set_or_clear_image_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageConfig>,
@@ -151,6 +202,14 @@ impl NotificationConfig {
     ///
     /// Note that all the setters affecting `config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::NotificationConfig;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::notification_config::CloudPubSubNotificationConfig;
+    /// let x = NotificationConfig::new().set_config(Some(
+    ///     google_cloud_beyondcorp_appconnectors_v1::model::notification_config::Config::PubsubNotification(CloudPubSubNotificationConfig::default().into())));
+    /// ```
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::notification_config::Config>>,
     >(
@@ -183,6 +242,14 @@ impl NotificationConfig {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::NotificationConfig;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::notification_config::CloudPubSubNotificationConfig;
+    /// let x = NotificationConfig::new().set_pubsub_notification(CloudPubSubNotificationConfig::default()/* use setters */);
+    /// assert!(x.pubsub_notification().is_some());
+    /// ```
     pub fn set_pubsub_notification<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::notification_config::CloudPubSubNotificationConfig>,
@@ -225,6 +292,12 @@ pub mod notification_config {
         }
 
         /// Sets the value of [pubsub_subscription][crate::model::notification_config::CloudPubSubNotificationConfig::pubsub_subscription].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_beyondcorp_appconnectors_v1::model::notification_config::CloudPubSubNotificationConfig;
+        /// let x = CloudPubSubNotificationConfig::new().set_pubsub_subscription("example");
+        /// ```
         pub fn set_pubsub_subscription<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -271,12 +344,24 @@ impl ImageConfig {
     }
 
     /// Sets the value of [target_image][crate::model::ImageConfig::target_image].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ImageConfig;
+    /// let x = ImageConfig::new().set_target_image("example");
+    /// ```
     pub fn set_target_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_image = v.into();
         self
     }
 
     /// Sets the value of [stable_image][crate::model::ImageConfig::stable_image].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ImageConfig;
+    /// let x = ImageConfig::new().set_stable_image("example");
+    /// ```
     pub fn set_stable_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stable_image = v.into();
         self
@@ -327,30 +412,60 @@ impl ListAppConnectorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAppConnectorsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsRequest;
+    /// let x = ListAppConnectorsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAppConnectorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsRequest;
+    /// let x = ListAppConnectorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAppConnectorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsRequest;
+    /// let x = ListAppConnectorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAppConnectorsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsRequest;
+    /// let x = ListAppConnectorsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAppConnectorsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsRequest;
+    /// let x = ListAppConnectorsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -386,6 +501,17 @@ impl ListAppConnectorsResponse {
     }
 
     /// Sets the value of [app_connectors][crate::model::ListAppConnectorsResponse::app_connectors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsResponse;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = ListAppConnectorsResponse::new()
+    ///     .set_app_connectors([
+    ///         AppConnector::default()/* use setters */,
+    ///         AppConnector::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_app_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -397,12 +523,24 @@ impl ListAppConnectorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAppConnectorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsResponse;
+    /// let x = ListAppConnectorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAppConnectorsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ListAppConnectorsResponse;
+    /// let x = ListAppConnectorsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -451,6 +589,12 @@ impl GetAppConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAppConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::GetAppConnectorRequest;
+    /// let x = GetAppConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -509,12 +653,24 @@ impl CreateAppConnectorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAppConnectorRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::CreateAppConnectorRequest;
+    /// let x = CreateAppConnectorRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [app_connector_id][crate::model::CreateAppConnectorRequest::app_connector_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::CreateAppConnectorRequest;
+    /// let x = CreateAppConnectorRequest::new().set_app_connector_id("example");
+    /// ```
     pub fn set_app_connector_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -524,6 +680,13 @@ impl CreateAppConnectorRequest {
     }
 
     /// Sets the value of [app_connector][crate::model::CreateAppConnectorRequest::app_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::CreateAppConnectorRequest;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = CreateAppConnectorRequest::new().set_app_connector(AppConnector::default()/* use setters */);
+    /// ```
     pub fn set_app_connector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppConnector>,
@@ -533,6 +696,14 @@ impl CreateAppConnectorRequest {
     }
 
     /// Sets or clears the value of [app_connector][crate::model::CreateAppConnectorRequest::app_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::CreateAppConnectorRequest;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = CreateAppConnectorRequest::new().set_or_clear_app_connector(Some(AppConnector::default()/* use setters */));
+    /// let x = CreateAppConnectorRequest::new().set_or_clear_app_connector(None::<AppConnector>);
+    /// ```
     pub fn set_or_clear_app_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppConnector>,
@@ -542,12 +713,24 @@ impl CreateAppConnectorRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAppConnectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::CreateAppConnectorRequest;
+    /// let x = CreateAppConnectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateAppConnectorRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::CreateAppConnectorRequest;
+    /// let x = CreateAppConnectorRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -604,6 +787,13 @@ impl UpdateAppConnectorRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAppConnectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::UpdateAppConnectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAppConnectorRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -613,6 +803,14 @@ impl UpdateAppConnectorRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAppConnectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::UpdateAppConnectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAppConnectorRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAppConnectorRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -622,6 +820,13 @@ impl UpdateAppConnectorRequest {
     }
 
     /// Sets the value of [app_connector][crate::model::UpdateAppConnectorRequest::app_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::UpdateAppConnectorRequest;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = UpdateAppConnectorRequest::new().set_app_connector(AppConnector::default()/* use setters */);
+    /// ```
     pub fn set_app_connector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppConnector>,
@@ -631,6 +836,14 @@ impl UpdateAppConnectorRequest {
     }
 
     /// Sets or clears the value of [app_connector][crate::model::UpdateAppConnectorRequest::app_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::UpdateAppConnectorRequest;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = UpdateAppConnectorRequest::new().set_or_clear_app_connector(Some(AppConnector::default()/* use setters */));
+    /// let x = UpdateAppConnectorRequest::new().set_or_clear_app_connector(None::<AppConnector>);
+    /// ```
     pub fn set_or_clear_app_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppConnector>,
@@ -640,12 +853,24 @@ impl UpdateAppConnectorRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateAppConnectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::UpdateAppConnectorRequest;
+    /// let x = UpdateAppConnectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateAppConnectorRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::UpdateAppConnectorRequest;
+    /// let x = UpdateAppConnectorRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -694,18 +919,36 @@ impl DeleteAppConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAppConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::DeleteAppConnectorRequest;
+    /// let x = DeleteAppConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteAppConnectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::DeleteAppConnectorRequest;
+    /// let x = DeleteAppConnectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteAppConnectorRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::DeleteAppConnectorRequest;
+    /// let x = DeleteAppConnectorRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -757,12 +1000,25 @@ impl ReportStatusRequest {
     }
 
     /// Sets the value of [app_connector][crate::model::ReportStatusRequest::app_connector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ReportStatusRequest;
+    /// let x = ReportStatusRequest::new().set_app_connector("example");
+    /// ```
     pub fn set_app_connector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_connector = v.into();
         self
     }
 
     /// Sets the value of [resource_info][crate::model::ReportStatusRequest::resource_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ReportStatusRequest;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// let x = ReportStatusRequest::new().set_resource_info(ResourceInfo::default()/* use setters */);
+    /// ```
     pub fn set_resource_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceInfo>,
@@ -772,6 +1028,14 @@ impl ReportStatusRequest {
     }
 
     /// Sets or clears the value of [resource_info][crate::model::ReportStatusRequest::resource_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ReportStatusRequest;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// let x = ReportStatusRequest::new().set_or_clear_resource_info(Some(ResourceInfo::default()/* use setters */));
+    /// let x = ReportStatusRequest::new().set_or_clear_resource_info(None::<ResourceInfo>);
+    /// ```
     pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceInfo>,
@@ -781,12 +1045,24 @@ impl ReportStatusRequest {
     }
 
     /// Sets the value of [request_id][crate::model::ReportStatusRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ReportStatusRequest;
+    /// let x = ReportStatusRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::ReportStatusRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ReportStatusRequest;
+    /// let x = ReportStatusRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -846,12 +1122,25 @@ impl AppConnector {
     }
 
     /// Sets the value of [name][crate::model::AppConnector::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = AppConnector::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AppConnector::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use wkt::Timestamp;
+    /// let x = AppConnector::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -861,6 +1150,14 @@ impl AppConnector {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AppConnector::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use wkt::Timestamp;
+    /// let x = AppConnector::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppConnector::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -870,6 +1167,13 @@ impl AppConnector {
     }
 
     /// Sets the value of [update_time][crate::model::AppConnector::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use wkt::Timestamp;
+    /// let x = AppConnector::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -879,6 +1183,14 @@ impl AppConnector {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AppConnector::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use wkt::Timestamp;
+    /// let x = AppConnector::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppConnector::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -888,6 +1200,15 @@ impl AppConnector {
     }
 
     /// Sets the value of [labels][crate::model::AppConnector::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = AppConnector::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -900,18 +1221,39 @@ impl AppConnector {
     }
 
     /// Sets the value of [display_name][crate::model::AppConnector::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = AppConnector::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::AppConnector::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// let x = AppConnector::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::AppConnector::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::State;
+    /// let x0 = AppConnector::new().set_state(State::Creating);
+    /// let x1 = AppConnector::new().set_state(State::Created);
+    /// let x2 = AppConnector::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::app_connector::State>>(
         mut self,
         v: T,
@@ -921,6 +1263,13 @@ impl AppConnector {
     }
 
     /// Sets the value of [principal_info][crate::model::AppConnector::principal_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::PrincipalInfo;
+    /// let x = AppConnector::new().set_principal_info(PrincipalInfo::default()/* use setters */);
+    /// ```
     pub fn set_principal_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::app_connector::PrincipalInfo>,
@@ -930,6 +1279,14 @@ impl AppConnector {
     }
 
     /// Sets or clears the value of [principal_info][crate::model::AppConnector::principal_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::PrincipalInfo;
+    /// let x = AppConnector::new().set_or_clear_principal_info(Some(PrincipalInfo::default()/* use setters */));
+    /// let x = AppConnector::new().set_or_clear_principal_info(None::<PrincipalInfo>);
+    /// ```
     pub fn set_or_clear_principal_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::app_connector::PrincipalInfo>,
@@ -939,6 +1296,13 @@ impl AppConnector {
     }
 
     /// Sets the value of [resource_info][crate::model::AppConnector::resource_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// let x = AppConnector::new().set_resource_info(ResourceInfo::default()/* use setters */);
+    /// ```
     pub fn set_resource_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceInfo>,
@@ -948,6 +1312,14 @@ impl AppConnector {
     }
 
     /// Sets or clears the value of [resource_info][crate::model::AppConnector::resource_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnector;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// let x = AppConnector::new().set_or_clear_resource_info(Some(ResourceInfo::default()/* use setters */));
+    /// let x = AppConnector::new().set_or_clear_resource_info(None::<ResourceInfo>);
+    /// ```
     pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceInfo>,
@@ -986,6 +1358,14 @@ pub mod app_connector {
         ///
         /// Note that all the setters affecting `r#type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::PrincipalInfo;
+        /// use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::principal_info::ServiceAccount;
+        /// let x = PrincipalInfo::new().set_type(Some(
+        ///     google_cloud_beyondcorp_appconnectors_v1::model::app_connector::principal_info::Type::ServiceAccount(ServiceAccount::default().into())));
+        /// ```
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::app_connector::principal_info::Type>,
@@ -1020,6 +1400,14 @@ pub mod app_connector {
         ///
         /// Note that all the setters affecting `r#type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::PrincipalInfo;
+        /// use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::principal_info::ServiceAccount;
+        /// let x = PrincipalInfo::new().set_service_account(ServiceAccount::default()/* use setters */);
+        /// assert!(x.service_account().is_some());
+        /// ```
         pub fn set_service_account<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::app_connector::principal_info::ServiceAccount>,
@@ -1062,6 +1450,12 @@ pub mod app_connector {
             }
 
             /// Sets the value of [email][crate::model::app_connector::principal_info::ServiceAccount::email].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_beyondcorp_appconnectors_v1::model::app_connector::principal_info::ServiceAccount;
+            /// let x = ServiceAccount::new().set_email("example");
+            /// ```
             pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.email = v.into();
                 self
@@ -1279,6 +1673,13 @@ impl AppConnectorOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::AppConnectorOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppConnectorOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1288,6 +1689,14 @@ impl AppConnectorOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AppConnectorOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppConnectorOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppConnectorOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1297,6 +1706,13 @@ impl AppConnectorOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::AppConnectorOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppConnectorOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1306,6 +1722,14 @@ impl AppConnectorOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::AppConnectorOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppConnectorOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppConnectorOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1315,30 +1739,60 @@ impl AppConnectorOperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::AppConnectorOperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// let x = AppConnectorOperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::AppConnectorOperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// let x = AppConnectorOperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::AppConnectorOperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// let x = AppConnectorOperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::AppConnectorOperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// let x = AppConnectorOperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::AppConnectorOperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::AppConnectorOperationMetadata;
+    /// let x = AppConnectorOperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -1391,18 +1845,40 @@ impl ResourceInfo {
     }
 
     /// Sets the value of [id][crate::model::ResourceInfo::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::ResourceInfo::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::HealthStatus;
+    /// let x0 = ResourceInfo::new().set_status(HealthStatus::Healthy);
+    /// let x1 = ResourceInfo::new().set_status(HealthStatus::Unhealthy);
+    /// let x2 = ResourceInfo::new().set_status(HealthStatus::Unresponsive);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::HealthStatus>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::ResourceInfo::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// use wkt::Any;
+    /// let x = ResourceInfo::new().set_resource(Any::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -1412,6 +1888,14 @@ impl ResourceInfo {
     }
 
     /// Sets or clears the value of [resource][crate::model::ResourceInfo::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// use wkt::Any;
+    /// let x = ResourceInfo::new().set_or_clear_resource(Some(Any::default()/* use setters */));
+    /// let x = ResourceInfo::new().set_or_clear_resource(None::<Any>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -1421,6 +1905,13 @@ impl ResourceInfo {
     }
 
     /// Sets the value of [time][crate::model::ResourceInfo::time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// use wkt::Timestamp;
+    /// let x = ResourceInfo::new().set_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1430,6 +1921,14 @@ impl ResourceInfo {
     }
 
     /// Sets or clears the value of [time][crate::model::ResourceInfo::time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// use wkt::Timestamp;
+    /// let x = ResourceInfo::new().set_or_clear_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceInfo::new().set_or_clear_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1439,6 +1938,17 @@ impl ResourceInfo {
     }
 
     /// Sets the value of [sub][crate::model::ResourceInfo::sub].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// use google_cloud_beyondcorp_appconnectors_v1::model::ResourceInfo;
+    /// let x = ResourceInfo::new()
+    ///     .set_sub([
+    ///         ResourceInfo::default()/* use setters */,
+    ///         ResourceInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sub<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

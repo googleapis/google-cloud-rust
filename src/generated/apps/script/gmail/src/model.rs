@@ -74,6 +74,13 @@ impl GmailAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::GmailAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = GmailAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -83,6 +90,14 @@ impl GmailAddOnManifest {
     }
 
     /// Sets or clears the value of [homepage_trigger][crate::model::GmailAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = GmailAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
+    /// let x = GmailAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
+    /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -92,6 +107,17 @@ impl GmailAddOnManifest {
     }
 
     /// Sets the value of [contextual_triggers][crate::model::GmailAddOnManifest::contextual_triggers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
+    /// use google_cloud_apps_script_type_gmail::model::ContextualTrigger;
+    /// let x = GmailAddOnManifest::new()
+    ///     .set_contextual_triggers([
+    ///         ContextualTrigger::default()/* use setters */,
+    ///         ContextualTrigger::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_contextual_triggers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -103,6 +129,17 @@ impl GmailAddOnManifest {
     }
 
     /// Sets the value of [universal_actions][crate::model::GmailAddOnManifest::universal_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
+    /// use google_cloud_apps_script_type_gmail::model::UniversalAction;
+    /// let x = GmailAddOnManifest::new()
+    ///     .set_universal_actions([
+    ///         UniversalAction::default()/* use setters */,
+    ///         UniversalAction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_universal_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -114,6 +151,13 @@ impl GmailAddOnManifest {
     }
 
     /// Sets the value of [compose_trigger][crate::model::GmailAddOnManifest::compose_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
+    /// use google_cloud_apps_script_type_gmail::model::ComposeTrigger;
+    /// let x = GmailAddOnManifest::new().set_compose_trigger(ComposeTrigger::default()/* use setters */);
+    /// ```
     pub fn set_compose_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComposeTrigger>,
@@ -123,6 +167,14 @@ impl GmailAddOnManifest {
     }
 
     /// Sets or clears the value of [compose_trigger][crate::model::GmailAddOnManifest::compose_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
+    /// use google_cloud_apps_script_type_gmail::model::ComposeTrigger;
+    /// let x = GmailAddOnManifest::new().set_or_clear_compose_trigger(Some(ComposeTrigger::default()/* use setters */));
+    /// let x = GmailAddOnManifest::new().set_or_clear_compose_trigger(None::<ComposeTrigger>);
+    /// ```
     pub fn set_or_clear_compose_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComposeTrigger>,
@@ -132,6 +184,12 @@ impl GmailAddOnManifest {
     }
 
     /// Sets the value of [authorization_check_function][crate::model::GmailAddOnManifest::authorization_check_function].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::GmailAddOnManifest;
+    /// let x = GmailAddOnManifest::new().set_authorization_check_function("example");
+    /// ```
     pub fn set_authorization_check_function<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -169,6 +227,12 @@ impl UniversalAction {
     }
 
     /// Sets the value of [text][crate::model::UniversalAction::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::UniversalAction;
+    /// let x = UniversalAction::new().set_text("example");
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
@@ -178,6 +242,13 @@ impl UniversalAction {
     ///
     /// Note that all the setters affecting `action_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::UniversalAction;
+    /// use google_cloud_apps_script_type_gmail::model::universal_action::ActionType;
+    /// let x = UniversalAction::new().set_action_type(Some(ActionType::OpenLink("example".to_string())));
+    /// ```
     pub fn set_action_type<
         T: std::convert::Into<std::option::Option<crate::model::universal_action::ActionType>>,
     >(
@@ -204,6 +275,14 @@ impl UniversalAction {
     ///
     /// Note that all the setters affecting `action_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::UniversalAction;
+    /// let x = UniversalAction::new().set_open_link("example");
+    /// assert!(x.open_link().is_some());
+    /// assert!(x.run_function().is_none());
+    /// ```
     pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_type = std::option::Option::Some(
             crate::model::universal_action::ActionType::OpenLink(v.into()),
@@ -229,6 +308,14 @@ impl UniversalAction {
     ///
     /// Note that all the setters affecting `action_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::UniversalAction;
+    /// let x = UniversalAction::new().set_run_function("example");
+    /// assert!(x.run_function().is_some());
+    /// assert!(x.open_link().is_none());
+    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_type = std::option::Option::Some(
             crate::model::universal_action::ActionType::RunFunction(v.into()),
@@ -282,6 +369,17 @@ impl ComposeTrigger {
     }
 
     /// Sets the value of [actions][crate::model::ComposeTrigger::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::ComposeTrigger;
+    /// use apps_script_type::model::MenuItemExtensionPoint;
+    /// let x = ComposeTrigger::new()
+    ///     .set_actions([
+    ///         MenuItemExtensionPoint::default()/* use setters */,
+    ///         MenuItemExtensionPoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -293,6 +391,14 @@ impl ComposeTrigger {
     }
 
     /// Sets the value of [draft_access][crate::model::ComposeTrigger::draft_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::ComposeTrigger;
+    /// use google_cloud_apps_script_type_gmail::model::compose_trigger::DraftAccess;
+    /// let x0 = ComposeTrigger::new().set_draft_access(DraftAccess::None);
+    /// let x1 = ComposeTrigger::new().set_draft_access(DraftAccess::Metadata);
+    /// ```
     pub fn set_draft_access<T: std::convert::Into<crate::model::compose_trigger::DraftAccess>>(
         mut self,
         v: T,
@@ -472,6 +578,12 @@ impl ContextualTrigger {
     }
 
     /// Sets the value of [on_trigger_function][crate::model::ContextualTrigger::on_trigger_function].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::ContextualTrigger;
+    /// let x = ContextualTrigger::new().set_on_trigger_function("example");
+    /// ```
     pub fn set_on_trigger_function<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -484,6 +596,14 @@ impl ContextualTrigger {
     ///
     /// Note that all the setters affecting `trigger` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::ContextualTrigger;
+    /// use google_cloud_apps_script_type_gmail::model::UnconditionalTrigger;
+    /// let x = ContextualTrigger::new().set_trigger(Some(
+    ///     google_cloud_apps_script_type_gmail::model::contextual_trigger::Trigger::Unconditional(UnconditionalTrigger::default().into())));
+    /// ```
     pub fn set_trigger<
         T: std::convert::Into<std::option::Option<crate::model::contextual_trigger::Trigger>>,
     >(
@@ -514,6 +634,14 @@ impl ContextualTrigger {
     ///
     /// Note that all the setters affecting `trigger` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_gmail::model::ContextualTrigger;
+    /// use google_cloud_apps_script_type_gmail::model::UnconditionalTrigger;
+    /// let x = ContextualTrigger::new().set_unconditional(UnconditionalTrigger::default()/* use setters */);
+    /// assert!(x.unconditional().is_some());
+    /// ```
     pub fn set_unconditional<
         T: std::convert::Into<std::boxed::Box<crate::model::UnconditionalTrigger>>,
     >(

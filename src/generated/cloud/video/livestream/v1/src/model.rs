@@ -62,6 +62,12 @@ impl ElementaryStream {
     }
 
     /// Sets the value of [key][crate::model::ElementaryStream::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ElementaryStream;
+    /// let x = ElementaryStream::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -71,6 +77,14 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ElementaryStream;
+    /// use google_cloud_video_livestream_v1::model::VideoStream;
+    /// let x = ElementaryStream::new().set_elementary_stream(Some(
+    ///     google_cloud_video_livestream_v1::model::elementary_stream::ElementaryStream::VideoStream(VideoStream::default().into())));
+    /// ```
     pub fn set_elementary_stream<
         T: std::convert::Into<std::option::Option<crate::model::elementary_stream::ElementaryStream>>,
     >(
@@ -99,6 +113,16 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ElementaryStream;
+    /// use google_cloud_video_livestream_v1::model::VideoStream;
+    /// let x = ElementaryStream::new().set_video_stream(VideoStream::default()/* use setters */);
+    /// assert!(x.video_stream().is_some());
+    /// assert!(x.audio_stream().is_none());
+    /// assert!(x.text_stream().is_none());
+    /// ```
     pub fn set_video_stream<T: std::convert::Into<std::boxed::Box<crate::model::VideoStream>>>(
         mut self,
         v: T,
@@ -127,6 +151,16 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ElementaryStream;
+    /// use google_cloud_video_livestream_v1::model::AudioStream;
+    /// let x = ElementaryStream::new().set_audio_stream(AudioStream::default()/* use setters */);
+    /// assert!(x.audio_stream().is_some());
+    /// assert!(x.video_stream().is_none());
+    /// assert!(x.text_stream().is_none());
+    /// ```
     pub fn set_audio_stream<T: std::convert::Into<std::boxed::Box<crate::model::AudioStream>>>(
         mut self,
         v: T,
@@ -155,6 +189,16 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ElementaryStream;
+    /// use google_cloud_video_livestream_v1::model::TextStream;
+    /// let x = ElementaryStream::new().set_text_stream(TextStream::default()/* use setters */);
+    /// assert!(x.text_stream().is_some());
+    /// assert!(x.video_stream().is_none());
+    /// assert!(x.audio_stream().is_none());
+    /// ```
     pub fn set_text_stream<T: std::convert::Into<std::boxed::Box<crate::model::TextStream>>>(
         mut self,
         v: T,
@@ -234,18 +278,36 @@ impl MuxStream {
     }
 
     /// Sets the value of [key][crate::model::MuxStream::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [container][crate::model::MuxStream::container].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_container("example");
+    /// ```
     pub fn set_container<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container = v.into();
         self
     }
 
     /// Sets the value of [elementary_streams][crate::model::MuxStream::elementary_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_elementary_streams(["a", "b", "c"]);
+    /// ```
     pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -257,6 +319,13 @@ impl MuxStream {
     }
 
     /// Sets the value of [segment_settings][crate::model::MuxStream::segment_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::MuxStream;
+    /// use google_cloud_video_livestream_v1::model::SegmentSettings;
+    /// let x = MuxStream::new().set_segment_settings(SegmentSettings::default()/* use setters */);
+    /// ```
     pub fn set_segment_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SegmentSettings>,
@@ -266,6 +335,14 @@ impl MuxStream {
     }
 
     /// Sets or clears the value of [segment_settings][crate::model::MuxStream::segment_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::MuxStream;
+    /// use google_cloud_video_livestream_v1::model::SegmentSettings;
+    /// let x = MuxStream::new().set_or_clear_segment_settings(Some(SegmentSettings::default()/* use setters */));
+    /// let x = MuxStream::new().set_or_clear_segment_settings(None::<SegmentSettings>);
+    /// ```
     pub fn set_or_clear_segment_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SegmentSettings>,
@@ -275,6 +352,12 @@ impl MuxStream {
     }
 
     /// Sets the value of [encryption_id][crate::model::MuxStream::encryption_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_encryption_id("example");
+    /// ```
     pub fn set_encryption_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_id = v.into();
         self
@@ -356,12 +439,26 @@ impl Manifest {
     }
 
     /// Sets the value of [file_name][crate::model::Manifest::file_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// let x = Manifest::new().set_file_name("example");
+    /// ```
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Manifest::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// use google_cloud_video_livestream_v1::model::manifest::ManifestType;
+    /// let x0 = Manifest::new().set_type(ManifestType::Hls);
+    /// let x1 = Manifest::new().set_type(ManifestType::Dash);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::manifest::ManifestType>>(
         mut self,
         v: T,
@@ -371,6 +468,12 @@ impl Manifest {
     }
 
     /// Sets the value of [mux_streams][crate::model::Manifest::mux_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// let x = Manifest::new().set_mux_streams(["a", "b", "c"]);
+    /// ```
     pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -382,12 +485,25 @@ impl Manifest {
     }
 
     /// Sets the value of [max_segment_count][crate::model::Manifest::max_segment_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// let x = Manifest::new().set_max_segment_count(42);
+    /// ```
     pub fn set_max_segment_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_segment_count = v.into();
         self
     }
 
     /// Sets the value of [segment_keep_duration][crate::model::Manifest::segment_keep_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// use wkt::Duration;
+    /// let x = Manifest::new().set_segment_keep_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_segment_keep_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -397,6 +513,14 @@ impl Manifest {
     }
 
     /// Sets or clears the value of [segment_keep_duration][crate::model::Manifest::segment_keep_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// use wkt::Duration;
+    /// let x = Manifest::new().set_or_clear_segment_keep_duration(Some(Duration::default()/* use setters */));
+    /// let x = Manifest::new().set_or_clear_segment_keep_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_segment_keep_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -406,12 +530,24 @@ impl Manifest {
     }
 
     /// Sets the value of [use_timecode_as_timeline][crate::model::Manifest::use_timecode_as_timeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// let x = Manifest::new().set_use_timecode_as_timeline(true);
+    /// ```
     pub fn set_use_timecode_as_timeline<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_timecode_as_timeline = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::Manifest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Manifest;
+    /// let x = Manifest::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -600,18 +736,36 @@ impl DistributionStream {
     }
 
     /// Sets the value of [key][crate::model::DistributionStream::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DistributionStream;
+    /// let x = DistributionStream::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [container][crate::model::DistributionStream::container].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DistributionStream;
+    /// let x = DistributionStream::new().set_container("example");
+    /// ```
     pub fn set_container<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container = v.into();
         self
     }
 
     /// Sets the value of [elementary_streams][crate::model::DistributionStream::elementary_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DistributionStream;
+    /// let x = DistributionStream::new().set_elementary_streams(["a", "b", "c"]);
+    /// ```
     pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -667,12 +821,24 @@ impl Distribution {
     }
 
     /// Sets the value of [key][crate::model::Distribution::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// let x = Distribution::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [distribution_stream][crate::model::Distribution::distribution_stream].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// let x = Distribution::new().set_distribution_stream("example");
+    /// ```
     pub fn set_distribution_stream<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -682,6 +848,15 @@ impl Distribution {
     }
 
     /// Sets the value of [state][crate::model::Distribution::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// use google_cloud_video_livestream_v1::model::distribution::State;
+    /// let x0 = Distribution::new().set_state(State::Error);
+    /// let x1 = Distribution::new().set_state(State::NotReady);
+    /// let x2 = Distribution::new().set_state(State::Ready);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::distribution::State>>(
         mut self,
         v: T,
@@ -691,6 +866,13 @@ impl Distribution {
     }
 
     /// Sets the value of [error][crate::model::Distribution::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// use rpc::model::Status;
+    /// let x = Distribution::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -700,6 +882,14 @@ impl Distribution {
     }
 
     /// Sets or clears the value of [error][crate::model::Distribution::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// use rpc::model::Status;
+    /// let x = Distribution::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = Distribution::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -712,6 +902,14 @@ impl Distribution {
     ///
     /// Note that all the setters affecting `endpoint` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// use google_cloud_video_livestream_v1::model::SrtPushOutputEndpoint;
+    /// let x = Distribution::new().set_endpoint(Some(
+    ///     google_cloud_video_livestream_v1::model::distribution::Endpoint::SrtPush(SrtPushOutputEndpoint::default().into())));
+    /// ```
     pub fn set_endpoint<
         T: std::convert::Into<std::option::Option<crate::model::distribution::Endpoint>>,
     >(
@@ -740,6 +938,15 @@ impl Distribution {
     ///
     /// Note that all the setters affecting `endpoint` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// use google_cloud_video_livestream_v1::model::SrtPushOutputEndpoint;
+    /// let x = Distribution::new().set_srt_push(SrtPushOutputEndpoint::default()/* use setters */);
+    /// assert!(x.srt_push().is_some());
+    /// assert!(x.rtmp_push().is_none());
+    /// ```
     pub fn set_srt_push<
         T: std::convert::Into<std::boxed::Box<crate::model::SrtPushOutputEndpoint>>,
     >(
@@ -769,6 +976,15 @@ impl Distribution {
     ///
     /// Note that all the setters affecting `endpoint` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Distribution;
+    /// use google_cloud_video_livestream_v1::model::RtmpPushOutputEndpoint;
+    /// let x = Distribution::new().set_rtmp_push(RtmpPushOutputEndpoint::default()/* use setters */);
+    /// assert!(x.rtmp_push().is_some());
+    /// assert!(x.srt_push().is_none());
+    /// ```
     pub fn set_rtmp_push<
         T: std::convert::Into<std::boxed::Box<crate::model::RtmpPushOutputEndpoint>>,
     >(
@@ -977,6 +1193,12 @@ impl SrtPushOutputEndpoint {
     }
 
     /// Sets the value of [uri][crate::model::SrtPushOutputEndpoint::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SrtPushOutputEndpoint;
+    /// let x = SrtPushOutputEndpoint::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -986,6 +1208,13 @@ impl SrtPushOutputEndpoint {
     ///
     /// Note that all the setters affecting `passphrase_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SrtPushOutputEndpoint;
+    /// use google_cloud_video_livestream_v1::model::srt_push_output_endpoint::PassphraseSource;
+    /// let x = SrtPushOutputEndpoint::new().set_passphrase_source(Some(PassphraseSource::PassphraseSecretVersion("example".to_string())));
+    /// ```
     pub fn set_passphrase_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::srt_push_output_endpoint::PassphraseSource>,
@@ -1016,6 +1245,13 @@ impl SrtPushOutputEndpoint {
     ///
     /// Note that all the setters affecting `passphrase_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SrtPushOutputEndpoint;
+    /// let x = SrtPushOutputEndpoint::new().set_passphrase_secret_version("example");
+    /// assert!(x.passphrase_secret_version().is_some());
+    /// ```
     pub fn set_passphrase_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1072,12 +1308,24 @@ impl RtmpPushOutputEndpoint {
     }
 
     /// Sets the value of [uri][crate::model::RtmpPushOutputEndpoint::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::RtmpPushOutputEndpoint;
+    /// let x = RtmpPushOutputEndpoint::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [stream_key][crate::model::RtmpPushOutputEndpoint::stream_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::RtmpPushOutputEndpoint;
+    /// let x = RtmpPushOutputEndpoint::new().set_stream_key("example");
+    /// ```
     pub fn set_stream_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stream_key = v.into();
         self
@@ -1142,42 +1390,85 @@ impl SpriteSheet {
     }
 
     /// Sets the value of [format][crate::model::SpriteSheet::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_format("example");
+    /// ```
     pub fn set_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
 
     /// Sets the value of [file_prefix][crate::model::SpriteSheet::file_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_file_prefix("example");
+    /// ```
     pub fn set_file_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_prefix = v.into();
         self
     }
 
     /// Sets the value of [sprite_width_pixels][crate::model::SpriteSheet::sprite_width_pixels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_sprite_width_pixels(42);
+    /// ```
     pub fn set_sprite_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sprite_width_pixels = v.into();
         self
     }
 
     /// Sets the value of [sprite_height_pixels][crate::model::SpriteSheet::sprite_height_pixels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_sprite_height_pixels(42);
+    /// ```
     pub fn set_sprite_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sprite_height_pixels = v.into();
         self
     }
 
     /// Sets the value of [column_count][crate::model::SpriteSheet::column_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_column_count(42);
+    /// ```
     pub fn set_column_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.column_count = v.into();
         self
     }
 
     /// Sets the value of [row_count][crate::model::SpriteSheet::row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
     /// Sets the value of [interval][crate::model::SpriteSheet::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// use wkt::Duration;
+    /// let x = SpriteSheet::new().set_interval(Duration::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1187,6 +1478,14 @@ impl SpriteSheet {
     }
 
     /// Sets or clears the value of [interval][crate::model::SpriteSheet::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// use wkt::Duration;
+    /// let x = SpriteSheet::new().set_or_clear_interval(Some(Duration::default()/* use setters */));
+    /// let x = SpriteSheet::new().set_or_clear_interval(None::<Duration>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1196,6 +1495,12 @@ impl SpriteSheet {
     }
 
     /// Sets the value of [quality][crate::model::SpriteSheet::quality].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_quality(42);
+    /// ```
     pub fn set_quality<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.quality = v.into();
         self
@@ -1230,6 +1535,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [audio][crate::model::PreprocessingConfig::audio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_livestream_v1::model::preprocessing_config::Audio;
+    /// let x = PreprocessingConfig::new().set_audio(Audio::default()/* use setters */);
+    /// ```
     pub fn set_audio<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Audio>,
@@ -1239,6 +1551,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [audio][crate::model::PreprocessingConfig::audio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_livestream_v1::model::preprocessing_config::Audio;
+    /// let x = PreprocessingConfig::new().set_or_clear_audio(Some(Audio::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_audio(None::<Audio>);
+    /// ```
     pub fn set_or_clear_audio<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Audio>,
@@ -1248,6 +1568,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [crop][crate::model::PreprocessingConfig::crop].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_livestream_v1::model::preprocessing_config::Crop;
+    /// let x = PreprocessingConfig::new().set_crop(Crop::default()/* use setters */);
+    /// ```
     pub fn set_crop<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Crop>,
@@ -1257,6 +1584,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [crop][crate::model::PreprocessingConfig::crop].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_livestream_v1::model::preprocessing_config::Crop;
+    /// let x = PreprocessingConfig::new().set_or_clear_crop(Some(Crop::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_crop(None::<Crop>);
+    /// ```
     pub fn set_or_clear_crop<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Crop>,
@@ -1266,6 +1601,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [pad][crate::model::PreprocessingConfig::pad].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_livestream_v1::model::preprocessing_config::Pad;
+    /// let x = PreprocessingConfig::new().set_pad(Pad::default()/* use setters */);
+    /// ```
     pub fn set_pad<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Pad>,
@@ -1275,6 +1617,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [pad][crate::model::PreprocessingConfig::pad].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_livestream_v1::model::preprocessing_config::Pad;
+    /// let x = PreprocessingConfig::new().set_or_clear_pad(Some(Pad::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_pad(None::<Pad>);
+    /// ```
     pub fn set_or_clear_pad<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Pad>,
@@ -1321,6 +1671,12 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [lufs][crate::model::preprocessing_config::Audio::lufs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Audio;
+        /// let x = Audio::new().set_lufs(42.0);
+        /// ```
         pub fn set_lufs<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.lufs = v.into();
             self
@@ -1359,24 +1715,48 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [top_pixels][crate::model::preprocessing_config::Crop::top_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_top_pixels(42);
+        /// ```
         pub fn set_top_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.top_pixels = v.into();
             self
         }
 
         /// Sets the value of [bottom_pixels][crate::model::preprocessing_config::Crop::bottom_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_bottom_pixels(42);
+        /// ```
         pub fn set_bottom_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bottom_pixels = v.into();
             self
         }
 
         /// Sets the value of [left_pixels][crate::model::preprocessing_config::Crop::left_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_left_pixels(42);
+        /// ```
         pub fn set_left_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.left_pixels = v.into();
             self
         }
 
         /// Sets the value of [right_pixels][crate::model::preprocessing_config::Crop::right_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_right_pixels(42);
+        /// ```
         pub fn set_right_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.right_pixels = v.into();
             self
@@ -1415,24 +1795,48 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [top_pixels][crate::model::preprocessing_config::Pad::top_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_top_pixels(42);
+        /// ```
         pub fn set_top_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.top_pixels = v.into();
             self
         }
 
         /// Sets the value of [bottom_pixels][crate::model::preprocessing_config::Pad::bottom_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_bottom_pixels(42);
+        /// ```
         pub fn set_bottom_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bottom_pixels = v.into();
             self
         }
 
         /// Sets the value of [left_pixels][crate::model::preprocessing_config::Pad::left_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_left_pixels(42);
+        /// ```
         pub fn set_left_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.left_pixels = v.into();
             self
         }
 
         /// Sets the value of [right_pixels][crate::model::preprocessing_config::Pad::right_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_right_pixels(42);
+        /// ```
         pub fn set_right_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.right_pixels = v.into();
             self
@@ -1465,6 +1869,14 @@ impl VideoStream {
     ///
     /// Note that all the setters affecting `codec_settings` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoStream;
+    /// use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+    /// let x = VideoStream::new().set_codec_settings(Some(
+    ///     google_cloud_video_livestream_v1::model::video_stream::CodecSettings::H264(H264CodecSettings::default().into())));
+    /// ```
     pub fn set_codec_settings<
         T: std::convert::Into<std::option::Option<crate::model::video_stream::CodecSettings>>,
     >(
@@ -1493,6 +1905,15 @@ impl VideoStream {
     ///
     /// Note that all the setters affecting `codec_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoStream;
+    /// use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+    /// let x = VideoStream::new().set_h264(H264CodecSettings::default()/* use setters */);
+    /// assert!(x.h264().is_some());
+    /// assert!(x.h265().is_none());
+    /// ```
     pub fn set_h264<
         T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264CodecSettings>>,
     >(
@@ -1522,6 +1943,15 @@ impl VideoStream {
     ///
     /// Note that all the setters affecting `codec_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoStream;
+    /// use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+    /// let x = VideoStream::new().set_h265(H265CodecSettings::default()/* use setters */);
+    /// assert!(x.h265().is_some());
+    /// assert!(x.h264().is_none());
+    /// ```
     pub fn set_h265<
         T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265CodecSettings>>,
     >(
@@ -1657,48 +2087,96 @@ pub mod video_stream {
         }
 
         /// Sets the value of [width_pixels][crate::model::video_stream::H264CodecSettings::width_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_width_pixels(42);
+        /// ```
         pub fn set_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.width_pixels = v.into();
             self
         }
 
         /// Sets the value of [height_pixels][crate::model::video_stream::H264CodecSettings::height_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_height_pixels(42);
+        /// ```
         pub fn set_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.height_pixels = v.into();
             self
         }
 
         /// Sets the value of [frame_rate][crate::model::video_stream::H264CodecSettings::frame_rate].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_frame_rate(42.0);
+        /// ```
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
             self
         }
 
         /// Sets the value of [bitrate_bps][crate::model::video_stream::H264CodecSettings::bitrate_bps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_bitrate_bps(42);
+        /// ```
         pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bitrate_bps = v.into();
             self
         }
 
         /// Sets the value of [allow_open_gop][crate::model::video_stream::H264CodecSettings::allow_open_gop].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_allow_open_gop(true);
+        /// ```
         pub fn set_allow_open_gop<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_open_gop = v.into();
             self
         }
 
         /// Sets the value of [vbv_size_bits][crate::model::video_stream::H264CodecSettings::vbv_size_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_vbv_size_bits(42);
+        /// ```
         pub fn set_vbv_size_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_size_bits = v.into();
             self
         }
 
         /// Sets the value of [vbv_fullness_bits][crate::model::video_stream::H264CodecSettings::vbv_fullness_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_vbv_fullness_bits(42);
+        /// ```
         pub fn set_vbv_fullness_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_fullness_bits = v.into();
             self
         }
 
         /// Sets the value of [entropy_coder][crate::model::video_stream::H264CodecSettings::entropy_coder].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_entropy_coder("example");
+        /// ```
         pub fn set_entropy_coder<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1708,30 +2186,60 @@ pub mod video_stream {
         }
 
         /// Sets the value of [b_pyramid][crate::model::video_stream::H264CodecSettings::b_pyramid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_b_pyramid(true);
+        /// ```
         pub fn set_b_pyramid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.b_pyramid = v.into();
             self
         }
 
         /// Sets the value of [b_frame_count][crate::model::video_stream::H264CodecSettings::b_frame_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_b_frame_count(42);
+        /// ```
         pub fn set_b_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.b_frame_count = v.into();
             self
         }
 
         /// Sets the value of [aq_strength][crate::model::video_stream::H264CodecSettings::aq_strength].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_aq_strength(42.0);
+        /// ```
         pub fn set_aq_strength<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.aq_strength = v.into();
             self
         }
 
         /// Sets the value of [profile][crate::model::video_stream::H264CodecSettings::profile].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_profile("example");
+        /// ```
         pub fn set_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.profile = v.into();
             self
         }
 
         /// Sets the value of [tune][crate::model::video_stream::H264CodecSettings::tune].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_tune("example");
+        /// ```
         pub fn set_tune<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tune = v.into();
             self
@@ -1741,6 +2249,13 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// use google_cloud_video_livestream_v1::model::video_stream::h_264_codec_settings::GopMode;
+        /// let x = H264CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
+        /// ```
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
@@ -1771,6 +2286,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_gop_frame_count(42);
+        /// assert!(x.gop_frame_count().is_some());
+        /// assert!(x.gop_duration().is_none());
+        /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
                 crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
@@ -1796,6 +2319,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H264CodecSettings;
+        /// use wkt::Duration;
+        /// let x = H264CodecSettings::new().set_gop_duration(Duration::default()/* use setters */);
+        /// assert!(x.gop_duration().is_some());
+        /// assert!(x.gop_frame_count().is_none());
+        /// ```
         pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
             mut self,
             v: T,
@@ -1919,54 +2451,108 @@ pub mod video_stream {
         }
 
         /// Sets the value of [width_pixels][crate::model::video_stream::H265CodecSettings::width_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_width_pixels(42);
+        /// ```
         pub fn set_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.width_pixels = v.into();
             self
         }
 
         /// Sets the value of [height_pixels][crate::model::video_stream::H265CodecSettings::height_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_height_pixels(42);
+        /// ```
         pub fn set_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.height_pixels = v.into();
             self
         }
 
         /// Sets the value of [frame_rate][crate::model::video_stream::H265CodecSettings::frame_rate].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_frame_rate(42.0);
+        /// ```
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
             self
         }
 
         /// Sets the value of [bitrate_bps][crate::model::video_stream::H265CodecSettings::bitrate_bps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_bitrate_bps(42);
+        /// ```
         pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bitrate_bps = v.into();
             self
         }
 
         /// Sets the value of [vbv_size_bits][crate::model::video_stream::H265CodecSettings::vbv_size_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_vbv_size_bits(42);
+        /// ```
         pub fn set_vbv_size_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_size_bits = v.into();
             self
         }
 
         /// Sets the value of [vbv_fullness_bits][crate::model::video_stream::H265CodecSettings::vbv_fullness_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_vbv_fullness_bits(42);
+        /// ```
         pub fn set_vbv_fullness_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_fullness_bits = v.into();
             self
         }
 
         /// Sets the value of [b_pyramid][crate::model::video_stream::H265CodecSettings::b_pyramid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_b_pyramid(true);
+        /// ```
         pub fn set_b_pyramid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.b_pyramid = v.into();
             self
         }
 
         /// Sets the value of [b_frame_count][crate::model::video_stream::H265CodecSettings::b_frame_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_b_frame_count(42);
+        /// ```
         pub fn set_b_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.b_frame_count = v.into();
             self
         }
 
         /// Sets the value of [aq_strength][crate::model::video_stream::H265CodecSettings::aq_strength].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_aq_strength(42.0);
+        /// ```
         pub fn set_aq_strength<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.aq_strength = v.into();
             self
@@ -1976,6 +2562,13 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// use google_cloud_video_livestream_v1::model::video_stream::h_265_codec_settings::GopMode;
+        /// let x = H265CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
+        /// ```
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
@@ -2006,6 +2599,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_gop_frame_count(42);
+        /// assert!(x.gop_frame_count().is_some());
+        /// assert!(x.gop_duration().is_none());
+        /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
                 crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v.into()),
@@ -2031,6 +2632,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::video_stream::H265CodecSettings;
+        /// use wkt::Duration;
+        /// let x = H265CodecSettings::new().set_gop_duration(Duration::default()/* use setters */);
+        /// assert!(x.gop_duration().is_some());
+        /// assert!(x.gop_frame_count().is_none());
+        /// ```
         pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
             mut self,
             v: T,
@@ -2140,30 +2750,60 @@ impl AudioStream {
     }
 
     /// Sets the value of [transmux][crate::model::AudioStream::transmux].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_transmux(true);
+    /// ```
     pub fn set_transmux<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.transmux = v.into();
         self
     }
 
     /// Sets the value of [codec][crate::model::AudioStream::codec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_codec("example");
+    /// ```
     pub fn set_codec<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.codec = v.into();
         self
     }
 
     /// Sets the value of [bitrate_bps][crate::model::AudioStream::bitrate_bps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_bitrate_bps(42);
+    /// ```
     pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.bitrate_bps = v.into();
         self
     }
 
     /// Sets the value of [channel_count][crate::model::AudioStream::channel_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_channel_count(42);
+    /// ```
     pub fn set_channel_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.channel_count = v.into();
         self
     }
 
     /// Sets the value of [channel_layout][crate::model::AudioStream::channel_layout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_channel_layout(["a", "b", "c"]);
+    /// ```
     pub fn set_channel_layout<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2175,6 +2815,17 @@ impl AudioStream {
     }
 
     /// Sets the value of [mapping][crate::model::AudioStream::mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStream;
+    /// use google_cloud_video_livestream_v1::model::audio_stream::AudioMapping;
+    /// let x = AudioStream::new()
+    ///     .set_mapping([
+    ///         AudioMapping::default()/* use setters */,
+    ///         AudioMapping::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mapping<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2186,6 +2837,12 @@ impl AudioStream {
     }
 
     /// Sets the value of [sample_rate_hertz][crate::model::AudioStream::sample_rate_hertz].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_sample_rate_hertz(42);
+    /// ```
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
         self
@@ -2248,30 +2905,60 @@ pub mod audio_stream {
         }
 
         /// Sets the value of [input_key][crate::model::audio_stream::AudioMapping::input_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_input_key("example");
+        /// ```
         pub fn set_input_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.input_key = v.into();
             self
         }
 
         /// Sets the value of [input_track][crate::model::audio_stream::AudioMapping::input_track].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_input_track(42);
+        /// ```
         pub fn set_input_track<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.input_track = v.into();
             self
         }
 
         /// Sets the value of [input_channel][crate::model::audio_stream::AudioMapping::input_channel].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_input_channel(42);
+        /// ```
         pub fn set_input_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.input_channel = v.into();
             self
         }
 
         /// Sets the value of [output_channel][crate::model::audio_stream::AudioMapping::output_channel].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_output_channel(42);
+        /// ```
         pub fn set_output_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.output_channel = v.into();
             self
         }
 
         /// Sets the value of [gain_db][crate::model::audio_stream::AudioMapping::gain_db].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_gain_db(42.0);
+        /// ```
         pub fn set_gain_db<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.gain_db = v.into();
             self
@@ -2330,24 +3017,48 @@ impl TextStream {
     }
 
     /// Sets the value of [codec][crate::model::TextStream::codec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TextStream;
+    /// let x = TextStream::new().set_codec("example");
+    /// ```
     pub fn set_codec<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.codec = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::TextStream::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TextStream;
+    /// let x = TextStream::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::TextStream::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TextStream;
+    /// let x = TextStream::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [output_cea_channel][crate::model::TextStream::output_cea_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TextStream;
+    /// let x = TextStream::new().set_output_cea_channel("example");
+    /// ```
     pub fn set_output_cea_channel<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2357,6 +3068,17 @@ impl TextStream {
     }
 
     /// Sets the value of [mapping][crate::model::TextStream::mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TextStream;
+    /// use google_cloud_video_livestream_v1::model::text_stream::TextMapping;
+    /// let x = TextStream::new()
+    ///     .set_mapping([
+    ///         TextMapping::default()/* use setters */,
+    ///         TextMapping::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mapping<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2418,18 +3140,36 @@ pub mod text_stream {
         }
 
         /// Sets the value of [input_key][crate::model::text_stream::TextMapping::input_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::text_stream::TextMapping;
+        /// let x = TextMapping::new().set_input_key("example");
+        /// ```
         pub fn set_input_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.input_key = v.into();
             self
         }
 
         /// Sets the value of [input_track][crate::model::text_stream::TextMapping::input_track].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::text_stream::TextMapping;
+        /// let x = TextMapping::new().set_input_track(42);
+        /// ```
         pub fn set_input_track<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.input_track = v.into();
             self
         }
 
         /// Sets the value of [input_cea_channel][crate::model::text_stream::TextMapping::input_cea_channel].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::text_stream::TextMapping;
+        /// let x = TextMapping::new().set_input_cea_channel("example");
+        /// ```
         pub fn set_input_cea_channel<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2439,6 +3179,12 @@ pub mod text_stream {
         }
 
         /// Sets the value of [from_language_code][crate::model::text_stream::TextMapping::from_language_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::text_stream::TextMapping;
+        /// let x = TextMapping::new().set_from_language_code("example");
+        /// ```
         pub fn set_from_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2482,6 +3228,13 @@ impl SegmentSettings {
     }
 
     /// Sets the value of [segment_duration][crate::model::SegmentSettings::segment_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SegmentSettings;
+    /// use wkt::Duration;
+    /// let x = SegmentSettings::new().set_segment_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_segment_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2491,6 +3244,14 @@ impl SegmentSettings {
     }
 
     /// Sets or clears the value of [segment_duration][crate::model::SegmentSettings::segment_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::SegmentSettings;
+    /// use wkt::Duration;
+    /// let x = SegmentSettings::new().set_or_clear_segment_duration(Some(Duration::default()/* use setters */));
+    /// let x = SegmentSettings::new().set_or_clear_segment_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_segment_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2529,6 +3290,14 @@ impl TimecodeConfig {
     }
 
     /// Sets the value of [source][crate::model::TimecodeConfig::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimecodeConfig;
+    /// use google_cloud_video_livestream_v1::model::timecode_config::TimecodeSource;
+    /// let x0 = TimecodeConfig::new().set_source(TimecodeSource::MediaTimestamp);
+    /// let x1 = TimecodeConfig::new().set_source(TimecodeSource::EmbeddedTimecode);
+    /// ```
     pub fn set_source<T: std::convert::Into<crate::model::timecode_config::TimecodeSource>>(
         mut self,
         v: T,
@@ -2541,6 +3310,14 @@ impl TimecodeConfig {
     ///
     /// Note that all the setters affecting `time_offset` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimecodeConfig;
+    /// use wkt::Duration;
+    /// let x = TimecodeConfig::new().set_time_offset(Some(
+    ///     google_cloud_video_livestream_v1::model::timecode_config::TimeOffset::UtcOffset(Duration::default().into())));
+    /// ```
     pub fn set_time_offset<
         T: std::convert::Into<std::option::Option<crate::model::timecode_config::TimeOffset>>,
     >(
@@ -2567,6 +3344,15 @@ impl TimecodeConfig {
     ///
     /// Note that all the setters affecting `time_offset` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimecodeConfig;
+    /// use wkt::Duration;
+    /// let x = TimecodeConfig::new().set_utc_offset(Duration::default()/* use setters */);
+    /// assert!(x.utc_offset().is_some());
+    /// assert!(x.time_zone().is_none());
+    /// ```
     pub fn set_utc_offset<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -2593,6 +3379,15 @@ impl TimecodeConfig {
     ///
     /// Note that all the setters affecting `time_offset` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimecodeConfig;
+    /// use gtype::model::TimeZone;
+    /// let x = TimecodeConfig::new().set_time_zone(TimeZone::default()/* use setters */);
+    /// assert!(x.time_zone().is_some());
+    /// assert!(x.utc_offset().is_none());
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::boxed::Box<gtype::model::TimeZone>>>(
         mut self,
         v: T,
@@ -2816,12 +3611,25 @@ impl Input {
     }
 
     /// Sets the value of [name][crate::model::Input::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// let x = Input::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Input::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use wkt::Timestamp;
+    /// let x = Input::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2831,6 +3639,14 @@ impl Input {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Input::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use wkt::Timestamp;
+    /// let x = Input::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Input::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2840,6 +3656,13 @@ impl Input {
     }
 
     /// Sets the value of [update_time][crate::model::Input::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use wkt::Timestamp;
+    /// let x = Input::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2849,6 +3672,14 @@ impl Input {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Input::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use wkt::Timestamp;
+    /// let x = Input::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Input::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2858,6 +3689,15 @@ impl Input {
     }
 
     /// Sets the value of [labels][crate::model::Input::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// let x = Input::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2870,24 +3710,54 @@ impl Input {
     }
 
     /// Sets the value of [r#type][crate::model::Input::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::input::Type;
+    /// let x0 = Input::new().set_type(Type::RtmpPush);
+    /// let x1 = Input::new().set_type(Type::SrtPush);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::input::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [tier][crate::model::Input::tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::input::Tier;
+    /// let x0 = Input::new().set_tier(Tier::Sd);
+    /// let x1 = Input::new().set_tier(Tier::Hd);
+    /// let x2 = Input::new().set_tier(Tier::Uhd);
+    /// ```
     pub fn set_tier<T: std::convert::Into<crate::model::input::Tier>>(mut self, v: T) -> Self {
         self.tier = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::Input::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// let x = Input::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [preprocessing_config][crate::model::Input::preprocessing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// let x = Input::new().set_preprocessing_config(PreprocessingConfig::default()/* use setters */);
+    /// ```
     pub fn set_preprocessing_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PreprocessingConfig>,
@@ -2897,6 +3767,14 @@ impl Input {
     }
 
     /// Sets or clears the value of [preprocessing_config][crate::model::Input::preprocessing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::PreprocessingConfig;
+    /// let x = Input::new().set_or_clear_preprocessing_config(Some(PreprocessingConfig::default()/* use setters */));
+    /// let x = Input::new().set_or_clear_preprocessing_config(None::<PreprocessingConfig>);
+    /// ```
     pub fn set_or_clear_preprocessing_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PreprocessingConfig>,
@@ -2906,6 +3784,13 @@ impl Input {
     }
 
     /// Sets the value of [security_rules][crate::model::Input::security_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::input::SecurityRule;
+    /// let x = Input::new().set_security_rules(SecurityRule::default()/* use setters */);
+    /// ```
     pub fn set_security_rules<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::input::SecurityRule>,
@@ -2915,6 +3800,14 @@ impl Input {
     }
 
     /// Sets or clears the value of [security_rules][crate::model::Input::security_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::input::SecurityRule;
+    /// let x = Input::new().set_or_clear_security_rules(Some(SecurityRule::default()/* use setters */));
+    /// let x = Input::new().set_or_clear_security_rules(None::<SecurityRule>);
+    /// ```
     pub fn set_or_clear_security_rules<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::input::SecurityRule>,
@@ -2924,6 +3817,13 @@ impl Input {
     }
 
     /// Sets the value of [input_stream_property][crate::model::Input::input_stream_property].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::InputStreamProperty;
+    /// let x = Input::new().set_input_stream_property(InputStreamProperty::default()/* use setters */);
+    /// ```
     pub fn set_input_stream_property<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputStreamProperty>,
@@ -2933,6 +3833,14 @@ impl Input {
     }
 
     /// Sets or clears the value of [input_stream_property][crate::model::Input::input_stream_property].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::model::InputStreamProperty;
+    /// let x = Input::new().set_or_clear_input_stream_property(Some(InputStreamProperty::default()/* use setters */));
+    /// let x = Input::new().set_or_clear_input_stream_property(None::<InputStreamProperty>);
+    /// ```
     pub fn set_or_clear_input_stream_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputStreamProperty>,
@@ -2973,6 +3881,12 @@ pub mod input {
         }
 
         /// Sets the value of [ip_ranges][crate::model::input::SecurityRule::ip_ranges].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::input::SecurityRule;
+        /// let x = SecurityRule::new().set_ip_ranges(["a", "b", "c"]);
+        /// ```
         pub fn set_ip_ranges<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3390,12 +4304,25 @@ impl Channel {
     }
 
     /// Sets the value of [name][crate::model::Channel::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = Channel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Channel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3405,6 +4332,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Channel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3414,6 +4349,13 @@ impl Channel {
     }
 
     /// Sets the value of [update_time][crate::model::Channel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3423,6 +4365,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Channel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3432,6 +4382,15 @@ impl Channel {
     }
 
     /// Sets the value of [labels][crate::model::Channel::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = Channel::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3444,6 +4403,17 @@ impl Channel {
     }
 
     /// Sets the value of [input_attachments][crate::model::Channel::input_attachments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::InputAttachment;
+    /// let x = Channel::new()
+    ///     .set_input_attachments([
+    ///         InputAttachment::default()/* use setters */,
+    ///         InputAttachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_input_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3455,12 +4425,25 @@ impl Channel {
     }
 
     /// Sets the value of [active_input][crate::model::Channel::active_input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = Channel::new().set_active_input("example");
+    /// ```
     pub fn set_active_input<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.active_input = v.into();
         self
     }
 
     /// Sets the value of [output][crate::model::Channel::output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::channel::Output;
+    /// let x = Channel::new().set_output(Output::default()/* use setters */);
+    /// ```
     pub fn set_output<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::channel::Output>,
@@ -3470,6 +4453,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [output][crate::model::Channel::output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::channel::Output;
+    /// let x = Channel::new().set_or_clear_output(Some(Output::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_output(None::<Output>);
+    /// ```
     pub fn set_or_clear_output<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::channel::Output>,
@@ -3479,6 +4470,17 @@ impl Channel {
     }
 
     /// Sets the value of [elementary_streams][crate::model::Channel::elementary_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::ElementaryStream;
+    /// let x = Channel::new()
+    ///     .set_elementary_streams([
+    ///         ElementaryStream::default()/* use setters */,
+    ///         ElementaryStream::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3490,6 +4492,17 @@ impl Channel {
     }
 
     /// Sets the value of [mux_streams][crate::model::Channel::mux_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::MuxStream;
+    /// let x = Channel::new()
+    ///     .set_mux_streams([
+    ///         MuxStream::default()/* use setters */,
+    ///         MuxStream::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3501,6 +4514,17 @@ impl Channel {
     }
 
     /// Sets the value of [manifests][crate::model::Channel::manifests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::Manifest;
+    /// let x = Channel::new()
+    ///     .set_manifests([
+    ///         Manifest::default()/* use setters */,
+    ///         Manifest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3512,6 +4536,17 @@ impl Channel {
     }
 
     /// Sets the value of [distribution_streams][crate::model::Channel::distribution_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::DistributionStream;
+    /// let x = Channel::new()
+    ///     .set_distribution_streams([
+    ///         DistributionStream::default()/* use setters */,
+    ///         DistributionStream::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_distribution_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3523,6 +4558,17 @@ impl Channel {
     }
 
     /// Sets the value of [distributions][crate::model::Channel::distributions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::Distribution;
+    /// let x = Channel::new()
+    ///     .set_distributions([
+    ///         Distribution::default()/* use setters */,
+    ///         Distribution::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_distributions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3534,6 +4580,17 @@ impl Channel {
     }
 
     /// Sets the value of [sprite_sheets][crate::model::Channel::sprite_sheets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::SpriteSheet;
+    /// let x = Channel::new()
+    ///     .set_sprite_sheets([
+    ///         SpriteSheet::default()/* use setters */,
+    ///         SpriteSheet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sprite_sheets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3545,6 +4602,15 @@ impl Channel {
     }
 
     /// Sets the value of [streaming_state][crate::model::Channel::streaming_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::channel::StreamingState;
+    /// let x0 = Channel::new().set_streaming_state(StreamingState::Streaming);
+    /// let x1 = Channel::new().set_streaming_state(StreamingState::AwaitingInput);
+    /// let x2 = Channel::new().set_streaming_state(StreamingState::StreamingError);
+    /// ```
     pub fn set_streaming_state<T: std::convert::Into<crate::model::channel::StreamingState>>(
         mut self,
         v: T,
@@ -3554,6 +4620,13 @@ impl Channel {
     }
 
     /// Sets the value of [streaming_error][crate::model::Channel::streaming_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use rpc::model::Status;
+    /// let x = Channel::new().set_streaming_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_streaming_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3563,6 +4636,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [streaming_error][crate::model::Channel::streaming_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use rpc::model::Status;
+    /// let x = Channel::new().set_or_clear_streaming_error(Some(Status::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_streaming_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_streaming_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3572,6 +4653,13 @@ impl Channel {
     }
 
     /// Sets the value of [log_config][crate::model::Channel::log_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::LogConfig;
+    /// let x = Channel::new().set_log_config(LogConfig::default()/* use setters */);
+    /// ```
     pub fn set_log_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogConfig>,
@@ -3581,6 +4669,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [log_config][crate::model::Channel::log_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::LogConfig;
+    /// let x = Channel::new().set_or_clear_log_config(Some(LogConfig::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_log_config(None::<LogConfig>);
+    /// ```
     pub fn set_or_clear_log_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogConfig>,
@@ -3590,6 +4686,13 @@ impl Channel {
     }
 
     /// Sets the value of [timecode_config][crate::model::Channel::timecode_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::TimecodeConfig;
+    /// let x = Channel::new().set_timecode_config(TimecodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_timecode_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimecodeConfig>,
@@ -3599,6 +4702,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [timecode_config][crate::model::Channel::timecode_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::TimecodeConfig;
+    /// let x = Channel::new().set_or_clear_timecode_config(Some(TimecodeConfig::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_timecode_config(None::<TimecodeConfig>);
+    /// ```
     pub fn set_or_clear_timecode_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimecodeConfig>,
@@ -3608,6 +4719,17 @@ impl Channel {
     }
 
     /// Sets the value of [encryptions][crate::model::Channel::encryptions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::Encryption;
+    /// let x = Channel::new()
+    ///     .set_encryptions([
+    ///         Encryption::default()/* use setters */,
+    ///         Encryption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_encryptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3619,6 +4741,13 @@ impl Channel {
     }
 
     /// Sets the value of [input_config][crate::model::Channel::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::InputConfig;
+    /// let x = Channel::new().set_input_config(InputConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -3628,6 +4757,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [input_config][crate::model::Channel::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::InputConfig;
+    /// let x = Channel::new().set_or_clear_input_config(Some(InputConfig::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_input_config(None::<InputConfig>);
+    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
@@ -3637,6 +4774,13 @@ impl Channel {
     }
 
     /// Sets the value of [retention_config][crate::model::Channel::retention_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::RetentionConfig;
+    /// let x = Channel::new().set_retention_config(RetentionConfig::default()/* use setters */);
+    /// ```
     pub fn set_retention_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RetentionConfig>,
@@ -3646,6 +4790,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [retention_config][crate::model::Channel::retention_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::RetentionConfig;
+    /// let x = Channel::new().set_or_clear_retention_config(Some(RetentionConfig::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_retention_config(None::<RetentionConfig>);
+    /// ```
     pub fn set_or_clear_retention_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetentionConfig>,
@@ -3655,6 +4807,17 @@ impl Channel {
     }
 
     /// Sets the value of [static_overlays][crate::model::Channel::static_overlays].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::StaticOverlay;
+    /// let x = Channel::new()
+    ///     .set_static_overlays([
+    ///         StaticOverlay::default()/* use setters */,
+    ///         StaticOverlay::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_static_overlays<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3666,6 +4829,13 @@ impl Channel {
     }
 
     /// Sets the value of [auto_transcription_config][crate::model::Channel::auto_transcription_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::AutoTranscriptionConfig;
+    /// let x = Channel::new().set_auto_transcription_config(AutoTranscriptionConfig::default()/* use setters */);
+    /// ```
     pub fn set_auto_transcription_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoTranscriptionConfig>,
@@ -3675,6 +4845,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [auto_transcription_config][crate::model::Channel::auto_transcription_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::model::AutoTranscriptionConfig;
+    /// let x = Channel::new().set_or_clear_auto_transcription_config(Some(AutoTranscriptionConfig::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_auto_transcription_config(None::<AutoTranscriptionConfig>);
+    /// ```
     pub fn set_or_clear_auto_transcription_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoTranscriptionConfig>,
@@ -3711,6 +4889,12 @@ pub mod channel {
         }
 
         /// Sets the value of [uri][crate::model::channel::Output::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::channel::Output;
+        /// let x = Output::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
@@ -3915,12 +5099,24 @@ impl NormalizedCoordinate {
     }
 
     /// Sets the value of [x][crate::model::NormalizedCoordinate::x].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::NormalizedCoordinate;
+    /// let x = NormalizedCoordinate::new().set_x(42.0);
+    /// ```
     pub fn set_x<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::NormalizedCoordinate::y].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::NormalizedCoordinate;
+    /// let x = NormalizedCoordinate::new().set_y(42.0);
+    /// ```
     pub fn set_y<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
@@ -3952,12 +5148,24 @@ impl NormalizedResolution {
     }
 
     /// Sets the value of [w][crate::model::NormalizedResolution::w].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::NormalizedResolution;
+    /// let x = NormalizedResolution::new().set_w(42.0);
+    /// ```
     pub fn set_w<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.w = v.into();
         self
     }
 
     /// Sets the value of [h][crate::model::NormalizedResolution::h].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::NormalizedResolution;
+    /// let x = NormalizedResolution::new().set_h(42.0);
+    /// ```
     pub fn set_h<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.h = v.into();
         self
@@ -4006,12 +5214,25 @@ impl StaticOverlay {
     }
 
     /// Sets the value of [asset][crate::model::StaticOverlay::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StaticOverlay;
+    /// let x = StaticOverlay::new().set_asset("example");
+    /// ```
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
         self
     }
 
     /// Sets the value of [resolution][crate::model::StaticOverlay::resolution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StaticOverlay;
+    /// use google_cloud_video_livestream_v1::model::NormalizedResolution;
+    /// let x = StaticOverlay::new().set_resolution(NormalizedResolution::default()/* use setters */);
+    /// ```
     pub fn set_resolution<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedResolution>,
@@ -4021,6 +5242,14 @@ impl StaticOverlay {
     }
 
     /// Sets or clears the value of [resolution][crate::model::StaticOverlay::resolution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StaticOverlay;
+    /// use google_cloud_video_livestream_v1::model::NormalizedResolution;
+    /// let x = StaticOverlay::new().set_or_clear_resolution(Some(NormalizedResolution::default()/* use setters */));
+    /// let x = StaticOverlay::new().set_or_clear_resolution(None::<NormalizedResolution>);
+    /// ```
     pub fn set_or_clear_resolution<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedResolution>,
@@ -4030,6 +5259,13 @@ impl StaticOverlay {
     }
 
     /// Sets the value of [position][crate::model::StaticOverlay::position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StaticOverlay;
+    /// use google_cloud_video_livestream_v1::model::NormalizedCoordinate;
+    /// let x = StaticOverlay::new().set_position(NormalizedCoordinate::default()/* use setters */);
+    /// ```
     pub fn set_position<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedCoordinate>,
@@ -4039,6 +5275,14 @@ impl StaticOverlay {
     }
 
     /// Sets or clears the value of [position][crate::model::StaticOverlay::position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StaticOverlay;
+    /// use google_cloud_video_livestream_v1::model::NormalizedCoordinate;
+    /// let x = StaticOverlay::new().set_or_clear_position(Some(NormalizedCoordinate::default()/* use setters */));
+    /// let x = StaticOverlay::new().set_or_clear_position(None::<NormalizedCoordinate>);
+    /// ```
     pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedCoordinate>,
@@ -4048,6 +5292,12 @@ impl StaticOverlay {
     }
 
     /// Sets the value of [opacity][crate::model::StaticOverlay::opacity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StaticOverlay;
+    /// let x = StaticOverlay::new().set_opacity(42.0);
+    /// ```
     pub fn set_opacity<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.opacity = v.into();
         self
@@ -4076,6 +5326,14 @@ impl InputConfig {
     }
 
     /// Sets the value of [input_switch_mode][crate::model::InputConfig::input_switch_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputConfig;
+    /// use google_cloud_video_livestream_v1::model::input_config::InputSwitchMode;
+    /// let x0 = InputConfig::new().set_input_switch_mode(InputSwitchMode::FailoverPreferPrimary);
+    /// let x1 = InputConfig::new().set_input_switch_mode(InputSwitchMode::Manual);
+    /// ```
     pub fn set_input_switch_mode<
         T: std::convert::Into<crate::model::input_config::InputSwitchMode>,
     >(
@@ -4263,6 +5521,15 @@ impl LogConfig {
     }
 
     /// Sets the value of [log_severity][crate::model::LogConfig::log_severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::LogConfig;
+    /// use google_cloud_video_livestream_v1::model::log_config::LogSeverity;
+    /// let x0 = LogConfig::new().set_log_severity(LogSeverity::Off);
+    /// let x1 = LogConfig::new().set_log_severity(LogSeverity::Debug);
+    /// let x2 = LogConfig::new().set_log_severity(LogSeverity::Info);
+    /// ```
     pub fn set_log_severity<T: std::convert::Into<crate::model::log_config::LogSeverity>>(
         mut self,
         v: T,
@@ -4478,6 +5745,13 @@ impl RetentionConfig {
     }
 
     /// Sets the value of [retention_window_duration][crate::model::RetentionConfig::retention_window_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::RetentionConfig;
+    /// use wkt::Duration;
+    /// let x = RetentionConfig::new().set_retention_window_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_retention_window_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4487,6 +5761,14 @@ impl RetentionConfig {
     }
 
     /// Sets or clears the value of [retention_window_duration][crate::model::RetentionConfig::retention_window_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::RetentionConfig;
+    /// use wkt::Duration;
+    /// let x = RetentionConfig::new().set_or_clear_retention_window_duration(Some(Duration::default()/* use setters */));
+    /// let x = RetentionConfig::new().set_or_clear_retention_window_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_retention_window_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4525,6 +5807,13 @@ impl InputStreamProperty {
     }
 
     /// Sets the value of [last_establish_time][crate::model::InputStreamProperty::last_establish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputStreamProperty;
+    /// use wkt::Timestamp;
+    /// let x = InputStreamProperty::new().set_last_establish_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_establish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4534,6 +5823,14 @@ impl InputStreamProperty {
     }
 
     /// Sets or clears the value of [last_establish_time][crate::model::InputStreamProperty::last_establish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputStreamProperty;
+    /// use wkt::Timestamp;
+    /// let x = InputStreamProperty::new().set_or_clear_last_establish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InputStreamProperty::new().set_or_clear_last_establish_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_establish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4543,6 +5840,17 @@ impl InputStreamProperty {
     }
 
     /// Sets the value of [video_streams][crate::model::InputStreamProperty::video_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputStreamProperty;
+    /// use google_cloud_video_livestream_v1::model::VideoStreamProperty;
+    /// let x = InputStreamProperty::new()
+    ///     .set_video_streams([
+    ///         VideoStreamProperty::default()/* use setters */,
+    ///         VideoStreamProperty::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_video_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4554,6 +5862,17 @@ impl InputStreamProperty {
     }
 
     /// Sets the value of [audio_streams][crate::model::InputStreamProperty::audio_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputStreamProperty;
+    /// use google_cloud_video_livestream_v1::model::AudioStreamProperty;
+    /// let x = InputStreamProperty::new()
+    ///     .set_audio_streams([
+    ///         AudioStreamProperty::default()/* use setters */,
+    ///         AudioStreamProperty::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_audio_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4590,12 +5909,25 @@ impl VideoStreamProperty {
     }
 
     /// Sets the value of [index][crate::model::VideoStreamProperty::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoStreamProperty;
+    /// let x = VideoStreamProperty::new().set_index(42);
+    /// ```
     pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [video_format][crate::model::VideoStreamProperty::video_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoStreamProperty;
+    /// use google_cloud_video_livestream_v1::model::VideoFormat;
+    /// let x = VideoStreamProperty::new().set_video_format(VideoFormat::default()/* use setters */);
+    /// ```
     pub fn set_video_format<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VideoFormat>,
@@ -4605,6 +5937,14 @@ impl VideoStreamProperty {
     }
 
     /// Sets or clears the value of [video_format][crate::model::VideoStreamProperty::video_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoStreamProperty;
+    /// use google_cloud_video_livestream_v1::model::VideoFormat;
+    /// let x = VideoStreamProperty::new().set_or_clear_video_format(Some(VideoFormat::default()/* use setters */));
+    /// let x = VideoStreamProperty::new().set_or_clear_video_format(None::<VideoFormat>);
+    /// ```
     pub fn set_or_clear_video_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoFormat>,
@@ -4645,24 +5985,48 @@ impl VideoFormat {
     }
 
     /// Sets the value of [codec][crate::model::VideoFormat::codec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoFormat;
+    /// let x = VideoFormat::new().set_codec("example");
+    /// ```
     pub fn set_codec<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.codec = v.into();
         self
     }
 
     /// Sets the value of [width_pixels][crate::model::VideoFormat::width_pixels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoFormat;
+    /// let x = VideoFormat::new().set_width_pixels(42);
+    /// ```
     pub fn set_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.width_pixels = v.into();
         self
     }
 
     /// Sets the value of [height_pixels][crate::model::VideoFormat::height_pixels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoFormat;
+    /// let x = VideoFormat::new().set_height_pixels(42);
+    /// ```
     pub fn set_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.height_pixels = v.into();
         self
     }
 
     /// Sets the value of [frame_rate][crate::model::VideoFormat::frame_rate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::VideoFormat;
+    /// let x = VideoFormat::new().set_frame_rate(42.0);
+    /// ```
     pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.frame_rate = v.into();
         self
@@ -4694,12 +6058,25 @@ impl AudioStreamProperty {
     }
 
     /// Sets the value of [index][crate::model::AudioStreamProperty::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStreamProperty;
+    /// let x = AudioStreamProperty::new().set_index(42);
+    /// ```
     pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [audio_format][crate::model::AudioStreamProperty::audio_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStreamProperty;
+    /// use google_cloud_video_livestream_v1::model::AudioFormat;
+    /// let x = AudioStreamProperty::new().set_audio_format(AudioFormat::default()/* use setters */);
+    /// ```
     pub fn set_audio_format<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AudioFormat>,
@@ -4709,6 +6086,14 @@ impl AudioStreamProperty {
     }
 
     /// Sets or clears the value of [audio_format][crate::model::AudioStreamProperty::audio_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioStreamProperty;
+    /// use google_cloud_video_livestream_v1::model::AudioFormat;
+    /// let x = AudioStreamProperty::new().set_or_clear_audio_format(Some(AudioFormat::default()/* use setters */));
+    /// let x = AudioStreamProperty::new().set_or_clear_audio_format(None::<AudioFormat>);
+    /// ```
     pub fn set_or_clear_audio_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AudioFormat>,
@@ -4746,18 +6131,36 @@ impl AudioFormat {
     }
 
     /// Sets the value of [codec][crate::model::AudioFormat::codec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioFormat;
+    /// let x = AudioFormat::new().set_codec("example");
+    /// ```
     pub fn set_codec<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.codec = v.into();
         self
     }
 
     /// Sets the value of [channel_count][crate::model::AudioFormat::channel_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioFormat;
+    /// let x = AudioFormat::new().set_channel_count(42);
+    /// ```
     pub fn set_channel_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.channel_count = v.into();
         self
     }
 
     /// Sets the value of [channel_layout][crate::model::AudioFormat::channel_layout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AudioFormat;
+    /// let x = AudioFormat::new().set_channel_layout(["a", "b", "c"]);
+    /// ```
     pub fn set_channel_layout<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4800,18 +6203,37 @@ impl InputAttachment {
     }
 
     /// Sets the value of [key][crate::model::InputAttachment::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputAttachment;
+    /// let x = InputAttachment::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [input][crate::model::InputAttachment::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputAttachment;
+    /// let x = InputAttachment::new().set_input("example");
+    /// ```
     pub fn set_input<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input = v.into();
         self
     }
 
     /// Sets the value of [automatic_failover][crate::model::InputAttachment::automatic_failover].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputAttachment;
+    /// use google_cloud_video_livestream_v1::model::input_attachment::AutomaticFailover;
+    /// let x = InputAttachment::new().set_automatic_failover(AutomaticFailover::default()/* use setters */);
+    /// ```
     pub fn set_automatic_failover<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::input_attachment::AutomaticFailover>,
@@ -4821,6 +6243,14 @@ impl InputAttachment {
     }
 
     /// Sets or clears the value of [automatic_failover][crate::model::InputAttachment::automatic_failover].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::InputAttachment;
+    /// use google_cloud_video_livestream_v1::model::input_attachment::AutomaticFailover;
+    /// let x = InputAttachment::new().set_or_clear_automatic_failover(Some(AutomaticFailover::default()/* use setters */));
+    /// let x = InputAttachment::new().set_or_clear_automatic_failover(None::<AutomaticFailover>);
+    /// ```
     pub fn set_or_clear_automatic_failover<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::input_attachment::AutomaticFailover>,
@@ -4862,6 +6292,12 @@ pub mod input_attachment {
         }
 
         /// Sets the value of [input_keys][crate::model::input_attachment::AutomaticFailover::input_keys].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::input_attachment::AutomaticFailover;
+        /// let x = AutomaticFailover::new().set_input_keys(["a", "b", "c"]);
+        /// ```
         pub fn set_input_keys<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4900,6 +6336,14 @@ impl AutoTranscriptionConfig {
     }
 
     /// Sets the value of [display_timing][crate::model::AutoTranscriptionConfig::display_timing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AutoTranscriptionConfig;
+    /// use google_cloud_video_livestream_v1::model::auto_transcription_config::DisplayTiming;
+    /// let x0 = AutoTranscriptionConfig::new().set_display_timing(DisplayTiming::Async);
+    /// let x1 = AutoTranscriptionConfig::new().set_display_timing(DisplayTiming::Sync);
+    /// ```
     pub fn set_display_timing<
         T: std::convert::Into<crate::model::auto_transcription_config::DisplayTiming>,
     >(
@@ -4911,6 +6355,15 @@ impl AutoTranscriptionConfig {
     }
 
     /// Sets the value of [quality_preset][crate::model::AutoTranscriptionConfig::quality_preset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::AutoTranscriptionConfig;
+    /// use google_cloud_video_livestream_v1::model::auto_transcription_config::QualityPreset;
+    /// let x0 = AutoTranscriptionConfig::new().set_quality_preset(QualityPreset::LowLatency);
+    /// let x1 = AutoTranscriptionConfig::new().set_quality_preset(QualityPreset::BalancedQuality);
+    /// let x2 = AutoTranscriptionConfig::new().set_quality_preset(QualityPreset::ImprovedQuality);
+    /// ```
     pub fn set_quality_preset<
         T: std::convert::Into<crate::model::auto_transcription_config::QualityPreset>,
     >(
@@ -5269,12 +6722,25 @@ impl Event {
     }
 
     /// Sets the value of [name][crate::model::Event::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// let x = Event::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Event::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5284,6 +6750,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Event::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5293,6 +6767,13 @@ impl Event {
     }
 
     /// Sets the value of [update_time][crate::model::Event::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5302,6 +6783,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Event::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5311,6 +6800,15 @@ impl Event {
     }
 
     /// Sets the value of [labels][crate::model::Event::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// let x = Event::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5323,12 +6821,25 @@ impl Event {
     }
 
     /// Sets the value of [execute_now][crate::model::Event::execute_now].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// let x = Event::new().set_execute_now(true);
+    /// ```
     pub fn set_execute_now<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.execute_now = v.into();
         self
     }
 
     /// Sets the value of [execution_time][crate::model::Event::execution_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_execution_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_execution_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5338,6 +6849,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [execution_time][crate::model::Event::execution_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_execution_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_execution_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5347,12 +6866,28 @@ impl Event {
     }
 
     /// Sets the value of [state][crate::model::Event::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::State;
+    /// let x0 = Event::new().set_state(State::Scheduled);
+    /// let x1 = Event::new().set_state(State::Running);
+    /// let x2 = Event::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::event::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::Event::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use rpc::model::Status;
+    /// let x = Event::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -5362,6 +6897,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [error][crate::model::Event::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use rpc::model::Status;
+    /// let x = Event::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -5374,6 +6917,14 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::InputSwitchTask;
+    /// let x = Event::new().set_task(Some(
+    ///     google_cloud_video_livestream_v1::model::event::Task::InputSwitch(InputSwitchTask::default().into())));
+    /// ```
     pub fn set_task<T: std::convert::Into<std::option::Option<crate::model::event::Task>>>(
         mut self,
         v: T,
@@ -5400,6 +6951,20 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::InputSwitchTask;
+    /// let x = Event::new().set_input_switch(InputSwitchTask::default()/* use setters */);
+    /// assert!(x.input_switch().is_some());
+    /// assert!(x.ad_break().is_none());
+    /// assert!(x.return_to_program().is_none());
+    /// assert!(x.slate().is_none());
+    /// assert!(x.mute().is_none());
+    /// assert!(x.unmute().is_none());
+    /// assert!(x.update_encryptions().is_none());
+    /// ```
     pub fn set_input_switch<
         T: std::convert::Into<std::boxed::Box<crate::model::event::InputSwitchTask>>,
     >(
@@ -5428,6 +6993,20 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::AdBreakTask;
+    /// let x = Event::new().set_ad_break(AdBreakTask::default()/* use setters */);
+    /// assert!(x.ad_break().is_some());
+    /// assert!(x.input_switch().is_none());
+    /// assert!(x.return_to_program().is_none());
+    /// assert!(x.slate().is_none());
+    /// assert!(x.mute().is_none());
+    /// assert!(x.unmute().is_none());
+    /// assert!(x.update_encryptions().is_none());
+    /// ```
     pub fn set_ad_break<
         T: std::convert::Into<std::boxed::Box<crate::model::event::AdBreakTask>>,
     >(
@@ -5456,6 +7035,20 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::ReturnToProgramTask;
+    /// let x = Event::new().set_return_to_program(ReturnToProgramTask::default()/* use setters */);
+    /// assert!(x.return_to_program().is_some());
+    /// assert!(x.input_switch().is_none());
+    /// assert!(x.ad_break().is_none());
+    /// assert!(x.slate().is_none());
+    /// assert!(x.mute().is_none());
+    /// assert!(x.unmute().is_none());
+    /// assert!(x.update_encryptions().is_none());
+    /// ```
     pub fn set_return_to_program<
         T: std::convert::Into<std::boxed::Box<crate::model::event::ReturnToProgramTask>>,
     >(
@@ -5482,6 +7075,20 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::SlateTask;
+    /// let x = Event::new().set_slate(SlateTask::default()/* use setters */);
+    /// assert!(x.slate().is_some());
+    /// assert!(x.input_switch().is_none());
+    /// assert!(x.ad_break().is_none());
+    /// assert!(x.return_to_program().is_none());
+    /// assert!(x.mute().is_none());
+    /// assert!(x.unmute().is_none());
+    /// assert!(x.update_encryptions().is_none());
+    /// ```
     pub fn set_slate<T: std::convert::Into<std::boxed::Box<crate::model::event::SlateTask>>>(
         mut self,
         v: T,
@@ -5506,6 +7113,20 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::MuteTask;
+    /// let x = Event::new().set_mute(MuteTask::default()/* use setters */);
+    /// assert!(x.mute().is_some());
+    /// assert!(x.input_switch().is_none());
+    /// assert!(x.ad_break().is_none());
+    /// assert!(x.return_to_program().is_none());
+    /// assert!(x.slate().is_none());
+    /// assert!(x.unmute().is_none());
+    /// assert!(x.update_encryptions().is_none());
+    /// ```
     pub fn set_mute<T: std::convert::Into<std::boxed::Box<crate::model::event::MuteTask>>>(
         mut self,
         v: T,
@@ -5530,6 +7151,20 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::UnmuteTask;
+    /// let x = Event::new().set_unmute(UnmuteTask::default()/* use setters */);
+    /// assert!(x.unmute().is_some());
+    /// assert!(x.input_switch().is_none());
+    /// assert!(x.ad_break().is_none());
+    /// assert!(x.return_to_program().is_none());
+    /// assert!(x.slate().is_none());
+    /// assert!(x.mute().is_none());
+    /// assert!(x.update_encryptions().is_none());
+    /// ```
     pub fn set_unmute<T: std::convert::Into<std::boxed::Box<crate::model::event::UnmuteTask>>>(
         mut self,
         v: T,
@@ -5556,6 +7191,20 @@ impl Event {
     ///
     /// Note that all the setters affecting `task` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::model::event::UpdateEncryptionsTask;
+    /// let x = Event::new().set_update_encryptions(UpdateEncryptionsTask::default()/* use setters */);
+    /// assert!(x.update_encryptions().is_some());
+    /// assert!(x.input_switch().is_none());
+    /// assert!(x.ad_break().is_none());
+    /// assert!(x.return_to_program().is_none());
+    /// assert!(x.slate().is_none());
+    /// assert!(x.mute().is_none());
+    /// assert!(x.unmute().is_none());
+    /// ```
     pub fn set_update_encryptions<
         T: std::convert::Into<std::boxed::Box<crate::model::event::UpdateEncryptionsTask>>,
     >(
@@ -5599,6 +7248,12 @@ pub mod event {
         }
 
         /// Sets the value of [input_key][crate::model::event::InputSwitchTask::input_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::InputSwitchTask;
+        /// let x = InputSwitchTask::new().set_input_key("example");
+        /// ```
         pub fn set_input_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.input_key = v.into();
             self
@@ -5627,6 +7282,13 @@ pub mod event {
         }
 
         /// Sets the value of [duration][crate::model::event::AdBreakTask::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::AdBreakTask;
+        /// use wkt::Duration;
+        /// let x = AdBreakTask::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5636,6 +7298,14 @@ pub mod event {
         }
 
         /// Sets or clears the value of [duration][crate::model::event::AdBreakTask::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::AdBreakTask;
+        /// use wkt::Duration;
+        /// let x = AdBreakTask::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = AdBreakTask::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5674,6 +7344,13 @@ pub mod event {
         }
 
         /// Sets the value of [duration][crate::model::event::SlateTask::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::SlateTask;
+        /// use wkt::Duration;
+        /// let x = SlateTask::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5683,6 +7360,14 @@ pub mod event {
         }
 
         /// Sets or clears the value of [duration][crate::model::event::SlateTask::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::SlateTask;
+        /// use wkt::Duration;
+        /// let x = SlateTask::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = SlateTask::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5692,6 +7377,12 @@ pub mod event {
         }
 
         /// Sets the value of [asset][crate::model::event::SlateTask::asset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::SlateTask;
+        /// let x = SlateTask::new().set_asset("example");
+        /// ```
         pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset = v.into();
             self
@@ -5741,6 +7432,13 @@ pub mod event {
         }
 
         /// Sets the value of [duration][crate::model::event::MuteTask::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::MuteTask;
+        /// use wkt::Duration;
+        /// let x = MuteTask::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5750,6 +7448,14 @@ pub mod event {
         }
 
         /// Sets or clears the value of [duration][crate::model::event::MuteTask::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::MuteTask;
+        /// use wkt::Duration;
+        /// let x = MuteTask::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = MuteTask::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5804,6 +7510,17 @@ pub mod event {
         }
 
         /// Sets the value of [encryptions][crate::model::event::UpdateEncryptionsTask::encryptions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::event::UpdateEncryptionsTask;
+        /// use google_cloud_video_livestream_v1::model::EncryptionUpdate;
+        /// let x = UpdateEncryptionsTask::new()
+        ///     .set_encryptions([
+        ///         EncryptionUpdate::default()/* use setters */,
+        ///         EncryptionUpdate::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_encryptions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6066,12 +7783,25 @@ impl Clip {
     }
 
     /// Sets the value of [name][crate::model::Clip::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// let x = Clip::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Clip::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use wkt::Timestamp;
+    /// let x = Clip::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6081,6 +7811,14 @@ impl Clip {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Clip::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use wkt::Timestamp;
+    /// let x = Clip::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Clip::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6090,6 +7828,13 @@ impl Clip {
     }
 
     /// Sets the value of [start_time][crate::model::Clip::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use wkt::Timestamp;
+    /// let x = Clip::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6099,6 +7844,14 @@ impl Clip {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Clip::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use wkt::Timestamp;
+    /// let x = Clip::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Clip::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6108,6 +7861,13 @@ impl Clip {
     }
 
     /// Sets the value of [update_time][crate::model::Clip::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use wkt::Timestamp;
+    /// let x = Clip::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6117,6 +7877,14 @@ impl Clip {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Clip::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use wkt::Timestamp;
+    /// let x = Clip::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Clip::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6126,6 +7894,15 @@ impl Clip {
     }
 
     /// Sets the value of [labels][crate::model::Clip::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// let x = Clip::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6138,18 +7915,40 @@ impl Clip {
     }
 
     /// Sets the value of [state][crate::model::Clip::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use google_cloud_video_livestream_v1::model::clip::State;
+    /// let x0 = Clip::new().set_state(State::Pending);
+    /// let x1 = Clip::new().set_state(State::Creating);
+    /// let x2 = Clip::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::clip::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [output_uri][crate::model::Clip::output_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// let x = Clip::new().set_output_uri("example");
+    /// ```
     pub fn set_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_uri = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::Clip::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use rpc::model::Status;
+    /// let x = Clip::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6159,6 +7958,14 @@ impl Clip {
     }
 
     /// Sets or clears the value of [error][crate::model::Clip::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use rpc::model::Status;
+    /// let x = Clip::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = Clip::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6168,6 +7975,17 @@ impl Clip {
     }
 
     /// Sets the value of [slices][crate::model::Clip::slices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use google_cloud_video_livestream_v1::model::clip::Slice;
+    /// let x = Clip::new()
+    ///     .set_slices([
+    ///         Slice::default()/* use setters */,
+    ///         Slice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_slices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6179,6 +7997,17 @@ impl Clip {
     }
 
     /// Sets the value of [clip_manifests][crate::model::Clip::clip_manifests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use google_cloud_video_livestream_v1::model::clip::ClipManifest;
+    /// let x = Clip::new()
+    ///     .set_clip_manifests([
+    ///         ClipManifest::default()/* use setters */,
+    ///         ClipManifest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_clip_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6190,6 +8019,14 @@ impl Clip {
     }
 
     /// Sets the value of [output_type][crate::model::Clip::output_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Clip;
+    /// use google_cloud_video_livestream_v1::model::clip::OutputType;
+    /// let x0 = Clip::new().set_output_type(OutputType::Manifest);
+    /// let x1 = Clip::new().set_output_type(OutputType::Mp4);
+    /// ```
     pub fn set_output_type<T: std::convert::Into<crate::model::clip::OutputType>>(
         mut self,
         v: T,
@@ -6230,6 +8067,13 @@ pub mod clip {
         }
 
         /// Sets the value of [markin_time][crate::model::clip::TimeSlice::markin_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::TimeSlice;
+        /// use wkt::Timestamp;
+        /// let x = TimeSlice::new().set_markin_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_markin_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6239,6 +8083,14 @@ pub mod clip {
         }
 
         /// Sets or clears the value of [markin_time][crate::model::clip::TimeSlice::markin_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::TimeSlice;
+        /// use wkt::Timestamp;
+        /// let x = TimeSlice::new().set_or_clear_markin_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TimeSlice::new().set_or_clear_markin_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_markin_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6248,6 +8100,13 @@ pub mod clip {
         }
 
         /// Sets the value of [markout_time][crate::model::clip::TimeSlice::markout_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::TimeSlice;
+        /// use wkt::Timestamp;
+        /// let x = TimeSlice::new().set_markout_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_markout_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6257,6 +8116,14 @@ pub mod clip {
         }
 
         /// Sets or clears the value of [markout_time][crate::model::clip::TimeSlice::markout_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::TimeSlice;
+        /// use wkt::Timestamp;
+        /// let x = TimeSlice::new().set_or_clear_markout_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TimeSlice::new().set_or_clear_markout_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_markout_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6291,6 +8158,14 @@ pub mod clip {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::Slice;
+        /// use google_cloud_video_livestream_v1::model::clip::TimeSlice;
+        /// let x = Slice::new().set_kind(Some(
+        ///     google_cloud_video_livestream_v1::model::clip::slice::Kind::TimeSlice(TimeSlice::default().into())));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::clip::slice::Kind>>,
         >(
@@ -6319,6 +8194,14 @@ pub mod clip {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::Slice;
+        /// use google_cloud_video_livestream_v1::model::clip::TimeSlice;
+        /// let x = Slice::new().set_time_slice(TimeSlice::default()/* use setters */);
+        /// assert!(x.time_slice().is_some());
+        /// ```
         pub fn set_time_slice<
             T: std::convert::Into<std::boxed::Box<crate::model::clip::TimeSlice>>,
         >(
@@ -6377,6 +8260,12 @@ pub mod clip {
         }
 
         /// Sets the value of [manifest_key][crate::model::clip::ClipManifest::manifest_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::ClipManifest;
+        /// let x = ClipManifest::new().set_manifest_key("example");
+        /// ```
         pub fn set_manifest_key<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6386,6 +8275,12 @@ pub mod clip {
         }
 
         /// Sets the value of [output_uri][crate::model::clip::ClipManifest::output_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::clip::ClipManifest;
+        /// let x = ClipManifest::new().set_output_uri("example");
+        /// ```
         pub fn set_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.output_uri = v.into();
             self
@@ -6699,6 +8594,13 @@ impl TimeInterval {
     }
 
     /// Sets the value of [start_time][crate::model::TimeInterval::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6708,6 +8610,14 @@ impl TimeInterval {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeInterval::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeInterval::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6717,6 +8627,13 @@ impl TimeInterval {
     }
 
     /// Sets the value of [end_time][crate::model::TimeInterval::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6726,6 +8643,14 @@ impl TimeInterval {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeInterval::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeInterval::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6787,12 +8712,25 @@ impl DvrSession {
     }
 
     /// Sets the value of [name][crate::model::DvrSession::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// let x = DvrSession::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DvrSession::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use wkt::Timestamp;
+    /// let x = DvrSession::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6802,6 +8740,14 @@ impl DvrSession {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DvrSession::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use wkt::Timestamp;
+    /// let x = DvrSession::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DvrSession::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6811,6 +8757,13 @@ impl DvrSession {
     }
 
     /// Sets the value of [update_time][crate::model::DvrSession::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use wkt::Timestamp;
+    /// let x = DvrSession::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6820,6 +8773,14 @@ impl DvrSession {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DvrSession::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use wkt::Timestamp;
+    /// let x = DvrSession::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DvrSession::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6829,6 +8790,15 @@ impl DvrSession {
     }
 
     /// Sets the value of [labels][crate::model::DvrSession::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// let x = DvrSession::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6841,6 +8811,15 @@ impl DvrSession {
     }
 
     /// Sets the value of [state][crate::model::DvrSession::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use google_cloud_video_livestream_v1::model::dvr_session::State;
+    /// let x0 = DvrSession::new().set_state(State::Pending);
+    /// let x1 = DvrSession::new().set_state(State::Updating);
+    /// let x2 = DvrSession::new().set_state(State::Scheduled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::dvr_session::State>>(
         mut self,
         v: T,
@@ -6850,6 +8829,13 @@ impl DvrSession {
     }
 
     /// Sets the value of [error][crate::model::DvrSession::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use rpc::model::Status;
+    /// let x = DvrSession::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6859,6 +8845,14 @@ impl DvrSession {
     }
 
     /// Sets or clears the value of [error][crate::model::DvrSession::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use rpc::model::Status;
+    /// let x = DvrSession::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = DvrSession::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6868,6 +8862,17 @@ impl DvrSession {
     }
 
     /// Sets the value of [dvr_manifests][crate::model::DvrSession::dvr_manifests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use google_cloud_video_livestream_v1::model::dvr_session::DvrManifest;
+    /// let x = DvrSession::new()
+    ///     .set_dvr_manifests([
+    ///         DvrManifest::default()/* use setters */,
+    ///         DvrManifest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dvr_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6879,6 +8884,17 @@ impl DvrSession {
     }
 
     /// Sets the value of [dvr_windows][crate::model::DvrSession::dvr_windows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use google_cloud_video_livestream_v1::model::dvr_session::DvrWindow;
+    /// let x = DvrSession::new()
+    ///     .set_dvr_windows([
+    ///         DvrWindow::default()/* use setters */,
+    ///         DvrWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dvr_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6927,6 +8943,12 @@ pub mod dvr_session {
         }
 
         /// Sets the value of [manifest_key][crate::model::dvr_session::DvrManifest::manifest_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::dvr_session::DvrManifest;
+        /// let x = DvrManifest::new().set_manifest_key("example");
+        /// ```
         pub fn set_manifest_key<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6936,6 +8958,12 @@ pub mod dvr_session {
         }
 
         /// Sets the value of [output_uri][crate::model::dvr_session::DvrManifest::output_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::dvr_session::DvrManifest;
+        /// let x = DvrManifest::new().set_output_uri("example");
+        /// ```
         pub fn set_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.output_uri = v.into();
             self
@@ -6967,6 +8995,14 @@ pub mod dvr_session {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::dvr_session::DvrWindow;
+        /// use google_cloud_video_livestream_v1::model::TimeInterval;
+        /// let x = DvrWindow::new().set_kind(Some(
+        ///     google_cloud_video_livestream_v1::model::dvr_session::dvr_window::Kind::TimeInterval(TimeInterval::default().into())));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::dvr_session::dvr_window::Kind>>,
         >(
@@ -6997,6 +9033,14 @@ pub mod dvr_session {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::dvr_session::DvrWindow;
+        /// use google_cloud_video_livestream_v1::model::TimeInterval;
+        /// let x = DvrWindow::new().set_time_interval(TimeInterval::default()/* use setters */);
+        /// assert!(x.time_interval().is_some());
+        /// ```
         pub fn set_time_interval<
             T: std::convert::Into<std::boxed::Box<crate::model::TimeInterval>>,
         >(
@@ -7283,12 +9327,25 @@ impl Asset {
     }
 
     /// Sets the value of [name][crate::model::Asset::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// let x = Asset::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Asset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7298,6 +9355,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Asset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7307,6 +9372,13 @@ impl Asset {
     }
 
     /// Sets the value of [update_time][crate::model::Asset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7316,6 +9388,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Asset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7325,6 +9405,15 @@ impl Asset {
     }
 
     /// Sets the value of [labels][crate::model::Asset::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// let x = Asset::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7337,18 +9426,40 @@ impl Asset {
     }
 
     /// Sets the value of [crc32c][crate::model::Asset::crc32c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// let x = Asset::new().set_crc32c("example");
+    /// ```
     pub fn set_crc32c<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crc32c = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Asset::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use google_cloud_video_livestream_v1::model::asset::State;
+    /// let x0 = Asset::new().set_state(State::Creating);
+    /// let x1 = Asset::new().set_state(State::Active);
+    /// let x2 = Asset::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::asset::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::Asset::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use rpc::model::Status;
+    /// let x = Asset::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -7358,6 +9469,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [error][crate::model::Asset::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use rpc::model::Status;
+    /// let x = Asset::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -7370,6 +9489,14 @@ impl Asset {
     ///
     /// Note that all the setters affecting `resource` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use google_cloud_video_livestream_v1::model::asset::VideoAsset;
+    /// let x = Asset::new().set_resource(Some(
+    ///     google_cloud_video_livestream_v1::model::asset::Resource::Video(VideoAsset::default().into())));
+    /// ```
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::asset::Resource>>,
     >(
@@ -7396,6 +9523,15 @@ impl Asset {
     ///
     /// Note that all the setters affecting `resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use google_cloud_video_livestream_v1::model::asset::VideoAsset;
+    /// let x = Asset::new().set_video(VideoAsset::default()/* use setters */);
+    /// assert!(x.video().is_some());
+    /// assert!(x.image().is_none());
+    /// ```
     pub fn set_video<T: std::convert::Into<std::boxed::Box<crate::model::asset::VideoAsset>>>(
         mut self,
         v: T,
@@ -7420,6 +9556,15 @@ impl Asset {
     ///
     /// Note that all the setters affecting `resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Asset;
+    /// use google_cloud_video_livestream_v1::model::asset::ImageAsset;
+    /// let x = Asset::new().set_image(ImageAsset::default()/* use setters */);
+    /// assert!(x.image().is_some());
+    /// assert!(x.video().is_none());
+    /// ```
     pub fn set_image<T: std::convert::Into<std::boxed::Box<crate::model::asset::ImageAsset>>>(
         mut self,
         v: T,
@@ -7458,6 +9603,12 @@ pub mod asset {
         }
 
         /// Sets the value of [uri][crate::model::asset::VideoAsset::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::asset::VideoAsset;
+        /// let x = VideoAsset::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
@@ -7486,6 +9637,12 @@ pub mod asset {
         }
 
         /// Sets the value of [uri][crate::model::asset::ImageAsset::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::asset::ImageAsset;
+        /// let x = ImageAsset::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
@@ -7684,12 +9841,25 @@ impl Encryption {
     }
 
     /// Sets the value of [id][crate::model::Encryption::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// let x = Encryption::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [drm_systems][crate::model::Encryption::drm_systems].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+    /// let x = Encryption::new().set_drm_systems(DrmSystems::default()/* use setters */);
+    /// ```
     pub fn set_drm_systems<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::encryption::DrmSystems>,
@@ -7699,6 +9869,14 @@ impl Encryption {
     }
 
     /// Sets or clears the value of [drm_systems][crate::model::Encryption::drm_systems].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+    /// let x = Encryption::new().set_or_clear_drm_systems(Some(DrmSystems::default()/* use setters */));
+    /// let x = Encryption::new().set_or_clear_drm_systems(None::<DrmSystems>);
+    /// ```
     pub fn set_or_clear_drm_systems<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::encryption::DrmSystems>,
@@ -7711,6 +9889,14 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `secret_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::SecretManagerSource;
+    /// let x = Encryption::new().set_secret_source(Some(
+    ///     google_cloud_video_livestream_v1::model::encryption::SecretSource::SecretManagerKeySource(SecretManagerSource::default().into())));
+    /// ```
     pub fn set_secret_source<
         T: std::convert::Into<std::option::Option<crate::model::encryption::SecretSource>>,
     >(
@@ -7741,6 +9927,14 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `secret_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::SecretManagerSource;
+    /// let x = Encryption::new().set_secret_manager_key_source(SecretManagerSource::default()/* use setters */);
+    /// assert!(x.secret_manager_key_source().is_some());
+    /// ```
     pub fn set_secret_manager_key_source<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>,
     >(
@@ -7757,6 +9951,14 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::Aes128Encryption;
+    /// let x = Encryption::new().set_encryption_mode(Some(
+    ///     google_cloud_video_livestream_v1::model::encryption::EncryptionMode::Aes128(Aes128Encryption::default().into())));
+    /// ```
     pub fn set_encryption_mode<
         T: std::convert::Into<std::option::Option<crate::model::encryption::EncryptionMode>>,
     >(
@@ -7785,6 +9987,16 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::Aes128Encryption;
+    /// let x = Encryption::new().set_aes128(Aes128Encryption::default()/* use setters */);
+    /// assert!(x.aes128().is_some());
+    /// assert!(x.sample_aes().is_none());
+    /// assert!(x.mpeg_cenc().is_none());
+    /// ```
     pub fn set_aes128<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::Aes128Encryption>>,
     >(
@@ -7814,6 +10026,16 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::SampleAesEncryption;
+    /// let x = Encryption::new().set_sample_aes(SampleAesEncryption::default()/* use setters */);
+    /// assert!(x.sample_aes().is_some());
+    /// assert!(x.aes128().is_none());
+    /// assert!(x.mpeg_cenc().is_none());
+    /// ```
     pub fn set_sample_aes<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::SampleAesEncryption>>,
     >(
@@ -7844,6 +10066,16 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Encryption;
+    /// use google_cloud_video_livestream_v1::model::encryption::MpegCommonEncryption;
+    /// let x = Encryption::new().set_mpeg_cenc(MpegCommonEncryption::default()/* use setters */);
+    /// assert!(x.mpeg_cenc().is_some());
+    /// assert!(x.aes128().is_none());
+    /// assert!(x.sample_aes().is_none());
+    /// ```
     pub fn set_mpeg_cenc<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::MpegCommonEncryption>>,
     >(
@@ -7884,6 +10116,12 @@ pub mod encryption {
         }
 
         /// Sets the value of [secret_version][crate::model::encryption::SecretManagerSource::secret_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::SecretManagerSource;
+        /// let x = SecretManagerSource::new().set_secret_version("example");
+        /// ```
         pub fn set_secret_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8001,6 +10239,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [widevine][crate::model::encryption::DrmSystems::widevine].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Widevine;
+        /// let x = DrmSystems::new().set_widevine(Widevine::default()/* use setters */);
+        /// ```
         pub fn set_widevine<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Widevine>,
@@ -8010,6 +10255,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [widevine][crate::model::encryption::DrmSystems::widevine].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Widevine;
+        /// let x = DrmSystems::new().set_or_clear_widevine(Some(Widevine::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_widevine(None::<Widevine>);
+        /// ```
         pub fn set_or_clear_widevine<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Widevine>,
@@ -8019,6 +10272,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [fairplay][crate::model::encryption::DrmSystems::fairplay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Fairplay;
+        /// let x = DrmSystems::new().set_fairplay(Fairplay::default()/* use setters */);
+        /// ```
         pub fn set_fairplay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Fairplay>,
@@ -8028,6 +10288,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [fairplay][crate::model::encryption::DrmSystems::fairplay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Fairplay;
+        /// let x = DrmSystems::new().set_or_clear_fairplay(Some(Fairplay::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_fairplay(None::<Fairplay>);
+        /// ```
         pub fn set_or_clear_fairplay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Fairplay>,
@@ -8037,6 +10305,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [playready][crate::model::encryption::DrmSystems::playready].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Playready;
+        /// let x = DrmSystems::new().set_playready(Playready::default()/* use setters */);
+        /// ```
         pub fn set_playready<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Playready>,
@@ -8046,6 +10321,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [playready][crate::model::encryption::DrmSystems::playready].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Playready;
+        /// let x = DrmSystems::new().set_or_clear_playready(Some(Playready::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_playready(None::<Playready>);
+        /// ```
         pub fn set_or_clear_playready<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Playready>,
@@ -8055,6 +10338,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [clearkey][crate::model::encryption::DrmSystems::clearkey].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Clearkey;
+        /// let x = DrmSystems::new().set_clearkey(Clearkey::default()/* use setters */);
+        /// ```
         pub fn set_clearkey<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Clearkey>,
@@ -8064,6 +10354,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [clearkey][crate::model::encryption::DrmSystems::clearkey].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_livestream_v1::model::encryption::Clearkey;
+        /// let x = DrmSystems::new().set_or_clear_clearkey(Some(Clearkey::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_clearkey(None::<Clearkey>);
+        /// ```
         pub fn set_or_clear_clearkey<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Clearkey>,
@@ -8136,6 +10434,12 @@ pub mod encryption {
         }
 
         /// Sets the value of [scheme][crate::model::encryption::MpegCommonEncryption::scheme].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::encryption::MpegCommonEncryption;
+        /// let x = MpegCommonEncryption::new().set_scheme("example");
+        /// ```
         pub fn set_scheme<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.scheme = v.into();
             self
@@ -8188,6 +10492,12 @@ impl EncryptionUpdate {
     }
 
     /// Sets the value of [id][crate::model::EncryptionUpdate::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::EncryptionUpdate;
+    /// let x = EncryptionUpdate::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -8197,6 +10507,14 @@ impl EncryptionUpdate {
     ///
     /// Note that all the setters affecting `secret_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::EncryptionUpdate;
+    /// use google_cloud_video_livestream_v1::model::encryption::SecretManagerSource;
+    /// let x = EncryptionUpdate::new().set_secret_source(Some(
+    ///     google_cloud_video_livestream_v1::model::encryption_update::SecretSource::SecretManagerKeySource(SecretManagerSource::default().into())));
+    /// ```
     pub fn set_secret_source<
         T: std::convert::Into<std::option::Option<crate::model::encryption_update::SecretSource>>,
     >(
@@ -8227,6 +10545,14 @@ impl EncryptionUpdate {
     ///
     /// Note that all the setters affecting `secret_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::EncryptionUpdate;
+    /// use google_cloud_video_livestream_v1::model::encryption::SecretManagerSource;
+    /// let x = EncryptionUpdate::new().set_secret_manager_key_source(SecretManagerSource::default()/* use setters */);
+    /// assert!(x.secret_manager_key_source().is_some());
+    /// ```
     pub fn set_secret_manager_key_source<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>,
     >(
@@ -8292,12 +10618,25 @@ impl Pool {
     }
 
     /// Sets the value of [name][crate::model::Pool::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// let x = Pool::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Pool::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// use wkt::Timestamp;
+    /// let x = Pool::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8307,6 +10646,14 @@ impl Pool {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Pool::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// use wkt::Timestamp;
+    /// let x = Pool::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Pool::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8316,6 +10663,13 @@ impl Pool {
     }
 
     /// Sets the value of [update_time][crate::model::Pool::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// use wkt::Timestamp;
+    /// let x = Pool::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8325,6 +10679,14 @@ impl Pool {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Pool::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// use wkt::Timestamp;
+    /// let x = Pool::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Pool::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8334,6 +10696,15 @@ impl Pool {
     }
 
     /// Sets the value of [labels][crate::model::Pool::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// let x = Pool::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8346,6 +10717,13 @@ impl Pool {
     }
 
     /// Sets the value of [network_config][crate::model::Pool::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// use google_cloud_video_livestream_v1::model::pool::NetworkConfig;
+    /// let x = Pool::new().set_network_config(NetworkConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::pool::NetworkConfig>,
@@ -8355,6 +10733,14 @@ impl Pool {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Pool::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::Pool;
+    /// use google_cloud_video_livestream_v1::model::pool::NetworkConfig;
+    /// let x = Pool::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
+    /// let x = Pool::new().set_or_clear_network_config(None::<NetworkConfig>);
+    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::pool::NetworkConfig>,
@@ -8397,6 +10783,12 @@ pub mod pool {
         }
 
         /// Sets the value of [peered_network][crate::model::pool::NetworkConfig::peered_network].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_livestream_v1::model::pool::NetworkConfig;
+        /// let x = NetworkConfig::new().set_peered_network("example");
+        /// ```
         pub fn set_peered_network<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8456,12 +10848,25 @@ impl CreateAssetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateAssetRequest;
+    /// let x = CreateAssetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [asset][crate::model::CreateAssetRequest::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateAssetRequest;
+    /// use google_cloud_video_livestream_v1::model::Asset;
+    /// let x = CreateAssetRequest::new().set_asset(Asset::default()/* use setters */);
+    /// ```
     pub fn set_asset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -8471,6 +10876,14 @@ impl CreateAssetRequest {
     }
 
     /// Sets or clears the value of [asset][crate::model::CreateAssetRequest::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateAssetRequest;
+    /// use google_cloud_video_livestream_v1::model::Asset;
+    /// let x = CreateAssetRequest::new().set_or_clear_asset(Some(Asset::default()/* use setters */));
+    /// let x = CreateAssetRequest::new().set_or_clear_asset(None::<Asset>);
+    /// ```
     pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -8480,12 +10893,24 @@ impl CreateAssetRequest {
     }
 
     /// Sets the value of [asset_id][crate::model::CreateAssetRequest::asset_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateAssetRequest;
+    /// let x = CreateAssetRequest::new().set_asset_id("example");
+    /// ```
     pub fn set_asset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_id = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::CreateAssetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateAssetRequest;
+    /// let x = CreateAssetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8530,12 +10955,24 @@ impl DeleteAssetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteAssetRequest;
+    /// let x = DeleteAssetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteAssetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteAssetRequest;
+    /// let x = DeleteAssetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8578,30 +11015,60 @@ impl ListAssetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAssetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAssetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAssetsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAssetsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8636,6 +11103,17 @@ impl ListAssetsResponse {
     }
 
     /// Sets the value of [assets][crate::model::ListAssetsResponse::assets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsResponse;
+    /// use google_cloud_video_livestream_v1::model::Asset;
+    /// let x = ListAssetsResponse::new()
+    ///     .set_assets([
+    ///         Asset::default()/* use setters */,
+    ///         Asset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8647,12 +11125,24 @@ impl ListAssetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAssetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsResponse;
+    /// let x = ListAssetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAssetsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListAssetsResponse;
+    /// let x = ListAssetsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8701,6 +11191,12 @@ impl GetAssetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAssetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::GetAssetRequest;
+    /// let x = GetAssetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8756,12 +11252,25 @@ impl CreateChannelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateChannelRequest;
+    /// let x = CreateChannelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateChannelRequest;
+    /// use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = CreateChannelRequest::new().set_channel(Channel::default()/* use setters */);
+    /// ```
     pub fn set_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -8771,6 +11280,14 @@ impl CreateChannelRequest {
     }
 
     /// Sets or clears the value of [channel][crate::model::CreateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateChannelRequest;
+    /// use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = CreateChannelRequest::new().set_or_clear_channel(Some(Channel::default()/* use setters */));
+    /// let x = CreateChannelRequest::new().set_or_clear_channel(None::<Channel>);
+    /// ```
     pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -8780,12 +11297,24 @@ impl CreateChannelRequest {
     }
 
     /// Sets the value of [channel_id][crate::model::CreateChannelRequest::channel_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateChannelRequest;
+    /// let x = CreateChannelRequest::new().set_channel_id("example");
+    /// ```
     pub fn set_channel_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel_id = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::CreateChannelRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateChannelRequest;
+    /// let x = CreateChannelRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8834,30 +11363,60 @@ impl ListChannelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListChannelsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListChannelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListChannelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListChannelsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListChannelsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8893,6 +11452,17 @@ impl ListChannelsResponse {
     }
 
     /// Sets the value of [channels][crate::model::ListChannelsResponse::channels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsResponse;
+    /// use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = ListChannelsResponse::new()
+    ///     .set_channels([
+    ///         Channel::default()/* use setters */,
+    ///         Channel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8904,12 +11474,24 @@ impl ListChannelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsResponse;
+    /// let x = ListChannelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListChannelsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListChannelsResponse;
+    /// let x = ListChannelsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8958,6 +11540,12 @@ impl GetChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::GetChannelRequest;
+    /// let x = GetChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9008,18 +11596,36 @@ impl DeleteChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteChannelRequest;
+    /// let x = DeleteChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteChannelRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteChannelRequest;
+    /// let x = DeleteChannelRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteChannelRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteChannelRequest;
+    /// let x = DeleteChannelRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -9085,6 +11691,13 @@ impl UpdateChannelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateChannelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateChannelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9094,6 +11707,14 @@ impl UpdateChannelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateChannelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateChannelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateChannelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9103,6 +11724,13 @@ impl UpdateChannelRequest {
     }
 
     /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateChannelRequest;
+    /// use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = UpdateChannelRequest::new().set_channel(Channel::default()/* use setters */);
+    /// ```
     pub fn set_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -9112,6 +11740,14 @@ impl UpdateChannelRequest {
     }
 
     /// Sets or clears the value of [channel][crate::model::UpdateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateChannelRequest;
+    /// use google_cloud_video_livestream_v1::model::Channel;
+    /// let x = UpdateChannelRequest::new().set_or_clear_channel(Some(Channel::default()/* use setters */));
+    /// let x = UpdateChannelRequest::new().set_or_clear_channel(None::<Channel>);
+    /// ```
     pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -9121,6 +11757,12 @@ impl UpdateChannelRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateChannelRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateChannelRequest;
+    /// let x = UpdateChannelRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9165,12 +11807,24 @@ impl StartChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::StartChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StartChannelRequest;
+    /// let x = StartChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::StartChannelRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StartChannelRequest;
+    /// let x = StartChannelRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9215,12 +11869,24 @@ impl StopChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::StopChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StopChannelRequest;
+    /// let x = StopChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::StopChannelRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StopChannelRequest;
+    /// let x = StopChannelRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9270,12 +11936,24 @@ impl StartDistributionRequest {
     }
 
     /// Sets the value of [name][crate::model::StartDistributionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StartDistributionRequest;
+    /// let x = StartDistributionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [distribution_keys][crate::model::StartDistributionRequest::distribution_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StartDistributionRequest;
+    /// let x = StartDistributionRequest::new().set_distribution_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_distribution_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9287,6 +11965,12 @@ impl StartDistributionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::StartDistributionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StartDistributionRequest;
+    /// let x = StartDistributionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9336,12 +12020,24 @@ impl StopDistributionRequest {
     }
 
     /// Sets the value of [name][crate::model::StopDistributionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StopDistributionRequest;
+    /// let x = StopDistributionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [distribution_keys][crate::model::StopDistributionRequest::distribution_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StopDistributionRequest;
+    /// let x = StopDistributionRequest::new().set_distribution_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_distribution_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9353,6 +12049,12 @@ impl StopDistributionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::StopDistributionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::StopDistributionRequest;
+    /// let x = StopDistributionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9408,12 +12110,25 @@ impl CreateInputRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateInputRequest;
+    /// let x = CreateInputRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [input][crate::model::CreateInputRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateInputRequest;
+    /// use google_cloud_video_livestream_v1::model::Input;
+    /// let x = CreateInputRequest::new().set_input(Input::default()/* use setters */);
+    /// ```
     pub fn set_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Input>,
@@ -9423,6 +12138,14 @@ impl CreateInputRequest {
     }
 
     /// Sets or clears the value of [input][crate::model::CreateInputRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateInputRequest;
+    /// use google_cloud_video_livestream_v1::model::Input;
+    /// let x = CreateInputRequest::new().set_or_clear_input(Some(Input::default()/* use setters */));
+    /// let x = CreateInputRequest::new().set_or_clear_input(None::<Input>);
+    /// ```
     pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Input>,
@@ -9432,12 +12155,24 @@ impl CreateInputRequest {
     }
 
     /// Sets the value of [input_id][crate::model::CreateInputRequest::input_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateInputRequest;
+    /// let x = CreateInputRequest::new().set_input_id("example");
+    /// ```
     pub fn set_input_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_id = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::CreateInputRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateInputRequest;
+    /// let x = CreateInputRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9486,30 +12221,60 @@ impl ListInputsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInputsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsRequest;
+    /// let x = ListInputsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInputsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsRequest;
+    /// let x = ListInputsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInputsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsRequest;
+    /// let x = ListInputsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInputsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsRequest;
+    /// let x = ListInputsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInputsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsRequest;
+    /// let x = ListInputsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -9545,6 +12310,17 @@ impl ListInputsResponse {
     }
 
     /// Sets the value of [inputs][crate::model::ListInputsResponse::inputs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsResponse;
+    /// use google_cloud_video_livestream_v1::model::Input;
+    /// let x = ListInputsResponse::new()
+    ///     .set_inputs([
+    ///         Input::default()/* use setters */,
+    ///         Input::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_inputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9556,12 +12332,24 @@ impl ListInputsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInputsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsResponse;
+    /// let x = ListInputsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInputsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListInputsResponse;
+    /// let x = ListInputsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9610,6 +12398,12 @@ impl GetInputRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInputRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::GetInputRequest;
+    /// let x = GetInputRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9654,12 +12448,24 @@ impl DeleteInputRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInputRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteInputRequest;
+    /// let x = DeleteInputRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInputRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteInputRequest;
+    /// let x = DeleteInputRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9718,6 +12524,13 @@ impl UpdateInputRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateInputRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInputRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9727,6 +12540,14 @@ impl UpdateInputRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateInputRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInputRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInputRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9736,6 +12557,13 @@ impl UpdateInputRequest {
     }
 
     /// Sets the value of [input][crate::model::UpdateInputRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateInputRequest;
+    /// use google_cloud_video_livestream_v1::model::Input;
+    /// let x = UpdateInputRequest::new().set_input(Input::default()/* use setters */);
+    /// ```
     pub fn set_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Input>,
@@ -9745,6 +12573,14 @@ impl UpdateInputRequest {
     }
 
     /// Sets or clears the value of [input][crate::model::UpdateInputRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateInputRequest;
+    /// use google_cloud_video_livestream_v1::model::Input;
+    /// let x = UpdateInputRequest::new().set_or_clear_input(Some(Input::default()/* use setters */));
+    /// let x = UpdateInputRequest::new().set_or_clear_input(None::<Input>);
+    /// ```
     pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Input>,
@@ -9754,6 +12590,12 @@ impl UpdateInputRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateInputRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateInputRequest;
+    /// let x = UpdateInputRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9809,12 +12651,25 @@ impl CreateEventRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEventRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateEventRequest;
+    /// let x = CreateEventRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [event][crate::model::CreateEventRequest::event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateEventRequest;
+    /// use google_cloud_video_livestream_v1::model::Event;
+    /// let x = CreateEventRequest::new().set_event(Event::default()/* use setters */);
+    /// ```
     pub fn set_event<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Event>,
@@ -9824,6 +12679,14 @@ impl CreateEventRequest {
     }
 
     /// Sets or clears the value of [event][crate::model::CreateEventRequest::event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateEventRequest;
+    /// use google_cloud_video_livestream_v1::model::Event;
+    /// let x = CreateEventRequest::new().set_or_clear_event(Some(Event::default()/* use setters */));
+    /// let x = CreateEventRequest::new().set_or_clear_event(None::<Event>);
+    /// ```
     pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Event>,
@@ -9833,12 +12696,24 @@ impl CreateEventRequest {
     }
 
     /// Sets the value of [event_id][crate::model::CreateEventRequest::event_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateEventRequest;
+    /// let x = CreateEventRequest::new().set_event_id("example");
+    /// ```
     pub fn set_event_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_id = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::CreateEventRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateEventRequest;
+    /// let x = CreateEventRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -9887,30 +12762,60 @@ impl ListEventsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEventsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEventsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEventsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEventsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -9946,6 +12851,17 @@ impl ListEventsResponse {
     }
 
     /// Sets the value of [events][crate::model::ListEventsResponse::events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsResponse;
+    /// use google_cloud_video_livestream_v1::model::Event;
+    /// let x = ListEventsResponse::new()
+    ///     .set_events([
+    ///         Event::default()/* use setters */,
+    ///         Event::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9957,12 +12873,24 @@ impl ListEventsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsResponse;
+    /// let x = ListEventsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEventsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListEventsResponse;
+    /// let x = ListEventsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10011,6 +12939,12 @@ impl GetEventRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEventRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::GetEventRequest;
+    /// let x = GetEventRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10055,12 +12989,24 @@ impl DeleteEventRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEventRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteEventRequest;
+    /// let x = DeleteEventRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteEventRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteEventRequest;
+    /// let x = DeleteEventRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -10121,30 +13067,60 @@ impl ListClipsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClipsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsRequest;
+    /// let x = ListClipsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClipsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsRequest;
+    /// let x = ListClipsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClipsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsRequest;
+    /// let x = ListClipsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListClipsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsRequest;
+    /// let x = ListClipsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListClipsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsRequest;
+    /// let x = ListClipsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -10179,6 +13155,17 @@ impl ListClipsResponse {
     }
 
     /// Sets the value of [clips][crate::model::ListClipsResponse::clips].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsResponse;
+    /// use google_cloud_video_livestream_v1::model::Clip;
+    /// let x = ListClipsResponse::new()
+    ///     .set_clips([
+    ///         Clip::default()/* use setters */,
+    ///         Clip::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_clips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10190,12 +13177,24 @@ impl ListClipsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClipsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsResponse;
+    /// let x = ListClipsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClipsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListClipsResponse;
+    /// let x = ListClipsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10244,6 +13243,12 @@ impl GetClipRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClipRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::GetClipRequest;
+    /// let x = GetClipRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10299,18 +13304,37 @@ impl CreateClipRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateClipRequest;
+    /// let x = CreateClipRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [clip_id][crate::model::CreateClipRequest::clip_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateClipRequest;
+    /// let x = CreateClipRequest::new().set_clip_id("example");
+    /// ```
     pub fn set_clip_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.clip_id = v.into();
         self
     }
 
     /// Sets the value of [clip][crate::model::CreateClipRequest::clip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateClipRequest;
+    /// use google_cloud_video_livestream_v1::model::Clip;
+    /// let x = CreateClipRequest::new().set_clip(Clip::default()/* use setters */);
+    /// ```
     pub fn set_clip<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Clip>,
@@ -10320,6 +13344,14 @@ impl CreateClipRequest {
     }
 
     /// Sets or clears the value of [clip][crate::model::CreateClipRequest::clip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateClipRequest;
+    /// use google_cloud_video_livestream_v1::model::Clip;
+    /// let x = CreateClipRequest::new().set_or_clear_clip(Some(Clip::default()/* use setters */));
+    /// let x = CreateClipRequest::new().set_or_clear_clip(None::<Clip>);
+    /// ```
     pub fn set_or_clear_clip<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Clip>,
@@ -10329,6 +13361,12 @@ impl CreateClipRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClipRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateClipRequest;
+    /// let x = CreateClipRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -10373,12 +13411,24 @@ impl DeleteClipRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClipRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteClipRequest;
+    /// let x = DeleteClipRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClipRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteClipRequest;
+    /// let x = DeleteClipRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -10420,30 +13470,60 @@ impl ListDvrSessionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDvrSessionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsRequest;
+    /// let x = ListDvrSessionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDvrSessionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsRequest;
+    /// let x = ListDvrSessionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDvrSessionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsRequest;
+    /// let x = ListDvrSessionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDvrSessionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsRequest;
+    /// let x = ListDvrSessionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDvrSessionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsRequest;
+    /// let x = ListDvrSessionsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -10478,6 +13558,17 @@ impl ListDvrSessionsResponse {
     }
 
     /// Sets the value of [dvr_sessions][crate::model::ListDvrSessionsResponse::dvr_sessions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsResponse;
+    /// use google_cloud_video_livestream_v1::model::DvrSession;
+    /// let x = ListDvrSessionsResponse::new()
+    ///     .set_dvr_sessions([
+    ///         DvrSession::default()/* use setters */,
+    ///         DvrSession::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dvr_sessions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10489,12 +13580,24 @@ impl ListDvrSessionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDvrSessionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsResponse;
+    /// let x = ListDvrSessionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDvrSessionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::ListDvrSessionsResponse;
+    /// let x = ListDvrSessionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10543,6 +13646,12 @@ impl GetDvrSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDvrSessionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::GetDvrSessionRequest;
+    /// let x = GetDvrSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10598,18 +13707,37 @@ impl CreateDvrSessionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDvrSessionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateDvrSessionRequest;
+    /// let x = CreateDvrSessionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dvr_session_id][crate::model::CreateDvrSessionRequest::dvr_session_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateDvrSessionRequest;
+    /// let x = CreateDvrSessionRequest::new().set_dvr_session_id("example");
+    /// ```
     pub fn set_dvr_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dvr_session_id = v.into();
         self
     }
 
     /// Sets the value of [dvr_session][crate::model::CreateDvrSessionRequest::dvr_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateDvrSessionRequest;
+    /// use google_cloud_video_livestream_v1::model::DvrSession;
+    /// let x = CreateDvrSessionRequest::new().set_dvr_session(DvrSession::default()/* use setters */);
+    /// ```
     pub fn set_dvr_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DvrSession>,
@@ -10619,6 +13747,14 @@ impl CreateDvrSessionRequest {
     }
 
     /// Sets or clears the value of [dvr_session][crate::model::CreateDvrSessionRequest::dvr_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateDvrSessionRequest;
+    /// use google_cloud_video_livestream_v1::model::DvrSession;
+    /// let x = CreateDvrSessionRequest::new().set_or_clear_dvr_session(Some(DvrSession::default()/* use setters */));
+    /// let x = CreateDvrSessionRequest::new().set_or_clear_dvr_session(None::<DvrSession>);
+    /// ```
     pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DvrSession>,
@@ -10628,6 +13764,12 @@ impl CreateDvrSessionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDvrSessionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::CreateDvrSessionRequest;
+    /// let x = CreateDvrSessionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -10672,12 +13814,24 @@ impl DeleteDvrSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDvrSessionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteDvrSessionRequest;
+    /// let x = DeleteDvrSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteDvrSessionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::DeleteDvrSessionRequest;
+    /// let x = DeleteDvrSessionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -10731,6 +13885,13 @@ impl UpdateDvrSessionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateDvrSessionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDvrSessionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10740,6 +13901,14 @@ impl UpdateDvrSessionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateDvrSessionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDvrSessionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDvrSessionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10749,6 +13918,13 @@ impl UpdateDvrSessionRequest {
     }
 
     /// Sets the value of [dvr_session][crate::model::UpdateDvrSessionRequest::dvr_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateDvrSessionRequest;
+    /// use google_cloud_video_livestream_v1::model::DvrSession;
+    /// let x = UpdateDvrSessionRequest::new().set_dvr_session(DvrSession::default()/* use setters */);
+    /// ```
     pub fn set_dvr_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DvrSession>,
@@ -10758,6 +13934,14 @@ impl UpdateDvrSessionRequest {
     }
 
     /// Sets or clears the value of [dvr_session][crate::model::UpdateDvrSessionRequest::dvr_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateDvrSessionRequest;
+    /// use google_cloud_video_livestream_v1::model::DvrSession;
+    /// let x = UpdateDvrSessionRequest::new().set_or_clear_dvr_session(Some(DvrSession::default()/* use setters */));
+    /// let x = UpdateDvrSessionRequest::new().set_or_clear_dvr_session(None::<DvrSession>);
+    /// ```
     pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DvrSession>,
@@ -10767,6 +13951,12 @@ impl UpdateDvrSessionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDvrSessionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdateDvrSessionRequest;
+    /// let x = UpdateDvrSessionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -10818,6 +14008,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10827,6 +14024,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10836,6 +14041,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10845,6 +14057,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10854,24 +14074,48 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -10901,6 +14145,12 @@ impl GetPoolRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::GetPoolRequest;
+    /// let x = GetPoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10953,6 +14203,13 @@ impl UpdatePoolRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdatePoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10962,6 +14219,14 @@ impl UpdatePoolRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdatePoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePoolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10971,6 +14236,13 @@ impl UpdatePoolRequest {
     }
 
     /// Sets the value of [pool][crate::model::UpdatePoolRequest::pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdatePoolRequest;
+    /// use google_cloud_video_livestream_v1::model::Pool;
+    /// let x = UpdatePoolRequest::new().set_pool(Pool::default()/* use setters */);
+    /// ```
     pub fn set_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Pool>,
@@ -10980,6 +14252,14 @@ impl UpdatePoolRequest {
     }
 
     /// Sets or clears the value of [pool][crate::model::UpdatePoolRequest::pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdatePoolRequest;
+    /// use google_cloud_video_livestream_v1::model::Pool;
+    /// let x = UpdatePoolRequest::new().set_or_clear_pool(Some(Pool::default()/* use setters */));
+    /// let x = UpdatePoolRequest::new().set_or_clear_pool(None::<Pool>);
+    /// ```
     pub fn set_or_clear_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Pool>,
@@ -10989,6 +14269,12 @@ impl UpdatePoolRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdatePoolRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::UpdatePoolRequest;
+    /// let x = UpdatePoolRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -11018,6 +14304,12 @@ impl PreviewInputRequest {
     }
 
     /// Sets the value of [name][crate::model::PreviewInputRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreviewInputRequest;
+    /// let x = PreviewInputRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11051,12 +14343,24 @@ impl PreviewInputResponse {
     }
 
     /// Sets the value of [uri][crate::model::PreviewInputResponse::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreviewInputResponse;
+    /// let x = PreviewInputResponse::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [bearer_token][crate::model::PreviewInputResponse::bearer_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::model::PreviewInputResponse;
+    /// let x = PreviewInputResponse::new().set_bearer_token("example");
+    /// ```
     pub fn set_bearer_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bearer_token = v.into();
         self

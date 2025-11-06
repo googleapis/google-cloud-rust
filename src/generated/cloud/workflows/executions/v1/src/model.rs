@@ -106,12 +106,25 @@ impl Execution {
     }
 
     /// Sets the value of [name][crate::model::Execution::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = Execution::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::Execution::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -121,6 +134,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Execution::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -130,6 +151,13 @@ impl Execution {
     }
 
     /// Sets the value of [end_time][crate::model::Execution::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -139,6 +167,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Execution::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -148,6 +184,13 @@ impl Execution {
     }
 
     /// Sets the value of [duration][crate::model::Execution::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use wkt::Duration;
+    /// let x = Execution::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -157,6 +200,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [duration][crate::model::Execution::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use wkt::Duration;
+    /// let x = Execution::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -166,6 +217,15 @@ impl Execution {
     }
 
     /// Sets the value of [state][crate::model::Execution::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::State;
+    /// let x0 = Execution::new().set_state(State::Active);
+    /// let x1 = Execution::new().set_state(State::Succeeded);
+    /// let x2 = Execution::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::execution::State>>(
         mut self,
         v: T,
@@ -175,18 +235,37 @@ impl Execution {
     }
 
     /// Sets the value of [argument][crate::model::Execution::argument].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = Execution::new().set_argument("example");
+    /// ```
     pub fn set_argument<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.argument = v.into();
         self
     }
 
     /// Sets the value of [result][crate::model::Execution::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = Execution::new().set_result("example");
+    /// ```
     pub fn set_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::Execution::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::Error;
+    /// let x = Execution::new().set_error(Error::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::execution::Error>,
@@ -196,6 +275,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [error][crate::model::Execution::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::Error;
+    /// let x = Execution::new().set_or_clear_error(Some(Error::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_error(None::<Error>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::Error>,
@@ -205,6 +292,12 @@ impl Execution {
     }
 
     /// Sets the value of [workflow_revision_id][crate::model::Execution::workflow_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = Execution::new().set_workflow_revision_id("example");
+    /// ```
     pub fn set_workflow_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -214,6 +307,15 @@ impl Execution {
     }
 
     /// Sets the value of [call_log_level][crate::model::Execution::call_log_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::CallLogLevel;
+    /// let x0 = Execution::new().set_call_log_level(CallLogLevel::LogAllCalls);
+    /// let x1 = Execution::new().set_call_log_level(CallLogLevel::LogErrorsOnly);
+    /// let x2 = Execution::new().set_call_log_level(CallLogLevel::LogNone);
+    /// ```
     pub fn set_call_log_level<T: std::convert::Into<crate::model::execution::CallLogLevel>>(
         mut self,
         v: T,
@@ -223,6 +325,13 @@ impl Execution {
     }
 
     /// Sets the value of [status][crate::model::Execution::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::Status;
+    /// let x = Execution::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::execution::Status>,
@@ -232,6 +341,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [status][crate::model::Execution::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::Status;
+    /// let x = Execution::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::Status>,
@@ -241,6 +358,15 @@ impl Execution {
     }
 
     /// Sets the value of [labels][crate::model::Execution::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = Execution::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -253,6 +379,13 @@ impl Execution {
     }
 
     /// Sets the value of [state_error][crate::model::Execution::state_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::StateError;
+    /// let x = Execution::new().set_state_error(StateError::default()/* use setters */);
+    /// ```
     pub fn set_state_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::execution::StateError>,
@@ -262,6 +395,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [state_error][crate::model::Execution::state_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::model::execution::StateError;
+    /// let x = Execution::new().set_or_clear_state_error(Some(StateError::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_state_error(None::<StateError>);
+    /// ```
     pub fn set_or_clear_state_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::StateError>,
@@ -304,18 +445,37 @@ pub mod execution {
         }
 
         /// Sets the value of [step][crate::model::execution::StackTraceElement::step].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::StackTraceElement;
+        /// let x = StackTraceElement::new().set_step("example");
+        /// ```
         pub fn set_step<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.step = v.into();
             self
         }
 
         /// Sets the value of [routine][crate::model::execution::StackTraceElement::routine].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::StackTraceElement;
+        /// let x = StackTraceElement::new().set_routine("example");
+        /// ```
         pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.routine = v.into();
             self
         }
 
         /// Sets the value of [position][crate::model::execution::StackTraceElement::position].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::StackTraceElement;
+        /// use google_cloud_workflows_executions_v1::model::execution::stack_trace_element::Position;
+        /// let x = StackTraceElement::new().set_position(Position::default()/* use setters */);
+        /// ```
         pub fn set_position<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::execution::stack_trace_element::Position>,
@@ -325,6 +485,14 @@ pub mod execution {
         }
 
         /// Sets or clears the value of [position][crate::model::execution::StackTraceElement::position].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::StackTraceElement;
+        /// use google_cloud_workflows_executions_v1::model::execution::stack_trace_element::Position;
+        /// let x = StackTraceElement::new().set_or_clear_position(Some(Position::default()/* use setters */));
+        /// let x = StackTraceElement::new().set_or_clear_position(None::<Position>);
+        /// ```
         pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::execution::stack_trace_element::Position>,
@@ -370,18 +538,36 @@ pub mod execution {
             }
 
             /// Sets the value of [line][crate::model::execution::stack_trace_element::Position::line].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_workflows_executions_v1::model::execution::stack_trace_element::Position;
+            /// let x = Position::new().set_line(42);
+            /// ```
             pub fn set_line<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.line = v.into();
                 self
             }
 
             /// Sets the value of [column][crate::model::execution::stack_trace_element::Position::column].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_workflows_executions_v1::model::execution::stack_trace_element::Position;
+            /// let x = Position::new().set_column(42);
+            /// ```
             pub fn set_column<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.column = v.into();
                 self
             }
 
             /// Sets the value of [length][crate::model::execution::stack_trace_element::Position::length].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_workflows_executions_v1::model::execution::stack_trace_element::Position;
+            /// let x = Position::new().set_length(42);
+            /// ```
             pub fn set_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.length = v.into();
                 self
@@ -411,6 +597,17 @@ pub mod execution {
         }
 
         /// Sets the value of [elements][crate::model::execution::StackTrace::elements].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::StackTrace;
+        /// use google_cloud_workflows_executions_v1::model::execution::StackTraceElement;
+        /// let x = StackTrace::new()
+        ///     .set_elements([
+        ///         StackTraceElement::default()/* use setters */,
+        ///         StackTraceElement::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_elements<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -450,18 +647,37 @@ pub mod execution {
         }
 
         /// Sets the value of [payload][crate::model::execution::Error::payload].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::Error;
+        /// let x = Error::new().set_payload("example");
+        /// ```
         pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.payload = v.into();
             self
         }
 
         /// Sets the value of [context][crate::model::execution::Error::context].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::Error;
+        /// let x = Error::new().set_context("example");
+        /// ```
         pub fn set_context<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.context = v.into();
             self
         }
 
         /// Sets the value of [stack_trace][crate::model::execution::Error::stack_trace].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::Error;
+        /// use google_cloud_workflows_executions_v1::model::execution::StackTrace;
+        /// let x = Error::new().set_stack_trace(StackTrace::default()/* use setters */);
+        /// ```
         pub fn set_stack_trace<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::execution::StackTrace>,
@@ -471,6 +687,14 @@ pub mod execution {
         }
 
         /// Sets or clears the value of [stack_trace][crate::model::execution::Error::stack_trace].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::Error;
+        /// use google_cloud_workflows_executions_v1::model::execution::StackTrace;
+        /// let x = Error::new().set_or_clear_stack_trace(Some(StackTrace::default()/* use setters */));
+        /// let x = Error::new().set_or_clear_stack_trace(None::<StackTrace>);
+        /// ```
         pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::execution::StackTrace>,
@@ -508,6 +732,17 @@ pub mod execution {
         }
 
         /// Sets the value of [current_steps][crate::model::execution::Status::current_steps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::Status;
+        /// use google_cloud_workflows_executions_v1::model::execution::status::Step;
+        /// let x = Status::new()
+        ///     .set_current_steps([
+        ///         Step::default()/* use setters */,
+        ///         Step::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_current_steps<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -549,12 +784,24 @@ pub mod execution {
             }
 
             /// Sets the value of [routine][crate::model::execution::status::Step::routine].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_workflows_executions_v1::model::execution::status::Step;
+            /// let x = Step::new().set_routine("example");
+            /// ```
             pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.routine = v.into();
                 self
             }
 
             /// Sets the value of [step][crate::model::execution::status::Step::step].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_workflows_executions_v1::model::execution::status::Step;
+            /// let x = Step::new().set_step("example");
+            /// ```
             pub fn set_step<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.step = v.into();
                 self
@@ -587,12 +834,25 @@ pub mod execution {
         }
 
         /// Sets the value of [details][crate::model::execution::StateError::details].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::StateError;
+        /// let x = StateError::new().set_details("example");
+        /// ```
         pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.details = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::execution::StateError::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_executions_v1::model::execution::StateError;
+        /// use google_cloud_workflows_executions_v1::model::execution::state_error::Type;
+        /// let x0 = StateError::new().set_type(Type::KmsError);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::execution::state_error::Type>>(
             mut self,
             v: T,
@@ -1097,36 +1357,74 @@ impl ListExecutionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExecutionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExecutionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExecutionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListExecutionsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsRequest;
+    /// use google_cloud_workflows_executions_v1::model::ExecutionView;
+    /// let x0 = ListExecutionsRequest::new().set_view(ExecutionView::Basic);
+    /// let x1 = ListExecutionsRequest::new().set_view(ExecutionView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ExecutionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListExecutionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListExecutionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1163,6 +1461,17 @@ impl ListExecutionsResponse {
     }
 
     /// Sets the value of [executions][crate::model::ListExecutionsResponse::executions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsResponse;
+    /// use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = ListExecutionsResponse::new()
+    ///     .set_executions([
+    ///         Execution::default()/* use setters */,
+    ///         Execution::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_executions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1174,6 +1483,12 @@ impl ListExecutionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExecutionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::ListExecutionsResponse;
+    /// let x = ListExecutionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1225,12 +1540,25 @@ impl CreateExecutionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExecutionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::CreateExecutionRequest;
+    /// let x = CreateExecutionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [execution][crate::model::CreateExecutionRequest::execution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::CreateExecutionRequest;
+    /// use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = CreateExecutionRequest::new().set_execution(Execution::default()/* use setters */);
+    /// ```
     pub fn set_execution<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Execution>,
@@ -1240,6 +1568,14 @@ impl CreateExecutionRequest {
     }
 
     /// Sets or clears the value of [execution][crate::model::CreateExecutionRequest::execution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::CreateExecutionRequest;
+    /// use google_cloud_workflows_executions_v1::model::Execution;
+    /// let x = CreateExecutionRequest::new().set_or_clear_execution(Some(Execution::default()/* use setters */));
+    /// let x = CreateExecutionRequest::new().set_or_clear_execution(None::<Execution>);
+    /// ```
     pub fn set_or_clear_execution<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Execution>,
@@ -1281,12 +1617,26 @@ impl GetExecutionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExecutionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::GetExecutionRequest;
+    /// let x = GetExecutionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetExecutionRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::GetExecutionRequest;
+    /// use google_cloud_workflows_executions_v1::model::ExecutionView;
+    /// let x0 = GetExecutionRequest::new().set_view(ExecutionView::Basic);
+    /// let x1 = GetExecutionRequest::new().set_view(ExecutionView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ExecutionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -1321,6 +1671,12 @@ impl CancelExecutionRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelExecutionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::model::CancelExecutionRequest;
+    /// let x = CancelExecutionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

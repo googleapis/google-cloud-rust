@@ -485,9 +485,9 @@ impl Secret {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::model::Secret;
-    /// use google_cloud_secretmanager_v1::model::secret;
     /// use wkt::Timestamp;
-    /// let x = Secret::new().set_expiration(Some(secret::Expiration::ExpireTime(Timestamp::default().into())));
+    /// let x = Secret::new().set_expiration(Some(
+    ///     google_cloud_secretmanager_v1::model::secret::Expiration::ExpireTime(Timestamp::default().into())));
     /// ```
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::secret::Expiration>>,
@@ -1110,9 +1110,9 @@ impl Replication {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::model::Replication;
-    /// use google_cloud_secretmanager_v1::model::replication;
     /// use google_cloud_secretmanager_v1::model::replication::Automatic;
-    /// let x = Replication::new().set_replication(Some(replication::Replication::Automatic(Automatic::default().into())));
+    /// let x = Replication::new().set_replication(Some(
+    ///     google_cloud_secretmanager_v1::model::replication::Replication::Automatic(Automatic::default().into())));
     /// ```
     pub fn set_replication<
         T: std::convert::Into<std::option::Option<crate::model::replication::Replication>>,
@@ -1538,9 +1538,9 @@ impl ReplicationStatus {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
-    /// use google_cloud_secretmanager_v1::model::replication_status;
     /// use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
-    /// let x = ReplicationStatus::new().set_replication_status(Some(replication_status::ReplicationStatus::Automatic(AutomaticStatus::default().into())));
+    /// let x = ReplicationStatus::new().set_replication_status(Some(
+    ///     google_cloud_secretmanager_v1::model::replication_status::ReplicationStatus::Automatic(AutomaticStatus::default().into())));
     /// ```
     pub fn set_replication_status<
         T: std::convert::Into<

@@ -76,30 +76,60 @@ impl ListAppGatewaysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAppGatewaysRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysRequest;
+    /// let x = ListAppGatewaysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAppGatewaysRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysRequest;
+    /// let x = ListAppGatewaysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAppGatewaysRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysRequest;
+    /// let x = ListAppGatewaysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAppGatewaysRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysRequest;
+    /// let x = ListAppGatewaysRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAppGatewaysRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysRequest;
+    /// let x = ListAppGatewaysRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -135,6 +165,17 @@ impl ListAppGatewaysResponse {
     }
 
     /// Sets the value of [app_gateways][crate::model::ListAppGatewaysResponse::app_gateways].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysResponse;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = ListAppGatewaysResponse::new()
+    ///     .set_app_gateways([
+    ///         AppGateway::default()/* use setters */,
+    ///         AppGateway::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_app_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -146,12 +187,24 @@ impl ListAppGatewaysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAppGatewaysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysResponse;
+    /// let x = ListAppGatewaysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAppGatewaysResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::ListAppGatewaysResponse;
+    /// let x = ListAppGatewaysResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -200,6 +253,12 @@ impl GetAppGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAppGatewayRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::GetAppGatewayRequest;
+    /// let x = GetAppGatewayRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -258,18 +317,37 @@ impl CreateAppGatewayRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAppGatewayRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::CreateAppGatewayRequest;
+    /// let x = CreateAppGatewayRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [app_gateway_id][crate::model::CreateAppGatewayRequest::app_gateway_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::CreateAppGatewayRequest;
+    /// let x = CreateAppGatewayRequest::new().set_app_gateway_id("example");
+    /// ```
     pub fn set_app_gateway_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_gateway_id = v.into();
         self
     }
 
     /// Sets the value of [app_gateway][crate::model::CreateAppGatewayRequest::app_gateway].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::CreateAppGatewayRequest;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = CreateAppGatewayRequest::new().set_app_gateway(AppGateway::default()/* use setters */);
+    /// ```
     pub fn set_app_gateway<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppGateway>,
@@ -279,6 +357,14 @@ impl CreateAppGatewayRequest {
     }
 
     /// Sets or clears the value of [app_gateway][crate::model::CreateAppGatewayRequest::app_gateway].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::CreateAppGatewayRequest;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = CreateAppGatewayRequest::new().set_or_clear_app_gateway(Some(AppGateway::default()/* use setters */));
+    /// let x = CreateAppGatewayRequest::new().set_or_clear_app_gateway(None::<AppGateway>);
+    /// ```
     pub fn set_or_clear_app_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppGateway>,
@@ -288,12 +374,24 @@ impl CreateAppGatewayRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAppGatewayRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::CreateAppGatewayRequest;
+    /// let x = CreateAppGatewayRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateAppGatewayRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::CreateAppGatewayRequest;
+    /// let x = CreateAppGatewayRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -342,18 +440,36 @@ impl DeleteAppGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAppGatewayRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::DeleteAppGatewayRequest;
+    /// let x = DeleteAppGatewayRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteAppGatewayRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::DeleteAppGatewayRequest;
+    /// let x = DeleteAppGatewayRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteAppGatewayRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::DeleteAppGatewayRequest;
+    /// let x = DeleteAppGatewayRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -418,12 +534,25 @@ impl AppGateway {
     }
 
     /// Sets the value of [name][crate::model::AppGateway::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AppGateway::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use wkt::Timestamp;
+    /// let x = AppGateway::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -433,6 +562,14 @@ impl AppGateway {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AppGateway::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use wkt::Timestamp;
+    /// let x = AppGateway::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppGateway::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -442,6 +579,13 @@ impl AppGateway {
     }
 
     /// Sets the value of [update_time][crate::model::AppGateway::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use wkt::Timestamp;
+    /// let x = AppGateway::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -451,6 +595,14 @@ impl AppGateway {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AppGateway::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use wkt::Timestamp;
+    /// let x = AppGateway::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppGateway::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -460,6 +612,15 @@ impl AppGateway {
     }
 
     /// Sets the value of [labels][crate::model::AppGateway::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -472,18 +633,37 @@ impl AppGateway {
     }
 
     /// Sets the value of [display_name][crate::model::AppGateway::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::AppGateway::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::AppGateway::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::Type;
+    /// let x0 = AppGateway::new().set_type(Type::TcpProxy);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::app_gateway::Type>>(
         mut self,
         v: T,
@@ -493,6 +673,15 @@ impl AppGateway {
     }
 
     /// Sets the value of [state][crate::model::AppGateway::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::State;
+    /// let x0 = AppGateway::new().set_state(State::Creating);
+    /// let x1 = AppGateway::new().set_state(State::Created);
+    /// let x2 = AppGateway::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::app_gateway::State>>(
         mut self,
         v: T,
@@ -502,12 +691,29 @@ impl AppGateway {
     }
 
     /// Sets the value of [uri][crate::model::AppGateway::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// let x = AppGateway::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [allocated_connections][crate::model::AppGateway::allocated_connections].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::AllocatedConnection;
+    /// let x = AppGateway::new()
+    ///     .set_allocated_connections([
+    ///         AllocatedConnection::default()/* use setters */,
+    ///         AllocatedConnection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_allocated_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -519,6 +725,13 @@ impl AppGateway {
     }
 
     /// Sets the value of [host_type][crate::model::AppGateway::host_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::HostType;
+    /// let x0 = AppGateway::new().set_host_type(HostType::GcpRegionalMig);
+    /// ```
     pub fn set_host_type<T: std::convert::Into<crate::model::app_gateway::HostType>>(
         mut self,
         v: T,
@@ -558,12 +771,24 @@ pub mod app_gateway {
         }
 
         /// Sets the value of [psc_uri][crate::model::app_gateway::AllocatedConnection::psc_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::AllocatedConnection;
+        /// let x = AllocatedConnection::new().set_psc_uri("example");
+        /// ```
         pub fn set_psc_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.psc_uri = v.into();
             self
         }
 
         /// Sets the value of [ingress_port][crate::model::app_gateway::AllocatedConnection::ingress_port].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::AllocatedConnection;
+        /// let x = AllocatedConnection::new().set_ingress_port(42);
+        /// ```
         pub fn set_ingress_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.ingress_port = v.into();
             self
@@ -1023,6 +1248,13 @@ impl AppGatewayOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::AppGatewayOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppGatewayOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1032,6 +1264,14 @@ impl AppGatewayOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AppGatewayOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppGatewayOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppGatewayOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1041,6 +1281,13 @@ impl AppGatewayOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::AppGatewayOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppGatewayOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1050,6 +1297,14 @@ impl AppGatewayOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::AppGatewayOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AppGatewayOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppGatewayOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1059,30 +1314,60 @@ impl AppGatewayOperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::AppGatewayOperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// let x = AppGatewayOperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::AppGatewayOperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// let x = AppGatewayOperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::AppGatewayOperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// let x = AppGatewayOperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::AppGatewayOperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// let x = AppGatewayOperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::AppGatewayOperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::model::AppGatewayOperationMetadata;
+    /// let x = AppGatewayOperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

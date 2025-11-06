@@ -66,12 +66,25 @@ impl GenerateFrameworkAuditScopeReportRequest {
     }
 
     /// Sets the value of [scope][crate::model::GenerateFrameworkAuditScopeReportRequest::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportRequest;
+    /// let x = GenerateFrameworkAuditScopeReportRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [report_format][crate::model::GenerateFrameworkAuditScopeReportRequest::report_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::generate_framework_audit_scope_report_request::Format;
+    /// let x0 = GenerateFrameworkAuditScopeReportRequest::new().set_report_format(Format::Odf);
+    /// ```
     pub fn set_report_format<
         T: std::convert::Into<crate::model::generate_framework_audit_scope_report_request::Format>,
     >(
@@ -83,6 +96,12 @@ impl GenerateFrameworkAuditScopeReportRequest {
     }
 
     /// Sets the value of [compliance_framework][crate::model::GenerateFrameworkAuditScopeReportRequest::compliance_framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportRequest;
+    /// let x = GenerateFrameworkAuditScopeReportRequest::new().set_compliance_framework("example");
+    /// ```
     pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -254,12 +273,24 @@ impl GenerateFrameworkAuditScopeReportResponse {
     }
 
     /// Sets the value of [name][crate::model::GenerateFrameworkAuditScopeReportResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportResponse;
+    /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [compliance_framework][crate::model::GenerateFrameworkAuditScopeReportResponse::compliance_framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportResponse;
+    /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_compliance_framework("example");
+    /// ```
     pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -272,6 +303,13 @@ impl GenerateFrameworkAuditScopeReportResponse {
     ///
     /// Note that all the setters affecting `audit_report` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::generate_framework_audit_scope_report_response::AuditReport;
+    /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_audit_report(Some(AuditReport::ScopeReportContents(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_audit_report<
         T: std::convert::Into<
                 std::option::Option<
@@ -302,6 +340,13 @@ impl GenerateFrameworkAuditScopeReportResponse {
     ///
     /// Note that all the setters affecting `audit_report` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GenerateFrameworkAuditScopeReportResponse;
+    /// let x = GenerateFrameworkAuditScopeReportResponse::new().set_scope_report_contents(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.scope_report_contents().is_some());
+    /// ```
     pub fn set_scope_report_contents<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -363,30 +408,60 @@ impl ReportSummary {
     }
 
     /// Sets the value of [total_count][crate::model::ReportSummary::total_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = ReportSummary::new().set_total_count(42);
+    /// ```
     pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_count = v.into();
         self
     }
 
     /// Sets the value of [compliant_count][crate::model::ReportSummary::compliant_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = ReportSummary::new().set_compliant_count(42);
+    /// ```
     pub fn set_compliant_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compliant_count = v.into();
         self
     }
 
     /// Sets the value of [violation_count][crate::model::ReportSummary::violation_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = ReportSummary::new().set_violation_count(42);
+    /// ```
     pub fn set_violation_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.violation_count = v.into();
         self
     }
 
     /// Sets the value of [manual_review_needed_count][crate::model::ReportSummary::manual_review_needed_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = ReportSummary::new().set_manual_review_needed_count(42);
+    /// ```
     pub fn set_manual_review_needed_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.manual_review_needed_count = v.into();
         self
     }
 
     /// Sets the value of [error_count][crate::model::ReportSummary::error_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = ReportSummary::new().set_error_count(42);
+    /// ```
     pub fn set_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.error_count = v.into();
         self
@@ -431,12 +506,24 @@ impl CreateFrameworkAuditRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFrameworkAuditRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkAuditRequest;
+    /// let x = CreateFrameworkAuditRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [framework_audit_id][crate::model::CreateFrameworkAuditRequest::framework_audit_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkAuditRequest;
+    /// let x = CreateFrameworkAuditRequest::new().set_framework_audit_id("example");
+    /// ```
     pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -446,6 +533,13 @@ impl CreateFrameworkAuditRequest {
     }
 
     /// Sets the value of [framework_audit][crate::model::CreateFrameworkAuditRequest::framework_audit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkAuditRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = CreateFrameworkAuditRequest::new().set_framework_audit(FrameworkAudit::default()/* use setters */);
+    /// ```
     pub fn set_framework_audit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkAudit>,
@@ -455,6 +549,14 @@ impl CreateFrameworkAuditRequest {
     }
 
     /// Sets or clears the value of [framework_audit][crate::model::CreateFrameworkAuditRequest::framework_audit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkAuditRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = CreateFrameworkAuditRequest::new().set_or_clear_framework_audit(Some(FrameworkAudit::default()/* use setters */));
+    /// let x = CreateFrameworkAuditRequest::new().set_or_clear_framework_audit(None::<FrameworkAudit>);
+    /// ```
     pub fn set_or_clear_framework_audit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkAudit>,
@@ -490,6 +592,14 @@ impl FrameworkAuditDestination {
     ///
     /// Note that all the setters affecting `destination_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAuditDestination;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::BucketDestination;
+    /// let x = FrameworkAuditDestination::new().set_destination_type(Some(
+    ///     google_cloud_cloudsecuritycompliance_v1::model::framework_audit_destination::DestinationType::Bucket(BucketDestination::default().into())));
+    /// ```
     pub fn set_destination_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::framework_audit_destination::DestinationType>,
@@ -520,6 +630,14 @@ impl FrameworkAuditDestination {
     ///
     /// Note that all the setters affecting `destination_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAuditDestination;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::BucketDestination;
+    /// let x = FrameworkAuditDestination::new().set_bucket(BucketDestination::default()/* use setters */);
+    /// assert!(x.bucket().is_some());
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::boxed::Box<crate::model::BucketDestination>>>(
         mut self,
         v: T,
@@ -570,12 +688,25 @@ impl BucketDestination {
     }
 
     /// Sets the value of [bucket_uri][crate::model::BucketDestination::bucket_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::BucketDestination;
+    /// let x = BucketDestination::new().set_bucket_uri("example");
+    /// ```
     pub fn set_bucket_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_uri = v.into();
         self
     }
 
     /// Sets the value of [framework_audit_format][crate::model::BucketDestination::framework_audit_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::BucketDestination;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::bucket_destination::Format;
+    /// let x0 = BucketDestination::new().set_framework_audit_format(Format::Odf);
+    /// ```
     pub fn set_framework_audit_format<
         T: std::convert::Into<crate::model::bucket_destination::Format>,
     >(
@@ -777,12 +908,24 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [name][crate::model::FrameworkAudit::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = FrameworkAudit::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [framework_audit_id][crate::model::FrameworkAudit::framework_audit_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = FrameworkAudit::new().set_framework_audit_id("example");
+    /// ```
     pub fn set_framework_audit_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -792,6 +935,12 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [compliance_framework][crate::model::FrameworkAudit::compliance_framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = FrameworkAudit::new().set_compliance_framework("example");
+    /// ```
     pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -801,12 +950,25 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [scope][crate::model::FrameworkAudit::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = FrameworkAudit::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [framework_audit_destination][crate::model::FrameworkAudit::framework_audit_destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAuditDestination;
+    /// let x = FrameworkAudit::new().set_framework_audit_destination(FrameworkAuditDestination::default()/* use setters */);
+    /// ```
     pub fn set_framework_audit_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkAuditDestination>,
@@ -816,6 +978,14 @@ impl FrameworkAudit {
     }
 
     /// Sets or clears the value of [framework_audit_destination][crate::model::FrameworkAudit::framework_audit_destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAuditDestination;
+    /// let x = FrameworkAudit::new().set_or_clear_framework_audit_destination(Some(FrameworkAuditDestination::default()/* use setters */));
+    /// let x = FrameworkAudit::new().set_or_clear_framework_audit_destination(None::<FrameworkAuditDestination>);
+    /// ```
     pub fn set_or_clear_framework_audit_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkAuditDestination>,
@@ -825,6 +995,13 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [start_time][crate::model::FrameworkAudit::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkAudit::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -834,6 +1011,14 @@ impl FrameworkAudit {
     }
 
     /// Sets or clears the value of [start_time][crate::model::FrameworkAudit::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkAudit::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FrameworkAudit::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -843,6 +1028,13 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [finish_time][crate::model::FrameworkAudit::finish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkAudit::new().set_finish_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_finish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -852,6 +1044,14 @@ impl FrameworkAudit {
     }
 
     /// Sets or clears the value of [finish_time][crate::model::FrameworkAudit::finish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkAudit::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FrameworkAudit::new().set_or_clear_finish_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -861,6 +1061,15 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [compliance_state][crate::model::FrameworkAudit::compliance_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ComplianceState;
+    /// let x0 = FrameworkAudit::new().set_compliance_state(ComplianceState::Compliant);
+    /// let x1 = FrameworkAudit::new().set_compliance_state(ComplianceState::Violation);
+    /// let x2 = FrameworkAudit::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
+    /// ```
     pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
         mut self,
         v: T,
@@ -870,6 +1079,13 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [report_summary][crate::model::FrameworkAudit::report_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = FrameworkAudit::new().set_report_summary(ReportSummary::default()/* use setters */);
+    /// ```
     pub fn set_report_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReportSummary>,
@@ -879,6 +1095,14 @@ impl FrameworkAudit {
     }
 
     /// Sets or clears the value of [report_summary][crate::model::FrameworkAudit::report_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = FrameworkAudit::new().set_or_clear_report_summary(Some(ReportSummary::default()/* use setters */));
+    /// let x = FrameworkAudit::new().set_or_clear_report_summary(None::<ReportSummary>);
+    /// ```
     pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReportSummary>,
@@ -888,6 +1112,17 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [cloud_control_group_audit_details][crate::model::FrameworkAudit::cloud_control_group_audit_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = FrameworkAudit::new()
+    ///     .set_cloud_control_group_audit_details([
+    ///         CloudControlGroupAuditDetails::default()/* use setters */,
+    ///         CloudControlGroupAuditDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_group_audit_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -899,6 +1134,17 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [cloud_control_audit_details][crate::model::FrameworkAudit::cloud_control_audit_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// let x = FrameworkAudit::new()
+    ///     .set_cloud_control_audit_details([
+    ///         CloudControlAuditDetails::default()/* use setters */,
+    ///         CloudControlAuditDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_audit_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -910,12 +1156,27 @@ impl FrameworkAudit {
     }
 
     /// Sets the value of [operation_id][crate::model::FrameworkAudit::operation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = FrameworkAudit::new().set_operation_id("example");
+    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::FrameworkAudit::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::framework_audit::State;
+    /// let x0 = FrameworkAudit::new().set_state(State::Scheduled);
+    /// let x1 = FrameworkAudit::new().set_state(State::Running);
+    /// let x2 = FrameworkAudit::new().set_state(State::Uploading);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::framework_audit::State>>(
         mut self,
         v: T,
@@ -1129,24 +1390,48 @@ impl ListFrameworkAuditsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFrameworkAuditsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkAuditsRequest;
+    /// let x = ListFrameworkAuditsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFrameworkAuditsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkAuditsRequest;
+    /// let x = ListFrameworkAuditsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFrameworkAuditsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkAuditsRequest;
+    /// let x = ListFrameworkAuditsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFrameworkAuditsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkAuditsRequest;
+    /// let x = ListFrameworkAuditsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1179,6 +1464,17 @@ impl ListFrameworkAuditsResponse {
     }
 
     /// Sets the value of [framework_audits][crate::model::ListFrameworkAuditsResponse::framework_audits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkAuditsResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// let x = ListFrameworkAuditsResponse::new()
+    ///     .set_framework_audits([
+    ///         FrameworkAudit::default()/* use setters */,
+    ///         FrameworkAudit::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_framework_audits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1190,6 +1486,12 @@ impl ListFrameworkAuditsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFrameworkAuditsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkAuditsResponse;
+    /// let x = ListFrameworkAuditsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1238,6 +1540,12 @@ impl GetFrameworkAuditRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFrameworkAuditRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GetFrameworkAuditRequest;
+    /// let x = GetFrameworkAuditRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1302,6 +1610,12 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [cloud_control_group_id][crate::model::CloudControlGroupAuditDetails::cloud_control_group_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_cloud_control_group_id("example");
+    /// ```
     pub fn set_cloud_control_group_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1311,18 +1625,36 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [display_name][crate::model::CloudControlGroupAuditDetails::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CloudControlGroupAuditDetails::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [responsibility_type][crate::model::CloudControlGroupAuditDetails::responsibility_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_responsibility_type("example");
+    /// ```
     pub fn set_responsibility_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1332,6 +1664,12 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [google_responsibility_description][crate::model::CloudControlGroupAuditDetails::google_responsibility_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_google_responsibility_description("example");
+    /// ```
     pub fn set_google_responsibility_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1341,6 +1679,12 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [google_responsibility_implementation][crate::model::CloudControlGroupAuditDetails::google_responsibility_implementation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_google_responsibility_implementation("example");
+    /// ```
     pub fn set_google_responsibility_implementation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1350,6 +1694,12 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [customer_responsibility_description][crate::model::CloudControlGroupAuditDetails::customer_responsibility_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_customer_responsibility_description("example");
+    /// ```
     pub fn set_customer_responsibility_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1359,6 +1709,12 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [customer_responsibility_implementation][crate::model::CloudControlGroupAuditDetails::customer_responsibility_implementation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_customer_responsibility_implementation("example");
+    /// ```
     pub fn set_customer_responsibility_implementation<
         T: std::convert::Into<std::string::String>,
     >(
@@ -1370,6 +1726,15 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [compliance_state][crate::model::CloudControlGroupAuditDetails::compliance_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ComplianceState;
+    /// let x0 = CloudControlGroupAuditDetails::new().set_compliance_state(ComplianceState::Compliant);
+    /// let x1 = CloudControlGroupAuditDetails::new().set_compliance_state(ComplianceState::Violation);
+    /// let x2 = CloudControlGroupAuditDetails::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
+    /// ```
     pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
         mut self,
         v: T,
@@ -1379,12 +1744,25 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [control_id][crate::model::CloudControlGroupAuditDetails::control_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new().set_control_id("example");
+    /// ```
     pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_id = v.into();
         self
     }
 
     /// Sets the value of [control_family][crate::model::CloudControlGroupAuditDetails::control_family].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlFamily;
+    /// let x = CloudControlGroupAuditDetails::new().set_control_family(ControlFamily::default()/* use setters */);
+    /// ```
     pub fn set_control_family<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ControlFamily>,
@@ -1394,6 +1772,14 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets or clears the value of [control_family][crate::model::CloudControlGroupAuditDetails::control_family].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlFamily;
+    /// let x = CloudControlGroupAuditDetails::new().set_or_clear_control_family(Some(ControlFamily::default()/* use setters */));
+    /// let x = CloudControlGroupAuditDetails::new().set_or_clear_control_family(None::<ControlFamily>);
+    /// ```
     pub fn set_or_clear_control_family<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ControlFamily>,
@@ -1403,6 +1789,17 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [cloud_control_details][crate::model::CloudControlGroupAuditDetails::cloud_control_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// let x = CloudControlGroupAuditDetails::new()
+    ///     .set_cloud_control_details([
+    ///         CloudControlAuditDetails::default()/* use setters */,
+    ///         CloudControlAuditDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1414,6 +1811,13 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets the value of [report_summary][crate::model::CloudControlGroupAuditDetails::report_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = CloudControlGroupAuditDetails::new().set_report_summary(ReportSummary::default()/* use setters */);
+    /// ```
     pub fn set_report_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReportSummary>,
@@ -1423,6 +1827,14 @@ impl CloudControlGroupAuditDetails {
     }
 
     /// Sets or clears the value of [report_summary][crate::model::CloudControlGroupAuditDetails::report_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlGroupAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = CloudControlGroupAuditDetails::new().set_or_clear_report_summary(Some(ReportSummary::default()/* use setters */));
+    /// let x = CloudControlGroupAuditDetails::new().set_or_clear_report_summary(None::<ReportSummary>);
+    /// ```
     pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReportSummary>,
@@ -1463,12 +1875,27 @@ impl FindingDetails {
     }
 
     /// Sets the value of [name][crate::model::FindingDetails::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingDetails;
+    /// let x = FindingDetails::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [compliance_state][crate::model::FindingDetails::compliance_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ComplianceState;
+    /// let x0 = FindingDetails::new().set_compliance_state(ComplianceState::Compliant);
+    /// let x1 = FindingDetails::new().set_compliance_state(ComplianceState::Violation);
+    /// let x2 = FindingDetails::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
+    /// ```
     pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
         mut self,
         v: T,
@@ -1478,6 +1905,13 @@ impl FindingDetails {
     }
 
     /// Sets the value of [observation][crate::model::FindingDetails::observation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ObservationDetails;
+    /// let x = FindingDetails::new().set_observation(ObservationDetails::default()/* use setters */);
+    /// ```
     pub fn set_observation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ObservationDetails>,
@@ -1487,6 +1921,14 @@ impl FindingDetails {
     }
 
     /// Sets or clears the value of [observation][crate::model::FindingDetails::observation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ObservationDetails;
+    /// let x = FindingDetails::new().set_or_clear_observation(Some(ObservationDetails::default()/* use setters */));
+    /// let x = FindingDetails::new().set_or_clear_observation(None::<ObservationDetails>);
+    /// ```
     pub fn set_or_clear_observation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObservationDetails>,
@@ -1496,6 +1938,13 @@ impl FindingDetails {
     }
 
     /// Sets the value of [evidence][crate::model::FindingDetails::evidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EvidenceDetails;
+    /// let x = FindingDetails::new().set_evidence(EvidenceDetails::default()/* use setters */);
+    /// ```
     pub fn set_evidence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EvidenceDetails>,
@@ -1505,6 +1954,14 @@ impl FindingDetails {
     }
 
     /// Sets or clears the value of [evidence][crate::model::FindingDetails::evidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EvidenceDetails;
+    /// let x = FindingDetails::new().set_or_clear_evidence(Some(EvidenceDetails::default()/* use setters */));
+    /// let x = FindingDetails::new().set_or_clear_evidence(None::<EvidenceDetails>);
+    /// ```
     pub fn set_or_clear_evidence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EvidenceDetails>,
@@ -1542,18 +1999,36 @@ impl ObservationDetails {
     }
 
     /// Sets the value of [current_value][crate::model::ObservationDetails::current_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ObservationDetails;
+    /// let x = ObservationDetails::new().set_current_value("example");
+    /// ```
     pub fn set_current_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_value = v.into();
         self
     }
 
     /// Sets the value of [expected_value][crate::model::ObservationDetails::expected_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ObservationDetails;
+    /// let x = ObservationDetails::new().set_expected_value("example");
+    /// ```
     pub fn set_expected_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expected_value = v.into();
         self
     }
 
     /// Sets the value of [guidance][crate::model::ObservationDetails::guidance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ObservationDetails;
+    /// let x = ObservationDetails::new().set_guidance("example");
+    /// ```
     pub fn set_guidance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.guidance = v.into();
         self
@@ -1588,18 +2063,36 @@ impl EvidenceDetails {
     }
 
     /// Sets the value of [resource][crate::model::EvidenceDetails::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::EvidenceDetails;
+    /// let x = EvidenceDetails::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::EvidenceDetails::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::EvidenceDetails;
+    /// let x = EvidenceDetails::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [evidence_path][crate::model::EvidenceDetails::evidence_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::EvidenceDetails;
+    /// let x = EvidenceDetails::new().set_evidence_path("example");
+    /// ```
     pub fn set_evidence_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.evidence_path = v.into();
         self
@@ -1643,12 +2136,24 @@ impl CloudControlAuditDetails {
     }
 
     /// Sets the value of [cloud_control][crate::model::CloudControlAuditDetails::cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// let x = CloudControlAuditDetails::new().set_cloud_control("example");
+    /// ```
     pub fn set_cloud_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control = v.into();
         self
     }
 
     /// Sets the value of [cloud_control_id][crate::model::CloudControlAuditDetails::cloud_control_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// let x = CloudControlAuditDetails::new().set_cloud_control_id("example");
+    /// ```
     pub fn set_cloud_control_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1658,6 +2163,12 @@ impl CloudControlAuditDetails {
     }
 
     /// Sets the value of [cloud_control_description][crate::model::CloudControlAuditDetails::cloud_control_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// let x = CloudControlAuditDetails::new().set_cloud_control_description("example");
+    /// ```
     pub fn set_cloud_control_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1667,6 +2178,15 @@ impl CloudControlAuditDetails {
     }
 
     /// Sets the value of [compliance_state][crate::model::CloudControlAuditDetails::compliance_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ComplianceState;
+    /// let x0 = CloudControlAuditDetails::new().set_compliance_state(ComplianceState::Compliant);
+    /// let x1 = CloudControlAuditDetails::new().set_compliance_state(ComplianceState::Violation);
+    /// let x2 = CloudControlAuditDetails::new().set_compliance_state(ComplianceState::ManualReviewNeeded);
+    /// ```
     pub fn set_compliance_state<T: std::convert::Into<crate::model::ComplianceState>>(
         mut self,
         v: T,
@@ -1676,6 +2196,13 @@ impl CloudControlAuditDetails {
     }
 
     /// Sets the value of [report_summary][crate::model::CloudControlAuditDetails::report_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = CloudControlAuditDetails::new().set_report_summary(ReportSummary::default()/* use setters */);
+    /// ```
     pub fn set_report_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReportSummary>,
@@ -1685,6 +2212,14 @@ impl CloudControlAuditDetails {
     }
 
     /// Sets or clears the value of [report_summary][crate::model::CloudControlAuditDetails::report_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ReportSummary;
+    /// let x = CloudControlAuditDetails::new().set_or_clear_report_summary(Some(ReportSummary::default()/* use setters */));
+    /// let x = CloudControlAuditDetails::new().set_or_clear_report_summary(None::<ReportSummary>);
+    /// ```
     pub fn set_or_clear_report_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReportSummary>,
@@ -1694,6 +2229,17 @@ impl CloudControlAuditDetails {
     }
 
     /// Sets the value of [findings][crate::model::CloudControlAuditDetails::findings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAuditDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FindingDetails;
+    /// let x = CloudControlAuditDetails::new()
+    ///     .set_findings([
+    ///         FindingDetails::default()/* use setters */,
+    ///         FindingDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1731,6 +2277,13 @@ impl UpdateCmEnrollmentRequest {
     }
 
     /// Sets the value of [cm_enrollment][crate::model::UpdateCmEnrollmentRequest::cm_enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCmEnrollmentRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// let x = UpdateCmEnrollmentRequest::new().set_cm_enrollment(CmEnrollment::default()/* use setters */);
+    /// ```
     pub fn set_cm_enrollment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CmEnrollment>,
@@ -1740,6 +2293,14 @@ impl UpdateCmEnrollmentRequest {
     }
 
     /// Sets or clears the value of [cm_enrollment][crate::model::UpdateCmEnrollmentRequest::cm_enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCmEnrollmentRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// let x = UpdateCmEnrollmentRequest::new().set_or_clear_cm_enrollment(Some(CmEnrollment::default()/* use setters */));
+    /// let x = UpdateCmEnrollmentRequest::new().set_or_clear_cm_enrollment(None::<CmEnrollment>);
+    /// ```
     pub fn set_or_clear_cm_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CmEnrollment>,
@@ -1749,6 +2310,13 @@ impl UpdateCmEnrollmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCmEnrollmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCmEnrollmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCmEnrollmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1758,6 +2326,14 @@ impl UpdateCmEnrollmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCmEnrollmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCmEnrollmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCmEnrollmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCmEnrollmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1795,6 +2371,12 @@ impl CalculateEffectiveCmEnrollmentRequest {
     }
 
     /// Sets the value of [name][crate::model::CalculateEffectiveCmEnrollmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CalculateEffectiveCmEnrollmentRequest;
+    /// let x = CalculateEffectiveCmEnrollmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1838,18 +2420,37 @@ impl CmEnrollment {
     }
 
     /// Sets the value of [name][crate::model::CmEnrollment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// let x = CmEnrollment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [enrolled][crate::model::CmEnrollment::enrolled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// let x = CmEnrollment::new().set_enrolled(true);
+    /// ```
     pub fn set_enrolled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enrolled = v.into();
         self
     }
 
     /// Sets the value of [audit_config][crate::model::CmEnrollment::audit_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::AuditConfig;
+    /// let x = CmEnrollment::new().set_audit_config(AuditConfig::default()/* use setters */);
+    /// ```
     pub fn set_audit_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuditConfig>,
@@ -1859,6 +2460,14 @@ impl CmEnrollment {
     }
 
     /// Sets or clears the value of [audit_config][crate::model::CmEnrollment::audit_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::AuditConfig;
+    /// let x = CmEnrollment::new().set_or_clear_audit_config(Some(AuditConfig::default()/* use setters */));
+    /// let x = CmEnrollment::new().set_or_clear_audit_config(None::<AuditConfig>);
+    /// ```
     pub fn set_or_clear_audit_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuditConfig>,
@@ -1890,6 +2499,13 @@ impl CalculateEffectiveCmEnrollmentResponse {
     }
 
     /// Sets the value of [cm_enrollment][crate::model::CalculateEffectiveCmEnrollmentResponse::cm_enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CalculateEffectiveCmEnrollmentResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// let x = CalculateEffectiveCmEnrollmentResponse::new().set_cm_enrollment(CmEnrollment::default()/* use setters */);
+    /// ```
     pub fn set_cm_enrollment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CmEnrollment>,
@@ -1899,6 +2515,14 @@ impl CalculateEffectiveCmEnrollmentResponse {
     }
 
     /// Sets or clears the value of [cm_enrollment][crate::model::CalculateEffectiveCmEnrollmentResponse::cm_enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CalculateEffectiveCmEnrollmentResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// let x = CalculateEffectiveCmEnrollmentResponse::new().set_or_clear_cm_enrollment(Some(CmEnrollment::default()/* use setters */));
+    /// let x = CalculateEffectiveCmEnrollmentResponse::new().set_or_clear_cm_enrollment(None::<CmEnrollment>);
+    /// ```
     pub fn set_or_clear_cm_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CmEnrollment>,
@@ -1931,6 +2555,17 @@ impl AuditConfig {
     }
 
     /// Sets the value of [destinations][crate::model::AuditConfig::destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AuditConfig;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::audit_config::CmEligibleDestination;
+    /// let x = AuditConfig::new()
+    ///     .set_destinations([
+    ///         CmEligibleDestination::default()/* use setters */,
+    ///         CmEligibleDestination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1975,6 +2610,13 @@ pub mod audit_config {
         ///
         /// Note that all the setters affecting `cm_eligible_destinations` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_cloudsecuritycompliance_v1::model::audit_config::CmEligibleDestination;
+        /// use google_cloud_cloudsecuritycompliance_v1::model::audit_config::cm_eligible_destination::CmEligibleDestinations;
+        /// let x = CmEligibleDestination::new().set_cm_eligible_destinations(Some(CmEligibleDestinations::GcsBucket("example".to_string())));
+        /// ```
         pub fn set_cm_eligible_destinations<
             T: std::convert::Into<
                     std::option::Option<
@@ -2005,6 +2647,13 @@ pub mod audit_config {
         ///
         /// Note that all the setters affecting `cm_eligible_destinations` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_cloudsecuritycompliance_v1::model::audit_config::CmEligibleDestination;
+        /// let x = CmEligibleDestination::new().set_gcs_bucket("example");
+        /// assert!(x.gcs_bucket().is_some());
+        /// ```
         pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cm_eligible_destinations = std::option::Option::Some(
                 crate::model::audit_config::cm_eligible_destination::CmEligibleDestinations::GcsBucket(
@@ -2088,30 +2737,62 @@ impl Framework {
     }
 
     /// Sets the value of [name][crate::model::Framework::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = Framework::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::Framework::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = Framework::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Framework::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = Framework::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Framework::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = Framework::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Framework::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::framework::FrameworkType;
+    /// let x0 = Framework::new().set_type(FrameworkType::BuiltIn);
+    /// let x1 = Framework::new().set_type(FrameworkType::Custom);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
         mut self,
         v: T,
@@ -2121,6 +2802,17 @@ impl Framework {
     }
 
     /// Sets the value of [cloud_control_details][crate::model::Framework::cloud_control_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDetails;
+    /// let x = Framework::new()
+    ///     .set_cloud_control_details([
+    ///         CloudControlDetails::default()/* use setters */,
+    ///         CloudControlDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2132,6 +2824,17 @@ impl Framework {
     }
 
     /// Sets the value of [category][crate::model::Framework::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkCategory;
+    /// let x = Framework::new().set_category([
+    ///     FrameworkCategory::IndustryDefinedStandard,
+    ///     FrameworkCategory::AssuredWorkloads,
+    ///     FrameworkCategory::DataSecurity,
+    /// ]);
+    /// ```
     pub fn set_category<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2143,6 +2846,17 @@ impl Framework {
     }
 
     /// Sets the value of [supported_cloud_providers][crate::model::Framework::supported_cloud_providers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudProvider;
+    /// let x = Framework::new().set_supported_cloud_providers([
+    ///     CloudProvider::Aws,
+    ///     CloudProvider::Azure,
+    ///     CloudProvider::Gcp,
+    /// ]);
+    /// ```
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2154,6 +2868,17 @@ impl Framework {
     }
 
     /// Sets the value of [supported_target_resource_types][crate::model::Framework::supported_target_resource_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceType;
+    /// let x = Framework::new().set_supported_target_resource_types([
+    ///     TargetResourceType::TargetResourceCrmTypeOrg,
+    ///     TargetResourceType::TargetResourceCrmTypeFolder,
+    ///     TargetResourceType::TargetResourceCrmTypeProject,
+    /// ]);
+    /// ```
     pub fn set_supported_target_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2165,6 +2890,17 @@ impl Framework {
     }
 
     /// Sets the value of [supported_enforcement_modes][crate::model::Framework::supported_enforcement_modes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EnforcementMode;
+    /// let x = Framework::new().set_supported_enforcement_modes([
+    ///     EnforcementMode::Preventive,
+    ///     EnforcementMode::Detective,
+    ///     EnforcementMode::Audit,
+    /// ]);
+    /// ```
     pub fn set_supported_enforcement_modes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2347,18 +3083,41 @@ impl CloudControlDetails {
     }
 
     /// Sets the value of [name][crate::model::CloudControlDetails::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDetails;
+    /// let x = CloudControlDetails::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::CloudControlDetails::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDetails;
+    /// let x = CloudControlDetails::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::CloudControlDetails::parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Parameter;
+    /// let x = CloudControlDetails::new()
+    ///     .set_parameters([
+    ///         Parameter::default()/* use setters */,
+    ///         Parameter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2399,12 +3158,24 @@ impl FrameworkReference {
     }
 
     /// Sets the value of [framework][crate::model::FrameworkReference::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
+    /// let x = FrameworkReference::new().set_framework("example");
+    /// ```
     pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::FrameworkReference::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
+    /// let x = FrameworkReference::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2414,6 +3185,13 @@ impl FrameworkReference {
     }
 
     /// Sets or clears the value of [major_revision_id][crate::model::FrameworkReference::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
+    /// let x = FrameworkReference::new().set_or_clear_major_revision_id(Some(42));
+    /// let x = FrameworkReference::new().set_or_clear_major_revision_id(None::<i32>);
+    /// ```
     pub fn set_or_clear_major_revision_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2450,12 +3228,25 @@ impl Parameter {
     }
 
     /// Sets the value of [name][crate::model::Parameter::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Parameter;
+    /// let x = Parameter::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parameter_value][crate::model::Parameter::parameter_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Parameter;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = Parameter::new().set_parameter_value(ParamValue::default()/* use setters */);
+    /// ```
     pub fn set_parameter_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ParamValue>,
@@ -2465,6 +3256,14 @@ impl Parameter {
     }
 
     /// Sets or clears the value of [parameter_value][crate::model::Parameter::parameter_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Parameter;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = Parameter::new().set_or_clear_parameter_value(Some(ParamValue::default()/* use setters */));
+    /// let x = Parameter::new().set_or_clear_parameter_value(None::<ParamValue>);
+    /// ```
     pub fn set_or_clear_parameter_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParamValue>,
@@ -2551,30 +3350,65 @@ impl CloudControl {
     }
 
     /// Sets the value of [name][crate::model::CloudControl::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControl::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::CloudControl::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControl::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CloudControl::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControl::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::CloudControl::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControl::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [supported_enforcement_modes][crate::model::CloudControl::supported_enforcement_modes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EnforcementMode;
+    /// let x = CloudControl::new().set_supported_enforcement_modes([
+    ///     EnforcementMode::Preventive,
+    ///     EnforcementMode::Detective,
+    ///     EnforcementMode::Audit,
+    /// ]);
+    /// ```
     pub fn set_supported_enforcement_modes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2586,6 +3420,17 @@ impl CloudControl {
     }
 
     /// Sets the value of [parameter_spec][crate::model::CloudControl::parameter_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// let x = CloudControl::new()
+    ///     .set_parameter_spec([
+    ///         ParameterSpec::default()/* use setters */,
+    ///         ParameterSpec::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_parameter_spec<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2597,6 +3442,17 @@ impl CloudControl {
     }
 
     /// Sets the value of [rules][crate::model::CloudControl::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Rule;
+    /// let x = CloudControl::new()
+    ///     .set_rules([
+    ///         Rule::default()/* use setters */,
+    ///         Rule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2608,12 +3464,27 @@ impl CloudControl {
     }
 
     /// Sets the value of [severity][crate::model::CloudControl::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Severity;
+    /// let x0 = CloudControl::new().set_severity(Severity::Critical);
+    /// let x1 = CloudControl::new().set_severity(Severity::High);
+    /// let x2 = CloudControl::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [finding_category][crate::model::CloudControl::finding_category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControl::new().set_finding_category("example");
+    /// ```
     pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2623,6 +3494,17 @@ impl CloudControl {
     }
 
     /// Sets the value of [supported_cloud_providers][crate::model::CloudControl::supported_cloud_providers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudProvider;
+    /// let x = CloudControl::new().set_supported_cloud_providers([
+    ///     CloudProvider::Aws,
+    ///     CloudProvider::Azure,
+    ///     CloudProvider::Gcp,
+    /// ]);
+    /// ```
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2634,6 +3516,12 @@ impl CloudControl {
     }
 
     /// Sets the value of [related_frameworks][crate::model::CloudControl::related_frameworks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControl::new().set_related_frameworks(["a", "b", "c"]);
+    /// ```
     pub fn set_related_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2645,6 +3533,12 @@ impl CloudControl {
     }
 
     /// Sets the value of [remediation_steps][crate::model::CloudControl::remediation_steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControl::new().set_remediation_steps("example");
+    /// ```
     pub fn set_remediation_steps<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2654,6 +3548,17 @@ impl CloudControl {
     }
 
     /// Sets the value of [categories][crate::model::CloudControl::categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlCategory;
+    /// let x = CloudControl::new().set_categories([
+    ///     CloudControlCategory::CcCategoryInfrastructure,
+    ///     CloudControlCategory::CcCategoryArtificialIntelligence,
+    ///     CloudControlCategory::CcCategoryPhysicalSecurity,
+    /// ]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2665,6 +3570,13 @@ impl CloudControl {
     }
 
     /// Sets the value of [create_time][crate::model::CloudControl::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use wkt::Timestamp;
+    /// let x = CloudControl::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2674,6 +3586,14 @@ impl CloudControl {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CloudControl::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use wkt::Timestamp;
+    /// let x = CloudControl::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloudControl::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2683,6 +3603,17 @@ impl CloudControl {
     }
 
     /// Sets the value of [supported_target_resource_types][crate::model::CloudControl::supported_target_resource_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceType;
+    /// let x = CloudControl::new().set_supported_target_resource_types([
+    ///     TargetResourceType::TargetResourceCrmTypeOrg,
+    ///     TargetResourceType::TargetResourceCrmTypeFolder,
+    ///     TargetResourceType::TargetResourceCrmTypeProject,
+    /// ]);
+    /// ```
     pub fn set_supported_target_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2880,30 +3811,63 @@ impl ParameterSpec {
     }
 
     /// Sets the value of [name][crate::model::ParameterSpec::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// let x = ParameterSpec::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ParameterSpec::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// let x = ParameterSpec::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ParameterSpec::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// let x = ParameterSpec::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [is_required][crate::model::ParameterSpec::is_required].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// let x = ParameterSpec::new().set_is_required(true);
+    /// ```
     pub fn set_is_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_required = v.into();
         self
     }
 
     /// Sets the value of [value_type][crate::model::ParameterSpec::value_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::parameter_spec::ValueType;
+    /// let x0 = ParameterSpec::new().set_value_type(ValueType::String);
+    /// let x1 = ParameterSpec::new().set_value_type(ValueType::Boolean);
+    /// let x2 = ParameterSpec::new().set_value_type(ValueType::Stringlist);
+    /// ```
     pub fn set_value_type<T: std::convert::Into<crate::model::parameter_spec::ValueType>>(
         mut self,
         v: T,
@@ -2913,6 +3877,13 @@ impl ParameterSpec {
     }
 
     /// Sets the value of [default_value][crate::model::ParameterSpec::default_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = ParameterSpec::new().set_default_value(ParamValue::default()/* use setters */);
+    /// ```
     pub fn set_default_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ParamValue>,
@@ -2922,6 +3893,14 @@ impl ParameterSpec {
     }
 
     /// Sets or clears the value of [default_value][crate::model::ParameterSpec::default_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = ParameterSpec::new().set_or_clear_default_value(Some(ParamValue::default()/* use setters */));
+    /// let x = ParameterSpec::new().set_or_clear_default_value(None::<ParamValue>);
+    /// ```
     pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParamValue>,
@@ -2931,6 +3910,17 @@ impl ParameterSpec {
     }
 
     /// Sets the value of [substitution_rules][crate::model::ParameterSpec::substitution_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParameterSubstitutionRule;
+    /// let x = ParameterSpec::new()
+    ///     .set_substitution_rules([
+    ///         ParameterSubstitutionRule::default()/* use setters */,
+    ///         ParameterSubstitutionRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_substitution_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2942,6 +3932,17 @@ impl ParameterSpec {
     }
 
     /// Sets the value of [sub_parameters][crate::model::ParameterSpec::sub_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// let x = ParameterSpec::new()
+    ///     .set_sub_parameters([
+    ///         ParameterSpec::default()/* use setters */,
+    ///         ParameterSpec::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sub_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2953,6 +3954,13 @@ impl ParameterSpec {
     }
 
     /// Sets the value of [validation][crate::model::ParameterSpec::validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Validation;
+    /// let x = ParameterSpec::new().set_validation(Validation::default()/* use setters */);
+    /// ```
     pub fn set_validation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Validation>,
@@ -2962,6 +3970,14 @@ impl ParameterSpec {
     }
 
     /// Sets or clears the value of [validation][crate::model::ParameterSpec::validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSpec;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Validation;
+    /// let x = ParameterSpec::new().set_or_clear_validation(Some(Validation::default()/* use setters */));
+    /// let x = ParameterSpec::new().set_or_clear_validation(None::<Validation>);
+    /// ```
     pub fn set_or_clear_validation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Validation>,
@@ -3155,6 +4171,14 @@ impl Validation {
     ///
     /// Note that all the setters affecting `constraint` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Validation;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::AllowedValues;
+    /// let x = Validation::new().set_constraint(Some(
+    ///     google_cloud_cloudsecuritycompliance_v1::model::validation::Constraint::AllowedValues(AllowedValues::default().into())));
+    /// ```
     pub fn set_constraint<
         T: std::convert::Into<std::option::Option<crate::model::validation::Constraint>>,
     >(
@@ -3183,6 +4207,16 @@ impl Validation {
     ///
     /// Note that all the setters affecting `constraint` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Validation;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::AllowedValues;
+    /// let x = Validation::new().set_allowed_values(AllowedValues::default()/* use setters */);
+    /// assert!(x.allowed_values().is_some());
+    /// assert!(x.int_range().is_none());
+    /// assert!(x.regexp_pattern().is_none());
+    /// ```
     pub fn set_allowed_values<
         T: std::convert::Into<std::boxed::Box<crate::model::AllowedValues>>,
     >(
@@ -3211,6 +4245,16 @@ impl Validation {
     ///
     /// Note that all the setters affecting `constraint` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Validation;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::IntRange;
+    /// let x = Validation::new().set_int_range(IntRange::default()/* use setters */);
+    /// assert!(x.int_range().is_some());
+    /// assert!(x.allowed_values().is_none());
+    /// assert!(x.regexp_pattern().is_none());
+    /// ```
     pub fn set_int_range<T: std::convert::Into<std::boxed::Box<crate::model::IntRange>>>(
         mut self,
         v: T,
@@ -3238,6 +4282,16 @@ impl Validation {
     ///
     /// Note that all the setters affecting `constraint` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Validation;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::RegexpPattern;
+    /// let x = Validation::new().set_regexp_pattern(RegexpPattern::default()/* use setters */);
+    /// assert!(x.regexp_pattern().is_some());
+    /// assert!(x.allowed_values().is_none());
+    /// assert!(x.int_range().is_none());
+    /// ```
     pub fn set_regexp_pattern<
         T: std::convert::Into<std::boxed::Box<crate::model::RegexpPattern>>,
     >(
@@ -3291,6 +4345,17 @@ impl AllowedValues {
     }
 
     /// Sets the value of [values][crate::model::AllowedValues::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AllowedValues;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = AllowedValues::new()
+    ///     .set_values([
+    ///         ParamValue::default()/* use setters */,
+    ///         ParamValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3324,6 +4389,12 @@ impl RegexpPattern {
     }
 
     /// Sets the value of [pattern][crate::model::RegexpPattern::pattern].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::RegexpPattern;
+    /// let x = RegexpPattern::new().set_pattern("example");
+    /// ```
     pub fn set_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern = v.into();
         self
@@ -3357,12 +4428,24 @@ impl IntRange {
     }
 
     /// Sets the value of [min][crate::model::IntRange::min].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::IntRange;
+    /// let x = IntRange::new().set_min(42);
+    /// ```
     pub fn set_min<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.min = v.into();
         self
     }
 
     /// Sets the value of [max][crate::model::IntRange::max].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::IntRange;
+    /// let x = IntRange::new().set_max(42);
+    /// ```
     pub fn set_max<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max = v.into();
         self
@@ -3391,6 +4474,12 @@ impl StringList {
     }
 
     /// Sets the value of [values][crate::model::StringList::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::StringList;
+    /// let x = StringList::new().set_values(["a", "b", "c"]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3427,6 +4516,13 @@ impl ParamValue {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::param_value::Kind;
+    /// let x = ParamValue::new().set_kind(Some(Kind::StringValue("example".to_string())));
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::param_value::Kind>>>(
         mut self,
         v: T,
@@ -3451,6 +4547,17 @@ impl ParamValue {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = ParamValue::new().set_string_value("example");
+    /// assert!(x.string_value().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.string_list_value().is_none());
+    /// assert!(x.number_value().is_none());
+    /// assert!(x.oneof_value().is_none());
+    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind =
             std::option::Option::Some(crate::model::param_value::Kind::StringValue(v.into()));
@@ -3473,6 +4580,17 @@ impl ParamValue {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = ParamValue::new().set_bool_value(true);
+    /// assert!(x.bool_value().is_some());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.string_list_value().is_none());
+    /// assert!(x.number_value().is_none());
+    /// assert!(x.oneof_value().is_none());
+    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.kind = std::option::Option::Some(crate::model::param_value::Kind::BoolValue(v.into()));
         self
@@ -3496,6 +4614,18 @@ impl ParamValue {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::StringList;
+    /// let x = ParamValue::new().set_string_list_value(StringList::default()/* use setters */);
+    /// assert!(x.string_list_value().is_some());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.number_value().is_none());
+    /// assert!(x.oneof_value().is_none());
+    /// ```
     pub fn set_string_list_value<
         T: std::convert::Into<std::boxed::Box<crate::model::StringList>>,
     >(
@@ -3523,6 +4653,17 @@ impl ParamValue {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// let x = ParamValue::new().set_number_value(42.0);
+    /// assert!(x.number_value().is_some());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.string_list_value().is_none());
+    /// assert!(x.oneof_value().is_none());
+    /// ```
     pub fn set_number_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.kind =
             std::option::Option::Some(crate::model::param_value::Kind::NumberValue(v.into()));
@@ -3545,6 +4686,18 @@ impl ParamValue {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParamValue;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Parameter;
+    /// let x = ParamValue::new().set_oneof_value(Parameter::default()/* use setters */);
+    /// assert!(x.oneof_value().is_some());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.string_list_value().is_none());
+    /// assert!(x.number_value().is_none());
+    /// ```
     pub fn set_oneof_value<T: std::convert::Into<std::boxed::Box<crate::model::Parameter>>>(
         mut self,
         v: T,
@@ -3603,6 +4756,14 @@ impl ParameterSubstitutionRule {
     ///
     /// Note that all the setters affecting `substitution_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSubstitutionRule;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::PlaceholderSubstitutionRule;
+    /// let x = ParameterSubstitutionRule::new().set_substitution_type(Some(
+    ///     google_cloud_cloudsecuritycompliance_v1::model::parameter_substitution_rule::SubstitutionType::PlaceholderSubstitutionRule(PlaceholderSubstitutionRule::default().into())));
+    /// ```
     pub fn set_substitution_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::parameter_substitution_rule::SubstitutionType>,
@@ -3633,6 +4794,15 @@ impl ParameterSubstitutionRule {
     ///
     /// Note that all the setters affecting `substitution_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSubstitutionRule;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::PlaceholderSubstitutionRule;
+    /// let x = ParameterSubstitutionRule::new().set_placeholder_substitution_rule(PlaceholderSubstitutionRule::default()/* use setters */);
+    /// assert!(x.placeholder_substitution_rule().is_some());
+    /// assert!(x.attribute_substitution_rule().is_none());
+    /// ```
     pub fn set_placeholder_substitution_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::PlaceholderSubstitutionRule>>,
     >(
@@ -3665,6 +4835,15 @@ impl ParameterSubstitutionRule {
     ///
     /// Note that all the setters affecting `substitution_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ParameterSubstitutionRule;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::AttributeSubstitutionRule;
+    /// let x = ParameterSubstitutionRule::new().set_attribute_substitution_rule(AttributeSubstitutionRule::default()/* use setters */);
+    /// assert!(x.attribute_substitution_rule().is_some());
+    /// assert!(x.placeholder_substitution_rule().is_none());
+    /// ```
     pub fn set_attribute_substitution_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::AttributeSubstitutionRule>>,
     >(
@@ -3719,6 +4898,12 @@ impl AttributeSubstitutionRule {
     }
 
     /// Sets the value of [attribute][crate::model::AttributeSubstitutionRule::attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AttributeSubstitutionRule;
+    /// let x = AttributeSubstitutionRule::new().set_attribute("example");
+    /// ```
     pub fn set_attribute<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribute = v.into();
         self
@@ -3747,6 +4932,12 @@ impl PlaceholderSubstitutionRule {
     }
 
     /// Sets the value of [attribute][crate::model::PlaceholderSubstitutionRule::attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::PlaceholderSubstitutionRule;
+    /// let x = PlaceholderSubstitutionRule::new().set_attribute("example");
+    /// ```
     pub fn set_attribute<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribute = v.into();
         self
@@ -3781,12 +4972,29 @@ impl Rule {
     }
 
     /// Sets the value of [description][crate::model::Rule::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Rule;
+    /// let x = Rule::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [rule_action_types][crate::model::Rule::rule_action_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Rule;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::RuleActionType;
+    /// let x = Rule::new().set_rule_action_types([
+    ///     RuleActionType::Preventive,
+    ///     RuleActionType::Detective,
+    ///     RuleActionType::Audit,
+    /// ]);
+    /// ```
     pub fn set_rule_action_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3801,6 +5009,14 @@ impl Rule {
     ///
     /// Note that all the setters affecting `implementation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Rule;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CELExpression;
+    /// let x = Rule::new().set_implementation(Some(
+    ///     google_cloud_cloudsecuritycompliance_v1::model::rule::Implementation::CelExpression(CELExpression::default().into())));
+    /// ```
     pub fn set_implementation<
         T: std::convert::Into<std::option::Option<crate::model::rule::Implementation>>,
     >(
@@ -3829,6 +5045,14 @@ impl Rule {
     ///
     /// Note that all the setters affecting `implementation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::Rule;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CELExpression;
+    /// let x = Rule::new().set_cel_expression(CELExpression::default()/* use setters */);
+    /// assert!(x.cel_expression().is_some());
+    /// ```
     pub fn set_cel_expression<
         T: std::convert::Into<std::boxed::Box<crate::model::CELExpression>>,
     >(
@@ -3882,6 +5106,12 @@ impl CELExpression {
     }
 
     /// Sets the value of [expression][crate::model::CELExpression::expression].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CELExpression;
+    /// let x = CELExpression::new().set_expression("example");
+    /// ```
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
@@ -3891,6 +5121,14 @@ impl CELExpression {
     ///
     /// Note that all the setters affecting `criteria` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CELExpression;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::StringList;
+    /// let x = CELExpression::new().set_criteria(Some(
+    ///     google_cloud_cloudsecuritycompliance_v1::model::cel_expression::Criteria::ResourceTypesValues(StringList::default().into())));
+    /// ```
     pub fn set_criteria<
         T: std::convert::Into<std::option::Option<crate::model::cel_expression::Criteria>>,
     >(
@@ -3921,6 +5159,14 @@ impl CELExpression {
     ///
     /// Note that all the setters affecting `criteria` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CELExpression;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::StringList;
+    /// let x = CELExpression::new().set_resource_types_values(StringList::default()/* use setters */);
+    /// assert!(x.resource_types_values().is_some());
+    /// ```
     pub fn set_resource_types_values<
         T: std::convert::Into<std::boxed::Box<crate::model::StringList>>,
     >(
@@ -3996,6 +5242,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4005,6 +5258,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4014,6 +5275,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4023,6 +5291,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4032,30 +5308,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -4087,12 +5393,24 @@ impl ControlFamily {
     }
 
     /// Sets the value of [family_id][crate::model::ControlFamily::family_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlFamily;
+    /// let x = ControlFamily::new().set_family_id("example");
+    /// ```
     pub fn set_family_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.family_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ControlFamily::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlFamily;
+    /// let x = ControlFamily::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -4134,18 +5452,36 @@ impl ListFrameworksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFrameworksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworksRequest;
+    /// let x = ListFrameworksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFrameworksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworksRequest;
+    /// let x = ListFrameworksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFrameworksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworksRequest;
+    /// let x = ListFrameworksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4179,6 +5515,17 @@ impl ListFrameworksResponse {
     }
 
     /// Sets the value of [frameworks][crate::model::ListFrameworksResponse::frameworks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworksResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = ListFrameworksResponse::new()
+    ///     .set_frameworks([
+    ///         Framework::default()/* use setters */,
+    ///         Framework::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4190,6 +5537,12 @@ impl ListFrameworksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFrameworksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworksResponse;
+    /// let x = ListFrameworksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4238,12 +5591,24 @@ impl GetFrameworkRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFrameworkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GetFrameworkRequest;
+    /// let x = GetFrameworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::GetFrameworkRequest::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GetFrameworkRequest;
+    /// let x = GetFrameworkRequest::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
@@ -4281,18 +5646,37 @@ impl CreateFrameworkRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFrameworkRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkRequest;
+    /// let x = CreateFrameworkRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [framework_id][crate::model::CreateFrameworkRequest::framework_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkRequest;
+    /// let x = CreateFrameworkRequest::new().set_framework_id("example");
+    /// ```
     pub fn set_framework_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework_id = v.into();
         self
     }
 
     /// Sets the value of [framework][crate::model::CreateFrameworkRequest::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = CreateFrameworkRequest::new().set_framework(Framework::default()/* use setters */);
+    /// ```
     pub fn set_framework<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Framework>,
@@ -4302,6 +5686,14 @@ impl CreateFrameworkRequest {
     }
 
     /// Sets or clears the value of [framework][crate::model::CreateFrameworkRequest::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = CreateFrameworkRequest::new().set_or_clear_framework(Some(Framework::default()/* use setters */));
+    /// let x = CreateFrameworkRequest::new().set_or_clear_framework(None::<Framework>);
+    /// ```
     pub fn set_or_clear_framework<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Framework>,
@@ -4343,6 +5735,13 @@ impl UpdateFrameworkRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFrameworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateFrameworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFrameworkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4352,6 +5751,14 @@ impl UpdateFrameworkRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFrameworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateFrameworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFrameworkRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFrameworkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4361,6 +5768,13 @@ impl UpdateFrameworkRequest {
     }
 
     /// Sets the value of [framework][crate::model::UpdateFrameworkRequest::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateFrameworkRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = UpdateFrameworkRequest::new().set_framework(Framework::default()/* use setters */);
+    /// ```
     pub fn set_framework<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Framework>,
@@ -4370,6 +5784,14 @@ impl UpdateFrameworkRequest {
     }
 
     /// Sets or clears the value of [framework][crate::model::UpdateFrameworkRequest::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateFrameworkRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// let x = UpdateFrameworkRequest::new().set_or_clear_framework(Some(Framework::default()/* use setters */));
+    /// let x = UpdateFrameworkRequest::new().set_or_clear_framework(None::<Framework>);
+    /// ```
     pub fn set_or_clear_framework<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Framework>,
@@ -4379,6 +5801,12 @@ impl UpdateFrameworkRequest {
     }
 
     /// Sets the value of [major_revision_id][crate::model::UpdateFrameworkRequest::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateFrameworkRequest;
+    /// let x = UpdateFrameworkRequest::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
@@ -4409,6 +5837,12 @@ impl DeleteFrameworkRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFrameworkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::DeleteFrameworkRequest;
+    /// let x = DeleteFrameworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4457,18 +5891,36 @@ impl ListCloudControlsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCloudControlsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlsRequest;
+    /// let x = ListCloudControlsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCloudControlsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlsRequest;
+    /// let x = ListCloudControlsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCloudControlsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlsRequest;
+    /// let x = ListCloudControlsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4501,6 +5953,17 @@ impl ListCloudControlsResponse {
     }
 
     /// Sets the value of [cloud_controls][crate::model::ListCloudControlsResponse::cloud_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlsResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = ListCloudControlsResponse::new()
+    ///     .set_cloud_controls([
+    ///         CloudControl::default()/* use setters */,
+    ///         CloudControl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4512,6 +5975,12 @@ impl ListCloudControlsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCloudControlsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlsResponse;
+    /// let x = ListCloudControlsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4560,12 +6029,24 @@ impl GetCloudControlRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCloudControlRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GetCloudControlRequest;
+    /// let x = GetCloudControlRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::GetCloudControlRequest::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GetCloudControlRequest;
+    /// let x = GetCloudControlRequest::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
@@ -4604,12 +6085,24 @@ impl CreateCloudControlRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCloudControlRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateCloudControlRequest;
+    /// let x = CreateCloudControlRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cloud_control_id][crate::model::CreateCloudControlRequest::cloud_control_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateCloudControlRequest;
+    /// let x = CreateCloudControlRequest::new().set_cloud_control_id("example");
+    /// ```
     pub fn set_cloud_control_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4619,6 +6112,13 @@ impl CreateCloudControlRequest {
     }
 
     /// Sets the value of [cloud_control][crate::model::CreateCloudControlRequest::cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateCloudControlRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CreateCloudControlRequest::new().set_cloud_control(CloudControl::default()/* use setters */);
+    /// ```
     pub fn set_cloud_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudControl>,
@@ -4628,6 +6128,14 @@ impl CreateCloudControlRequest {
     }
 
     /// Sets or clears the value of [cloud_control][crate::model::CreateCloudControlRequest::cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateCloudControlRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CreateCloudControlRequest::new().set_or_clear_cloud_control(Some(CloudControl::default()/* use setters */));
+    /// let x = CreateCloudControlRequest::new().set_or_clear_cloud_control(None::<CloudControl>);
+    /// ```
     pub fn set_or_clear_cloud_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudControl>,
@@ -4675,6 +6183,13 @@ impl UpdateCloudControlRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCloudControlRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCloudControlRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCloudControlRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4684,6 +6199,14 @@ impl UpdateCloudControlRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCloudControlRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCloudControlRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCloudControlRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCloudControlRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4693,6 +6216,13 @@ impl UpdateCloudControlRequest {
     }
 
     /// Sets the value of [cloud_control][crate::model::UpdateCloudControlRequest::cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCloudControlRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = UpdateCloudControlRequest::new().set_cloud_control(CloudControl::default()/* use setters */);
+    /// ```
     pub fn set_cloud_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudControl>,
@@ -4702,6 +6232,14 @@ impl UpdateCloudControlRequest {
     }
 
     /// Sets or clears the value of [cloud_control][crate::model::UpdateCloudControlRequest::cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::UpdateCloudControlRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = UpdateCloudControlRequest::new().set_or_clear_cloud_control(Some(CloudControl::default()/* use setters */));
+    /// let x = UpdateCloudControlRequest::new().set_or_clear_cloud_control(None::<CloudControl>);
+    /// ```
     pub fn set_or_clear_cloud_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudControl>,
@@ -4735,6 +6273,12 @@ impl DeleteCloudControlRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCloudControlRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::DeleteCloudControlRequest;
+    /// let x = DeleteCloudControlRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4830,12 +6374,25 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [name][crate::model::FrameworkDeployment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = FrameworkDeployment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_resource_config][crate::model::FrameworkDeployment::target_resource_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceConfig;
+    /// let x = FrameworkDeployment::new().set_target_resource_config(TargetResourceConfig::default()/* use setters */);
+    /// ```
     pub fn set_target_resource_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetResourceConfig>,
@@ -4845,6 +6402,14 @@ impl FrameworkDeployment {
     }
 
     /// Sets or clears the value of [target_resource_config][crate::model::FrameworkDeployment::target_resource_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceConfig;
+    /// let x = FrameworkDeployment::new().set_or_clear_target_resource_config(Some(TargetResourceConfig::default()/* use setters */));
+    /// let x = FrameworkDeployment::new().set_or_clear_target_resource_config(None::<TargetResourceConfig>);
+    /// ```
     pub fn set_or_clear_target_resource_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetResourceConfig>,
@@ -4854,6 +6419,12 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [computed_target_resource][crate::model::FrameworkDeployment::computed_target_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = FrameworkDeployment::new().set_computed_target_resource("example");
+    /// ```
     pub fn set_computed_target_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4863,6 +6434,13 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [framework][crate::model::FrameworkDeployment::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
+    /// let x = FrameworkDeployment::new().set_framework(FrameworkReference::default()/* use setters */);
+    /// ```
     pub fn set_framework<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkReference>,
@@ -4872,6 +6450,14 @@ impl FrameworkDeployment {
     }
 
     /// Sets or clears the value of [framework][crate::model::FrameworkDeployment::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
+    /// let x = FrameworkDeployment::new().set_or_clear_framework(Some(FrameworkReference::default()/* use setters */));
+    /// let x = FrameworkDeployment::new().set_or_clear_framework(None::<FrameworkReference>);
+    /// ```
     pub fn set_or_clear_framework<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkReference>,
@@ -4881,12 +6467,29 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [description][crate::model::FrameworkDeployment::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = FrameworkDeployment::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [cloud_control_metadata][crate::model::FrameworkDeployment::cloud_control_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlMetadata;
+    /// let x = FrameworkDeployment::new()
+    ///     .set_cloud_control_metadata([
+    ///         CloudControlMetadata::default()/* use setters */,
+    ///         CloudControlMetadata::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_metadata<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4898,6 +6501,15 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [deployment_state][crate::model::FrameworkDeployment::deployment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::DeploymentState;
+    /// let x0 = FrameworkDeployment::new().set_deployment_state(DeploymentState::Validating);
+    /// let x1 = FrameworkDeployment::new().set_deployment_state(DeploymentState::Creating);
+    /// let x2 = FrameworkDeployment::new().set_deployment_state(DeploymentState::Deleting);
+    /// ```
     pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -4907,6 +6519,13 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [create_time][crate::model::FrameworkDeployment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkDeployment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4916,6 +6535,14 @@ impl FrameworkDeployment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::FrameworkDeployment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkDeployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FrameworkDeployment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4925,6 +6552,13 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [update_time][crate::model::FrameworkDeployment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkDeployment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4934,6 +6568,14 @@ impl FrameworkDeployment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FrameworkDeployment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkDeployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FrameworkDeployment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4943,12 +6585,24 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [etag][crate::model::FrameworkDeployment::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = FrameworkDeployment::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [target_resource_display_name][crate::model::FrameworkDeployment::target_resource_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = FrameworkDeployment::new().set_target_resource_display_name("example");
+    /// ```
     pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4958,6 +6612,17 @@ impl FrameworkDeployment {
     }
 
     /// Sets the value of [cloud_control_deployment_references][crate::model::FrameworkDeployment::cloud_control_deployment_references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeploymentReference;
+    /// let x = FrameworkDeployment::new()
+    ///     .set_cloud_control_deployment_references([
+    ///         CloudControlDeploymentReference::default()/* use setters */,
+    ///         CloudControlDeploymentReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_deployment_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5041,12 +6706,25 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [name][crate::model::CloudControlDeployment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// let x = CloudControlDeployment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_resource_config][crate::model::CloudControlDeployment::target_resource_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceConfig;
+    /// let x = CloudControlDeployment::new().set_target_resource_config(TargetResourceConfig::default()/* use setters */);
+    /// ```
     pub fn set_target_resource_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetResourceConfig>,
@@ -5056,6 +6734,14 @@ impl CloudControlDeployment {
     }
 
     /// Sets or clears the value of [target_resource_config][crate::model::CloudControlDeployment::target_resource_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceConfig;
+    /// let x = CloudControlDeployment::new().set_or_clear_target_resource_config(Some(TargetResourceConfig::default()/* use setters */));
+    /// let x = CloudControlDeployment::new().set_or_clear_target_resource_config(None::<TargetResourceConfig>);
+    /// ```
     pub fn set_or_clear_target_resource_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetResourceConfig>,
@@ -5065,12 +6751,25 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [target_resource][crate::model::CloudControlDeployment::target_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// let x = CloudControlDeployment::new().set_target_resource("example");
+    /// ```
     pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_resource = v.into();
         self
     }
 
     /// Sets the value of [cloud_control_metadata][crate::model::CloudControlDeployment::cloud_control_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlMetadata;
+    /// let x = CloudControlDeployment::new().set_cloud_control_metadata(CloudControlMetadata::default()/* use setters */);
+    /// ```
     pub fn set_cloud_control_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudControlMetadata>,
@@ -5080,6 +6779,14 @@ impl CloudControlDeployment {
     }
 
     /// Sets or clears the value of [cloud_control_metadata][crate::model::CloudControlDeployment::cloud_control_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlMetadata;
+    /// let x = CloudControlDeployment::new().set_or_clear_cloud_control_metadata(Some(CloudControlMetadata::default()/* use setters */));
+    /// let x = CloudControlDeployment::new().set_or_clear_cloud_control_metadata(None::<CloudControlMetadata>);
+    /// ```
     pub fn set_or_clear_cloud_control_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudControlMetadata>,
@@ -5089,12 +6796,27 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [description][crate::model::CloudControlDeployment::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// let x = CloudControlDeployment::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [deployment_state][crate::model::CloudControlDeployment::deployment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::DeploymentState;
+    /// let x0 = CloudControlDeployment::new().set_deployment_state(DeploymentState::Validating);
+    /// let x1 = CloudControlDeployment::new().set_deployment_state(DeploymentState::Creating);
+    /// let x2 = CloudControlDeployment::new().set_deployment_state(DeploymentState::Deleting);
+    /// ```
     pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -5104,6 +6826,13 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [create_time][crate::model::CloudControlDeployment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use wkt::Timestamp;
+    /// let x = CloudControlDeployment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5113,6 +6842,14 @@ impl CloudControlDeployment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CloudControlDeployment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use wkt::Timestamp;
+    /// let x = CloudControlDeployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloudControlDeployment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5122,6 +6859,13 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [update_time][crate::model::CloudControlDeployment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use wkt::Timestamp;
+    /// let x = CloudControlDeployment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5131,6 +6875,14 @@ impl CloudControlDeployment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CloudControlDeployment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use wkt::Timestamp;
+    /// let x = CloudControlDeployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloudControlDeployment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5140,12 +6892,25 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [etag][crate::model::CloudControlDeployment::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// let x = CloudControlDeployment::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [parameter_substituted_cloud_control][crate::model::CloudControlDeployment::parameter_substituted_cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControlDeployment::new().set_parameter_substituted_cloud_control(CloudControl::default()/* use setters */);
+    /// ```
     pub fn set_parameter_substituted_cloud_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudControl>,
@@ -5155,6 +6920,14 @@ impl CloudControlDeployment {
     }
 
     /// Sets or clears the value of [parameter_substituted_cloud_control][crate::model::CloudControlDeployment::parameter_substituted_cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// let x = CloudControlDeployment::new().set_or_clear_parameter_substituted_cloud_control(Some(CloudControl::default()/* use setters */));
+    /// let x = CloudControlDeployment::new().set_or_clear_parameter_substituted_cloud_control(None::<CloudControl>);
+    /// ```
     pub fn set_or_clear_parameter_substituted_cloud_control<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5167,6 +6940,17 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [framework_deployment_references][crate::model::CloudControlDeployment::framework_deployment_references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
+    /// let x = CloudControlDeployment::new()
+    ///     .set_framework_deployment_references([
+    ///         FrameworkDeploymentReference::default()/* use setters */,
+    ///         FrameworkDeploymentReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_framework_deployment_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5178,6 +6962,12 @@ impl CloudControlDeployment {
     }
 
     /// Sets the value of [target_resource_display_name][crate::model::CloudControlDeployment::target_resource_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// let x = CloudControlDeployment::new().set_target_resource_display_name("example");
+    /// ```
     pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5213,6 +7003,13 @@ impl TargetResourceConfig {
     ///
     /// Note that all the setters affecting `resource_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceConfig;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::target_resource_config::ResourceConfig;
+    /// let x = TargetResourceConfig::new().set_resource_config(Some(ResourceConfig::ExistingTargetResource("example".to_string())));
+    /// ```
     pub fn set_resource_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::target_resource_config::ResourceConfig>,
@@ -5243,6 +7040,14 @@ impl TargetResourceConfig {
     ///
     /// Note that all the setters affecting `resource_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceConfig;
+    /// let x = TargetResourceConfig::new().set_existing_target_resource("example");
+    /// assert!(x.existing_target_resource().is_some());
+    /// assert!(x.target_resource_creation_config().is_none());
+    /// ```
     pub fn set_existing_target_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5273,6 +7078,15 @@ impl TargetResourceConfig {
     ///
     /// Note that all the setters affecting `resource_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceConfig;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceCreationConfig;
+    /// let x = TargetResourceConfig::new().set_target_resource_creation_config(TargetResourceCreationConfig::default()/* use setters */);
+    /// assert!(x.target_resource_creation_config().is_some());
+    /// assert!(x.existing_target_resource().is_none());
+    /// ```
     pub fn set_target_resource_creation_config<
         T: std::convert::Into<std::boxed::Box<crate::model::TargetResourceCreationConfig>>,
     >(
@@ -5335,6 +7149,14 @@ impl TargetResourceCreationConfig {
     ///
     /// Note that all the setters affecting `resource_creation_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceCreationConfig;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FolderCreationConfig;
+    /// let x = TargetResourceCreationConfig::new().set_resource_creation_config(Some(
+    ///     google_cloud_cloudsecuritycompliance_v1::model::target_resource_creation_config::ResourceCreationConfig::FolderCreationConfig(FolderCreationConfig::default().into())));
+    /// ```
     pub fn set_resource_creation_config<
         T: std::convert::Into<
                 std::option::Option<
@@ -5367,6 +7189,15 @@ impl TargetResourceCreationConfig {
     ///
     /// Note that all the setters affecting `resource_creation_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceCreationConfig;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FolderCreationConfig;
+    /// let x = TargetResourceCreationConfig::new().set_folder_creation_config(FolderCreationConfig::default()/* use setters */);
+    /// assert!(x.folder_creation_config().is_some());
+    /// assert!(x.project_creation_config().is_none());
+    /// ```
     pub fn set_folder_creation_config<
         T: std::convert::Into<std::boxed::Box<crate::model::FolderCreationConfig>>,
     >(
@@ -5399,6 +7230,15 @@ impl TargetResourceCreationConfig {
     ///
     /// Note that all the setters affecting `resource_creation_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceCreationConfig;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ProjectCreationConfig;
+    /// let x = TargetResourceCreationConfig::new().set_project_creation_config(ProjectCreationConfig::default()/* use setters */);
+    /// assert!(x.project_creation_config().is_some());
+    /// assert!(x.folder_creation_config().is_none());
+    /// ```
     pub fn set_project_creation_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ProjectCreationConfig>>,
     >(
@@ -5457,12 +7297,24 @@ impl FolderCreationConfig {
     }
 
     /// Sets the value of [parent][crate::model::FolderCreationConfig::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FolderCreationConfig;
+    /// let x = FolderCreationConfig::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [folder_display_name][crate::model::FolderCreationConfig::folder_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FolderCreationConfig;
+    /// let x = FolderCreationConfig::new().set_folder_display_name("example");
+    /// ```
     pub fn set_folder_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5502,12 +7354,24 @@ impl ProjectCreationConfig {
     }
 
     /// Sets the value of [parent][crate::model::ProjectCreationConfig::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ProjectCreationConfig;
+    /// let x = ProjectCreationConfig::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [project_display_name][crate::model::ProjectCreationConfig::project_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ProjectCreationConfig;
+    /// let x = ProjectCreationConfig::new().set_project_display_name("example");
+    /// ```
     pub fn set_project_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5517,6 +7381,12 @@ impl ProjectCreationConfig {
     }
 
     /// Sets the value of [billing_account_id][crate::model::ProjectCreationConfig::billing_account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ProjectCreationConfig;
+    /// let x = ProjectCreationConfig::new().set_billing_account_id("example");
+    /// ```
     pub fn set_billing_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5552,6 +7422,13 @@ impl CloudControlMetadata {
     }
 
     /// Sets the value of [cloud_control_details][crate::model::CloudControlMetadata::cloud_control_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlMetadata;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDetails;
+    /// let x = CloudControlMetadata::new().set_cloud_control_details(CloudControlDetails::default()/* use setters */);
+    /// ```
     pub fn set_cloud_control_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudControlDetails>,
@@ -5561,6 +7438,14 @@ impl CloudControlMetadata {
     }
 
     /// Sets or clears the value of [cloud_control_details][crate::model::CloudControlMetadata::cloud_control_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlMetadata;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDetails;
+    /// let x = CloudControlMetadata::new().set_or_clear_cloud_control_details(Some(CloudControlDetails::default()/* use setters */));
+    /// let x = CloudControlMetadata::new().set_or_clear_cloud_control_details(None::<CloudControlDetails>);
+    /// ```
     pub fn set_or_clear_cloud_control_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudControlDetails>,
@@ -5570,6 +7455,15 @@ impl CloudControlMetadata {
     }
 
     /// Sets the value of [enforcement_mode][crate::model::CloudControlMetadata::enforcement_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlMetadata;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EnforcementMode;
+    /// let x0 = CloudControlMetadata::new().set_enforcement_mode(EnforcementMode::Preventive);
+    /// let x1 = CloudControlMetadata::new().set_enforcement_mode(EnforcementMode::Detective);
+    /// let x2 = CloudControlMetadata::new().set_enforcement_mode(EnforcementMode::Audit);
+    /// ```
     pub fn set_enforcement_mode<T: std::convert::Into<crate::model::EnforcementMode>>(
         mut self,
         v: T,
@@ -5611,12 +7505,24 @@ impl CreateFrameworkDeploymentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFrameworkDeploymentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkDeploymentRequest;
+    /// let x = CreateFrameworkDeploymentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [framework_deployment_id][crate::model::CreateFrameworkDeploymentRequest::framework_deployment_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkDeploymentRequest;
+    /// let x = CreateFrameworkDeploymentRequest::new().set_framework_deployment_id("example");
+    /// ```
     pub fn set_framework_deployment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5626,6 +7532,13 @@ impl CreateFrameworkDeploymentRequest {
     }
 
     /// Sets the value of [framework_deployment][crate::model::CreateFrameworkDeploymentRequest::framework_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkDeploymentRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = CreateFrameworkDeploymentRequest::new().set_framework_deployment(FrameworkDeployment::default()/* use setters */);
+    /// ```
     pub fn set_framework_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkDeployment>,
@@ -5635,6 +7548,14 @@ impl CreateFrameworkDeploymentRequest {
     }
 
     /// Sets or clears the value of [framework_deployment][crate::model::CreateFrameworkDeploymentRequest::framework_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CreateFrameworkDeploymentRequest;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = CreateFrameworkDeploymentRequest::new().set_or_clear_framework_deployment(Some(FrameworkDeployment::default()/* use setters */));
+    /// let x = CreateFrameworkDeploymentRequest::new().set_or_clear_framework_deployment(None::<FrameworkDeployment>);
+    /// ```
     pub fn set_or_clear_framework_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkDeployment>,
@@ -5679,12 +7600,24 @@ impl DeleteFrameworkDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFrameworkDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::DeleteFrameworkDeploymentRequest;
+    /// let x = DeleteFrameworkDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteFrameworkDeploymentRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::DeleteFrameworkDeploymentRequest;
+    /// let x = DeleteFrameworkDeploymentRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5715,6 +7648,12 @@ impl GetFrameworkDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFrameworkDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GetFrameworkDeploymentRequest;
+    /// let x = GetFrameworkDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5767,30 +7706,60 @@ impl ListFrameworkDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFrameworkDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsRequest;
+    /// let x = ListFrameworkDeploymentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFrameworkDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsRequest;
+    /// let x = ListFrameworkDeploymentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFrameworkDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsRequest;
+    /// let x = ListFrameworkDeploymentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFrameworkDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsRequest;
+    /// let x = ListFrameworkDeploymentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListFrameworkDeploymentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsRequest;
+    /// let x = ListFrameworkDeploymentsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5823,6 +7792,17 @@ impl ListFrameworkDeploymentsResponse {
     }
 
     /// Sets the value of [framework_deployments][crate::model::ListFrameworkDeploymentsResponse::framework_deployments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// let x = ListFrameworkDeploymentsResponse::new()
+    ///     .set_framework_deployments([
+    ///         FrameworkDeployment::default()/* use setters */,
+    ///         FrameworkDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_framework_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5834,6 +7814,12 @@ impl ListFrameworkDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFrameworkDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkDeploymentsResponse;
+    /// let x = ListFrameworkDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5878,6 +7864,12 @@ impl GetCloudControlDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCloudControlDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::GetCloudControlDeploymentRequest;
+    /// let x = GetCloudControlDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5930,30 +7922,60 @@ impl ListCloudControlDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCloudControlDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsRequest;
+    /// let x = ListCloudControlDeploymentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCloudControlDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsRequest;
+    /// let x = ListCloudControlDeploymentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCloudControlDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsRequest;
+    /// let x = ListCloudControlDeploymentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCloudControlDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsRequest;
+    /// let x = ListCloudControlDeploymentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCloudControlDeploymentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsRequest;
+    /// let x = ListCloudControlDeploymentsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5986,6 +8008,17 @@ impl ListCloudControlDeploymentsResponse {
     }
 
     /// Sets the value of [cloud_control_deployments][crate::model::ListCloudControlDeploymentsResponse::cloud_control_deployments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeployment;
+    /// let x = ListCloudControlDeploymentsResponse::new()
+    ///     .set_cloud_control_deployments([
+    ///         CloudControlDeployment::default()/* use setters */,
+    ///         CloudControlDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5997,6 +8030,12 @@ impl ListCloudControlDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCloudControlDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListCloudControlDeploymentsResponse;
+    /// let x = ListCloudControlDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6041,6 +8080,12 @@ impl CloudControlDeploymentReference {
     }
 
     /// Sets the value of [cloud_control_deployment][crate::model::CloudControlDeploymentReference::cloud_control_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlDeploymentReference;
+    /// let x = CloudControlDeploymentReference::new().set_cloud_control_deployment("example");
+    /// ```
     pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6092,6 +8137,12 @@ impl FrameworkDeploymentReference {
     }
 
     /// Sets the value of [framework_deployment][crate::model::FrameworkDeploymentReference::framework_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
+    /// let x = FrameworkDeploymentReference::new().set_framework_deployment("example");
+    /// ```
     pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6101,6 +8152,13 @@ impl FrameworkDeploymentReference {
     }
 
     /// Sets the value of [framework_reference][crate::model::FrameworkDeploymentReference::framework_reference].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
+    /// let x = FrameworkDeploymentReference::new().set_framework_reference(FrameworkReference::default()/* use setters */);
+    /// ```
     pub fn set_framework_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkReference>,
@@ -6110,6 +8168,14 @@ impl FrameworkDeploymentReference {
     }
 
     /// Sets or clears the value of [framework_reference][crate::model::FrameworkDeploymentReference::framework_reference].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkReference;
+    /// let x = FrameworkDeploymentReference::new().set_or_clear_framework_reference(Some(FrameworkReference::default()/* use setters */));
+    /// let x = FrameworkDeploymentReference::new().set_or_clear_framework_reference(None::<FrameworkReference>);
+    /// ```
     pub fn set_or_clear_framework_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FrameworkReference>,
@@ -6119,6 +8185,12 @@ impl FrameworkDeploymentReference {
     }
 
     /// Sets the value of [framework_display_name][crate::model::FrameworkDeploymentReference::framework_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeploymentReference;
+    /// let x = FrameworkDeploymentReference::new().set_framework_display_name("example");
+    /// ```
     pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6164,24 +8236,48 @@ impl ListFrameworkComplianceSummariesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFrameworkComplianceSummariesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesRequest;
+    /// let x = ListFrameworkComplianceSummariesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFrameworkComplianceSummariesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesRequest;
+    /// let x = ListFrameworkComplianceSummariesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFrameworkComplianceSummariesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesRequest;
+    /// let x = ListFrameworkComplianceSummariesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFrameworkComplianceSummariesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesRequest;
+    /// let x = ListFrameworkComplianceSummariesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -6216,6 +8312,17 @@ impl ListFrameworkComplianceSummariesResponse {
     }
 
     /// Sets the value of [framework_compliance_summaries][crate::model::ListFrameworkComplianceSummariesResponse::framework_compliance_summaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// let x = ListFrameworkComplianceSummariesResponse::new()
+    ///     .set_framework_compliance_summaries([
+    ///         FrameworkComplianceSummary::default()/* use setters */,
+    ///         FrameworkComplianceSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_framework_compliance_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6227,6 +8334,12 @@ impl ListFrameworkComplianceSummariesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFrameworkComplianceSummariesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFrameworkComplianceSummariesResponse;
+    /// let x = ListFrameworkComplianceSummariesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6302,12 +8415,24 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [framework][crate::model::FrameworkComplianceReport::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// let x = FrameworkComplianceReport::new().set_framework("example");
+    /// ```
     pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework = v.into();
         self
     }
 
     /// Sets the value of [framework_description][crate::model::FrameworkComplianceReport::framework_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// let x = FrameworkComplianceReport::new().set_framework_description("example");
+    /// ```
     pub fn set_framework_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6317,6 +8442,13 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [update_time][crate::model::FrameworkComplianceReport::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkComplianceReport::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6326,6 +8458,14 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FrameworkComplianceReport::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use wkt::Timestamp;
+    /// let x = FrameworkComplianceReport::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FrameworkComplianceReport::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6335,6 +8475,13 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [control_assessment_details][crate::model::FrameworkComplianceReport::control_assessment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = FrameworkComplianceReport::new().set_control_assessment_details(ControlAssessmentDetails::default()/* use setters */);
+    /// ```
     pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ControlAssessmentDetails>,
@@ -6344,6 +8491,14 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets or clears the value of [control_assessment_details][crate::model::FrameworkComplianceReport::control_assessment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = FrameworkComplianceReport::new().set_or_clear_control_assessment_details(Some(ControlAssessmentDetails::default()/* use setters */));
+    /// let x = FrameworkComplianceReport::new().set_or_clear_control_assessment_details(None::<ControlAssessmentDetails>);
+    /// ```
     pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ControlAssessmentDetails>,
@@ -6353,6 +8508,14 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [framework_type][crate::model::FrameworkComplianceReport::framework_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::framework::FrameworkType;
+    /// let x0 = FrameworkComplianceReport::new().set_framework_type(FrameworkType::BuiltIn);
+    /// let x1 = FrameworkComplianceReport::new().set_framework_type(FrameworkType::Custom);
+    /// ```
     pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
         mut self,
         v: T,
@@ -6362,6 +8525,17 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [supported_cloud_providers][crate::model::FrameworkComplianceReport::supported_cloud_providers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudProvider;
+    /// let x = FrameworkComplianceReport::new().set_supported_cloud_providers([
+    ///     CloudProvider::Aws,
+    ///     CloudProvider::Azure,
+    ///     CloudProvider::Gcp,
+    /// ]);
+    /// ```
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6373,6 +8547,17 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [framework_categories][crate::model::FrameworkComplianceReport::framework_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkCategory;
+    /// let x = FrameworkComplianceReport::new().set_framework_categories([
+    ///     FrameworkCategory::IndustryDefinedStandard,
+    ///     FrameworkCategory::AssuredWorkloads,
+    ///     FrameworkCategory::DataSecurity,
+    /// ]);
+    /// ```
     pub fn set_framework_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6384,6 +8569,12 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [framework_display_name][crate::model::FrameworkComplianceReport::framework_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// let x = FrameworkComplianceReport::new().set_framework_display_name("example");
+    /// ```
     pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6393,24 +8584,53 @@ impl FrameworkComplianceReport {
     }
 
     /// Sets the value of [name][crate::model::FrameworkComplianceReport::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// let x = FrameworkComplianceReport::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::FrameworkComplianceReport::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// let x = FrameworkComplianceReport::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
     }
 
     /// Sets the value of [minor_revision_id][crate::model::FrameworkComplianceReport::minor_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// let x = FrameworkComplianceReport::new().set_minor_revision_id(42);
+    /// ```
     pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.minor_revision_id = v.into();
         self
     }
 
     /// Sets the value of [target_resource_details][crate::model::FrameworkComplianceReport::target_resource_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// let x = FrameworkComplianceReport::new()
+    ///     .set_target_resource_details([
+    ///         TargetResourceDetails::default()/* use setters */,
+    ///         TargetResourceDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_target_resource_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6447,12 +8667,25 @@ impl FetchFrameworkComplianceReportRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchFrameworkComplianceReportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FetchFrameworkComplianceReportRequest;
+    /// let x = FetchFrameworkComplianceReportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [end_time][crate::model::FetchFrameworkComplianceReportRequest::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FetchFrameworkComplianceReportRequest;
+    /// use wkt::Timestamp;
+    /// let x = FetchFrameworkComplianceReportRequest::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6462,6 +8695,14 @@ impl FetchFrameworkComplianceReportRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::FetchFrameworkComplianceReportRequest::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FetchFrameworkComplianceReportRequest;
+    /// use wkt::Timestamp;
+    /// let x = FetchFrameworkComplianceReportRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FetchFrameworkComplianceReportRequest::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6508,30 +8749,61 @@ impl ListFindingSummariesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFindingSummariesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesRequest;
+    /// let x = ListFindingSummariesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFindingSummariesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesRequest;
+    /// let x = ListFindingSummariesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFindingSummariesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesRequest;
+    /// let x = ListFindingSummariesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFindingSummariesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesRequest;
+    /// let x = ListFindingSummariesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [end_time][crate::model::ListFindingSummariesRequest::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListFindingSummariesRequest::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
@@ -6542,6 +8814,14 @@ impl ListFindingSummariesRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ListFindingSummariesRequest::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListFindingSummariesRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ListFindingSummariesRequest::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6577,6 +8857,17 @@ impl ListFindingSummariesResponse {
     }
 
     /// Sets the value of [finding_summaries][crate::model::ListFindingSummariesResponse::finding_summaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// let x = ListFindingSummariesResponse::new()
+    ///     .set_finding_summaries([
+    ///         FindingSummary::default()/* use setters */,
+    ///         FindingSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_finding_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6588,6 +8879,12 @@ impl ListFindingSummariesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFindingSummariesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListFindingSummariesResponse;
+    /// let x = ListFindingSummariesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6645,12 +8942,25 @@ impl ListControlComplianceSummariesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListControlComplianceSummariesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesRequest;
+    /// let x = ListControlComplianceSummariesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [end_time][crate::model::ListControlComplianceSummariesRequest::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListControlComplianceSummariesRequest::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
@@ -6661,6 +8971,14 @@ impl ListControlComplianceSummariesRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ListControlComplianceSummariesRequest::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListControlComplianceSummariesRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ListControlComplianceSummariesRequest::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6671,18 +8989,36 @@ impl ListControlComplianceSummariesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListControlComplianceSummariesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesRequest;
+    /// let x = ListControlComplianceSummariesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListControlComplianceSummariesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesRequest;
+    /// let x = ListControlComplianceSummariesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListControlComplianceSummariesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesRequest;
+    /// let x = ListControlComplianceSummariesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -6714,6 +9050,17 @@ impl ListControlComplianceSummariesResponse {
     }
 
     /// Sets the value of [control_compliance_summaries][crate::model::ListControlComplianceSummariesResponse::control_compliance_summaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ListControlComplianceSummariesResponse::new()
+    ///     .set_control_compliance_summaries([
+    ///         ControlComplianceSummary::default()/* use setters */,
+    ///         ControlComplianceSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_control_compliance_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6725,6 +9072,12 @@ impl ListControlComplianceSummariesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListControlComplianceSummariesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ListControlComplianceSummariesResponse;
+    /// let x = ListControlComplianceSummariesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6778,12 +9131,25 @@ impl AggregateFrameworkComplianceReportRequest {
     }
 
     /// Sets the value of [name][crate::model::AggregateFrameworkComplianceReportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportRequest;
+    /// let x = AggregateFrameworkComplianceReportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [interval][crate::model::AggregateFrameworkComplianceReportRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportRequest;
+    /// use gtype::model::Interval;
+    /// let x = AggregateFrameworkComplianceReportRequest::new().set_interval(Interval::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -6793,6 +9159,14 @@ impl AggregateFrameworkComplianceReportRequest {
     }
 
     /// Sets or clears the value of [interval][crate::model::AggregateFrameworkComplianceReportRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportRequest;
+    /// use gtype::model::Interval;
+    /// let x = AggregateFrameworkComplianceReportRequest::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
+    /// let x = AggregateFrameworkComplianceReportRequest::new().set_or_clear_interval(None::<Interval>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -6802,6 +9176,12 @@ impl AggregateFrameworkComplianceReportRequest {
     }
 
     /// Sets the value of [filter][crate::model::AggregateFrameworkComplianceReportRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportRequest;
+    /// let x = AggregateFrameworkComplianceReportRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -6830,6 +9210,17 @@ impl AggregateFrameworkComplianceReportResponse {
     }
 
     /// Sets the value of [aggregated_compliance_reports][crate::model::AggregateFrameworkComplianceReportResponse::aggregated_compliance_reports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregateFrameworkComplianceReportResponse;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::AggregatedComplianceReport;
+    /// let x = AggregateFrameworkComplianceReportResponse::new()
+    ///     .set_aggregated_compliance_reports([
+    ///         AggregatedComplianceReport::default()/* use setters */,
+    ///         AggregatedComplianceReport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_aggregated_compliance_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6873,24 +9264,48 @@ impl ControlAssessmentDetails {
     }
 
     /// Sets the value of [passing_controls][crate::model::ControlAssessmentDetails::passing_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = ControlAssessmentDetails::new().set_passing_controls(42);
+    /// ```
     pub fn set_passing_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.passing_controls = v.into();
         self
     }
 
     /// Sets the value of [failing_controls][crate::model::ControlAssessmentDetails::failing_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = ControlAssessmentDetails::new().set_failing_controls(42);
+    /// ```
     pub fn set_failing_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.failing_controls = v.into();
         self
     }
 
     /// Sets the value of [assessed_passing_controls][crate::model::ControlAssessmentDetails::assessed_passing_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = ControlAssessmentDetails::new().set_assessed_passing_controls(42);
+    /// ```
     pub fn set_assessed_passing_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.assessed_passing_controls = v.into();
         self
     }
 
     /// Sets the value of [not_assessed_controls][crate::model::ControlAssessmentDetails::not_assessed_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = ControlAssessmentDetails::new().set_not_assessed_controls(42);
+    /// ```
     pub fn set_not_assessed_controls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.not_assessed_controls = v.into();
         self
@@ -6946,12 +9361,25 @@ impl FrameworkComplianceSummary {
     }
 
     /// Sets the value of [framework][crate::model::FrameworkComplianceSummary::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// let x = FrameworkComplianceSummary::new().set_framework("example");
+    /// ```
     pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework = v.into();
         self
     }
 
     /// Sets the value of [control_assessment_details][crate::model::FrameworkComplianceSummary::control_assessment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = FrameworkComplianceSummary::new().set_control_assessment_details(ControlAssessmentDetails::default()/* use setters */);
+    /// ```
     pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ControlAssessmentDetails>,
@@ -6961,6 +9389,14 @@ impl FrameworkComplianceSummary {
     }
 
     /// Sets or clears the value of [control_assessment_details][crate::model::FrameworkComplianceSummary::control_assessment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = FrameworkComplianceSummary::new().set_or_clear_control_assessment_details(Some(ControlAssessmentDetails::default()/* use setters */));
+    /// let x = FrameworkComplianceSummary::new().set_or_clear_control_assessment_details(None::<ControlAssessmentDetails>);
+    /// ```
     pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ControlAssessmentDetails>,
@@ -6970,6 +9406,14 @@ impl FrameworkComplianceSummary {
     }
 
     /// Sets the value of [framework_type][crate::model::FrameworkComplianceSummary::framework_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::framework::FrameworkType;
+    /// let x0 = FrameworkComplianceSummary::new().set_framework_type(FrameworkType::BuiltIn);
+    /// let x1 = FrameworkComplianceSummary::new().set_framework_type(FrameworkType::Custom);
+    /// ```
     pub fn set_framework_type<T: std::convert::Into<crate::model::framework::FrameworkType>>(
         mut self,
         v: T,
@@ -6979,6 +9423,17 @@ impl FrameworkComplianceSummary {
     }
 
     /// Sets the value of [supported_cloud_providers][crate::model::FrameworkComplianceSummary::supported_cloud_providers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudProvider;
+    /// let x = FrameworkComplianceSummary::new().set_supported_cloud_providers([
+    ///     CloudProvider::Aws,
+    ///     CloudProvider::Azure,
+    ///     CloudProvider::Gcp,
+    /// ]);
+    /// ```
     pub fn set_supported_cloud_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6990,6 +9445,17 @@ impl FrameworkComplianceSummary {
     }
 
     /// Sets the value of [framework_categories][crate::model::FrameworkComplianceSummary::framework_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkCategory;
+    /// let x = FrameworkComplianceSummary::new().set_framework_categories([
+    ///     FrameworkCategory::IndustryDefinedStandard,
+    ///     FrameworkCategory::AssuredWorkloads,
+    ///     FrameworkCategory::DataSecurity,
+    /// ]);
+    /// ```
     pub fn set_framework_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7001,6 +9467,12 @@ impl FrameworkComplianceSummary {
     }
 
     /// Sets the value of [framework_display_name][crate::model::FrameworkComplianceSummary::framework_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// let x = FrameworkComplianceSummary::new().set_framework_display_name("example");
+    /// ```
     pub fn set_framework_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7010,24 +9482,53 @@ impl FrameworkComplianceSummary {
     }
 
     /// Sets the value of [name][crate::model::FrameworkComplianceSummary::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// let x = FrameworkComplianceSummary::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [major_revision_id][crate::model::FrameworkComplianceSummary::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// let x = FrameworkComplianceSummary::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
     }
 
     /// Sets the value of [minor_revision_id][crate::model::FrameworkComplianceSummary::minor_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// let x = FrameworkComplianceSummary::new().set_minor_revision_id(42);
+    /// ```
     pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.minor_revision_id = v.into();
         self
     }
 
     /// Sets the value of [target_resource_details][crate::model::FrameworkComplianceSummary::target_resource_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FrameworkComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// let x = FrameworkComplianceSummary::new()
+    ///     .set_target_resource_details([
+    ///         TargetResourceDetails::default()/* use setters */,
+    ///         TargetResourceDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_target_resource_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7079,6 +9580,12 @@ impl FindingSummary {
     }
 
     /// Sets the value of [finding_category][crate::model::FindingSummary::finding_category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// let x = FindingSummary::new().set_finding_category("example");
+    /// ```
     pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7088,6 +9595,15 @@ impl FindingSummary {
     }
 
     /// Sets the value of [finding_class][crate::model::FindingSummary::finding_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FindingClass;
+    /// let x0 = FindingSummary::new().set_finding_class(FindingClass::Threat);
+    /// let x1 = FindingSummary::new().set_finding_class(FindingClass::Vulnerability);
+    /// let x2 = FindingSummary::new().set_finding_class(FindingClass::Misconfiguration);
+    /// ```
     pub fn set_finding_class<T: std::convert::Into<crate::model::FindingClass>>(
         mut self,
         v: T,
@@ -7097,18 +9613,40 @@ impl FindingSummary {
     }
 
     /// Sets the value of [severity][crate::model::FindingSummary::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Severity;
+    /// let x0 = FindingSummary::new().set_severity(Severity::Critical);
+    /// let x1 = FindingSummary::new().set_severity(Severity::High);
+    /// let x2 = FindingSummary::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [finding_count][crate::model::FindingSummary::finding_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// let x = FindingSummary::new().set_finding_count(42);
+    /// ```
     pub fn set_finding_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.finding_count = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::FindingSummary::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// use wkt::Timestamp;
+    /// let x = FindingSummary::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7118,6 +9656,14 @@ impl FindingSummary {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FindingSummary::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// use wkt::Timestamp;
+    /// let x = FindingSummary::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FindingSummary::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7127,6 +9673,12 @@ impl FindingSummary {
     }
 
     /// Sets the value of [related_frameworks][crate::model::FindingSummary::related_frameworks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// let x = FindingSummary::new().set_related_frameworks(["a", "b", "c"]);
+    /// ```
     pub fn set_related_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7138,6 +9690,12 @@ impl FindingSummary {
     }
 
     /// Sets the value of [name][crate::model::FindingSummary::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::FindingSummary;
+    /// let x = FindingSummary::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7197,24 +9755,51 @@ impl ControlComplianceSummary {
     }
 
     /// Sets the value of [control][crate::model::ControlComplianceSummary::control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ControlComplianceSummary::new().set_control("example");
+    /// ```
     pub fn set_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ControlComplianceSummary::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ControlComplianceSummary::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ControlComplianceSummary::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ControlComplianceSummary::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [overall_evaluation_state][crate::model::ControlComplianceSummary::overall_evaluation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EvaluationState;
+    /// let x0 = ControlComplianceSummary::new().set_overall_evaluation_state(EvaluationState::Passed);
+    /// let x1 = ControlComplianceSummary::new().set_overall_evaluation_state(EvaluationState::Failed);
+    /// let x2 = ControlComplianceSummary::new().set_overall_evaluation_state(EvaluationState::NotAssessed);
+    /// ```
     pub fn set_overall_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(
         mut self,
         v: T,
@@ -7224,12 +9809,24 @@ impl ControlComplianceSummary {
     }
 
     /// Sets the value of [total_findings_count][crate::model::ControlComplianceSummary::total_findings_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ControlComplianceSummary::new().set_total_findings_count(42);
+    /// ```
     pub fn set_total_findings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_findings_count = v.into();
         self
     }
 
     /// Sets the value of [compliance_frameworks][crate::model::ControlComplianceSummary::compliance_frameworks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ControlComplianceSummary::new().set_compliance_frameworks(["a", "b", "c"]);
+    /// ```
     pub fn set_compliance_frameworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7241,6 +9838,17 @@ impl ControlComplianceSummary {
     }
 
     /// Sets the value of [similar_controls][crate::model::ControlComplianceSummary::similar_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::SimilarControls;
+    /// let x = ControlComplianceSummary::new()
+    ///     .set_similar_controls([
+    ///         SimilarControls::default()/* use setters */,
+    ///         SimilarControls::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_similar_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7252,6 +9860,17 @@ impl ControlComplianceSummary {
     }
 
     /// Sets the value of [cloud_control_reports][crate::model::ControlComplianceSummary::cloud_control_reports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = ControlComplianceSummary::new()
+    ///     .set_cloud_control_reports([
+    ///         CloudControlReport::default()/* use setters */,
+    ///         CloudControlReport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_control_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7263,6 +9882,15 @@ impl ControlComplianceSummary {
     }
 
     /// Sets the value of [control_responsibility_type][crate::model::ControlComplianceSummary::control_responsibility_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::RegulatoryControlResponsibilityType;
+    /// let x0 = ControlComplianceSummary::new().set_control_responsibility_type(RegulatoryControlResponsibilityType::Google);
+    /// let x1 = ControlComplianceSummary::new().set_control_responsibility_type(RegulatoryControlResponsibilityType::Customer);
+    /// let x2 = ControlComplianceSummary::new().set_control_responsibility_type(RegulatoryControlResponsibilityType::Shared);
+    /// ```
     pub fn set_control_responsibility_type<
         T: std::convert::Into<crate::model::RegulatoryControlResponsibilityType>,
     >(
@@ -7274,12 +9902,24 @@ impl ControlComplianceSummary {
     }
 
     /// Sets the value of [is_fake_control][crate::model::ControlComplianceSummary::is_fake_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ControlComplianceSummary::new().set_is_fake_control(true);
+    /// ```
     pub fn set_is_fake_control<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_fake_control = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::ControlComplianceSummary::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ControlComplianceSummary;
+    /// let x = ControlComplianceSummary::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7351,24 +9991,48 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [cloud_control][crate::model::CloudControlReport::cloud_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_cloud_control("example");
+    /// ```
     pub fn set_cloud_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_control = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::CloudControlReport::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CloudControlReport::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [categories][crate::model::CloudControlReport::categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_categories(["a", "b", "c"]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7380,6 +10044,17 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [similar_controls][crate::model::CloudControlReport::similar_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::SimilarControls;
+    /// let x = CloudControlReport::new()
+    ///     .set_similar_controls([
+    ///         SimilarControls::default()/* use setters */,
+    ///         SimilarControls::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_similar_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7391,6 +10066,14 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [cloud_control_type][crate::model::CloudControlReport::cloud_control_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::cloud_control::Type;
+    /// let x0 = CloudControlReport::new().set_cloud_control_type(Type::Custom);
+    /// let x1 = CloudControlReport::new().set_cloud_control_type(Type::BuiltIn);
+    /// ```
     pub fn set_cloud_control_type<T: std::convert::Into<crate::model::cloud_control::Type>>(
         mut self,
         v: T,
@@ -7400,6 +10083,12 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [finding_category][crate::model::CloudControlReport::finding_category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_finding_category("example");
+    /// ```
     pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7409,6 +10098,17 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [rules][crate::model::CloudControlReport::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Rule;
+    /// let x = CloudControlReport::new()
+    ///     .set_rules([
+    ///         Rule::default()/* use setters */,
+    ///         Rule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7420,6 +10120,15 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [finding_severity][crate::model::CloudControlReport::finding_severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Severity;
+    /// let x0 = CloudControlReport::new().set_finding_severity(Severity::Critical);
+    /// let x1 = CloudControlReport::new().set_finding_severity(Severity::High);
+    /// let x2 = CloudControlReport::new().set_finding_severity(Severity::Medium);
+    /// ```
     pub fn set_finding_severity<T: std::convert::Into<crate::model::Severity>>(
         mut self,
         v: T,
@@ -7429,6 +10138,15 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [enforcement_mode][crate::model::CloudControlReport::enforcement_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EnforcementMode;
+    /// let x0 = CloudControlReport::new().set_enforcement_mode(EnforcementMode::Preventive);
+    /// let x1 = CloudControlReport::new().set_enforcement_mode(EnforcementMode::Detective);
+    /// let x2 = CloudControlReport::new().set_enforcement_mode(EnforcementMode::Audit);
+    /// ```
     pub fn set_enforcement_mode<T: std::convert::Into<crate::model::EnforcementMode>>(
         mut self,
         v: T,
@@ -7438,6 +10156,12 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [cloud_control_deployment][crate::model::CloudControlReport::cloud_control_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_cloud_control_deployment("example");
+    /// ```
     pub fn set_cloud_control_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7447,18 +10171,36 @@ impl CloudControlReport {
     }
 
     /// Sets the value of [major_revision_id][crate::model::CloudControlReport::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
     }
 
     /// Sets the value of [minor_revision_id][crate::model::CloudControlReport::minor_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_minor_revision_id(42);
+    /// ```
     pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.minor_revision_id = v.into();
         self
     }
 
     /// Sets the value of [framework_major_revision_ids][crate::model::CloudControlReport::framework_major_revision_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// let x = CloudControlReport::new().set_framework_major_revision_ids([1, 2, 3]);
+    /// ```
     pub fn set_framework_major_revision_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7473,6 +10215,14 @@ impl CloudControlReport {
     ///
     /// Note that all the setters affecting `assessment_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ManualCloudControlAssessmentDetails;
+    /// let x = CloudControlReport::new().set_assessment_details(Some(
+    ///     google_cloud_cloudsecuritycompliance_v1::model::cloud_control_report::AssessmentDetails::ManualCloudControlAssessmentDetails(ManualCloudControlAssessmentDetails::default().into())));
+    /// ```
     pub fn set_assessment_details<
         T: std::convert::Into<
                 std::option::Option<crate::model::cloud_control_report::AssessmentDetails>,
@@ -7504,6 +10254,15 @@ impl CloudControlReport {
     ///
     /// Note that all the setters affecting `assessment_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ManualCloudControlAssessmentDetails;
+    /// let x = CloudControlReport::new().set_manual_cloud_control_assessment_details(ManualCloudControlAssessmentDetails::default()/* use setters */);
+    /// assert!(x.manual_cloud_control_assessment_details().is_some());
+    /// assert!(x.cloud_control_assessment_details().is_none());
+    /// ```
     pub fn set_manual_cloud_control_assessment_details<
         T: std::convert::Into<std::boxed::Box<crate::model::ManualCloudControlAssessmentDetails>>,
     >(
@@ -7536,6 +10295,15 @@ impl CloudControlReport {
     ///
     /// Note that all the setters affecting `assessment_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAssessmentDetails;
+    /// let x = CloudControlReport::new().set_cloud_control_assessment_details(CloudControlAssessmentDetails::default()/* use setters */);
+    /// assert!(x.cloud_control_assessment_details().is_some());
+    /// assert!(x.manual_cloud_control_assessment_details().is_none());
+    /// ```
     pub fn set_cloud_control_assessment_details<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudControlAssessmentDetails>>,
     >(
@@ -7591,6 +10359,12 @@ impl ManualCloudControlAssessmentDetails {
     }
 
     /// Sets the value of [manual_cloud_control_guide][crate::model::ManualCloudControlAssessmentDetails::manual_cloud_control_guide].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::ManualCloudControlAssessmentDetails;
+    /// let x = ManualCloudControlAssessmentDetails::new().set_manual_cloud_control_guide(["a", "b", "c"]);
+    /// ```
     pub fn set_manual_cloud_control_guide<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7627,12 +10401,27 @@ impl CloudControlAssessmentDetails {
     }
 
     /// Sets the value of [findings_count][crate::model::CloudControlAssessmentDetails::findings_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAssessmentDetails;
+    /// let x = CloudControlAssessmentDetails::new().set_findings_count(42);
+    /// ```
     pub fn set_findings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.findings_count = v.into();
         self
     }
 
     /// Sets the value of [evaluation_state][crate::model::CloudControlAssessmentDetails::evaluation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::CloudControlAssessmentDetails;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::EvaluationState;
+    /// let x0 = CloudControlAssessmentDetails::new().set_evaluation_state(EvaluationState::Passed);
+    /// let x1 = CloudControlAssessmentDetails::new().set_evaluation_state(EvaluationState::Failed);
+    /// let x2 = CloudControlAssessmentDetails::new().set_evaluation_state(EvaluationState::NotAssessed);
+    /// ```
     pub fn set_evaluation_state<T: std::convert::Into<crate::model::EvaluationState>>(
         mut self,
         v: T,
@@ -7667,12 +10456,24 @@ impl SimilarControls {
     }
 
     /// Sets the value of [framework][crate::model::SimilarControls::framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::SimilarControls;
+    /// let x = SimilarControls::new().set_framework("example");
+    /// ```
     pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework = v.into();
         self
     }
 
     /// Sets the value of [control_id][crate::model::SimilarControls::control_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::SimilarControls;
+    /// let x = SimilarControls::new().set_control_id("example");
+    /// ```
     pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_id = v.into();
         self
@@ -7704,6 +10505,13 @@ impl AggregatedComplianceReport {
     }
 
     /// Sets the value of [control_assessment_details][crate::model::AggregatedComplianceReport::control_assessment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregatedComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = AggregatedComplianceReport::new().set_control_assessment_details(ControlAssessmentDetails::default()/* use setters */);
+    /// ```
     pub fn set_control_assessment_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ControlAssessmentDetails>,
@@ -7713,6 +10521,14 @@ impl AggregatedComplianceReport {
     }
 
     /// Sets or clears the value of [control_assessment_details][crate::model::AggregatedComplianceReport::control_assessment_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregatedComplianceReport;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::ControlAssessmentDetails;
+    /// let x = AggregatedComplianceReport::new().set_or_clear_control_assessment_details(Some(ControlAssessmentDetails::default()/* use setters */));
+    /// let x = AggregatedComplianceReport::new().set_or_clear_control_assessment_details(None::<ControlAssessmentDetails>);
+    /// ```
     pub fn set_or_clear_control_assessment_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ControlAssessmentDetails>,
@@ -7722,6 +10538,13 @@ impl AggregatedComplianceReport {
     }
 
     /// Sets the value of [report_time][crate::model::AggregatedComplianceReport::report_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregatedComplianceReport;
+    /// use wkt::Timestamp;
+    /// let x = AggregatedComplianceReport::new().set_report_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_report_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7731,6 +10554,14 @@ impl AggregatedComplianceReport {
     }
 
     /// Sets or clears the value of [report_time][crate::model::AggregatedComplianceReport::report_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::AggregatedComplianceReport;
+    /// use wkt::Timestamp;
+    /// let x = AggregatedComplianceReport::new().set_or_clear_report_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AggregatedComplianceReport::new().set_or_clear_report_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_report_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7785,6 +10616,12 @@ impl TargetResourceDetails {
     }
 
     /// Sets the value of [framework_deployment][crate::model::TargetResourceDetails::framework_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// let x = TargetResourceDetails::new().set_framework_deployment("example");
+    /// ```
     pub fn set_framework_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7794,6 +10631,12 @@ impl TargetResourceDetails {
     }
 
     /// Sets the value of [target_resource_display_name][crate::model::TargetResourceDetails::target_resource_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// let x = TargetResourceDetails::new().set_target_resource_display_name("example");
+    /// ```
     pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7803,12 +10646,25 @@ impl TargetResourceDetails {
     }
 
     /// Sets the value of [target_resource][crate::model::TargetResourceDetails::target_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// let x = TargetResourceDetails::new().set_target_resource("example");
+    /// ```
     pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_resource = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TargetResourceDetails::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// use wkt::Timestamp;
+    /// let x = TargetResourceDetails::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7818,6 +10674,14 @@ impl TargetResourceDetails {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TargetResourceDetails::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// use wkt::Timestamp;
+    /// let x = TargetResourceDetails::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TargetResourceDetails::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7827,6 +10691,13 @@ impl TargetResourceDetails {
     }
 
     /// Sets the value of [update_time][crate::model::TargetResourceDetails::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// use wkt::Timestamp;
+    /// let x = TargetResourceDetails::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7836,6 +10707,14 @@ impl TargetResourceDetails {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TargetResourceDetails::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// use wkt::Timestamp;
+    /// let x = TargetResourceDetails::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TargetResourceDetails::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7845,12 +10724,24 @@ impl TargetResourceDetails {
     }
 
     /// Sets the value of [major_revision_id][crate::model::TargetResourceDetails::major_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// let x = TargetResourceDetails::new().set_major_revision_id(42);
+    /// ```
     pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.major_revision_id = v.into();
         self
     }
 
     /// Sets the value of [minor_revision_id][crate::model::TargetResourceDetails::minor_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::model::TargetResourceDetails;
+    /// let x = TargetResourceDetails::new().set_minor_revision_id(42);
+    /// ```
     pub fn set_minor_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.minor_revision_id = v.into();
         self

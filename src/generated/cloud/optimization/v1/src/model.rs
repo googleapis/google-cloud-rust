@@ -57,6 +57,14 @@ impl InputConfig {
     }
 
     /// Sets the value of [data_format][crate::model::InputConfig::data_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::InputConfig;
+    /// use google_cloud_optimization_v1::model::DataFormat;
+    /// let x0 = InputConfig::new().set_data_format(DataFormat::Json);
+    /// let x1 = InputConfig::new().set_data_format(DataFormat::String);
+    /// ```
     pub fn set_data_format<T: std::convert::Into<crate::model::DataFormat>>(
         mut self,
         v: T,
@@ -69,6 +77,14 @@ impl InputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::InputConfig;
+    /// use google_cloud_optimization_v1::model::GcsSource;
+    /// let x = InputConfig::new().set_source(Some(
+    ///     google_cloud_optimization_v1::model::input_config::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -95,6 +111,14 @@ impl InputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::InputConfig;
+    /// use google_cloud_optimization_v1::model::GcsSource;
+    /// let x = InputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -147,6 +171,14 @@ impl OutputConfig {
     }
 
     /// Sets the value of [data_format][crate::model::OutputConfig::data_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OutputConfig;
+    /// use google_cloud_optimization_v1::model::DataFormat;
+    /// let x0 = OutputConfig::new().set_data_format(DataFormat::Json);
+    /// let x1 = OutputConfig::new().set_data_format(DataFormat::String);
+    /// ```
     pub fn set_data_format<T: std::convert::Into<crate::model::DataFormat>>(
         mut self,
         v: T,
@@ -159,6 +191,14 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OutputConfig;
+    /// use google_cloud_optimization_v1::model::GcsDestination;
+    /// let x = OutputConfig::new().set_destination(Some(
+    ///     google_cloud_optimization_v1::model::output_config::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -189,6 +229,14 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OutputConfig;
+    /// use google_cloud_optimization_v1::model::GcsDestination;
+    /// let x = OutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -239,6 +287,12 @@ impl GcsSource {
     }
 
     /// Sets the value of [uri][crate::model::GcsSource::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::GcsSource;
+    /// let x = GcsSource::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -267,6 +321,12 @@ impl GcsDestination {
     }
 
     /// Sets the value of [uri][crate::model::GcsDestination::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::GcsDestination;
+    /// let x = GcsDestination::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -305,6 +365,15 @@ impl AsyncModelMetadata {
     }
 
     /// Sets the value of [state][crate::model::AsyncModelMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AsyncModelMetadata;
+    /// use google_cloud_optimization_v1::model::async_model_metadata::State;
+    /// let x0 = AsyncModelMetadata::new().set_state(State::Running);
+    /// let x1 = AsyncModelMetadata::new().set_state(State::Succeeded);
+    /// let x2 = AsyncModelMetadata::new().set_state(State::Cancelled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::async_model_metadata::State>>(
         mut self,
         v: T,
@@ -314,12 +383,25 @@ impl AsyncModelMetadata {
     }
 
     /// Sets the value of [state_message][crate::model::AsyncModelMetadata::state_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AsyncModelMetadata;
+    /// let x = AsyncModelMetadata::new().set_state_message("example");
+    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AsyncModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AsyncModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AsyncModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -329,6 +411,14 @@ impl AsyncModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AsyncModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AsyncModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AsyncModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AsyncModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -338,6 +428,13 @@ impl AsyncModelMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::AsyncModelMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AsyncModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AsyncModelMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -347,6 +444,14 @@ impl AsyncModelMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AsyncModelMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AsyncModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AsyncModelMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AsyncModelMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -761,12 +866,25 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [parent][crate::model::OptimizeToursRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::OptimizeToursRequest::timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use wkt::Duration;
+    /// let x = OptimizeToursRequest::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -776,6 +894,14 @@ impl OptimizeToursRequest {
     }
 
     /// Sets or clears the value of [timeout][crate::model::OptimizeToursRequest::timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use wkt::Duration;
+    /// let x = OptimizeToursRequest::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = OptimizeToursRequest::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -785,6 +911,13 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [model][crate::model::OptimizeToursRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::ShipmentModel;
+    /// let x = OptimizeToursRequest::new().set_model(ShipmentModel::default()/* use setters */);
+    /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShipmentModel>,
@@ -794,6 +927,14 @@ impl OptimizeToursRequest {
     }
 
     /// Sets or clears the value of [model][crate::model::OptimizeToursRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::ShipmentModel;
+    /// let x = OptimizeToursRequest::new().set_or_clear_model(Some(ShipmentModel::default()/* use setters */));
+    /// let x = OptimizeToursRequest::new().set_or_clear_model(None::<ShipmentModel>);
+    /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShipmentModel>,
@@ -803,6 +944,14 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [solving_mode][crate::model::OptimizeToursRequest::solving_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::optimize_tours_request::SolvingMode;
+    /// let x0 = OptimizeToursRequest::new().set_solving_mode(SolvingMode::ValidateOnly);
+    /// let x1 = OptimizeToursRequest::new().set_solving_mode(SolvingMode::DetectSomeInfeasibleShipments);
+    /// ```
     pub fn set_solving_mode<
         T: std::convert::Into<crate::model::optimize_tours_request::SolvingMode>,
     >(
@@ -814,6 +963,14 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [search_mode][crate::model::OptimizeToursRequest::search_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::optimize_tours_request::SearchMode;
+    /// let x0 = OptimizeToursRequest::new().set_search_mode(SearchMode::ReturnFast);
+    /// let x1 = OptimizeToursRequest::new().set_search_mode(SearchMode::ConsumeAllAvailableTime);
+    /// ```
     pub fn set_search_mode<
         T: std::convert::Into<crate::model::optimize_tours_request::SearchMode>,
     >(
@@ -825,6 +982,17 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [injected_first_solution_routes][crate::model::OptimizeToursRequest::injected_first_solution_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = OptimizeToursRequest::new()
+    ///     .set_injected_first_solution_routes([
+    ///         ShipmentRoute::default()/* use setters */,
+    ///         ShipmentRoute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -836,6 +1004,13 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::InjectedSolutionConstraint;
+    /// let x = OptimizeToursRequest::new().set_injected_solution_constraint(InjectedSolutionConstraint::default()/* use setters */);
+    /// ```
     pub fn set_injected_solution_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
@@ -845,6 +1020,14 @@ impl OptimizeToursRequest {
     }
 
     /// Sets or clears the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::InjectedSolutionConstraint;
+    /// let x = OptimizeToursRequest::new().set_or_clear_injected_solution_constraint(Some(InjectedSolutionConstraint::default()/* use setters */));
+    /// let x = OptimizeToursRequest::new().set_or_clear_injected_solution_constraint(None::<InjectedSolutionConstraint>);
+    /// ```
     pub fn set_or_clear_injected_solution_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
@@ -854,6 +1037,17 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [refresh_details_routes][crate::model::OptimizeToursRequest::refresh_details_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = OptimizeToursRequest::new()
+    ///     .set_refresh_details_routes([
+    ///         ShipmentRoute::default()/* use setters */,
+    ///         ShipmentRoute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -865,6 +1059,12 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [interpret_injected_solutions_using_labels][crate::model::OptimizeToursRequest::interpret_injected_solutions_using_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_interpret_injected_solutions_using_labels(true);
+    /// ```
     pub fn set_interpret_injected_solutions_using_labels<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -874,24 +1074,48 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [consider_road_traffic][crate::model::OptimizeToursRequest::consider_road_traffic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_consider_road_traffic(true);
+    /// ```
     pub fn set_consider_road_traffic<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.consider_road_traffic = v.into();
         self
     }
 
     /// Sets the value of [populate_polylines][crate::model::OptimizeToursRequest::populate_polylines].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_populate_polylines(true);
+    /// ```
     pub fn set_populate_polylines<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.populate_polylines = v.into();
         self
     }
 
     /// Sets the value of [populate_transition_polylines][crate::model::OptimizeToursRequest::populate_transition_polylines].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_populate_transition_polylines(true);
+    /// ```
     pub fn set_populate_transition_polylines<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.populate_transition_polylines = v.into();
         self
     }
 
     /// Sets the value of [allow_large_deadline_despite_interruption_risk][crate::model::OptimizeToursRequest::allow_large_deadline_despite_interruption_risk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_allow_large_deadline_despite_interruption_risk(true);
+    /// ```
     pub fn set_allow_large_deadline_despite_interruption_risk<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -901,12 +1125,24 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [use_geodesic_distances][crate::model::OptimizeToursRequest::use_geodesic_distances].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_use_geodesic_distances(true);
+    /// ```
     pub fn set_use_geodesic_distances<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_geodesic_distances = v.into();
         self
     }
 
     /// Sets the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_geodesic_meters_per_second(42.0);
+    /// ```
     pub fn set_geodesic_meters_per_second<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -916,6 +1152,13 @@ impl OptimizeToursRequest {
     }
 
     /// Sets or clears the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_or_clear_geodesic_meters_per_second(Some(42.0));
+    /// let x = OptimizeToursRequest::new().set_or_clear_geodesic_meters_per_second(None::<f32>);
+    /// ```
     pub fn set_or_clear_geodesic_meters_per_second<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -925,6 +1168,12 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_max_validation_errors(42);
+    /// ```
     pub fn set_max_validation_errors<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -934,6 +1183,13 @@ impl OptimizeToursRequest {
     }
 
     /// Sets or clears the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_or_clear_max_validation_errors(Some(42));
+    /// let x = OptimizeToursRequest::new().set_or_clear_max_validation_errors(None::<i32>);
+    /// ```
     pub fn set_or_clear_max_validation_errors<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -943,12 +1199,24 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [label][crate::model::OptimizeToursRequest::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
     }
 
     /// Sets the value of [populate_travel_step_polylines][crate::model::OptimizeToursRequest::populate_travel_step_polylines].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursRequest;
+    /// let x = OptimizeToursRequest::new().set_populate_travel_step_polylines(true);
+    /// ```
     #[deprecated]
     pub fn set_populate_travel_step_polylines<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.populate_travel_step_polylines = v.into();
@@ -1314,6 +1582,17 @@ impl OptimizeToursResponse {
     }
 
     /// Sets the value of [routes][crate::model::OptimizeToursResponse::routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursResponse;
+    /// use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = OptimizeToursResponse::new()
+    ///     .set_routes([
+    ///         ShipmentRoute::default()/* use setters */,
+    ///         ShipmentRoute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1325,12 +1604,29 @@ impl OptimizeToursResponse {
     }
 
     /// Sets the value of [request_label][crate::model::OptimizeToursResponse::request_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursResponse;
+    /// let x = OptimizeToursResponse::new().set_request_label("example");
+    /// ```
     pub fn set_request_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_label = v.into();
         self
     }
 
     /// Sets the value of [skipped_shipments][crate::model::OptimizeToursResponse::skipped_shipments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursResponse;
+    /// use google_cloud_optimization_v1::model::SkippedShipment;
+    /// let x = OptimizeToursResponse::new()
+    ///     .set_skipped_shipments([
+    ///         SkippedShipment::default()/* use setters */,
+    ///         SkippedShipment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_skipped_shipments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1342,6 +1638,17 @@ impl OptimizeToursResponse {
     }
 
     /// Sets the value of [validation_errors][crate::model::OptimizeToursResponse::validation_errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursResponse;
+    /// use google_cloud_optimization_v1::model::OptimizeToursValidationError;
+    /// let x = OptimizeToursResponse::new()
+    ///     .set_validation_errors([
+    ///         OptimizeToursValidationError::default()/* use setters */,
+    ///         OptimizeToursValidationError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_validation_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1353,6 +1660,13 @@ impl OptimizeToursResponse {
     }
 
     /// Sets the value of [metrics][crate::model::OptimizeToursResponse::metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursResponse;
+    /// use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+    /// let x = OptimizeToursResponse::new().set_metrics(Metrics::default()/* use setters */);
+    /// ```
     pub fn set_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::optimize_tours_response::Metrics>,
@@ -1362,6 +1676,14 @@ impl OptimizeToursResponse {
     }
 
     /// Sets or clears the value of [metrics][crate::model::OptimizeToursResponse::metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursResponse;
+    /// use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+    /// let x = OptimizeToursResponse::new().set_or_clear_metrics(Some(Metrics::default()/* use setters */));
+    /// let x = OptimizeToursResponse::new().set_or_clear_metrics(None::<Metrics>);
+    /// ```
     pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::optimize_tours_response::Metrics>,
@@ -1371,6 +1693,12 @@ impl OptimizeToursResponse {
     }
 
     /// Sets the value of [total_cost][crate::model::OptimizeToursResponse::total_cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursResponse;
+    /// let x = OptimizeToursResponse::new().set_total_cost(42.0);
+    /// ```
     #[deprecated]
     pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.total_cost = v.into();
@@ -1448,6 +1776,13 @@ pub mod optimize_tours_response {
         }
 
         /// Sets the value of [aggregated_route_metrics][crate::model::optimize_tours_response::Metrics::aggregated_route_metrics].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// use google_cloud_optimization_v1::model::AggregatedMetrics;
+        /// let x = Metrics::new().set_aggregated_route_metrics(AggregatedMetrics::default()/* use setters */);
+        /// ```
         pub fn set_aggregated_route_metrics<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AggregatedMetrics>,
@@ -1457,6 +1792,14 @@ pub mod optimize_tours_response {
         }
 
         /// Sets or clears the value of [aggregated_route_metrics][crate::model::optimize_tours_response::Metrics::aggregated_route_metrics].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// use google_cloud_optimization_v1::model::AggregatedMetrics;
+        /// let x = Metrics::new().set_or_clear_aggregated_route_metrics(Some(AggregatedMetrics::default()/* use setters */));
+        /// let x = Metrics::new().set_or_clear_aggregated_route_metrics(None::<AggregatedMetrics>);
+        /// ```
         pub fn set_or_clear_aggregated_route_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AggregatedMetrics>,
@@ -1466,6 +1809,12 @@ pub mod optimize_tours_response {
         }
 
         /// Sets the value of [skipped_mandatory_shipment_count][crate::model::optimize_tours_response::Metrics::skipped_mandatory_shipment_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// let x = Metrics::new().set_skipped_mandatory_shipment_count(42);
+        /// ```
         pub fn set_skipped_mandatory_shipment_count<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -1475,12 +1824,25 @@ pub mod optimize_tours_response {
         }
 
         /// Sets the value of [used_vehicle_count][crate::model::optimize_tours_response::Metrics::used_vehicle_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// let x = Metrics::new().set_used_vehicle_count(42);
+        /// ```
         pub fn set_used_vehicle_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.used_vehicle_count = v.into();
             self
         }
 
         /// Sets the value of [earliest_vehicle_start_time][crate::model::optimize_tours_response::Metrics::earliest_vehicle_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// use wkt::Timestamp;
+        /// let x = Metrics::new().set_earliest_vehicle_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_earliest_vehicle_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1490,6 +1852,14 @@ pub mod optimize_tours_response {
         }
 
         /// Sets or clears the value of [earliest_vehicle_start_time][crate::model::optimize_tours_response::Metrics::earliest_vehicle_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// use wkt::Timestamp;
+        /// let x = Metrics::new().set_or_clear_earliest_vehicle_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Metrics::new().set_or_clear_earliest_vehicle_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_earliest_vehicle_start_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1502,6 +1872,13 @@ pub mod optimize_tours_response {
         }
 
         /// Sets the value of [latest_vehicle_end_time][crate::model::optimize_tours_response::Metrics::latest_vehicle_end_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// use wkt::Timestamp;
+        /// let x = Metrics::new().set_latest_vehicle_end_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_latest_vehicle_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1511,6 +1888,14 @@ pub mod optimize_tours_response {
         }
 
         /// Sets or clears the value of [latest_vehicle_end_time][crate::model::optimize_tours_response::Metrics::latest_vehicle_end_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// use wkt::Timestamp;
+        /// let x = Metrics::new().set_or_clear_latest_vehicle_end_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Metrics::new().set_or_clear_latest_vehicle_end_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_latest_vehicle_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1520,6 +1905,15 @@ pub mod optimize_tours_response {
         }
 
         /// Sets the value of [costs][crate::model::optimize_tours_response::Metrics::costs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// let x = Metrics::new().set_costs([
+        ///     ("key0", 123.5),
+        ///     ("key1", 456.5),
+        /// ]);
+        /// ```
         pub fn set_costs<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1532,6 +1926,12 @@ pub mod optimize_tours_response {
         }
 
         /// Sets the value of [total_cost][crate::model::optimize_tours_response::Metrics::total_cost].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_response::Metrics;
+        /// let x = Metrics::new().set_total_cost(42.0);
+        /// ```
         pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.total_cost = v.into();
             self
@@ -1573,12 +1973,29 @@ impl BatchOptimizeToursRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchOptimizeToursRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::BatchOptimizeToursRequest;
+    /// let x = BatchOptimizeToursRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [model_configs][crate::model::BatchOptimizeToursRequest::model_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::BatchOptimizeToursRequest;
+    /// use google_cloud_optimization_v1::model::batch_optimize_tours_request::AsyncModelConfig;
+    /// let x = BatchOptimizeToursRequest::new()
+    ///     .set_model_configs([
+    ///         AsyncModelConfig::default()/* use setters */,
+    ///         AsyncModelConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_model_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1634,6 +2051,12 @@ pub mod batch_optimize_tours_request {
         }
 
         /// Sets the value of [display_name][crate::model::batch_optimize_tours_request::AsyncModelConfig::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::batch_optimize_tours_request::AsyncModelConfig;
+        /// let x = AsyncModelConfig::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1643,6 +2066,13 @@ pub mod batch_optimize_tours_request {
         }
 
         /// Sets the value of [input_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::input_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::batch_optimize_tours_request::AsyncModelConfig;
+        /// use google_cloud_optimization_v1::model::InputConfig;
+        /// let x = AsyncModelConfig::new().set_input_config(InputConfig::default()/* use setters */);
+        /// ```
         pub fn set_input_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::InputConfig>,
@@ -1652,6 +2082,14 @@ pub mod batch_optimize_tours_request {
         }
 
         /// Sets or clears the value of [input_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::input_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::batch_optimize_tours_request::AsyncModelConfig;
+        /// use google_cloud_optimization_v1::model::InputConfig;
+        /// let x = AsyncModelConfig::new().set_or_clear_input_config(Some(InputConfig::default()/* use setters */));
+        /// let x = AsyncModelConfig::new().set_or_clear_input_config(None::<InputConfig>);
+        /// ```
         pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InputConfig>,
@@ -1661,6 +2099,13 @@ pub mod batch_optimize_tours_request {
         }
 
         /// Sets the value of [output_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::output_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::batch_optimize_tours_request::AsyncModelConfig;
+        /// use google_cloud_optimization_v1::model::OutputConfig;
+        /// let x = AsyncModelConfig::new().set_output_config(OutputConfig::default()/* use setters */);
+        /// ```
         pub fn set_output_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::OutputConfig>,
@@ -1670,6 +2115,14 @@ pub mod batch_optimize_tours_request {
         }
 
         /// Sets or clears the value of [output_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::output_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::batch_optimize_tours_request::AsyncModelConfig;
+        /// use google_cloud_optimization_v1::model::OutputConfig;
+        /// let x = AsyncModelConfig::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
+        /// let x = AsyncModelConfig::new().set_or_clear_output_config(None::<OutputConfig>);
+        /// ```
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::OutputConfig>,
@@ -1679,6 +2132,12 @@ pub mod batch_optimize_tours_request {
         }
 
         /// Sets the value of [enable_checkpoints][crate::model::batch_optimize_tours_request::AsyncModelConfig::enable_checkpoints].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::batch_optimize_tours_request::AsyncModelConfig;
+        /// let x = AsyncModelConfig::new().set_enable_checkpoints(true);
+        /// ```
         pub fn set_enable_checkpoints<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_checkpoints = v.into();
             self
@@ -1921,6 +2380,17 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [shipments][crate::model::ShipmentModel::shipments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::Shipment;
+    /// let x = ShipmentModel::new()
+    ///     .set_shipments([
+    ///         Shipment::default()/* use setters */,
+    ///         Shipment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_shipments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1932,6 +2402,17 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [vehicles][crate::model::ShipmentModel::vehicles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = ShipmentModel::new()
+    ///     .set_vehicles([
+    ///         Vehicle::default()/* use setters */,
+    ///         Vehicle::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vehicles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1943,6 +2424,12 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [max_active_vehicles][crate::model::ShipmentModel::max_active_vehicles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// let x = ShipmentModel::new().set_max_active_vehicles(42);
+    /// ```
     pub fn set_max_active_vehicles<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1952,6 +2439,13 @@ impl ShipmentModel {
     }
 
     /// Sets or clears the value of [max_active_vehicles][crate::model::ShipmentModel::max_active_vehicles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// let x = ShipmentModel::new().set_or_clear_max_active_vehicles(Some(42));
+    /// let x = ShipmentModel::new().set_or_clear_max_active_vehicles(None::<i32>);
+    /// ```
     pub fn set_or_clear_max_active_vehicles<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1961,6 +2455,13 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [global_start_time][crate::model::ShipmentModel::global_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentModel::new().set_global_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_global_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1970,6 +2471,14 @@ impl ShipmentModel {
     }
 
     /// Sets or clears the value of [global_start_time][crate::model::ShipmentModel::global_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentModel::new().set_or_clear_global_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ShipmentModel::new().set_or_clear_global_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_global_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1979,6 +2488,13 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [global_end_time][crate::model::ShipmentModel::global_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentModel::new().set_global_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_global_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1988,6 +2504,14 @@ impl ShipmentModel {
     }
 
     /// Sets or clears the value of [global_end_time][crate::model::ShipmentModel::global_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentModel::new().set_or_clear_global_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ShipmentModel::new().set_or_clear_global_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_global_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1997,12 +2521,29 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [global_duration_cost_per_hour][crate::model::ShipmentModel::global_duration_cost_per_hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// let x = ShipmentModel::new().set_global_duration_cost_per_hour(42.0);
+    /// ```
     pub fn set_global_duration_cost_per_hour<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.global_duration_cost_per_hour = v.into();
         self
     }
 
     /// Sets the value of [duration_distance_matrices][crate::model::ShipmentModel::duration_distance_matrices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::shipment_model::DurationDistanceMatrix;
+    /// let x = ShipmentModel::new()
+    ///     .set_duration_distance_matrices([
+    ///         DurationDistanceMatrix::default()/* use setters */,
+    ///         DurationDistanceMatrix::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_duration_distance_matrices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2014,6 +2555,12 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [duration_distance_matrix_src_tags][crate::model::ShipmentModel::duration_distance_matrix_src_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// let x = ShipmentModel::new().set_duration_distance_matrix_src_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_duration_distance_matrix_src_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2025,6 +2572,12 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [duration_distance_matrix_dst_tags][crate::model::ShipmentModel::duration_distance_matrix_dst_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// let x = ShipmentModel::new().set_duration_distance_matrix_dst_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_duration_distance_matrix_dst_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2036,6 +2589,17 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [transition_attributes][crate::model::ShipmentModel::transition_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// let x = ShipmentModel::new()
+    ///     .set_transition_attributes([
+    ///         TransitionAttributes::default()/* use setters */,
+    ///         TransitionAttributes::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transition_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2047,6 +2611,17 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [shipment_type_incompatibilities][crate::model::ShipmentModel::shipment_type_incompatibilities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::ShipmentTypeIncompatibility;
+    /// let x = ShipmentModel::new()
+    ///     .set_shipment_type_incompatibilities([
+    ///         ShipmentTypeIncompatibility::default()/* use setters */,
+    ///         ShipmentTypeIncompatibility::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_shipment_type_incompatibilities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2058,6 +2633,17 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [shipment_type_requirements][crate::model::ShipmentModel::shipment_type_requirements].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::ShipmentTypeRequirement;
+    /// let x = ShipmentModel::new()
+    ///     .set_shipment_type_requirements([
+    ///         ShipmentTypeRequirement::default()/* use setters */,
+    ///         ShipmentTypeRequirement::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_shipment_type_requirements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2069,6 +2655,17 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [precedence_rules][crate::model::ShipmentModel::precedence_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+    /// let x = ShipmentModel::new()
+    ///     .set_precedence_rules([
+    ///         PrecedenceRule::default()/* use setters */,
+    ///         PrecedenceRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_precedence_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2080,6 +2677,17 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [break_rules][crate::model::ShipmentModel::break_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentModel;
+    /// use google_cloud_optimization_v1::model::shipment_model::BreakRule;
+    /// let x = ShipmentModel::new()
+    ///     .set_break_rules([
+    ///         BreakRule::default()/* use setters */,
+    ///         BreakRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_break_rules<T, V>(mut self, v: T) -> Self
     where
@@ -2135,6 +2743,17 @@ pub mod shipment_model {
         }
 
         /// Sets the value of [rows][crate::model::shipment_model::DurationDistanceMatrix::rows].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::DurationDistanceMatrix;
+        /// use google_cloud_optimization_v1::model::shipment_model::duration_distance_matrix::Row;
+        /// let x = DurationDistanceMatrix::new()
+        ///     .set_rows([
+        ///         Row::default()/* use setters */,
+        ///         Row::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_rows<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2146,6 +2765,12 @@ pub mod shipment_model {
         }
 
         /// Sets the value of [vehicle_start_tag][crate::model::shipment_model::DurationDistanceMatrix::vehicle_start_tag].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::DurationDistanceMatrix;
+        /// let x = DurationDistanceMatrix::new().set_vehicle_start_tag("example");
+        /// ```
         pub fn set_vehicle_start_tag<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2190,6 +2815,17 @@ pub mod shipment_model {
             }
 
             /// Sets the value of [durations][crate::model::shipment_model::duration_distance_matrix::Row::durations].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::duration_distance_matrix::Row;
+            /// use wkt::Duration;
+            /// let x = Row::new()
+            ///     .set_durations([
+            ///         Duration::default()/* use setters */,
+            ///         Duration::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_durations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2201,6 +2837,12 @@ pub mod shipment_model {
             }
 
             /// Sets the value of [meters][crate::model::shipment_model::duration_distance_matrix::Row::meters].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::duration_distance_matrix::Row;
+            /// let x = Row::new().set_meters([1.0, 2.0, 3.0]);
+            /// ```
             pub fn set_meters<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2256,6 +2898,12 @@ pub mod shipment_model {
         }
 
         /// Sets the value of [first_index][crate::model::shipment_model::PrecedenceRule::first_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// let x = PrecedenceRule::new().set_first_index(42);
+        /// ```
         pub fn set_first_index<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2265,6 +2913,13 @@ pub mod shipment_model {
         }
 
         /// Sets or clears the value of [first_index][crate::model::shipment_model::PrecedenceRule::first_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// let x = PrecedenceRule::new().set_or_clear_first_index(Some(42));
+        /// let x = PrecedenceRule::new().set_or_clear_first_index(None::<i32>);
+        /// ```
         pub fn set_or_clear_first_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2274,12 +2929,24 @@ pub mod shipment_model {
         }
 
         /// Sets the value of [first_is_delivery][crate::model::shipment_model::PrecedenceRule::first_is_delivery].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// let x = PrecedenceRule::new().set_first_is_delivery(true);
+        /// ```
         pub fn set_first_is_delivery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.first_is_delivery = v.into();
             self
         }
 
         /// Sets the value of [second_index][crate::model::shipment_model::PrecedenceRule::second_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// let x = PrecedenceRule::new().set_second_index(42);
+        /// ```
         pub fn set_second_index<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2289,6 +2956,13 @@ pub mod shipment_model {
         }
 
         /// Sets or clears the value of [second_index][crate::model::shipment_model::PrecedenceRule::second_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// let x = PrecedenceRule::new().set_or_clear_second_index(Some(42));
+        /// let x = PrecedenceRule::new().set_or_clear_second_index(None::<i32>);
+        /// ```
         pub fn set_or_clear_second_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2298,12 +2972,25 @@ pub mod shipment_model {
         }
 
         /// Sets the value of [second_is_delivery][crate::model::shipment_model::PrecedenceRule::second_is_delivery].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// let x = PrecedenceRule::new().set_second_is_delivery(true);
+        /// ```
         pub fn set_second_is_delivery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.second_is_delivery = v.into();
             self
         }
 
         /// Sets the value of [offset_duration][crate::model::shipment_model::PrecedenceRule::offset_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// use wkt::Duration;
+        /// let x = PrecedenceRule::new().set_offset_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_offset_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2313,6 +3000,14 @@ pub mod shipment_model {
         }
 
         /// Sets or clears the value of [offset_duration][crate::model::shipment_model::PrecedenceRule::offset_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::PrecedenceRule;
+        /// use wkt::Duration;
+        /// let x = PrecedenceRule::new().set_or_clear_offset_duration(Some(Duration::default()/* use setters */));
+        /// let x = PrecedenceRule::new().set_or_clear_offset_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_offset_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2364,6 +3059,17 @@ pub mod shipment_model {
         }
 
         /// Sets the value of [break_requests][crate::model::shipment_model::BreakRule::break_requests].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::BreakRule;
+        /// use google_cloud_optimization_v1::model::shipment_model::break_rule::BreakRequest;
+        /// let x = BreakRule::new()
+        ///     .set_break_requests([
+        ///         BreakRequest::default()/* use setters */,
+        ///         BreakRequest::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_break_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2375,6 +3081,17 @@ pub mod shipment_model {
         }
 
         /// Sets the value of [frequency_constraints][crate::model::shipment_model::BreakRule::frequency_constraints].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_model::BreakRule;
+        /// use google_cloud_optimization_v1::model::shipment_model::break_rule::FrequencyConstraint;
+        /// let x = BreakRule::new()
+        ///     .set_frequency_constraints([
+        ///         FrequencyConstraint::default()/* use setters */,
+        ///         FrequencyConstraint::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_frequency_constraints<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2423,6 +3140,13 @@ pub mod shipment_model {
             }
 
             /// Sets the value of [earliest_start_time][crate::model::shipment_model::break_rule::BreakRequest::earliest_start_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::BreakRequest;
+            /// use wkt::Timestamp;
+            /// let x = BreakRequest::new().set_earliest_start_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_earliest_start_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2432,6 +3156,14 @@ pub mod shipment_model {
             }
 
             /// Sets or clears the value of [earliest_start_time][crate::model::shipment_model::break_rule::BreakRequest::earliest_start_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::BreakRequest;
+            /// use wkt::Timestamp;
+            /// let x = BreakRequest::new().set_or_clear_earliest_start_time(Some(Timestamp::default()/* use setters */));
+            /// let x = BreakRequest::new().set_or_clear_earliest_start_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_earliest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2441,6 +3173,13 @@ pub mod shipment_model {
             }
 
             /// Sets the value of [latest_start_time][crate::model::shipment_model::break_rule::BreakRequest::latest_start_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::BreakRequest;
+            /// use wkt::Timestamp;
+            /// let x = BreakRequest::new().set_latest_start_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_latest_start_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2450,6 +3189,14 @@ pub mod shipment_model {
             }
 
             /// Sets or clears the value of [latest_start_time][crate::model::shipment_model::break_rule::BreakRequest::latest_start_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::BreakRequest;
+            /// use wkt::Timestamp;
+            /// let x = BreakRequest::new().set_or_clear_latest_start_time(Some(Timestamp::default()/* use setters */));
+            /// let x = BreakRequest::new().set_or_clear_latest_start_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_latest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2459,6 +3206,13 @@ pub mod shipment_model {
             }
 
             /// Sets the value of [min_duration][crate::model::shipment_model::break_rule::BreakRequest::min_duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::BreakRequest;
+            /// use wkt::Duration;
+            /// let x = BreakRequest::new().set_min_duration(Duration::default()/* use setters */);
+            /// ```
             pub fn set_min_duration<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2468,6 +3222,14 @@ pub mod shipment_model {
             }
 
             /// Sets or clears the value of [min_duration][crate::model::shipment_model::break_rule::BreakRequest::min_duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::BreakRequest;
+            /// use wkt::Duration;
+            /// let x = BreakRequest::new().set_or_clear_min_duration(Some(Duration::default()/* use setters */));
+            /// let x = BreakRequest::new().set_or_clear_min_duration(None::<Duration>);
+            /// ```
             pub fn set_or_clear_min_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2539,6 +3301,13 @@ pub mod shipment_model {
             }
 
             /// Sets the value of [min_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::min_break_duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::FrequencyConstraint;
+            /// use wkt::Duration;
+            /// let x = FrequencyConstraint::new().set_min_break_duration(Duration::default()/* use setters */);
+            /// ```
             pub fn set_min_break_duration<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2548,6 +3317,14 @@ pub mod shipment_model {
             }
 
             /// Sets or clears the value of [min_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::min_break_duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::FrequencyConstraint;
+            /// use wkt::Duration;
+            /// let x = FrequencyConstraint::new().set_or_clear_min_break_duration(Some(Duration::default()/* use setters */));
+            /// let x = FrequencyConstraint::new().set_or_clear_min_break_duration(None::<Duration>);
+            /// ```
             pub fn set_or_clear_min_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2557,6 +3334,13 @@ pub mod shipment_model {
             }
 
             /// Sets the value of [max_inter_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::max_inter_break_duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::FrequencyConstraint;
+            /// use wkt::Duration;
+            /// let x = FrequencyConstraint::new().set_max_inter_break_duration(Duration::default()/* use setters */);
+            /// ```
             pub fn set_max_inter_break_duration<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2566,6 +3350,14 @@ pub mod shipment_model {
             }
 
             /// Sets or clears the value of [max_inter_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::max_inter_break_duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::shipment_model::break_rule::FrequencyConstraint;
+            /// use wkt::Duration;
+            /// let x = FrequencyConstraint::new().set_or_clear_max_inter_break_duration(Some(Duration::default()/* use setters */));
+            /// let x = FrequencyConstraint::new().set_or_clear_max_inter_break_duration(None::<Duration>);
+            /// ```
             pub fn set_or_clear_max_inter_break_duration<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -2735,6 +3527,17 @@ impl Shipment {
     }
 
     /// Sets the value of [pickups][crate::model::Shipment::pickups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use google_cloud_optimization_v1::model::shipment::VisitRequest;
+    /// let x = Shipment::new()
+    ///     .set_pickups([
+    ///         VisitRequest::default()/* use setters */,
+    ///         VisitRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pickups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2746,6 +3549,17 @@ impl Shipment {
     }
 
     /// Sets the value of [deliveries][crate::model::Shipment::deliveries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use google_cloud_optimization_v1::model::shipment::VisitRequest;
+    /// let x = Shipment::new()
+    ///     .set_deliveries([
+    ///         VisitRequest::default()/* use setters */,
+    ///         VisitRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deliveries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2757,6 +3571,16 @@ impl Shipment {
     }
 
     /// Sets the value of [load_demands][crate::model::Shipment::load_demands].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use google_cloud_optimization_v1::model::shipment::Load;
+    /// let x = Shipment::new().set_load_demands([
+    ///     ("key0", Load::default()/* use setters */),
+    ///     ("key1", Load::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_load_demands<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2769,6 +3593,12 @@ impl Shipment {
     }
 
     /// Sets the value of [penalty_cost][crate::model::Shipment::penalty_cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_penalty_cost(42.0);
+    /// ```
     pub fn set_penalty_cost<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -2778,6 +3608,13 @@ impl Shipment {
     }
 
     /// Sets or clears the value of [penalty_cost][crate::model::Shipment::penalty_cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_or_clear_penalty_cost(Some(42.0));
+    /// let x = Shipment::new().set_or_clear_penalty_cost(None::<f32>);
+    /// ```
     pub fn set_or_clear_penalty_cost<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -2787,6 +3624,12 @@ impl Shipment {
     }
 
     /// Sets the value of [allowed_vehicle_indices][crate::model::Shipment::allowed_vehicle_indices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_allowed_vehicle_indices([1, 2, 3]);
+    /// ```
     pub fn set_allowed_vehicle_indices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2798,6 +3641,12 @@ impl Shipment {
     }
 
     /// Sets the value of [costs_per_vehicle][crate::model::Shipment::costs_per_vehicle].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_costs_per_vehicle([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_costs_per_vehicle<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2809,6 +3658,12 @@ impl Shipment {
     }
 
     /// Sets the value of [costs_per_vehicle_indices][crate::model::Shipment::costs_per_vehicle_indices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_costs_per_vehicle_indices([1, 2, 3]);
+    /// ```
     pub fn set_costs_per_vehicle_indices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2820,6 +3675,12 @@ impl Shipment {
     }
 
     /// Sets the value of [pickup_to_delivery_relative_detour_limit][crate::model::Shipment::pickup_to_delivery_relative_detour_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_pickup_to_delivery_relative_detour_limit(42.0);
+    /// ```
     pub fn set_pickup_to_delivery_relative_detour_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -2829,6 +3690,13 @@ impl Shipment {
     }
 
     /// Sets or clears the value of [pickup_to_delivery_relative_detour_limit][crate::model::Shipment::pickup_to_delivery_relative_detour_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_or_clear_pickup_to_delivery_relative_detour_limit(Some(42.0));
+    /// let x = Shipment::new().set_or_clear_pickup_to_delivery_relative_detour_limit(None::<f32>);
+    /// ```
     pub fn set_or_clear_pickup_to_delivery_relative_detour_limit<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2841,6 +3709,13 @@ impl Shipment {
     }
 
     /// Sets the value of [pickup_to_delivery_absolute_detour_limit][crate::model::Shipment::pickup_to_delivery_absolute_detour_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use wkt::Duration;
+    /// let x = Shipment::new().set_pickup_to_delivery_absolute_detour_limit(Duration::default()/* use setters */);
+    /// ```
     pub fn set_pickup_to_delivery_absolute_detour_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2850,6 +3725,14 @@ impl Shipment {
     }
 
     /// Sets or clears the value of [pickup_to_delivery_absolute_detour_limit][crate::model::Shipment::pickup_to_delivery_absolute_detour_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use wkt::Duration;
+    /// let x = Shipment::new().set_or_clear_pickup_to_delivery_absolute_detour_limit(Some(Duration::default()/* use setters */));
+    /// let x = Shipment::new().set_or_clear_pickup_to_delivery_absolute_detour_limit(None::<Duration>);
+    /// ```
     pub fn set_or_clear_pickup_to_delivery_absolute_detour_limit<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2862,6 +3745,13 @@ impl Shipment {
     }
 
     /// Sets the value of [pickup_to_delivery_time_limit][crate::model::Shipment::pickup_to_delivery_time_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use wkt::Duration;
+    /// let x = Shipment::new().set_pickup_to_delivery_time_limit(Duration::default()/* use setters */);
+    /// ```
     pub fn set_pickup_to_delivery_time_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2871,6 +3761,14 @@ impl Shipment {
     }
 
     /// Sets or clears the value of [pickup_to_delivery_time_limit][crate::model::Shipment::pickup_to_delivery_time_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use wkt::Duration;
+    /// let x = Shipment::new().set_or_clear_pickup_to_delivery_time_limit(Some(Duration::default()/* use setters */));
+    /// let x = Shipment::new().set_or_clear_pickup_to_delivery_time_limit(None::<Duration>);
+    /// ```
     pub fn set_or_clear_pickup_to_delivery_time_limit<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2883,24 +3781,53 @@ impl Shipment {
     }
 
     /// Sets the value of [shipment_type][crate::model::Shipment::shipment_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_shipment_type("example");
+    /// ```
     pub fn set_shipment_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.shipment_type = v.into();
         self
     }
 
     /// Sets the value of [label][crate::model::Shipment::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
     }
 
     /// Sets the value of [ignore][crate::model::Shipment::ignore].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// let x = Shipment::new().set_ignore(true);
+    /// ```
     pub fn set_ignore<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore = v.into();
         self
     }
 
     /// Sets the value of [demands][crate::model::Shipment::demands].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Shipment;
+    /// use google_cloud_optimization_v1::model::CapacityQuantity;
+    /// let x = Shipment::new()
+    ///     .set_demands([
+    ///         CapacityQuantity::default()/* use setters */,
+    ///         CapacityQuantity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_demands<T, V>(mut self, v: T) -> Self
     where
@@ -3033,6 +3960,13 @@ pub mod shipment {
         }
 
         /// Sets the value of [arrival_location][crate::model::shipment::VisitRequest::arrival_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use gtype::model::LatLng;
+        /// let x = VisitRequest::new().set_arrival_location(LatLng::default()/* use setters */);
+        /// ```
         pub fn set_arrival_location<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::LatLng>,
@@ -3042,6 +3976,14 @@ pub mod shipment {
         }
 
         /// Sets or clears the value of [arrival_location][crate::model::shipment::VisitRequest::arrival_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use gtype::model::LatLng;
+        /// let x = VisitRequest::new().set_or_clear_arrival_location(Some(LatLng::default()/* use setters */));
+        /// let x = VisitRequest::new().set_or_clear_arrival_location(None::<LatLng>);
+        /// ```
         pub fn set_or_clear_arrival_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::LatLng>,
@@ -3051,6 +3993,13 @@ pub mod shipment {
         }
 
         /// Sets the value of [arrival_waypoint][crate::model::shipment::VisitRequest::arrival_waypoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use google_cloud_optimization_v1::model::Waypoint;
+        /// let x = VisitRequest::new().set_arrival_waypoint(Waypoint::default()/* use setters */);
+        /// ```
         pub fn set_arrival_waypoint<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Waypoint>,
@@ -3060,6 +4009,14 @@ pub mod shipment {
         }
 
         /// Sets or clears the value of [arrival_waypoint][crate::model::shipment::VisitRequest::arrival_waypoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use google_cloud_optimization_v1::model::Waypoint;
+        /// let x = VisitRequest::new().set_or_clear_arrival_waypoint(Some(Waypoint::default()/* use setters */));
+        /// let x = VisitRequest::new().set_or_clear_arrival_waypoint(None::<Waypoint>);
+        /// ```
         pub fn set_or_clear_arrival_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Waypoint>,
@@ -3069,6 +4026,13 @@ pub mod shipment {
         }
 
         /// Sets the value of [departure_location][crate::model::shipment::VisitRequest::departure_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use gtype::model::LatLng;
+        /// let x = VisitRequest::new().set_departure_location(LatLng::default()/* use setters */);
+        /// ```
         pub fn set_departure_location<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::LatLng>,
@@ -3078,6 +4042,14 @@ pub mod shipment {
         }
 
         /// Sets or clears the value of [departure_location][crate::model::shipment::VisitRequest::departure_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use gtype::model::LatLng;
+        /// let x = VisitRequest::new().set_or_clear_departure_location(Some(LatLng::default()/* use setters */));
+        /// let x = VisitRequest::new().set_or_clear_departure_location(None::<LatLng>);
+        /// ```
         pub fn set_or_clear_departure_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::LatLng>,
@@ -3087,6 +4059,13 @@ pub mod shipment {
         }
 
         /// Sets the value of [departure_waypoint][crate::model::shipment::VisitRequest::departure_waypoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use google_cloud_optimization_v1::model::Waypoint;
+        /// let x = VisitRequest::new().set_departure_waypoint(Waypoint::default()/* use setters */);
+        /// ```
         pub fn set_departure_waypoint<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Waypoint>,
@@ -3096,6 +4075,14 @@ pub mod shipment {
         }
 
         /// Sets or clears the value of [departure_waypoint][crate::model::shipment::VisitRequest::departure_waypoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use google_cloud_optimization_v1::model::Waypoint;
+        /// let x = VisitRequest::new().set_or_clear_departure_waypoint(Some(Waypoint::default()/* use setters */));
+        /// let x = VisitRequest::new().set_or_clear_departure_waypoint(None::<Waypoint>);
+        /// ```
         pub fn set_or_clear_departure_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Waypoint>,
@@ -3105,6 +4092,12 @@ pub mod shipment {
         }
 
         /// Sets the value of [tags][crate::model::shipment::VisitRequest::tags].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// let x = VisitRequest::new().set_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3116,6 +4109,17 @@ pub mod shipment {
         }
 
         /// Sets the value of [time_windows][crate::model::shipment::VisitRequest::time_windows].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use google_cloud_optimization_v1::model::TimeWindow;
+        /// let x = VisitRequest::new()
+        ///     .set_time_windows([
+        ///         TimeWindow::default()/* use setters */,
+        ///         TimeWindow::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_time_windows<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3127,6 +4131,13 @@ pub mod shipment {
         }
 
         /// Sets the value of [duration][crate::model::shipment::VisitRequest::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use wkt::Duration;
+        /// let x = VisitRequest::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3136,6 +4147,14 @@ pub mod shipment {
         }
 
         /// Sets or clears the value of [duration][crate::model::shipment::VisitRequest::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use wkt::Duration;
+        /// let x = VisitRequest::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = VisitRequest::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3145,12 +4164,28 @@ pub mod shipment {
         }
 
         /// Sets the value of [cost][crate::model::shipment::VisitRequest::cost].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// let x = VisitRequest::new().set_cost(42.0);
+        /// ```
         pub fn set_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.cost = v.into();
             self
         }
 
         /// Sets the value of [load_demands][crate::model::shipment::VisitRequest::load_demands].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use google_cloud_optimization_v1::model::shipment::Load;
+        /// let x = VisitRequest::new().set_load_demands([
+        ///     ("key0", Load::default()/* use setters */),
+        ///     ("key1", Load::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_load_demands<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3163,6 +4198,12 @@ pub mod shipment {
         }
 
         /// Sets the value of [visit_types][crate::model::shipment::VisitRequest::visit_types].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// let x = VisitRequest::new().set_visit_types(["a", "b", "c"]);
+        /// ```
         pub fn set_visit_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3174,12 +4215,29 @@ pub mod shipment {
         }
 
         /// Sets the value of [label][crate::model::shipment::VisitRequest::label].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// let x = VisitRequest::new().set_label("example");
+        /// ```
         pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.label = v.into();
             self
         }
 
         /// Sets the value of [demands][crate::model::shipment::VisitRequest::demands].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::VisitRequest;
+        /// use google_cloud_optimization_v1::model::CapacityQuantity;
+        /// let x = VisitRequest::new()
+        ///     .set_demands([
+        ///         CapacityQuantity::default()/* use setters */,
+        ///         CapacityQuantity::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         #[deprecated]
         pub fn set_demands<T, V>(mut self, v: T) -> Self
         where
@@ -3221,6 +4279,12 @@ pub mod shipment {
         }
 
         /// Sets the value of [amount][crate::model::shipment::Load::amount].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment::Load;
+        /// let x = Load::new().set_amount(42);
+        /// ```
         pub fn set_amount<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.amount = v.into();
             self
@@ -3256,6 +4320,12 @@ impl ShipmentTypeIncompatibility {
     }
 
     /// Sets the value of [types][crate::model::ShipmentTypeIncompatibility::types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentTypeIncompatibility;
+    /// let x = ShipmentTypeIncompatibility::new().set_types(["a", "b", "c"]);
+    /// ```
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3267,6 +4337,14 @@ impl ShipmentTypeIncompatibility {
     }
 
     /// Sets the value of [incompatibility_mode][crate::model::ShipmentTypeIncompatibility::incompatibility_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentTypeIncompatibility;
+    /// use google_cloud_optimization_v1::model::shipment_type_incompatibility::IncompatibilityMode;
+    /// let x0 = ShipmentTypeIncompatibility::new().set_incompatibility_mode(IncompatibilityMode::NotPerformedBySameVehicle);
+    /// let x1 = ShipmentTypeIncompatibility::new().set_incompatibility_mode(IncompatibilityMode::NotInSameVehicleSimultaneously);
+    /// ```
     pub fn set_incompatibility_mode<
         T: std::convert::Into<crate::model::shipment_type_incompatibility::IncompatibilityMode>,
     >(
@@ -3464,6 +4542,12 @@ impl ShipmentTypeRequirement {
     }
 
     /// Sets the value of [required_shipment_type_alternatives][crate::model::ShipmentTypeRequirement::required_shipment_type_alternatives].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentTypeRequirement;
+    /// let x = ShipmentTypeRequirement::new().set_required_shipment_type_alternatives(["a", "b", "c"]);
+    /// ```
     pub fn set_required_shipment_type_alternatives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3475,6 +4559,12 @@ impl ShipmentTypeRequirement {
     }
 
     /// Sets the value of [dependent_shipment_types][crate::model::ShipmentTypeRequirement::dependent_shipment_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentTypeRequirement;
+    /// let x = ShipmentTypeRequirement::new().set_dependent_shipment_types(["a", "b", "c"]);
+    /// ```
     pub fn set_dependent_shipment_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3486,6 +4576,15 @@ impl ShipmentTypeRequirement {
     }
 
     /// Sets the value of [requirement_mode][crate::model::ShipmentTypeRequirement::requirement_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentTypeRequirement;
+    /// use google_cloud_optimization_v1::model::shipment_type_requirement::RequirementMode;
+    /// let x0 = ShipmentTypeRequirement::new().set_requirement_mode(RequirementMode::PerformedBySameVehicle);
+    /// let x1 = ShipmentTypeRequirement::new().set_requirement_mode(RequirementMode::InSameVehicleAtPickupTime);
+    /// let x2 = ShipmentTypeRequirement::new().set_requirement_mode(RequirementMode::InSameVehicleAtDeliveryTime);
+    /// ```
     pub fn set_requirement_mode<
         T: std::convert::Into<crate::model::shipment_type_requirement::RequirementMode>,
     >(
@@ -3701,24 +4800,48 @@ impl RouteModifiers {
     }
 
     /// Sets the value of [avoid_tolls][crate::model::RouteModifiers::avoid_tolls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::RouteModifiers;
+    /// let x = RouteModifiers::new().set_avoid_tolls(true);
+    /// ```
     pub fn set_avoid_tolls<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.avoid_tolls = v.into();
         self
     }
 
     /// Sets the value of [avoid_highways][crate::model::RouteModifiers::avoid_highways].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::RouteModifiers;
+    /// let x = RouteModifiers::new().set_avoid_highways(true);
+    /// ```
     pub fn set_avoid_highways<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.avoid_highways = v.into();
         self
     }
 
     /// Sets the value of [avoid_ferries][crate::model::RouteModifiers::avoid_ferries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::RouteModifiers;
+    /// let x = RouteModifiers::new().set_avoid_ferries(true);
+    /// ```
     pub fn set_avoid_ferries<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.avoid_ferries = v.into();
         self
     }
 
     /// Sets the value of [avoid_indoor][crate::model::RouteModifiers::avoid_indoor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::RouteModifiers;
+    /// let x = RouteModifiers::new().set_avoid_indoor(true);
+    /// ```
     pub fn set_avoid_indoor<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.avoid_indoor = v.into();
         self
@@ -3992,6 +5115,14 @@ impl Vehicle {
     }
 
     /// Sets the value of [travel_mode][crate::model::Vehicle::travel_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::vehicle::TravelMode;
+    /// let x0 = Vehicle::new().set_travel_mode(TravelMode::Driving);
+    /// let x1 = Vehicle::new().set_travel_mode(TravelMode::Walking);
+    /// ```
     pub fn set_travel_mode<T: std::convert::Into<crate::model::vehicle::TravelMode>>(
         mut self,
         v: T,
@@ -4001,6 +5132,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [route_modifiers][crate::model::Vehicle::route_modifiers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::RouteModifiers;
+    /// let x = Vehicle::new().set_route_modifiers(RouteModifiers::default()/* use setters */);
+    /// ```
     pub fn set_route_modifiers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RouteModifiers>,
@@ -4010,6 +5148,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [route_modifiers][crate::model::Vehicle::route_modifiers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::RouteModifiers;
+    /// let x = Vehicle::new().set_or_clear_route_modifiers(Some(RouteModifiers::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_route_modifiers(None::<RouteModifiers>);
+    /// ```
     pub fn set_or_clear_route_modifiers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RouteModifiers>,
@@ -4019,6 +5165,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [start_location][crate::model::Vehicle::start_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use gtype::model::LatLng;
+    /// let x = Vehicle::new().set_start_location(LatLng::default()/* use setters */);
+    /// ```
     pub fn set_start_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4028,6 +5181,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [start_location][crate::model::Vehicle::start_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use gtype::model::LatLng;
+    /// let x = Vehicle::new().set_or_clear_start_location(Some(LatLng::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_start_location(None::<LatLng>);
+    /// ```
     pub fn set_or_clear_start_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4037,6 +5198,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [start_waypoint][crate::model::Vehicle::start_waypoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::Waypoint;
+    /// let x = Vehicle::new().set_start_waypoint(Waypoint::default()/* use setters */);
+    /// ```
     pub fn set_start_waypoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Waypoint>,
@@ -4046,6 +5214,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [start_waypoint][crate::model::Vehicle::start_waypoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::Waypoint;
+    /// let x = Vehicle::new().set_or_clear_start_waypoint(Some(Waypoint::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_start_waypoint(None::<Waypoint>);
+    /// ```
     pub fn set_or_clear_start_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Waypoint>,
@@ -4055,6 +5231,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [end_location][crate::model::Vehicle::end_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use gtype::model::LatLng;
+    /// let x = Vehicle::new().set_end_location(LatLng::default()/* use setters */);
+    /// ```
     pub fn set_end_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4064,6 +5247,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [end_location][crate::model::Vehicle::end_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use gtype::model::LatLng;
+    /// let x = Vehicle::new().set_or_clear_end_location(Some(LatLng::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_end_location(None::<LatLng>);
+    /// ```
     pub fn set_or_clear_end_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4073,6 +5264,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [end_waypoint][crate::model::Vehicle::end_waypoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::Waypoint;
+    /// let x = Vehicle::new().set_end_waypoint(Waypoint::default()/* use setters */);
+    /// ```
     pub fn set_end_waypoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Waypoint>,
@@ -4082,6 +5280,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [end_waypoint][crate::model::Vehicle::end_waypoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::Waypoint;
+    /// let x = Vehicle::new().set_or_clear_end_waypoint(Some(Waypoint::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_end_waypoint(None::<Waypoint>);
+    /// ```
     pub fn set_or_clear_end_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Waypoint>,
@@ -4091,6 +5297,12 @@ impl Vehicle {
     }
 
     /// Sets the value of [start_tags][crate::model::Vehicle::start_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_start_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_start_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4102,6 +5314,12 @@ impl Vehicle {
     }
 
     /// Sets the value of [end_tags][crate::model::Vehicle::end_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_end_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_end_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4113,6 +5331,17 @@ impl Vehicle {
     }
 
     /// Sets the value of [start_time_windows][crate::model::Vehicle::start_time_windows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::TimeWindow;
+    /// let x = Vehicle::new()
+    ///     .set_start_time_windows([
+    ///         TimeWindow::default()/* use setters */,
+    ///         TimeWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_start_time_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4124,6 +5353,17 @@ impl Vehicle {
     }
 
     /// Sets the value of [end_time_windows][crate::model::Vehicle::end_time_windows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::TimeWindow;
+    /// let x = Vehicle::new()
+    ///     .set_end_time_windows([
+    ///         TimeWindow::default()/* use setters */,
+    ///         TimeWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_end_time_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4135,6 +5375,12 @@ impl Vehicle {
     }
 
     /// Sets the value of [travel_duration_multiple][crate::model::Vehicle::travel_duration_multiple].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_travel_duration_multiple(42.0);
+    /// ```
     pub fn set_travel_duration_multiple<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -4144,6 +5390,13 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [travel_duration_multiple][crate::model::Vehicle::travel_duration_multiple].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_or_clear_travel_duration_multiple(Some(42.0));
+    /// let x = Vehicle::new().set_or_clear_travel_duration_multiple(None::<f32>);
+    /// ```
     pub fn set_or_clear_travel_duration_multiple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -4153,6 +5406,14 @@ impl Vehicle {
     }
 
     /// Sets the value of [unloading_policy][crate::model::Vehicle::unloading_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::vehicle::UnloadingPolicy;
+    /// let x0 = Vehicle::new().set_unloading_policy(UnloadingPolicy::LastInFirstOut);
+    /// let x1 = Vehicle::new().set_unloading_policy(UnloadingPolicy::FirstInFirstOut);
+    /// ```
     pub fn set_unloading_policy<T: std::convert::Into<crate::model::vehicle::UnloadingPolicy>>(
         mut self,
         v: T,
@@ -4162,6 +5423,16 @@ impl Vehicle {
     }
 
     /// Sets the value of [load_limits][crate::model::Vehicle::load_limits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+    /// let x = Vehicle::new().set_load_limits([
+    ///     ("key0", LoadLimit::default()/* use setters */),
+    ///     ("key1", LoadLimit::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_load_limits<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4174,36 +5445,73 @@ impl Vehicle {
     }
 
     /// Sets the value of [cost_per_hour][crate::model::Vehicle::cost_per_hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_cost_per_hour(42.0);
+    /// ```
     pub fn set_cost_per_hour<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.cost_per_hour = v.into();
         self
     }
 
     /// Sets the value of [cost_per_traveled_hour][crate::model::Vehicle::cost_per_traveled_hour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_cost_per_traveled_hour(42.0);
+    /// ```
     pub fn set_cost_per_traveled_hour<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.cost_per_traveled_hour = v.into();
         self
     }
 
     /// Sets the value of [cost_per_kilometer][crate::model::Vehicle::cost_per_kilometer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_cost_per_kilometer(42.0);
+    /// ```
     pub fn set_cost_per_kilometer<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.cost_per_kilometer = v.into();
         self
     }
 
     /// Sets the value of [fixed_cost][crate::model::Vehicle::fixed_cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_fixed_cost(42.0);
+    /// ```
     pub fn set_fixed_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.fixed_cost = v.into();
         self
     }
 
     /// Sets the value of [used_if_route_is_empty][crate::model::Vehicle::used_if_route_is_empty].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_used_if_route_is_empty(true);
+    /// ```
     pub fn set_used_if_route_is_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.used_if_route_is_empty = v.into();
         self
     }
 
     /// Sets the value of [route_duration_limit][crate::model::Vehicle::route_duration_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+    /// let x = Vehicle::new().set_route_duration_limit(DurationLimit::default()/* use setters */);
+    /// ```
     pub fn set_route_duration_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vehicle::DurationLimit>,
@@ -4213,6 +5521,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [route_duration_limit][crate::model::Vehicle::route_duration_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+    /// let x = Vehicle::new().set_or_clear_route_duration_limit(Some(DurationLimit::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_route_duration_limit(None::<DurationLimit>);
+    /// ```
     pub fn set_or_clear_route_duration_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vehicle::DurationLimit>,
@@ -4222,6 +5538,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [travel_duration_limit][crate::model::Vehicle::travel_duration_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+    /// let x = Vehicle::new().set_travel_duration_limit(DurationLimit::default()/* use setters */);
+    /// ```
     pub fn set_travel_duration_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vehicle::DurationLimit>,
@@ -4231,6 +5554,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [travel_duration_limit][crate::model::Vehicle::travel_duration_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+    /// let x = Vehicle::new().set_or_clear_travel_duration_limit(Some(DurationLimit::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_travel_duration_limit(None::<DurationLimit>);
+    /// ```
     pub fn set_or_clear_travel_duration_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vehicle::DurationLimit>,
@@ -4240,6 +5571,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [route_distance_limit][crate::model::Vehicle::route_distance_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = Vehicle::new().set_route_distance_limit(DistanceLimit::default()/* use setters */);
+    /// ```
     pub fn set_route_distance_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DistanceLimit>,
@@ -4249,6 +5587,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [route_distance_limit][crate::model::Vehicle::route_distance_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = Vehicle::new().set_or_clear_route_distance_limit(Some(DistanceLimit::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_route_distance_limit(None::<DistanceLimit>);
+    /// ```
     pub fn set_or_clear_route_distance_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DistanceLimit>,
@@ -4258,6 +5604,16 @@ impl Vehicle {
     }
 
     /// Sets the value of [extra_visit_duration_for_visit_type][crate::model::Vehicle::extra_visit_duration_for_visit_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use wkt::Duration;
+    /// let x = Vehicle::new().set_extra_visit_duration_for_visit_type([
+    ///     ("key0", Duration::default()/* use setters */),
+    ///     ("key1", Duration::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_extra_visit_duration_for_visit_type<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4271,6 +5627,13 @@ impl Vehicle {
     }
 
     /// Sets the value of [break_rule][crate::model::Vehicle::break_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::BreakRule;
+    /// let x = Vehicle::new().set_break_rule(BreakRule::default()/* use setters */);
+    /// ```
     pub fn set_break_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BreakRule>,
@@ -4280,6 +5643,14 @@ impl Vehicle {
     }
 
     /// Sets or clears the value of [break_rule][crate::model::Vehicle::break_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::BreakRule;
+    /// let x = Vehicle::new().set_or_clear_break_rule(Some(BreakRule::default()/* use setters */));
+    /// let x = Vehicle::new().set_or_clear_break_rule(None::<BreakRule>);
+    /// ```
     pub fn set_or_clear_break_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BreakRule>,
@@ -4289,18 +5660,36 @@ impl Vehicle {
     }
 
     /// Sets the value of [label][crate::model::Vehicle::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
     }
 
     /// Sets the value of [ignore][crate::model::Vehicle::ignore].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_ignore(true);
+    /// ```
     pub fn set_ignore<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore = v.into();
         self
     }
 
     /// Sets the value of [break_rule_indices][crate::model::Vehicle::break_rule_indices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// let x = Vehicle::new().set_break_rule_indices([1, 2, 3]);
+    /// ```
     #[deprecated]
     pub fn set_break_rule_indices<T, V>(mut self, v: T) -> Self
     where
@@ -4313,6 +5702,17 @@ impl Vehicle {
     }
 
     /// Sets the value of [capacities][crate::model::Vehicle::capacities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::CapacityQuantity;
+    /// let x = Vehicle::new()
+    ///     .set_capacities([
+    ///         CapacityQuantity::default()/* use setters */,
+    ///         CapacityQuantity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_capacities<T, V>(mut self, v: T) -> Self
     where
@@ -4325,6 +5725,17 @@ impl Vehicle {
     }
 
     /// Sets the value of [start_load_intervals][crate::model::Vehicle::start_load_intervals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::CapacityQuantityInterval;
+    /// let x = Vehicle::new()
+    ///     .set_start_load_intervals([
+    ///         CapacityQuantityInterval::default()/* use setters */,
+    ///         CapacityQuantityInterval::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_start_load_intervals<T, V>(mut self, v: T) -> Self
     where
@@ -4337,6 +5748,17 @@ impl Vehicle {
     }
 
     /// Sets the value of [end_load_intervals][crate::model::Vehicle::end_load_intervals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Vehicle;
+    /// use google_cloud_optimization_v1::model::CapacityQuantityInterval;
+    /// let x = Vehicle::new()
+    ///     .set_end_load_intervals([
+    ///         CapacityQuantityInterval::default()/* use setters */,
+    ///         CapacityQuantityInterval::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_end_load_intervals<T, V>(mut self, v: T) -> Self
     where
@@ -4407,6 +5829,12 @@ pub mod vehicle {
         }
 
         /// Sets the value of [max_load][crate::model::vehicle::LoadLimit::max_load].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// let x = LoadLimit::new().set_max_load(42);
+        /// ```
         pub fn set_max_load<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -4416,6 +5844,13 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [max_load][crate::model::vehicle::LoadLimit::max_load].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// let x = LoadLimit::new().set_or_clear_max_load(Some(42));
+        /// let x = LoadLimit::new().set_or_clear_max_load(None::<i32>);
+        /// ```
         pub fn set_or_clear_max_load<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -4425,12 +5860,24 @@ pub mod vehicle {
         }
 
         /// Sets the value of [soft_max_load][crate::model::vehicle::LoadLimit::soft_max_load].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// let x = LoadLimit::new().set_soft_max_load(42);
+        /// ```
         pub fn set_soft_max_load<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.soft_max_load = v.into();
             self
         }
 
         /// Sets the value of [cost_per_unit_above_soft_max][crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// let x = LoadLimit::new().set_cost_per_unit_above_soft_max(42.0);
+        /// ```
         pub fn set_cost_per_unit_above_soft_max<T: std::convert::Into<f64>>(
             mut self,
             v: T,
@@ -4440,6 +5887,13 @@ pub mod vehicle {
         }
 
         /// Sets the value of [start_load_interval][crate::model::vehicle::LoadLimit::start_load_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// use google_cloud_optimization_v1::model::vehicle::load_limit::Interval;
+        /// let x = LoadLimit::new().set_start_load_interval(Interval::default()/* use setters */);
+        /// ```
         pub fn set_start_load_interval<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::vehicle::load_limit::Interval>,
@@ -4449,6 +5903,14 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [start_load_interval][crate::model::vehicle::LoadLimit::start_load_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// use google_cloud_optimization_v1::model::vehicle::load_limit::Interval;
+        /// let x = LoadLimit::new().set_or_clear_start_load_interval(Some(Interval::default()/* use setters */));
+        /// let x = LoadLimit::new().set_or_clear_start_load_interval(None::<Interval>);
+        /// ```
         pub fn set_or_clear_start_load_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vehicle::load_limit::Interval>,
@@ -4458,6 +5920,13 @@ pub mod vehicle {
         }
 
         /// Sets the value of [end_load_interval][crate::model::vehicle::LoadLimit::end_load_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// use google_cloud_optimization_v1::model::vehicle::load_limit::Interval;
+        /// let x = LoadLimit::new().set_end_load_interval(Interval::default()/* use setters */);
+        /// ```
         pub fn set_end_load_interval<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::vehicle::load_limit::Interval>,
@@ -4467,6 +5936,14 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [end_load_interval][crate::model::vehicle::LoadLimit::end_load_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::LoadLimit;
+        /// use google_cloud_optimization_v1::model::vehicle::load_limit::Interval;
+        /// let x = LoadLimit::new().set_or_clear_end_load_interval(Some(Interval::default()/* use setters */));
+        /// let x = LoadLimit::new().set_or_clear_end_load_interval(None::<Interval>);
+        /// ```
         pub fn set_or_clear_end_load_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vehicle::load_limit::Interval>,
@@ -4521,12 +5998,24 @@ pub mod vehicle {
             }
 
             /// Sets the value of [min][crate::model::vehicle::load_limit::Interval::min].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::vehicle::load_limit::Interval;
+            /// let x = Interval::new().set_min(42);
+            /// ```
             pub fn set_min<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.min = v.into();
                 self
             }
 
             /// Sets the value of [max][crate::model::vehicle::load_limit::Interval::max].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::vehicle::load_limit::Interval;
+            /// let x = Interval::new().set_max(42);
+            /// ```
             pub fn set_max<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i64>,
@@ -4536,6 +6025,13 @@ pub mod vehicle {
             }
 
             /// Sets or clears the value of [max][crate::model::vehicle::load_limit::Interval::max].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::vehicle::load_limit::Interval;
+            /// let x = Interval::new().set_or_clear_max(Some(42));
+            /// let x = Interval::new().set_or_clear_max(None::<i32>);
+            /// ```
             pub fn set_or_clear_max<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i64>,
@@ -4617,6 +6113,13 @@ pub mod vehicle {
         }
 
         /// Sets the value of [max_duration][crate::model::vehicle::DurationLimit::max_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// use wkt::Duration;
+        /// let x = DurationLimit::new().set_max_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_max_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4626,6 +6129,14 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [max_duration][crate::model::vehicle::DurationLimit::max_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// use wkt::Duration;
+        /// let x = DurationLimit::new().set_or_clear_max_duration(Some(Duration::default()/* use setters */));
+        /// let x = DurationLimit::new().set_or_clear_max_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4635,6 +6146,13 @@ pub mod vehicle {
         }
 
         /// Sets the value of [soft_max_duration][crate::model::vehicle::DurationLimit::soft_max_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// use wkt::Duration;
+        /// let x = DurationLimit::new().set_soft_max_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_soft_max_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4644,6 +6162,14 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [soft_max_duration][crate::model::vehicle::DurationLimit::soft_max_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// use wkt::Duration;
+        /// let x = DurationLimit::new().set_or_clear_soft_max_duration(Some(Duration::default()/* use setters */));
+        /// let x = DurationLimit::new().set_or_clear_soft_max_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_soft_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4653,6 +6179,12 @@ pub mod vehicle {
         }
 
         /// Sets the value of [cost_per_hour_after_soft_max][crate::model::vehicle::DurationLimit::cost_per_hour_after_soft_max].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// let x = DurationLimit::new().set_cost_per_hour_after_soft_max(42.0);
+        /// ```
         pub fn set_cost_per_hour_after_soft_max<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -4662,6 +6194,13 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [cost_per_hour_after_soft_max][crate::model::vehicle::DurationLimit::cost_per_hour_after_soft_max].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// let x = DurationLimit::new().set_or_clear_cost_per_hour_after_soft_max(Some(42.0));
+        /// let x = DurationLimit::new().set_or_clear_cost_per_hour_after_soft_max(None::<f32>);
+        /// ```
         pub fn set_or_clear_cost_per_hour_after_soft_max<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4674,6 +6213,13 @@ pub mod vehicle {
         }
 
         /// Sets the value of [quadratic_soft_max_duration][crate::model::vehicle::DurationLimit::quadratic_soft_max_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// use wkt::Duration;
+        /// let x = DurationLimit::new().set_quadratic_soft_max_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_quadratic_soft_max_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4683,6 +6229,14 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [quadratic_soft_max_duration][crate::model::vehicle::DurationLimit::quadratic_soft_max_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// use wkt::Duration;
+        /// let x = DurationLimit::new().set_or_clear_quadratic_soft_max_duration(Some(Duration::default()/* use setters */));
+        /// let x = DurationLimit::new().set_or_clear_quadratic_soft_max_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_quadratic_soft_max_duration<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4695,6 +6249,12 @@ pub mod vehicle {
         }
 
         /// Sets the value of [cost_per_square_hour_after_quadratic_soft_max][crate::model::vehicle::DurationLimit::cost_per_square_hour_after_quadratic_soft_max].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// let x = DurationLimit::new().set_cost_per_square_hour_after_quadratic_soft_max(42.0);
+        /// ```
         pub fn set_cost_per_square_hour_after_quadratic_soft_max<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -4705,6 +6265,13 @@ pub mod vehicle {
         }
 
         /// Sets or clears the value of [cost_per_square_hour_after_quadratic_soft_max][crate::model::vehicle::DurationLimit::cost_per_square_hour_after_quadratic_soft_max].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::vehicle::DurationLimit;
+        /// let x = DurationLimit::new().set_or_clear_cost_per_square_hour_after_quadratic_soft_max(Some(42.0));
+        /// let x = DurationLimit::new().set_or_clear_cost_per_square_hour_after_quadratic_soft_max(None::<f32>);
+        /// ```
         pub fn set_or_clear_cost_per_square_hour_after_quadratic_soft_max<T>(
             mut self,
             v: std::option::Option<T>,
@@ -5074,6 +6641,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5083,6 +6657,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5092,6 +6674,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5101,6 +6690,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5110,6 +6707,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [soft_start_time][crate::model::TimeWindow::soft_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_soft_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_soft_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5119,6 +6723,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [soft_start_time][crate::model::TimeWindow::soft_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_soft_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_soft_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_soft_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5128,6 +6740,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [soft_end_time][crate::model::TimeWindow::soft_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_soft_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_soft_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5137,6 +6756,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [soft_end_time][crate::model::TimeWindow::soft_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_soft_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_soft_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_soft_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5146,6 +6773,12 @@ impl TimeWindow {
     }
 
     /// Sets the value of [cost_per_hour_before_soft_start_time][crate::model::TimeWindow::cost_per_hour_before_soft_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// let x = TimeWindow::new().set_cost_per_hour_before_soft_start_time(42.0);
+    /// ```
     pub fn set_cost_per_hour_before_soft_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -5155,6 +6788,13 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [cost_per_hour_before_soft_start_time][crate::model::TimeWindow::cost_per_hour_before_soft_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// let x = TimeWindow::new().set_or_clear_cost_per_hour_before_soft_start_time(Some(42.0));
+    /// let x = TimeWindow::new().set_or_clear_cost_per_hour_before_soft_start_time(None::<f32>);
+    /// ```
     pub fn set_or_clear_cost_per_hour_before_soft_start_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5167,6 +6807,12 @@ impl TimeWindow {
     }
 
     /// Sets the value of [cost_per_hour_after_soft_end_time][crate::model::TimeWindow::cost_per_hour_after_soft_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// let x = TimeWindow::new().set_cost_per_hour_after_soft_end_time(42.0);
+    /// ```
     pub fn set_cost_per_hour_after_soft_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -5176,6 +6822,13 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [cost_per_hour_after_soft_end_time][crate::model::TimeWindow::cost_per_hour_after_soft_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TimeWindow;
+    /// let x = TimeWindow::new().set_or_clear_cost_per_hour_after_soft_end_time(Some(42.0));
+    /// let x = TimeWindow::new().set_or_clear_cost_per_hour_after_soft_end_time(None::<f32>);
+    /// ```
     pub fn set_or_clear_cost_per_hour_after_soft_end_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5216,12 +6869,24 @@ impl CapacityQuantity {
     }
 
     /// Sets the value of [r#type][crate::model::CapacityQuantity::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::CapacityQuantity;
+    /// let x = CapacityQuantity::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::CapacityQuantity::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::CapacityQuantity;
+    /// let x = CapacityQuantity::new().set_value(42);
+    /// ```
     pub fn set_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -5258,12 +6923,24 @@ impl CapacityQuantityInterval {
     }
 
     /// Sets the value of [r#type][crate::model::CapacityQuantityInterval::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::CapacityQuantityInterval;
+    /// let x = CapacityQuantityInterval::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [min_value][crate::model::CapacityQuantityInterval::min_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::CapacityQuantityInterval;
+    /// let x = CapacityQuantityInterval::new().set_min_value(42);
+    /// ```
     pub fn set_min_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5273,6 +6950,13 @@ impl CapacityQuantityInterval {
     }
 
     /// Sets or clears the value of [min_value][crate::model::CapacityQuantityInterval::min_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::CapacityQuantityInterval;
+    /// let x = CapacityQuantityInterval::new().set_or_clear_min_value(Some(42));
+    /// let x = CapacityQuantityInterval::new().set_or_clear_min_value(None::<i32>);
+    /// ```
     pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5282,6 +6966,12 @@ impl CapacityQuantityInterval {
     }
 
     /// Sets the value of [max_value][crate::model::CapacityQuantityInterval::max_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::CapacityQuantityInterval;
+    /// let x = CapacityQuantityInterval::new().set_max_value(42);
+    /// ```
     pub fn set_max_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5291,6 +6981,13 @@ impl CapacityQuantityInterval {
     }
 
     /// Sets or clears the value of [max_value][crate::model::CapacityQuantityInterval::max_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::CapacityQuantityInterval;
+    /// let x = CapacityQuantityInterval::new().set_or_clear_max_value(Some(42));
+    /// let x = CapacityQuantityInterval::new().set_or_clear_max_value(None::<i32>);
+    /// ```
     pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5358,6 +7055,12 @@ impl DistanceLimit {
     }
 
     /// Sets the value of [max_meters][crate::model::DistanceLimit::max_meters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_max_meters(42);
+    /// ```
     pub fn set_max_meters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5367,6 +7070,13 @@ impl DistanceLimit {
     }
 
     /// Sets or clears the value of [max_meters][crate::model::DistanceLimit::max_meters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_or_clear_max_meters(Some(42));
+    /// let x = DistanceLimit::new().set_or_clear_max_meters(None::<i32>);
+    /// ```
     pub fn set_or_clear_max_meters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5376,6 +7086,12 @@ impl DistanceLimit {
     }
 
     /// Sets the value of [soft_max_meters][crate::model::DistanceLimit::soft_max_meters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_soft_max_meters(42);
+    /// ```
     pub fn set_soft_max_meters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5385,6 +7101,13 @@ impl DistanceLimit {
     }
 
     /// Sets or clears the value of [soft_max_meters][crate::model::DistanceLimit::soft_max_meters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_or_clear_soft_max_meters(Some(42));
+    /// let x = DistanceLimit::new().set_or_clear_soft_max_meters(None::<i32>);
+    /// ```
     pub fn set_or_clear_soft_max_meters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5394,6 +7117,12 @@ impl DistanceLimit {
     }
 
     /// Sets the value of [cost_per_kilometer_below_soft_max][crate::model::DistanceLimit::cost_per_kilometer_below_soft_max].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_cost_per_kilometer_below_soft_max(42.0);
+    /// ```
     pub fn set_cost_per_kilometer_below_soft_max<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -5403,6 +7132,13 @@ impl DistanceLimit {
     }
 
     /// Sets or clears the value of [cost_per_kilometer_below_soft_max][crate::model::DistanceLimit::cost_per_kilometer_below_soft_max].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_or_clear_cost_per_kilometer_below_soft_max(Some(42.0));
+    /// let x = DistanceLimit::new().set_or_clear_cost_per_kilometer_below_soft_max(None::<f32>);
+    /// ```
     pub fn set_or_clear_cost_per_kilometer_below_soft_max<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5415,6 +7151,12 @@ impl DistanceLimit {
     }
 
     /// Sets the value of [cost_per_kilometer_above_soft_max][crate::model::DistanceLimit::cost_per_kilometer_above_soft_max].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_cost_per_kilometer_above_soft_max(42.0);
+    /// ```
     pub fn set_cost_per_kilometer_above_soft_max<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -5424,6 +7166,13 @@ impl DistanceLimit {
     }
 
     /// Sets or clears the value of [cost_per_kilometer_above_soft_max][crate::model::DistanceLimit::cost_per_kilometer_above_soft_max].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = DistanceLimit::new().set_or_clear_cost_per_kilometer_above_soft_max(Some(42.0));
+    /// let x = DistanceLimit::new().set_or_clear_cost_per_kilometer_above_soft_max(None::<f32>);
+    /// ```
     pub fn set_or_clear_cost_per_kilometer_above_soft_max<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5513,12 +7262,24 @@ impl TransitionAttributes {
     }
 
     /// Sets the value of [src_tag][crate::model::TransitionAttributes::src_tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// let x = TransitionAttributes::new().set_src_tag("example");
+    /// ```
     pub fn set_src_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.src_tag = v.into();
         self
     }
 
     /// Sets the value of [excluded_src_tag][crate::model::TransitionAttributes::excluded_src_tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// let x = TransitionAttributes::new().set_excluded_src_tag("example");
+    /// ```
     pub fn set_excluded_src_tag<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5528,12 +7289,24 @@ impl TransitionAttributes {
     }
 
     /// Sets the value of [dst_tag][crate::model::TransitionAttributes::dst_tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// let x = TransitionAttributes::new().set_dst_tag("example");
+    /// ```
     pub fn set_dst_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dst_tag = v.into();
         self
     }
 
     /// Sets the value of [excluded_dst_tag][crate::model::TransitionAttributes::excluded_dst_tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// let x = TransitionAttributes::new().set_excluded_dst_tag("example");
+    /// ```
     pub fn set_excluded_dst_tag<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5543,18 +7316,37 @@ impl TransitionAttributes {
     }
 
     /// Sets the value of [cost][crate::model::TransitionAttributes::cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// let x = TransitionAttributes::new().set_cost(42.0);
+    /// ```
     pub fn set_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.cost = v.into();
         self
     }
 
     /// Sets the value of [cost_per_kilometer][crate::model::TransitionAttributes::cost_per_kilometer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// let x = TransitionAttributes::new().set_cost_per_kilometer(42.0);
+    /// ```
     pub fn set_cost_per_kilometer<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.cost_per_kilometer = v.into();
         self
     }
 
     /// Sets the value of [distance_limit][crate::model::TransitionAttributes::distance_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = TransitionAttributes::new().set_distance_limit(DistanceLimit::default()/* use setters */);
+    /// ```
     pub fn set_distance_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DistanceLimit>,
@@ -5564,6 +7356,14 @@ impl TransitionAttributes {
     }
 
     /// Sets or clears the value of [distance_limit][crate::model::TransitionAttributes::distance_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// use google_cloud_optimization_v1::model::DistanceLimit;
+    /// let x = TransitionAttributes::new().set_or_clear_distance_limit(Some(DistanceLimit::default()/* use setters */));
+    /// let x = TransitionAttributes::new().set_or_clear_distance_limit(None::<DistanceLimit>);
+    /// ```
     pub fn set_or_clear_distance_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DistanceLimit>,
@@ -5573,6 +7373,13 @@ impl TransitionAttributes {
     }
 
     /// Sets the value of [delay][crate::model::TransitionAttributes::delay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// use wkt::Duration;
+    /// let x = TransitionAttributes::new().set_delay(Duration::default()/* use setters */);
+    /// ```
     pub fn set_delay<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5582,6 +7389,14 @@ impl TransitionAttributes {
     }
 
     /// Sets or clears the value of [delay][crate::model::TransitionAttributes::delay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::TransitionAttributes;
+    /// use wkt::Duration;
+    /// let x = TransitionAttributes::new().set_or_clear_delay(Some(Duration::default()/* use setters */));
+    /// let x = TransitionAttributes::new().set_or_clear_delay(None::<Duration>);
+    /// ```
     pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5622,6 +7437,12 @@ impl Waypoint {
     }
 
     /// Sets the value of [side_of_road][crate::model::Waypoint::side_of_road].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Waypoint;
+    /// let x = Waypoint::new().set_side_of_road(true);
+    /// ```
     pub fn set_side_of_road<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.side_of_road = v.into();
         self
@@ -5631,6 +7452,13 @@ impl Waypoint {
     ///
     /// Note that all the setters affecting `location_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Waypoint;
+    /// use google_cloud_optimization_v1::model::waypoint::LocationType;
+    /// let x = Waypoint::new().set_location_type(Some(LocationType::PlaceId("example".to_string())));
+    /// ```
     pub fn set_location_type<
         T: std::convert::Into<std::option::Option<crate::model::waypoint::LocationType>>,
     >(
@@ -5657,6 +7485,15 @@ impl Waypoint {
     ///
     /// Note that all the setters affecting `location_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Waypoint;
+    /// use google_cloud_optimization_v1::model::Location;
+    /// let x = Waypoint::new().set_location(Location::default()/* use setters */);
+    /// assert!(x.location().is_some());
+    /// assert!(x.place_id().is_none());
+    /// ```
     pub fn set_location<T: std::convert::Into<std::boxed::Box<crate::model::Location>>>(
         mut self,
         v: T,
@@ -5682,6 +7519,14 @@ impl Waypoint {
     ///
     /// Note that all the setters affecting `location_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Waypoint;
+    /// let x = Waypoint::new().set_place_id("example");
+    /// assert!(x.place_id().is_some());
+    /// assert!(x.location().is_none());
+    /// ```
     pub fn set_place_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_type =
             std::option::Option::Some(crate::model::waypoint::LocationType::PlaceId(v.into()));
@@ -5734,6 +7579,13 @@ impl Location {
     }
 
     /// Sets the value of [lat_lng][crate::model::Location::lat_lng].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Location;
+    /// use gtype::model::LatLng;
+    /// let x = Location::new().set_lat_lng(LatLng::default()/* use setters */);
+    /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -5743,6 +7595,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [lat_lng][crate::model::Location::lat_lng].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Location;
+    /// use gtype::model::LatLng;
+    /// let x = Location::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_lat_lng(None::<LatLng>);
+    /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -5752,6 +7612,12 @@ impl Location {
     }
 
     /// Sets the value of [heading][crate::model::Location::heading].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Location;
+    /// let x = Location::new().set_heading(42);
+    /// ```
     pub fn set_heading<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -5761,6 +7627,13 @@ impl Location {
     }
 
     /// Sets or clears the value of [heading][crate::model::Location::heading].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::Location;
+    /// let x = Location::new().set_or_clear_heading(Some(42));
+    /// let x = Location::new().set_or_clear_heading(None::<i32>);
+    /// ```
     pub fn set_or_clear_heading<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -5805,6 +7678,17 @@ impl BreakRule {
     }
 
     /// Sets the value of [break_requests][crate::model::BreakRule::break_requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::BreakRule;
+    /// use google_cloud_optimization_v1::model::break_rule::BreakRequest;
+    /// let x = BreakRule::new()
+    ///     .set_break_requests([
+    ///         BreakRequest::default()/* use setters */,
+    ///         BreakRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_break_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5816,6 +7700,17 @@ impl BreakRule {
     }
 
     /// Sets the value of [frequency_constraints][crate::model::BreakRule::frequency_constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::BreakRule;
+    /// use google_cloud_optimization_v1::model::break_rule::FrequencyConstraint;
+    /// let x = BreakRule::new()
+    ///     .set_frequency_constraints([
+    ///         FrequencyConstraint::default()/* use setters */,
+    ///         FrequencyConstraint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_frequency_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5864,6 +7759,13 @@ pub mod break_rule {
         }
 
         /// Sets the value of [earliest_start_time][crate::model::break_rule::BreakRequest::earliest_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::BreakRequest;
+        /// use wkt::Timestamp;
+        /// let x = BreakRequest::new().set_earliest_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_earliest_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5873,6 +7775,14 @@ pub mod break_rule {
         }
 
         /// Sets or clears the value of [earliest_start_time][crate::model::break_rule::BreakRequest::earliest_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::BreakRequest;
+        /// use wkt::Timestamp;
+        /// let x = BreakRequest::new().set_or_clear_earliest_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = BreakRequest::new().set_or_clear_earliest_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_earliest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5882,6 +7792,13 @@ pub mod break_rule {
         }
 
         /// Sets the value of [latest_start_time][crate::model::break_rule::BreakRequest::latest_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::BreakRequest;
+        /// use wkt::Timestamp;
+        /// let x = BreakRequest::new().set_latest_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_latest_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5891,6 +7808,14 @@ pub mod break_rule {
         }
 
         /// Sets or clears the value of [latest_start_time][crate::model::break_rule::BreakRequest::latest_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::BreakRequest;
+        /// use wkt::Timestamp;
+        /// let x = BreakRequest::new().set_or_clear_latest_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = BreakRequest::new().set_or_clear_latest_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_latest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5900,6 +7825,13 @@ pub mod break_rule {
         }
 
         /// Sets the value of [min_duration][crate::model::break_rule::BreakRequest::min_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::BreakRequest;
+        /// use wkt::Duration;
+        /// let x = BreakRequest::new().set_min_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5909,6 +7841,14 @@ pub mod break_rule {
         }
 
         /// Sets or clears the value of [min_duration][crate::model::break_rule::BreakRequest::min_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::BreakRequest;
+        /// use wkt::Duration;
+        /// let x = BreakRequest::new().set_or_clear_min_duration(Some(Duration::default()/* use setters */));
+        /// let x = BreakRequest::new().set_or_clear_min_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5980,6 +7920,13 @@ pub mod break_rule {
         }
 
         /// Sets the value of [min_break_duration][crate::model::break_rule::FrequencyConstraint::min_break_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::FrequencyConstraint;
+        /// use wkt::Duration;
+        /// let x = FrequencyConstraint::new().set_min_break_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_break_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5989,6 +7936,14 @@ pub mod break_rule {
         }
 
         /// Sets or clears the value of [min_break_duration][crate::model::break_rule::FrequencyConstraint::min_break_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::FrequencyConstraint;
+        /// use wkt::Duration;
+        /// let x = FrequencyConstraint::new().set_or_clear_min_break_duration(Some(Duration::default()/* use setters */));
+        /// let x = FrequencyConstraint::new().set_or_clear_min_break_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5998,6 +7953,13 @@ pub mod break_rule {
         }
 
         /// Sets the value of [max_inter_break_duration][crate::model::break_rule::FrequencyConstraint::max_inter_break_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::FrequencyConstraint;
+        /// use wkt::Duration;
+        /// let x = FrequencyConstraint::new().set_max_inter_break_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_max_inter_break_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6007,6 +7969,14 @@ pub mod break_rule {
         }
 
         /// Sets or clears the value of [max_inter_break_duration][crate::model::break_rule::FrequencyConstraint::max_inter_break_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::break_rule::FrequencyConstraint;
+        /// use wkt::Duration;
+        /// let x = FrequencyConstraint::new().set_or_clear_max_inter_break_duration(Some(Duration::default()/* use setters */));
+        /// let x = FrequencyConstraint::new().set_or_clear_max_inter_break_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_max_inter_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6251,18 +8221,37 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [vehicle_index][crate::model::ShipmentRoute::vehicle_index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = ShipmentRoute::new().set_vehicle_index(42);
+    /// ```
     pub fn set_vehicle_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vehicle_index = v.into();
         self
     }
 
     /// Sets the value of [vehicle_label][crate::model::ShipmentRoute::vehicle_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = ShipmentRoute::new().set_vehicle_label("example");
+    /// ```
     pub fn set_vehicle_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vehicle_label = v.into();
         self
     }
 
     /// Sets the value of [vehicle_start_time][crate::model::ShipmentRoute::vehicle_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentRoute::new().set_vehicle_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_vehicle_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6272,6 +8261,14 @@ impl ShipmentRoute {
     }
 
     /// Sets or clears the value of [vehicle_start_time][crate::model::ShipmentRoute::vehicle_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentRoute::new().set_or_clear_vehicle_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ShipmentRoute::new().set_or_clear_vehicle_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_vehicle_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6281,6 +8278,13 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [vehicle_end_time][crate::model::ShipmentRoute::vehicle_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentRoute::new().set_vehicle_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_vehicle_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6290,6 +8294,14 @@ impl ShipmentRoute {
     }
 
     /// Sets or clears the value of [vehicle_end_time][crate::model::ShipmentRoute::vehicle_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use wkt::Timestamp;
+    /// let x = ShipmentRoute::new().set_or_clear_vehicle_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ShipmentRoute::new().set_or_clear_vehicle_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_vehicle_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6299,6 +8311,17 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [visits][crate::model::ShipmentRoute::visits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::Visit;
+    /// let x = ShipmentRoute::new()
+    ///     .set_visits([
+    ///         Visit::default()/* use setters */,
+    ///         Visit::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_visits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6310,6 +8333,17 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [transitions][crate::model::ShipmentRoute::transitions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::Transition;
+    /// let x = ShipmentRoute::new()
+    ///     .set_transitions([
+    ///         Transition::default()/* use setters */,
+    ///         Transition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6321,12 +8355,25 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [has_traffic_infeasibilities][crate::model::ShipmentRoute::has_traffic_infeasibilities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = ShipmentRoute::new().set_has_traffic_infeasibilities(true);
+    /// ```
     pub fn set_has_traffic_infeasibilities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_traffic_infeasibilities = v.into();
         self
     }
 
     /// Sets the value of [route_polyline][crate::model::ShipmentRoute::route_polyline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::EncodedPolyline;
+    /// let x = ShipmentRoute::new().set_route_polyline(EncodedPolyline::default()/* use setters */);
+    /// ```
     pub fn set_route_polyline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -6336,6 +8383,14 @@ impl ShipmentRoute {
     }
 
     /// Sets or clears the value of [route_polyline][crate::model::ShipmentRoute::route_polyline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::EncodedPolyline;
+    /// let x = ShipmentRoute::new().set_or_clear_route_polyline(Some(EncodedPolyline::default()/* use setters */));
+    /// let x = ShipmentRoute::new().set_or_clear_route_polyline(None::<EncodedPolyline>);
+    /// ```
     pub fn set_or_clear_route_polyline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -6345,6 +8400,17 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [breaks][crate::model::ShipmentRoute::breaks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::Break;
+    /// let x = ShipmentRoute::new()
+    ///     .set_breaks([
+    ///         Break::default()/* use setters */,
+    ///         Break::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_breaks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6356,6 +8422,13 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [metrics][crate::model::ShipmentRoute::metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// let x = ShipmentRoute::new().set_metrics(AggregatedMetrics::default()/* use setters */);
+    /// ```
     pub fn set_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AggregatedMetrics>,
@@ -6365,6 +8438,14 @@ impl ShipmentRoute {
     }
 
     /// Sets or clears the value of [metrics][crate::model::ShipmentRoute::metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// let x = ShipmentRoute::new().set_or_clear_metrics(Some(AggregatedMetrics::default()/* use setters */));
+    /// let x = ShipmentRoute::new().set_or_clear_metrics(None::<AggregatedMetrics>);
+    /// ```
     pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AggregatedMetrics>,
@@ -6374,6 +8455,15 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [route_costs][crate::model::ShipmentRoute::route_costs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = ShipmentRoute::new().set_route_costs([
+    ///     ("key0", 123.5),
+    ///     ("key1", 456.5),
+    /// ]);
+    /// ```
     pub fn set_route_costs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6386,12 +8476,29 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [route_total_cost][crate::model::ShipmentRoute::route_total_cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = ShipmentRoute::new().set_route_total_cost(42.0);
+    /// ```
     pub fn set_route_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.route_total_cost = v.into();
         self
     }
 
     /// Sets the value of [end_loads][crate::model::ShipmentRoute::end_loads].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::CapacityQuantity;
+    /// let x = ShipmentRoute::new()
+    ///     .set_end_loads([
+    ///         CapacityQuantity::default()/* use setters */,
+    ///         CapacityQuantity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_end_loads<T, V>(mut self, v: T) -> Self
     where
@@ -6404,6 +8511,17 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [travel_steps][crate::model::ShipmentRoute::travel_steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::TravelStep;
+    /// let x = ShipmentRoute::new()
+    ///     .set_travel_steps([
+    ///         TravelStep::default()/* use setters */,
+    ///         TravelStep::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_travel_steps<T, V>(mut self, v: T) -> Self
     where
@@ -6416,6 +8534,13 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [vehicle_detour][crate::model::ShipmentRoute::vehicle_detour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use wkt::Duration;
+    /// let x = ShipmentRoute::new().set_vehicle_detour(Duration::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_vehicle_detour<T>(mut self, v: T) -> Self
     where
@@ -6426,6 +8551,14 @@ impl ShipmentRoute {
     }
 
     /// Sets or clears the value of [vehicle_detour][crate::model::ShipmentRoute::vehicle_detour].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use wkt::Duration;
+    /// let x = ShipmentRoute::new().set_or_clear_vehicle_detour(Some(Duration::default()/* use setters */));
+    /// let x = ShipmentRoute::new().set_or_clear_vehicle_detour(None::<Duration>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_vehicle_detour<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6436,6 +8569,13 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [delay_before_vehicle_end][crate::model::ShipmentRoute::delay_before_vehicle_end].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::Delay;
+    /// let x = ShipmentRoute::new().set_delay_before_vehicle_end(Delay::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_delay_before_vehicle_end<T>(mut self, v: T) -> Self
     where
@@ -6446,6 +8586,14 @@ impl ShipmentRoute {
     }
 
     /// Sets or clears the value of [delay_before_vehicle_end][crate::model::ShipmentRoute::delay_before_vehicle_end].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// use google_cloud_optimization_v1::model::shipment_route::Delay;
+    /// let x = ShipmentRoute::new().set_or_clear_delay_before_vehicle_end(Some(Delay::default()/* use setters */));
+    /// let x = ShipmentRoute::new().set_or_clear_delay_before_vehicle_end(None::<Delay>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_delay_before_vehicle_end<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6493,6 +8641,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [start_time][crate::model::shipment_route::Delay::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Delay;
+        /// use wkt::Timestamp;
+        /// let x = Delay::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6502,6 +8657,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [start_time][crate::model::shipment_route::Delay::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Delay;
+        /// use wkt::Timestamp;
+        /// let x = Delay::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Delay::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6511,6 +8674,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [duration][crate::model::shipment_route::Delay::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Delay;
+        /// use wkt::Duration;
+        /// let x = Delay::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6520,6 +8690,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [duration][crate::model::shipment_route::Delay::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Delay;
+        /// use wkt::Duration;
+        /// let x = Delay::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = Delay::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6640,24 +8818,49 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [shipment_index][crate::model::shipment_route::Visit::shipment_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// let x = Visit::new().set_shipment_index(42);
+        /// ```
         pub fn set_shipment_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.shipment_index = v.into();
             self
         }
 
         /// Sets the value of [is_pickup][crate::model::shipment_route::Visit::is_pickup].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// let x = Visit::new().set_is_pickup(true);
+        /// ```
         pub fn set_is_pickup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_pickup = v.into();
             self
         }
 
         /// Sets the value of [visit_request_index][crate::model::shipment_route::Visit::visit_request_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// let x = Visit::new().set_visit_request_index(42);
+        /// ```
         pub fn set_visit_request_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.visit_request_index = v.into();
             self
         }
 
         /// Sets the value of [start_time][crate::model::shipment_route::Visit::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use wkt::Timestamp;
+        /// let x = Visit::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6667,6 +8870,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [start_time][crate::model::shipment_route::Visit::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use wkt::Timestamp;
+        /// let x = Visit::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Visit::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6676,6 +8887,16 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [load_demands][crate::model::shipment_route::Visit::load_demands].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use google_cloud_optimization_v1::model::shipment::Load;
+        /// let x = Visit::new().set_load_demands([
+        ///     ("key0", Load::default()/* use setters */),
+        ///     ("key1", Load::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_load_demands<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6688,6 +8909,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [detour][crate::model::shipment_route::Visit::detour].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use wkt::Duration;
+        /// let x = Visit::new().set_detour(Duration::default()/* use setters */);
+        /// ```
         pub fn set_detour<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6697,6 +8925,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [detour][crate::model::shipment_route::Visit::detour].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use wkt::Duration;
+        /// let x = Visit::new().set_or_clear_detour(Some(Duration::default()/* use setters */));
+        /// let x = Visit::new().set_or_clear_detour(None::<Duration>);
+        /// ```
         pub fn set_or_clear_detour<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6706,6 +8942,12 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [shipment_label][crate::model::shipment_route::Visit::shipment_label].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// let x = Visit::new().set_shipment_label("example");
+        /// ```
         pub fn set_shipment_label<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6715,12 +8957,29 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [visit_label][crate::model::shipment_route::Visit::visit_label].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// let x = Visit::new().set_visit_label("example");
+        /// ```
         pub fn set_visit_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.visit_label = v.into();
             self
         }
 
         /// Sets the value of [arrival_loads][crate::model::shipment_route::Visit::arrival_loads].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use google_cloud_optimization_v1::model::CapacityQuantity;
+        /// let x = Visit::new()
+        ///     .set_arrival_loads([
+        ///         CapacityQuantity::default()/* use setters */,
+        ///         CapacityQuantity::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         #[deprecated]
         pub fn set_arrival_loads<T, V>(mut self, v: T) -> Self
         where
@@ -6733,6 +8992,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [delay_before_start][crate::model::shipment_route::Visit::delay_before_start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use google_cloud_optimization_v1::model::shipment_route::Delay;
+        /// let x = Visit::new().set_delay_before_start(Delay::default()/* use setters */);
+        /// ```
         #[deprecated]
         pub fn set_delay_before_start<T>(mut self, v: T) -> Self
         where
@@ -6743,6 +9009,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [delay_before_start][crate::model::shipment_route::Visit::delay_before_start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use google_cloud_optimization_v1::model::shipment_route::Delay;
+        /// let x = Visit::new().set_or_clear_delay_before_start(Some(Delay::default()/* use setters */));
+        /// let x = Visit::new().set_or_clear_delay_before_start(None::<Delay>);
+        /// ```
         #[deprecated]
         pub fn set_or_clear_delay_before_start<T>(mut self, v: std::option::Option<T>) -> Self
         where
@@ -6753,6 +9027,17 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [demands][crate::model::shipment_route::Visit::demands].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Visit;
+        /// use google_cloud_optimization_v1::model::CapacityQuantity;
+        /// let x = Visit::new()
+        ///     .set_demands([
+        ///         CapacityQuantity::default()/* use setters */,
+        ///         CapacityQuantity::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         #[deprecated]
         pub fn set_demands<T, V>(mut self, v: T) -> Self
         where
@@ -6872,6 +9157,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [travel_duration][crate::model::shipment_route::Transition::travel_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_travel_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_travel_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6881,6 +9173,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [travel_duration][crate::model::shipment_route::Transition::travel_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_or_clear_travel_duration(Some(Duration::default()/* use setters */));
+        /// let x = Transition::new().set_or_clear_travel_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6890,18 +9190,37 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [travel_distance_meters][crate::model::shipment_route::Transition::travel_distance_meters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// let x = Transition::new().set_travel_distance_meters(42.0);
+        /// ```
         pub fn set_travel_distance_meters<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.travel_distance_meters = v.into();
             self
         }
 
         /// Sets the value of [traffic_info_unavailable][crate::model::shipment_route::Transition::traffic_info_unavailable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// let x = Transition::new().set_traffic_info_unavailable(true);
+        /// ```
         pub fn set_traffic_info_unavailable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.traffic_info_unavailable = v.into();
             self
         }
 
         /// Sets the value of [delay_duration][crate::model::shipment_route::Transition::delay_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_delay_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_delay_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6911,6 +9230,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [delay_duration][crate::model::shipment_route::Transition::delay_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_or_clear_delay_duration(Some(Duration::default()/* use setters */));
+        /// let x = Transition::new().set_or_clear_delay_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_delay_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6920,6 +9247,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [break_duration][crate::model::shipment_route::Transition::break_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_break_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_break_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6929,6 +9263,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [break_duration][crate::model::shipment_route::Transition::break_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_or_clear_break_duration(Some(Duration::default()/* use setters */));
+        /// let x = Transition::new().set_or_clear_break_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6938,6 +9280,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [wait_duration][crate::model::shipment_route::Transition::wait_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_wait_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_wait_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6947,6 +9296,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [wait_duration][crate::model::shipment_route::Transition::wait_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_or_clear_wait_duration(Some(Duration::default()/* use setters */));
+        /// let x = Transition::new().set_or_clear_wait_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_wait_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6956,6 +9313,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [total_duration][crate::model::shipment_route::Transition::total_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_total_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_total_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6965,6 +9329,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [total_duration][crate::model::shipment_route::Transition::total_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Duration;
+        /// let x = Transition::new().set_or_clear_total_duration(Some(Duration::default()/* use setters */));
+        /// let x = Transition::new().set_or_clear_total_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_total_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6974,6 +9346,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [start_time][crate::model::shipment_route::Transition::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Timestamp;
+        /// let x = Transition::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6983,6 +9362,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [start_time][crate::model::shipment_route::Transition::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use wkt::Timestamp;
+        /// let x = Transition::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Transition::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6992,6 +9379,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [route_polyline][crate::model::shipment_route::Transition::route_polyline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use google_cloud_optimization_v1::model::shipment_route::EncodedPolyline;
+        /// let x = Transition::new().set_route_polyline(EncodedPolyline::default()/* use setters */);
+        /// ```
         pub fn set_route_polyline<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -7001,6 +9395,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [route_polyline][crate::model::shipment_route::Transition::route_polyline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use google_cloud_optimization_v1::model::shipment_route::EncodedPolyline;
+        /// let x = Transition::new().set_or_clear_route_polyline(Some(EncodedPolyline::default()/* use setters */));
+        /// let x = Transition::new().set_or_clear_route_polyline(None::<EncodedPolyline>);
+        /// ```
         pub fn set_or_clear_route_polyline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -7010,6 +9412,16 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [vehicle_loads][crate::model::shipment_route::Transition::vehicle_loads].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use google_cloud_optimization_v1::model::shipment_route::VehicleLoad;
+        /// let x = Transition::new().set_vehicle_loads([
+        ///     ("key0", VehicleLoad::default()/* use setters */),
+        ///     ("key1", VehicleLoad::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_vehicle_loads<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7022,6 +9434,17 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [loads][crate::model::shipment_route::Transition::loads].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Transition;
+        /// use google_cloud_optimization_v1::model::CapacityQuantity;
+        /// let x = Transition::new()
+        ///     .set_loads([
+        ///         CapacityQuantity::default()/* use setters */,
+        ///         CapacityQuantity::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         #[deprecated]
         pub fn set_loads<T, V>(mut self, v: T) -> Self
         where
@@ -7064,6 +9487,12 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [amount][crate::model::shipment_route::VehicleLoad::amount].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::VehicleLoad;
+        /// let x = VehicleLoad::new().set_amount(42);
+        /// ```
         pub fn set_amount<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.amount = v.into();
             self
@@ -7095,6 +9524,12 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [points][crate::model::shipment_route::EncodedPolyline::points].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::EncodedPolyline;
+        /// let x = EncodedPolyline::new().set_points("example");
+        /// ```
         pub fn set_points<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.points = v.into();
             self
@@ -7126,6 +9561,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [start_time][crate::model::shipment_route::Break::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Break;
+        /// use wkt::Timestamp;
+        /// let x = Break::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7135,6 +9577,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [start_time][crate::model::shipment_route::Break::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Break;
+        /// use wkt::Timestamp;
+        /// let x = Break::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Break::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7144,6 +9594,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [duration][crate::model::shipment_route::Break::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Break;
+        /// use wkt::Duration;
+        /// let x = Break::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7153,6 +9610,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [duration][crate::model::shipment_route::Break::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::Break;
+        /// use wkt::Duration;
+        /// let x = Break::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = Break::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7222,6 +9687,13 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [duration][crate::model::shipment_route::TravelStep::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::TravelStep;
+        /// use wkt::Duration;
+        /// let x = TravelStep::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7231,6 +9703,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [duration][crate::model::shipment_route::TravelStep::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::TravelStep;
+        /// use wkt::Duration;
+        /// let x = TravelStep::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = TravelStep::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7240,18 +9720,37 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [distance_meters][crate::model::shipment_route::TravelStep::distance_meters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::TravelStep;
+        /// let x = TravelStep::new().set_distance_meters(42.0);
+        /// ```
         pub fn set_distance_meters<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.distance_meters = v.into();
             self
         }
 
         /// Sets the value of [traffic_info_unavailable][crate::model::shipment_route::TravelStep::traffic_info_unavailable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::TravelStep;
+        /// let x = TravelStep::new().set_traffic_info_unavailable(true);
+        /// ```
         pub fn set_traffic_info_unavailable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.traffic_info_unavailable = v.into();
             self
         }
 
         /// Sets the value of [route_polyline][crate::model::shipment_route::TravelStep::route_polyline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::TravelStep;
+        /// use google_cloud_optimization_v1::model::shipment_route::EncodedPolyline;
+        /// let x = TravelStep::new().set_route_polyline(EncodedPolyline::default()/* use setters */);
+        /// ```
         pub fn set_route_polyline<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -7261,6 +9760,14 @@ pub mod shipment_route {
         }
 
         /// Sets or clears the value of [route_polyline][crate::model::shipment_route::TravelStep::route_polyline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::shipment_route::TravelStep;
+        /// use google_cloud_optimization_v1::model::shipment_route::EncodedPolyline;
+        /// let x = TravelStep::new().set_or_clear_route_polyline(Some(EncodedPolyline::default()/* use setters */));
+        /// let x = TravelStep::new().set_or_clear_route_polyline(None::<EncodedPolyline>);
+        /// ```
         pub fn set_or_clear_route_polyline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -7307,18 +9814,41 @@ impl SkippedShipment {
     }
 
     /// Sets the value of [index][crate::model::SkippedShipment::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::SkippedShipment;
+    /// let x = SkippedShipment::new().set_index(42);
+    /// ```
     pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [label][crate::model::SkippedShipment::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::SkippedShipment;
+    /// let x = SkippedShipment::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
     }
 
     /// Sets the value of [reasons][crate::model::SkippedShipment::reasons].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::SkippedShipment;
+    /// use google_cloud_optimization_v1::model::skipped_shipment::Reason;
+    /// let x = SkippedShipment::new()
+    ///     .set_reasons([
+    ///         Reason::default()/* use setters */,
+    ///         Reason::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7392,6 +9922,15 @@ pub mod skipped_shipment {
         }
 
         /// Sets the value of [code][crate::model::skipped_shipment::Reason::code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::skipped_shipment::Reason;
+        /// use google_cloud_optimization_v1::model::skipped_shipment::reason::Code;
+        /// let x0 = Reason::new().set_code(Code::NoVehicle);
+        /// let x1 = Reason::new().set_code(Code::DemandExceedsVehicleCapacity);
+        /// let x2 = Reason::new().set_code(Code::CannotBePerformedWithinVehicleDistanceLimit);
+        /// ```
         pub fn set_code<T: std::convert::Into<crate::model::skipped_shipment::reason::Code>>(
             mut self,
             v: T,
@@ -7401,6 +9940,12 @@ pub mod skipped_shipment {
         }
 
         /// Sets the value of [example_vehicle_index][crate::model::skipped_shipment::Reason::example_vehicle_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::skipped_shipment::Reason;
+        /// let x = Reason::new().set_example_vehicle_index(42);
+        /// ```
         pub fn set_example_vehicle_index<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -7410,6 +9955,13 @@ pub mod skipped_shipment {
         }
 
         /// Sets or clears the value of [example_vehicle_index][crate::model::skipped_shipment::Reason::example_vehicle_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::skipped_shipment::Reason;
+        /// let x = Reason::new().set_or_clear_example_vehicle_index(Some(42));
+        /// let x = Reason::new().set_or_clear_example_vehicle_index(None::<i32>);
+        /// ```
         pub fn set_or_clear_example_vehicle_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -7419,6 +9971,12 @@ pub mod skipped_shipment {
         }
 
         /// Sets the value of [example_exceeded_capacity_type][crate::model::skipped_shipment::Reason::example_exceeded_capacity_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::skipped_shipment::Reason;
+        /// let x = Reason::new().set_example_exceeded_capacity_type("example");
+        /// ```
         pub fn set_example_exceeded_capacity_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7751,12 +10309,25 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [performed_shipment_count][crate::model::AggregatedMetrics::performed_shipment_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// let x = AggregatedMetrics::new().set_performed_shipment_count(42);
+    /// ```
     pub fn set_performed_shipment_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.performed_shipment_count = v.into();
         self
     }
 
     /// Sets the value of [travel_duration][crate::model::AggregatedMetrics::travel_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_travel_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_travel_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7766,6 +10337,14 @@ impl AggregatedMetrics {
     }
 
     /// Sets or clears the value of [travel_duration][crate::model::AggregatedMetrics::travel_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_or_clear_travel_duration(Some(Duration::default()/* use setters */));
+    /// let x = AggregatedMetrics::new().set_or_clear_travel_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7775,6 +10354,13 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [wait_duration][crate::model::AggregatedMetrics::wait_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_wait_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_wait_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7784,6 +10370,14 @@ impl AggregatedMetrics {
     }
 
     /// Sets or clears the value of [wait_duration][crate::model::AggregatedMetrics::wait_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_or_clear_wait_duration(Some(Duration::default()/* use setters */));
+    /// let x = AggregatedMetrics::new().set_or_clear_wait_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_wait_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7793,6 +10387,13 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [delay_duration][crate::model::AggregatedMetrics::delay_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_delay_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_delay_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7802,6 +10403,14 @@ impl AggregatedMetrics {
     }
 
     /// Sets or clears the value of [delay_duration][crate::model::AggregatedMetrics::delay_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_or_clear_delay_duration(Some(Duration::default()/* use setters */));
+    /// let x = AggregatedMetrics::new().set_or_clear_delay_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_delay_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7811,6 +10420,13 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [break_duration][crate::model::AggregatedMetrics::break_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_break_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_break_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7820,6 +10436,14 @@ impl AggregatedMetrics {
     }
 
     /// Sets or clears the value of [break_duration][crate::model::AggregatedMetrics::break_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_or_clear_break_duration(Some(Duration::default()/* use setters */));
+    /// let x = AggregatedMetrics::new().set_or_clear_break_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7829,6 +10453,13 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [visit_duration][crate::model::AggregatedMetrics::visit_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_visit_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_visit_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7838,6 +10469,14 @@ impl AggregatedMetrics {
     }
 
     /// Sets or clears the value of [visit_duration][crate::model::AggregatedMetrics::visit_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_or_clear_visit_duration(Some(Duration::default()/* use setters */));
+    /// let x = AggregatedMetrics::new().set_or_clear_visit_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_visit_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7847,6 +10486,13 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [total_duration][crate::model::AggregatedMetrics::total_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_total_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_total_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7856,6 +10502,14 @@ impl AggregatedMetrics {
     }
 
     /// Sets or clears the value of [total_duration][crate::model::AggregatedMetrics::total_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use wkt::Duration;
+    /// let x = AggregatedMetrics::new().set_or_clear_total_duration(Some(Duration::default()/* use setters */));
+    /// let x = AggregatedMetrics::new().set_or_clear_total_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_total_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7865,12 +10519,28 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [travel_distance_meters][crate::model::AggregatedMetrics::travel_distance_meters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// let x = AggregatedMetrics::new().set_travel_distance_meters(42.0);
+    /// ```
     pub fn set_travel_distance_meters<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.travel_distance_meters = v.into();
         self
     }
 
     /// Sets the value of [max_loads][crate::model::AggregatedMetrics::max_loads].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// use google_cloud_optimization_v1::model::shipment_route::VehicleLoad;
+    /// let x = AggregatedMetrics::new().set_max_loads([
+    ///     ("key0", VehicleLoad::default()/* use setters */),
+    ///     ("key1", VehicleLoad::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_max_loads<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7883,6 +10553,15 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [costs][crate::model::AggregatedMetrics::costs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// let x = AggregatedMetrics::new().set_costs([
+    ///     ("key0", 123.5),
+    ///     ("key1", 456.5),
+    /// ]);
+    /// ```
     #[deprecated]
     pub fn set_costs<T, K, V>(mut self, v: T) -> Self
     where
@@ -7896,6 +10575,12 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [total_cost][crate::model::AggregatedMetrics::total_cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::AggregatedMetrics;
+    /// let x = AggregatedMetrics::new().set_total_cost(42.0);
+    /// ```
     #[deprecated]
     pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.total_cost = v.into();
@@ -7938,6 +10623,17 @@ impl InjectedSolutionConstraint {
     }
 
     /// Sets the value of [routes][crate::model::InjectedSolutionConstraint::routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::InjectedSolutionConstraint;
+    /// use google_cloud_optimization_v1::model::ShipmentRoute;
+    /// let x = InjectedSolutionConstraint::new()
+    ///     .set_routes([
+    ///         ShipmentRoute::default()/* use setters */,
+    ///         ShipmentRoute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7949,6 +10645,17 @@ impl InjectedSolutionConstraint {
     }
 
     /// Sets the value of [skipped_shipments][crate::model::InjectedSolutionConstraint::skipped_shipments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::InjectedSolutionConstraint;
+    /// use google_cloud_optimization_v1::model::SkippedShipment;
+    /// let x = InjectedSolutionConstraint::new()
+    ///     .set_skipped_shipments([
+    ///         SkippedShipment::default()/* use setters */,
+    ///         SkippedShipment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_skipped_shipments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7960,6 +10667,17 @@ impl InjectedSolutionConstraint {
     }
 
     /// Sets the value of [constraint_relaxations][crate::model::InjectedSolutionConstraint::constraint_relaxations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::InjectedSolutionConstraint;
+    /// use google_cloud_optimization_v1::model::injected_solution_constraint::ConstraintRelaxation;
+    /// let x = InjectedSolutionConstraint::new()
+    ///     .set_constraint_relaxations([
+    ///         ConstraintRelaxation::default()/* use setters */,
+    ///         ConstraintRelaxation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_constraint_relaxations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8020,6 +10738,17 @@ pub mod injected_solution_constraint {
         }
 
         /// Sets the value of [relaxations][crate::model::injected_solution_constraint::ConstraintRelaxation::relaxations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::injected_solution_constraint::ConstraintRelaxation;
+        /// use google_cloud_optimization_v1::model::injected_solution_constraint::constraint_relaxation::Relaxation;
+        /// let x = ConstraintRelaxation::new()
+        ///     .set_relaxations([
+        ///         Relaxation::default()/* use setters */,
+        ///         Relaxation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_relaxations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8033,6 +10762,12 @@ pub mod injected_solution_constraint {
         }
 
         /// Sets the value of [vehicle_indices][crate::model::injected_solution_constraint::ConstraintRelaxation::vehicle_indices].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::injected_solution_constraint::ConstraintRelaxation;
+        /// let x = ConstraintRelaxation::new().set_vehicle_indices([1, 2, 3]);
+        /// ```
         pub fn set_vehicle_indices<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8093,15 +10828,15 @@ pub mod injected_solution_constraint {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Relaxation {
-
+        
             /// The constraint relaxation level that applies when the conditions
             /// at or after `threshold_time` AND at least `threshold_visit_count` are
             /// satisfied.
             pub level: crate::model::injected_solution_constraint::constraint_relaxation::relaxation::Level,
-
+        
             /// The time at or after which the relaxation `level` may be applied.
             pub threshold_time: std::option::Option<wkt::Timestamp>,
-
+        
             /// The number of visits at or after which the relaxation `level` may be
             /// applied. If `threshold_visit_count` is 0 (or unset), the `level` may be
             /// applied directly at the vehicle start.
@@ -8110,7 +10845,7 @@ pub mod injected_solution_constraint {
             /// the vehicle end. If it is more than `route.visits_size() + 1`,
             /// `level` is not applied at all for that route.
             pub threshold_visit_count: i32,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -8120,12 +10855,28 @@ pub mod injected_solution_constraint {
             }
 
             /// Sets the value of [level][crate::model::injected_solution_constraint::constraint_relaxation::Relaxation::level].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::injected_solution_constraint::constraint_relaxation::Relaxation;
+            /// use google_cloud_optimization_v1::model::injected_solution_constraint::constraint_relaxation::relaxation::Level;
+            /// let x0 = Relaxation::new().set_level(Level::RelaxVisitTimesAfterThreshold);
+            /// let x1 = Relaxation::new().set_level(Level::RelaxVisitTimesAndSequenceAfterThreshold);
+            /// let x2 = Relaxation::new().set_level(Level::RelaxAllAfterThreshold);
+            /// ```
             pub fn set_level<T: std::convert::Into<crate::model::injected_solution_constraint::constraint_relaxation::relaxation::Level>>(mut self, v: T) -> Self{
                 self.level = v.into();
                 self
             }
 
             /// Sets the value of [threshold_time][crate::model::injected_solution_constraint::constraint_relaxation::Relaxation::threshold_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::injected_solution_constraint::constraint_relaxation::Relaxation;
+            /// use wkt::Timestamp;
+            /// let x = Relaxation::new().set_threshold_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_threshold_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -8135,6 +10886,14 @@ pub mod injected_solution_constraint {
             }
 
             /// Sets or clears the value of [threshold_time][crate::model::injected_solution_constraint::constraint_relaxation::Relaxation::threshold_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::injected_solution_constraint::constraint_relaxation::Relaxation;
+            /// use wkt::Timestamp;
+            /// let x = Relaxation::new().set_or_clear_threshold_time(Some(Timestamp::default()/* use setters */));
+            /// let x = Relaxation::new().set_or_clear_threshold_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_threshold_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -8144,6 +10903,12 @@ pub mod injected_solution_constraint {
             }
 
             /// Sets the value of [threshold_visit_count][crate::model::injected_solution_constraint::constraint_relaxation::Relaxation::threshold_visit_count].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_optimization_v1::model::injected_solution_constraint::constraint_relaxation::Relaxation;
+            /// let x = Relaxation::new().set_threshold_visit_count(42);
+            /// ```
             pub fn set_threshold_visit_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.threshold_visit_count = v.into();
                 self
@@ -8642,18 +11407,41 @@ impl OptimizeToursValidationError {
     }
 
     /// Sets the value of [code][crate::model::OptimizeToursValidationError::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursValidationError;
+    /// let x = OptimizeToursValidationError::new().set_code(42);
+    /// ```
     pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::OptimizeToursValidationError::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursValidationError;
+    /// let x = OptimizeToursValidationError::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::OptimizeToursValidationError::fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursValidationError;
+    /// use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+    /// let x = OptimizeToursValidationError::new()
+    ///     .set_fields([
+    ///         FieldReference::default()/* use setters */,
+    ///         FieldReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8665,12 +11453,24 @@ impl OptimizeToursValidationError {
     }
 
     /// Sets the value of [error_message][crate::model::OptimizeToursValidationError::error_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursValidationError;
+    /// let x = OptimizeToursValidationError::new().set_error_message("example");
+    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
     }
 
     /// Sets the value of [offending_values][crate::model::OptimizeToursValidationError::offending_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::model::OptimizeToursValidationError;
+    /// let x = OptimizeToursValidationError::new().set_offending_values("example");
+    /// ```
     pub fn set_offending_values<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8726,12 +11526,25 @@ pub mod optimize_tours_validation_error {
         }
 
         /// Sets the value of [name][crate::model::optimize_tours_validation_error::FieldReference::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// let x = FieldReference::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [sub_field][crate::model::optimize_tours_validation_error::FieldReference::sub_field].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// let x = FieldReference::new().set_sub_field(FieldReference::default()/* use setters */);
+        /// ```
         pub fn set_sub_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::optimize_tours_validation_error::FieldReference>,
@@ -8741,6 +11554,14 @@ pub mod optimize_tours_validation_error {
         }
 
         /// Sets or clears the value of [sub_field][crate::model::optimize_tours_validation_error::FieldReference::sub_field].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// let x = FieldReference::new().set_or_clear_sub_field(Some(FieldReference::default()/* use setters */));
+        /// let x = FieldReference::new().set_or_clear_sub_field(None::<FieldReference>);
+        /// ```
         pub fn set_or_clear_sub_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::optimize_tours_validation_error::FieldReference>,
@@ -8753,6 +11574,13 @@ pub mod optimize_tours_validation_error {
         ///
         /// Note that all the setters affecting `index_or_key` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// use google_cloud_optimization_v1::model::optimize_tours_validation_error::field_reference::IndexOrKey;
+        /// let x = FieldReference::new().set_index_or_key(Some(IndexOrKey::Index(42)));
+        /// ```
         pub fn set_index_or_key<
             T: std::convert::Into<
                     std::option::Option<
@@ -8783,6 +11611,14 @@ pub mod optimize_tours_validation_error {
         ///
         /// Note that all the setters affecting `index_or_key` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// let x = FieldReference::new().set_index(42);
+        /// assert!(x.index().is_some());
+        /// assert!(x.key().is_none());
+        /// ```
         pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.index_or_key = std::option::Option::Some(
                 crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Index(
@@ -8810,6 +11646,14 @@ pub mod optimize_tours_validation_error {
         ///
         /// Note that all the setters affecting `index_or_key` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_optimization_v1::model::optimize_tours_validation_error::FieldReference;
+        /// let x = FieldReference::new().set_key("example");
+        /// assert!(x.key().is_some());
+        /// assert!(x.index().is_none());
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.index_or_key = std::option::Option::Some(
                 crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Key(

@@ -77,12 +77,25 @@ impl RepeatRequest {
     }
 
     /// Sets the value of [name][crate::model::RepeatRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [info][crate::model::RepeatRequest::info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = RepeatRequest::new().set_info(ComplianceData::default()/* use setters */);
+    /// ```
     pub fn set_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceData>,
@@ -92,6 +105,14 @@ impl RepeatRequest {
     }
 
     /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = RepeatRequest::new().set_or_clear_info(Some(ComplianceData::default()/* use setters */));
+    /// let x = RepeatRequest::new().set_or_clear_info(None::<ComplianceData>);
+    /// ```
     pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceData>,
@@ -101,12 +122,24 @@ impl RepeatRequest {
     }
 
     /// Sets the value of [server_verify][crate::model::RepeatRequest::server_verify].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_server_verify(true);
+    /// ```
     pub fn set_server_verify<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.server_verify = v.into();
         self
     }
 
     /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_intended_binding_uri("example");
+    /// ```
     pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -116,6 +149,13 @@ impl RepeatRequest {
     }
 
     /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_or_clear_intended_binding_uri(Some("example"));
+    /// let x = RepeatRequest::new().set_or_clear_intended_binding_uri(None::<String>);
+    /// ```
     pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -125,24 +165,48 @@ impl RepeatRequest {
     }
 
     /// Sets the value of [f_int32][crate::model::RepeatRequest::f_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_f_int32(42);
+    /// ```
     pub fn set_f_int32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.f_int32 = v.into();
         self
     }
 
     /// Sets the value of [f_int64][crate::model::RepeatRequest::f_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_f_int64(42);
+    /// ```
     pub fn set_f_int64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.f_int64 = v.into();
         self
     }
 
     /// Sets the value of [f_double][crate::model::RepeatRequest::f_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_f_double(42.0);
+    /// ```
     pub fn set_f_double<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.f_double = v.into();
         self
     }
 
     /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_p_int32(42);
+    /// ```
     pub fn set_p_int32<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -152,6 +216,13 @@ impl RepeatRequest {
     }
 
     /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_or_clear_p_int32(Some(42));
+    /// let x = RepeatRequest::new().set_or_clear_p_int32(None::<i32>);
+    /// ```
     pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -161,6 +232,12 @@ impl RepeatRequest {
     }
 
     /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_p_int64(42);
+    /// ```
     pub fn set_p_int64<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -170,6 +247,13 @@ impl RepeatRequest {
     }
 
     /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_or_clear_p_int64(Some(42));
+    /// let x = RepeatRequest::new().set_or_clear_p_int64(None::<i32>);
+    /// ```
     pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -179,6 +263,12 @@ impl RepeatRequest {
     }
 
     /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_p_double(42.0);
+    /// ```
     pub fn set_p_double<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -188,6 +278,13 @@ impl RepeatRequest {
     }
 
     /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatRequest::new().set_or_clear_p_double(Some(42.0));
+    /// let x = RepeatRequest::new().set_or_clear_p_double(None::<f32>);
+    /// ```
     pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -220,6 +317,13 @@ impl RepeatResponse {
     }
 
     /// Sets the value of [request][crate::model::RepeatResponse::request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatResponse;
+    /// use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatResponse::new().set_request(RepeatRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RepeatRequest>,
@@ -229,6 +333,14 @@ impl RepeatResponse {
     }
 
     /// Sets or clears the value of [request][crate::model::RepeatResponse::request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatResponse;
+    /// use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = RepeatResponse::new().set_or_clear_request(Some(RepeatRequest::default()/* use setters */));
+    /// let x = RepeatResponse::new().set_or_clear_request(None::<RepeatRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RepeatRequest>,
@@ -238,6 +350,12 @@ impl RepeatResponse {
     }
 
     /// Sets the value of [binding_uri][crate::model::RepeatResponse::binding_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RepeatResponse;
+    /// let x = RepeatResponse::new().set_binding_uri("example");
+    /// ```
     pub fn set_binding_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.binding_uri = v.into();
         self
@@ -267,6 +385,17 @@ impl ComplianceSuite {
     }
 
     /// Sets the value of [group][crate::model::ComplianceSuite::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceSuite;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceGroup;
+    /// let x = ComplianceSuite::new()
+    ///     .set_group([
+    ///         ComplianceGroup::default()/* use setters */,
+    ///         ComplianceGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_group<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -305,12 +434,24 @@ impl ComplianceGroup {
     }
 
     /// Sets the value of [name][crate::model::ComplianceGroup::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceGroup;
+    /// let x = ComplianceGroup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [rpcs][crate::model::ComplianceGroup::rpcs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceGroup;
+    /// let x = ComplianceGroup::new().set_rpcs(["a", "b", "c"]);
+    /// ```
     pub fn set_rpcs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -322,6 +463,17 @@ impl ComplianceGroup {
     }
 
     /// Sets the value of [requests][crate::model::ComplianceGroup::requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceGroup;
+    /// use google_cloud_showcase_v1beta1::model::RepeatRequest;
+    /// let x = ComplianceGroup::new()
+    ///     .set_requests([
+    ///         RepeatRequest::default()/* use setters */,
+    ///         RepeatRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -399,96 +551,195 @@ impl ComplianceData {
     }
 
     /// Sets the value of [f_string][crate::model::ComplianceData::f_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_string("example");
+    /// ```
     pub fn set_f_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.f_string = v.into();
         self
     }
 
     /// Sets the value of [f_int32][crate::model::ComplianceData::f_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_int32(42);
+    /// ```
     pub fn set_f_int32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.f_int32 = v.into();
         self
     }
 
     /// Sets the value of [f_sint32][crate::model::ComplianceData::f_sint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_sint32(42);
+    /// ```
     pub fn set_f_sint32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.f_sint32 = v.into();
         self
     }
 
     /// Sets the value of [f_sfixed32][crate::model::ComplianceData::f_sfixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_sfixed32(42);
+    /// ```
     pub fn set_f_sfixed32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.f_sfixed32 = v.into();
         self
     }
 
     /// Sets the value of [f_uint32][crate::model::ComplianceData::f_uint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_uint32(42u32);
+    /// ```
     pub fn set_f_uint32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.f_uint32 = v.into();
         self
     }
 
     /// Sets the value of [f_fixed32][crate::model::ComplianceData::f_fixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_fixed32(42);
+    /// ```
     pub fn set_f_fixed32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.f_fixed32 = v.into();
         self
     }
 
     /// Sets the value of [f_int64][crate::model::ComplianceData::f_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_int64(42);
+    /// ```
     pub fn set_f_int64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.f_int64 = v.into();
         self
     }
 
     /// Sets the value of [f_sint64][crate::model::ComplianceData::f_sint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_sint64(42);
+    /// ```
     pub fn set_f_sint64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.f_sint64 = v.into();
         self
     }
 
     /// Sets the value of [f_sfixed64][crate::model::ComplianceData::f_sfixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_sfixed64(42);
+    /// ```
     pub fn set_f_sfixed64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.f_sfixed64 = v.into();
         self
     }
 
     /// Sets the value of [f_uint64][crate::model::ComplianceData::f_uint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_uint64(42u32);
+    /// ```
     pub fn set_f_uint64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.f_uint64 = v.into();
         self
     }
 
     /// Sets the value of [f_fixed64][crate::model::ComplianceData::f_fixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_fixed64(42);
+    /// ```
     pub fn set_f_fixed64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.f_fixed64 = v.into();
         self
     }
 
     /// Sets the value of [f_double][crate::model::ComplianceData::f_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_double(42.0);
+    /// ```
     pub fn set_f_double<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.f_double = v.into();
         self
     }
 
     /// Sets the value of [f_float][crate::model::ComplianceData::f_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_float(42.0);
+    /// ```
     pub fn set_f_float<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.f_float = v.into();
         self
     }
 
     /// Sets the value of [f_bool][crate::model::ComplianceData::f_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_bool(true);
+    /// ```
     pub fn set_f_bool<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.f_bool = v.into();
         self
     }
 
     /// Sets the value of [f_bytes][crate::model::ComplianceData::f_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_f_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_f_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.f_bytes = v.into();
         self
     }
 
     /// Sets the value of [f_kingdom][crate::model::ComplianceData::f_kingdom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// use google_cloud_showcase_v1beta1::model::compliance_data::LifeKingdom;
+    /// let x0 = ComplianceData::new().set_f_kingdom(LifeKingdom::Archaebacteria);
+    /// let x1 = ComplianceData::new().set_f_kingdom(LifeKingdom::Eubacteria);
+    /// let x2 = ComplianceData::new().set_f_kingdom(LifeKingdom::Protista);
+    /// ```
     pub fn set_f_kingdom<T: std::convert::Into<crate::model::compliance_data::LifeKingdom>>(
         mut self,
         v: T,
@@ -498,6 +749,13 @@ impl ComplianceData {
     }
 
     /// Sets the value of [f_child][crate::model::ComplianceData::f_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceData::new().set_f_child(ComplianceDataChild::default()/* use setters */);
+    /// ```
     pub fn set_f_child<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataChild>,
@@ -507,6 +765,14 @@ impl ComplianceData {
     }
 
     /// Sets or clears the value of [f_child][crate::model::ComplianceData::f_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceData::new().set_or_clear_f_child(Some(ComplianceDataChild::default()/* use setters */));
+    /// let x = ComplianceData::new().set_or_clear_f_child(None::<ComplianceDataChild>);
+    /// ```
     pub fn set_or_clear_f_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataChild>,
@@ -516,6 +782,12 @@ impl ComplianceData {
     }
 
     /// Sets the value of [p_string][crate::model::ComplianceData::p_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_string("example");
+    /// ```
     pub fn set_p_string<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -525,6 +797,13 @@ impl ComplianceData {
     }
 
     /// Sets or clears the value of [p_string][crate::model::ComplianceData::p_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_string(Some("example"));
+    /// let x = ComplianceData::new().set_or_clear_p_string(None::<String>);
+    /// ```
     pub fn set_or_clear_p_string<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -534,6 +813,12 @@ impl ComplianceData {
     }
 
     /// Sets the value of [p_int32][crate::model::ComplianceData::p_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_int32(42);
+    /// ```
     pub fn set_p_int32<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -543,6 +828,13 @@ impl ComplianceData {
     }
 
     /// Sets or clears the value of [p_int32][crate::model::ComplianceData::p_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_int32(Some(42));
+    /// let x = ComplianceData::new().set_or_clear_p_int32(None::<i32>);
+    /// ```
     pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -552,6 +844,12 @@ impl ComplianceData {
     }
 
     /// Sets the value of [p_double][crate::model::ComplianceData::p_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_double(42.0);
+    /// ```
     pub fn set_p_double<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -561,6 +859,13 @@ impl ComplianceData {
     }
 
     /// Sets or clears the value of [p_double][crate::model::ComplianceData::p_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_double(Some(42.0));
+    /// let x = ComplianceData::new().set_or_clear_p_double(None::<f32>);
+    /// ```
     pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -570,6 +875,12 @@ impl ComplianceData {
     }
 
     /// Sets the value of [p_bool][crate::model::ComplianceData::p_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_bool(true);
+    /// ```
     pub fn set_p_bool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -579,6 +890,13 @@ impl ComplianceData {
     }
 
     /// Sets or clears the value of [p_bool][crate::model::ComplianceData::p_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_bool(Some(false));
+    /// let x = ComplianceData::new().set_or_clear_p_bool(None::<bool>);
+    /// ```
     pub fn set_or_clear_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -588,6 +906,15 @@ impl ComplianceData {
     }
 
     /// Sets the value of [p_kingdom][crate::model::ComplianceData::p_kingdom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// use google_cloud_showcase_v1beta1::model::compliance_data::LifeKingdom;
+    /// let x0 = ComplianceData::new().set_p_kingdom(LifeKingdom::Archaebacteria);
+    /// let x1 = ComplianceData::new().set_p_kingdom(LifeKingdom::Eubacteria);
+    /// let x2 = ComplianceData::new().set_p_kingdom(LifeKingdom::Protista);
+    /// ```
     pub fn set_p_kingdom<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::compliance_data::LifeKingdom>,
@@ -597,6 +924,16 @@ impl ComplianceData {
     }
 
     /// Sets or clears the value of [p_kingdom][crate::model::ComplianceData::p_kingdom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// use google_cloud_showcase_v1beta1::model::compliance_data::LifeKingdom;
+    /// let x0 = ComplianceData::new().set_or_clear_p_kingdom(Some(LifeKingdom::Archaebacteria));
+    /// let x1 = ComplianceData::new().set_or_clear_p_kingdom(Some(LifeKingdom::Eubacteria));
+    /// let x2 = ComplianceData::new().set_or_clear_p_kingdom(Some(LifeKingdom::Protista));
+    /// let x_none = ComplianceData::new().set_or_clear_p_kingdom(None::<LifeKingdom>);
+    /// ```
     pub fn set_or_clear_p_kingdom<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compliance_data::LifeKingdom>,
@@ -606,6 +943,13 @@ impl ComplianceData {
     }
 
     /// Sets the value of [p_child][crate::model::ComplianceData::p_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceData::new().set_p_child(ComplianceDataChild::default()/* use setters */);
+    /// ```
     pub fn set_p_child<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataChild>,
@@ -615,6 +959,14 @@ impl ComplianceData {
     }
 
     /// Sets or clears the value of [p_child][crate::model::ComplianceData::p_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceData::new().set_or_clear_p_child(Some(ComplianceDataChild::default()/* use setters */));
+    /// let x = ComplianceData::new().set_or_clear_p_child(None::<ComplianceDataChild>);
+    /// ```
     pub fn set_or_clear_p_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataChild>,
@@ -824,36 +1176,76 @@ impl ComplianceDataChild {
     }
 
     /// Sets the value of [f_string][crate::model::ComplianceDataChild::f_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_f_string("example");
+    /// ```
     pub fn set_f_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.f_string = v.into();
         self
     }
 
     /// Sets the value of [f_float][crate::model::ComplianceDataChild::f_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_f_float(42.0);
+    /// ```
     pub fn set_f_float<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.f_float = v.into();
         self
     }
 
     /// Sets the value of [f_double][crate::model::ComplianceDataChild::f_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_f_double(42.0);
+    /// ```
     pub fn set_f_double<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.f_double = v.into();
         self
     }
 
     /// Sets the value of [f_bool][crate::model::ComplianceDataChild::f_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_f_bool(true);
+    /// ```
     pub fn set_f_bool<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.f_bool = v.into();
         self
     }
 
     /// Sets the value of [f_continent][crate::model::ComplianceDataChild::f_continent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// use google_cloud_showcase_v1beta1::model::Continent;
+    /// let x0 = ComplianceDataChild::new().set_f_continent(Continent::Africa);
+    /// let x1 = ComplianceDataChild::new().set_f_continent(Continent::America);
+    /// let x2 = ComplianceDataChild::new().set_f_continent(Continent::Antartica);
+    /// ```
     pub fn set_f_continent<T: std::convert::Into<crate::model::Continent>>(mut self, v: T) -> Self {
         self.f_continent = v.into();
         self
     }
 
     /// Sets the value of [f_child][crate::model::ComplianceDataChild::f_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataGrandchild;
+    /// let x = ComplianceDataChild::new().set_f_child(ComplianceDataGrandchild::default()/* use setters */);
+    /// ```
     pub fn set_f_child<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
@@ -863,6 +1255,14 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clears the value of [f_child][crate::model::ComplianceDataChild::f_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataGrandchild;
+    /// let x = ComplianceDataChild::new().set_or_clear_f_child(Some(ComplianceDataGrandchild::default()/* use setters */));
+    /// let x = ComplianceDataChild::new().set_or_clear_f_child(None::<ComplianceDataGrandchild>);
+    /// ```
     pub fn set_or_clear_f_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
@@ -872,6 +1272,12 @@ impl ComplianceDataChild {
     }
 
     /// Sets the value of [p_string][crate::model::ComplianceDataChild::p_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_p_string("example");
+    /// ```
     pub fn set_p_string<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -881,6 +1287,13 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clears the value of [p_string][crate::model::ComplianceDataChild::p_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_or_clear_p_string(Some("example"));
+    /// let x = ComplianceDataChild::new().set_or_clear_p_string(None::<String>);
+    /// ```
     pub fn set_or_clear_p_string<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -890,6 +1303,12 @@ impl ComplianceDataChild {
     }
 
     /// Sets the value of [p_float][crate::model::ComplianceDataChild::p_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_p_float(42.0);
+    /// ```
     pub fn set_p_float<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f32>,
@@ -899,6 +1318,13 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clears the value of [p_float][crate::model::ComplianceDataChild::p_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_or_clear_p_float(Some(42.0));
+    /// let x = ComplianceDataChild::new().set_or_clear_p_float(None::<f32>);
+    /// ```
     pub fn set_or_clear_p_float<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
@@ -908,6 +1334,12 @@ impl ComplianceDataChild {
     }
 
     /// Sets the value of [p_double][crate::model::ComplianceDataChild::p_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_p_double(42.0);
+    /// ```
     pub fn set_p_double<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -917,6 +1349,13 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clears the value of [p_double][crate::model::ComplianceDataChild::p_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_or_clear_p_double(Some(42.0));
+    /// let x = ComplianceDataChild::new().set_or_clear_p_double(None::<f32>);
+    /// ```
     pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -926,6 +1365,12 @@ impl ComplianceDataChild {
     }
 
     /// Sets the value of [p_bool][crate::model::ComplianceDataChild::p_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_p_bool(true);
+    /// ```
     pub fn set_p_bool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -935,6 +1380,13 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clears the value of [p_bool][crate::model::ComplianceDataChild::p_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// let x = ComplianceDataChild::new().set_or_clear_p_bool(Some(false));
+    /// let x = ComplianceDataChild::new().set_or_clear_p_bool(None::<bool>);
+    /// ```
     pub fn set_or_clear_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -944,12 +1396,28 @@ impl ComplianceDataChild {
     }
 
     /// Sets the value of [p_continent][crate::model::ComplianceDataChild::p_continent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// use google_cloud_showcase_v1beta1::model::Continent;
+    /// let x0 = ComplianceDataChild::new().set_p_continent(Continent::Africa);
+    /// let x1 = ComplianceDataChild::new().set_p_continent(Continent::America);
+    /// let x2 = ComplianceDataChild::new().set_p_continent(Continent::Antartica);
+    /// ```
     pub fn set_p_continent<T: std::convert::Into<crate::model::Continent>>(mut self, v: T) -> Self {
         self.p_continent = v.into();
         self
     }
 
     /// Sets the value of [p_child][crate::model::ComplianceDataChild::p_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataGrandchild;
+    /// let x = ComplianceDataChild::new().set_p_child(ComplianceDataGrandchild::default()/* use setters */);
+    /// ```
     pub fn set_p_child<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
@@ -959,6 +1427,14 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clears the value of [p_child][crate::model::ComplianceDataChild::p_child].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataChild;
+    /// use google_cloud_showcase_v1beta1::model::ComplianceDataGrandchild;
+    /// let x = ComplianceDataChild::new().set_or_clear_p_child(Some(ComplianceDataGrandchild::default()/* use setters */));
+    /// let x = ComplianceDataChild::new().set_or_clear_p_child(None::<ComplianceDataGrandchild>);
+    /// ```
     pub fn set_or_clear_p_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
@@ -992,18 +1468,36 @@ impl ComplianceDataGrandchild {
     }
 
     /// Sets the value of [f_string][crate::model::ComplianceDataGrandchild::f_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataGrandchild;
+    /// let x = ComplianceDataGrandchild::new().set_f_string("example");
+    /// ```
     pub fn set_f_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.f_string = v.into();
         self
     }
 
     /// Sets the value of [f_double][crate::model::ComplianceDataGrandchild::f_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataGrandchild;
+    /// let x = ComplianceDataGrandchild::new().set_f_double(42.0);
+    /// ```
     pub fn set_f_double<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.f_double = v.into();
         self
     }
 
     /// Sets the value of [f_bool][crate::model::ComplianceDataGrandchild::f_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceDataGrandchild;
+    /// let x = ComplianceDataGrandchild::new().set_f_bool(true);
+    /// ```
     pub fn set_f_bool<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.f_bool = v.into();
         self
@@ -1031,6 +1525,12 @@ impl EnumRequest {
     }
 
     /// Sets the value of [unknown_enum][crate::model::EnumRequest::unknown_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EnumRequest;
+    /// let x = EnumRequest::new().set_unknown_enum(true);
+    /// ```
     pub fn set_unknown_enum<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unknown_enum = v.into();
         self
@@ -1061,6 +1561,13 @@ impl EnumResponse {
     }
 
     /// Sets the value of [request][crate::model::EnumResponse::request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EnumResponse;
+    /// use google_cloud_showcase_v1beta1::model::EnumRequest;
+    /// let x = EnumResponse::new().set_request(EnumRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EnumRequest>,
@@ -1070,6 +1577,14 @@ impl EnumResponse {
     }
 
     /// Sets or clears the value of [request][crate::model::EnumResponse::request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EnumResponse;
+    /// use google_cloud_showcase_v1beta1::model::EnumRequest;
+    /// let x = EnumResponse::new().set_or_clear_request(Some(EnumRequest::default()/* use setters */));
+    /// let x = EnumResponse::new().set_or_clear_request(None::<EnumRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EnumRequest>,
@@ -1079,6 +1594,15 @@ impl EnumResponse {
     }
 
     /// Sets the value of [continent][crate::model::EnumResponse::continent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EnumResponse;
+    /// use google_cloud_showcase_v1beta1::model::Continent;
+    /// let x0 = EnumResponse::new().set_continent(Continent::Africa);
+    /// let x1 = EnumResponse::new().set_continent(Continent::America);
+    /// let x2 = EnumResponse::new().set_continent(Continent::Antartica);
+    /// ```
     pub fn set_continent<T: std::convert::Into<crate::model::Continent>>(mut self, v: T) -> Self {
         self.continent = v.into();
         self
@@ -1124,30 +1648,63 @@ impl EchoRequest {
     }
 
     /// Sets the value of [severity][crate::model::EchoRequest::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// use google_cloud_showcase_v1beta1::model::Severity;
+    /// let x0 = EchoRequest::new().set_severity(Severity::Necessary);
+    /// let x1 = EchoRequest::new().set_severity(Severity::Urgent);
+    /// let x2 = EchoRequest::new().set_severity(Severity::Critical);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [header][crate::model::EchoRequest::header].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// let x = EchoRequest::new().set_header("example");
+    /// ```
     pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.header = v.into();
         self
     }
 
     /// Sets the value of [other_header][crate::model::EchoRequest::other_header].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// let x = EchoRequest::new().set_other_header("example");
+    /// ```
     pub fn set_other_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.other_header = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::EchoRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// let x = EchoRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [other_request_id][crate::model::EchoRequest::other_request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// let x = EchoRequest::new().set_other_request_id("example");
+    /// ```
     pub fn set_other_request_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1157,6 +1714,13 @@ impl EchoRequest {
     }
 
     /// Sets or clears the value of [other_request_id][crate::model::EchoRequest::other_request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// let x = EchoRequest::new().set_or_clear_other_request_id(Some("example"));
+    /// let x = EchoRequest::new().set_or_clear_other_request_id(None::<String>);
+    /// ```
     pub fn set_or_clear_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1169,6 +1733,13 @@ impl EchoRequest {
     ///
     /// Note that all the setters affecting `response` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// use google_cloud_showcase_v1beta1::model::echo_request::Response;
+    /// let x = EchoRequest::new().set_response(Some(Response::Content("example".to_string())));
+    /// ```
     pub fn set_response<
         T: std::convert::Into<std::option::Option<crate::model::echo_request::Response>>,
     >(
@@ -1195,6 +1766,14 @@ impl EchoRequest {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// let x = EchoRequest::new().set_content("example");
+    /// assert!(x.content().is_some());
+    /// assert!(x.error().is_none());
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response =
             std::option::Option::Some(crate::model::echo_request::Response::Content(v.into()));
@@ -1217,6 +1796,15 @@ impl EchoRequest {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// use rpc::model::Status;
+    /// let x = EchoRequest::new().set_error(Status::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.content().is_none());
+    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -1273,24 +1861,51 @@ impl EchoResponse {
     }
 
     /// Sets the value of [content][crate::model::EchoResponse::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoResponse;
+    /// let x = EchoResponse::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::EchoResponse::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoResponse;
+    /// use google_cloud_showcase_v1beta1::model::Severity;
+    /// let x0 = EchoResponse::new().set_severity(Severity::Necessary);
+    /// let x1 = EchoResponse::new().set_severity(Severity::Urgent);
+    /// let x2 = EchoResponse::new().set_severity(Severity::Critical);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::EchoResponse::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoResponse;
+    /// let x = EchoResponse::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [other_request_id][crate::model::EchoResponse::other_request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoResponse;
+    /// let x = EchoResponse::new().set_other_request_id("example");
+    /// ```
     pub fn set_other_request_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1327,6 +1942,12 @@ impl EchoErrorDetailsRequest {
     }
 
     /// Sets the value of [single_detail_text][crate::model::EchoErrorDetailsRequest::single_detail_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoErrorDetailsRequest;
+    /// let x = EchoErrorDetailsRequest::new().set_single_detail_text("example");
+    /// ```
     pub fn set_single_detail_text<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1336,6 +1957,12 @@ impl EchoErrorDetailsRequest {
     }
 
     /// Sets the value of [multi_detail_text][crate::model::EchoErrorDetailsRequest::multi_detail_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoErrorDetailsRequest;
+    /// let x = EchoErrorDetailsRequest::new().set_multi_detail_text(["a", "b", "c"]);
+    /// ```
     pub fn set_multi_detail_text<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1371,6 +1998,13 @@ impl EchoErrorDetailsResponse {
     }
 
     /// Sets the value of [single_detail][crate::model::EchoErrorDetailsResponse::single_detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoErrorDetailsResponse;
+    /// use google_cloud_showcase_v1beta1::model::echo_error_details_response::SingleDetail;
+    /// let x = EchoErrorDetailsResponse::new().set_single_detail(SingleDetail::default()/* use setters */);
+    /// ```
     pub fn set_single_detail<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::echo_error_details_response::SingleDetail>,
@@ -1380,6 +2014,14 @@ impl EchoErrorDetailsResponse {
     }
 
     /// Sets or clears the value of [single_detail][crate::model::EchoErrorDetailsResponse::single_detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoErrorDetailsResponse;
+    /// use google_cloud_showcase_v1beta1::model::echo_error_details_response::SingleDetail;
+    /// let x = EchoErrorDetailsResponse::new().set_or_clear_single_detail(Some(SingleDetail::default()/* use setters */));
+    /// let x = EchoErrorDetailsResponse::new().set_or_clear_single_detail(None::<SingleDetail>);
+    /// ```
     pub fn set_or_clear_single_detail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::echo_error_details_response::SingleDetail>,
@@ -1389,6 +2031,13 @@ impl EchoErrorDetailsResponse {
     }
 
     /// Sets the value of [multiple_details][crate::model::EchoErrorDetailsResponse::multiple_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoErrorDetailsResponse;
+    /// use google_cloud_showcase_v1beta1::model::echo_error_details_response::MultipleDetails;
+    /// let x = EchoErrorDetailsResponse::new().set_multiple_details(MultipleDetails::default()/* use setters */);
+    /// ```
     pub fn set_multiple_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::echo_error_details_response::MultipleDetails>,
@@ -1398,6 +2047,14 @@ impl EchoErrorDetailsResponse {
     }
 
     /// Sets or clears the value of [multiple_details][crate::model::EchoErrorDetailsResponse::multiple_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::EchoErrorDetailsResponse;
+    /// use google_cloud_showcase_v1beta1::model::echo_error_details_response::MultipleDetails;
+    /// let x = EchoErrorDetailsResponse::new().set_or_clear_multiple_details(Some(MultipleDetails::default()/* use setters */));
+    /// let x = EchoErrorDetailsResponse::new().set_or_clear_multiple_details(None::<MultipleDetails>);
+    /// ```
     pub fn set_or_clear_multiple_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::echo_error_details_response::MultipleDetails>,
@@ -1432,6 +2089,13 @@ pub mod echo_error_details_response {
         }
 
         /// Sets the value of [error][crate::model::echo_error_details_response::SingleDetail::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::echo_error_details_response::SingleDetail;
+        /// use google_cloud_showcase_v1beta1::model::ErrorWithSingleDetail;
+        /// let x = SingleDetail::new().set_error(ErrorWithSingleDetail::default()/* use setters */);
+        /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::ErrorWithSingleDetail>,
@@ -1441,6 +2105,14 @@ pub mod echo_error_details_response {
         }
 
         /// Sets or clears the value of [error][crate::model::echo_error_details_response::SingleDetail::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::echo_error_details_response::SingleDetail;
+        /// use google_cloud_showcase_v1beta1::model::ErrorWithSingleDetail;
+        /// let x = SingleDetail::new().set_or_clear_error(Some(ErrorWithSingleDetail::default()/* use setters */));
+        /// let x = SingleDetail::new().set_or_clear_error(None::<ErrorWithSingleDetail>);
+        /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ErrorWithSingleDetail>,
@@ -1470,6 +2142,13 @@ pub mod echo_error_details_response {
         }
 
         /// Sets the value of [error][crate::model::echo_error_details_response::MultipleDetails::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::echo_error_details_response::MultipleDetails;
+        /// use google_cloud_showcase_v1beta1::model::ErrorWithMultipleDetails;
+        /// let x = MultipleDetails::new().set_error(ErrorWithMultipleDetails::default()/* use setters */);
+        /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::ErrorWithMultipleDetails>,
@@ -1479,6 +2158,14 @@ pub mod echo_error_details_response {
         }
 
         /// Sets or clears the value of [error][crate::model::echo_error_details_response::MultipleDetails::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::echo_error_details_response::MultipleDetails;
+        /// use google_cloud_showcase_v1beta1::model::ErrorWithMultipleDetails;
+        /// let x = MultipleDetails::new().set_or_clear_error(Some(ErrorWithMultipleDetails::default()/* use setters */));
+        /// let x = MultipleDetails::new().set_or_clear_error(None::<ErrorWithMultipleDetails>);
+        /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ErrorWithMultipleDetails>,
@@ -1509,6 +2196,13 @@ impl ErrorWithSingleDetail {
     }
 
     /// Sets the value of [details][crate::model::ErrorWithSingleDetail::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ErrorWithSingleDetail;
+    /// use wkt::Any;
+    /// let x = ErrorWithSingleDetail::new().set_details(Any::default()/* use setters */);
+    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -1518,6 +2212,14 @@ impl ErrorWithSingleDetail {
     }
 
     /// Sets or clears the value of [details][crate::model::ErrorWithSingleDetail::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ErrorWithSingleDetail;
+    /// use wkt::Any;
+    /// let x = ErrorWithSingleDetail::new().set_or_clear_details(Some(Any::default()/* use setters */));
+    /// let x = ErrorWithSingleDetail::new().set_or_clear_details(None::<Any>);
+    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -1547,6 +2249,17 @@ impl ErrorWithMultipleDetails {
     }
 
     /// Sets the value of [details][crate::model::ErrorWithMultipleDetails::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ErrorWithMultipleDetails;
+    /// use wkt::Any;
+    /// let x = ErrorWithMultipleDetails::new()
+    ///     .set_details([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1581,6 +2294,12 @@ impl PoetryError {
     }
 
     /// Sets the value of [poem][crate::model::PoetryError::poem].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PoetryError;
+    /// let x = PoetryError::new().set_poem("example");
+    /// ```
     pub fn set_poem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.poem = v.into();
         self
@@ -1610,6 +2329,12 @@ impl FailEchoWithDetailsRequest {
     }
 
     /// Sets the value of [message][crate::model::FailEchoWithDetailsRequest::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::FailEchoWithDetailsRequest;
+    /// let x = FailEchoWithDetailsRequest::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -1664,12 +2389,25 @@ impl ExpandRequest {
     }
 
     /// Sets the value of [content][crate::model::ExpandRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ExpandRequest;
+    /// let x = ExpandRequest::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::ExpandRequest::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ExpandRequest;
+    /// use rpc::model::Status;
+    /// let x = ExpandRequest::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1679,6 +2417,14 @@ impl ExpandRequest {
     }
 
     /// Sets or clears the value of [error][crate::model::ExpandRequest::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ExpandRequest;
+    /// use rpc::model::Status;
+    /// let x = ExpandRequest::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = ExpandRequest::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1688,6 +2434,13 @@ impl ExpandRequest {
     }
 
     /// Sets the value of [stream_wait_time][crate::model::ExpandRequest::stream_wait_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ExpandRequest;
+    /// use wkt::Duration;
+    /// let x = ExpandRequest::new().set_stream_wait_time(Duration::default()/* use setters */);
+    /// ```
     pub fn set_stream_wait_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1697,6 +2450,14 @@ impl ExpandRequest {
     }
 
     /// Sets or clears the value of [stream_wait_time][crate::model::ExpandRequest::stream_wait_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ExpandRequest;
+    /// use wkt::Duration;
+    /// let x = ExpandRequest::new().set_or_clear_stream_wait_time(Some(Duration::default()/* use setters */));
+    /// let x = ExpandRequest::new().set_or_clear_stream_wait_time(None::<Duration>);
+    /// ```
     pub fn set_or_clear_stream_wait_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1734,18 +2495,36 @@ impl PagedExpandRequest {
     }
 
     /// Sets the value of [content][crate::model::PagedExpandRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandRequest;
+    /// let x = PagedExpandRequest::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::PagedExpandRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandRequest;
+    /// let x = PagedExpandRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::PagedExpandRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandRequest;
+    /// let x = PagedExpandRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1784,18 +2563,36 @@ impl PagedExpandLegacyRequest {
     }
 
     /// Sets the value of [content][crate::model::PagedExpandLegacyRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandLegacyRequest;
+    /// let x = PagedExpandLegacyRequest::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [max_results][crate::model::PagedExpandLegacyRequest::max_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandLegacyRequest;
+    /// let x = PagedExpandLegacyRequest::new().set_max_results(42);
+    /// ```
     pub fn set_max_results<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_results = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::PagedExpandLegacyRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandLegacyRequest;
+    /// let x = PagedExpandLegacyRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1827,6 +2624,17 @@ impl PagedExpandResponse {
     }
 
     /// Sets the value of [responses][crate::model::PagedExpandResponse::responses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandResponse;
+    /// use google_cloud_showcase_v1beta1::model::EchoResponse;
+    /// let x = PagedExpandResponse::new()
+    ///     .set_responses([
+    ///         EchoResponse::default()/* use setters */,
+    ///         EchoResponse::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1838,6 +2646,12 @@ impl PagedExpandResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::PagedExpandResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandResponse;
+    /// let x = PagedExpandResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1879,6 +2693,12 @@ impl PagedExpandResponseList {
     }
 
     /// Sets the value of [words][crate::model::PagedExpandResponseList::words].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandResponseList;
+    /// let x = PagedExpandResponseList::new().set_words(["a", "b", "c"]);
+    /// ```
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1917,6 +2737,16 @@ impl PagedExpandLegacyMappedResponse {
     }
 
     /// Sets the value of [alphabetized][crate::model::PagedExpandLegacyMappedResponse::alphabetized].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandLegacyMappedResponse;
+    /// use google_cloud_showcase_v1beta1::model::PagedExpandResponseList;
+    /// let x = PagedExpandLegacyMappedResponse::new().set_alphabetized([
+    ///     ("key0", PagedExpandResponseList::default()/* use setters */),
+    ///     ("key1", PagedExpandResponseList::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_alphabetized<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1929,6 +2759,12 @@ impl PagedExpandLegacyMappedResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::PagedExpandLegacyMappedResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::PagedExpandLegacyMappedResponse;
+    /// let x = PagedExpandLegacyMappedResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1976,6 +2812,14 @@ impl WaitRequest {
     ///
     /// Note that all the setters affecting `end` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
+    /// use wkt::Timestamp;
+    /// let x = WaitRequest::new().set_end(Some(
+    ///     google_cloud_showcase_v1beta1::model::wait_request::End::EndTime(Timestamp::default().into())));
+    /// ```
     pub fn set_end<T: std::convert::Into<std::option::Option<crate::model::wait_request::End>>>(
         mut self,
         v: T,
@@ -2000,6 +2844,15 @@ impl WaitRequest {
     ///
     /// Note that all the setters affecting `end` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
+    /// use wkt::Timestamp;
+    /// let x = WaitRequest::new().set_end_time(Timestamp::default()/* use setters */);
+    /// assert!(x.end_time().is_some());
+    /// assert!(x.ttl().is_none());
+    /// ```
     pub fn set_end_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2024,6 +2877,15 @@ impl WaitRequest {
     ///
     /// Note that all the setters affecting `end` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
+    /// use wkt::Duration;
+    /// let x = WaitRequest::new().set_ttl(Duration::default()/* use setters */);
+    /// assert!(x.ttl().is_some());
+    /// assert!(x.end_time().is_none());
+    /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.end = std::option::Option::Some(crate::model::wait_request::End::Ttl(v.into()));
         self
@@ -2033,6 +2895,14 @@ impl WaitRequest {
     ///
     /// Note that all the setters affecting `response` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
+    /// use rpc::model::Status;
+    /// let x = WaitRequest::new().set_response(Some(
+    ///     google_cloud_showcase_v1beta1::model::wait_request::Response::Error(Status::default().into())));
+    /// ```
     pub fn set_response<
         T: std::convert::Into<std::option::Option<crate::model::wait_request::Response>>,
     >(
@@ -2059,6 +2929,15 @@ impl WaitRequest {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
+    /// use rpc::model::Status;
+    /// let x = WaitRequest::new().set_error(Status::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.success().is_none());
+    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -2084,6 +2963,15 @@ impl WaitRequest {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitRequest;
+    /// use google_cloud_showcase_v1beta1::model::WaitResponse;
+    /// let x = WaitRequest::new().set_success(WaitResponse::default()/* use setters */);
+    /// assert!(x.success().is_some());
+    /// assert!(x.error().is_none());
+    /// ```
     pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::WaitResponse>>>(
         mut self,
         v: T,
@@ -2141,6 +3029,12 @@ impl WaitResponse {
     }
 
     /// Sets the value of [content][crate::model::WaitResponse::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitResponse;
+    /// let x = WaitResponse::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
@@ -2169,6 +3063,13 @@ impl WaitMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::WaitMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitMetadata;
+    /// use wkt::Timestamp;
+    /// let x = WaitMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2178,6 +3079,14 @@ impl WaitMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::WaitMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::WaitMetadata;
+    /// use wkt::Timestamp;
+    /// let x = WaitMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WaitMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2211,6 +3120,13 @@ impl BlockRequest {
     }
 
     /// Sets the value of [response_delay][crate::model::BlockRequest::response_delay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::BlockRequest;
+    /// use wkt::Duration;
+    /// let x = BlockRequest::new().set_response_delay(Duration::default()/* use setters */);
+    /// ```
     pub fn set_response_delay<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2220,6 +3136,14 @@ impl BlockRequest {
     }
 
     /// Sets or clears the value of [response_delay][crate::model::BlockRequest::response_delay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::BlockRequest;
+    /// use wkt::Duration;
+    /// let x = BlockRequest::new().set_or_clear_response_delay(Some(Duration::default()/* use setters */));
+    /// let x = BlockRequest::new().set_or_clear_response_delay(None::<Duration>);
+    /// ```
     pub fn set_or_clear_response_delay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2232,6 +3156,14 @@ impl BlockRequest {
     ///
     /// Note that all the setters affecting `response` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::BlockRequest;
+    /// use rpc::model::Status;
+    /// let x = BlockRequest::new().set_response(Some(
+    ///     google_cloud_showcase_v1beta1::model::block_request::Response::Error(Status::default().into())));
+    /// ```
     pub fn set_response<
         T: std::convert::Into<std::option::Option<crate::model::block_request::Response>>,
     >(
@@ -2258,6 +3190,15 @@ impl BlockRequest {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::BlockRequest;
+    /// use rpc::model::Status;
+    /// let x = BlockRequest::new().set_error(Status::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.success().is_none());
+    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -2283,6 +3224,15 @@ impl BlockRequest {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::BlockRequest;
+    /// use google_cloud_showcase_v1beta1::model::BlockResponse;
+    /// let x = BlockRequest::new().set_success(BlockResponse::default()/* use setters */);
+    /// assert!(x.success().is_some());
+    /// assert!(x.error().is_none());
+    /// ```
     pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::BlockResponse>>>(
         mut self,
         v: T,
@@ -2332,6 +3282,12 @@ impl BlockResponse {
     }
 
     /// Sets the value of [content][crate::model::BlockResponse::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::BlockResponse;
+    /// let x = BlockResponse::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
@@ -2390,24 +3346,49 @@ impl User {
     }
 
     /// Sets the value of [name][crate::model::User::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::User::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [email][crate::model::User::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::User::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// use wkt::Timestamp;
+    /// let x = User::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2417,6 +3398,14 @@ impl User {
     }
 
     /// Sets or clears the value of [create_time][crate::model::User::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// use wkt::Timestamp;
+    /// let x = User::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = User::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2426,6 +3415,13 @@ impl User {
     }
 
     /// Sets the value of [update_time][crate::model::User::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// use wkt::Timestamp;
+    /// let x = User::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2435,6 +3431,14 @@ impl User {
     }
 
     /// Sets or clears the value of [update_time][crate::model::User::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// use wkt::Timestamp;
+    /// let x = User::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = User::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2444,6 +3448,12 @@ impl User {
     }
 
     /// Sets the value of [age][crate::model::User::age].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_age(42);
+    /// ```
     pub fn set_age<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -2453,6 +3463,13 @@ impl User {
     }
 
     /// Sets or clears the value of [age][crate::model::User::age].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_or_clear_age(Some(42));
+    /// let x = User::new().set_or_clear_age(None::<i32>);
+    /// ```
     pub fn set_or_clear_age<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -2462,6 +3479,12 @@ impl User {
     }
 
     /// Sets the value of [height_feet][crate::model::User::height_feet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_height_feet(42.0);
+    /// ```
     pub fn set_height_feet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -2471,6 +3494,13 @@ impl User {
     }
 
     /// Sets or clears the value of [height_feet][crate::model::User::height_feet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_or_clear_height_feet(Some(42.0));
+    /// let x = User::new().set_or_clear_height_feet(None::<f32>);
+    /// ```
     pub fn set_or_clear_height_feet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -2480,6 +3510,12 @@ impl User {
     }
 
     /// Sets the value of [nickname][crate::model::User::nickname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_nickname("example");
+    /// ```
     pub fn set_nickname<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2489,6 +3525,13 @@ impl User {
     }
 
     /// Sets or clears the value of [nickname][crate::model::User::nickname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_or_clear_nickname(Some("example"));
+    /// let x = User::new().set_or_clear_nickname(None::<String>);
+    /// ```
     pub fn set_or_clear_nickname<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2498,6 +3541,12 @@ impl User {
     }
 
     /// Sets the value of [enable_notifications][crate::model::User::enable_notifications].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_enable_notifications(true);
+    /// ```
     pub fn set_enable_notifications<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2507,6 +3556,13 @@ impl User {
     }
 
     /// Sets or clears the value of [enable_notifications][crate::model::User::enable_notifications].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::User;
+    /// let x = User::new().set_or_clear_enable_notifications(Some(false));
+    /// let x = User::new().set_or_clear_enable_notifications(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_notifications<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2539,6 +3595,13 @@ impl CreateUserRequest {
     }
 
     /// Sets the value of [user][crate::model::CreateUserRequest::user].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateUserRequest;
+    /// use google_cloud_showcase_v1beta1::model::User;
+    /// let x = CreateUserRequest::new().set_user(User::default()/* use setters */);
+    /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -2548,6 +3611,14 @@ impl CreateUserRequest {
     }
 
     /// Sets or clears the value of [user][crate::model::CreateUserRequest::user].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateUserRequest;
+    /// use google_cloud_showcase_v1beta1::model::User;
+    /// let x = CreateUserRequest::new().set_or_clear_user(Some(User::default()/* use setters */));
+    /// let x = CreateUserRequest::new().set_or_clear_user(None::<User>);
+    /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -2580,6 +3651,12 @@ impl GetUserRequest {
     }
 
     /// Sets the value of [name][crate::model::GetUserRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::GetUserRequest;
+    /// let x = GetUserRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2613,6 +3690,13 @@ impl UpdateUserRequest {
     }
 
     /// Sets the value of [user][crate::model::UpdateUserRequest::user].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateUserRequest;
+    /// use google_cloud_showcase_v1beta1::model::User;
+    /// let x = UpdateUserRequest::new().set_user(User::default()/* use setters */);
+    /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -2622,6 +3706,14 @@ impl UpdateUserRequest {
     }
 
     /// Sets or clears the value of [user][crate::model::UpdateUserRequest::user].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateUserRequest;
+    /// use google_cloud_showcase_v1beta1::model::User;
+    /// let x = UpdateUserRequest::new().set_or_clear_user(Some(User::default()/* use setters */));
+    /// let x = UpdateUserRequest::new().set_or_clear_user(None::<User>);
+    /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -2631,6 +3723,13 @@ impl UpdateUserRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateUserRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateUserRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2640,6 +3739,14 @@ impl UpdateUserRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateUserRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateUserRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateUserRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2672,6 +3779,12 @@ impl DeleteUserRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteUserRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::DeleteUserRequest;
+    /// let x = DeleteUserRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2707,12 +3820,24 @@ impl ListUsersRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListUsersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListUsersRequest;
+    /// let x = ListUsersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUsersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListUsersRequest;
+    /// let x = ListUsersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2748,6 +3873,17 @@ impl ListUsersResponse {
     }
 
     /// Sets the value of [users][crate::model::ListUsersResponse::users].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListUsersResponse;
+    /// use google_cloud_showcase_v1beta1::model::User;
+    /// let x = ListUsersResponse::new()
+    ///     .set_users([
+    ///         User::default()/* use setters */,
+    ///         User::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2759,6 +3895,12 @@ impl ListUsersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUsersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListUsersResponse;
+    /// let x = ListUsersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2813,24 +3955,49 @@ impl Room {
     }
 
     /// Sets the value of [name][crate::model::Room::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = Room::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Room::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = Room::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Room::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = Room::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Room::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Room;
+    /// use wkt::Timestamp;
+    /// let x = Room::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2840,6 +4007,14 @@ impl Room {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Room::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Room;
+    /// use wkt::Timestamp;
+    /// let x = Room::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Room::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2849,6 +4024,13 @@ impl Room {
     }
 
     /// Sets the value of [update_time][crate::model::Room::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Room;
+    /// use wkt::Timestamp;
+    /// let x = Room::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2858,6 +4040,14 @@ impl Room {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Room::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Room;
+    /// use wkt::Timestamp;
+    /// let x = Room::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Room::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2890,6 +4080,13 @@ impl CreateRoomRequest {
     }
 
     /// Sets the value of [room][crate::model::CreateRoomRequest::room].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateRoomRequest;
+    /// use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = CreateRoomRequest::new().set_room(Room::default()/* use setters */);
+    /// ```
     pub fn set_room<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Room>,
@@ -2899,6 +4096,14 @@ impl CreateRoomRequest {
     }
 
     /// Sets or clears the value of [room][crate::model::CreateRoomRequest::room].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateRoomRequest;
+    /// use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = CreateRoomRequest::new().set_or_clear_room(Some(Room::default()/* use setters */));
+    /// let x = CreateRoomRequest::new().set_or_clear_room(None::<Room>);
+    /// ```
     pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Room>,
@@ -2931,6 +4136,12 @@ impl GetRoomRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRoomRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::GetRoomRequest;
+    /// let x = GetRoomRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2964,6 +4175,13 @@ impl UpdateRoomRequest {
     }
 
     /// Sets the value of [room][crate::model::UpdateRoomRequest::room].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateRoomRequest;
+    /// use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = UpdateRoomRequest::new().set_room(Room::default()/* use setters */);
+    /// ```
     pub fn set_room<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Room>,
@@ -2973,6 +4191,14 @@ impl UpdateRoomRequest {
     }
 
     /// Sets or clears the value of [room][crate::model::UpdateRoomRequest::room].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateRoomRequest;
+    /// use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = UpdateRoomRequest::new().set_or_clear_room(Some(Room::default()/* use setters */));
+    /// let x = UpdateRoomRequest::new().set_or_clear_room(None::<Room>);
+    /// ```
     pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Room>,
@@ -2982,6 +4208,13 @@ impl UpdateRoomRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRoomRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateRoomRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRoomRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2991,6 +4224,14 @@ impl UpdateRoomRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRoomRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateRoomRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRoomRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRoomRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3023,6 +4264,12 @@ impl DeleteRoomRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRoomRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::DeleteRoomRequest;
+    /// let x = DeleteRoomRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3058,12 +4305,24 @@ impl ListRoomsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListRoomsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListRoomsRequest;
+    /// let x = ListRoomsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRoomsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListRoomsRequest;
+    /// let x = ListRoomsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3099,6 +4358,17 @@ impl ListRoomsResponse {
     }
 
     /// Sets the value of [rooms][crate::model::ListRoomsResponse::rooms].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListRoomsResponse;
+    /// use google_cloud_showcase_v1beta1::model::Room;
+    /// let x = ListRoomsResponse::new()
+    ///     .set_rooms([
+    ///         Room::default()/* use setters */,
+    ///         Room::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rooms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3110,6 +4380,12 @@ impl ListRoomsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRoomsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListRoomsResponse;
+    /// let x = ListRoomsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3169,18 +4445,37 @@ impl Blurb {
     }
 
     /// Sets the value of [name][crate::model::Blurb::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = Blurb::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [user][crate::model::Blurb::user].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = Blurb::new().set_user("example");
+    /// ```
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Blurb::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use wkt::Timestamp;
+    /// let x = Blurb::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3190,6 +4485,14 @@ impl Blurb {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Blurb::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use wkt::Timestamp;
+    /// let x = Blurb::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Blurb::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3199,6 +4502,13 @@ impl Blurb {
     }
 
     /// Sets the value of [update_time][crate::model::Blurb::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use wkt::Timestamp;
+    /// let x = Blurb::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3208,6 +4518,14 @@ impl Blurb {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Blurb::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use wkt::Timestamp;
+    /// let x = Blurb::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Blurb::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3220,6 +4538,13 @@ impl Blurb {
     ///
     /// Note that all the setters affecting `content` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use google_cloud_showcase_v1beta1::model::blurb::Content;
+    /// let x = Blurb::new().set_content(Some(Content::Text("example".to_string())));
+    /// ```
     pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::blurb::Content>>>(
         mut self,
         v: T,
@@ -3244,6 +4569,14 @@ impl Blurb {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = Blurb::new().set_text("example");
+    /// assert!(x.text().is_some());
+    /// assert!(x.image().is_none());
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = std::option::Option::Some(crate::model::blurb::Content::Text(v.into()));
         self
@@ -3265,6 +4598,14 @@ impl Blurb {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = Blurb::new().set_image(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.image().is_some());
+    /// assert!(x.text().is_none());
+    /// ```
     pub fn set_image<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = std::option::Option::Some(crate::model::blurb::Content::Image(v.into()));
         self
@@ -3274,6 +4615,13 @@ impl Blurb {
     ///
     /// Note that all the setters affecting `legacy_id` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use google_cloud_showcase_v1beta1::model::blurb::LegacyId;
+    /// let x = Blurb::new().set_legacy_id(Some(LegacyId::LegacyRoomId("example".to_string())));
+    /// ```
     pub fn set_legacy_id<
         T: std::convert::Into<std::option::Option<crate::model::blurb::LegacyId>>,
     >(
@@ -3300,6 +4648,14 @@ impl Blurb {
     ///
     /// Note that all the setters affecting `legacy_id` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = Blurb::new().set_legacy_room_id("example");
+    /// assert!(x.legacy_room_id().is_some());
+    /// assert!(x.legacy_user_id().is_none());
+    /// ```
     pub fn set_legacy_room_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.legacy_id =
             std::option::Option::Some(crate::model::blurb::LegacyId::LegacyRoomId(v.into()));
@@ -3322,6 +4678,14 @@ impl Blurb {
     ///
     /// Note that all the setters affecting `legacy_id` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = Blurb::new().set_legacy_user_id("example");
+    /// assert!(x.legacy_user_id().is_some());
+    /// assert!(x.legacy_room_id().is_none());
+    /// ```
     pub fn set_legacy_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.legacy_id =
             std::option::Option::Some(crate::model::blurb::LegacyId::LegacyUserId(v.into()));
@@ -3387,12 +4751,25 @@ impl CreateBlurbRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBlurbRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateBlurbRequest;
+    /// let x = CreateBlurbRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [blurb][crate::model::CreateBlurbRequest::blurb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateBlurbRequest;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = CreateBlurbRequest::new().set_blurb(Blurb::default()/* use setters */);
+    /// ```
     pub fn set_blurb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
@@ -3402,6 +4779,14 @@ impl CreateBlurbRequest {
     }
 
     /// Sets or clears the value of [blurb][crate::model::CreateBlurbRequest::blurb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateBlurbRequest;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = CreateBlurbRequest::new().set_or_clear_blurb(Some(Blurb::default()/* use setters */));
+    /// let x = CreateBlurbRequest::new().set_or_clear_blurb(None::<Blurb>);
+    /// ```
     pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
@@ -3434,6 +4819,12 @@ impl GetBlurbRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBlurbRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::GetBlurbRequest;
+    /// let x = GetBlurbRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3467,6 +4858,13 @@ impl UpdateBlurbRequest {
     }
 
     /// Sets the value of [blurb][crate::model::UpdateBlurbRequest::blurb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateBlurbRequest;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = UpdateBlurbRequest::new().set_blurb(Blurb::default()/* use setters */);
+    /// ```
     pub fn set_blurb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
@@ -3476,6 +4874,14 @@ impl UpdateBlurbRequest {
     }
 
     /// Sets or clears the value of [blurb][crate::model::UpdateBlurbRequest::blurb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateBlurbRequest;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = UpdateBlurbRequest::new().set_or_clear_blurb(Some(Blurb::default()/* use setters */));
+    /// let x = UpdateBlurbRequest::new().set_or_clear_blurb(None::<Blurb>);
+    /// ```
     pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
@@ -3485,6 +4891,13 @@ impl UpdateBlurbRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBlurbRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateBlurbRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBlurbRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3494,6 +4907,14 @@ impl UpdateBlurbRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBlurbRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::UpdateBlurbRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBlurbRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBlurbRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3526,6 +4947,12 @@ impl DeleteBlurbRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBlurbRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::DeleteBlurbRequest;
+    /// let x = DeleteBlurbRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3565,18 +4992,36 @@ impl ListBlurbsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBlurbsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListBlurbsRequest;
+    /// let x = ListBlurbsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBlurbsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListBlurbsRequest;
+    /// let x = ListBlurbsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBlurbsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListBlurbsRequest;
+    /// let x = ListBlurbsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3612,6 +5057,17 @@ impl ListBlurbsResponse {
     }
 
     /// Sets the value of [blurbs][crate::model::ListBlurbsResponse::blurbs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListBlurbsResponse;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = ListBlurbsResponse::new()
+    ///     .set_blurbs([
+    ///         Blurb::default()/* use setters */,
+    ///         Blurb::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_blurbs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3623,6 +5079,12 @@ impl ListBlurbsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBlurbsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListBlurbsResponse;
+    /// let x = ListBlurbsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3682,24 +5144,48 @@ impl SearchBlurbsRequest {
     }
 
     /// Sets the value of [query][crate::model::SearchBlurbsRequest::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsRequest;
+    /// let x = SearchBlurbsRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::SearchBlurbsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsRequest;
+    /// let x = SearchBlurbsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchBlurbsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsRequest;
+    /// let x = SearchBlurbsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchBlurbsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsRequest;
+    /// let x = SearchBlurbsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3729,6 +5215,13 @@ impl SearchBlurbsMetadata {
     }
 
     /// Sets the value of [retry_info][crate::model::SearchBlurbsMetadata::retry_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsMetadata;
+    /// use rpc::model::RetryInfo;
+    /// let x = SearchBlurbsMetadata::new().set_retry_info(RetryInfo::default()/* use setters */);
+    /// ```
     pub fn set_retry_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::RetryInfo>,
@@ -3738,6 +5231,14 @@ impl SearchBlurbsMetadata {
     }
 
     /// Sets or clears the value of [retry_info][crate::model::SearchBlurbsMetadata::retry_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsMetadata;
+    /// use rpc::model::RetryInfo;
+    /// let x = SearchBlurbsMetadata::new().set_or_clear_retry_info(Some(RetryInfo::default()/* use setters */));
+    /// let x = SearchBlurbsMetadata::new().set_or_clear_retry_info(None::<RetryInfo>);
+    /// ```
     pub fn set_or_clear_retry_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::RetryInfo>,
@@ -3776,6 +5277,17 @@ impl SearchBlurbsResponse {
     }
 
     /// Sets the value of [blurbs][crate::model::SearchBlurbsResponse::blurbs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsResponse;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = SearchBlurbsResponse::new()
+    ///     .set_blurbs([
+    ///         Blurb::default()/* use setters */,
+    ///         Blurb::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_blurbs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3787,6 +5299,12 @@ impl SearchBlurbsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchBlurbsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SearchBlurbsResponse;
+    /// let x = SearchBlurbsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3819,12 +5337,25 @@ impl StreamBlurbsRequest {
     }
 
     /// Sets the value of [name][crate::model::StreamBlurbsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamBlurbsRequest;
+    /// let x = StreamBlurbsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::StreamBlurbsRequest::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamBlurbsRequest;
+    /// use wkt::Timestamp;
+    /// let x = StreamBlurbsRequest::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3834,6 +5365,14 @@ impl StreamBlurbsRequest {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::StreamBlurbsRequest::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamBlurbsRequest;
+    /// use wkt::Timestamp;
+    /// let x = StreamBlurbsRequest::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = StreamBlurbsRequest::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3869,6 +5408,13 @@ impl StreamBlurbsResponse {
     }
 
     /// Sets the value of [blurb][crate::model::StreamBlurbsResponse::blurb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamBlurbsResponse;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = StreamBlurbsResponse::new().set_blurb(Blurb::default()/* use setters */);
+    /// ```
     pub fn set_blurb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
@@ -3878,6 +5424,14 @@ impl StreamBlurbsResponse {
     }
 
     /// Sets or clears the value of [blurb][crate::model::StreamBlurbsResponse::blurb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamBlurbsResponse;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = StreamBlurbsResponse::new().set_or_clear_blurb(Some(Blurb::default()/* use setters */));
+    /// let x = StreamBlurbsResponse::new().set_or_clear_blurb(None::<Blurb>);
+    /// ```
     pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
@@ -3887,6 +5441,15 @@ impl StreamBlurbsResponse {
     }
 
     /// Sets the value of [action][crate::model::StreamBlurbsResponse::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamBlurbsResponse;
+    /// use google_cloud_showcase_v1beta1::model::stream_blurbs_response::Action;
+    /// let x0 = StreamBlurbsResponse::new().set_action(Action::Create);
+    /// let x1 = StreamBlurbsResponse::new().set_action(Action::Update);
+    /// let x2 = StreamBlurbsResponse::new().set_action(Action::Delete);
+    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::stream_blurbs_response::Action>>(
         mut self,
         v: T,
@@ -4063,6 +5626,12 @@ impl SendBlurbsResponse {
     }
 
     /// Sets the value of [names][crate::model::SendBlurbsResponse::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SendBlurbsResponse;
+    /// let x = SendBlurbsResponse::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4099,6 +5668,14 @@ impl ConnectRequest {
     ///
     /// Note that all the setters affecting `request` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
+    /// use google_cloud_showcase_v1beta1::model::connect_request::ConnectConfig;
+    /// let x = ConnectRequest::new().set_request(Some(
+    ///     google_cloud_showcase_v1beta1::model::connect_request::Request::Config(ConnectConfig::default().into())));
+    /// ```
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::connect_request::Request>>,
     >(
@@ -4127,6 +5704,15 @@ impl ConnectRequest {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
+    /// use google_cloud_showcase_v1beta1::model::connect_request::ConnectConfig;
+    /// let x = ConnectRequest::new().set_config(ConnectConfig::default()/* use setters */);
+    /// assert!(x.config().is_some());
+    /// assert!(x.blurb().is_none());
+    /// ```
     pub fn set_config<
         T: std::convert::Into<std::boxed::Box<crate::model::connect_request::ConnectConfig>>,
     >(
@@ -4154,6 +5740,15 @@ impl ConnectRequest {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// let x = ConnectRequest::new().set_blurb(Blurb::default()/* use setters */);
+    /// assert!(x.blurb().is_some());
+    /// assert!(x.config().is_none());
+    /// ```
     pub fn set_blurb<T: std::convert::Into<std::boxed::Box<crate::model::Blurb>>>(
         mut self,
         v: T,
@@ -4190,6 +5785,12 @@ pub mod connect_request {
         }
 
         /// Sets the value of [parent][crate::model::connect_request::ConnectConfig::parent].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::connect_request::ConnectConfig;
+        /// let x = ConnectConfig::new().set_parent("example");
+        /// ```
         pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.parent = v.into();
             self
@@ -4229,6 +5830,13 @@ impl RestError {
     }
 
     /// Sets the value of [error][crate::model::RestError::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RestError;
+    /// use google_cloud_showcase_v1beta1::model::rest_error::Status;
+    /// let x = RestError::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::rest_error::Status>,
@@ -4238,6 +5846,14 @@ impl RestError {
     }
 
     /// Sets or clears the value of [error][crate::model::RestError::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::RestError;
+    /// use google_cloud_showcase_v1beta1::model::rest_error::Status;
+    /// let x = RestError::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = RestError::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::rest_error::Status>,
@@ -4282,24 +5898,56 @@ pub mod rest_error {
         }
 
         /// Sets the value of [code][crate::model::rest_error::Status::code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::rest_error::Status;
+        /// let x = Status::new().set_code(42);
+        /// ```
         pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.code = v.into();
             self
         }
 
         /// Sets the value of [message][crate::model::rest_error::Status::message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::rest_error::Status;
+        /// let x = Status::new().set_message("example");
+        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self
         }
 
         /// Sets the value of [status][crate::model::rest_error::Status::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::rest_error::Status;
+        /// use rpc::model::Code;
+        /// let x0 = Status::new().set_status(Code::Cancelled);
+        /// let x1 = Status::new().set_status(Code::Unknown);
+        /// let x2 = Status::new().set_status(Code::InvalidArgument);
+        /// ```
         pub fn set_status<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
         }
 
         /// Sets the value of [details][crate::model::rest_error::Status::details].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::rest_error::Status;
+        /// use wkt::Any;
+        /// let x = Status::new()
+        ///     .set_details([
+        ///         Any::default()/* use setters */,
+        ///         Any::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_details<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4336,12 +5984,29 @@ impl Sequence {
     }
 
     /// Sets the value of [name][crate::model::Sequence::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Sequence;
+    /// let x = Sequence::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [responses][crate::model::Sequence::responses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Sequence;
+    /// use google_cloud_showcase_v1beta1::model::sequence::Response;
+    /// let x = Sequence::new()
+    ///     .set_responses([
+    ///         Response::default()/* use setters */,
+    ///         Response::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4383,6 +6048,13 @@ pub mod sequence {
         }
 
         /// Sets the value of [status][crate::model::sequence::Response::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence::Response;
+        /// use rpc::model::Status;
+        /// let x = Response::new().set_status(Status::default()/* use setters */);
+        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4392,6 +6064,14 @@ pub mod sequence {
         }
 
         /// Sets or clears the value of [status][crate::model::sequence::Response::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence::Response;
+        /// use rpc::model::Status;
+        /// let x = Response::new().set_or_clear_status(Some(Status::default()/* use setters */));
+        /// let x = Response::new().set_or_clear_status(None::<Status>);
+        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4401,6 +6081,13 @@ pub mod sequence {
         }
 
         /// Sets the value of [delay][crate::model::sequence::Response::delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence::Response;
+        /// use wkt::Duration;
+        /// let x = Response::new().set_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4410,6 +6097,14 @@ pub mod sequence {
         }
 
         /// Sets or clears the value of [delay][crate::model::sequence::Response::delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence::Response;
+        /// use wkt::Duration;
+        /// let x = Response::new().set_or_clear_delay(Some(Duration::default()/* use setters */));
+        /// let x = Response::new().set_or_clear_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4447,18 +6142,41 @@ impl StreamingSequence {
     }
 
     /// Sets the value of [name][crate::model::StreamingSequence::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamingSequence;
+    /// let x = StreamingSequence::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::StreamingSequence::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamingSequence;
+    /// let x = StreamingSequence::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [responses][crate::model::StreamingSequence::responses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamingSequence;
+    /// use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
+    /// let x = StreamingSequence::new()
+    ///     .set_responses([
+    ///         Response::default()/* use setters */,
+    ///         Response::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4503,6 +6221,13 @@ pub mod streaming_sequence {
         }
 
         /// Sets the value of [status][crate::model::streaming_sequence::Response::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
+        /// use rpc::model::Status;
+        /// let x = Response::new().set_status(Status::default()/* use setters */);
+        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4512,6 +6237,14 @@ pub mod streaming_sequence {
         }
 
         /// Sets or clears the value of [status][crate::model::streaming_sequence::Response::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
+        /// use rpc::model::Status;
+        /// let x = Response::new().set_or_clear_status(Some(Status::default()/* use setters */));
+        /// let x = Response::new().set_or_clear_status(None::<Status>);
+        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4521,6 +6254,13 @@ pub mod streaming_sequence {
         }
 
         /// Sets the value of [delay][crate::model::streaming_sequence::Response::delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
+        /// use wkt::Duration;
+        /// let x = Response::new().set_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4530,6 +6270,14 @@ pub mod streaming_sequence {
         }
 
         /// Sets or clears the value of [delay][crate::model::streaming_sequence::Response::delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
+        /// use wkt::Duration;
+        /// let x = Response::new().set_or_clear_delay(Some(Duration::default()/* use setters */));
+        /// let x = Response::new().set_or_clear_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4539,6 +6287,12 @@ pub mod streaming_sequence {
         }
 
         /// Sets the value of [response_index][crate::model::streaming_sequence::Response::response_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence::Response;
+        /// let x = Response::new().set_response_index(42);
+        /// ```
         pub fn set_response_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.response_index = v.into();
             self
@@ -4569,12 +6323,29 @@ impl StreamingSequenceReport {
     }
 
     /// Sets the value of [name][crate::model::StreamingSequenceReport::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamingSequenceReport;
+    /// let x = StreamingSequenceReport::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [attempts][crate::model::StreamingSequenceReport::attempts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::StreamingSequenceReport;
+    /// use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+    /// let x = StreamingSequenceReport::new()
+    ///     .set_attempts([
+    ///         Attempt::default()/* use setters */,
+    ///         Attempt::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_attempts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4627,12 +6398,25 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets the value of [attempt_number][crate::model::streaming_sequence_report::Attempt::attempt_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// let x = Attempt::new().set_attempt_number(42);
+        /// ```
         pub fn set_attempt_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.attempt_number = v.into();
             self
         }
 
         /// Sets the value of [attempt_deadline][crate::model::streaming_sequence_report::Attempt::attempt_deadline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_attempt_deadline(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_attempt_deadline<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4642,6 +6426,14 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clears the value of [attempt_deadline][crate::model::streaming_sequence_report::Attempt::attempt_deadline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_or_clear_attempt_deadline(Some(Timestamp::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_attempt_deadline(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4651,6 +6443,13 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets the value of [response_time][crate::model::streaming_sequence_report::Attempt::response_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_response_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_response_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4660,6 +6459,14 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clears the value of [response_time][crate::model::streaming_sequence_report::Attempt::response_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_or_clear_response_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_response_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4669,6 +6476,13 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets the value of [attempt_delay][crate::model::streaming_sequence_report::Attempt::attempt_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use wkt::Duration;
+        /// let x = Attempt::new().set_attempt_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_attempt_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4678,6 +6492,14 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clears the value of [attempt_delay][crate::model::streaming_sequence_report::Attempt::attempt_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use wkt::Duration;
+        /// let x = Attempt::new().set_or_clear_attempt_delay(Some(Duration::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_attempt_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4687,6 +6509,13 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets the value of [status][crate::model::streaming_sequence_report::Attempt::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use rpc::model::Status;
+        /// let x = Attempt::new().set_status(Status::default()/* use setters */);
+        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4696,6 +6525,14 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clears the value of [status][crate::model::streaming_sequence_report::Attempt::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::streaming_sequence_report::Attempt;
+        /// use rpc::model::Status;
+        /// let x = Attempt::new().set_or_clear_status(Some(Status::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_status(None::<Status>);
+        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4729,12 +6566,29 @@ impl SequenceReport {
     }
 
     /// Sets the value of [name][crate::model::SequenceReport::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SequenceReport;
+    /// let x = SequenceReport::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [attempts][crate::model::SequenceReport::attempts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::SequenceReport;
+    /// use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+    /// let x = SequenceReport::new()
+    ///     .set_attempts([
+    ///         Attempt::default()/* use setters */,
+    ///         Attempt::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_attempts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4787,12 +6641,25 @@ pub mod sequence_report {
         }
 
         /// Sets the value of [attempt_number][crate::model::sequence_report::Attempt::attempt_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// let x = Attempt::new().set_attempt_number(42);
+        /// ```
         pub fn set_attempt_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.attempt_number = v.into();
             self
         }
 
         /// Sets the value of [attempt_deadline][crate::model::sequence_report::Attempt::attempt_deadline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_attempt_deadline(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_attempt_deadline<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4802,6 +6669,14 @@ pub mod sequence_report {
         }
 
         /// Sets or clears the value of [attempt_deadline][crate::model::sequence_report::Attempt::attempt_deadline].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_or_clear_attempt_deadline(Some(Timestamp::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_attempt_deadline(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4811,6 +6686,13 @@ pub mod sequence_report {
         }
 
         /// Sets the value of [response_time][crate::model::sequence_report::Attempt::response_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_response_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_response_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4820,6 +6702,14 @@ pub mod sequence_report {
         }
 
         /// Sets or clears the value of [response_time][crate::model::sequence_report::Attempt::response_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use wkt::Timestamp;
+        /// let x = Attempt::new().set_or_clear_response_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_response_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4829,6 +6719,13 @@ pub mod sequence_report {
         }
 
         /// Sets the value of [attempt_delay][crate::model::sequence_report::Attempt::attempt_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use wkt::Duration;
+        /// let x = Attempt::new().set_attempt_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_attempt_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4838,6 +6735,14 @@ pub mod sequence_report {
         }
 
         /// Sets or clears the value of [attempt_delay][crate::model::sequence_report::Attempt::attempt_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use wkt::Duration;
+        /// let x = Attempt::new().set_or_clear_attempt_delay(Some(Duration::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_attempt_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4847,6 +6752,13 @@ pub mod sequence_report {
         }
 
         /// Sets the value of [status][crate::model::sequence_report::Attempt::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use rpc::model::Status;
+        /// let x = Attempt::new().set_status(Status::default()/* use setters */);
+        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4856,6 +6768,14 @@ pub mod sequence_report {
         }
 
         /// Sets or clears the value of [status][crate::model::sequence_report::Attempt::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::sequence_report::Attempt;
+        /// use rpc::model::Status;
+        /// let x = Attempt::new().set_or_clear_status(Some(Status::default()/* use setters */));
+        /// let x = Attempt::new().set_or_clear_status(None::<Status>);
+        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4886,6 +6806,13 @@ impl CreateSequenceRequest {
     }
 
     /// Sets the value of [sequence][crate::model::CreateSequenceRequest::sequence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateSequenceRequest;
+    /// use google_cloud_showcase_v1beta1::model::Sequence;
+    /// let x = CreateSequenceRequest::new().set_sequence(Sequence::default()/* use setters */);
+    /// ```
     pub fn set_sequence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Sequence>,
@@ -4895,6 +6822,14 @@ impl CreateSequenceRequest {
     }
 
     /// Sets or clears the value of [sequence][crate::model::CreateSequenceRequest::sequence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateSequenceRequest;
+    /// use google_cloud_showcase_v1beta1::model::Sequence;
+    /// let x = CreateSequenceRequest::new().set_or_clear_sequence(Some(Sequence::default()/* use setters */));
+    /// let x = CreateSequenceRequest::new().set_or_clear_sequence(None::<Sequence>);
+    /// ```
     pub fn set_or_clear_sequence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sequence>,
@@ -4924,6 +6859,13 @@ impl CreateStreamingSequenceRequest {
     }
 
     /// Sets the value of [streaming_sequence][crate::model::CreateStreamingSequenceRequest::streaming_sequence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateStreamingSequenceRequest;
+    /// use google_cloud_showcase_v1beta1::model::StreamingSequence;
+    /// let x = CreateStreamingSequenceRequest::new().set_streaming_sequence(StreamingSequence::default()/* use setters */);
+    /// ```
     pub fn set_streaming_sequence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StreamingSequence>,
@@ -4933,6 +6875,14 @@ impl CreateStreamingSequenceRequest {
     }
 
     /// Sets or clears the value of [streaming_sequence][crate::model::CreateStreamingSequenceRequest::streaming_sequence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateStreamingSequenceRequest;
+    /// use google_cloud_showcase_v1beta1::model::StreamingSequence;
+    /// let x = CreateStreamingSequenceRequest::new().set_or_clear_streaming_sequence(Some(StreamingSequence::default()/* use setters */));
+    /// let x = CreateStreamingSequenceRequest::new().set_or_clear_streaming_sequence(None::<StreamingSequence>);
+    /// ```
     pub fn set_or_clear_streaming_sequence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamingSequence>,
@@ -4962,6 +6912,12 @@ impl AttemptSequenceRequest {
     }
 
     /// Sets the value of [name][crate::model::AttemptSequenceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::AttemptSequenceRequest;
+    /// let x = AttemptSequenceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4993,12 +6949,24 @@ impl AttemptStreamingSequenceRequest {
     }
 
     /// Sets the value of [name][crate::model::AttemptStreamingSequenceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::AttemptStreamingSequenceRequest;
+    /// let x = AttemptStreamingSequenceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [last_fail_index][crate::model::AttemptStreamingSequenceRequest::last_fail_index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::AttemptStreamingSequenceRequest;
+    /// let x = AttemptStreamingSequenceRequest::new().set_last_fail_index(42);
+    /// ```
     pub fn set_last_fail_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.last_fail_index = v.into();
         self
@@ -5027,6 +6995,12 @@ impl AttemptStreamingSequenceResponse {
     }
 
     /// Sets the value of [content][crate::model::AttemptStreamingSequenceResponse::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::AttemptStreamingSequenceResponse;
+    /// let x = AttemptStreamingSequenceResponse::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
@@ -5053,6 +7027,12 @@ impl GetSequenceReportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSequenceReportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::GetSequenceReportRequest;
+    /// let x = GetSequenceReportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5079,6 +7059,12 @@ impl GetStreamingSequenceReportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetStreamingSequenceReportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::GetStreamingSequenceReportRequest;
+    /// let x = GetStreamingSequenceReportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5115,12 +7101,26 @@ impl Session {
     }
 
     /// Sets the value of [name][crate::model::Session::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Session;
+    /// let x = Session::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Session::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Session;
+    /// use google_cloud_showcase_v1beta1::model::session::Version;
+    /// let x0 = Session::new().set_version(Version::V1Latest);
+    /// let x1 = Session::new().set_version(Version::V10);
+    /// ```
     pub fn set_version<T: std::convert::Into<crate::model::session::Version>>(
         mut self,
         v: T,
@@ -5293,6 +7293,13 @@ impl CreateSessionRequest {
     }
 
     /// Sets the value of [session][crate::model::CreateSessionRequest::session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateSessionRequest;
+    /// use google_cloud_showcase_v1beta1::model::Session;
+    /// let x = CreateSessionRequest::new().set_session(Session::default()/* use setters */);
+    /// ```
     pub fn set_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Session>,
@@ -5302,6 +7309,14 @@ impl CreateSessionRequest {
     }
 
     /// Sets or clears the value of [session][crate::model::CreateSessionRequest::session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::CreateSessionRequest;
+    /// use google_cloud_showcase_v1beta1::model::Session;
+    /// let x = CreateSessionRequest::new().set_or_clear_session(Some(Session::default()/* use setters */));
+    /// let x = CreateSessionRequest::new().set_or_clear_session(None::<Session>);
+    /// ```
     pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Session>,
@@ -5333,6 +7348,12 @@ impl GetSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSessionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::GetSessionRequest;
+    /// let x = GetSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5364,12 +7385,24 @@ impl ListSessionsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListSessionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListSessionsRequest;
+    /// let x = ListSessionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSessionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListSessionsRequest;
+    /// let x = ListSessionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5402,6 +7435,17 @@ impl ListSessionsResponse {
     }
 
     /// Sets the value of [sessions][crate::model::ListSessionsResponse::sessions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListSessionsResponse;
+    /// use google_cloud_showcase_v1beta1::model::Session;
+    /// let x = ListSessionsResponse::new()
+    ///     .set_sessions([
+    ///         Session::default()/* use setters */,
+    ///         Session::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sessions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5413,6 +7457,12 @@ impl ListSessionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSessionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListSessionsResponse;
+    /// let x = ListSessionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5455,6 +7505,12 @@ impl DeleteSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSessionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::DeleteSessionRequest;
+    /// let x = DeleteSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5483,6 +7539,12 @@ impl ReportSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::ReportSessionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ReportSessionRequest;
+    /// let x = ReportSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5514,6 +7576,15 @@ impl ReportSessionResponse {
     }
 
     /// Sets the value of [result][crate::model::ReportSessionResponse::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ReportSessionResponse;
+    /// use google_cloud_showcase_v1beta1::model::report_session_response::Result;
+    /// let x0 = ReportSessionResponse::new().set_result(Result::Passed);
+    /// let x1 = ReportSessionResponse::new().set_result(Result::Failed);
+    /// let x2 = ReportSessionResponse::new().set_result(Result::Incomplete);
+    /// ```
     pub fn set_result<T: std::convert::Into<crate::model::report_session_response::Result>>(
         mut self,
         v: T,
@@ -5523,6 +7594,17 @@ impl ReportSessionResponse {
     }
 
     /// Sets the value of [test_runs][crate::model::ReportSessionResponse::test_runs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ReportSessionResponse;
+    /// use google_cloud_showcase_v1beta1::model::TestRun;
+    /// let x = ReportSessionResponse::new()
+    ///     .set_test_runs([
+    ///         TestRun::default()/* use setters */,
+    ///         TestRun::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_test_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5713,12 +7795,27 @@ impl Test {
     }
 
     /// Sets the value of [name][crate::model::Test::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Test;
+    /// let x = Test::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [expectation_level][crate::model::Test::expectation_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Test;
+    /// use google_cloud_showcase_v1beta1::model::test::ExpectationLevel;
+    /// let x0 = Test::new().set_expectation_level(ExpectationLevel::Required);
+    /// let x1 = Test::new().set_expectation_level(ExpectationLevel::Recommended);
+    /// let x2 = Test::new().set_expectation_level(ExpectationLevel::Optional);
+    /// ```
     pub fn set_expectation_level<T: std::convert::Into<crate::model::test::ExpectationLevel>>(
         mut self,
         v: T,
@@ -5728,12 +7825,29 @@ impl Test {
     }
 
     /// Sets the value of [description][crate::model::Test::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Test;
+    /// let x = Test::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [blueprints][crate::model::Test::blueprints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Test;
+    /// use google_cloud_showcase_v1beta1::model::test::Blueprint;
+    /// let x = Test::new()
+    ///     .set_blueprints([
+    ///         Blueprint::default()/* use setters */,
+    ///         Blueprint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5784,18 +7898,37 @@ pub mod test {
         }
 
         /// Sets the value of [name][crate::model::test::Blueprint::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::test::Blueprint;
+        /// let x = Blueprint::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::test::Blueprint::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::test::Blueprint;
+        /// let x = Blueprint::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [request][crate::model::test::Blueprint::request].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::test::Blueprint;
+        /// use google_cloud_showcase_v1beta1::model::test::blueprint::Invocation;
+        /// let x = Blueprint::new().set_request(Invocation::default()/* use setters */);
+        /// ```
         pub fn set_request<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::test::blueprint::Invocation>,
@@ -5805,6 +7938,14 @@ pub mod test {
         }
 
         /// Sets or clears the value of [request][crate::model::test::Blueprint::request].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::test::Blueprint;
+        /// use google_cloud_showcase_v1beta1::model::test::blueprint::Invocation;
+        /// let x = Blueprint::new().set_or_clear_request(Some(Invocation::default()/* use setters */));
+        /// let x = Blueprint::new().set_or_clear_request(None::<Invocation>);
+        /// ```
         pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::test::blueprint::Invocation>,
@@ -5814,6 +7955,17 @@ pub mod test {
         }
 
         /// Sets the value of [additional_requests][crate::model::test::Blueprint::additional_requests].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_showcase_v1beta1::model::test::Blueprint;
+        /// use google_cloud_showcase_v1beta1::model::test::blueprint::Invocation;
+        /// let x = Blueprint::new()
+        ///     .set_additional_requests([
+        ///         Invocation::default()/* use setters */,
+        ///         Invocation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_additional_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5855,12 +8007,24 @@ pub mod test {
             }
 
             /// Sets the value of [method][crate::model::test::blueprint::Invocation::method].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_showcase_v1beta1::model::test::blueprint::Invocation;
+            /// let x = Invocation::new().set_method("example");
+            /// ```
             pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.method = v.into();
                 self
             }
 
             /// Sets the value of [serialized_request][crate::model::test::blueprint::Invocation::serialized_request].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_showcase_v1beta1::model::test::blueprint::Invocation;
+            /// let x = Invocation::new().set_serialized_request(bytes::Bytes::from_static(b"example"));
+            /// ```
             pub fn set_serialized_request<T: std::convert::Into<::bytes::Bytes>>(
                 mut self,
                 v: T,
@@ -6051,12 +8215,29 @@ impl Issue {
     }
 
     /// Sets the value of [r#type][crate::model::Issue::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Issue;
+    /// use google_cloud_showcase_v1beta1::model::issue::Type;
+    /// let x0 = Issue::new().set_type(Type::Skipped);
+    /// let x1 = Issue::new().set_type(Type::Pending);
+    /// let x2 = Issue::new().set_type(Type::IncorrectConfirmation);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::issue::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::Issue::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Issue;
+    /// use google_cloud_showcase_v1beta1::model::issue::Severity;
+    /// let x0 = Issue::new().set_severity(Severity::Error);
+    /// let x1 = Issue::new().set_severity(Severity::Warning);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::issue::Severity>>(
         mut self,
         v: T,
@@ -6066,6 +8247,12 @@ impl Issue {
     }
 
     /// Sets the value of [description][crate::model::Issue::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::Issue;
+    /// let x = Issue::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -6376,18 +8563,36 @@ impl ListTestsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTestsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListTestsRequest;
+    /// let x = ListTestsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTestsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListTestsRequest;
+    /// let x = ListTestsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTestsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListTestsRequest;
+    /// let x = ListTestsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6420,6 +8625,17 @@ impl ListTestsResponse {
     }
 
     /// Sets the value of [tests][crate::model::ListTestsResponse::tests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListTestsResponse;
+    /// use google_cloud_showcase_v1beta1::model::Test;
+    /// let x = ListTestsResponse::new()
+    ///     .set_tests([
+    ///         Test::default()/* use setters */,
+    ///         Test::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6431,6 +8647,12 @@ impl ListTestsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTestsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::ListTestsResponse;
+    /// let x = ListTestsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6478,12 +8700,25 @@ impl TestRun {
     }
 
     /// Sets the value of [test][crate::model::TestRun::test].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::TestRun;
+    /// let x = TestRun::new().set_test("example");
+    /// ```
     pub fn set_test<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.test = v.into();
         self
     }
 
     /// Sets the value of [issue][crate::model::TestRun::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::TestRun;
+    /// use google_cloud_showcase_v1beta1::model::Issue;
+    /// let x = TestRun::new().set_issue(Issue::default()/* use setters */);
+    /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -6493,6 +8728,14 @@ impl TestRun {
     }
 
     /// Sets or clears the value of [issue][crate::model::TestRun::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::TestRun;
+    /// use google_cloud_showcase_v1beta1::model::Issue;
+    /// let x = TestRun::new().set_or_clear_issue(Some(Issue::default()/* use setters */));
+    /// let x = TestRun::new().set_or_clear_issue(None::<Issue>);
+    /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -6524,6 +8767,12 @@ impl DeleteTestRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTestRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::DeleteTestRequest;
+    /// let x = DeleteTestRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6557,18 +8806,38 @@ impl VerifyTestRequest {
     }
 
     /// Sets the value of [name][crate::model::VerifyTestRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::VerifyTestRequest;
+    /// let x = VerifyTestRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [answer][crate::model::VerifyTestRequest::answer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::VerifyTestRequest;
+    /// let x = VerifyTestRequest::new().set_answer(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_answer<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.answer = v.into();
         self
     }
 
     /// Sets the value of [answers][crate::model::VerifyTestRequest::answers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::VerifyTestRequest;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = VerifyTestRequest::new().set_answers([b1, b2]);
+    /// ```
     pub fn set_answers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6601,6 +8870,13 @@ impl VerifyTestResponse {
     }
 
     /// Sets the value of [issue][crate::model::VerifyTestResponse::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::VerifyTestResponse;
+    /// use google_cloud_showcase_v1beta1::model::Issue;
+    /// let x = VerifyTestResponse::new().set_issue(Issue::default()/* use setters */);
+    /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -6610,6 +8886,14 @@ impl VerifyTestResponse {
     }
 
     /// Sets or clears the value of [issue][crate::model::VerifyTestResponse::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::model::VerifyTestResponse;
+    /// use google_cloud_showcase_v1beta1::model::Issue;
+    /// let x = VerifyTestResponse::new().set_or_clear_issue(Some(Issue::default()/* use setters */));
+    /// let x = VerifyTestResponse::new().set_or_clear_issue(None::<Issue>);
+    /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,

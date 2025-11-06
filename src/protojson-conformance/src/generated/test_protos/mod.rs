@@ -351,96 +351,193 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_int32][crate::generated::test_protos::TestAllTypesProto3::optional_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_int32(42);
+    /// ```
     pub fn set_optional_int32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.optional_int32 = v.into();
         self
     }
 
     /// Sets the value of [optional_int64][crate::generated::test_protos::TestAllTypesProto3::optional_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_int64(42);
+    /// ```
     pub fn set_optional_int64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.optional_int64 = v.into();
         self
     }
 
     /// Sets the value of [optional_uint32][crate::generated::test_protos::TestAllTypesProto3::optional_uint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_uint32(42u32);
+    /// ```
     pub fn set_optional_uint32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.optional_uint32 = v.into();
         self
     }
 
     /// Sets the value of [optional_uint64][crate::generated::test_protos::TestAllTypesProto3::optional_uint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_uint64(42u32);
+    /// ```
     pub fn set_optional_uint64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.optional_uint64 = v.into();
         self
     }
 
     /// Sets the value of [optional_sint32][crate::generated::test_protos::TestAllTypesProto3::optional_sint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_sint32(42);
+    /// ```
     pub fn set_optional_sint32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.optional_sint32 = v.into();
         self
     }
 
     /// Sets the value of [optional_sint64][crate::generated::test_protos::TestAllTypesProto3::optional_sint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_sint64(42);
+    /// ```
     pub fn set_optional_sint64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.optional_sint64 = v.into();
         self
     }
 
     /// Sets the value of [optional_fixed32][crate::generated::test_protos::TestAllTypesProto3::optional_fixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_fixed32(42);
+    /// ```
     pub fn set_optional_fixed32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.optional_fixed32 = v.into();
         self
     }
 
     /// Sets the value of [optional_fixed64][crate::generated::test_protos::TestAllTypesProto3::optional_fixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_fixed64(42);
+    /// ```
     pub fn set_optional_fixed64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.optional_fixed64 = v.into();
         self
     }
 
     /// Sets the value of [optional_sfixed32][crate::generated::test_protos::TestAllTypesProto3::optional_sfixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_sfixed32(42);
+    /// ```
     pub fn set_optional_sfixed32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.optional_sfixed32 = v.into();
         self
     }
 
     /// Sets the value of [optional_sfixed64][crate::generated::test_protos::TestAllTypesProto3::optional_sfixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_sfixed64(42);
+    /// ```
     pub fn set_optional_sfixed64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.optional_sfixed64 = v.into();
         self
     }
 
     /// Sets the value of [optional_float][crate::generated::test_protos::TestAllTypesProto3::optional_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_float(42.0);
+    /// ```
     pub fn set_optional_float<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.optional_float = v.into();
         self
     }
 
     /// Sets the value of [optional_double][crate::generated::test_protos::TestAllTypesProto3::optional_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_double(42.0);
+    /// ```
     pub fn set_optional_double<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.optional_double = v.into();
         self
     }
 
     /// Sets the value of [optional_bool][crate::generated::test_protos::TestAllTypesProto3::optional_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_bool(true);
+    /// ```
     pub fn set_optional_bool<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.optional_bool = v.into();
         self
     }
 
     /// Sets the value of [optional_string][crate::generated::test_protos::TestAllTypesProto3::optional_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_string("example");
+    /// ```
     pub fn set_optional_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.optional_string = v.into();
         self
     }
 
     /// Sets the value of [optional_bytes][crate::generated::test_protos::TestAllTypesProto3::optional_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_optional_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.optional_bytes = v.into();
         self
     }
 
     /// Sets the value of [optional_nested_message][crate::generated::test_protos::TestAllTypesProto3::optional_nested_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+    /// let x = TestAllTypesProto3::new().set_optional_nested_message(NestedMessage::default()/* use setters */);
+    /// ```
     pub fn set_optional_nested_message<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
@@ -450,6 +547,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_nested_message][crate::generated::test_protos::TestAllTypesProto3::optional_nested_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_nested_message(Some(NestedMessage::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_nested_message(None::<NestedMessage>);
+    /// ```
     pub fn set_or_clear_optional_nested_message<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
@@ -459,6 +564,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_foreign_message][crate::generated::test_protos::TestAllTypesProto3::optional_foreign_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::ForeignMessage;
+    /// let x = TestAllTypesProto3::new().set_optional_foreign_message(ForeignMessage::default()/* use setters */);
+    /// ```
     pub fn set_optional_foreign_message<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::generated::test_protos::ForeignMessage>,
@@ -468,6 +580,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_foreign_message][crate::generated::test_protos::TestAllTypesProto3::optional_foreign_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::ForeignMessage;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_foreign_message(Some(ForeignMessage::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_foreign_message(None::<ForeignMessage>);
+    /// ```
     pub fn set_or_clear_optional_foreign_message<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::generated::test_protos::ForeignMessage>,
@@ -477,6 +597,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_nested_enum][crate::generated::test_protos::TestAllTypesProto3::optional_nested_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedEnum;
+    /// let x0 = TestAllTypesProto3::new().set_optional_nested_enum(NestedEnum::Bar);
+    /// let x1 = TestAllTypesProto3::new().set_optional_nested_enum(NestedEnum::Baz);
+    /// let x2 = TestAllTypesProto3::new().set_optional_nested_enum(NestedEnum::Neg);
+    /// ```
     pub fn set_optional_nested_enum<
         T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
     >(
@@ -488,6 +617,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_foreign_enum][crate::generated::test_protos::TestAllTypesProto3::optional_foreign_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::ForeignEnum;
+    /// let x0 = TestAllTypesProto3::new().set_optional_foreign_enum(ForeignEnum::ForeignBar);
+    /// let x1 = TestAllTypesProto3::new().set_optional_foreign_enum(ForeignEnum::ForeignBaz);
+    /// ```
     pub fn set_optional_foreign_enum<
         T: std::convert::Into<crate::generated::test_protos::ForeignEnum>,
     >(
@@ -499,6 +636,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_aliased_enum][crate::generated::test_protos::TestAllTypesProto3::optional_aliased_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::AliasedEnum;
+    /// let x0 = TestAllTypesProto3::new().set_optional_aliased_enum(AliasedEnum::AliasBar);
+    /// let x1 = TestAllTypesProto3::new().set_optional_aliased_enum(AliasedEnum::AliasBaz);
+    /// let x2 = TestAllTypesProto3::new().set_optional_aliased_enum(AliasedEnum::Moo);
+    /// ```
     pub fn set_optional_aliased_enum<
         T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::AliasedEnum>,
     >(
@@ -510,6 +656,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_string_piece][crate::generated::test_protos::TestAllTypesProto3::optional_string_piece].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_string_piece("example");
+    /// ```
     pub fn set_optional_string_piece<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -519,12 +671,25 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_cord][crate::generated::test_protos::TestAllTypesProto3::optional_cord].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_optional_cord("example");
+    /// ```
     pub fn set_optional_cord<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.optional_cord = v.into();
         self
     }
 
     /// Sets the value of [recursive_message][crate::generated::test_protos::TestAllTypesProto3::recursive_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_recursive_message(TestAllTypesProto3::default()/* use setters */);
+    /// ```
     pub fn set_recursive_message<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
@@ -534,6 +699,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [recursive_message][crate::generated::test_protos::TestAllTypesProto3::recursive_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_or_clear_recursive_message(Some(TestAllTypesProto3::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_recursive_message(None::<TestAllTypesProto3>);
+    /// ```
     pub fn set_or_clear_recursive_message<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
@@ -543,6 +716,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_int32][crate::generated::test_protos::TestAllTypesProto3::repeated_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_int32([1, 2, 3]);
+    /// ```
     pub fn set_repeated_int32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -554,6 +733,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_int64][crate::generated::test_protos::TestAllTypesProto3::repeated_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_int64([1, 2, 3]);
+    /// ```
     pub fn set_repeated_int64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -565,6 +750,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_uint32][crate::generated::test_protos::TestAllTypesProto3::repeated_uint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_uint32([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_repeated_uint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -576,6 +767,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_uint64][crate::generated::test_protos::TestAllTypesProto3::repeated_uint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_uint64([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_repeated_uint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -587,6 +784,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_sint32][crate::generated::test_protos::TestAllTypesProto3::repeated_sint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_sint32([1, 2, 3]);
+    /// ```
     pub fn set_repeated_sint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -598,6 +801,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_sint64][crate::generated::test_protos::TestAllTypesProto3::repeated_sint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_sint64([1, 2, 3]);
+    /// ```
     pub fn set_repeated_sint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -609,6 +818,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_fixed32][crate::generated::test_protos::TestAllTypesProto3::repeated_fixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_fixed32([1, 2, 3]);
+    /// ```
     pub fn set_repeated_fixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -620,6 +835,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_fixed64][crate::generated::test_protos::TestAllTypesProto3::repeated_fixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_fixed64([1, 2, 3]);
+    /// ```
     pub fn set_repeated_fixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -631,6 +852,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_sfixed32][crate::generated::test_protos::TestAllTypesProto3::repeated_sfixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_sfixed32([1, 2, 3]);
+    /// ```
     pub fn set_repeated_sfixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -642,6 +869,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_sfixed64][crate::generated::test_protos::TestAllTypesProto3::repeated_sfixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_sfixed64([1, 2, 3]);
+    /// ```
     pub fn set_repeated_sfixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -653,6 +886,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_float][crate::generated::test_protos::TestAllTypesProto3::repeated_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_float([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_repeated_float<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -664,6 +903,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_double][crate::generated::test_protos::TestAllTypesProto3::repeated_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_double([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_repeated_double<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -675,6 +920,10 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_bool][crate::generated::test_protos::TestAllTypesProto3::repeated_bool].
+    ///
+    /// # Example
+    /// ```
+    /// ```
     pub fn set_repeated_bool<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -686,6 +935,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_string][crate::generated::test_protos::TestAllTypesProto3::repeated_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_string(["a", "b", "c"]);
+    /// ```
     pub fn set_repeated_string<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -697,6 +952,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_bytes][crate::generated::test_protos::TestAllTypesProto3::repeated_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = TestAllTypesProto3::new().set_repeated_bytes([b1, b2]);
+    /// ```
     pub fn set_repeated_bytes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -708,6 +971,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_nested_message][crate::generated::test_protos::TestAllTypesProto3::repeated_nested_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_nested_message([
+    ///         NestedMessage::default()/* use setters */,
+    ///         NestedMessage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_nested_message<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -719,6 +993,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_foreign_message][crate::generated::test_protos::TestAllTypesProto3::repeated_foreign_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::ForeignMessage;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_foreign_message([
+    ///         ForeignMessage::default()/* use setters */,
+    ///         ForeignMessage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_foreign_message<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -730,6 +1015,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_nested_enum][crate::generated::test_protos::TestAllTypesProto3::repeated_nested_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedEnum;
+    /// let x = TestAllTypesProto3::new().set_repeated_nested_enum([
+    ///     NestedEnum::Bar,
+    ///     NestedEnum::Baz,
+    ///     NestedEnum::Neg,
+    /// ]);
+    /// ```
     pub fn set_repeated_nested_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -741,6 +1037,16 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_foreign_enum][crate::generated::test_protos::TestAllTypesProto3::repeated_foreign_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::ForeignEnum;
+    /// let x = TestAllTypesProto3::new().set_repeated_foreign_enum([
+    ///     ForeignEnum::ForeignBar,
+    ///     ForeignEnum::ForeignBaz,
+    /// ]);
+    /// ```
     pub fn set_repeated_foreign_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -752,6 +1058,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_string_piece][crate::generated::test_protos::TestAllTypesProto3::repeated_string_piece].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_string_piece(["a", "b", "c"]);
+    /// ```
     pub fn set_repeated_string_piece<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -763,6 +1075,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_cord][crate::generated::test_protos::TestAllTypesProto3::repeated_cord].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_repeated_cord(["a", "b", "c"]);
+    /// ```
     pub fn set_repeated_cord<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -774,6 +1092,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_int32][crate::generated::test_protos::TestAllTypesProto3::packed_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_int32([1, 2, 3]);
+    /// ```
     pub fn set_packed_int32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -785,6 +1109,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_int64][crate::generated::test_protos::TestAllTypesProto3::packed_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_int64([1, 2, 3]);
+    /// ```
     pub fn set_packed_int64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -796,6 +1126,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_uint32][crate::generated::test_protos::TestAllTypesProto3::packed_uint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_uint32([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_packed_uint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -807,6 +1143,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_uint64][crate::generated::test_protos::TestAllTypesProto3::packed_uint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_uint64([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_packed_uint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -818,6 +1160,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_sint32][crate::generated::test_protos::TestAllTypesProto3::packed_sint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_sint32([1, 2, 3]);
+    /// ```
     pub fn set_packed_sint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -829,6 +1177,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_sint64][crate::generated::test_protos::TestAllTypesProto3::packed_sint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_sint64([1, 2, 3]);
+    /// ```
     pub fn set_packed_sint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -840,6 +1194,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_fixed32][crate::generated::test_protos::TestAllTypesProto3::packed_fixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_fixed32([1, 2, 3]);
+    /// ```
     pub fn set_packed_fixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -851,6 +1211,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_fixed64][crate::generated::test_protos::TestAllTypesProto3::packed_fixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_fixed64([1, 2, 3]);
+    /// ```
     pub fn set_packed_fixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -862,6 +1228,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_sfixed32][crate::generated::test_protos::TestAllTypesProto3::packed_sfixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_sfixed32([1, 2, 3]);
+    /// ```
     pub fn set_packed_sfixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -873,6 +1245,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_sfixed64][crate::generated::test_protos::TestAllTypesProto3::packed_sfixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_sfixed64([1, 2, 3]);
+    /// ```
     pub fn set_packed_sfixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -884,6 +1262,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_float][crate::generated::test_protos::TestAllTypesProto3::packed_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_float([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_packed_float<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -895,6 +1279,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_double][crate::generated::test_protos::TestAllTypesProto3::packed_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_packed_double([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_packed_double<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -906,6 +1296,10 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_bool][crate::generated::test_protos::TestAllTypesProto3::packed_bool].
+    ///
+    /// # Example
+    /// ```
+    /// ```
     pub fn set_packed_bool<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -917,6 +1311,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [packed_nested_enum][crate::generated::test_protos::TestAllTypesProto3::packed_nested_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedEnum;
+    /// let x = TestAllTypesProto3::new().set_packed_nested_enum([
+    ///     NestedEnum::Bar,
+    ///     NestedEnum::Baz,
+    ///     NestedEnum::Neg,
+    /// ]);
+    /// ```
     pub fn set_packed_nested_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -928,6 +1333,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_int32][crate::generated::test_protos::TestAllTypesProto3::unpacked_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_int32([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_int32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -939,6 +1350,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_int64][crate::generated::test_protos::TestAllTypesProto3::unpacked_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_int64([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_int64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -950,6 +1367,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_uint32][crate::generated::test_protos::TestAllTypesProto3::unpacked_uint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_uint32([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_unpacked_uint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -961,6 +1384,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_uint64][crate::generated::test_protos::TestAllTypesProto3::unpacked_uint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_uint64([1u32, 2u32, 3u32]);
+    /// ```
     pub fn set_unpacked_uint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -972,6 +1401,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_sint32][crate::generated::test_protos::TestAllTypesProto3::unpacked_sint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_sint32([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_sint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -983,6 +1418,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_sint64][crate::generated::test_protos::TestAllTypesProto3::unpacked_sint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_sint64([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_sint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -994,6 +1435,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_fixed32][crate::generated::test_protos::TestAllTypesProto3::unpacked_fixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_fixed32([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_fixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1005,6 +1452,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_fixed64][crate::generated::test_protos::TestAllTypesProto3::unpacked_fixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_fixed64([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_fixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1016,6 +1469,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_sfixed32][crate::generated::test_protos::TestAllTypesProto3::unpacked_sfixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_sfixed32([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_sfixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1027,6 +1486,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_sfixed64][crate::generated::test_protos::TestAllTypesProto3::unpacked_sfixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_sfixed64([1, 2, 3]);
+    /// ```
     pub fn set_unpacked_sfixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1038,6 +1503,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_float][crate::generated::test_protos::TestAllTypesProto3::unpacked_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_float([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_unpacked_float<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1049,6 +1520,12 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_double][crate::generated::test_protos::TestAllTypesProto3::unpacked_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_unpacked_double([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_unpacked_double<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1060,6 +1537,10 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_bool][crate::generated::test_protos::TestAllTypesProto3::unpacked_bool].
+    ///
+    /// # Example
+    /// ```
+    /// ```
     pub fn set_unpacked_bool<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1071,6 +1552,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [unpacked_nested_enum][crate::generated::test_protos::TestAllTypesProto3::unpacked_nested_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedEnum;
+    /// let x = TestAllTypesProto3::new().set_unpacked_nested_enum([
+    ///     NestedEnum::Bar,
+    ///     NestedEnum::Baz,
+    ///     NestedEnum::Neg,
+    /// ]);
+    /// ```
     pub fn set_unpacked_nested_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1082,6 +1574,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_int32_int32][crate::generated::test_protos::TestAllTypesProto3::map_int32_int32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_int32_int32([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_int32_int32<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1094,6 +1595,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_int64_int64][crate::generated::test_protos::TestAllTypesProto3::map_int64_int64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_int64_int64([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_int64_int64<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1106,6 +1616,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_uint32_uint32][crate::generated::test_protos::TestAllTypesProto3::map_uint32_uint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_uint32_uint32([
+    ///     (0u32, 123u32),
+    ///     (1u32, 456u32),
+    /// ]);
+    /// ```
     pub fn set_map_uint32_uint32<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1118,6 +1637,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_uint64_uint64][crate::generated::test_protos::TestAllTypesProto3::map_uint64_uint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_uint64_uint64([
+    ///     (0u32, 123u32),
+    ///     (1u32, 456u32),
+    /// ]);
+    /// ```
     pub fn set_map_uint64_uint64<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1130,6 +1658,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_sint32_sint32][crate::generated::test_protos::TestAllTypesProto3::map_sint32_sint32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_sint32_sint32([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_sint32_sint32<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1142,6 +1679,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_sint64_sint64][crate::generated::test_protos::TestAllTypesProto3::map_sint64_sint64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_sint64_sint64([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_sint64_sint64<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1154,6 +1700,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_fixed32_fixed32][crate::generated::test_protos::TestAllTypesProto3::map_fixed32_fixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_fixed32_fixed32([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_fixed32_fixed32<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1166,6 +1721,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_fixed64_fixed64][crate::generated::test_protos::TestAllTypesProto3::map_fixed64_fixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_fixed64_fixed64([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_fixed64_fixed64<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1178,6 +1742,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_sfixed32_sfixed32][crate::generated::test_protos::TestAllTypesProto3::map_sfixed32_sfixed32].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_sfixed32_sfixed32([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_sfixed32_sfixed32<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1190,6 +1763,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_sfixed64_sfixed64][crate::generated::test_protos::TestAllTypesProto3::map_sfixed64_sfixed64].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_sfixed64_sfixed64([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_map_sfixed64_sfixed64<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1202,6 +1784,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_int32_float][crate::generated::test_protos::TestAllTypesProto3::map_int32_float].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_int32_float([
+    ///     (0, 123.5),
+    ///     (1, 456.5),
+    /// ]);
+    /// ```
     pub fn set_map_int32_float<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1214,6 +1805,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_int32_double][crate::generated::test_protos::TestAllTypesProto3::map_int32_double].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_int32_double([
+    ///     (0, 123.5),
+    ///     (1, 456.5),
+    /// ]);
+    /// ```
     pub fn set_map_int32_double<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1226,6 +1826,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_bool_bool][crate::generated::test_protos::TestAllTypesProto3::map_bool_bool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_bool_bool([
+    ///     (true, true),
+    ///     (false, false),
+    /// ]);
+    /// ```
     pub fn set_map_bool_bool<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1238,6 +1847,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_string_string][crate::generated::test_protos::TestAllTypesProto3::map_string_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_string_string([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_map_string_string<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1250,6 +1868,15 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_string_bytes][crate::generated::test_protos::TestAllTypesProto3::map_string_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_map_string_bytes([
+    ///     ("key0", bytes::Bytes::from_static(b"abc")),
+    ///     ("key1", bytes::Bytes::from_static(b"xyz")),
+    /// ]);
+    /// ```
     pub fn set_map_string_bytes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1262,6 +1889,16 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_string_nested_message][crate::generated::test_protos::TestAllTypesProto3::map_string_nested_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+    /// let x = TestAllTypesProto3::new().set_map_string_nested_message([
+    ///     ("key0", NestedMessage::default()/* use setters */),
+    ///     ("key1", NestedMessage::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map_string_nested_message<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1274,6 +1911,16 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_string_foreign_message][crate::generated::test_protos::TestAllTypesProto3::map_string_foreign_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::ForeignMessage;
+    /// let x = TestAllTypesProto3::new().set_map_string_foreign_message([
+    ///     ("key0", ForeignMessage::default()/* use setters */),
+    ///     ("key1", ForeignMessage::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_map_string_foreign_message<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1287,6 +1934,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_string_nested_enum][crate::generated::test_protos::TestAllTypesProto3::map_string_nested_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedEnum;
+    /// let x = TestAllTypesProto3::new().set_map_string_nested_enum([
+    ///     ("key0", NestedEnum::Bar),
+    ///     ("key1", NestedEnum::Baz),
+    ///     ("key2", NestedEnum::Neg),
+    /// ]);
+    /// ```
     pub fn set_map_string_nested_enum<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1299,6 +1957,16 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [map_string_foreign_enum][crate::generated::test_protos::TestAllTypesProto3::map_string_foreign_enum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::ForeignEnum;
+    /// let x = TestAllTypesProto3::new().set_map_string_foreign_enum([
+    ///     ("key0", ForeignEnum::ForeignBar),
+    ///     ("key1", ForeignEnum::ForeignBaz),
+    /// ]);
+    /// ```
     pub fn set_map_string_foreign_enum<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1311,6 +1979,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_bool_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bool_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::BoolValue;
+    /// let x = TestAllTypesProto3::new().set_optional_bool_wrapper(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_optional_bool_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1320,6 +1995,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_bool_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bool_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::BoolValue;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_bool_wrapper(Some(BoolValue::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_bool_wrapper(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_optional_bool_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1329,6 +2012,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_int32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int32_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Int32Value;
+    /// let x = TestAllTypesProto3::new().set_optional_int32_wrapper(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_optional_int32_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -1338,6 +2028,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_int32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int32_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Int32Value;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_int32_wrapper(Some(Int32Value::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_int32_wrapper(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_optional_int32_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -1347,6 +2045,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_int64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int64_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Int64Value;
+    /// let x = TestAllTypesProto3::new().set_optional_int64_wrapper(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_optional_int64_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1356,6 +2061,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_int64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int64_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Int64Value;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_int64_wrapper(Some(Int64Value::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_int64_wrapper(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_optional_int64_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1365,6 +2078,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_uint32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint32_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::UInt32Value;
+    /// let x = TestAllTypesProto3::new().set_optional_uint32_wrapper(UInt32Value::default()/* use setters */);
+    /// ```
     pub fn set_optional_uint32_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -1374,6 +2094,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_uint32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint32_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::UInt32Value;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_uint32_wrapper(Some(UInt32Value::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_uint32_wrapper(None::<UInt32Value>);
+    /// ```
     pub fn set_or_clear_optional_uint32_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -1383,6 +2111,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_uint64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint64_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::UInt64Value;
+    /// let x = TestAllTypesProto3::new().set_optional_uint64_wrapper(UInt64Value::default()/* use setters */);
+    /// ```
     pub fn set_optional_uint64_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt64Value>,
@@ -1392,6 +2127,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_uint64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint64_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::UInt64Value;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_uint64_wrapper(Some(UInt64Value::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_uint64_wrapper(None::<UInt64Value>);
+    /// ```
     pub fn set_or_clear_optional_uint64_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt64Value>,
@@ -1401,6 +2144,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_float_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_float_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::FloatValue;
+    /// let x = TestAllTypesProto3::new().set_optional_float_wrapper(FloatValue::default()/* use setters */);
+    /// ```
     pub fn set_optional_float_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -1410,6 +2160,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_float_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_float_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::FloatValue;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_float_wrapper(Some(FloatValue::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_float_wrapper(None::<FloatValue>);
+    /// ```
     pub fn set_or_clear_optional_float_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -1419,6 +2177,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_double_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_double_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::DoubleValue;
+    /// let x = TestAllTypesProto3::new().set_optional_double_wrapper(DoubleValue::default()/* use setters */);
+    /// ```
     pub fn set_optional_double_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -1428,6 +2193,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_double_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_double_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::DoubleValue;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_double_wrapper(Some(DoubleValue::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_double_wrapper(None::<DoubleValue>);
+    /// ```
     pub fn set_or_clear_optional_double_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::DoubleValue>,
@@ -1437,6 +2210,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_string_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_string_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::StringValue;
+    /// let x = TestAllTypesProto3::new().set_optional_string_wrapper(StringValue::default()/* use setters */);
+    /// ```
     pub fn set_optional_string_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1446,6 +2226,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_string_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_string_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::StringValue;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_string_wrapper(Some(StringValue::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_string_wrapper(None::<StringValue>);
+    /// ```
     pub fn set_or_clear_optional_string_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1455,6 +2243,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_bytes_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bytes_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::BytesValue;
+    /// let x = TestAllTypesProto3::new().set_optional_bytes_wrapper(BytesValue::default()/* use setters */);
+    /// ```
     pub fn set_optional_bytes_wrapper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BytesValue>,
@@ -1464,6 +2259,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_bytes_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bytes_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::BytesValue;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_bytes_wrapper(Some(BytesValue::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_bytes_wrapper(None::<BytesValue>);
+    /// ```
     pub fn set_or_clear_optional_bytes_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BytesValue>,
@@ -1473,6 +2276,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_bool_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_bool_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::BoolValue;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_bool_wrapper([
+    ///         BoolValue::default()/* use setters */,
+    ///         BoolValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_bool_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1484,6 +2298,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_int32_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_int32_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Int32Value;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_int32_wrapper([
+    ///         Int32Value::default()/* use setters */,
+    ///         Int32Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_int32_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1495,6 +2320,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_int64_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_int64_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Int64Value;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_int64_wrapper([
+    ///         Int64Value::default()/* use setters */,
+    ///         Int64Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_int64_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1506,6 +2342,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_uint32_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_uint32_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::UInt32Value;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_uint32_wrapper([
+    ///         UInt32Value::default()/* use setters */,
+    ///         UInt32Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_uint32_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1517,6 +2364,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_uint64_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_uint64_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::UInt64Value;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_uint64_wrapper([
+    ///         UInt64Value::default()/* use setters */,
+    ///         UInt64Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_uint64_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1528,6 +2386,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_float_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_float_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::FloatValue;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_float_wrapper([
+    ///         FloatValue::default()/* use setters */,
+    ///         FloatValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_float_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1539,6 +2408,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_double_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_double_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::DoubleValue;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_double_wrapper([
+    ///         DoubleValue::default()/* use setters */,
+    ///         DoubleValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_double_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1550,6 +2430,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_string_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_string_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::StringValue;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_string_wrapper([
+    ///         StringValue::default()/* use setters */,
+    ///         StringValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_string_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1561,6 +2452,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_bytes_wrapper][crate::generated::test_protos::TestAllTypesProto3::repeated_bytes_wrapper].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::BytesValue;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_bytes_wrapper([
+    ///         BytesValue::default()/* use setters */,
+    ///         BytesValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_bytes_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1572,6 +2474,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_duration][crate::generated::test_protos::TestAllTypesProto3::optional_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Duration;
+    /// let x = TestAllTypesProto3::new().set_optional_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_optional_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1581,6 +2490,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_duration][crate::generated::test_protos::TestAllTypesProto3::optional_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Duration;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_duration(Some(Duration::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_optional_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1590,6 +2507,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_timestamp][crate::generated::test_protos::TestAllTypesProto3::optional_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Timestamp;
+    /// let x = TestAllTypesProto3::new().set_optional_timestamp(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_optional_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1599,6 +2523,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_timestamp][crate::generated::test_protos::TestAllTypesProto3::optional_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Timestamp;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_timestamp(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_optional_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1608,6 +2540,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_field_mask][crate::generated::test_protos::TestAllTypesProto3::optional_field_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::FieldMask;
+    /// let x = TestAllTypesProto3::new().set_optional_field_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_optional_field_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1617,6 +2556,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_field_mask][crate::generated::test_protos::TestAllTypesProto3::optional_field_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::FieldMask;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_field_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_field_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_optional_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1626,6 +2573,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_struct][crate::generated::test_protos::TestAllTypesProto3::optional_struct].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Struct;
+    /// let x = TestAllTypesProto3::new().set_optional_struct(Struct::default()/* use setters */);
+    /// ```
     pub fn set_optional_struct<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1635,6 +2589,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_struct][crate::generated::test_protos::TestAllTypesProto3::optional_struct].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Struct;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_struct(Some(Struct::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_struct(None::<Struct>);
+    /// ```
     pub fn set_or_clear_optional_struct<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1644,6 +2606,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_any][crate::generated::test_protos::TestAllTypesProto3::optional_any].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Any;
+    /// let x = TestAllTypesProto3::new().set_optional_any(Any::default()/* use setters */);
+    /// ```
     pub fn set_optional_any<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -1653,6 +2622,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_any][crate::generated::test_protos::TestAllTypesProto3::optional_any].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Any;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_any(Some(Any::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_any(None::<Any>);
+    /// ```
     pub fn set_or_clear_optional_any<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -1662,6 +2639,13 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_value][crate::generated::test_protos::TestAllTypesProto3::optional_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Value;
+    /// let x = TestAllTypesProto3::new().set_optional_value(Value::default()/* use setters */);
+    /// ```
     pub fn set_optional_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -1671,6 +2655,14 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets or clears the value of [optional_value][crate::generated::test_protos::TestAllTypesProto3::optional_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Value;
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_value(Some(Value::default()/* use setters */));
+    /// let x = TestAllTypesProto3::new().set_or_clear_optional_value(None::<Value>);
+    /// ```
     pub fn set_or_clear_optional_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -1680,12 +2672,30 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [optional_null_value][crate::generated::test_protos::TestAllTypesProto3::optional_null_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::NullValue;
+    /// let x = TestAllTypesProto3::new().set_optional_null_value(NullValue);
+    /// ```
     pub fn set_optional_null_value<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
         self.optional_null_value = v.into();
         self
     }
 
     /// Sets the value of [repeated_duration][crate::generated::test_protos::TestAllTypesProto3::repeated_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Duration;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_duration([
+    ///         Duration::default()/* use setters */,
+    ///         Duration::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_duration<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1697,6 +2707,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_timestamp][crate::generated::test_protos::TestAllTypesProto3::repeated_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Timestamp;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_timestamp([
+    ///         Timestamp::default()/* use setters */,
+    ///         Timestamp::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_timestamp<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1708,6 +2729,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_fieldmask][crate::generated::test_protos::TestAllTypesProto3::repeated_fieldmask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::FieldMask;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_fieldmask([
+    ///         FieldMask::default()/* use setters */,
+    ///         FieldMask::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_fieldmask<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1719,6 +2751,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_struct][crate::generated::test_protos::TestAllTypesProto3::repeated_struct].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Struct;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_struct([
+    ///         Struct::default()/* use setters */,
+    ///         Struct::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_struct<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1730,6 +2773,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_any][crate::generated::test_protos::TestAllTypesProto3::repeated_any].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Any;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_any([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_any<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1741,6 +2795,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_value][crate::generated::test_protos::TestAllTypesProto3::repeated_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::Value;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_value([
+    ///         Value::default()/* use setters */,
+    ///         Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_value<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1752,6 +2817,17 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [repeated_list_value][crate::generated::test_protos::TestAllTypesProto3::repeated_list_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::ListValue;
+    /// let x = TestAllTypesProto3::new()
+    ///     .set_repeated_list_value([
+    ///         ListValue::default()/* use setters */,
+    ///         ListValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repeated_list_value<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1763,108 +2839,216 @@ impl TestAllTypesProto3 {
     }
 
     /// Sets the value of [fieldname1][crate::generated::test_protos::TestAllTypesProto3::fieldname1].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_fieldname1(42);
+    /// ```
     pub fn set_fieldname1<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.fieldname1 = v.into();
         self
     }
 
     /// Sets the value of [field_name2][crate::generated::test_protos::TestAllTypesProto3::field_name2].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name2(42);
+    /// ```
     pub fn set_field_name2<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name2 = v.into();
         self
     }
 
     /// Sets the value of [_field_name3][crate::generated::test_protos::TestAllTypesProto3::_field_name3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set__field_name3(42);
+    /// ```
     pub fn set__field_name3<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self._field_name3 = v.into();
         self
     }
 
     /// Sets the value of [field__name4_][crate::generated::test_protos::TestAllTypesProto3::field__name4_].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field__name4_(42);
+    /// ```
     pub fn set_field__name4_<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field__name4_ = v.into();
         self
     }
 
     /// Sets the value of [field0name5][crate::generated::test_protos::TestAllTypesProto3::field0name5].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field0name5(42);
+    /// ```
     pub fn set_field0name5<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field0name5 = v.into();
         self
     }
 
     /// Sets the value of [field_0_name6][crate::generated::test_protos::TestAllTypesProto3::field_0_name6].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_0_name6(42);
+    /// ```
     pub fn set_field_0_name6<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_0_name6 = v.into();
         self
     }
 
     /// Sets the value of [field_name_7][crate::generated::test_protos::TestAllTypesProto3::field_name_7].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name_7(42);
+    /// ```
     pub fn set_field_name_7<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name_7 = v.into();
         self
     }
 
     /// Sets the value of [field_name_8][crate::generated::test_protos::TestAllTypesProto3::field_name_8].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name_8(42);
+    /// ```
     pub fn set_field_name_8<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name_8 = v.into();
         self
     }
 
     /// Sets the value of [field_name_9][crate::generated::test_protos::TestAllTypesProto3::field_name_9].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name_9(42);
+    /// ```
     pub fn set_field_name_9<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name_9 = v.into();
         self
     }
 
     /// Sets the value of [field_name_10][crate::generated::test_protos::TestAllTypesProto3::field_name_10].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name_10(42);
+    /// ```
     pub fn set_field_name_10<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name_10 = v.into();
         self
     }
 
     /// Sets the value of [field_name_11][crate::generated::test_protos::TestAllTypesProto3::field_name_11].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name_11(42);
+    /// ```
     pub fn set_field_name_11<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name_11 = v.into();
         self
     }
 
     /// Sets the value of [field_name_12][crate::generated::test_protos::TestAllTypesProto3::field_name_12].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name_12(42);
+    /// ```
     pub fn set_field_name_12<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name_12 = v.into();
         self
     }
 
     /// Sets the value of [__field_name13][crate::generated::test_protos::TestAllTypesProto3::__field_name13].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set___field_name13(42);
+    /// ```
     pub fn set___field_name13<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.__field_name13 = v.into();
         self
     }
 
     /// Sets the value of [__field_name_14][crate::generated::test_protos::TestAllTypesProto3::__field_name_14].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set___field_name_14(42);
+    /// ```
     pub fn set___field_name_14<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.__field_name_14 = v.into();
         self
     }
 
     /// Sets the value of [field__name15][crate::generated::test_protos::TestAllTypesProto3::field__name15].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field__name15(42);
+    /// ```
     pub fn set_field__name15<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field__name15 = v.into();
         self
     }
 
     /// Sets the value of [field__name_16][crate::generated::test_protos::TestAllTypesProto3::field__name_16].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field__name_16(42);
+    /// ```
     pub fn set_field__name_16<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field__name_16 = v.into();
         self
     }
 
     /// Sets the value of [field_name17__][crate::generated::test_protos::TestAllTypesProto3::field_name17__].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name17__(42);
+    /// ```
     pub fn set_field_name17__<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name17__ = v.into();
         self
     }
 
     /// Sets the value of [field_name_18__][crate::generated::test_protos::TestAllTypesProto3::field_name_18__].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_field_name_18__(42);
+    /// ```
     pub fn set_field_name_18__<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.field_name_18__ = v.into();
         self
@@ -1874,6 +3058,13 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::OneofField;
+    /// let x = TestAllTypesProto3::new().set_oneof_field(Some(OneofField::OneofUint32(42u32)));
+    /// ```
     pub fn set_oneof_field<
         T: std::convert::Into<
                 std::option::Option<
@@ -1906,6 +3097,22 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_oneof_uint32(42u32);
+    /// assert!(x.oneof_uint32().is_some());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_uint32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint32(
@@ -1935,6 +3142,23 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+    /// let x = TestAllTypesProto3::new().set_oneof_nested_message(NestedMessage::default()/* use setters */);
+    /// assert!(x.oneof_nested_message().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_nested_message<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -1971,6 +3195,22 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_oneof_string("example");
+    /// assert!(x.oneof_string().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofString(
@@ -1998,6 +3238,22 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_oneof_bytes(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.oneof_bytes().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBytes(v.into()),
@@ -2023,6 +3279,22 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_oneof_bool(true);
+    /// assert!(x.oneof_bool().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_bool<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBool(v.into()),
@@ -2048,6 +3320,22 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_oneof_uint64(42u32);
+    /// assert!(x.oneof_uint64().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_uint64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint64(
@@ -2075,6 +3363,22 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_oneof_float(42.0);
+    /// assert!(x.oneof_float().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_float<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofFloat(v.into()),
@@ -2100,6 +3404,22 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// let x = TestAllTypesProto3::new().set_oneof_double(42.0);
+    /// assert!(x.oneof_double().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// assert!(x.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_double<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofDouble(
@@ -2130,6 +3450,45 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedEnum;
+    /// let x0 = TestAllTypesProto3::new().set_oneof_enum(NestedEnum::Bar);
+    /// let x1 = TestAllTypesProto3::new().set_oneof_enum(NestedEnum::Baz);
+    /// let x2 = TestAllTypesProto3::new().set_oneof_enum(NestedEnum::Neg);
+    /// assert!(x0.oneof_enum().is_some());
+    /// assert!(x0.oneof_uint32().is_none());
+    /// assert!(x0.oneof_nested_message().is_none());
+    /// assert!(x0.oneof_string().is_none());
+    /// assert!(x0.oneof_bytes().is_none());
+    /// assert!(x0.oneof_bool().is_none());
+    /// assert!(x0.oneof_uint64().is_none());
+    /// assert!(x0.oneof_float().is_none());
+    /// assert!(x0.oneof_double().is_none());
+    /// assert!(x0.oneof_null_value().is_none());
+    /// assert!(x1.oneof_enum().is_some());
+    /// assert!(x1.oneof_uint32().is_none());
+    /// assert!(x1.oneof_nested_message().is_none());
+    /// assert!(x1.oneof_string().is_none());
+    /// assert!(x1.oneof_bytes().is_none());
+    /// assert!(x1.oneof_bool().is_none());
+    /// assert!(x1.oneof_uint64().is_none());
+    /// assert!(x1.oneof_float().is_none());
+    /// assert!(x1.oneof_double().is_none());
+    /// assert!(x1.oneof_null_value().is_none());
+    /// assert!(x2.oneof_enum().is_some());
+    /// assert!(x2.oneof_uint32().is_none());
+    /// assert!(x2.oneof_nested_message().is_none());
+    /// assert!(x2.oneof_string().is_none());
+    /// assert!(x2.oneof_bytes().is_none());
+    /// assert!(x2.oneof_bool().is_none());
+    /// assert!(x2.oneof_uint64().is_none());
+    /// assert!(x2.oneof_float().is_none());
+    /// assert!(x2.oneof_double().is_none());
+    /// assert!(x2.oneof_null_value().is_none());
+    /// ```
     pub fn set_oneof_enum<
         T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
     >(
@@ -2160,6 +3519,23 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+    /// use wkt::NullValue;
+    /// let x = TestAllTypesProto3::new().set_oneof_null_value(NullValue);
+    /// assert!(x.oneof_null_value().is_some());
+    /// assert!(x.oneof_uint32().is_none());
+    /// assert!(x.oneof_nested_message().is_none());
+    /// assert!(x.oneof_string().is_none());
+    /// assert!(x.oneof_bytes().is_none());
+    /// assert!(x.oneof_bool().is_none());
+    /// assert!(x.oneof_uint64().is_none());
+    /// assert!(x.oneof_float().is_none());
+    /// assert!(x.oneof_double().is_none());
+    /// assert!(x.oneof_enum().is_none());
+    /// ```
     pub fn set_oneof_null_value<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofNullValue(
@@ -2198,12 +3574,25 @@ pub mod test_all_types_proto_3 {
         }
 
         /// Sets the value of [a][crate::generated::test_protos::test_all_types_proto_3::NestedMessage::a].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+        /// let x = NestedMessage::new().set_a(42);
+        /// ```
         pub fn set_a<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.a = v.into();
             self
         }
 
         /// Sets the value of [corecursive][crate::generated::test_protos::test_all_types_proto_3::NestedMessage::corecursive].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+        /// use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+        /// let x = NestedMessage::new().set_corecursive(TestAllTypesProto3::default()/* use setters */);
+        /// ```
         pub fn set_corecursive<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
@@ -2213,6 +3602,14 @@ pub mod test_all_types_proto_3 {
         }
 
         /// Sets or clears the value of [corecursive][crate::generated::test_protos::test_all_types_proto_3::NestedMessage::corecursive].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_protobuf_test_messages_proto3::model::test_all_types_proto_3::NestedMessage;
+        /// use google_cloud_protobuf_test_messages_proto3::model::TestAllTypesProto3;
+        /// let x = NestedMessage::new().set_or_clear_corecursive(Some(TestAllTypesProto3::default()/* use setters */));
+        /// let x = NestedMessage::new().set_or_clear_corecursive(None::<TestAllTypesProto3>);
+        /// ```
         pub fn set_or_clear_corecursive<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
@@ -2533,6 +3930,12 @@ impl ForeignMessage {
     }
 
     /// Sets the value of [c][crate::generated::test_protos::ForeignMessage::c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_protobuf_test_messages_proto3::model::ForeignMessage;
+    /// let x = ForeignMessage::new().set_c(42);
+    /// ```
     pub fn set_c<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.c = v.into();
         self

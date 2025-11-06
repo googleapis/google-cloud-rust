@@ -59,6 +59,12 @@ impl ListVoicesRequest {
     }
 
     /// Sets the value of [language_code][crate::model::ListVoicesRequest::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::ListVoicesRequest;
+    /// let x = ListVoicesRequest::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -87,6 +93,17 @@ impl ListVoicesResponse {
     }
 
     /// Sets the value of [voices][crate::model::ListVoicesResponse::voices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::ListVoicesResponse;
+    /// use google_cloud_texttospeech_v1::model::Voice;
+    /// let x = ListVoicesResponse::new()
+    ///     .set_voices([
+    ///         Voice::default()/* use setters */,
+    ///         Voice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_voices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -131,6 +148,12 @@ impl Voice {
     }
 
     /// Sets the value of [language_codes][crate::model::Voice::language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::Voice;
+    /// let x = Voice::new().set_language_codes(["a", "b", "c"]);
+    /// ```
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -142,12 +165,27 @@ impl Voice {
     }
 
     /// Sets the value of [name][crate::model::Voice::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::Voice;
+    /// let x = Voice::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ssml_gender][crate::model::Voice::ssml_gender].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::Voice;
+    /// use google_cloud_texttospeech_v1::model::SsmlVoiceGender;
+    /// let x0 = Voice::new().set_ssml_gender(SsmlVoiceGender::Male);
+    /// let x1 = Voice::new().set_ssml_gender(SsmlVoiceGender::Female);
+    /// let x2 = Voice::new().set_ssml_gender(SsmlVoiceGender::Neutral);
+    /// ```
     pub fn set_ssml_gender<T: std::convert::Into<crate::model::SsmlVoiceGender>>(
         mut self,
         v: T,
@@ -157,6 +195,12 @@ impl Voice {
     }
 
     /// Sets the value of [natural_sample_rate_hertz][crate::model::Voice::natural_sample_rate_hertz].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::Voice;
+    /// let x = Voice::new().set_natural_sample_rate_hertz(42);
+    /// ```
     pub fn set_natural_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.natural_sample_rate_hertz = v.into();
         self
@@ -192,6 +236,12 @@ impl AdvancedVoiceOptions {
     }
 
     /// Sets the value of [low_latency_journey_synthesis][crate::model::AdvancedVoiceOptions::low_latency_journey_synthesis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = AdvancedVoiceOptions::new().set_low_latency_journey_synthesis(true);
+    /// ```
     pub fn set_low_latency_journey_synthesis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -201,6 +251,13 @@ impl AdvancedVoiceOptions {
     }
 
     /// Sets or clears the value of [low_latency_journey_synthesis][crate::model::AdvancedVoiceOptions::low_latency_journey_synthesis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = AdvancedVoiceOptions::new().set_or_clear_low_latency_journey_synthesis(Some(false));
+    /// let x = AdvancedVoiceOptions::new().set_or_clear_low_latency_journey_synthesis(None::<bool>);
+    /// ```
     pub fn set_or_clear_low_latency_journey_synthesis<T>(
         mut self,
         v: std::option::Option<T>,
@@ -213,6 +270,12 @@ impl AdvancedVoiceOptions {
     }
 
     /// Sets the value of [relax_safety_filters][crate::model::AdvancedVoiceOptions::relax_safety_filters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = AdvancedVoiceOptions::new().set_relax_safety_filters(true);
+    /// ```
     pub fn set_relax_safety_filters<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.relax_safety_filters = v.into();
         self
@@ -250,6 +313,13 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets the value of [input][crate::model::SynthesizeSpeechRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesizeSpeechRequest::new().set_input(SynthesisInput::default()/* use setters */);
+    /// ```
     pub fn set_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SynthesisInput>,
@@ -259,6 +329,14 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clears the value of [input][crate::model::SynthesizeSpeechRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_input(Some(SynthesisInput::default()/* use setters */));
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_input(None::<SynthesisInput>);
+    /// ```
     pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SynthesisInput>,
@@ -268,6 +346,13 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = SynthesizeSpeechRequest::new().set_voice(VoiceSelectionParams::default()/* use setters */);
+    /// ```
     pub fn set_voice<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -277,6 +362,14 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clears the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_voice(Some(VoiceSelectionParams::default()/* use setters */));
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_voice(None::<VoiceSelectionParams>);
+    /// ```
     pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -286,6 +379,13 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = SynthesizeSpeechRequest::new().set_audio_config(AudioConfig::default()/* use setters */);
+    /// ```
     pub fn set_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AudioConfig>,
@@ -295,6 +395,14 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clears the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_audio_config(Some(AudioConfig::default()/* use setters */));
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_audio_config(None::<AudioConfig>);
+    /// ```
     pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AudioConfig>,
@@ -304,6 +412,13 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = SynthesizeSpeechRequest::new().set_advanced_voice_options(AdvancedVoiceOptions::default()/* use setters */);
+    /// ```
     pub fn set_advanced_voice_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
@@ -313,6 +428,14 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clears the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechRequest;
+    /// use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_advanced_voice_options(Some(AdvancedVoiceOptions::default()/* use setters */));
+    /// let x = SynthesizeSpeechRequest::new().set_or_clear_advanced_voice_options(None::<AdvancedVoiceOptions>);
+    /// ```
     pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
@@ -354,6 +477,12 @@ impl CustomPronunciationParams {
     }
 
     /// Sets the value of [phrase][crate::model::CustomPronunciationParams::phrase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomPronunciationParams;
+    /// let x = CustomPronunciationParams::new().set_phrase("example");
+    /// ```
     pub fn set_phrase<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -363,6 +492,13 @@ impl CustomPronunciationParams {
     }
 
     /// Sets or clears the value of [phrase][crate::model::CustomPronunciationParams::phrase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomPronunciationParams;
+    /// let x = CustomPronunciationParams::new().set_or_clear_phrase(Some("example"));
+    /// let x = CustomPronunciationParams::new().set_or_clear_phrase(None::<String>);
+    /// ```
     pub fn set_or_clear_phrase<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -372,6 +508,15 @@ impl CustomPronunciationParams {
     }
 
     /// Sets the value of [phonetic_encoding][crate::model::CustomPronunciationParams::phonetic_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomPronunciationParams;
+    /// use google_cloud_texttospeech_v1::model::custom_pronunciation_params::PhoneticEncoding;
+    /// let x0 = CustomPronunciationParams::new().set_phonetic_encoding(PhoneticEncoding::Ipa);
+    /// let x1 = CustomPronunciationParams::new().set_phonetic_encoding(PhoneticEncoding::XSampa);
+    /// let x2 = CustomPronunciationParams::new().set_phonetic_encoding(PhoneticEncoding::JapaneseYomigana);
+    /// ```
     pub fn set_phonetic_encoding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
@@ -381,6 +526,16 @@ impl CustomPronunciationParams {
     }
 
     /// Sets or clears the value of [phonetic_encoding][crate::model::CustomPronunciationParams::phonetic_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomPronunciationParams;
+    /// use google_cloud_texttospeech_v1::model::custom_pronunciation_params::PhoneticEncoding;
+    /// let x0 = CustomPronunciationParams::new().set_or_clear_phonetic_encoding(Some(PhoneticEncoding::Ipa));
+    /// let x1 = CustomPronunciationParams::new().set_or_clear_phonetic_encoding(Some(PhoneticEncoding::XSampa));
+    /// let x2 = CustomPronunciationParams::new().set_or_clear_phonetic_encoding(Some(PhoneticEncoding::JapaneseYomigana));
+    /// let x_none = CustomPronunciationParams::new().set_or_clear_phonetic_encoding(None::<PhoneticEncoding>);
+    /// ```
     pub fn set_or_clear_phonetic_encoding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
@@ -390,6 +545,12 @@ impl CustomPronunciationParams {
     }
 
     /// Sets the value of [pronunciation][crate::model::CustomPronunciationParams::pronunciation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomPronunciationParams;
+    /// let x = CustomPronunciationParams::new().set_pronunciation("example");
+    /// ```
     pub fn set_pronunciation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -399,6 +560,13 @@ impl CustomPronunciationParams {
     }
 
     /// Sets or clears the value of [pronunciation][crate::model::CustomPronunciationParams::pronunciation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomPronunciationParams;
+    /// let x = CustomPronunciationParams::new().set_or_clear_pronunciation(Some("example"));
+    /// let x = CustomPronunciationParams::new().set_or_clear_pronunciation(None::<String>);
+    /// ```
     pub fn set_or_clear_pronunciation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -605,6 +773,17 @@ impl CustomPronunciations {
     }
 
     /// Sets the value of [pronunciations][crate::model::CustomPronunciations::pronunciations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomPronunciations;
+    /// use google_cloud_texttospeech_v1::model::CustomPronunciationParams;
+    /// let x = CustomPronunciations::new()
+    ///     .set_pronunciations([
+    ///         CustomPronunciationParams::default()/* use setters */,
+    ///         CustomPronunciationParams::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pronunciations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -638,6 +817,17 @@ impl MultiSpeakerMarkup {
     }
 
     /// Sets the value of [turns][crate::model::MultiSpeakerMarkup::turns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::MultiSpeakerMarkup;
+    /// use google_cloud_texttospeech_v1::model::multi_speaker_markup::Turn;
+    /// let x = MultiSpeakerMarkup::new()
+    ///     .set_turns([
+    ///         Turn::default()/* use setters */,
+    ///         Turn::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_turns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -680,12 +870,24 @@ pub mod multi_speaker_markup {
         }
 
         /// Sets the value of [speaker][crate::model::multi_speaker_markup::Turn::speaker].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_texttospeech_v1::model::multi_speaker_markup::Turn;
+        /// let x = Turn::new().set_speaker("example");
+        /// ```
         pub fn set_speaker<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.speaker = v.into();
             self
         }
 
         /// Sets the value of [text][crate::model::multi_speaker_markup::Turn::text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_texttospeech_v1::model::multi_speaker_markup::Turn;
+        /// let x = Turn::new().set_text("example");
+        /// ```
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
             self
@@ -722,12 +924,24 @@ impl MultispeakerPrebuiltVoice {
     }
 
     /// Sets the value of [speaker_alias][crate::model::MultispeakerPrebuiltVoice::speaker_alias].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::MultispeakerPrebuiltVoice;
+    /// let x = MultispeakerPrebuiltVoice::new().set_speaker_alias("example");
+    /// ```
     pub fn set_speaker_alias<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.speaker_alias = v.into();
         self
     }
 
     /// Sets the value of [speaker_id][crate::model::MultispeakerPrebuiltVoice::speaker_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::MultispeakerPrebuiltVoice;
+    /// let x = MultispeakerPrebuiltVoice::new().set_speaker_id("example");
+    /// ```
     pub fn set_speaker_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.speaker_id = v.into();
         self
@@ -758,6 +972,17 @@ impl MultiSpeakerVoiceConfig {
     }
 
     /// Sets the value of [speaker_voice_configs][crate::model::MultiSpeakerVoiceConfig::speaker_voice_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::MultiSpeakerVoiceConfig;
+    /// use google_cloud_texttospeech_v1::model::MultispeakerPrebuiltVoice;
+    /// let x = MultiSpeakerVoiceConfig::new()
+    ///     .set_speaker_voice_configs([
+    ///         MultispeakerPrebuiltVoice::default()/* use setters */,
+    ///         MultispeakerPrebuiltVoice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_speaker_voice_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -812,6 +1037,12 @@ impl SynthesisInput {
     }
 
     /// Sets the value of [prompt][crate::model::SynthesisInput::prompt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesisInput::new().set_prompt("example");
+    /// ```
     pub fn set_prompt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -821,6 +1052,13 @@ impl SynthesisInput {
     }
 
     /// Sets or clears the value of [prompt][crate::model::SynthesisInput::prompt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesisInput::new().set_or_clear_prompt(Some("example"));
+    /// let x = SynthesisInput::new().set_or_clear_prompt(None::<String>);
+    /// ```
     pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -830,6 +1068,13 @@ impl SynthesisInput {
     }
 
     /// Sets the value of [custom_pronunciations][crate::model::SynthesisInput::custom_pronunciations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// use google_cloud_texttospeech_v1::model::CustomPronunciations;
+    /// let x = SynthesisInput::new().set_custom_pronunciations(CustomPronunciations::default()/* use setters */);
+    /// ```
     pub fn set_custom_pronunciations<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomPronunciations>,
@@ -839,6 +1084,14 @@ impl SynthesisInput {
     }
 
     /// Sets or clears the value of [custom_pronunciations][crate::model::SynthesisInput::custom_pronunciations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// use google_cloud_texttospeech_v1::model::CustomPronunciations;
+    /// let x = SynthesisInput::new().set_or_clear_custom_pronunciations(Some(CustomPronunciations::default()/* use setters */));
+    /// let x = SynthesisInput::new().set_or_clear_custom_pronunciations(None::<CustomPronunciations>);
+    /// ```
     pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomPronunciations>,
@@ -851,6 +1104,13 @@ impl SynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// use google_cloud_texttospeech_v1::model::synthesis_input::InputSource;
+    /// let x = SynthesisInput::new().set_input_source(Some(InputSource::Text("example".to_string())));
+    /// ```
     pub fn set_input_source<
         T: std::convert::Into<std::option::Option<crate::model::synthesis_input::InputSource>>,
     >(
@@ -877,6 +1137,16 @@ impl SynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesisInput::new().set_text("example");
+    /// assert!(x.text().is_some());
+    /// assert!(x.markup().is_none());
+    /// assert!(x.ssml().is_none());
+    /// assert!(x.multi_speaker_markup().is_none());
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_source =
             std::option::Option::Some(crate::model::synthesis_input::InputSource::Text(v.into()));
@@ -899,6 +1169,16 @@ impl SynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesisInput::new().set_markup("example");
+    /// assert!(x.markup().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.ssml().is_none());
+    /// assert!(x.multi_speaker_markup().is_none());
+    /// ```
     pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_source =
             std::option::Option::Some(crate::model::synthesis_input::InputSource::Markup(v.into()));
@@ -921,6 +1201,16 @@ impl SynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesisInput::new().set_ssml("example");
+    /// assert!(x.ssml().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.markup().is_none());
+    /// assert!(x.multi_speaker_markup().is_none());
+    /// ```
     pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_source =
             std::option::Option::Some(crate::model::synthesis_input::InputSource::Ssml(v.into()));
@@ -947,6 +1237,17 @@ impl SynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// use google_cloud_texttospeech_v1::model::MultiSpeakerMarkup;
+    /// let x = SynthesisInput::new().set_multi_speaker_markup(MultiSpeakerMarkup::default()/* use setters */);
+    /// assert!(x.multi_speaker_markup().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.markup().is_none());
+    /// assert!(x.ssml().is_none());
+    /// ```
     pub fn set_multi_speaker_markup<
         T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>,
     >(
@@ -1049,18 +1350,39 @@ impl VoiceSelectionParams {
     }
 
     /// Sets the value of [language_code][crate::model::VoiceSelectionParams::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = VoiceSelectionParams::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::VoiceSelectionParams::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = VoiceSelectionParams::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ssml_gender][crate::model::VoiceSelectionParams::ssml_gender].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// use google_cloud_texttospeech_v1::model::SsmlVoiceGender;
+    /// let x0 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Male);
+    /// let x1 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Female);
+    /// let x2 = VoiceSelectionParams::new().set_ssml_gender(SsmlVoiceGender::Neutral);
+    /// ```
     pub fn set_ssml_gender<T: std::convert::Into<crate::model::SsmlVoiceGender>>(
         mut self,
         v: T,
@@ -1070,6 +1392,13 @@ impl VoiceSelectionParams {
     }
 
     /// Sets the value of [custom_voice][crate::model::VoiceSelectionParams::custom_voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// use google_cloud_texttospeech_v1::model::CustomVoiceParams;
+    /// let x = VoiceSelectionParams::new().set_custom_voice(CustomVoiceParams::default()/* use setters */);
+    /// ```
     pub fn set_custom_voice<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomVoiceParams>,
@@ -1079,6 +1408,14 @@ impl VoiceSelectionParams {
     }
 
     /// Sets or clears the value of [custom_voice][crate::model::VoiceSelectionParams::custom_voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// use google_cloud_texttospeech_v1::model::CustomVoiceParams;
+    /// let x = VoiceSelectionParams::new().set_or_clear_custom_voice(Some(CustomVoiceParams::default()/* use setters */));
+    /// let x = VoiceSelectionParams::new().set_or_clear_custom_voice(None::<CustomVoiceParams>);
+    /// ```
     pub fn set_or_clear_custom_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomVoiceParams>,
@@ -1088,6 +1425,13 @@ impl VoiceSelectionParams {
     }
 
     /// Sets the value of [voice_clone][crate::model::VoiceSelectionParams::voice_clone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// use google_cloud_texttospeech_v1::model::VoiceCloneParams;
+    /// let x = VoiceSelectionParams::new().set_voice_clone(VoiceCloneParams::default()/* use setters */);
+    /// ```
     pub fn set_voice_clone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VoiceCloneParams>,
@@ -1097,6 +1441,14 @@ impl VoiceSelectionParams {
     }
 
     /// Sets or clears the value of [voice_clone][crate::model::VoiceSelectionParams::voice_clone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// use google_cloud_texttospeech_v1::model::VoiceCloneParams;
+    /// let x = VoiceSelectionParams::new().set_or_clear_voice_clone(Some(VoiceCloneParams::default()/* use setters */));
+    /// let x = VoiceSelectionParams::new().set_or_clear_voice_clone(None::<VoiceCloneParams>);
+    /// ```
     pub fn set_or_clear_voice_clone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceCloneParams>,
@@ -1106,12 +1458,25 @@ impl VoiceSelectionParams {
     }
 
     /// Sets the value of [model_name][crate::model::VoiceSelectionParams::model_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = VoiceSelectionParams::new().set_model_name("example");
+    /// ```
     pub fn set_model_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_name = v.into();
         self
     }
 
     /// Sets the value of [multi_speaker_voice_config][crate::model::VoiceSelectionParams::multi_speaker_voice_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// use google_cloud_texttospeech_v1::model::MultiSpeakerVoiceConfig;
+    /// let x = VoiceSelectionParams::new().set_multi_speaker_voice_config(MultiSpeakerVoiceConfig::default()/* use setters */);
+    /// ```
     pub fn set_multi_speaker_voice_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>,
@@ -1121,6 +1486,14 @@ impl VoiceSelectionParams {
     }
 
     /// Sets or clears the value of [multi_speaker_voice_config][crate::model::VoiceSelectionParams::multi_speaker_voice_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// use google_cloud_texttospeech_v1::model::MultiSpeakerVoiceConfig;
+    /// let x = VoiceSelectionParams::new().set_or_clear_multi_speaker_voice_config(Some(MultiSpeakerVoiceConfig::default()/* use setters */));
+    /// let x = VoiceSelectionParams::new().set_or_clear_multi_speaker_voice_config(None::<MultiSpeakerVoiceConfig>);
+    /// ```
     pub fn set_or_clear_multi_speaker_voice_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>,
@@ -1190,6 +1563,15 @@ impl AudioConfig {
     }
 
     /// Sets the value of [audio_encoding][crate::model::AudioConfig::audio_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// use google_cloud_texttospeech_v1::model::AudioEncoding;
+    /// let x0 = AudioConfig::new().set_audio_encoding(AudioEncoding::Linear16);
+    /// let x1 = AudioConfig::new().set_audio_encoding(AudioEncoding::Mp3);
+    /// let x2 = AudioConfig::new().set_audio_encoding(AudioEncoding::OggOpus);
+    /// ```
     pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(
         mut self,
         v: T,
@@ -1199,30 +1581,60 @@ impl AudioConfig {
     }
 
     /// Sets the value of [speaking_rate][crate::model::AudioConfig::speaking_rate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = AudioConfig::new().set_speaking_rate(42.0);
+    /// ```
     pub fn set_speaking_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.speaking_rate = v.into();
         self
     }
 
     /// Sets the value of [pitch][crate::model::AudioConfig::pitch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = AudioConfig::new().set_pitch(42.0);
+    /// ```
     pub fn set_pitch<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.pitch = v.into();
         self
     }
 
     /// Sets the value of [volume_gain_db][crate::model::AudioConfig::volume_gain_db].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = AudioConfig::new().set_volume_gain_db(42.0);
+    /// ```
     pub fn set_volume_gain_db<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.volume_gain_db = v.into();
         self
     }
 
     /// Sets the value of [sample_rate_hertz][crate::model::AudioConfig::sample_rate_hertz].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = AudioConfig::new().set_sample_rate_hertz(42);
+    /// ```
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
         self
     }
 
     /// Sets the value of [effects_profile_id][crate::model::AudioConfig::effects_profile_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = AudioConfig::new().set_effects_profile_id(["a", "b", "c"]);
+    /// ```
     pub fn set_effects_profile_id<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1260,12 +1672,26 @@ impl CustomVoiceParams {
     }
 
     /// Sets the value of [model][crate::model::CustomVoiceParams::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomVoiceParams;
+    /// let x = CustomVoiceParams::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [reported_usage][crate::model::CustomVoiceParams::reported_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::CustomVoiceParams;
+    /// use google_cloud_texttospeech_v1::model::custom_voice_params::ReportedUsage;
+    /// let x0 = CustomVoiceParams::new().set_reported_usage(ReportedUsage::Realtime);
+    /// let x1 = CustomVoiceParams::new().set_reported_usage(ReportedUsage::Offline);
+    /// ```
     #[deprecated]
     pub fn set_reported_usage<
         T: std::convert::Into<crate::model::custom_voice_params::ReportedUsage>,
@@ -1442,6 +1868,12 @@ impl VoiceCloneParams {
     }
 
     /// Sets the value of [voice_cloning_key][crate::model::VoiceCloneParams::voice_cloning_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::VoiceCloneParams;
+    /// let x = VoiceCloneParams::new().set_voice_cloning_key("example");
+    /// ```
     pub fn set_voice_cloning_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1477,6 +1909,12 @@ impl SynthesizeSpeechResponse {
     }
 
     /// Sets the value of [audio_content][crate::model::SynthesizeSpeechResponse::audio_content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeSpeechResponse;
+    /// let x = SynthesizeSpeechResponse::new().set_audio_content(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_audio_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_content = v.into();
         self
@@ -1516,6 +1954,15 @@ impl StreamingAudioConfig {
     }
 
     /// Sets the value of [audio_encoding][crate::model::StreamingAudioConfig::audio_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingAudioConfig;
+    /// use google_cloud_texttospeech_v1::model::AudioEncoding;
+    /// let x0 = StreamingAudioConfig::new().set_audio_encoding(AudioEncoding::Linear16);
+    /// let x1 = StreamingAudioConfig::new().set_audio_encoding(AudioEncoding::Mp3);
+    /// let x2 = StreamingAudioConfig::new().set_audio_encoding(AudioEncoding::OggOpus);
+    /// ```
     pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(
         mut self,
         v: T,
@@ -1525,12 +1972,24 @@ impl StreamingAudioConfig {
     }
 
     /// Sets the value of [sample_rate_hertz][crate::model::StreamingAudioConfig::sample_rate_hertz].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingAudioConfig;
+    /// let x = StreamingAudioConfig::new().set_sample_rate_hertz(42);
+    /// ```
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
         self
     }
 
     /// Sets the value of [speaking_rate][crate::model::StreamingAudioConfig::speaking_rate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingAudioConfig;
+    /// let x = StreamingAudioConfig::new().set_speaking_rate(42.0);
+    /// ```
     pub fn set_speaking_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.speaking_rate = v.into();
         self
@@ -1574,6 +2033,13 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets the value of [voice][crate::model::StreamingSynthesizeConfig::voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = StreamingSynthesizeConfig::new().set_voice(VoiceSelectionParams::default()/* use setters */);
+    /// ```
     pub fn set_voice<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -1583,6 +2049,14 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets or clears the value of [voice][crate::model::StreamingSynthesizeConfig::voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_voice(Some(VoiceSelectionParams::default()/* use setters */));
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_voice(None::<VoiceSelectionParams>);
+    /// ```
     pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -1592,6 +2066,13 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets the value of [streaming_audio_config][crate::model::StreamingSynthesizeConfig::streaming_audio_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::StreamingAudioConfig;
+    /// let x = StreamingSynthesizeConfig::new().set_streaming_audio_config(StreamingAudioConfig::default()/* use setters */);
+    /// ```
     pub fn set_streaming_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StreamingAudioConfig>,
@@ -1601,6 +2082,14 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets or clears the value of [streaming_audio_config][crate::model::StreamingSynthesizeConfig::streaming_audio_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::StreamingAudioConfig;
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_streaming_audio_config(Some(StreamingAudioConfig::default()/* use setters */));
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_streaming_audio_config(None::<StreamingAudioConfig>);
+    /// ```
     pub fn set_or_clear_streaming_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamingAudioConfig>,
@@ -1610,6 +2099,13 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets the value of [custom_pronunciations][crate::model::StreamingSynthesizeConfig::custom_pronunciations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::CustomPronunciations;
+    /// let x = StreamingSynthesizeConfig::new().set_custom_pronunciations(CustomPronunciations::default()/* use setters */);
+    /// ```
     pub fn set_custom_pronunciations<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomPronunciations>,
@@ -1619,6 +2115,14 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets or clears the value of [custom_pronunciations][crate::model::StreamingSynthesizeConfig::custom_pronunciations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::CustomPronunciations;
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_custom_pronunciations(Some(CustomPronunciations::default()/* use setters */));
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_custom_pronunciations(None::<CustomPronunciations>);
+    /// ```
     pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomPronunciations>,
@@ -1652,6 +2156,12 @@ impl StreamingSynthesisInput {
     }
 
     /// Sets the value of [prompt][crate::model::StreamingSynthesisInput::prompt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesisInput;
+    /// let x = StreamingSynthesisInput::new().set_prompt("example");
+    /// ```
     pub fn set_prompt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1661,6 +2171,13 @@ impl StreamingSynthesisInput {
     }
 
     /// Sets or clears the value of [prompt][crate::model::StreamingSynthesisInput::prompt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesisInput;
+    /// let x = StreamingSynthesisInput::new().set_or_clear_prompt(Some("example"));
+    /// let x = StreamingSynthesisInput::new().set_or_clear_prompt(None::<String>);
+    /// ```
     pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1673,6 +2190,13 @@ impl StreamingSynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesisInput;
+    /// use google_cloud_texttospeech_v1::model::streaming_synthesis_input::InputSource;
+    /// let x = StreamingSynthesisInput::new().set_input_source(Some(InputSource::Text("example".to_string())));
+    /// ```
     pub fn set_input_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
@@ -1703,6 +2227,15 @@ impl StreamingSynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesisInput;
+    /// let x = StreamingSynthesisInput::new().set_text("example");
+    /// assert!(x.text().is_some());
+    /// assert!(x.markup().is_none());
+    /// assert!(x.multi_speaker_markup().is_none());
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_source = std::option::Option::Some(
             crate::model::streaming_synthesis_input::InputSource::Text(v.into()),
@@ -1728,6 +2261,15 @@ impl StreamingSynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesisInput;
+    /// let x = StreamingSynthesisInput::new().set_markup("example");
+    /// assert!(x.markup().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.multi_speaker_markup().is_none());
+    /// ```
     pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_source = std::option::Option::Some(
             crate::model::streaming_synthesis_input::InputSource::Markup(v.into()),
@@ -1755,6 +2297,16 @@ impl StreamingSynthesisInput {
     ///
     /// Note that all the setters affecting `input_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesisInput;
+    /// use google_cloud_texttospeech_v1::model::MultiSpeakerMarkup;
+    /// let x = StreamingSynthesisInput::new().set_multi_speaker_markup(MultiSpeakerMarkup::default()/* use setters */);
+    /// assert!(x.multi_speaker_markup().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.markup().is_none());
+    /// ```
     pub fn set_multi_speaker_markup<
         T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>,
     >(
@@ -1820,6 +2372,14 @@ impl StreamingSynthesizeRequest {
     ///
     /// Note that all the setters affecting `streaming_request` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeRequest;
+    /// use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// let x = StreamingSynthesizeRequest::new().set_streaming_request(Some(
+    ///     google_cloud_texttospeech_v1::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(StreamingSynthesizeConfig::default().into())));
+    /// ```
     pub fn set_streaming_request<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
@@ -1852,6 +2412,15 @@ impl StreamingSynthesizeRequest {
     ///
     /// Note that all the setters affecting `streaming_request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeRequest;
+    /// use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// let x = StreamingSynthesizeRequest::new().set_streaming_config(StreamingSynthesizeConfig::default()/* use setters */);
+    /// assert!(x.streaming_config().is_some());
+    /// assert!(x.input().is_none());
+    /// ```
     pub fn set_streaming_config<
         T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesizeConfig>>,
     >(
@@ -1884,6 +2453,15 @@ impl StreamingSynthesizeRequest {
     ///
     /// Note that all the setters affecting `streaming_request` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeRequest;
+    /// use google_cloud_texttospeech_v1::model::StreamingSynthesisInput;
+    /// let x = StreamingSynthesizeRequest::new().set_input(StreamingSynthesisInput::default()/* use setters */);
+    /// assert!(x.input().is_some());
+    /// assert!(x.streaming_config().is_none());
+    /// ```
     pub fn set_input<
         T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesisInput>>,
     >(
@@ -1941,6 +2519,12 @@ impl StreamingSynthesizeResponse {
     }
 
     /// Sets the value of [audio_content][crate::model::StreamingSynthesizeResponse::audio_content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeResponse;
+    /// let x = StreamingSynthesizeResponse::new().set_audio_content(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_audio_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_content = v.into();
         self
@@ -1985,12 +2569,25 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets the value of [parent][crate::model::SynthesizeLongAudioRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// let x = SynthesizeLongAudioRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesizeLongAudioRequest::new().set_input(SynthesisInput::default()/* use setters */);
+    /// ```
     pub fn set_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SynthesisInput>,
@@ -2000,6 +2597,14 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets or clears the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// use google_cloud_texttospeech_v1::model::SynthesisInput;
+    /// let x = SynthesizeLongAudioRequest::new().set_or_clear_input(Some(SynthesisInput::default()/* use setters */));
+    /// let x = SynthesizeLongAudioRequest::new().set_or_clear_input(None::<SynthesisInput>);
+    /// ```
     pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SynthesisInput>,
@@ -2009,6 +2614,13 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = SynthesizeLongAudioRequest::new().set_audio_config(AudioConfig::default()/* use setters */);
+    /// ```
     pub fn set_audio_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AudioConfig>,
@@ -2018,6 +2630,14 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets or clears the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// use google_cloud_texttospeech_v1::model::AudioConfig;
+    /// let x = SynthesizeLongAudioRequest::new().set_or_clear_audio_config(Some(AudioConfig::default()/* use setters */));
+    /// let x = SynthesizeLongAudioRequest::new().set_or_clear_audio_config(None::<AudioConfig>);
+    /// ```
     pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AudioConfig>,
@@ -2027,12 +2647,25 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets the value of [output_gcs_uri][crate::model::SynthesizeLongAudioRequest::output_gcs_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// let x = SynthesizeLongAudioRequest::new().set_output_gcs_uri("example");
+    /// ```
     pub fn set_output_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_gcs_uri = v.into();
         self
     }
 
     /// Sets the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = SynthesizeLongAudioRequest::new().set_voice(VoiceSelectionParams::default()/* use setters */);
+    /// ```
     pub fn set_voice<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -2042,6 +2675,14 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets or clears the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioRequest;
+    /// use google_cloud_texttospeech_v1::model::VoiceSelectionParams;
+    /// let x = SynthesizeLongAudioRequest::new().set_or_clear_voice(Some(VoiceSelectionParams::default()/* use setters */));
+    /// let x = SynthesizeLongAudioRequest::new().set_or_clear_voice(None::<VoiceSelectionParams>);
+    /// ```
     pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
@@ -2099,6 +2740,13 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::SynthesizeLongAudioMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SynthesizeLongAudioMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2108,6 +2756,14 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::SynthesizeLongAudioMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SynthesizeLongAudioMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SynthesizeLongAudioMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2117,6 +2773,13 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets the value of [last_update_time][crate::model::SynthesizeLongAudioMetadata::last_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SynthesizeLongAudioMetadata::new().set_last_update_time(Timestamp::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
     where
@@ -2127,6 +2790,14 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets or clears the value of [last_update_time][crate::model::SynthesizeLongAudioMetadata::last_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SynthesizeLongAudioMetadata::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SynthesizeLongAudioMetadata::new().set_or_clear_last_update_time(None::<Timestamp>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -2137,6 +2808,12 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets the value of [progress_percentage][crate::model::SynthesizeLongAudioMetadata::progress_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::model::SynthesizeLongAudioMetadata;
+    /// let x = SynthesizeLongAudioMetadata::new().set_progress_percentage(42.0);
+    /// ```
     pub fn set_progress_percentage<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.progress_percentage = v.into();
         self

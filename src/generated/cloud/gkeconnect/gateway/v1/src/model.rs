@@ -73,24 +73,48 @@ impl GenerateCredentialsRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateCredentialsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsRequest;
+    /// let x = GenerateCredentialsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force_use_agent][crate::model::GenerateCredentialsRequest::force_use_agent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsRequest;
+    /// let x = GenerateCredentialsRequest::new().set_force_use_agent(true);
+    /// ```
     pub fn set_force_use_agent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force_use_agent = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::GenerateCredentialsRequest::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsRequest;
+    /// let x = GenerateCredentialsRequest::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [kubernetes_namespace][crate::model::GenerateCredentialsRequest::kubernetes_namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsRequest;
+    /// let x = GenerateCredentialsRequest::new().set_kubernetes_namespace("example");
+    /// ```
     pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -100,6 +124,13 @@ impl GenerateCredentialsRequest {
     }
 
     /// Sets the value of [operating_system][crate::model::GenerateCredentialsRequest::operating_system].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsRequest;
+    /// use google_cloud_gkeconnect_gateway_v1::model::generate_credentials_request::OperatingSystem;
+    /// let x0 = GenerateCredentialsRequest::new().set_operating_system(OperatingSystem::Windows);
+    /// ```
     pub fn set_operating_system<
         T: std::convert::Into<crate::model::generate_credentials_request::OperatingSystem>,
     >(
@@ -270,12 +301,24 @@ impl GenerateCredentialsResponse {
     }
 
     /// Sets the value of [kubeconfig][crate::model::GenerateCredentialsResponse::kubeconfig].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsResponse;
+    /// let x = GenerateCredentialsResponse::new().set_kubeconfig(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_kubeconfig<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.kubeconfig = v.into();
         self
     }
 
     /// Sets the value of [endpoint][crate::model::GenerateCredentialsResponse::endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsResponse;
+    /// let x = GenerateCredentialsResponse::new().set_endpoint("example");
+    /// ```
     pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
         self

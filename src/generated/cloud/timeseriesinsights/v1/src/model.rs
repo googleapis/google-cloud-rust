@@ -65,6 +65,12 @@ impl BigqueryMapping {
     }
 
     /// Sets the value of [timestamp_column][crate::model::BigqueryMapping::timestamp_column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::BigqueryMapping;
+    /// let x = BigqueryMapping::new().set_timestamp_column("example");
+    /// ```
     pub fn set_timestamp_column<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -74,12 +80,24 @@ impl BigqueryMapping {
     }
 
     /// Sets the value of [group_id_column][crate::model::BigqueryMapping::group_id_column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::BigqueryMapping;
+    /// let x = BigqueryMapping::new().set_group_id_column("example");
+    /// ```
     pub fn set_group_id_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group_id_column = v.into();
         self
     }
 
     /// Sets the value of [dimension_column][crate::model::BigqueryMapping::dimension_column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::BigqueryMapping;
+    /// let x = BigqueryMapping::new().set_dimension_column(["a", "b", "c"]);
+    /// ```
     pub fn set_dimension_column<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -125,12 +143,25 @@ impl DataSource {
     }
 
     /// Sets the value of [uri][crate::model::DataSource::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSource;
+    /// let x = DataSource::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [bq_mapping][crate::model::DataSource::bq_mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSource;
+    /// use google_cloud_timeseriesinsights_v1::model::BigqueryMapping;
+    /// let x = DataSource::new().set_bq_mapping(BigqueryMapping::default()/* use setters */);
+    /// ```
     pub fn set_bq_mapping<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigqueryMapping>,
@@ -140,6 +171,14 @@ impl DataSource {
     }
 
     /// Sets or clears the value of [bq_mapping][crate::model::DataSource::bq_mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSource;
+    /// use google_cloud_timeseriesinsights_v1::model::BigqueryMapping;
+    /// let x = DataSource::new().set_or_clear_bq_mapping(Some(BigqueryMapping::default()/* use setters */));
+    /// let x = DataSource::new().set_or_clear_bq_mapping(None::<BigqueryMapping>);
+    /// ```
     pub fn set_or_clear_bq_mapping<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigqueryMapping>,
@@ -196,12 +235,24 @@ impl DataSet {
     }
 
     /// Sets the value of [name][crate::model::DataSet::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// let x = DataSet::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_names][crate::model::DataSet::data_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// let x = DataSet::new().set_data_names(["a", "b", "c"]);
+    /// ```
     pub fn set_data_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -213,6 +264,17 @@ impl DataSet {
     }
 
     /// Sets the value of [data_sources][crate::model::DataSet::data_sources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// use google_cloud_timeseriesinsights_v1::model::DataSource;
+    /// let x = DataSet::new()
+    ///     .set_data_sources([
+    ///         DataSource::default()/* use setters */,
+    ///         DataSource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -224,12 +286,28 @@ impl DataSet {
     }
 
     /// Sets the value of [state][crate::model::DataSet::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// use google_cloud_timeseriesinsights_v1::model::data_set::State;
+    /// let x0 = DataSet::new().set_state(State::Unknown);
+    /// let x1 = DataSet::new().set_state(State::Pending);
+    /// let x2 = DataSet::new().set_state(State::Loading);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::data_set::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::DataSet::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// use rpc::model::Status;
+    /// let x = DataSet::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -239,6 +317,14 @@ impl DataSet {
     }
 
     /// Sets or clears the value of [status][crate::model::DataSet::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// use rpc::model::Status;
+    /// let x = DataSet::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = DataSet::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -248,6 +334,13 @@ impl DataSet {
     }
 
     /// Sets the value of [ttl][crate::model::DataSet::ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// use wkt::Duration;
+    /// let x = DataSet::new().set_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -257,6 +350,14 @@ impl DataSet {
     }
 
     /// Sets or clears the value of [ttl][crate::model::DataSet::ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// use wkt::Duration;
+    /// let x = DataSet::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
+    /// let x = DataSet::new().set_or_clear_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -472,6 +573,12 @@ impl EventDimension {
     }
 
     /// Sets the value of [name][crate::model::EventDimension::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EventDimension;
+    /// let x = EventDimension::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -481,6 +588,13 @@ impl EventDimension {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EventDimension;
+    /// use google_cloud_timeseriesinsights_v1::model::event_dimension::Value;
+    /// let x = EventDimension::new().set_value(Some(Value::StringVal("example".to_string())));
+    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::event_dimension::Value>>,
     >(
@@ -507,6 +621,16 @@ impl EventDimension {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EventDimension;
+    /// let x = EventDimension::new().set_string_val("example");
+    /// assert!(x.string_val().is_some());
+    /// assert!(x.long_val().is_none());
+    /// assert!(x.bool_val().is_none());
+    /// assert!(x.double_val().is_none());
+    /// ```
     pub fn set_string_val<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::event_dimension::Value::StringVal(v.into()));
@@ -529,6 +653,16 @@ impl EventDimension {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EventDimension;
+    /// let x = EventDimension::new().set_long_val(42);
+    /// assert!(x.long_val().is_some());
+    /// assert!(x.string_val().is_none());
+    /// assert!(x.bool_val().is_none());
+    /// assert!(x.double_val().is_none());
+    /// ```
     pub fn set_long_val<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::event_dimension::Value::LongVal(v.into()));
@@ -551,6 +685,16 @@ impl EventDimension {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EventDimension;
+    /// let x = EventDimension::new().set_bool_val(true);
+    /// assert!(x.bool_val().is_some());
+    /// assert!(x.string_val().is_none());
+    /// assert!(x.long_val().is_none());
+    /// assert!(x.double_val().is_none());
+    /// ```
     pub fn set_bool_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::event_dimension::Value::BoolVal(v.into()));
@@ -573,6 +717,16 @@ impl EventDimension {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EventDimension;
+    /// let x = EventDimension::new().set_double_val(42.0);
+    /// assert!(x.double_val().is_some());
+    /// assert!(x.string_val().is_none());
+    /// assert!(x.long_val().is_none());
+    /// assert!(x.bool_val().is_none());
+    /// ```
     pub fn set_double_val<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::event_dimension::Value::DoubleVal(v.into()));
@@ -659,6 +813,17 @@ impl Event {
     }
 
     /// Sets the value of [dimensions][crate::model::Event::dimensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::Event;
+    /// use google_cloud_timeseriesinsights_v1::model::EventDimension;
+    /// let x = Event::new()
+    ///     .set_dimensions([
+    ///         EventDimension::default()/* use setters */,
+    ///         EventDimension::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -670,12 +835,25 @@ impl Event {
     }
 
     /// Sets the value of [group_id][crate::model::Event::group_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::Event;
+    /// let x = Event::new().set_group_id(42);
+    /// ```
     pub fn set_group_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.group_id = v.into();
         self
     }
 
     /// Sets the value of [event_time][crate::model::Event::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -685,6 +863,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [event_time][crate::model::Event::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -739,6 +925,17 @@ impl AppendEventsRequest {
     }
 
     /// Sets the value of [events][crate::model::AppendEventsRequest::events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::AppendEventsRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::Event;
+    /// let x = AppendEventsRequest::new()
+    ///     .set_events([
+    ///         Event::default()/* use setters */,
+    ///         Event::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -750,6 +947,12 @@ impl AppendEventsRequest {
     }
 
     /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::AppendEventsRequest;
+    /// let x = AppendEventsRequest::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
@@ -778,6 +981,17 @@ impl AppendEventsResponse {
     }
 
     /// Sets the value of [dropped_events][crate::model::AppendEventsResponse::dropped_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::AppendEventsResponse;
+    /// use google_cloud_timeseriesinsights_v1::model::Event;
+    /// let x = AppendEventsResponse::new()
+    ///     .set_dropped_events([
+    ///         Event::default()/* use setters */,
+    ///         Event::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dropped_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -815,12 +1029,25 @@ impl CreateDataSetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataSetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::CreateDataSetRequest;
+    /// let x = CreateDataSetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::CreateDataSetRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::CreateDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// let x = CreateDataSetRequest::new().set_dataset(DataSet::default()/* use setters */);
+    /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSet>,
@@ -830,6 +1057,14 @@ impl CreateDataSetRequest {
     }
 
     /// Sets or clears the value of [dataset][crate::model::CreateDataSetRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::CreateDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// let x = CreateDataSetRequest::new().set_or_clear_dataset(Some(DataSet::default()/* use setters */));
+    /// let x = CreateDataSetRequest::new().set_or_clear_dataset(None::<DataSet>);
+    /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSet>,
@@ -861,6 +1096,12 @@ impl DeleteDataSetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataSetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::DeleteDataSetRequest;
+    /// let x = DeleteDataSetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -895,18 +1136,36 @@ impl ListDataSetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataSetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ListDataSetsRequest;
+    /// let x = ListDataSetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataSetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ListDataSetsRequest;
+    /// let x = ListDataSetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataSetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ListDataSetsRequest;
+    /// let x = ListDataSetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -938,6 +1197,17 @@ impl ListDataSetsResponse {
     }
 
     /// Sets the value of [datasets][crate::model::ListDataSetsResponse::datasets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ListDataSetsResponse;
+    /// use google_cloud_timeseriesinsights_v1::model::DataSet;
+    /// let x = ListDataSetsResponse::new()
+    ///     .set_datasets([
+    ///         DataSet::default()/* use setters */,
+    ///         DataSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -949,6 +1219,12 @@ impl ListDataSetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataSetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ListDataSetsResponse;
+    /// let x = ListDataSetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -997,6 +1273,12 @@ impl PinnedDimension {
     }
 
     /// Sets the value of [name][crate::model::PinnedDimension::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::PinnedDimension;
+    /// let x = PinnedDimension::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1006,6 +1288,13 @@ impl PinnedDimension {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::PinnedDimension;
+    /// use google_cloud_timeseriesinsights_v1::model::pinned_dimension::Value;
+    /// let x = PinnedDimension::new().set_value(Some(Value::StringVal("example".to_string())));
+    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::pinned_dimension::Value>>,
     >(
@@ -1032,6 +1321,14 @@ impl PinnedDimension {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::PinnedDimension;
+    /// let x = PinnedDimension::new().set_string_val("example");
+    /// assert!(x.string_val().is_some());
+    /// assert!(x.bool_val().is_none());
+    /// ```
     pub fn set_string_val<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::pinned_dimension::Value::StringVal(v.into()));
@@ -1054,6 +1351,14 @@ impl PinnedDimension {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::PinnedDimension;
+    /// let x = PinnedDimension::new().set_bool_val(true);
+    /// assert!(x.bool_val().is_some());
+    /// assert!(x.string_val().is_none());
+    /// ```
     pub fn set_bool_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::pinned_dimension::Value::BoolVal(v.into()));
@@ -1158,6 +1463,12 @@ impl ForecastParams {
     }
 
     /// Sets the value of [noise_threshold][crate::model::ForecastParams::noise_threshold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = ForecastParams::new().set_noise_threshold(42.0);
+    /// ```
     pub fn set_noise_threshold<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1167,6 +1478,13 @@ impl ForecastParams {
     }
 
     /// Sets or clears the value of [noise_threshold][crate::model::ForecastParams::noise_threshold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = ForecastParams::new().set_or_clear_noise_threshold(Some(42.0));
+    /// let x = ForecastParams::new().set_or_clear_noise_threshold(None::<f32>);
+    /// ```
     pub fn set_or_clear_noise_threshold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1176,6 +1494,15 @@ impl ForecastParams {
     }
 
     /// Sets the value of [seasonality_hint][crate::model::ForecastParams::seasonality_hint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// use google_cloud_timeseriesinsights_v1::model::forecast_params::Period;
+    /// let x0 = ForecastParams::new().set_seasonality_hint(Period::Hourly);
+    /// let x1 = ForecastParams::new().set_seasonality_hint(Period::Daily);
+    /// let x2 = ForecastParams::new().set_seasonality_hint(Period::Weekly);
+    /// ```
     pub fn set_seasonality_hint<T: std::convert::Into<crate::model::forecast_params::Period>>(
         mut self,
         v: T,
@@ -1185,6 +1512,13 @@ impl ForecastParams {
     }
 
     /// Sets the value of [horizon_duration][crate::model::ForecastParams::horizon_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// use wkt::Duration;
+    /// let x = ForecastParams::new().set_horizon_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_horizon_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1194,6 +1528,14 @@ impl ForecastParams {
     }
 
     /// Sets or clears the value of [horizon_duration][crate::model::ForecastParams::horizon_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// use wkt::Duration;
+    /// let x = ForecastParams::new().set_or_clear_horizon_duration(Some(Duration::default()/* use setters */));
+    /// let x = ForecastParams::new().set_or_clear_horizon_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_horizon_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1395,6 +1737,13 @@ impl TimeseriesPoint {
     }
 
     /// Sets the value of [time][crate::model::TimeseriesPoint::time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesPoint;
+    /// use wkt::Timestamp;
+    /// let x = TimeseriesPoint::new().set_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1404,6 +1753,14 @@ impl TimeseriesPoint {
     }
 
     /// Sets or clears the value of [time][crate::model::TimeseriesPoint::time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesPoint;
+    /// use wkt::Timestamp;
+    /// let x = TimeseriesPoint::new().set_or_clear_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeseriesPoint::new().set_or_clear_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1413,6 +1770,12 @@ impl TimeseriesPoint {
     }
 
     /// Sets the value of [value][crate::model::TimeseriesPoint::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesPoint;
+    /// let x = TimeseriesPoint::new().set_value(42.0);
+    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1422,6 +1785,13 @@ impl TimeseriesPoint {
     }
 
     /// Sets or clears the value of [value][crate::model::TimeseriesPoint::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesPoint;
+    /// let x = TimeseriesPoint::new().set_or_clear_value(Some(42.0));
+    /// let x = TimeseriesPoint::new().set_or_clear_value(None::<f32>);
+    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1453,6 +1823,17 @@ impl Timeseries {
     }
 
     /// Sets the value of [point][crate::model::Timeseries::point].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::Timeseries;
+    /// use google_cloud_timeseriesinsights_v1::model::TimeseriesPoint;
+    /// let x = Timeseries::new()
+    ///     .set_point([
+    ///         TimeseriesPoint::default()/* use setters */,
+    ///         TimeseriesPoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_point<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1592,6 +1973,17 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [dimensions][crate::model::EvaluatedSlice::dimensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// use google_cloud_timeseriesinsights_v1::model::PinnedDimension;
+    /// let x = EvaluatedSlice::new()
+    ///     .set_dimensions([
+    ///         PinnedDimension::default()/* use setters */,
+    ///         PinnedDimension::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1603,6 +1995,12 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [detection_point_actual][crate::model::EvaluatedSlice::detection_point_actual].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_detection_point_actual(42.0);
+    /// ```
     pub fn set_detection_point_actual<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1612,6 +2010,13 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clears the value of [detection_point_actual][crate::model::EvaluatedSlice::detection_point_actual].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_or_clear_detection_point_actual(Some(42.0));
+    /// let x = EvaluatedSlice::new().set_or_clear_detection_point_actual(None::<f32>);
+    /// ```
     pub fn set_or_clear_detection_point_actual<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1621,6 +2026,12 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [detection_point_forecast][crate::model::EvaluatedSlice::detection_point_forecast].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_detection_point_forecast(42.0);
+    /// ```
     pub fn set_detection_point_forecast<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1630,6 +2041,13 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clears the value of [detection_point_forecast][crate::model::EvaluatedSlice::detection_point_forecast].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_or_clear_detection_point_forecast(Some(42.0));
+    /// let x = EvaluatedSlice::new().set_or_clear_detection_point_forecast(None::<f32>);
+    /// ```
     pub fn set_or_clear_detection_point_forecast<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1639,6 +2057,12 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [expected_deviation][crate::model::EvaluatedSlice::expected_deviation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_expected_deviation(42.0);
+    /// ```
     pub fn set_expected_deviation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1648,6 +2072,13 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clears the value of [expected_deviation][crate::model::EvaluatedSlice::expected_deviation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_or_clear_expected_deviation(Some(42.0));
+    /// let x = EvaluatedSlice::new().set_or_clear_expected_deviation(None::<f32>);
+    /// ```
     pub fn set_or_clear_expected_deviation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1657,6 +2088,12 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [anomaly_score][crate::model::EvaluatedSlice::anomaly_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_anomaly_score(42.0);
+    /// ```
     pub fn set_anomaly_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1666,6 +2103,13 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clears the value of [anomaly_score][crate::model::EvaluatedSlice::anomaly_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = EvaluatedSlice::new().set_or_clear_anomaly_score(Some(42.0));
+    /// let x = EvaluatedSlice::new().set_or_clear_anomaly_score(None::<f32>);
+    /// ```
     pub fn set_or_clear_anomaly_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1675,6 +2119,13 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [history][crate::model::EvaluatedSlice::history].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// use google_cloud_timeseriesinsights_v1::model::Timeseries;
+    /// let x = EvaluatedSlice::new().set_history(Timeseries::default()/* use setters */);
+    /// ```
     pub fn set_history<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
@@ -1684,6 +2135,14 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clears the value of [history][crate::model::EvaluatedSlice::history].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// use google_cloud_timeseriesinsights_v1::model::Timeseries;
+    /// let x = EvaluatedSlice::new().set_or_clear_history(Some(Timeseries::default()/* use setters */));
+    /// let x = EvaluatedSlice::new().set_or_clear_history(None::<Timeseries>);
+    /// ```
     pub fn set_or_clear_history<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
@@ -1693,6 +2152,13 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [forecast][crate::model::EvaluatedSlice::forecast].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// use google_cloud_timeseriesinsights_v1::model::Timeseries;
+    /// let x = EvaluatedSlice::new().set_forecast(Timeseries::default()/* use setters */);
+    /// ```
     pub fn set_forecast<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
@@ -1702,6 +2168,14 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clears the value of [forecast][crate::model::EvaluatedSlice::forecast].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// use google_cloud_timeseriesinsights_v1::model::Timeseries;
+    /// let x = EvaluatedSlice::new().set_or_clear_forecast(Some(Timeseries::default()/* use setters */));
+    /// let x = EvaluatedSlice::new().set_or_clear_forecast(None::<Timeseries>);
+    /// ```
     pub fn set_or_clear_forecast<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
@@ -1711,6 +2185,13 @@ impl EvaluatedSlice {
     }
 
     /// Sets the value of [status][crate::model::EvaluatedSlice::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// use rpc::model::Status;
+    /// let x = EvaluatedSlice::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1720,6 +2201,14 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clears the value of [status][crate::model::EvaluatedSlice::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// use rpc::model::Status;
+    /// let x = EvaluatedSlice::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = EvaluatedSlice::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1803,6 +2292,12 @@ impl SlicingParams {
     }
 
     /// Sets the value of [dimension_names][crate::model::SlicingParams::dimension_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::SlicingParams;
+    /// let x = SlicingParams::new().set_dimension_names(["a", "b", "c"]);
+    /// ```
     pub fn set_dimension_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1814,6 +2309,17 @@ impl SlicingParams {
     }
 
     /// Sets the value of [pinned_dimensions][crate::model::SlicingParams::pinned_dimensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::SlicingParams;
+    /// use google_cloud_timeseriesinsights_v1::model::PinnedDimension;
+    /// let x = SlicingParams::new()
+    ///     .set_pinned_dimensions([
+    ///         PinnedDimension::default()/* use setters */,
+    ///         PinnedDimension::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1972,6 +2478,13 @@ impl TimeseriesParams {
     }
 
     /// Sets the value of [forecast_history][crate::model::TimeseriesParams::forecast_history].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// use wkt::Duration;
+    /// let x = TimeseriesParams::new().set_forecast_history(Duration::default()/* use setters */);
+    /// ```
     pub fn set_forecast_history<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1981,6 +2494,14 @@ impl TimeseriesParams {
     }
 
     /// Sets or clears the value of [forecast_history][crate::model::TimeseriesParams::forecast_history].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// use wkt::Duration;
+    /// let x = TimeseriesParams::new().set_or_clear_forecast_history(Some(Duration::default()/* use setters */));
+    /// let x = TimeseriesParams::new().set_or_clear_forecast_history(None::<Duration>);
+    /// ```
     pub fn set_or_clear_forecast_history<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1990,6 +2511,13 @@ impl TimeseriesParams {
     }
 
     /// Sets the value of [granularity][crate::model::TimeseriesParams::granularity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// use wkt::Duration;
+    /// let x = TimeseriesParams::new().set_granularity(Duration::default()/* use setters */);
+    /// ```
     pub fn set_granularity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1999,6 +2527,14 @@ impl TimeseriesParams {
     }
 
     /// Sets or clears the value of [granularity][crate::model::TimeseriesParams::granularity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// use wkt::Duration;
+    /// let x = TimeseriesParams::new().set_or_clear_granularity(Some(Duration::default()/* use setters */));
+    /// let x = TimeseriesParams::new().set_or_clear_granularity(None::<Duration>);
+    /// ```
     pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2008,6 +2544,12 @@ impl TimeseriesParams {
     }
 
     /// Sets the value of [metric][crate::model::TimeseriesParams::metric].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// let x = TimeseriesParams::new().set_metric("example");
+    /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2017,6 +2559,13 @@ impl TimeseriesParams {
     }
 
     /// Sets or clears the value of [metric][crate::model::TimeseriesParams::metric].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// let x = TimeseriesParams::new().set_or_clear_metric(Some("example"));
+    /// let x = TimeseriesParams::new().set_or_clear_metric(None::<String>);
+    /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2026,6 +2575,14 @@ impl TimeseriesParams {
     }
 
     /// Sets the value of [metric_aggregation_method][crate::model::TimeseriesParams::metric_aggregation_method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// use google_cloud_timeseriesinsights_v1::model::timeseries_params::AggregationMethod;
+    /// let x0 = TimeseriesParams::new().set_metric_aggregation_method(AggregationMethod::Sum);
+    /// let x1 = TimeseriesParams::new().set_metric_aggregation_method(AggregationMethod::Average);
+    /// ```
     pub fn set_metric_aggregation_method<
         T: std::convert::Into<crate::model::timeseries_params::AggregationMethod>,
     >(
@@ -2263,12 +2820,25 @@ impl QueryDataSetRequest {
     }
 
     /// Sets the value of [name][crate::model::QueryDataSetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// let x = QueryDataSetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use wkt::Timestamp;
+    /// let x = QueryDataSetRequest::new().set_detection_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_detection_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2278,6 +2848,14 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clears the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use wkt::Timestamp;
+    /// let x = QueryDataSetRequest::new().set_or_clear_detection_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QueryDataSetRequest::new().set_or_clear_detection_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2287,6 +2865,12 @@ impl QueryDataSetRequest {
     }
 
     /// Sets the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// let x = QueryDataSetRequest::new().set_num_returned_slices(42);
+    /// ```
     pub fn set_num_returned_slices<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -2296,6 +2880,13 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clears the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// let x = QueryDataSetRequest::new().set_or_clear_num_returned_slices(Some(42));
+    /// let x = QueryDataSetRequest::new().set_or_clear_num_returned_slices(None::<i32>);
+    /// ```
     pub fn set_or_clear_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -2305,6 +2896,13 @@ impl QueryDataSetRequest {
     }
 
     /// Sets the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::SlicingParams;
+    /// let x = QueryDataSetRequest::new().set_slicing_params(SlicingParams::default()/* use setters */);
+    /// ```
     pub fn set_slicing_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SlicingParams>,
@@ -2314,6 +2912,14 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clears the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::SlicingParams;
+    /// let x = QueryDataSetRequest::new().set_or_clear_slicing_params(Some(SlicingParams::default()/* use setters */));
+    /// let x = QueryDataSetRequest::new().set_or_clear_slicing_params(None::<SlicingParams>);
+    /// ```
     pub fn set_or_clear_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SlicingParams>,
@@ -2323,6 +2929,13 @@ impl QueryDataSetRequest {
     }
 
     /// Sets the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// let x = QueryDataSetRequest::new().set_timeseries_params(TimeseriesParams::default()/* use setters */);
+    /// ```
     pub fn set_timeseries_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeseriesParams>,
@@ -2332,6 +2945,14 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clears the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// let x = QueryDataSetRequest::new().set_or_clear_timeseries_params(Some(TimeseriesParams::default()/* use setters */));
+    /// let x = QueryDataSetRequest::new().set_or_clear_timeseries_params(None::<TimeseriesParams>);
+    /// ```
     pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeseriesParams>,
@@ -2341,6 +2962,13 @@ impl QueryDataSetRequest {
     }
 
     /// Sets the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = QueryDataSetRequest::new().set_forecast_params(ForecastParams::default()/* use setters */);
+    /// ```
     pub fn set_forecast_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
@@ -2350,6 +2978,14 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clears the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = QueryDataSetRequest::new().set_or_clear_forecast_params(Some(ForecastParams::default()/* use setters */));
+    /// let x = QueryDataSetRequest::new().set_or_clear_forecast_params(None::<ForecastParams>);
+    /// ```
     pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
@@ -2359,6 +2995,12 @@ impl QueryDataSetRequest {
     }
 
     /// Sets the value of [return_timeseries][crate::model::QueryDataSetRequest::return_timeseries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetRequest;
+    /// let x = QueryDataSetRequest::new().set_return_timeseries(true);
+    /// ```
     pub fn set_return_timeseries<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_timeseries = v.into();
         self
@@ -2397,12 +3039,29 @@ impl QueryDataSetResponse {
     }
 
     /// Sets the value of [name][crate::model::QueryDataSetResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetResponse;
+    /// let x = QueryDataSetResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [slices][crate::model::QueryDataSetResponse::slices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::QueryDataSetResponse;
+    /// use google_cloud_timeseriesinsights_v1::model::EvaluatedSlice;
+    /// let x = QueryDataSetResponse::new()
+    ///     .set_slices([
+    ///         EvaluatedSlice::default()/* use setters */,
+    ///         EvaluatedSlice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_slices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2459,12 +3118,29 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets the value of [dataset][crate::model::EvaluateSliceRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// let x = EvaluateSliceRequest::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::PinnedDimension;
+    /// let x = EvaluateSliceRequest::new()
+    ///     .set_pinned_dimensions([
+    ///         PinnedDimension::default()/* use setters */,
+    ///         PinnedDimension::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2476,6 +3152,13 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// use wkt::Timestamp;
+    /// let x = EvaluateSliceRequest::new().set_detection_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_detection_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2485,6 +3168,14 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets or clears the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// use wkt::Timestamp;
+    /// let x = EvaluateSliceRequest::new().set_or_clear_detection_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EvaluateSliceRequest::new().set_or_clear_detection_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2494,6 +3185,13 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// let x = EvaluateSliceRequest::new().set_timeseries_params(TimeseriesParams::default()/* use setters */);
+    /// ```
     pub fn set_timeseries_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeseriesParams>,
@@ -2503,6 +3201,14 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets or clears the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::TimeseriesParams;
+    /// let x = EvaluateSliceRequest::new().set_or_clear_timeseries_params(Some(TimeseriesParams::default()/* use setters */));
+    /// let x = EvaluateSliceRequest::new().set_or_clear_timeseries_params(None::<TimeseriesParams>);
+    /// ```
     pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeseriesParams>,
@@ -2512,6 +3218,13 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = EvaluateSliceRequest::new().set_forecast_params(ForecastParams::default()/* use setters */);
+    /// ```
     pub fn set_forecast_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
@@ -2521,6 +3234,14 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets or clears the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateSliceRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = EvaluateSliceRequest::new().set_or_clear_forecast_params(Some(ForecastParams::default()/* use setters */));
+    /// let x = EvaluateSliceRequest::new().set_or_clear_forecast_params(None::<ForecastParams>);
+    /// ```
     pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
@@ -2582,12 +3303,25 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::EvaluateTimeseriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateTimeseriesRequest;
+    /// let x = EvaluateTimeseriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateTimeseriesRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::Timeseries;
+    /// let x = EvaluateTimeseriesRequest::new().set_timeseries(Timeseries::default()/* use setters */);
+    /// ```
     pub fn set_timeseries<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
@@ -2597,6 +3331,14 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets or clears the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateTimeseriesRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::Timeseries;
+    /// let x = EvaluateTimeseriesRequest::new().set_or_clear_timeseries(Some(Timeseries::default()/* use setters */));
+    /// let x = EvaluateTimeseriesRequest::new().set_or_clear_timeseries(None::<Timeseries>);
+    /// ```
     pub fn set_or_clear_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
@@ -2606,6 +3348,13 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateTimeseriesRequest;
+    /// use wkt::Duration;
+    /// let x = EvaluateTimeseriesRequest::new().set_granularity(Duration::default()/* use setters */);
+    /// ```
     pub fn set_granularity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2615,6 +3364,14 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets or clears the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateTimeseriesRequest;
+    /// use wkt::Duration;
+    /// let x = EvaluateTimeseriesRequest::new().set_or_clear_granularity(Some(Duration::default()/* use setters */));
+    /// let x = EvaluateTimeseriesRequest::new().set_or_clear_granularity(None::<Duration>);
+    /// ```
     pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2624,6 +3381,13 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateTimeseriesRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = EvaluateTimeseriesRequest::new().set_forecast_params(ForecastParams::default()/* use setters */);
+    /// ```
     pub fn set_forecast_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
@@ -2633,6 +3397,14 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets or clears the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::model::EvaluateTimeseriesRequest;
+    /// use google_cloud_timeseriesinsights_v1::model::ForecastParams;
+    /// let x = EvaluateTimeseriesRequest::new().set_or_clear_forecast_params(Some(ForecastParams::default()/* use setters */));
+    /// let x = EvaluateTimeseriesRequest::new().set_or_clear_forecast_params(None::<ForecastParams>);
+    /// ```
     pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,

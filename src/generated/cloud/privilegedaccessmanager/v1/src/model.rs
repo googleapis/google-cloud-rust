@@ -59,6 +59,12 @@ impl CheckOnboardingStatusRequest {
     }
 
     /// Sets the value of [parent][crate::model::CheckOnboardingStatusRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CheckOnboardingStatusRequest;
+    /// let x = CheckOnboardingStatusRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -92,12 +98,29 @@ impl CheckOnboardingStatusResponse {
     }
 
     /// Sets the value of [service_account][crate::model::CheckOnboardingStatusResponse::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CheckOnboardingStatusResponse;
+    /// let x = CheckOnboardingStatusResponse::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [findings][crate::model::CheckOnboardingStatusResponse::findings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CheckOnboardingStatusResponse;
+    /// use google_cloud_privilegedaccessmanager_v1::model::check_onboarding_status_response::Finding;
+    /// let x = CheckOnboardingStatusResponse::new()
+    ///     .set_findings([
+    ///         Finding::default()/* use setters */,
+    ///         Finding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -141,6 +164,14 @@ pub mod check_onboarding_status_response {
         ///
         /// Note that all the setters affecting `finding_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::check_onboarding_status_response::Finding;
+        /// use google_cloud_privilegedaccessmanager_v1::model::check_onboarding_status_response::finding::IAMAccessDenied;
+        /// let x = Finding::new().set_finding_type(Some(
+        ///     google_cloud_privilegedaccessmanager_v1::model::check_onboarding_status_response::finding::FindingType::IamAccessDenied(IAMAccessDenied::default().into())));
+        /// ```
         pub fn set_finding_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -177,6 +208,14 @@ pub mod check_onboarding_status_response {
         ///
         /// Note that all the setters affecting `finding_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::check_onboarding_status_response::Finding;
+        /// use google_cloud_privilegedaccessmanager_v1::model::check_onboarding_status_response::finding::IAMAccessDenied;
+        /// let x = Finding::new().set_iam_access_denied(IAMAccessDenied::default()/* use setters */);
+        /// assert!(x.iam_access_denied().is_some());
+        /// ```
         pub fn set_iam_access_denied<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -226,6 +265,12 @@ pub mod check_onboarding_status_response {
             }
 
             /// Sets the value of [missing_permissions][crate::model::check_onboarding_status_response::finding::IAMAccessDenied::missing_permissions].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::check_onboarding_status_response::finding::IAMAccessDenied;
+            /// let x = IAMAccessDenied::new().set_missing_permissions(["a", "b", "c"]);
+            /// ```
             pub fn set_missing_permissions<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -320,12 +365,25 @@ impl Entitlement {
     }
 
     /// Sets the value of [name][crate::model::Entitlement::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = Entitlement::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Entitlement::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use wkt::Timestamp;
+    /// let x = Entitlement::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -335,6 +393,14 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Entitlement::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use wkt::Timestamp;
+    /// let x = Entitlement::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Entitlement::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -344,6 +410,13 @@ impl Entitlement {
     }
 
     /// Sets the value of [update_time][crate::model::Entitlement::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use wkt::Timestamp;
+    /// let x = Entitlement::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -353,6 +426,14 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Entitlement::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use wkt::Timestamp;
+    /// let x = Entitlement::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Entitlement::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -362,6 +443,17 @@ impl Entitlement {
     }
 
     /// Sets the value of [eligible_users][crate::model::Entitlement::eligible_users].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::AccessControlEntry;
+    /// let x = Entitlement::new()
+    ///     .set_eligible_users([
+    ///         AccessControlEntry::default()/* use setters */,
+    ///         AccessControlEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_eligible_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -373,6 +465,13 @@ impl Entitlement {
     }
 
     /// Sets the value of [approval_workflow][crate::model::Entitlement::approval_workflow].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::ApprovalWorkflow;
+    /// let x = Entitlement::new().set_approval_workflow(ApprovalWorkflow::default()/* use setters */);
+    /// ```
     pub fn set_approval_workflow<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ApprovalWorkflow>,
@@ -382,6 +481,14 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [approval_workflow][crate::model::Entitlement::approval_workflow].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::ApprovalWorkflow;
+    /// let x = Entitlement::new().set_or_clear_approval_workflow(Some(ApprovalWorkflow::default()/* use setters */));
+    /// let x = Entitlement::new().set_or_clear_approval_workflow(None::<ApprovalWorkflow>);
+    /// ```
     pub fn set_or_clear_approval_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApprovalWorkflow>,
@@ -391,6 +498,13 @@ impl Entitlement {
     }
 
     /// Sets the value of [privileged_access][crate::model::Entitlement::privileged_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::PrivilegedAccess;
+    /// let x = Entitlement::new().set_privileged_access(PrivilegedAccess::default()/* use setters */);
+    /// ```
     pub fn set_privileged_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAccess>,
@@ -400,6 +514,14 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [privileged_access][crate::model::Entitlement::privileged_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::PrivilegedAccess;
+    /// let x = Entitlement::new().set_or_clear_privileged_access(Some(PrivilegedAccess::default()/* use setters */));
+    /// let x = Entitlement::new().set_or_clear_privileged_access(None::<PrivilegedAccess>);
+    /// ```
     pub fn set_or_clear_privileged_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAccess>,
@@ -409,6 +531,13 @@ impl Entitlement {
     }
 
     /// Sets the value of [max_request_duration][crate::model::Entitlement::max_request_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use wkt::Duration;
+    /// let x = Entitlement::new().set_max_request_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_max_request_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -418,6 +547,14 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [max_request_duration][crate::model::Entitlement::max_request_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use wkt::Duration;
+    /// let x = Entitlement::new().set_or_clear_max_request_duration(Some(Duration::default()/* use setters */));
+    /// let x = Entitlement::new().set_or_clear_max_request_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_max_request_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -427,6 +564,15 @@ impl Entitlement {
     }
 
     /// Sets the value of [state][crate::model::Entitlement::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::State;
+    /// let x0 = Entitlement::new().set_state(State::Creating);
+    /// let x1 = Entitlement::new().set_state(State::Available);
+    /// let x2 = Entitlement::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::entitlement::State>>(
         mut self,
         v: T,
@@ -436,6 +582,13 @@ impl Entitlement {
     }
 
     /// Sets the value of [requester_justification_config][crate::model::Entitlement::requester_justification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::RequesterJustificationConfig;
+    /// let x = Entitlement::new().set_requester_justification_config(RequesterJustificationConfig::default()/* use setters */);
+    /// ```
     pub fn set_requester_justification_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::entitlement::RequesterJustificationConfig>,
@@ -445,6 +598,14 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [requester_justification_config][crate::model::Entitlement::requester_justification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::RequesterJustificationConfig;
+    /// let x = Entitlement::new().set_or_clear_requester_justification_config(Some(RequesterJustificationConfig::default()/* use setters */));
+    /// let x = Entitlement::new().set_or_clear_requester_justification_config(None::<RequesterJustificationConfig>);
+    /// ```
     pub fn set_or_clear_requester_justification_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -457,6 +618,13 @@ impl Entitlement {
     }
 
     /// Sets the value of [additional_notification_targets][crate::model::Entitlement::additional_notification_targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::AdditionalNotificationTargets;
+    /// let x = Entitlement::new().set_additional_notification_targets(AdditionalNotificationTargets::default()/* use setters */);
+    /// ```
     pub fn set_additional_notification_targets<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::entitlement::AdditionalNotificationTargets>,
@@ -466,6 +634,14 @@ impl Entitlement {
     }
 
     /// Sets or clears the value of [additional_notification_targets][crate::model::Entitlement::additional_notification_targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::AdditionalNotificationTargets;
+    /// let x = Entitlement::new().set_or_clear_additional_notification_targets(Some(AdditionalNotificationTargets::default()/* use setters */));
+    /// let x = Entitlement::new().set_or_clear_additional_notification_targets(None::<AdditionalNotificationTargets>);
+    /// ```
     pub fn set_or_clear_additional_notification_targets<T>(
         mut self,
         v: std::option::Option<T>,
@@ -478,6 +654,12 @@ impl Entitlement {
     }
 
     /// Sets the value of [etag][crate::model::Entitlement::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = Entitlement::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -518,6 +700,14 @@ pub mod entitlement {
         ///
         /// Note that all the setters affecting `justification_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::entitlement::RequesterJustificationConfig;
+        /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::requester_justification_config::NotMandatory;
+        /// let x = RequesterJustificationConfig::new().set_justification_type(Some(
+        ///     google_cloud_privilegedaccessmanager_v1::model::entitlement::requester_justification_config::JustificationType::NotMandatory(NotMandatory::default().into())));
+        /// ```
         pub fn set_justification_type<T: std::convert::Into<std::option::Option<crate::model::entitlement::requester_justification_config::JustificationType>>>(mut self, v: T) -> Self
         {
             self.justification_type = v.into();
@@ -546,6 +736,15 @@ pub mod entitlement {
         ///
         /// Note that all the setters affecting `justification_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::entitlement::RequesterJustificationConfig;
+        /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::requester_justification_config::NotMandatory;
+        /// let x = RequesterJustificationConfig::new().set_not_mandatory(NotMandatory::default()/* use setters */);
+        /// assert!(x.not_mandatory().is_some());
+        /// assert!(x.unstructured().is_none());
+        /// ```
         pub fn set_not_mandatory<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -586,6 +785,15 @@ pub mod entitlement {
         ///
         /// Note that all the setters affecting `justification_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::entitlement::RequesterJustificationConfig;
+        /// use google_cloud_privilegedaccessmanager_v1::model::entitlement::requester_justification_config::Unstructured;
+        /// let x = RequesterJustificationConfig::new().set_unstructured(Unstructured::default()/* use setters */);
+        /// assert!(x.unstructured().is_some());
+        /// assert!(x.not_mandatory().is_none());
+        /// ```
         pub fn set_unstructured<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -699,6 +907,12 @@ pub mod entitlement {
         }
 
         /// Sets the value of [admin_email_recipients][crate::model::entitlement::AdditionalNotificationTargets::admin_email_recipients].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::entitlement::AdditionalNotificationTargets;
+        /// let x = AdditionalNotificationTargets::new().set_admin_email_recipients(["a", "b", "c"]);
+        /// ```
         pub fn set_admin_email_recipients<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -710,6 +924,12 @@ pub mod entitlement {
         }
 
         /// Sets the value of [requester_email_recipients][crate::model::entitlement::AdditionalNotificationTargets::requester_email_recipients].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::entitlement::AdditionalNotificationTargets;
+        /// let x = AdditionalNotificationTargets::new().set_requester_email_recipients(["a", "b", "c"]);
+        /// ```
         pub fn set_requester_email_recipients<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -899,6 +1119,12 @@ impl AccessControlEntry {
     }
 
     /// Sets the value of [principals][crate::model::AccessControlEntry::principals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::AccessControlEntry;
+    /// let x = AccessControlEntry::new().set_principals(["a", "b", "c"]);
+    /// ```
     pub fn set_principals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -935,6 +1161,14 @@ impl ApprovalWorkflow {
     ///
     /// Note that all the setters affecting `approval_workflow` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ApprovalWorkflow;
+    /// use google_cloud_privilegedaccessmanager_v1::model::ManualApprovals;
+    /// let x = ApprovalWorkflow::new().set_approval_workflow(Some(
+    ///     google_cloud_privilegedaccessmanager_v1::model::approval_workflow::ApprovalWorkflow::ManualApprovals(ManualApprovals::default().into())));
+    /// ```
     pub fn set_approval_workflow<
         T: std::convert::Into<std::option::Option<crate::model::approval_workflow::ApprovalWorkflow>>,
     >(
@@ -965,6 +1199,14 @@ impl ApprovalWorkflow {
     ///
     /// Note that all the setters affecting `approval_workflow` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ApprovalWorkflow;
+    /// use google_cloud_privilegedaccessmanager_v1::model::ManualApprovals;
+    /// let x = ApprovalWorkflow::new().set_manual_approvals(ManualApprovals::default()/* use setters */);
+    /// assert!(x.manual_approvals().is_some());
+    /// ```
     pub fn set_manual_approvals<
         T: std::convert::Into<std::boxed::Box<crate::model::ManualApprovals>>,
     >(
@@ -1033,12 +1275,29 @@ impl ManualApprovals {
     }
 
     /// Sets the value of [require_approver_justification][crate::model::ManualApprovals::require_approver_justification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ManualApprovals;
+    /// let x = ManualApprovals::new().set_require_approver_justification(true);
+    /// ```
     pub fn set_require_approver_justification<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_approver_justification = v.into();
         self
     }
 
     /// Sets the value of [steps][crate::model::ManualApprovals::steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ManualApprovals;
+    /// use google_cloud_privilegedaccessmanager_v1::model::manual_approvals::Step;
+    /// let x = ManualApprovals::new()
+    ///     .set_steps([
+    ///         Step::default()/* use setters */,
+    ///         Step::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1087,6 +1346,17 @@ pub mod manual_approvals {
         }
 
         /// Sets the value of [approvers][crate::model::manual_approvals::Step::approvers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::manual_approvals::Step;
+        /// use google_cloud_privilegedaccessmanager_v1::model::AccessControlEntry;
+        /// let x = Step::new()
+        ///     .set_approvers([
+        ///         AccessControlEntry::default()/* use setters */,
+        ///         AccessControlEntry::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_approvers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1098,12 +1368,24 @@ pub mod manual_approvals {
         }
 
         /// Sets the value of [approvals_needed][crate::model::manual_approvals::Step::approvals_needed].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::manual_approvals::Step;
+        /// let x = Step::new().set_approvals_needed(42);
+        /// ```
         pub fn set_approvals_needed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.approvals_needed = v.into();
             self
         }
 
         /// Sets the value of [approver_email_recipients][crate::model::manual_approvals::Step::approver_email_recipients].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::manual_approvals::Step;
+        /// let x = Step::new().set_approver_email_recipients(["a", "b", "c"]);
+        /// ```
         pub fn set_approver_email_recipients<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1140,6 +1422,14 @@ impl PrivilegedAccess {
     ///
     /// Note that all the setters affecting `access_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::PrivilegedAccess;
+    /// use google_cloud_privilegedaccessmanager_v1::model::privileged_access::GcpIamAccess;
+    /// let x = PrivilegedAccess::new().set_access_type(Some(
+    ///     google_cloud_privilegedaccessmanager_v1::model::privileged_access::AccessType::GcpIamAccess(GcpIamAccess::default().into())));
+    /// ```
     pub fn set_access_type<
         T: std::convert::Into<std::option::Option<crate::model::privileged_access::AccessType>>,
     >(
@@ -1170,6 +1460,14 @@ impl PrivilegedAccess {
     ///
     /// Note that all the setters affecting `access_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::PrivilegedAccess;
+    /// use google_cloud_privilegedaccessmanager_v1::model::privileged_access::GcpIamAccess;
+    /// let x = PrivilegedAccess::new().set_gcp_iam_access(GcpIamAccess::default()/* use setters */);
+    /// assert!(x.gcp_iam_access().is_some());
+    /// ```
     pub fn set_gcp_iam_access<
         T: std::convert::Into<std::boxed::Box<crate::model::privileged_access::GcpIamAccess>>,
     >(
@@ -1219,6 +1517,12 @@ pub mod privileged_access {
         }
 
         /// Sets the value of [resource_type][crate::model::privileged_access::GcpIamAccess::resource_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::privileged_access::GcpIamAccess;
+        /// let x = GcpIamAccess::new().set_resource_type("example");
+        /// ```
         pub fn set_resource_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1228,12 +1532,29 @@ pub mod privileged_access {
         }
 
         /// Sets the value of [resource][crate::model::privileged_access::GcpIamAccess::resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::privileged_access::GcpIamAccess;
+        /// let x = GcpIamAccess::new().set_resource("example");
+        /// ```
         pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource = v.into();
             self
         }
 
         /// Sets the value of [role_bindings][crate::model::privileged_access::GcpIamAccess::role_bindings].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::privileged_access::GcpIamAccess;
+        /// use google_cloud_privilegedaccessmanager_v1::model::privileged_access::gcp_iam_access::RoleBinding;
+        /// let x = GcpIamAccess::new()
+        ///     .set_role_bindings([
+        ///         RoleBinding::default()/* use setters */,
+        ///         RoleBinding::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_role_bindings<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1283,12 +1604,24 @@ pub mod privileged_access {
             }
 
             /// Sets the value of [role][crate::model::privileged_access::gcp_iam_access::RoleBinding::role].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::privileged_access::gcp_iam_access::RoleBinding;
+            /// let x = RoleBinding::new().set_role("example");
+            /// ```
             pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.role = v.into();
                 self
             }
 
             /// Sets the value of [condition_expression][crate::model::privileged_access::gcp_iam_access::RoleBinding::condition_expression].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::privileged_access::gcp_iam_access::RoleBinding;
+            /// let x = RoleBinding::new().set_condition_expression("example");
+            /// ```
             pub fn set_condition_expression<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1342,30 +1675,60 @@ impl ListEntitlementsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsRequest;
+    /// let x = ListEntitlementsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEntitlementsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsRequest;
+    /// let x = ListEntitlementsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEntitlementsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsRequest;
+    /// let x = ListEntitlementsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEntitlementsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsRequest;
+    /// let x = ListEntitlementsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEntitlementsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsRequest;
+    /// let x = ListEntitlementsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1400,6 +1763,17 @@ impl ListEntitlementsResponse {
     }
 
     /// Sets the value of [entitlements][crate::model::ListEntitlementsResponse::entitlements].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsResponse;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = ListEntitlementsResponse::new()
+    ///     .set_entitlements([
+    ///         Entitlement::default()/* use setters */,
+    ///         Entitlement::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entitlements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1411,12 +1785,24 @@ impl ListEntitlementsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEntitlementsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsResponse;
+    /// let x = ListEntitlementsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEntitlementsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListEntitlementsResponse;
+    /// let x = ListEntitlementsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1479,12 +1865,26 @@ impl SearchEntitlementsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchEntitlementsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsRequest;
+    /// let x = SearchEntitlementsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [caller_access_type][crate::model::SearchEntitlementsRequest::caller_access_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::search_entitlements_request::CallerAccessType;
+    /// let x0 = SearchEntitlementsRequest::new().set_caller_access_type(CallerAccessType::GrantRequester);
+    /// let x1 = SearchEntitlementsRequest::new().set_caller_access_type(CallerAccessType::GrantApprover);
+    /// ```
     pub fn set_caller_access_type<
         T: std::convert::Into<crate::model::search_entitlements_request::CallerAccessType>,
     >(
@@ -1496,18 +1896,36 @@ impl SearchEntitlementsRequest {
     }
 
     /// Sets the value of [filter][crate::model::SearchEntitlementsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsRequest;
+    /// let x = SearchEntitlementsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchEntitlementsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsRequest;
+    /// let x = SearchEntitlementsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchEntitlementsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsRequest;
+    /// let x = SearchEntitlementsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1677,6 +2095,17 @@ impl SearchEntitlementsResponse {
     }
 
     /// Sets the value of [entitlements][crate::model::SearchEntitlementsResponse::entitlements].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsResponse;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = SearchEntitlementsResponse::new()
+    ///     .set_entitlements([
+    ///         Entitlement::default()/* use setters */,
+    ///         Entitlement::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entitlements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1688,6 +2117,12 @@ impl SearchEntitlementsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchEntitlementsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchEntitlementsResponse;
+    /// let x = SearchEntitlementsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1730,6 +2165,12 @@ impl GetEntitlementRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEntitlementRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::GetEntitlementRequest;
+    /// let x = GetEntitlementRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1792,18 +2233,37 @@ impl CreateEntitlementRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEntitlementRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateEntitlementRequest;
+    /// let x = CreateEntitlementRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entitlement_id][crate::model::CreateEntitlementRequest::entitlement_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateEntitlementRequest;
+    /// let x = CreateEntitlementRequest::new().set_entitlement_id("example");
+    /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
         self
     }
 
     /// Sets the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateEntitlementRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = CreateEntitlementRequest::new().set_entitlement(Entitlement::default()/* use setters */);
+    /// ```
     pub fn set_entitlement<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entitlement>,
@@ -1813,6 +2273,14 @@ impl CreateEntitlementRequest {
     }
 
     /// Sets or clears the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateEntitlementRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = CreateEntitlementRequest::new().set_or_clear_entitlement(Some(Entitlement::default()/* use setters */));
+    /// let x = CreateEntitlementRequest::new().set_or_clear_entitlement(None::<Entitlement>);
+    /// ```
     pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entitlement>,
@@ -1822,6 +2290,12 @@ impl CreateEntitlementRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateEntitlementRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateEntitlementRequest;
+    /// let x = CreateEntitlementRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1869,18 +2343,36 @@ impl DeleteEntitlementRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEntitlementRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::DeleteEntitlementRequest;
+    /// let x = DeleteEntitlementRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteEntitlementRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::DeleteEntitlementRequest;
+    /// let x = DeleteEntitlementRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteEntitlementRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::DeleteEntitlementRequest;
+    /// let x = DeleteEntitlementRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -1920,6 +2412,13 @@ impl UpdateEntitlementRequest {
     }
 
     /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::UpdateEntitlementRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = UpdateEntitlementRequest::new().set_entitlement(Entitlement::default()/* use setters */);
+    /// ```
     pub fn set_entitlement<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entitlement>,
@@ -1929,6 +2428,14 @@ impl UpdateEntitlementRequest {
     }
 
     /// Sets or clears the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::UpdateEntitlementRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
+    /// let x = UpdateEntitlementRequest::new().set_or_clear_entitlement(Some(Entitlement::default()/* use setters */));
+    /// let x = UpdateEntitlementRequest::new().set_or_clear_entitlement(None::<Entitlement>);
+    /// ```
     pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entitlement>,
@@ -1938,6 +2445,13 @@ impl UpdateEntitlementRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::UpdateEntitlementRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntitlementRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1947,6 +2461,14 @@ impl UpdateEntitlementRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::UpdateEntitlementRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntitlementRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEntitlementRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2027,12 +2549,25 @@ impl Grant {
     }
 
     /// Sets the value of [name][crate::model::Grant::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = Grant::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Grant::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use wkt::Timestamp;
+    /// let x = Grant::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2042,6 +2577,14 @@ impl Grant {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Grant::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use wkt::Timestamp;
+    /// let x = Grant::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Grant::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2051,6 +2594,13 @@ impl Grant {
     }
 
     /// Sets the value of [update_time][crate::model::Grant::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use wkt::Timestamp;
+    /// let x = Grant::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2060,6 +2610,14 @@ impl Grant {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Grant::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use wkt::Timestamp;
+    /// let x = Grant::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Grant::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2069,12 +2627,25 @@ impl Grant {
     }
 
     /// Sets the value of [requester][crate::model::Grant::requester].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = Grant::new().set_requester("example");
+    /// ```
     pub fn set_requester<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.requester = v.into();
         self
     }
 
     /// Sets the value of [requested_duration][crate::model::Grant::requested_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use wkt::Duration;
+    /// let x = Grant::new().set_requested_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_requested_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2084,6 +2655,14 @@ impl Grant {
     }
 
     /// Sets or clears the value of [requested_duration][crate::model::Grant::requested_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use wkt::Duration;
+    /// let x = Grant::new().set_or_clear_requested_duration(Some(Duration::default()/* use setters */));
+    /// let x = Grant::new().set_or_clear_requested_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_requested_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2093,6 +2672,13 @@ impl Grant {
     }
 
     /// Sets the value of [justification][crate::model::Grant::justification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Justification;
+    /// let x = Grant::new().set_justification(Justification::default()/* use setters */);
+    /// ```
     pub fn set_justification<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Justification>,
@@ -2102,6 +2688,14 @@ impl Grant {
     }
 
     /// Sets or clears the value of [justification][crate::model::Grant::justification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Justification;
+    /// let x = Grant::new().set_or_clear_justification(Some(Justification::default()/* use setters */));
+    /// let x = Grant::new().set_or_clear_justification(None::<Justification>);
+    /// ```
     pub fn set_or_clear_justification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Justification>,
@@ -2111,12 +2705,28 @@ impl Grant {
     }
 
     /// Sets the value of [state][crate::model::Grant::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::grant::State;
+    /// let x0 = Grant::new().set_state(State::ApprovalAwaited);
+    /// let x1 = Grant::new().set_state(State::Denied);
+    /// let x2 = Grant::new().set_state(State::Scheduled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::grant::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [timeline][crate::model::Grant::timeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::grant::Timeline;
+    /// let x = Grant::new().set_timeline(Timeline::default()/* use setters */);
+    /// ```
     pub fn set_timeline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::grant::Timeline>,
@@ -2126,6 +2736,14 @@ impl Grant {
     }
 
     /// Sets or clears the value of [timeline][crate::model::Grant::timeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::grant::Timeline;
+    /// let x = Grant::new().set_or_clear_timeline(Some(Timeline::default()/* use setters */));
+    /// let x = Grant::new().set_or_clear_timeline(None::<Timeline>);
+    /// ```
     pub fn set_or_clear_timeline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::grant::Timeline>,
@@ -2135,6 +2753,13 @@ impl Grant {
     }
 
     /// Sets the value of [privileged_access][crate::model::Grant::privileged_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::PrivilegedAccess;
+    /// let x = Grant::new().set_privileged_access(PrivilegedAccess::default()/* use setters */);
+    /// ```
     pub fn set_privileged_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAccess>,
@@ -2144,6 +2769,14 @@ impl Grant {
     }
 
     /// Sets or clears the value of [privileged_access][crate::model::Grant::privileged_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::PrivilegedAccess;
+    /// let x = Grant::new().set_or_clear_privileged_access(Some(PrivilegedAccess::default()/* use setters */));
+    /// let x = Grant::new().set_or_clear_privileged_access(None::<PrivilegedAccess>);
+    /// ```
     pub fn set_or_clear_privileged_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAccess>,
@@ -2153,6 +2786,13 @@ impl Grant {
     }
 
     /// Sets the value of [audit_trail][crate::model::Grant::audit_trail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::grant::AuditTrail;
+    /// let x = Grant::new().set_audit_trail(AuditTrail::default()/* use setters */);
+    /// ```
     pub fn set_audit_trail<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::grant::AuditTrail>,
@@ -2162,6 +2802,14 @@ impl Grant {
     }
 
     /// Sets or clears the value of [audit_trail][crate::model::Grant::audit_trail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// use google_cloud_privilegedaccessmanager_v1::model::grant::AuditTrail;
+    /// let x = Grant::new().set_or_clear_audit_trail(Some(AuditTrail::default()/* use setters */));
+    /// let x = Grant::new().set_or_clear_audit_trail(None::<AuditTrail>);
+    /// ```
     pub fn set_or_clear_audit_trail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::grant::AuditTrail>,
@@ -2171,6 +2819,12 @@ impl Grant {
     }
 
     /// Sets the value of [additional_email_recipients][crate::model::Grant::additional_email_recipients].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = Grant::new().set_additional_email_recipients(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_email_recipients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2182,6 +2836,12 @@ impl Grant {
     }
 
     /// Sets the value of [externally_modified][crate::model::Grant::externally_modified].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = Grant::new().set_externally_modified(true);
+    /// ```
     pub fn set_externally_modified<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.externally_modified = v.into();
         self
@@ -2218,6 +2878,17 @@ pub mod grant {
         }
 
         /// Sets the value of [events][crate::model::grant::Timeline::events].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::grant::Timeline;
+        /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+        /// let x = Timeline::new()
+        ///     .set_events([
+        ///         Event::default()/* use setters */,
+        ///         Event::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_events<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2258,6 +2929,13 @@ pub mod grant {
             }
 
             /// Sets the value of [event_time][crate::model::grant::timeline::Event::event_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use wkt::Timestamp;
+            /// let x = Event::new().set_event_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_event_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2267,6 +2945,14 @@ pub mod grant {
             }
 
             /// Sets or clears the value of [event_time][crate::model::grant::timeline::Event::event_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use wkt::Timestamp;
+            /// let x = Event::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+            /// let x = Event::new().set_or_clear_event_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2279,6 +2965,14 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Requested;
+            /// let x = Event::new().set_event(Some(
+            ///     google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Event::Requested(Requested::default().into())));
+            /// ```
             pub fn set_event<
                 T: std::convert::Into<
                         std::option::Option<crate::model::grant::timeline::event::Event>,
@@ -2313,6 +3007,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Requested;
+            /// let x = Event::new().set_requested(Requested::default()/* use setters */);
+            /// assert!(x.requested().is_some());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_requested<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::grant::timeline::event::Requested>,
@@ -2348,6 +3060,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Approved;
+            /// let x = Event::new().set_approved(Approved::default()/* use setters */);
+            /// assert!(x.approved().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_approved<
                 T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Approved>>,
             >(
@@ -2381,6 +3111,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Denied;
+            /// let x = Event::new().set_denied(Denied::default()/* use setters */);
+            /// assert!(x.denied().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_denied<
                 T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Denied>>,
             >(
@@ -2414,6 +3162,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Revoked;
+            /// let x = Event::new().set_revoked(Revoked::default()/* use setters */);
+            /// assert!(x.revoked().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_revoked<
                 T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Revoked>>,
             >(
@@ -2448,6 +3214,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Scheduled;
+            /// let x = Event::new().set_scheduled(Scheduled::default()/* use setters */);
+            /// assert!(x.scheduled().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_scheduled<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::grant::timeline::event::Scheduled>,
@@ -2484,6 +3268,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Activated;
+            /// let x = Event::new().set_activated(Activated::default()/* use setters */);
+            /// assert!(x.activated().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_activated<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::grant::timeline::event::Activated>,
@@ -2520,6 +3322,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::ActivationFailed;
+            /// let x = Event::new().set_activation_failed(ActivationFailed::default()/* use setters */);
+            /// assert!(x.activation_failed().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_activation_failed<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::grant::timeline::event::ActivationFailed>,
@@ -2555,6 +3375,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Expired;
+            /// let x = Event::new().set_expired(Expired::default()/* use setters */);
+            /// assert!(x.expired().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_expired<
                 T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Expired>>,
             >(
@@ -2588,6 +3426,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Ended;
+            /// let x = Event::new().set_ended(Ended::default()/* use setters */);
+            /// assert!(x.ended().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_ended<
                 T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Ended>>,
             >(
@@ -2622,6 +3478,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::ExternallyModified;
+            /// let x = Event::new().set_externally_modified(ExternallyModified::default()/* use setters */);
+            /// assert!(x.externally_modified().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.withdrawn().is_none());
+            /// ```
             pub fn set_externally_modified<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
@@ -2658,6 +3532,24 @@ pub mod grant {
             ///
             /// Note that all the setters affecting `event` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::Event;
+            /// use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Withdrawn;
+            /// let x = Event::new().set_withdrawn(Withdrawn::default()/* use setters */);
+            /// assert!(x.withdrawn().is_some());
+            /// assert!(x.requested().is_none());
+            /// assert!(x.approved().is_none());
+            /// assert!(x.denied().is_none());
+            /// assert!(x.revoked().is_none());
+            /// assert!(x.scheduled().is_none());
+            /// assert!(x.activated().is_none());
+            /// assert!(x.activation_failed().is_none());
+            /// assert!(x.expired().is_none());
+            /// assert!(x.ended().is_none());
+            /// assert!(x.externally_modified().is_none());
+            /// ```
             pub fn set_withdrawn<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::grant::timeline::event::Withdrawn>,
@@ -2701,6 +3593,13 @@ pub mod grant {
                 }
 
                 /// Sets the value of [expire_time][crate::model::grant::timeline::event::Requested::expire_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Requested;
+                /// use wkt::Timestamp;
+                /// let x = Requested::new().set_expire_time(Timestamp::default()/* use setters */);
+                /// ```
                 pub fn set_expire_time<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<wkt::Timestamp>,
@@ -2710,6 +3609,14 @@ pub mod grant {
                 }
 
                 /// Sets or clears the value of [expire_time][crate::model::grant::timeline::event::Requested::expire_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Requested;
+                /// use wkt::Timestamp;
+                /// let x = Requested::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+                /// let x = Requested::new().set_or_clear_expire_time(None::<Timestamp>);
+                /// ```
                 pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Timestamp>,
@@ -2745,6 +3652,12 @@ pub mod grant {
                 }
 
                 /// Sets the value of [reason][crate::model::grant::timeline::event::Approved::reason].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Approved;
+                /// let x = Approved::new().set_reason("example");
+                /// ```
                 pub fn set_reason<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2754,6 +3667,12 @@ pub mod grant {
                 }
 
                 /// Sets the value of [actor][crate::model::grant::timeline::event::Approved::actor].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Approved;
+                /// let x = Approved::new().set_actor("example");
+                /// ```
                 pub fn set_actor<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2789,6 +3708,12 @@ pub mod grant {
                 }
 
                 /// Sets the value of [reason][crate::model::grant::timeline::event::Denied::reason].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Denied;
+                /// let x = Denied::new().set_reason("example");
+                /// ```
                 pub fn set_reason<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2798,6 +3723,12 @@ pub mod grant {
                 }
 
                 /// Sets the value of [actor][crate::model::grant::timeline::event::Denied::actor].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Denied;
+                /// let x = Denied::new().set_actor("example");
+                /// ```
                 pub fn set_actor<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2832,6 +3763,12 @@ pub mod grant {
                 }
 
                 /// Sets the value of [reason][crate::model::grant::timeline::event::Revoked::reason].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Revoked;
+                /// let x = Revoked::new().set_reason("example");
+                /// ```
                 pub fn set_reason<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2841,6 +3778,12 @@ pub mod grant {
                 }
 
                 /// Sets the value of [actor][crate::model::grant::timeline::event::Revoked::actor].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Revoked;
+                /// let x = Revoked::new().set_actor("example");
+                /// ```
                 pub fn set_actor<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2892,6 +3835,13 @@ pub mod grant {
                 }
 
                 /// Sets the value of [scheduled_activation_time][crate::model::grant::timeline::event::Scheduled::scheduled_activation_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Scheduled;
+                /// use wkt::Timestamp;
+                /// let x = Scheduled::new().set_scheduled_activation_time(Timestamp::default()/* use setters */);
+                /// ```
                 pub fn set_scheduled_activation_time<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<wkt::Timestamp>,
@@ -2901,6 +3851,14 @@ pub mod grant {
                 }
 
                 /// Sets or clears the value of [scheduled_activation_time][crate::model::grant::timeline::event::Scheduled::scheduled_activation_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::Scheduled;
+                /// use wkt::Timestamp;
+                /// let x = Scheduled::new().set_or_clear_scheduled_activation_time(Some(Timestamp::default()/* use setters */));
+                /// let x = Scheduled::new().set_or_clear_scheduled_activation_time(None::<Timestamp>);
+                /// ```
                 pub fn set_or_clear_scheduled_activation_time<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -2955,6 +3913,13 @@ pub mod grant {
                 }
 
                 /// Sets the value of [error][crate::model::grant::timeline::event::ActivationFailed::error].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::ActivationFailed;
+                /// use rpc::model::Status;
+                /// let x = ActivationFailed::new().set_error(Status::default()/* use setters */);
+                /// ```
                 pub fn set_error<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<rpc::model::Status>,
@@ -2964,6 +3929,14 @@ pub mod grant {
                 }
 
                 /// Sets or clears the value of [error][crate::model::grant::timeline::event::ActivationFailed::error].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_privilegedaccessmanager_v1::model::grant::timeline::event::ActivationFailed;
+                /// use rpc::model::Status;
+                /// let x = ActivationFailed::new().set_or_clear_error(Some(Status::default()/* use setters */));
+                /// let x = ActivationFailed::new().set_or_clear_error(None::<Status>);
+                /// ```
                 pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<rpc::model::Status>,
@@ -3094,6 +4067,13 @@ pub mod grant {
         }
 
         /// Sets the value of [access_grant_time][crate::model::grant::AuditTrail::access_grant_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::grant::AuditTrail;
+        /// use wkt::Timestamp;
+        /// let x = AuditTrail::new().set_access_grant_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_access_grant_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3103,6 +4083,14 @@ pub mod grant {
         }
 
         /// Sets or clears the value of [access_grant_time][crate::model::grant::AuditTrail::access_grant_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::grant::AuditTrail;
+        /// use wkt::Timestamp;
+        /// let x = AuditTrail::new().set_or_clear_access_grant_time(Some(Timestamp::default()/* use setters */));
+        /// let x = AuditTrail::new().set_or_clear_access_grant_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_access_grant_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3112,6 +4100,13 @@ pub mod grant {
         }
 
         /// Sets the value of [access_remove_time][crate::model::grant::AuditTrail::access_remove_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::grant::AuditTrail;
+        /// use wkt::Timestamp;
+        /// let x = AuditTrail::new().set_access_remove_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_access_remove_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3121,6 +4116,14 @@ pub mod grant {
         }
 
         /// Sets or clears the value of [access_remove_time][crate::model::grant::AuditTrail::access_remove_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_privilegedaccessmanager_v1::model::grant::AuditTrail;
+        /// use wkt::Timestamp;
+        /// let x = AuditTrail::new().set_or_clear_access_remove_time(Some(Timestamp::default()/* use setters */));
+        /// let x = AuditTrail::new().set_or_clear_access_remove_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_access_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3363,6 +4366,13 @@ impl Justification {
     ///
     /// Note that all the setters affecting `justification` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Justification;
+    /// use google_cloud_privilegedaccessmanager_v1::model::justification::Justification;
+    /// let x = Justification::new().set_justification(Some(Justification::UnstructuredJustification("example".to_string())));
+    /// ```
     pub fn set_justification<
         T: std::convert::Into<std::option::Option<crate::model::justification::Justification>>,
     >(
@@ -3391,6 +4401,13 @@ impl Justification {
     ///
     /// Note that all the setters affecting `justification` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::Justification;
+    /// let x = Justification::new().set_unstructured_justification("example");
+    /// assert!(x.unstructured_justification().is_some());
+    /// ```
     pub fn set_unstructured_justification<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3451,30 +4468,60 @@ impl ListGrantsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGrantsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsRequest;
+    /// let x = ListGrantsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGrantsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsRequest;
+    /// let x = ListGrantsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGrantsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsRequest;
+    /// let x = ListGrantsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGrantsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsRequest;
+    /// let x = ListGrantsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListGrantsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsRequest;
+    /// let x = ListGrantsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3509,6 +4556,17 @@ impl ListGrantsResponse {
     }
 
     /// Sets the value of [grants][crate::model::ListGrantsResponse::grants].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsResponse;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = ListGrantsResponse::new()
+    ///     .set_grants([
+    ///         Grant::default()/* use setters */,
+    ///         Grant::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_grants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3520,12 +4578,24 @@ impl ListGrantsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGrantsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsResponse;
+    /// let x = ListGrantsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListGrantsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ListGrantsResponse;
+    /// let x = ListGrantsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3587,12 +4657,27 @@ impl SearchGrantsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchGrantsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsRequest;
+    /// let x = SearchGrantsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [caller_relationship][crate::model::SearchGrantsRequest::caller_relationship].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::search_grants_request::CallerRelationshipType;
+    /// let x0 = SearchGrantsRequest::new().set_caller_relationship(CallerRelationshipType::HadCreated);
+    /// let x1 = SearchGrantsRequest::new().set_caller_relationship(CallerRelationshipType::CanApprove);
+    /// let x2 = SearchGrantsRequest::new().set_caller_relationship(CallerRelationshipType::HadApproved);
+    /// ```
     pub fn set_caller_relationship<
         T: std::convert::Into<crate::model::search_grants_request::CallerRelationshipType>,
     >(
@@ -3604,18 +4689,36 @@ impl SearchGrantsRequest {
     }
 
     /// Sets the value of [filter][crate::model::SearchGrantsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsRequest;
+    /// let x = SearchGrantsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchGrantsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsRequest;
+    /// let x = SearchGrantsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchGrantsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsRequest;
+    /// let x = SearchGrantsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3794,6 +4897,17 @@ impl SearchGrantsResponse {
     }
 
     /// Sets the value of [grants][crate::model::SearchGrantsResponse::grants].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsResponse;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = SearchGrantsResponse::new()
+    ///     .set_grants([
+    ///         Grant::default()/* use setters */,
+    ///         Grant::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_grants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3805,6 +4919,12 @@ impl SearchGrantsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchGrantsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::SearchGrantsResponse;
+    /// let x = SearchGrantsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3847,6 +4967,12 @@ impl GetGrantRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGrantRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::GetGrantRequest;
+    /// let x = GetGrantRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3880,12 +5006,24 @@ impl ApproveGrantRequest {
     }
 
     /// Sets the value of [name][crate::model::ApproveGrantRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ApproveGrantRequest;
+    /// let x = ApproveGrantRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [reason][crate::model::ApproveGrantRequest::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::ApproveGrantRequest;
+    /// let x = ApproveGrantRequest::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
@@ -3919,12 +5057,24 @@ impl DenyGrantRequest {
     }
 
     /// Sets the value of [name][crate::model::DenyGrantRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::DenyGrantRequest;
+    /// let x = DenyGrantRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [reason][crate::model::DenyGrantRequest::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::DenyGrantRequest;
+    /// let x = DenyGrantRequest::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
@@ -3956,12 +5106,24 @@ impl RevokeGrantRequest {
     }
 
     /// Sets the value of [name][crate::model::RevokeGrantRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::RevokeGrantRequest;
+    /// let x = RevokeGrantRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [reason][crate::model::RevokeGrantRequest::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::RevokeGrantRequest;
+    /// let x = RevokeGrantRequest::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
@@ -4009,12 +5171,25 @@ impl CreateGrantRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGrantRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateGrantRequest;
+    /// let x = CreateGrantRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [grant][crate::model::CreateGrantRequest::grant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateGrantRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = CreateGrantRequest::new().set_grant(Grant::default()/* use setters */);
+    /// ```
     pub fn set_grant<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Grant>,
@@ -4024,6 +5199,14 @@ impl CreateGrantRequest {
     }
 
     /// Sets or clears the value of [grant][crate::model::CreateGrantRequest::grant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateGrantRequest;
+    /// use google_cloud_privilegedaccessmanager_v1::model::Grant;
+    /// let x = CreateGrantRequest::new().set_or_clear_grant(Some(Grant::default()/* use setters */));
+    /// let x = CreateGrantRequest::new().set_or_clear_grant(None::<Grant>);
+    /// ```
     pub fn set_or_clear_grant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Grant>,
@@ -4033,6 +5216,12 @@ impl CreateGrantRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateGrantRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::CreateGrantRequest;
+    /// let x = CreateGrantRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4085,6 +5274,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4094,6 +5290,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4103,6 +5307,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4112,6 +5323,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4121,30 +5340,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privilegedaccessmanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

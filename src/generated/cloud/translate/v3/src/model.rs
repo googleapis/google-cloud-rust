@@ -75,18 +75,36 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets the value of [name][crate::model::AdaptiveMtDataset::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = AdaptiveMtDataset::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::AdaptiveMtDataset::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = AdaptiveMtDataset::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [source_language_code][crate::model::AdaptiveMtDataset::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = AdaptiveMtDataset::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -96,6 +114,12 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets the value of [target_language_code][crate::model::AdaptiveMtDataset::target_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = AdaptiveMtDataset::new().set_target_language_code("example");
+    /// ```
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -105,12 +129,25 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets the value of [example_count][crate::model::AdaptiveMtDataset::example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = AdaptiveMtDataset::new().set_example_count(42);
+    /// ```
     pub fn set_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.example_count = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AdaptiveMtDataset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtDataset::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -120,6 +157,14 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AdaptiveMtDataset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtDataset::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AdaptiveMtDataset::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -129,6 +174,13 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets the value of [update_time][crate::model::AdaptiveMtDataset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtDataset::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -138,6 +190,14 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AdaptiveMtDataset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtDataset::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AdaptiveMtDataset::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -173,12 +233,25 @@ impl CreateAdaptiveMtDatasetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAdaptiveMtDatasetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateAdaptiveMtDatasetRequest;
+    /// let x = CreateAdaptiveMtDatasetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateAdaptiveMtDatasetRequest;
+    /// use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = CreateAdaptiveMtDatasetRequest::new().set_adaptive_mt_dataset(AdaptiveMtDataset::default()/* use setters */);
+    /// ```
     pub fn set_adaptive_mt_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveMtDataset>,
@@ -188,6 +261,14 @@ impl CreateAdaptiveMtDatasetRequest {
     }
 
     /// Sets or clears the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateAdaptiveMtDatasetRequest;
+    /// use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = CreateAdaptiveMtDatasetRequest::new().set_or_clear_adaptive_mt_dataset(Some(AdaptiveMtDataset::default()/* use setters */));
+    /// let x = CreateAdaptiveMtDatasetRequest::new().set_or_clear_adaptive_mt_dataset(None::<AdaptiveMtDataset>);
+    /// ```
     pub fn set_or_clear_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveMtDataset>,
@@ -220,6 +301,12 @@ impl DeleteAdaptiveMtDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAdaptiveMtDatasetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteAdaptiveMtDatasetRequest;
+    /// let x = DeleteAdaptiveMtDatasetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -249,6 +336,12 @@ impl GetAdaptiveMtDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAdaptiveMtDatasetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetAdaptiveMtDatasetRequest;
+    /// let x = GetAdaptiveMtDatasetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -294,24 +387,48 @@ impl ListAdaptiveMtDatasetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAdaptiveMtDatasetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtDatasetsRequest;
+    /// let x = ListAdaptiveMtDatasetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAdaptiveMtDatasetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtDatasetsRequest;
+    /// let x = ListAdaptiveMtDatasetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAdaptiveMtDatasetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtDatasetsRequest;
+    /// let x = ListAdaptiveMtDatasetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAdaptiveMtDatasetsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtDatasetsRequest;
+    /// let x = ListAdaptiveMtDatasetsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -345,6 +462,17 @@ impl ListAdaptiveMtDatasetsResponse {
     }
 
     /// Sets the value of [adaptive_mt_datasets][crate::model::ListAdaptiveMtDatasetsResponse::adaptive_mt_datasets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtDatasetsResponse;
+    /// use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// let x = ListAdaptiveMtDatasetsResponse::new()
+    ///     .set_adaptive_mt_datasets([
+    ///         AdaptiveMtDataset::default()/* use setters */,
+    ///         AdaptiveMtDataset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_adaptive_mt_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -356,6 +484,12 @@ impl ListAdaptiveMtDatasetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtDatasetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtDatasetsResponse;
+    /// let x = ListAdaptiveMtDatasetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -417,18 +551,36 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets the value of [parent][crate::model::AdaptiveMtTranslateRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// let x = AdaptiveMtTranslateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::AdaptiveMtTranslateRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// let x = AdaptiveMtTranslateRequest::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// let x = AdaptiveMtTranslateRequest::new().set_content(["a", "b", "c"]);
+    /// ```
     pub fn set_content<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -440,6 +592,13 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
+    /// let x = AdaptiveMtTranslateRequest::new().set_reference_sentence_config(ReferenceSentenceConfig::default()/* use setters */);
+    /// ```
     pub fn set_reference_sentence_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
@@ -449,6 +608,14 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets or clears the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
+    /// let x = AdaptiveMtTranslateRequest::new().set_or_clear_reference_sentence_config(Some(ReferenceSentenceConfig::default()/* use setters */));
+    /// let x = AdaptiveMtTranslateRequest::new().set_or_clear_reference_sentence_config(None::<ReferenceSentenceConfig>);
+    /// ```
     pub fn set_or_clear_reference_sentence_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
@@ -458,6 +625,13 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// use google_cloud_translation_v3::model::adaptive_mt_translate_request::GlossaryConfig;
+    /// let x = AdaptiveMtTranslateRequest::new().set_glossary_config(GlossaryConfig::default()/* use setters */);
+    /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
@@ -467,6 +641,14 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets or clears the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// use google_cloud_translation_v3::model::adaptive_mt_translate_request::GlossaryConfig;
+    /// let x = AdaptiveMtTranslateRequest::new().set_or_clear_glossary_config(Some(GlossaryConfig::default()/* use setters */));
+    /// let x = AdaptiveMtTranslateRequest::new().set_or_clear_glossary_config(None::<GlossaryConfig>);
+    /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
@@ -506,6 +688,12 @@ pub mod adaptive_mt_translate_request {
         }
 
         /// Sets the value of [source_sentence][crate::model::adaptive_mt_translate_request::ReferenceSentencePair::source_sentence].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentencePair;
+        /// let x = ReferenceSentencePair::new().set_source_sentence("example");
+        /// ```
         pub fn set_source_sentence<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -515,6 +703,12 @@ pub mod adaptive_mt_translate_request {
         }
 
         /// Sets the value of [target_sentence][crate::model::adaptive_mt_translate_request::ReferenceSentencePair::target_sentence].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentencePair;
+        /// let x = ReferenceSentencePair::new().set_target_sentence("example");
+        /// ```
         pub fn set_target_sentence<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -547,6 +741,17 @@ pub mod adaptive_mt_translate_request {
         }
 
         /// Sets the value of [reference_sentence_pairs][crate::model::adaptive_mt_translate_request::ReferenceSentencePairList::reference_sentence_pairs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentencePairList;
+        /// use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentencePair;
+        /// let x = ReferenceSentencePairList::new()
+        ///     .set_reference_sentence_pairs([
+        ///         ReferenceSentencePair::default()/* use setters */,
+        ///         ReferenceSentencePair::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_reference_sentence_pairs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -592,6 +797,17 @@ pub mod adaptive_mt_translate_request {
         }
 
         /// Sets the value of [reference_sentence_pair_lists][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::reference_sentence_pair_lists].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
+        /// use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentencePairList;
+        /// let x = ReferenceSentenceConfig::new()
+        ///     .set_reference_sentence_pair_lists([
+        ///         ReferenceSentencePairList::default()/* use setters */,
+        ///         ReferenceSentencePairList::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_reference_sentence_pair_lists<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -605,6 +821,12 @@ pub mod adaptive_mt_translate_request {
         }
 
         /// Sets the value of [source_language_code][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::source_language_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
+        /// let x = ReferenceSentenceConfig::new().set_source_language_code("example");
+        /// ```
         pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -614,6 +836,12 @@ pub mod adaptive_mt_translate_request {
         }
 
         /// Sets the value of [target_language_code][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::target_language_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
+        /// let x = ReferenceSentenceConfig::new().set_target_language_code("example");
+        /// ```
         pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -660,18 +888,36 @@ pub mod adaptive_mt_translate_request {
         }
 
         /// Sets the value of [glossary][crate::model::adaptive_mt_translate_request::GlossaryConfig::glossary].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::GlossaryConfig;
+        /// let x = GlossaryConfig::new().set_glossary("example");
+        /// ```
         pub fn set_glossary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.glossary = v.into();
             self
         }
 
         /// Sets the value of [ignore_case][crate::model::adaptive_mt_translate_request::GlossaryConfig::ignore_case].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::GlossaryConfig;
+        /// let x = GlossaryConfig::new().set_ignore_case(true);
+        /// ```
         pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.ignore_case = v.into();
             self
         }
 
         /// Sets the value of [contextual_translation_enabled][crate::model::adaptive_mt_translate_request::GlossaryConfig::contextual_translation_enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::adaptive_mt_translate_request::GlossaryConfig;
+        /// let x = GlossaryConfig::new().set_contextual_translation_enabled(true);
+        /// ```
         pub fn set_contextual_translation_enabled<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -704,6 +950,12 @@ impl AdaptiveMtTranslation {
     }
 
     /// Sets the value of [translated_text][crate::model::AdaptiveMtTranslation::translated_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslation;
+    /// let x = AdaptiveMtTranslation::new().set_translated_text("example");
+    /// ```
     pub fn set_translated_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.translated_text = v.into();
         self
@@ -739,6 +991,17 @@ impl AdaptiveMtTranslateResponse {
     }
 
     /// Sets the value of [translations][crate::model::AdaptiveMtTranslateResponse::translations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateResponse;
+    /// use google_cloud_translation_v3::model::AdaptiveMtTranslation;
+    /// let x = AdaptiveMtTranslateResponse::new()
+    ///     .set_translations([
+    ///         AdaptiveMtTranslation::default()/* use setters */,
+    ///         AdaptiveMtTranslation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -750,12 +1013,29 @@ impl AdaptiveMtTranslateResponse {
     }
 
     /// Sets the value of [language_code][crate::model::AdaptiveMtTranslateResponse::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateResponse;
+    /// let x = AdaptiveMtTranslateResponse::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [glossary_translations][crate::model::AdaptiveMtTranslateResponse::glossary_translations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateResponse;
+    /// use google_cloud_translation_v3::model::AdaptiveMtTranslation;
+    /// let x = AdaptiveMtTranslateResponse::new()
+    ///     .set_glossary_translations([
+    ///         AdaptiveMtTranslation::default()/* use setters */,
+    ///         AdaptiveMtTranslation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_glossary_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -802,24 +1082,49 @@ impl AdaptiveMtFile {
     }
 
     /// Sets the value of [name][crate::model::AdaptiveMtFile::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// let x = AdaptiveMtFile::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::AdaptiveMtFile::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// let x = AdaptiveMtFile::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [entry_count][crate::model::AdaptiveMtFile::entry_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// let x = AdaptiveMtFile::new().set_entry_count(42);
+    /// ```
     pub fn set_entry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.entry_count = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AdaptiveMtFile::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtFile::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -829,6 +1134,14 @@ impl AdaptiveMtFile {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AdaptiveMtFile::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtFile::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AdaptiveMtFile::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -838,6 +1151,13 @@ impl AdaptiveMtFile {
     }
 
     /// Sets the value of [update_time][crate::model::AdaptiveMtFile::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtFile::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -847,6 +1167,14 @@ impl AdaptiveMtFile {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AdaptiveMtFile::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtFile::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AdaptiveMtFile::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -879,6 +1207,12 @@ impl GetAdaptiveMtFileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAdaptiveMtFileRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetAdaptiveMtFileRequest;
+    /// let x = GetAdaptiveMtFileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -908,6 +1242,12 @@ impl DeleteAdaptiveMtFileRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAdaptiveMtFileRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteAdaptiveMtFileRequest;
+    /// let x = DeleteAdaptiveMtFileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -940,6 +1280,12 @@ impl ImportAdaptiveMtFileRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportAdaptiveMtFileRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportAdaptiveMtFileRequest;
+    /// let x = ImportAdaptiveMtFileRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -949,6 +1295,14 @@ impl ImportAdaptiveMtFileRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportAdaptiveMtFileRequest;
+    /// use google_cloud_translation_v3::model::FileInputSource;
+    /// let x = ImportAdaptiveMtFileRequest::new().set_source(Some(
+    ///     google_cloud_translation_v3::model::import_adaptive_mt_file_request::Source::FileInputSource(FileInputSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_adaptive_mt_file_request::Source>,
@@ -981,6 +1335,15 @@ impl ImportAdaptiveMtFileRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportAdaptiveMtFileRequest;
+    /// use google_cloud_translation_v3::model::FileInputSource;
+    /// let x = ImportAdaptiveMtFileRequest::new().set_file_input_source(FileInputSource::default()/* use setters */);
+    /// assert!(x.file_input_source().is_some());
+    /// assert!(x.gcs_input_source().is_none());
+    /// ```
     pub fn set_file_input_source<
         T: std::convert::Into<std::boxed::Box<crate::model::FileInputSource>>,
     >(
@@ -1013,6 +1376,15 @@ impl ImportAdaptiveMtFileRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportAdaptiveMtFileRequest;
+    /// use google_cloud_translation_v3::model::GcsInputSource;
+    /// let x = ImportAdaptiveMtFileRequest::new().set_gcs_input_source(GcsInputSource::default()/* use setters */);
+    /// assert!(x.gcs_input_source().is_some());
+    /// assert!(x.file_input_source().is_none());
+    /// ```
     pub fn set_gcs_input_source<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
     >(
@@ -1064,6 +1436,13 @@ impl ImportAdaptiveMtFileResponse {
     }
 
     /// Sets the value of [adaptive_mt_file][crate::model::ImportAdaptiveMtFileResponse::adaptive_mt_file].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportAdaptiveMtFileResponse;
+    /// use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// let x = ImportAdaptiveMtFileResponse::new().set_adaptive_mt_file(AdaptiveMtFile::default()/* use setters */);
+    /// ```
     pub fn set_adaptive_mt_file<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveMtFile>,
@@ -1073,6 +1452,14 @@ impl ImportAdaptiveMtFileResponse {
     }
 
     /// Sets or clears the value of [adaptive_mt_file][crate::model::ImportAdaptiveMtFileResponse::adaptive_mt_file].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportAdaptiveMtFileResponse;
+    /// use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// let x = ImportAdaptiveMtFileResponse::new().set_or_clear_adaptive_mt_file(Some(AdaptiveMtFile::default()/* use setters */));
+    /// let x = ImportAdaptiveMtFileResponse::new().set_or_clear_adaptive_mt_file(None::<AdaptiveMtFile>);
+    /// ```
     pub fn set_or_clear_adaptive_mt_file<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveMtFile>,
@@ -1116,18 +1503,36 @@ impl ListAdaptiveMtFilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAdaptiveMtFilesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtFilesRequest;
+    /// let x = ListAdaptiveMtFilesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAdaptiveMtFilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtFilesRequest;
+    /// let x = ListAdaptiveMtFilesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAdaptiveMtFilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtFilesRequest;
+    /// let x = ListAdaptiveMtFilesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1161,6 +1566,17 @@ impl ListAdaptiveMtFilesResponse {
     }
 
     /// Sets the value of [adaptive_mt_files][crate::model::ListAdaptiveMtFilesResponse::adaptive_mt_files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtFilesResponse;
+    /// use google_cloud_translation_v3::model::AdaptiveMtFile;
+    /// let x = ListAdaptiveMtFilesResponse::new()
+    ///     .set_adaptive_mt_files([
+    ///         AdaptiveMtFile::default()/* use setters */,
+    ///         AdaptiveMtFile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_adaptive_mt_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1172,6 +1588,12 @@ impl ListAdaptiveMtFilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtFilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtFilesResponse;
+    /// let x = ListAdaptiveMtFilesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1227,24 +1649,49 @@ impl AdaptiveMtSentence {
     }
 
     /// Sets the value of [name][crate::model::AdaptiveMtSentence::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// let x = AdaptiveMtSentence::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_sentence][crate::model::AdaptiveMtSentence::source_sentence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// let x = AdaptiveMtSentence::new().set_source_sentence("example");
+    /// ```
     pub fn set_source_sentence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_sentence = v.into();
         self
     }
 
     /// Sets the value of [target_sentence][crate::model::AdaptiveMtSentence::target_sentence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// let x = AdaptiveMtSentence::new().set_target_sentence("example");
+    /// ```
     pub fn set_target_sentence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_sentence = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AdaptiveMtSentence::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtSentence::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1254,6 +1701,14 @@ impl AdaptiveMtSentence {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AdaptiveMtSentence::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtSentence::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AdaptiveMtSentence::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1263,6 +1718,13 @@ impl AdaptiveMtSentence {
     }
 
     /// Sets the value of [update_time][crate::model::AdaptiveMtSentence::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtSentence::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1272,6 +1734,14 @@ impl AdaptiveMtSentence {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AdaptiveMtSentence::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// use wkt::Timestamp;
+    /// let x = AdaptiveMtSentence::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AdaptiveMtSentence::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1316,18 +1786,36 @@ impl ListAdaptiveMtSentencesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAdaptiveMtSentencesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtSentencesRequest;
+    /// let x = ListAdaptiveMtSentencesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAdaptiveMtSentencesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtSentencesRequest;
+    /// let x = ListAdaptiveMtSentencesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAdaptiveMtSentencesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtSentencesRequest;
+    /// let x = ListAdaptiveMtSentencesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1359,6 +1847,17 @@ impl ListAdaptiveMtSentencesResponse {
     }
 
     /// Sets the value of [adaptive_mt_sentences][crate::model::ListAdaptiveMtSentencesResponse::adaptive_mt_sentences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtSentencesResponse;
+    /// use google_cloud_translation_v3::model::AdaptiveMtSentence;
+    /// let x = ListAdaptiveMtSentencesResponse::new()
+    ///     .set_adaptive_mt_sentences([
+    ///         AdaptiveMtSentence::default()/* use setters */,
+    ///         AdaptiveMtSentence::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_adaptive_mt_sentences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1370,6 +1869,12 @@ impl ListAdaptiveMtSentencesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtSentencesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListAdaptiveMtSentencesResponse;
+    /// let x = ListAdaptiveMtSentencesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1416,12 +1921,25 @@ impl ImportDataRequest {
     }
 
     /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataRequest;
+    /// let x = ImportDataRequest::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [input_config][crate::model::ImportDataRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataRequest;
+    /// use google_cloud_translation_v3::model::DatasetInputConfig;
+    /// let x = ImportDataRequest::new().set_input_config(DatasetInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatasetInputConfig>,
@@ -1431,6 +1949,14 @@ impl ImportDataRequest {
     }
 
     /// Sets or clears the value of [input_config][crate::model::ImportDataRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataRequest;
+    /// use google_cloud_translation_v3::model::DatasetInputConfig;
+    /// let x = ImportDataRequest::new().set_or_clear_input_config(Some(DatasetInputConfig::default()/* use setters */));
+    /// let x = ImportDataRequest::new().set_or_clear_input_config(None::<DatasetInputConfig>);
+    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetInputConfig>,
@@ -1462,6 +1988,17 @@ impl DatasetInputConfig {
     }
 
     /// Sets the value of [input_files][crate::model::DatasetInputConfig::input_files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DatasetInputConfig;
+    /// use google_cloud_translation_v3::model::dataset_input_config::InputFile;
+    /// let x = DatasetInputConfig::new()
+    ///     .set_input_files([
+    ///         InputFile::default()/* use setters */,
+    ///         InputFile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_input_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1506,6 +2043,12 @@ pub mod dataset_input_config {
         }
 
         /// Sets the value of [usage][crate::model::dataset_input_config::InputFile::usage].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::dataset_input_config::InputFile;
+        /// let x = InputFile::new().set_usage("example");
+        /// ```
         pub fn set_usage<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.usage = v.into();
             self
@@ -1515,6 +2058,14 @@ pub mod dataset_input_config {
         ///
         /// Note that all the setters affecting `source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::dataset_input_config::InputFile;
+        /// use google_cloud_translation_v3::model::GcsInputSource;
+        /// let x = InputFile::new().set_source(Some(
+        ///     google_cloud_translation_v3::model::dataset_input_config::input_file::Source::GcsSource(GcsInputSource::default().into())));
+        /// ```
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::dataset_input_config::input_file::Source>,
@@ -1547,6 +2098,14 @@ pub mod dataset_input_config {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::dataset_input_config::InputFile;
+        /// use google_cloud_translation_v3::model::GcsInputSource;
+        /// let x = InputFile::new().set_gcs_source(GcsInputSource::default()/* use setters */);
+        /// assert!(x.gcs_source().is_some());
+        /// ```
         pub fn set_gcs_source<
             T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
         >(
@@ -1608,12 +2167,28 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [state][crate::model::ImportDataMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataMetadata;
+    /// use google_cloud_translation_v3::model::OperationState;
+    /// let x0 = ImportDataMetadata::new().set_state(OperationState::Running);
+    /// let x1 = ImportDataMetadata::new().set_state(OperationState::Succeeded);
+    /// let x2 = ImportDataMetadata::new().set_state(OperationState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ImportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1623,6 +2198,14 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ImportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportDataMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1632,6 +2215,13 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::ImportDataMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1641,6 +2231,14 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ImportDataMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportDataMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1650,6 +2248,13 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [error][crate::model::ImportDataMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataMetadata;
+    /// use rpc::model::Status;
+    /// let x = ImportDataMetadata::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1659,6 +2264,14 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clears the value of [error][crate::model::ImportDataMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ImportDataMetadata;
+    /// use rpc::model::Status;
+    /// let x = ImportDataMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = ImportDataMetadata::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1694,12 +2307,25 @@ impl ExportDataRequest {
     }
 
     /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataRequest;
+    /// let x = ExportDataRequest::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [output_config][crate::model::ExportDataRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataRequest;
+    /// use google_cloud_translation_v3::model::DatasetOutputConfig;
+    /// let x = ExportDataRequest::new().set_output_config(DatasetOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatasetOutputConfig>,
@@ -1709,6 +2335,14 @@ impl ExportDataRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::ExportDataRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataRequest;
+    /// use google_cloud_translation_v3::model::DatasetOutputConfig;
+    /// let x = ExportDataRequest::new().set_or_clear_output_config(Some(DatasetOutputConfig::default()/* use setters */));
+    /// let x = ExportDataRequest::new().set_or_clear_output_config(None::<DatasetOutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetOutputConfig>,
@@ -1743,6 +2377,14 @@ impl DatasetOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DatasetOutputConfig;
+    /// use google_cloud_translation_v3::model::GcsOutputDestination;
+    /// let x = DatasetOutputConfig::new().set_destination(Some(
+    ///     google_cloud_translation_v3::model::dataset_output_config::Destination::GcsDestination(GcsOutputDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::dataset_output_config::Destination>>,
     >(
@@ -1773,6 +2415,14 @@ impl DatasetOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DatasetOutputConfig;
+    /// use google_cloud_translation_v3::model::GcsOutputDestination;
+    /// let x = DatasetOutputConfig::new().set_gcs_destination(GcsOutputDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputDestination>>,
     >(
@@ -1831,12 +2481,28 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [state][crate::model::ExportDataMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataMetadata;
+    /// use google_cloud_translation_v3::model::OperationState;
+    /// let x0 = ExportDataMetadata::new().set_state(OperationState::Running);
+    /// let x1 = ExportDataMetadata::new().set_state(OperationState::Succeeded);
+    /// let x2 = ExportDataMetadata::new().set_state(OperationState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ExportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1846,6 +2512,14 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDataMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1855,6 +2529,13 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::ExportDataMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1864,6 +2545,14 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ExportDataMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDataMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1873,6 +2562,13 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [error][crate::model::ExportDataMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataMetadata;
+    /// use rpc::model::Status;
+    /// let x = ExportDataMetadata::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1882,6 +2578,14 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clears the value of [error][crate::model::ExportDataMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ExportDataMetadata;
+    /// use rpc::model::Status;
+    /// let x = ExportDataMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = ExportDataMetadata::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1913,6 +2617,12 @@ impl DeleteDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetRequest;
+    /// let x = DeleteDatasetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1950,12 +2660,28 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets the value of [state][crate::model::DeleteDatasetMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetMetadata;
+    /// use google_cloud_translation_v3::model::OperationState;
+    /// let x0 = DeleteDatasetMetadata::new().set_state(OperationState::Running);
+    /// let x1 = DeleteDatasetMetadata::new().set_state(OperationState::Succeeded);
+    /// let x2 = DeleteDatasetMetadata::new().set_state(OperationState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DeleteDatasetMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteDatasetMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1965,6 +2691,14 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeleteDatasetMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteDatasetMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteDatasetMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1974,6 +2708,13 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::DeleteDatasetMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteDatasetMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1983,6 +2724,14 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DeleteDatasetMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteDatasetMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteDatasetMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1992,6 +2741,13 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets the value of [error][crate::model::DeleteDatasetMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetMetadata;
+    /// use rpc::model::Status;
+    /// let x = DeleteDatasetMetadata::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2001,6 +2757,14 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets or clears the value of [error][crate::model::DeleteDatasetMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteDatasetMetadata;
+    /// use rpc::model::Status;
+    /// let x = DeleteDatasetMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = DeleteDatasetMetadata::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2032,6 +2796,12 @@ impl GetDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDatasetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetDatasetRequest;
+    /// let x = GetDatasetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2070,18 +2840,36 @@ impl ListDatasetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatasetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListDatasetsRequest;
+    /// let x = ListDatasetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatasetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListDatasetsRequest;
+    /// let x = ListDatasetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatasetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListDatasetsRequest;
+    /// let x = ListDatasetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2115,6 +2903,17 @@ impl ListDatasetsResponse {
     }
 
     /// Sets the value of [datasets][crate::model::ListDatasetsResponse::datasets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListDatasetsResponse;
+    /// use google_cloud_translation_v3::model::Dataset;
+    /// let x = ListDatasetsResponse::new()
+    ///     .set_datasets([
+    ///         Dataset::default()/* use setters */,
+    ///         Dataset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2126,6 +2925,12 @@ impl ListDatasetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatasetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListDatasetsResponse;
+    /// let x = ListDatasetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2171,12 +2976,25 @@ impl CreateDatasetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetRequest;
+    /// let x = CreateDatasetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetRequest;
+    /// use google_cloud_translation_v3::model::Dataset;
+    /// let x = CreateDatasetRequest::new().set_dataset(Dataset::default()/* use setters */);
+    /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
@@ -2186,6 +3004,14 @@ impl CreateDatasetRequest {
     }
 
     /// Sets or clears the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetRequest;
+    /// use google_cloud_translation_v3::model::Dataset;
+    /// let x = CreateDatasetRequest::new().set_or_clear_dataset(Some(Dataset::default()/* use setters */));
+    /// let x = CreateDatasetRequest::new().set_or_clear_dataset(None::<Dataset>);
+    /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
@@ -2226,12 +3052,28 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets the value of [state][crate::model::CreateDatasetMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetMetadata;
+    /// use google_cloud_translation_v3::model::OperationState;
+    /// let x0 = CreateDatasetMetadata::new().set_state(OperationState::Running);
+    /// let x1 = CreateDatasetMetadata::new().set_state(OperationState::Succeeded);
+    /// let x2 = CreateDatasetMetadata::new().set_state(OperationState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::CreateDatasetMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateDatasetMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2241,6 +3083,14 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CreateDatasetMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateDatasetMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateDatasetMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2250,6 +3100,13 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::CreateDatasetMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateDatasetMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2259,6 +3116,14 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CreateDatasetMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateDatasetMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateDatasetMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2268,6 +3133,13 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets the value of [error][crate::model::CreateDatasetMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetMetadata;
+    /// use rpc::model::Status;
+    /// let x = CreateDatasetMetadata::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2277,6 +3149,14 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets or clears the value of [error][crate::model::CreateDatasetMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateDatasetMetadata;
+    /// use rpc::model::Status;
+    /// let x = CreateDatasetMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = CreateDatasetMetadata::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2324,24 +3204,48 @@ impl ListExamplesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExamplesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListExamplesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExamplesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExamplesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2375,6 +3279,17 @@ impl ListExamplesResponse {
     }
 
     /// Sets the value of [examples][crate::model::ListExamplesResponse::examples].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListExamplesResponse;
+    /// use google_cloud_translation_v3::model::Example;
+    /// let x = ListExamplesResponse::new()
+    ///     .set_examples([
+    ///         Example::default()/* use setters */,
+    ///         Example::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_examples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2386,6 +3301,12 @@ impl ListExamplesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExamplesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListExamplesResponse;
+    /// let x = ListExamplesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2438,24 +3359,48 @@ impl Example {
     }
 
     /// Sets the value of [name][crate::model::Example::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Example;
+    /// let x = Example::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_text][crate::model::Example::source_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Example;
+    /// let x = Example::new().set_source_text("example");
+    /// ```
     pub fn set_source_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_text = v.into();
         self
     }
 
     /// Sets the value of [target_text][crate::model::Example::target_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Example;
+    /// let x = Example::new().set_target_text("example");
+    /// ```
     pub fn set_target_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_text = v.into();
         self
     }
 
     /// Sets the value of [usage][crate::model::Example::usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Example;
+    /// let x = Example::new().set_usage("example");
+    /// ```
     pub fn set_usage<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.usage = v.into();
         self
@@ -2485,6 +3430,17 @@ impl BatchTransferResourcesResponse {
     }
 
     /// Sets the value of [responses][crate::model::BatchTransferResourcesResponse::responses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTransferResourcesResponse;
+    /// use google_cloud_translation_v3::model::batch_transfer_resources_response::TransferResourceResponse;
+    /// let x = BatchTransferResourcesResponse::new()
+    ///     .set_responses([
+    ///         TransferResourceResponse::default()/* use setters */,
+    ///         TransferResourceResponse::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2532,18 +3488,37 @@ pub mod batch_transfer_resources_response {
         }
 
         /// Sets the value of [source][crate::model::batch_transfer_resources_response::TransferResourceResponse::source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::batch_transfer_resources_response::TransferResourceResponse;
+        /// let x = TransferResourceResponse::new().set_source("example");
+        /// ```
         pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = v.into();
             self
         }
 
         /// Sets the value of [target][crate::model::batch_transfer_resources_response::TransferResourceResponse::target].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::batch_transfer_resources_response::TransferResourceResponse;
+        /// let x = TransferResourceResponse::new().set_target("example");
+        /// ```
         pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target = v.into();
             self
         }
 
         /// Sets the value of [error][crate::model::batch_transfer_resources_response::TransferResourceResponse::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::batch_transfer_resources_response::TransferResourceResponse;
+        /// use rpc::model::Status;
+        /// let x = TransferResourceResponse::new().set_error(Status::default()/* use setters */);
+        /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -2553,6 +3528,14 @@ pub mod batch_transfer_resources_response {
         }
 
         /// Sets or clears the value of [error][crate::model::batch_transfer_resources_response::TransferResourceResponse::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::batch_transfer_resources_response::TransferResourceResponse;
+        /// use rpc::model::Status;
+        /// let x = TransferResourceResponse::new().set_or_clear_error(Some(Status::default()/* use setters */));
+        /// let x = TransferResourceResponse::new().set_or_clear_error(None::<Status>);
+        /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -2616,18 +3599,36 @@ impl Dataset {
     }
 
     /// Sets the value of [name][crate::model::Dataset::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Dataset::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [source_language_code][crate::model::Dataset::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2637,6 +3638,12 @@ impl Dataset {
     }
 
     /// Sets the value of [target_language_code][crate::model::Dataset::target_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_target_language_code("example");
+    /// ```
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2646,30 +3653,61 @@ impl Dataset {
     }
 
     /// Sets the value of [example_count][crate::model::Dataset::example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_example_count(42);
+    /// ```
     pub fn set_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.example_count = v.into();
         self
     }
 
     /// Sets the value of [train_example_count][crate::model::Dataset::train_example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_train_example_count(42);
+    /// ```
     pub fn set_train_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.train_example_count = v.into();
         self
     }
 
     /// Sets the value of [validate_example_count][crate::model::Dataset::validate_example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_validate_example_count(42);
+    /// ```
     pub fn set_validate_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.validate_example_count = v.into();
         self
     }
 
     /// Sets the value of [test_example_count][crate::model::Dataset::test_example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// let x = Dataset::new().set_test_example_count(42);
+    /// ```
     pub fn set_test_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.test_example_count = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Dataset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// use wkt::Timestamp;
+    /// let x = Dataset::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2679,6 +3717,14 @@ impl Dataset {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Dataset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// use wkt::Timestamp;
+    /// let x = Dataset::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Dataset::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2688,6 +3734,13 @@ impl Dataset {
     }
 
     /// Sets the value of [update_time][crate::model::Dataset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// use wkt::Timestamp;
+    /// let x = Dataset::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2697,6 +3750,14 @@ impl Dataset {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Dataset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Dataset;
+    /// use wkt::Timestamp;
+    /// let x = Dataset::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Dataset::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2732,12 +3793,25 @@ impl CreateModelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelRequest;
+    /// let x = CreateModelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::CreateModelRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelRequest;
+    /// use google_cloud_translation_v3::model::Model;
+    /// let x = CreateModelRequest::new().set_model(Model::default()/* use setters */);
+    /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -2747,6 +3821,14 @@ impl CreateModelRequest {
     }
 
     /// Sets or clears the value of [model][crate::model::CreateModelRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelRequest;
+    /// use google_cloud_translation_v3::model::Model;
+    /// let x = CreateModelRequest::new().set_or_clear_model(Some(Model::default()/* use setters */));
+    /// let x = CreateModelRequest::new().set_or_clear_model(None::<Model>);
+    /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -2787,12 +3869,28 @@ impl CreateModelMetadata {
     }
 
     /// Sets the value of [state][crate::model::CreateModelMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelMetadata;
+    /// use google_cloud_translation_v3::model::OperationState;
+    /// let x0 = CreateModelMetadata::new().set_state(OperationState::Running);
+    /// let x1 = CreateModelMetadata::new().set_state(OperationState::Succeeded);
+    /// let x2 = CreateModelMetadata::new().set_state(OperationState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::CreateModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2802,6 +3900,14 @@ impl CreateModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CreateModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2811,6 +3917,13 @@ impl CreateModelMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::CreateModelMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateModelMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2820,6 +3933,14 @@ impl CreateModelMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CreateModelMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateModelMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateModelMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2829,6 +3950,13 @@ impl CreateModelMetadata {
     }
 
     /// Sets the value of [error][crate::model::CreateModelMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelMetadata;
+    /// use rpc::model::Status;
+    /// let x = CreateModelMetadata::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2838,6 +3966,14 @@ impl CreateModelMetadata {
     }
 
     /// Sets or clears the value of [error][crate::model::CreateModelMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateModelMetadata;
+    /// use rpc::model::Status;
+    /// let x = CreateModelMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = CreateModelMetadata::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2884,24 +4020,48 @@ impl ListModelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListModelsRequest;
+    /// let x = ListModelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListModelsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListModelsRequest;
+    /// let x = ListModelsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListModelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListModelsRequest;
+    /// let x = ListModelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListModelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListModelsRequest;
+    /// let x = ListModelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2935,6 +4095,17 @@ impl ListModelsResponse {
     }
 
     /// Sets the value of [models][crate::model::ListModelsResponse::models].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListModelsResponse;
+    /// use google_cloud_translation_v3::model::Model;
+    /// let x = ListModelsResponse::new()
+    ///     .set_models([
+    ///         Model::default()/* use setters */,
+    ///         Model::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2946,6 +4117,12 @@ impl ListModelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListModelsResponse;
+    /// let x = ListModelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2988,6 +4165,12 @@ impl GetModelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetModelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetModelRequest;
+    /// let x = GetModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3016,6 +4199,12 @@ impl DeleteModelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteModelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelRequest;
+    /// let x = DeleteModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3053,12 +4242,28 @@ impl DeleteModelMetadata {
     }
 
     /// Sets the value of [state][crate::model::DeleteModelMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelMetadata;
+    /// use google_cloud_translation_v3::model::OperationState;
+    /// let x0 = DeleteModelMetadata::new().set_state(OperationState::Running);
+    /// let x1 = DeleteModelMetadata::new().set_state(OperationState::Succeeded);
+    /// let x2 = DeleteModelMetadata::new().set_state(OperationState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DeleteModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3068,6 +4273,14 @@ impl DeleteModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeleteModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3077,6 +4290,13 @@ impl DeleteModelMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::DeleteModelMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteModelMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3086,6 +4306,14 @@ impl DeleteModelMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DeleteModelMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteModelMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteModelMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3095,6 +4323,13 @@ impl DeleteModelMetadata {
     }
 
     /// Sets the value of [error][crate::model::DeleteModelMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelMetadata;
+    /// use rpc::model::Status;
+    /// let x = DeleteModelMetadata::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3104,6 +4339,14 @@ impl DeleteModelMetadata {
     }
 
     /// Sets or clears the value of [error][crate::model::DeleteModelMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteModelMetadata;
+    /// use rpc::model::Status;
+    /// let x = DeleteModelMetadata::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = DeleteModelMetadata::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3168,24 +4411,48 @@ impl Model {
     }
 
     /// Sets the value of [name][crate::model::Model::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Model::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::Model::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [source_language_code][crate::model::Model::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3195,6 +4462,12 @@ impl Model {
     }
 
     /// Sets the value of [target_language_code][crate::model::Model::target_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_target_language_code("example");
+    /// ```
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3204,24 +4477,49 @@ impl Model {
     }
 
     /// Sets the value of [train_example_count][crate::model::Model::train_example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_train_example_count(42);
+    /// ```
     pub fn set_train_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.train_example_count = v.into();
         self
     }
 
     /// Sets the value of [validate_example_count][crate::model::Model::validate_example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_validate_example_count(42);
+    /// ```
     pub fn set_validate_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.validate_example_count = v.into();
         self
     }
 
     /// Sets the value of [test_example_count][crate::model::Model::test_example_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// let x = Model::new().set_test_example_count(42);
+    /// ```
     pub fn set_test_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.test_example_count = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Model::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3231,6 +4529,14 @@ impl Model {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Model::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Model::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3240,6 +4546,13 @@ impl Model {
     }
 
     /// Sets the value of [update_time][crate::model::Model::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3249,6 +4562,14 @@ impl Model {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Model::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Model::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3280,6 +4601,12 @@ impl GcsInputSource {
     }
 
     /// Sets the value of [input_uri][crate::model::GcsInputSource::input_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GcsInputSource;
+    /// let x = GcsInputSource::new().set_input_uri("example");
+    /// ```
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
@@ -3314,18 +4641,36 @@ impl FileInputSource {
     }
 
     /// Sets the value of [mime_type][crate::model::FileInputSource::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::FileInputSource;
+    /// let x = FileInputSource::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::FileInputSource::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::FileInputSource;
+    /// let x = FileInputSource::new().set_content(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::FileInputSource::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::FileInputSource;
+    /// let x = FileInputSource::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -3356,6 +4701,12 @@ impl GcsOutputDestination {
     }
 
     /// Sets the value of [output_uri_prefix][crate::model::GcsOutputDestination::output_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GcsOutputDestination;
+    /// let x = GcsOutputDestination::new().set_output_uri_prefix("example");
+    /// ```
     pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3396,12 +4747,24 @@ impl GlossaryEntry {
     }
 
     /// Sets the value of [name][crate::model::GlossaryEntry::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryEntry;
+    /// let x = GlossaryEntry::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::GlossaryEntry::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryEntry;
+    /// let x = GlossaryEntry::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -3411,6 +4774,14 @@ impl GlossaryEntry {
     ///
     /// Note that all the setters affecting `data` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryEntry;
+    /// use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsPair;
+    /// let x = GlossaryEntry::new().set_data(Some(
+    ///     google_cloud_translation_v3::model::glossary_entry::Data::TermsPair(GlossaryTermsPair::default().into())));
+    /// ```
     pub fn set_data<
         T: std::convert::Into<std::option::Option<crate::model::glossary_entry::Data>>,
     >(
@@ -3440,6 +4811,15 @@ impl GlossaryEntry {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryEntry;
+    /// use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsPair;
+    /// let x = GlossaryEntry::new().set_terms_pair(GlossaryTermsPair::default()/* use setters */);
+    /// assert!(x.terms_pair().is_some());
+    /// assert!(x.terms_set().is_none());
+    /// ```
     pub fn set_terms_pair<
         T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>>,
     >(
@@ -3469,6 +4849,15 @@ impl GlossaryEntry {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryEntry;
+    /// use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsSet;
+    /// let x = GlossaryEntry::new().set_terms_set(GlossaryTermsSet::default()/* use setters */);
+    /// assert!(x.terms_set().is_some());
+    /// assert!(x.terms_pair().is_none());
+    /// ```
     pub fn set_terms_set<
         T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>>,
     >(
@@ -3511,6 +4900,13 @@ pub mod glossary_entry {
         }
 
         /// Sets the value of [source_term][crate::model::glossary_entry::GlossaryTermsPair::source_term].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsPair;
+        /// use google_cloud_translation_v3::model::GlossaryTerm;
+        /// let x = GlossaryTermsPair::new().set_source_term(GlossaryTerm::default()/* use setters */);
+        /// ```
         pub fn set_source_term<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -3520,6 +4916,14 @@ pub mod glossary_entry {
         }
 
         /// Sets or clears the value of [source_term][crate::model::glossary_entry::GlossaryTermsPair::source_term].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsPair;
+        /// use google_cloud_translation_v3::model::GlossaryTerm;
+        /// let x = GlossaryTermsPair::new().set_or_clear_source_term(Some(GlossaryTerm::default()/* use setters */));
+        /// let x = GlossaryTermsPair::new().set_or_clear_source_term(None::<GlossaryTerm>);
+        /// ```
         pub fn set_or_clear_source_term<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -3529,6 +4933,13 @@ pub mod glossary_entry {
         }
 
         /// Sets the value of [target_term][crate::model::glossary_entry::GlossaryTermsPair::target_term].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsPair;
+        /// use google_cloud_translation_v3::model::GlossaryTerm;
+        /// let x = GlossaryTermsPair::new().set_target_term(GlossaryTerm::default()/* use setters */);
+        /// ```
         pub fn set_target_term<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -3538,6 +4949,14 @@ pub mod glossary_entry {
         }
 
         /// Sets or clears the value of [target_term][crate::model::glossary_entry::GlossaryTermsPair::target_term].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsPair;
+        /// use google_cloud_translation_v3::model::GlossaryTerm;
+        /// let x = GlossaryTermsPair::new().set_or_clear_target_term(Some(GlossaryTerm::default()/* use setters */));
+        /// let x = GlossaryTermsPair::new().set_or_clear_target_term(None::<GlossaryTerm>);
+        /// ```
         pub fn set_or_clear_target_term<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -3572,6 +4991,17 @@ pub mod glossary_entry {
         }
 
         /// Sets the value of [terms][crate::model::glossary_entry::GlossaryTermsSet::terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary_entry::GlossaryTermsSet;
+        /// use google_cloud_translation_v3::model::GlossaryTerm;
+        /// let x = GlossaryTermsSet::new()
+        ///     .set_terms([
+        ///         GlossaryTerm::default()/* use setters */,
+        ///         GlossaryTerm::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3620,12 +5050,24 @@ impl GlossaryTerm {
     }
 
     /// Sets the value of [language_code][crate::model::GlossaryTerm::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [text][crate::model::GlossaryTerm::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_text("example");
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
@@ -3655,6 +5097,12 @@ impl TransliterationConfig {
     }
 
     /// Sets the value of [enable_transliteration][crate::model::TransliterationConfig::enable_transliteration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TransliterationConfig;
+    /// let x = TransliterationConfig::new().set_enable_transliteration(true);
+    /// ```
     pub fn set_enable_transliteration<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_transliteration = v.into();
         self
@@ -3758,6 +5206,12 @@ impl TranslateTextRequest {
     }
 
     /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// let x = TranslateTextRequest::new().set_contents(["a", "b", "c"]);
+    /// ```
     pub fn set_contents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3769,12 +5223,24 @@ impl TranslateTextRequest {
     }
 
     /// Sets the value of [mime_type][crate::model::TranslateTextRequest::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// let x = TranslateTextRequest::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [source_language_code][crate::model::TranslateTextRequest::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// let x = TranslateTextRequest::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3784,6 +5250,12 @@ impl TranslateTextRequest {
     }
 
     /// Sets the value of [target_language_code][crate::model::TranslateTextRequest::target_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// let x = TranslateTextRequest::new().set_target_language_code("example");
+    /// ```
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3793,18 +5265,37 @@ impl TranslateTextRequest {
     }
 
     /// Sets the value of [parent][crate::model::TranslateTextRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// let x = TranslateTextRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::TranslateTextRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// let x = TranslateTextRequest::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateTextRequest::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
+    /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -3814,6 +5305,14 @@ impl TranslateTextRequest {
     }
 
     /// Sets or clears the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateTextRequest::new().set_or_clear_glossary_config(Some(TranslateTextGlossaryConfig::default()/* use setters */));
+    /// let x = TranslateTextRequest::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
+    /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -3823,6 +5322,13 @@ impl TranslateTextRequest {
     }
 
     /// Sets the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// use google_cloud_translation_v3::model::TransliterationConfig;
+    /// let x = TranslateTextRequest::new().set_transliteration_config(TransliterationConfig::default()/* use setters */);
+    /// ```
     pub fn set_transliteration_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransliterationConfig>,
@@ -3832,6 +5338,14 @@ impl TranslateTextRequest {
     }
 
     /// Sets or clears the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// use google_cloud_translation_v3::model::TransliterationConfig;
+    /// let x = TranslateTextRequest::new().set_or_clear_transliteration_config(Some(TransliterationConfig::default()/* use setters */));
+    /// let x = TranslateTextRequest::new().set_or_clear_transliteration_config(None::<TransliterationConfig>);
+    /// ```
     pub fn set_or_clear_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransliterationConfig>,
@@ -3841,6 +5355,15 @@ impl TranslateTextRequest {
     }
 
     /// Sets the value of [labels][crate::model::TranslateTextRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextRequest;
+    /// let x = TranslateTextRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3888,6 +5411,17 @@ impl TranslateTextResponse {
     }
 
     /// Sets the value of [translations][crate::model::TranslateTextResponse::translations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextResponse;
+    /// use google_cloud_translation_v3::model::Translation;
+    /// let x = TranslateTextResponse::new()
+    ///     .set_translations([
+    ///         Translation::default()/* use setters */,
+    ///         Translation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3899,6 +5433,17 @@ impl TranslateTextResponse {
     }
 
     /// Sets the value of [glossary_translations][crate::model::TranslateTextResponse::glossary_translations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextResponse;
+    /// use google_cloud_translation_v3::model::Translation;
+    /// let x = TranslateTextResponse::new()
+    ///     .set_glossary_translations([
+    ///         Translation::default()/* use setters */,
+    ///         Translation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_glossary_translations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3953,18 +5498,36 @@ impl Translation {
     }
 
     /// Sets the value of [translated_text][crate::model::Translation::translated_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Translation;
+    /// let x = Translation::new().set_translated_text("example");
+    /// ```
     pub fn set_translated_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.translated_text = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::Translation::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Translation;
+    /// let x = Translation::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [detected_language_code][crate::model::Translation::detected_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Translation;
+    /// let x = Translation::new().set_detected_language_code("example");
+    /// ```
     pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3974,6 +5537,13 @@ impl Translation {
     }
 
     /// Sets the value of [glossary_config][crate::model::Translation::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Translation;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = Translation::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
+    /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -3983,6 +5553,14 @@ impl Translation {
     }
 
     /// Sets or clears the value of [glossary_config][crate::model::Translation::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Translation;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = Translation::new().set_or_clear_glossary_config(Some(TranslateTextGlossaryConfig::default()/* use setters */));
+    /// let x = Translation::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
+    /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -4033,12 +5611,24 @@ impl RomanizeTextRequest {
     }
 
     /// Sets the value of [parent][crate::model::RomanizeTextRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::RomanizeTextRequest;
+    /// let x = RomanizeTextRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [contents][crate::model::RomanizeTextRequest::contents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::RomanizeTextRequest;
+    /// let x = RomanizeTextRequest::new().set_contents(["a", "b", "c"]);
+    /// ```
     pub fn set_contents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4050,6 +5640,12 @@ impl RomanizeTextRequest {
     }
 
     /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::RomanizeTextRequest;
+    /// let x = RomanizeTextRequest::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4089,12 +5685,24 @@ impl Romanization {
     }
 
     /// Sets the value of [romanized_text][crate::model::Romanization::romanized_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Romanization;
+    /// let x = Romanization::new().set_romanized_text("example");
+    /// ```
     pub fn set_romanized_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.romanized_text = v.into();
         self
     }
 
     /// Sets the value of [detected_language_code][crate::model::Romanization::detected_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Romanization;
+    /// let x = Romanization::new().set_detected_language_code("example");
+    /// ```
     pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4130,6 +5738,17 @@ impl RomanizeTextResponse {
     }
 
     /// Sets the value of [romanizations][crate::model::RomanizeTextResponse::romanizations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::RomanizeTextResponse;
+    /// use google_cloud_translation_v3::model::Romanization;
+    /// let x = RomanizeTextResponse::new()
+    ///     .set_romanizations([
+    ///         Romanization::default()/* use setters */,
+    ///         Romanization::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_romanizations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4202,24 +5821,51 @@ impl DetectLanguageRequest {
     }
 
     /// Sets the value of [parent][crate::model::DetectLanguageRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectLanguageRequest;
+    /// let x = DetectLanguageRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::DetectLanguageRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectLanguageRequest;
+    /// let x = DetectLanguageRequest::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::DetectLanguageRequest::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectLanguageRequest;
+    /// let x = DetectLanguageRequest::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DetectLanguageRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectLanguageRequest;
+    /// let x = DetectLanguageRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4235,6 +5881,13 @@ impl DetectLanguageRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectLanguageRequest;
+    /// use google_cloud_translation_v3::model::detect_language_request::Source;
+    /// let x = DetectLanguageRequest::new().set_source(Some(Source::Content("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::detect_language_request::Source>>,
     >(
@@ -4263,6 +5916,13 @@ impl DetectLanguageRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectLanguageRequest;
+    /// let x = DetectLanguageRequest::new().set_content("example");
+    /// assert!(x.content().is_some());
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::detect_language_request::Source::Content(v.into()),
@@ -4311,12 +5971,24 @@ impl DetectedLanguage {
     }
 
     /// Sets the value of [language_code][crate::model::DetectedLanguage::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectedLanguage;
+    /// let x = DetectedLanguage::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::DetectedLanguage::confidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectedLanguage;
+    /// let x = DetectedLanguage::new().set_confidence(42.0);
+    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -4346,6 +6018,17 @@ impl DetectLanguageResponse {
     }
 
     /// Sets the value of [languages][crate::model::DetectLanguageResponse::languages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DetectLanguageResponse;
+    /// use google_cloud_translation_v3::model::DetectedLanguage;
+    /// let x = DetectLanguageResponse::new()
+    ///     .set_languages([
+    ///         DetectedLanguage::default()/* use setters */,
+    ///         DetectedLanguage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4411,12 +6094,24 @@ impl GetSupportedLanguagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::GetSupportedLanguagesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetSupportedLanguagesRequest;
+    /// let x = GetSupportedLanguagesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [display_language_code][crate::model::GetSupportedLanguagesRequest::display_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetSupportedLanguagesRequest;
+    /// let x = GetSupportedLanguagesRequest::new().set_display_language_code("example");
+    /// ```
     pub fn set_display_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4426,6 +6121,12 @@ impl GetSupportedLanguagesRequest {
     }
 
     /// Sets the value of [model][crate::model::GetSupportedLanguagesRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetSupportedLanguagesRequest;
+    /// let x = GetSupportedLanguagesRequest::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -4455,6 +6156,17 @@ impl SupportedLanguages {
     }
 
     /// Sets the value of [languages][crate::model::SupportedLanguages::languages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::SupportedLanguages;
+    /// use google_cloud_translation_v3::model::SupportedLanguage;
+    /// let x = SupportedLanguages::new()
+    ///     .set_languages([
+    ///         SupportedLanguage::default()/* use setters */,
+    ///         SupportedLanguage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4502,24 +6214,48 @@ impl SupportedLanguage {
     }
 
     /// Sets the value of [language_code][crate::model::SupportedLanguage::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::SupportedLanguage;
+    /// let x = SupportedLanguage::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::SupportedLanguage::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::SupportedLanguage;
+    /// let x = SupportedLanguage::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [support_source][crate::model::SupportedLanguage::support_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::SupportedLanguage;
+    /// let x = SupportedLanguage::new().set_support_source(true);
+    /// ```
     pub fn set_support_source<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.support_source = v.into();
         self
     }
 
     /// Sets the value of [support_target][crate::model::SupportedLanguage::support_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::SupportedLanguage;
+    /// let x = SupportedLanguage::new().set_support_target(true);
+    /// ```
     pub fn set_support_target<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.support_target = v.into();
         self
@@ -4548,6 +6284,12 @@ impl GcsSource {
     }
 
     /// Sets the value of [input_uri][crate::model::GcsSource::input_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GcsSource;
+    /// let x = GcsSource::new().set_input_uri("example");
+    /// ```
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
@@ -4582,6 +6324,12 @@ impl InputConfig {
     }
 
     /// Sets the value of [mime_type][crate::model::InputConfig::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::InputConfig;
+    /// let x = InputConfig::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -4591,6 +6339,14 @@ impl InputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::InputConfig;
+    /// use google_cloud_translation_v3::model::GcsSource;
+    /// let x = InputConfig::new().set_source(Some(
+    ///     google_cloud_translation_v3::model::input_config::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -4617,6 +6373,14 @@ impl InputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::InputConfig;
+    /// use google_cloud_translation_v3::model::GcsSource;
+    /// let x = InputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -4684,6 +6448,12 @@ impl GcsDestination {
     }
 
     /// Sets the value of [output_uri_prefix][crate::model::GcsDestination::output_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GcsDestination;
+    /// let x = GcsDestination::new().set_output_uri_prefix("example");
+    /// ```
     pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4718,6 +6488,14 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::OutputConfig;
+    /// use google_cloud_translation_v3::model::GcsDestination;
+    /// let x = OutputConfig::new().set_destination(Some(
+    ///     google_cloud_translation_v3::model::output_config::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -4748,6 +6526,14 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::OutputConfig;
+    /// use google_cloud_translation_v3::model::GcsDestination;
+    /// let x = OutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -4887,6 +6673,12 @@ impl DocumentInputConfig {
     }
 
     /// Sets the value of [mime_type][crate::model::DocumentInputConfig::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentInputConfig;
+    /// let x = DocumentInputConfig::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -4896,6 +6688,13 @@ impl DocumentInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentInputConfig;
+    /// use google_cloud_translation_v3::model::document_input_config::Source;
+    /// let x = DocumentInputConfig::new().set_source(Some(Source::Content(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document_input_config::Source>>,
     >(
@@ -4922,6 +6721,14 @@ impl DocumentInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentInputConfig;
+    /// let x = DocumentInputConfig::new().set_content(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.content().is_some());
+    /// assert!(x.gcs_source().is_none());
+    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::document_input_config::Source::Content(v.into()),
@@ -4947,6 +6754,15 @@ impl DocumentInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentInputConfig;
+    /// use google_cloud_translation_v3::model::GcsSource;
+    /// let x = DocumentInputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// assert!(x.content().is_none());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -5021,6 +6837,12 @@ impl DocumentOutputConfig {
     }
 
     /// Sets the value of [mime_type][crate::model::DocumentOutputConfig::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentOutputConfig;
+    /// let x = DocumentOutputConfig::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -5030,6 +6852,14 @@ impl DocumentOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentOutputConfig;
+    /// use google_cloud_translation_v3::model::GcsDestination;
+    /// let x = DocumentOutputConfig::new().set_destination(Some(
+    ///     google_cloud_translation_v3::model::document_output_config::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>,
     >(
@@ -5060,6 +6890,14 @@ impl DocumentOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentOutputConfig;
+    /// use google_cloud_translation_v3::model::GcsDestination;
+    /// let x = DocumentOutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -5243,12 +7081,24 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [parent][crate::model::TranslateDocumentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [source_language_code][crate::model::TranslateDocumentRequest::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5258,6 +7108,12 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [target_language_code][crate::model::TranslateDocumentRequest::target_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_target_language_code("example");
+    /// ```
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5267,6 +7123,13 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::DocumentInputConfig;
+    /// let x = TranslateDocumentRequest::new().set_document_input_config(DocumentInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_document_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentInputConfig>,
@@ -5276,6 +7139,14 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets or clears the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::DocumentInputConfig;
+    /// let x = TranslateDocumentRequest::new().set_or_clear_document_input_config(Some(DocumentInputConfig::default()/* use setters */));
+    /// let x = TranslateDocumentRequest::new().set_or_clear_document_input_config(None::<DocumentInputConfig>);
+    /// ```
     pub fn set_or_clear_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentInputConfig>,
@@ -5285,6 +7156,13 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::DocumentOutputConfig;
+    /// let x = TranslateDocumentRequest::new().set_document_output_config(DocumentOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_document_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentOutputConfig>,
@@ -5294,6 +7172,14 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets or clears the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::DocumentOutputConfig;
+    /// let x = TranslateDocumentRequest::new().set_or_clear_document_output_config(Some(DocumentOutputConfig::default()/* use setters */));
+    /// let x = TranslateDocumentRequest::new().set_or_clear_document_output_config(None::<DocumentOutputConfig>);
+    /// ```
     pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentOutputConfig>,
@@ -5303,12 +7189,25 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [model][crate::model::TranslateDocumentRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateDocumentRequest::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
+    /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -5318,6 +7217,14 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets or clears the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateDocumentRequest::new().set_or_clear_glossary_config(Some(TranslateTextGlossaryConfig::default()/* use setters */));
+    /// let x = TranslateDocumentRequest::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
+    /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -5327,6 +7234,15 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5339,6 +7255,12 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [customized_attribution][crate::model::TranslateDocumentRequest::customized_attribution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_customized_attribution("example");
+    /// ```
     pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5348,12 +7270,24 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [is_translate_native_pdf_only][crate::model::TranslateDocumentRequest::is_translate_native_pdf_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_is_translate_native_pdf_only(true);
+    /// ```
     pub fn set_is_translate_native_pdf_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_translate_native_pdf_only = v.into();
         self
     }
 
     /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::TranslateDocumentRequest::enable_shadow_removal_native_pdf].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_enable_shadow_removal_native_pdf(true);
+    /// ```
     pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -5363,6 +7297,12 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [enable_rotation_correction][crate::model::TranslateDocumentRequest::enable_rotation_correction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentRequest;
+    /// let x = TranslateDocumentRequest::new().set_enable_rotation_correction(true);
+    /// ```
     pub fn set_enable_rotation_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_rotation_correction = v.into();
         self
@@ -5403,6 +7343,14 @@ impl DocumentTranslation {
     }
 
     /// Sets the value of [byte_stream_outputs][crate::model::DocumentTranslation::byte_stream_outputs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentTranslation;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = DocumentTranslation::new().set_byte_stream_outputs([b1, b2]);
+    /// ```
     pub fn set_byte_stream_outputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5414,12 +7362,24 @@ impl DocumentTranslation {
     }
 
     /// Sets the value of [mime_type][crate::model::DocumentTranslation::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentTranslation;
+    /// let x = DocumentTranslation::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [detected_language_code][crate::model::DocumentTranslation::detected_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DocumentTranslation;
+    /// let x = DocumentTranslation::new().set_detected_language_code("example");
+    /// ```
     pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5469,6 +7429,13 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets the value of [document_translation][crate::model::TranslateDocumentResponse::document_translation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentResponse;
+    /// use google_cloud_translation_v3::model::DocumentTranslation;
+    /// let x = TranslateDocumentResponse::new().set_document_translation(DocumentTranslation::default()/* use setters */);
+    /// ```
     pub fn set_document_translation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentTranslation>,
@@ -5478,6 +7445,14 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets or clears the value of [document_translation][crate::model::TranslateDocumentResponse::document_translation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentResponse;
+    /// use google_cloud_translation_v3::model::DocumentTranslation;
+    /// let x = TranslateDocumentResponse::new().set_or_clear_document_translation(Some(DocumentTranslation::default()/* use setters */));
+    /// let x = TranslateDocumentResponse::new().set_or_clear_document_translation(None::<DocumentTranslation>);
+    /// ```
     pub fn set_or_clear_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentTranslation>,
@@ -5487,6 +7462,13 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets the value of [glossary_document_translation][crate::model::TranslateDocumentResponse::glossary_document_translation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentResponse;
+    /// use google_cloud_translation_v3::model::DocumentTranslation;
+    /// let x = TranslateDocumentResponse::new().set_glossary_document_translation(DocumentTranslation::default()/* use setters */);
+    /// ```
     pub fn set_glossary_document_translation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentTranslation>,
@@ -5496,6 +7478,14 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets or clears the value of [glossary_document_translation][crate::model::TranslateDocumentResponse::glossary_document_translation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentResponse;
+    /// use google_cloud_translation_v3::model::DocumentTranslation;
+    /// let x = TranslateDocumentResponse::new().set_or_clear_glossary_document_translation(Some(DocumentTranslation::default()/* use setters */));
+    /// let x = TranslateDocumentResponse::new().set_or_clear_glossary_document_translation(None::<DocumentTranslation>);
+    /// ```
     pub fn set_or_clear_glossary_document_translation<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5508,12 +7498,25 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets the value of [model][crate::model::TranslateDocumentResponse::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentResponse;
+    /// let x = TranslateDocumentResponse::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [glossary_config][crate::model::TranslateDocumentResponse::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentResponse;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateDocumentResponse::new().set_glossary_config(TranslateTextGlossaryConfig::default()/* use setters */);
+    /// ```
     pub fn set_glossary_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -5523,6 +7526,14 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets or clears the value of [glossary_config][crate::model::TranslateDocumentResponse::glossary_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateDocumentResponse;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateDocumentResponse::new().set_or_clear_glossary_config(Some(TranslateTextGlossaryConfig::default()/* use setters */));
+    /// let x = TranslateDocumentResponse::new().set_or_clear_glossary_config(None::<TranslateTextGlossaryConfig>);
+    /// ```
     pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -5616,12 +7627,24 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchTranslateTextRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// let x = BatchTranslateTextRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [source_language_code][crate::model::BatchTranslateTextRequest::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// let x = BatchTranslateTextRequest::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5631,6 +7654,12 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [target_language_codes][crate::model::BatchTranslateTextRequest::target_language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// let x = BatchTranslateTextRequest::new().set_target_language_codes(["a", "b", "c"]);
+    /// ```
     pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5642,6 +7671,15 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [models][crate::model::BatchTranslateTextRequest::models].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// let x = BatchTranslateTextRequest::new().set_models([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_models<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5654,6 +7692,17 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [input_configs][crate::model::BatchTranslateTextRequest::input_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// use google_cloud_translation_v3::model::InputConfig;
+    /// let x = BatchTranslateTextRequest::new()
+    ///     .set_input_configs([
+    ///         InputConfig::default()/* use setters */,
+    ///         InputConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_input_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5665,6 +7714,13 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// use google_cloud_translation_v3::model::OutputConfig;
+    /// let x = BatchTranslateTextRequest::new().set_output_config(OutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -5674,6 +7730,14 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// use google_cloud_translation_v3::model::OutputConfig;
+    /// let x = BatchTranslateTextRequest::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
+    /// let x = BatchTranslateTextRequest::new().set_or_clear_output_config(None::<OutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -5683,6 +7747,16 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [glossaries][crate::model::BatchTranslateTextRequest::glossaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = BatchTranslateTextRequest::new().set_glossaries([
+    ///     ("key0", TranslateTextGlossaryConfig::default()/* use setters */),
+    ///     ("key1", TranslateTextGlossaryConfig::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_glossaries<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5695,6 +7769,15 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [labels][crate::model::BatchTranslateTextRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateTextRequest;
+    /// let x = BatchTranslateTextRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5744,6 +7827,15 @@ impl BatchTranslateMetadata {
     }
 
     /// Sets the value of [state][crate::model::BatchTranslateMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateMetadata;
+    /// use google_cloud_translation_v3::model::batch_translate_metadata::State;
+    /// let x0 = BatchTranslateMetadata::new().set_state(State::Running);
+    /// let x1 = BatchTranslateMetadata::new().set_state(State::Succeeded);
+    /// let x2 = BatchTranslateMetadata::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::batch_translate_metadata::State>>(
         mut self,
         v: T,
@@ -5753,24 +7845,49 @@ impl BatchTranslateMetadata {
     }
 
     /// Sets the value of [translated_characters][crate::model::BatchTranslateMetadata::translated_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateMetadata;
+    /// let x = BatchTranslateMetadata::new().set_translated_characters(42);
+    /// ```
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
     /// Sets the value of [failed_characters][crate::model::BatchTranslateMetadata::failed_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateMetadata;
+    /// let x = BatchTranslateMetadata::new().set_failed_characters(42);
+    /// ```
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
     /// Sets the value of [total_characters][crate::model::BatchTranslateMetadata::total_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateMetadata;
+    /// let x = BatchTranslateMetadata::new().set_total_characters(42);
+    /// ```
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5780,6 +7897,14 @@ impl BatchTranslateMetadata {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::BatchTranslateMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateMetadata::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchTranslateMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5995,24 +8120,49 @@ impl BatchTranslateResponse {
     }
 
     /// Sets the value of [total_characters][crate::model::BatchTranslateResponse::total_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateResponse;
+    /// let x = BatchTranslateResponse::new().set_total_characters(42);
+    /// ```
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
     /// Sets the value of [translated_characters][crate::model::BatchTranslateResponse::translated_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateResponse;
+    /// let x = BatchTranslateResponse::new().set_translated_characters(42);
+    /// ```
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
     /// Sets the value of [failed_characters][crate::model::BatchTranslateResponse::failed_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateResponse;
+    /// let x = BatchTranslateResponse::new().set_failed_characters(42);
+    /// ```
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateResponse::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateResponse::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6022,6 +8172,14 @@ impl BatchTranslateResponse {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::BatchTranslateResponse::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateResponse::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchTranslateResponse::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6031,6 +8189,13 @@ impl BatchTranslateResponse {
     }
 
     /// Sets the value of [end_time][crate::model::BatchTranslateResponse::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateResponse::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6040,6 +8205,14 @@ impl BatchTranslateResponse {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BatchTranslateResponse::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateResponse::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchTranslateResponse::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6074,6 +8247,14 @@ impl GlossaryInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryInputConfig;
+    /// use google_cloud_translation_v3::model::GcsSource;
+    /// let x = GlossaryInputConfig::new().set_source(Some(
+    ///     google_cloud_translation_v3::model::glossary_input_config::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::glossary_input_config::Source>>,
     >(
@@ -6102,6 +8283,14 @@ impl GlossaryInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GlossaryInputConfig;
+    /// use google_cloud_translation_v3::model::GcsSource;
+    /// let x = GlossaryInputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -6190,12 +8379,25 @@ impl Glossary {
     }
 
     /// Sets the value of [name][crate::model::Glossary::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// let x = Glossary::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [input_config][crate::model::Glossary::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use google_cloud_translation_v3::model::GlossaryInputConfig;
+    /// let x = Glossary::new().set_input_config(GlossaryInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryInputConfig>,
@@ -6205,6 +8407,14 @@ impl Glossary {
     }
 
     /// Sets or clears the value of [input_config][crate::model::Glossary::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use google_cloud_translation_v3::model::GlossaryInputConfig;
+    /// let x = Glossary::new().set_or_clear_input_config(Some(GlossaryInputConfig::default()/* use setters */));
+    /// let x = Glossary::new().set_or_clear_input_config(None::<GlossaryInputConfig>);
+    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryInputConfig>,
@@ -6214,12 +8424,25 @@ impl Glossary {
     }
 
     /// Sets the value of [entry_count][crate::model::Glossary::entry_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// let x = Glossary::new().set_entry_count(42);
+    /// ```
     pub fn set_entry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.entry_count = v.into();
         self
     }
 
     /// Sets the value of [submit_time][crate::model::Glossary::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6229,6 +8452,14 @@ impl Glossary {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::Glossary::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Glossary::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6238,6 +8469,13 @@ impl Glossary {
     }
 
     /// Sets the value of [end_time][crate::model::Glossary::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6247,6 +8485,14 @@ impl Glossary {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Glossary::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Glossary::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6256,6 +8502,12 @@ impl Glossary {
     }
 
     /// Sets the value of [display_name][crate::model::Glossary::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// let x = Glossary::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -6265,6 +8517,14 @@ impl Glossary {
     ///
     /// Note that all the setters affecting `languages` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use google_cloud_translation_v3::model::glossary::LanguageCodePair;
+    /// let x = Glossary::new().set_languages(Some(
+    ///     google_cloud_translation_v3::model::glossary::Languages::LanguagePair(LanguageCodePair::default().into())));
+    /// ```
     pub fn set_languages<
         T: std::convert::Into<std::option::Option<crate::model::glossary::Languages>>,
     >(
@@ -6293,6 +8553,15 @@ impl Glossary {
     ///
     /// Note that all the setters affecting `languages` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use google_cloud_translation_v3::model::glossary::LanguageCodePair;
+    /// let x = Glossary::new().set_language_pair(LanguageCodePair::default()/* use setters */);
+    /// assert!(x.language_pair().is_some());
+    /// assert!(x.language_codes_set().is_none());
+    /// ```
     pub fn set_language_pair<
         T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodePair>>,
     >(
@@ -6322,6 +8591,15 @@ impl Glossary {
     ///
     /// Note that all the setters affecting `languages` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::Glossary;
+    /// use google_cloud_translation_v3::model::glossary::LanguageCodesSet;
+    /// let x = Glossary::new().set_language_codes_set(LanguageCodesSet::default()/* use setters */);
+    /// assert!(x.language_codes_set().is_some());
+    /// assert!(x.language_pair().is_none());
+    /// ```
     pub fn set_language_codes_set<
         T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodesSet>>,
     >(
@@ -6367,6 +8645,12 @@ pub mod glossary {
         }
 
         /// Sets the value of [source_language_code][crate::model::glossary::LanguageCodePair::source_language_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary::LanguageCodePair;
+        /// let x = LanguageCodePair::new().set_source_language_code("example");
+        /// ```
         pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6376,6 +8660,12 @@ pub mod glossary {
         }
 
         /// Sets the value of [target_language_code][crate::model::glossary::LanguageCodePair::target_language_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary::LanguageCodePair;
+        /// let x = LanguageCodePair::new().set_target_language_code("example");
+        /// ```
         pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6409,6 +8699,12 @@ pub mod glossary {
         }
 
         /// Sets the value of [language_codes][crate::model::glossary::LanguageCodesSet::language_codes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_translation_v3::model::glossary::LanguageCodesSet;
+        /// let x = LanguageCodesSet::new().set_language_codes(["a", "b", "c"]);
+        /// ```
         pub fn set_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6456,12 +8752,25 @@ impl CreateGlossaryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryRequest;
+    /// let x = CreateGlossaryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryRequest;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// let x = CreateGlossaryRequest::new().set_glossary(Glossary::default()/* use setters */);
+    /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -6471,6 +8780,14 @@ impl CreateGlossaryRequest {
     }
 
     /// Sets or clears the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryRequest;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// let x = CreateGlossaryRequest::new().set_or_clear_glossary(Some(Glossary::default()/* use setters */));
+    /// let x = CreateGlossaryRequest::new().set_or_clear_glossary(None::<Glossary>);
+    /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -6506,6 +8823,13 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryRequest;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// let x = UpdateGlossaryRequest::new().set_glossary(Glossary::default()/* use setters */);
+    /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -6515,6 +8839,14 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets or clears the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryRequest;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_glossary(Some(Glossary::default()/* use setters */));
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_glossary(None::<Glossary>);
+    /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -6524,6 +8856,13 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6533,6 +8872,14 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6564,6 +8911,12 @@ impl GetGlossaryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetGlossaryRequest;
+    /// let x = GetGlossaryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6592,6 +8945,12 @@ impl DeleteGlossaryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryRequest;
+    /// let x = DeleteGlossaryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6648,24 +9007,48 @@ impl ListGlossariesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGlossariesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGlossariesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGlossariesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGlossariesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -6699,6 +9082,17 @@ impl ListGlossariesResponse {
     }
 
     /// Sets the value of [glossaries][crate::model::ListGlossariesResponse::glossaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossariesResponse;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// let x = ListGlossariesResponse::new()
+    ///     .set_glossaries([
+    ///         Glossary::default()/* use setters */,
+    ///         Glossary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_glossaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6710,6 +9104,12 @@ impl ListGlossariesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGlossariesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossariesResponse;
+    /// let x = ListGlossariesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6752,6 +9152,12 @@ impl GetGlossaryEntryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGlossaryEntryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::GetGlossaryEntryRequest;
+    /// let x = GetGlossaryEntryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6780,6 +9186,12 @@ impl DeleteGlossaryEntryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGlossaryEntryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryEntryRequest;
+    /// let x = DeleteGlossaryEntryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6819,18 +9231,36 @@ impl ListGlossaryEntriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGlossaryEntriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossaryEntriesRequest;
+    /// let x = ListGlossaryEntriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGlossaryEntriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossaryEntriesRequest;
+    /// let x = ListGlossaryEntriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGlossaryEntriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossaryEntriesRequest;
+    /// let x = ListGlossaryEntriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6863,6 +9293,17 @@ impl ListGlossaryEntriesResponse {
     }
 
     /// Sets the value of [glossary_entries][crate::model::ListGlossaryEntriesResponse::glossary_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossaryEntriesResponse;
+    /// use google_cloud_translation_v3::model::GlossaryEntry;
+    /// let x = ListGlossaryEntriesResponse::new()
+    ///     .set_glossary_entries([
+    ///         GlossaryEntry::default()/* use setters */,
+    ///         GlossaryEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_glossary_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6874,6 +9315,12 @@ impl ListGlossaryEntriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGlossaryEntriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::ListGlossaryEntriesResponse;
+    /// let x = ListGlossaryEntriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6919,12 +9366,25 @@ impl CreateGlossaryEntryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGlossaryEntryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryEntryRequest;
+    /// let x = CreateGlossaryEntryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryEntryRequest;
+    /// use google_cloud_translation_v3::model::GlossaryEntry;
+    /// let x = CreateGlossaryEntryRequest::new().set_glossary_entry(GlossaryEntry::default()/* use setters */);
+    /// ```
     pub fn set_glossary_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryEntry>,
@@ -6934,6 +9394,14 @@ impl CreateGlossaryEntryRequest {
     }
 
     /// Sets or clears the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryEntryRequest;
+    /// use google_cloud_translation_v3::model::GlossaryEntry;
+    /// let x = CreateGlossaryEntryRequest::new().set_or_clear_glossary_entry(Some(GlossaryEntry::default()/* use setters */));
+    /// let x = CreateGlossaryEntryRequest::new().set_or_clear_glossary_entry(None::<GlossaryEntry>);
+    /// ```
     pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryEntry>,
@@ -6965,6 +9433,13 @@ impl UpdateGlossaryEntryRequest {
     }
 
     /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryEntryRequest;
+    /// use google_cloud_translation_v3::model::GlossaryEntry;
+    /// let x = UpdateGlossaryEntryRequest::new().set_glossary_entry(GlossaryEntry::default()/* use setters */);
+    /// ```
     pub fn set_glossary_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryEntry>,
@@ -6974,6 +9449,14 @@ impl UpdateGlossaryEntryRequest {
     }
 
     /// Sets or clears the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryEntryRequest;
+    /// use google_cloud_translation_v3::model::GlossaryEntry;
+    /// let x = UpdateGlossaryEntryRequest::new().set_or_clear_glossary_entry(Some(GlossaryEntry::default()/* use setters */));
+    /// let x = UpdateGlossaryEntryRequest::new().set_or_clear_glossary_entry(None::<GlossaryEntry>);
+    /// ```
     pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryEntry>,
@@ -7015,12 +9498,27 @@ impl CreateGlossaryMetadata {
     }
 
     /// Sets the value of [name][crate::model::CreateGlossaryMetadata::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryMetadata;
+    /// let x = CreateGlossaryMetadata::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CreateGlossaryMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryMetadata;
+    /// use google_cloud_translation_v3::model::create_glossary_metadata::State;
+    /// let x0 = CreateGlossaryMetadata::new().set_state(State::Running);
+    /// let x1 = CreateGlossaryMetadata::new().set_state(State::Succeeded);
+    /// let x2 = CreateGlossaryMetadata::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::create_glossary_metadata::State>>(
         mut self,
         v: T,
@@ -7030,6 +9528,13 @@ impl CreateGlossaryMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::CreateGlossaryMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateGlossaryMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7039,6 +9544,14 @@ impl CreateGlossaryMetadata {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::CreateGlossaryMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::CreateGlossaryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateGlossaryMetadata::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateGlossaryMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7241,6 +9754,13 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets the value of [glossary][crate::model::UpdateGlossaryMetadata::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryMetadata;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// let x = UpdateGlossaryMetadata::new().set_glossary(Glossary::default()/* use setters */);
+    /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -7250,6 +9770,14 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets or clears the value of [glossary][crate::model::UpdateGlossaryMetadata::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryMetadata;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// let x = UpdateGlossaryMetadata::new().set_or_clear_glossary(Some(Glossary::default()/* use setters */));
+    /// let x = UpdateGlossaryMetadata::new().set_or_clear_glossary(None::<Glossary>);
+    /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -7259,6 +9787,15 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets the value of [state][crate::model::UpdateGlossaryMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryMetadata;
+    /// use google_cloud_translation_v3::model::update_glossary_metadata::State;
+    /// let x0 = UpdateGlossaryMetadata::new().set_state(State::Running);
+    /// let x1 = UpdateGlossaryMetadata::new().set_state(State::Succeeded);
+    /// let x2 = UpdateGlossaryMetadata::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::update_glossary_metadata::State>>(
         mut self,
         v: T,
@@ -7268,6 +9805,13 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::UpdateGlossaryMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateGlossaryMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7277,6 +9821,14 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::UpdateGlossaryMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::UpdateGlossaryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateGlossaryMetadata::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateGlossaryMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7478,12 +10030,27 @@ impl DeleteGlossaryMetadata {
     }
 
     /// Sets the value of [name][crate::model::DeleteGlossaryMetadata::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryMetadata;
+    /// let x = DeleteGlossaryMetadata::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DeleteGlossaryMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryMetadata;
+    /// use google_cloud_translation_v3::model::delete_glossary_metadata::State;
+    /// let x0 = DeleteGlossaryMetadata::new().set_state(State::Running);
+    /// let x1 = DeleteGlossaryMetadata::new().set_state(State::Succeeded);
+    /// let x2 = DeleteGlossaryMetadata::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::delete_glossary_metadata::State>>(
         mut self,
         v: T,
@@ -7493,6 +10060,13 @@ impl DeleteGlossaryMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::DeleteGlossaryMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteGlossaryMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7502,6 +10076,14 @@ impl DeleteGlossaryMetadata {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::DeleteGlossaryMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteGlossaryMetadata::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteGlossaryMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7707,12 +10289,25 @@ impl DeleteGlossaryResponse {
     }
 
     /// Sets the value of [name][crate::model::DeleteGlossaryResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryResponse;
+    /// let x = DeleteGlossaryResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [submit_time][crate::model::DeleteGlossaryResponse::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryResponse;
+    /// use wkt::Timestamp;
+    /// let x = DeleteGlossaryResponse::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7722,6 +10317,14 @@ impl DeleteGlossaryResponse {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::DeleteGlossaryResponse::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryResponse;
+    /// use wkt::Timestamp;
+    /// let x = DeleteGlossaryResponse::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteGlossaryResponse::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7731,6 +10334,13 @@ impl DeleteGlossaryResponse {
     }
 
     /// Sets the value of [end_time][crate::model::DeleteGlossaryResponse::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryResponse;
+    /// use wkt::Timestamp;
+    /// let x = DeleteGlossaryResponse::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7740,6 +10350,14 @@ impl DeleteGlossaryResponse {
     }
 
     /// Sets or clears the value of [end_time][crate::model::DeleteGlossaryResponse::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::DeleteGlossaryResponse;
+    /// use wkt::Timestamp;
+    /// let x = DeleteGlossaryResponse::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteGlossaryResponse::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7850,12 +10468,24 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchTranslateDocumentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [source_language_code][crate::model::BatchTranslateDocumentRequest::source_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_source_language_code("example");
+    /// ```
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7865,6 +10495,12 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [target_language_codes][crate::model::BatchTranslateDocumentRequest::target_language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_target_language_codes(["a", "b", "c"]);
+    /// ```
     pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7876,6 +10512,17 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [input_configs][crate::model::BatchTranslateDocumentRequest::input_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::BatchDocumentInputConfig;
+    /// let x = BatchTranslateDocumentRequest::new()
+    ///     .set_input_configs([
+    ///         BatchDocumentInputConfig::default()/* use setters */,
+    ///         BatchDocumentInputConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_input_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7887,6 +10534,13 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::BatchDocumentOutputConfig;
+    /// let x = BatchTranslateDocumentRequest::new().set_output_config(BatchDocumentOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
@@ -7896,6 +10550,14 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::BatchDocumentOutputConfig;
+    /// let x = BatchTranslateDocumentRequest::new().set_or_clear_output_config(Some(BatchDocumentOutputConfig::default()/* use setters */));
+    /// let x = BatchTranslateDocumentRequest::new().set_or_clear_output_config(None::<BatchDocumentOutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
@@ -7905,6 +10567,15 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [models][crate::model::BatchTranslateDocumentRequest::models].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_models([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_models<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7917,6 +10588,16 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [glossaries][crate::model::BatchTranslateDocumentRequest::glossaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = BatchTranslateDocumentRequest::new().set_glossaries([
+    ///     ("key0", TranslateTextGlossaryConfig::default()/* use setters */),
+    ///     ("key1", TranslateTextGlossaryConfig::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_glossaries<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7929,6 +10610,15 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [format_conversions][crate::model::BatchTranslateDocumentRequest::format_conversions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_format_conversions([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_format_conversions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7941,6 +10631,12 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_customized_attribution("example");
+    /// ```
     pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7950,6 +10646,12 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_enable_shadow_removal_native_pdf(true);
+    /// ```
     pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -7959,6 +10661,12 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentRequest;
+    /// let x = BatchTranslateDocumentRequest::new().set_enable_rotation_correction(true);
+    /// ```
     pub fn set_enable_rotation_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_rotation_correction = v.into();
         self
@@ -7990,6 +10698,14 @@ impl BatchDocumentInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchDocumentInputConfig;
+    /// use google_cloud_translation_v3::model::GcsSource;
+    /// let x = BatchDocumentInputConfig::new().set_source(Some(
+    ///     google_cloud_translation_v3::model::batch_document_input_config::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::batch_document_input_config::Source>>,
     >(
@@ -8018,6 +10734,14 @@ impl BatchDocumentInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchDocumentInputConfig;
+    /// use google_cloud_translation_v3::model::GcsSource;
+    /// let x = BatchDocumentInputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -8088,6 +10812,14 @@ impl BatchDocumentOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchDocumentOutputConfig;
+    /// use google_cloud_translation_v3::model::GcsDestination;
+    /// let x = BatchDocumentOutputConfig::new().set_destination(Some(
+    ///     google_cloud_translation_v3::model::batch_document_output_config::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_document_output_config::Destination>,
@@ -8120,6 +10852,14 @@ impl BatchDocumentOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchDocumentOutputConfig;
+    /// use google_cloud_translation_v3::model::GcsDestination;
+    /// let x = BatchDocumentOutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -8257,54 +10997,109 @@ impl BatchTranslateDocumentResponse {
     }
 
     /// Sets the value of [total_pages][crate::model::BatchTranslateDocumentResponse::total_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_total_pages(42);
+    /// ```
     pub fn set_total_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_pages = v.into();
         self
     }
 
     /// Sets the value of [translated_pages][crate::model::BatchTranslateDocumentResponse::translated_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_translated_pages(42);
+    /// ```
     pub fn set_translated_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_pages = v.into();
         self
     }
 
     /// Sets the value of [failed_pages][crate::model::BatchTranslateDocumentResponse::failed_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_failed_pages(42);
+    /// ```
     pub fn set_failed_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_pages = v.into();
         self
     }
 
     /// Sets the value of [total_billable_pages][crate::model::BatchTranslateDocumentResponse::total_billable_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_total_billable_pages(42);
+    /// ```
     pub fn set_total_billable_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_pages = v.into();
         self
     }
 
     /// Sets the value of [total_characters][crate::model::BatchTranslateDocumentResponse::total_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_total_characters(42);
+    /// ```
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
     /// Sets the value of [translated_characters][crate::model::BatchTranslateDocumentResponse::translated_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_translated_characters(42);
+    /// ```
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
     /// Sets the value of [failed_characters][crate::model::BatchTranslateDocumentResponse::failed_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_failed_characters(42);
+    /// ```
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
     /// Sets the value of [total_billable_characters][crate::model::BatchTranslateDocumentResponse::total_billable_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// let x = BatchTranslateDocumentResponse::new().set_total_billable_characters(42);
+    /// ```
     pub fn set_total_billable_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_characters = v.into();
         self
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateDocumentResponse::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateDocumentResponse::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8314,6 +11109,14 @@ impl BatchTranslateDocumentResponse {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::BatchTranslateDocumentResponse::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateDocumentResponse::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchTranslateDocumentResponse::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8323,6 +11126,13 @@ impl BatchTranslateDocumentResponse {
     }
 
     /// Sets the value of [end_time][crate::model::BatchTranslateDocumentResponse::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateDocumentResponse::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8332,6 +11142,14 @@ impl BatchTranslateDocumentResponse {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BatchTranslateDocumentResponse::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateDocumentResponse::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchTranslateDocumentResponse::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8397,6 +11215,15 @@ impl BatchTranslateDocumentMetadata {
     }
 
     /// Sets the value of [state][crate::model::BatchTranslateDocumentMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// use google_cloud_translation_v3::model::batch_translate_document_metadata::State;
+    /// let x0 = BatchTranslateDocumentMetadata::new().set_state(State::Running);
+    /// let x1 = BatchTranslateDocumentMetadata::new().set_state(State::Succeeded);
+    /// let x2 = BatchTranslateDocumentMetadata::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<
         T: std::convert::Into<crate::model::batch_translate_document_metadata::State>,
     >(
@@ -8408,54 +11235,109 @@ impl BatchTranslateDocumentMetadata {
     }
 
     /// Sets the value of [total_pages][crate::model::BatchTranslateDocumentMetadata::total_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_total_pages(42);
+    /// ```
     pub fn set_total_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_pages = v.into();
         self
     }
 
     /// Sets the value of [translated_pages][crate::model::BatchTranslateDocumentMetadata::translated_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_translated_pages(42);
+    /// ```
     pub fn set_translated_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_pages = v.into();
         self
     }
 
     /// Sets the value of [failed_pages][crate::model::BatchTranslateDocumentMetadata::failed_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_failed_pages(42);
+    /// ```
     pub fn set_failed_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_pages = v.into();
         self
     }
 
     /// Sets the value of [total_billable_pages][crate::model::BatchTranslateDocumentMetadata::total_billable_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_total_billable_pages(42);
+    /// ```
     pub fn set_total_billable_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_pages = v.into();
         self
     }
 
     /// Sets the value of [total_characters][crate::model::BatchTranslateDocumentMetadata::total_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_total_characters(42);
+    /// ```
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
     /// Sets the value of [translated_characters][crate::model::BatchTranslateDocumentMetadata::translated_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_translated_characters(42);
+    /// ```
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
     /// Sets the value of [failed_characters][crate::model::BatchTranslateDocumentMetadata::failed_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_failed_characters(42);
+    /// ```
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
     /// Sets the value of [total_billable_characters][crate::model::BatchTranslateDocumentMetadata::total_billable_characters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// let x = BatchTranslateDocumentMetadata::new().set_total_billable_characters(42);
+    /// ```
     pub fn set_total_billable_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_characters = v.into();
         self
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateDocumentMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateDocumentMetadata::new().set_submit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8465,6 +11347,14 @@ impl BatchTranslateDocumentMetadata {
     }
 
     /// Sets or clears the value of [submit_time][crate::model::BatchTranslateDocumentMetadata::submit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::BatchTranslateDocumentMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchTranslateDocumentMetadata::new().set_or_clear_submit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchTranslateDocumentMetadata::new().set_or_clear_submit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8672,18 +11562,36 @@ impl TranslateTextGlossaryConfig {
     }
 
     /// Sets the value of [glossary][crate::model::TranslateTextGlossaryConfig::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateTextGlossaryConfig::new().set_glossary("example");
+    /// ```
     pub fn set_glossary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.glossary = v.into();
         self
     }
 
     /// Sets the value of [ignore_case][crate::model::TranslateTextGlossaryConfig::ignore_case].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateTextGlossaryConfig::new().set_ignore_case(true);
+    /// ```
     pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_case = v.into();
         self
     }
 
     /// Sets the value of [contextual_translation_enabled][crate::model::TranslateTextGlossaryConfig::contextual_translation_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::model::TranslateTextGlossaryConfig;
+    /// let x = TranslateTextGlossaryConfig::new().set_contextual_translation_enabled(true);
+    /// ```
     pub fn set_contextual_translation_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.contextual_translation_enabled = v.into();
         self

@@ -68,12 +68,25 @@ impl CreateKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::CreateKeyRequest;
+    /// let x = CreateKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::CreateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::CreateKeyRequest;
+    /// use google_cloud_apikeys_v2::model::Key;
+    /// let x = CreateKeyRequest::new().set_key(Key::default()/* use setters */);
+    /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -83,6 +96,14 @@ impl CreateKeyRequest {
     }
 
     /// Sets or clears the value of [key][crate::model::CreateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::CreateKeyRequest;
+    /// use google_cloud_apikeys_v2::model::Key;
+    /// let x = CreateKeyRequest::new().set_or_clear_key(Some(Key::default()/* use setters */));
+    /// let x = CreateKeyRequest::new().set_or_clear_key(None::<Key>);
+    /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -92,6 +113,12 @@ impl CreateKeyRequest {
     }
 
     /// Sets the value of [key_id][crate::model::CreateKeyRequest::key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::CreateKeyRequest;
+    /// let x = CreateKeyRequest::new().set_key_id("example");
+    /// ```
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
@@ -130,24 +157,48 @@ impl ListKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ListKeysRequest;
+    /// let x = ListKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListKeysRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ListKeysRequest;
+    /// let x = ListKeysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListKeysRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ListKeysRequest;
+    /// let x = ListKeysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListKeysRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ListKeysRequest;
+    /// let x = ListKeysRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -179,6 +230,17 @@ impl ListKeysResponse {
     }
 
     /// Sets the value of [keys][crate::model::ListKeysResponse::keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ListKeysResponse;
+    /// use google_cloud_apikeys_v2::model::Key;
+    /// let x = ListKeysResponse::new()
+    ///     .set_keys([
+    ///         Key::default()/* use setters */,
+    ///         Key::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -190,6 +252,12 @@ impl ListKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListKeysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ListKeysResponse;
+    /// let x = ListKeysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -232,6 +300,12 @@ impl GetKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::GetKeyRequest;
+    /// let x = GetKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -260,6 +334,12 @@ impl GetKeyStringRequest {
     }
 
     /// Sets the value of [name][crate::model::GetKeyStringRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::GetKeyStringRequest;
+    /// let x = GetKeyStringRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -288,6 +368,12 @@ impl GetKeyStringResponse {
     }
 
     /// Sets the value of [key_string][crate::model::GetKeyStringResponse::key_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::GetKeyStringResponse;
+    /// let x = GetKeyStringResponse::new().set_key_string("example");
+    /// ```
     pub fn set_key_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_string = v.into();
         self
@@ -327,6 +413,13 @@ impl UpdateKeyRequest {
     }
 
     /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::UpdateKeyRequest;
+    /// use google_cloud_apikeys_v2::model::Key;
+    /// let x = UpdateKeyRequest::new().set_key(Key::default()/* use setters */);
+    /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -336,6 +429,14 @@ impl UpdateKeyRequest {
     }
 
     /// Sets or clears the value of [key][crate::model::UpdateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::UpdateKeyRequest;
+    /// use google_cloud_apikeys_v2::model::Key;
+    /// let x = UpdateKeyRequest::new().set_or_clear_key(Some(Key::default()/* use setters */));
+    /// let x = UpdateKeyRequest::new().set_or_clear_key(None::<Key>);
+    /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -345,6 +446,13 @@ impl UpdateKeyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::UpdateKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -354,6 +462,14 @@ impl UpdateKeyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::UpdateKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateKeyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -389,12 +505,24 @@ impl DeleteKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::DeleteKeyRequest;
+    /// let x = DeleteKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteKeyRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::DeleteKeyRequest;
+    /// let x = DeleteKeyRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -423,6 +551,12 @@ impl UndeleteKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::UndeleteKeyRequest;
+    /// let x = UndeleteKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -451,6 +585,12 @@ impl LookupKeyRequest {
     }
 
     /// Sets the value of [key_string][crate::model::LookupKeyRequest::key_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::LookupKeyRequest;
+    /// let x = LookupKeyRequest::new().set_key_string("example");
+    /// ```
     pub fn set_key_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_string = v.into();
         self
@@ -483,12 +623,24 @@ impl LookupKeyResponse {
     }
 
     /// Sets the value of [parent][crate::model::LookupKeyResponse::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::LookupKeyResponse;
+    /// let x = LookupKeyResponse::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::LookupKeyResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::LookupKeyResponse;
+    /// let x = LookupKeyResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -561,30 +713,61 @@ impl Key {
     }
 
     /// Sets the value of [name][crate::model::Key::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// let x = Key::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Key::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// let x = Key::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Key::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// let x = Key::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [key_string][crate::model::Key::key_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// let x = Key::new().set_key_string("example");
+    /// ```
     pub fn set_key_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_string = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Key::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -594,6 +777,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Key::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -603,6 +794,13 @@ impl Key {
     }
 
     /// Sets the value of [update_time][crate::model::Key::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -612,6 +810,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Key::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -621,6 +827,13 @@ impl Key {
     }
 
     /// Sets the value of [delete_time][crate::model::Key::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -630,6 +843,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Key::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -639,6 +860,15 @@ impl Key {
     }
 
     /// Sets the value of [annotations][crate::model::Key::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// let x = Key::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -651,6 +881,13 @@ impl Key {
     }
 
     /// Sets the value of [restrictions][crate::model::Key::restrictions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use google_cloud_apikeys_v2::model::Restrictions;
+    /// let x = Key::new().set_restrictions(Restrictions::default()/* use setters */);
+    /// ```
     pub fn set_restrictions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Restrictions>,
@@ -660,6 +897,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [restrictions][crate::model::Key::restrictions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// use google_cloud_apikeys_v2::model::Restrictions;
+    /// let x = Key::new().set_or_clear_restrictions(Some(Restrictions::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_restrictions(None::<Restrictions>);
+    /// ```
     pub fn set_or_clear_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Restrictions>,
@@ -669,6 +914,12 @@ impl Key {
     }
 
     /// Sets the value of [etag][crate::model::Key::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Key;
+    /// let x = Key::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -705,6 +956,17 @@ impl Restrictions {
     }
 
     /// Sets the value of [api_targets][crate::model::Restrictions::api_targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Restrictions;
+    /// use google_cloud_apikeys_v2::model::ApiTarget;
+    /// let x = Restrictions::new()
+    ///     .set_api_targets([
+    ///         ApiTarget::default()/* use setters */,
+    ///         ApiTarget::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_api_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -719,6 +981,14 @@ impl Restrictions {
     ///
     /// Note that all the setters affecting `client_restrictions` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Restrictions;
+    /// use google_cloud_apikeys_v2::model::BrowserKeyRestrictions;
+    /// let x = Restrictions::new().set_client_restrictions(Some(
+    ///     google_cloud_apikeys_v2::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(BrowserKeyRestrictions::default().into())));
+    /// ```
     pub fn set_client_restrictions<
         T: std::convert::Into<std::option::Option<crate::model::restrictions::ClientRestrictions>>,
     >(
@@ -749,6 +1019,17 @@ impl Restrictions {
     ///
     /// Note that all the setters affecting `client_restrictions` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Restrictions;
+    /// use google_cloud_apikeys_v2::model::BrowserKeyRestrictions;
+    /// let x = Restrictions::new().set_browser_key_restrictions(BrowserKeyRestrictions::default()/* use setters */);
+    /// assert!(x.browser_key_restrictions().is_some());
+    /// assert!(x.server_key_restrictions().is_none());
+    /// assert!(x.android_key_restrictions().is_none());
+    /// assert!(x.ios_key_restrictions().is_none());
+    /// ```
     pub fn set_browser_key_restrictions<
         T: std::convert::Into<std::boxed::Box<crate::model::BrowserKeyRestrictions>>,
     >(
@@ -781,6 +1062,17 @@ impl Restrictions {
     ///
     /// Note that all the setters affecting `client_restrictions` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Restrictions;
+    /// use google_cloud_apikeys_v2::model::ServerKeyRestrictions;
+    /// let x = Restrictions::new().set_server_key_restrictions(ServerKeyRestrictions::default()/* use setters */);
+    /// assert!(x.server_key_restrictions().is_some());
+    /// assert!(x.browser_key_restrictions().is_none());
+    /// assert!(x.android_key_restrictions().is_none());
+    /// assert!(x.ios_key_restrictions().is_none());
+    /// ```
     pub fn set_server_key_restrictions<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerKeyRestrictions>>,
     >(
@@ -813,6 +1105,17 @@ impl Restrictions {
     ///
     /// Note that all the setters affecting `client_restrictions` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Restrictions;
+    /// use google_cloud_apikeys_v2::model::AndroidKeyRestrictions;
+    /// let x = Restrictions::new().set_android_key_restrictions(AndroidKeyRestrictions::default()/* use setters */);
+    /// assert!(x.android_key_restrictions().is_some());
+    /// assert!(x.browser_key_restrictions().is_none());
+    /// assert!(x.server_key_restrictions().is_none());
+    /// assert!(x.ios_key_restrictions().is_none());
+    /// ```
     pub fn set_android_key_restrictions<
         T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeyRestrictions>>,
     >(
@@ -845,6 +1148,17 @@ impl Restrictions {
     ///
     /// Note that all the setters affecting `client_restrictions` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::Restrictions;
+    /// use google_cloud_apikeys_v2::model::IosKeyRestrictions;
+    /// let x = Restrictions::new().set_ios_key_restrictions(IosKeyRestrictions::default()/* use setters */);
+    /// assert!(x.ios_key_restrictions().is_some());
+    /// assert!(x.browser_key_restrictions().is_none());
+    /// assert!(x.server_key_restrictions().is_none());
+    /// assert!(x.android_key_restrictions().is_none());
+    /// ```
     pub fn set_ios_key_restrictions<
         T: std::convert::Into<std::boxed::Box<crate::model::IosKeyRestrictions>>,
     >(
@@ -903,6 +1217,12 @@ impl BrowserKeyRestrictions {
     }
 
     /// Sets the value of [allowed_referrers][crate::model::BrowserKeyRestrictions::allowed_referrers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::BrowserKeyRestrictions;
+    /// let x = BrowserKeyRestrictions::new().set_allowed_referrers(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_referrers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -937,6 +1257,12 @@ impl ServerKeyRestrictions {
     }
 
     /// Sets the value of [allowed_ips][crate::model::ServerKeyRestrictions::allowed_ips].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ServerKeyRestrictions;
+    /// let x = ServerKeyRestrictions::new().set_allowed_ips(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -971,6 +1297,17 @@ impl AndroidKeyRestrictions {
     }
 
     /// Sets the value of [allowed_applications][crate::model::AndroidKeyRestrictions::allowed_applications].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::AndroidKeyRestrictions;
+    /// use google_cloud_apikeys_v2::model::AndroidApplication;
+    /// let x = AndroidKeyRestrictions::new()
+    ///     .set_allowed_applications([
+    ///         AndroidApplication::default()/* use setters */,
+    ///         AndroidApplication::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_allowed_applications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1010,6 +1347,12 @@ impl AndroidApplication {
     }
 
     /// Sets the value of [sha1_fingerprint][crate::model::AndroidApplication::sha1_fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::AndroidApplication;
+    /// let x = AndroidApplication::new().set_sha1_fingerprint("example");
+    /// ```
     pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1019,6 +1362,12 @@ impl AndroidApplication {
     }
 
     /// Sets the value of [package_name][crate::model::AndroidApplication::package_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::AndroidApplication;
+    /// let x = AndroidApplication::new().set_package_name("example");
+    /// ```
     pub fn set_package_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_name = v.into();
         self
@@ -1047,6 +1396,12 @@ impl IosKeyRestrictions {
     }
 
     /// Sets the value of [allowed_bundle_ids][crate::model::IosKeyRestrictions::allowed_bundle_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::IosKeyRestrictions;
+    /// let x = IosKeyRestrictions::new().set_allowed_bundle_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_bundle_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1094,12 +1449,24 @@ impl ApiTarget {
     }
 
     /// Sets the value of [service][crate::model::ApiTarget::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ApiTarget;
+    /// let x = ApiTarget::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [methods][crate::model::ApiTarget::methods].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::model::ApiTarget;
+    /// let x = ApiTarget::new().set_methods(["a", "b", "c"]);
+    /// ```
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

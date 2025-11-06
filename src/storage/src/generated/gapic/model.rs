@@ -46,12 +46,24 @@ impl DeleteBucketRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteBucketRequest;
+    /// let x = DeleteBucketRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteBucketRequest;
+    /// let x = DeleteBucketRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -61,6 +73,13 @@ impl DeleteBucketRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteBucketRequest;
+    /// let x = DeleteBucketRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = DeleteBucketRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -70,6 +89,12 @@ impl DeleteBucketRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteBucketRequest;
+    /// let x = DeleteBucketRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -79,6 +104,13 @@ impl DeleteBucketRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteBucketRequest;
+    /// let x = DeleteBucketRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = DeleteBucketRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -125,12 +157,24 @@ impl GetBucketRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBucketRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetBucketRequest;
+    /// let x = GetBucketRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetBucketRequest;
+    /// let x = GetBucketRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -140,6 +184,13 @@ impl GetBucketRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetBucketRequest;
+    /// let x = GetBucketRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = GetBucketRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -149,6 +200,12 @@ impl GetBucketRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetBucketRequest;
+    /// let x = GetBucketRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -158,6 +215,13 @@ impl GetBucketRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetBucketRequest;
+    /// let x = GetBucketRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = GetBucketRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -167,6 +231,13 @@ impl GetBucketRequest {
     }
 
     /// Sets the value of [read_mask][crate::model::GetBucketRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetBucketRequest;
+    /// use wkt::FieldMask;
+    /// let x = GetBucketRequest::new().set_read_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -176,6 +247,14 @@ impl GetBucketRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::GetBucketRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetBucketRequest;
+    /// use wkt::FieldMask;
+    /// let x = GetBucketRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = GetBucketRequest::new().set_or_clear_read_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -238,12 +317,25 @@ impl CreateBucketRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CreateBucketRequest;
+    /// let x = CreateBucketRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CreateBucketRequest;
+    /// use google_cloud_storage::model::Bucket;
+    /// let x = CreateBucketRequest::new().set_bucket(Bucket::default()/* use setters */);
+    /// ```
     pub fn set_bucket<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Bucket>,
@@ -253,6 +345,14 @@ impl CreateBucketRequest {
     }
 
     /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CreateBucketRequest;
+    /// use google_cloud_storage::model::Bucket;
+    /// let x = CreateBucketRequest::new().set_or_clear_bucket(Some(Bucket::default()/* use setters */));
+    /// let x = CreateBucketRequest::new().set_or_clear_bucket(None::<Bucket>);
+    /// ```
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Bucket>,
@@ -262,18 +362,36 @@ impl CreateBucketRequest {
     }
 
     /// Sets the value of [bucket_id][crate::model::CreateBucketRequest::bucket_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CreateBucketRequest;
+    /// let x = CreateBucketRequest::new().set_bucket_id("example");
+    /// ```
     pub fn set_bucket_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_id = v.into();
         self
     }
 
     /// Sets the value of [predefined_acl][crate::model::CreateBucketRequest::predefined_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CreateBucketRequest;
+    /// let x = CreateBucketRequest::new().set_predefined_acl("example");
+    /// ```
     pub fn set_predefined_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predefined_acl = v.into();
         self
     }
 
     /// Sets the value of [predefined_default_object_acl][crate::model::CreateBucketRequest::predefined_default_object_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CreateBucketRequest;
+    /// let x = CreateBucketRequest::new().set_predefined_default_object_acl("example");
+    /// ```
     pub fn set_predefined_default_object_acl<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -283,6 +401,12 @@ impl CreateBucketRequest {
     }
 
     /// Sets the value of [enable_object_retention][crate::model::CreateBucketRequest::enable_object_retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CreateBucketRequest;
+    /// let x = CreateBucketRequest::new().set_enable_object_retention(true);
+    /// ```
     pub fn set_enable_object_retention<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_object_retention = v.into();
         self
@@ -336,30 +460,61 @@ impl ListBucketsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBucketsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsRequest;
+    /// let x = ListBucketsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBucketsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsRequest;
+    /// let x = ListBucketsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBucketsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsRequest;
+    /// let x = ListBucketsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [prefix][crate::model::ListBucketsRequest::prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsRequest;
+    /// let x = ListBucketsRequest::new().set_prefix("example");
+    /// ```
     pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.prefix = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListBucketsRequest::new().set_read_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -369,6 +524,14 @@ impl ListBucketsRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListBucketsRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ListBucketsRequest::new().set_or_clear_read_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -424,6 +587,17 @@ impl ListBucketsResponse {
     }
 
     /// Sets the value of [buckets][crate::model::ListBucketsResponse::buckets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsResponse;
+    /// use google_cloud_storage::model::Bucket;
+    /// let x = ListBucketsResponse::new()
+    ///     .set_buckets([
+    ///         Bucket::default()/* use setters */,
+    ///         Bucket::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -435,6 +609,12 @@ impl ListBucketsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListBucketsResponse;
+    /// let x = ListBucketsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -495,12 +675,24 @@ impl LockBucketRetentionPolicyRequest {
     }
 
     /// Sets the value of [bucket][crate::model::LockBucketRetentionPolicyRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::LockBucketRetentionPolicyRequest;
+    /// let x = LockBucketRetentionPolicyRequest::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::LockBucketRetentionPolicyRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::LockBucketRetentionPolicyRequest;
+    /// let x = LockBucketRetentionPolicyRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.if_metageneration_match = v.into();
         self
@@ -560,6 +752,13 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// use google_cloud_storage::model::Bucket;
+    /// let x = UpdateBucketRequest::new().set_bucket(Bucket::default()/* use setters */);
+    /// ```
     pub fn set_bucket<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Bucket>,
@@ -569,6 +768,14 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// use google_cloud_storage::model::Bucket;
+    /// let x = UpdateBucketRequest::new().set_or_clear_bucket(Some(Bucket::default()/* use setters */));
+    /// let x = UpdateBucketRequest::new().set_or_clear_bucket(None::<Bucket>);
+    /// ```
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Bucket>,
@@ -578,6 +785,12 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// let x = UpdateBucketRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -587,6 +800,13 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// let x = UpdateBucketRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = UpdateBucketRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -596,6 +816,12 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// let x = UpdateBucketRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -605,6 +831,13 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// let x = UpdateBucketRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = UpdateBucketRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -614,12 +847,24 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [predefined_acl][crate::model::UpdateBucketRequest::predefined_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// let x = UpdateBucketRequest::new().set_predefined_acl("example");
+    /// ```
     pub fn set_predefined_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predefined_acl = v.into();
         self
     }
 
     /// Sets the value of [predefined_default_object_acl][crate::model::UpdateBucketRequest::predefined_default_object_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// let x = UpdateBucketRequest::new().set_predefined_default_object_acl("example");
+    /// ```
     pub fn set_predefined_default_object_acl<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -629,6 +874,13 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBucketRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -638,6 +890,14 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateBucketRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBucketRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBucketRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -703,6 +963,13 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [destination][crate::model::ComposeObjectRequest::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// use google_cloud_storage::model::Object;
+    /// let x = ComposeObjectRequest::new().set_destination(Object::default()/* use setters */);
+    /// ```
     pub fn set_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -712,6 +979,14 @@ impl ComposeObjectRequest {
     }
 
     /// Sets or clears the value of [destination][crate::model::ComposeObjectRequest::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// use google_cloud_storage::model::Object;
+    /// let x = ComposeObjectRequest::new().set_or_clear_destination(Some(Object::default()/* use setters */));
+    /// let x = ComposeObjectRequest::new().set_or_clear_destination(None::<Object>);
+    /// ```
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -721,6 +996,17 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// use google_cloud_storage::model::compose_object_request::SourceObject;
+    /// let x = ComposeObjectRequest::new()
+    ///     .set_source_objects([
+    ///         SourceObject::default()/* use setters */,
+    ///         SourceObject::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_source_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -732,6 +1018,12 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [destination_predefined_acl][crate::model::ComposeObjectRequest::destination_predefined_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_destination_predefined_acl("example");
+    /// ```
     pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -741,6 +1033,12 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -750,6 +1048,13 @@ impl ComposeObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = ComposeObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -759,6 +1064,12 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -768,6 +1079,13 @@ impl ComposeObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = ComposeObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -777,12 +1095,25 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [kms_key][crate::model::ComposeObjectRequest::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = ComposeObjectRequest::new().set_common_object_request_params(CommonObjectRequestParams::default()/* use setters */);
+    /// ```
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -792,6 +1123,14 @@ impl ComposeObjectRequest {
     }
 
     /// Sets or clears the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = ComposeObjectRequest::new().set_or_clear_common_object_request_params(Some(CommonObjectRequestParams::default()/* use setters */));
+    /// let x = ComposeObjectRequest::new().set_or_clear_common_object_request_params(None::<CommonObjectRequestParams>);
+    /// ```
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -801,6 +1140,13 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// use google_cloud_storage::model::ObjectChecksums;
+    /// let x = ComposeObjectRequest::new().set_object_checksums(ObjectChecksums::default()/* use setters */);
+    /// ```
     pub fn set_object_checksums<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -810,6 +1156,14 @@ impl ComposeObjectRequest {
     }
 
     /// Sets or clears the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// use google_cloud_storage::model::ObjectChecksums;
+    /// let x = ComposeObjectRequest::new().set_or_clear_object_checksums(Some(ObjectChecksums::default()/* use setters */));
+    /// let x = ComposeObjectRequest::new().set_or_clear_object_checksums(None::<ObjectChecksums>);
+    /// ```
     pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -855,18 +1209,37 @@ pub mod compose_object_request {
         }
 
         /// Sets the value of [name][crate::model::compose_object_request::SourceObject::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::compose_object_request::SourceObject;
+        /// let x = SourceObject::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [generation][crate::model::compose_object_request::SourceObject::generation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::compose_object_request::SourceObject;
+        /// let x = SourceObject::new().set_generation(42);
+        /// ```
         pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.generation = v.into();
             self
         }
 
         /// Sets the value of [object_preconditions][crate::model::compose_object_request::SourceObject::object_preconditions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::compose_object_request::SourceObject;
+        /// use google_cloud_storage::model::compose_object_request::source_object::ObjectPreconditions;
+        /// let x = SourceObject::new().set_object_preconditions(ObjectPreconditions::default()/* use setters */);
+        /// ```
         pub fn set_object_preconditions<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -878,6 +1251,14 @@ pub mod compose_object_request {
         }
 
         /// Sets or clears the value of [object_preconditions][crate::model::compose_object_request::SourceObject::object_preconditions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::compose_object_request::SourceObject;
+        /// use google_cloud_storage::model::compose_object_request::source_object::ObjectPreconditions;
+        /// let x = SourceObject::new().set_or_clear_object_preconditions(Some(ObjectPreconditions::default()/* use setters */));
+        /// let x = SourceObject::new().set_or_clear_object_preconditions(None::<ObjectPreconditions>);
+        /// ```
         pub fn set_or_clear_object_preconditions<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -918,6 +1299,12 @@ pub mod compose_object_request {
             }
 
             /// Sets the value of [if_generation_match][crate::model::compose_object_request::source_object::ObjectPreconditions::if_generation_match].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::compose_object_request::source_object::ObjectPreconditions;
+            /// let x = ObjectPreconditions::new().set_if_generation_match(42);
+            /// ```
             pub fn set_if_generation_match<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i64>,
@@ -927,6 +1314,13 @@ pub mod compose_object_request {
             }
 
             /// Sets or clears the value of [if_generation_match][crate::model::compose_object_request::source_object::ObjectPreconditions::if_generation_match].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::compose_object_request::source_object::ObjectPreconditions;
+            /// let x = ObjectPreconditions::new().set_or_clear_if_generation_match(Some(42));
+            /// let x = ObjectPreconditions::new().set_or_clear_if_generation_match(None::<i32>);
+            /// ```
             pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i64>,
@@ -992,24 +1386,48 @@ impl DeleteObjectRequest {
     }
 
     /// Sets the value of [bucket][crate::model::DeleteObjectRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [object][crate::model::DeleteObjectRequest::object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_object("example");
+    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::DeleteObjectRequest::generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1019,6 +1437,13 @@ impl DeleteObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1028,6 +1453,12 @@ impl DeleteObjectRequest {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1037,6 +1468,13 @@ impl DeleteObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1046,6 +1484,12 @@ impl DeleteObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1055,6 +1499,13 @@ impl DeleteObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1064,6 +1515,12 @@ impl DeleteObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1073,6 +1530,13 @@ impl DeleteObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = DeleteObjectRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1082,6 +1546,13 @@ impl DeleteObjectRequest {
     }
 
     /// Sets the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = DeleteObjectRequest::new().set_common_object_request_params(CommonObjectRequestParams::default()/* use setters */);
+    /// ```
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1091,6 +1562,14 @@ impl DeleteObjectRequest {
     }
 
     /// Sets or clears the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::DeleteObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = DeleteObjectRequest::new().set_or_clear_common_object_request_params(Some(CommonObjectRequestParams::default()/* use setters */));
+    /// let x = DeleteObjectRequest::new().set_or_clear_common_object_request_params(None::<CommonObjectRequestParams>);
+    /// ```
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1167,30 +1646,60 @@ impl RestoreObjectRequest {
     }
 
     /// Sets the value of [bucket][crate::model::RestoreObjectRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [object][crate::model::RestoreObjectRequest::object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_object("example");
+    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::RestoreObjectRequest::generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [restore_token][crate::model::RestoreObjectRequest::restore_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_restore_token("example");
+    /// ```
     pub fn set_restore_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_token = v.into();
         self
     }
 
     /// Sets the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1200,6 +1709,13 @@ impl RestoreObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1209,6 +1725,12 @@ impl RestoreObjectRequest {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1218,6 +1740,13 @@ impl RestoreObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1227,6 +1756,12 @@ impl RestoreObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1236,6 +1771,13 @@ impl RestoreObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1245,6 +1787,12 @@ impl RestoreObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1254,6 +1802,13 @@ impl RestoreObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = RestoreObjectRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1263,6 +1818,12 @@ impl RestoreObjectRequest {
     }
 
     /// Sets the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_copy_source_acl(true);
+    /// ```
     pub fn set_copy_source_acl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1272,6 +1833,13 @@ impl RestoreObjectRequest {
     }
 
     /// Sets or clears the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// let x = RestoreObjectRequest::new().set_or_clear_copy_source_acl(Some(false));
+    /// let x = RestoreObjectRequest::new().set_or_clear_copy_source_acl(None::<bool>);
+    /// ```
     pub fn set_or_clear_copy_source_acl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1281,6 +1849,13 @@ impl RestoreObjectRequest {
     }
 
     /// Sets the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = RestoreObjectRequest::new().set_common_object_request_params(CommonObjectRequestParams::default()/* use setters */);
+    /// ```
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1290,6 +1865,14 @@ impl RestoreObjectRequest {
     }
 
     /// Sets or clears the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RestoreObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = RestoreObjectRequest::new().set_or_clear_common_object_request_params(Some(CommonObjectRequestParams::default()/* use setters */));
+    /// let x = RestoreObjectRequest::new().set_or_clear_common_object_request_params(None::<CommonObjectRequestParams>);
+    /// ```
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1379,36 +1962,72 @@ impl ReadObjectRequest {
     }
 
     /// Sets the value of [bucket][crate::model::ReadObjectRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [object][crate::model::ReadObjectRequest::object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_object("example");
+    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::ReadObjectRequest::generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [read_offset][crate::model::ReadObjectRequest::read_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_read_offset(42);
+    /// ```
     pub fn set_read_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.read_offset = v.into();
         self
     }
 
     /// Sets the value of [read_limit][crate::model::ReadObjectRequest::read_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_read_limit(42);
+    /// ```
     pub fn set_read_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.read_limit = v.into();
         self
     }
 
     /// Sets the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1418,6 +2037,13 @@ impl ReadObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = ReadObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1427,6 +2053,12 @@ impl ReadObjectRequest {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1436,6 +2068,13 @@ impl ReadObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = ReadObjectRequest::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1445,6 +2084,12 @@ impl ReadObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1454,6 +2099,13 @@ impl ReadObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = ReadObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1463,6 +2115,12 @@ impl ReadObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1472,6 +2130,13 @@ impl ReadObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// let x = ReadObjectRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = ReadObjectRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1481,6 +2146,13 @@ impl ReadObjectRequest {
     }
 
     /// Sets the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = ReadObjectRequest::new().set_common_object_request_params(CommonObjectRequestParams::default()/* use setters */);
+    /// ```
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1490,6 +2162,14 @@ impl ReadObjectRequest {
     }
 
     /// Sets or clears the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = ReadObjectRequest::new().set_or_clear_common_object_request_params(Some(CommonObjectRequestParams::default()/* use setters */));
+    /// let x = ReadObjectRequest::new().set_or_clear_common_object_request_params(None::<CommonObjectRequestParams>);
+    /// ```
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1499,6 +2179,13 @@ impl ReadObjectRequest {
     }
 
     /// Sets the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = ReadObjectRequest::new().set_read_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1508,6 +2195,14 @@ impl ReadObjectRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ReadObjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = ReadObjectRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ReadObjectRequest::new().set_or_clear_read_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1587,24 +2282,48 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [bucket][crate::model::GetObjectRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [object][crate::model::GetObjectRequest::object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_object("example");
+    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::GetObjectRequest::generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_soft_deleted(true);
+    /// ```
     pub fn set_soft_deleted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1614,6 +2333,13 @@ impl GetObjectRequest {
     }
 
     /// Sets or clears the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_or_clear_soft_deleted(Some(false));
+    /// let x = GetObjectRequest::new().set_or_clear_soft_deleted(None::<bool>);
+    /// ```
     pub fn set_or_clear_soft_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1623,6 +2349,12 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1632,6 +2364,13 @@ impl GetObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = GetObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1641,6 +2380,12 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1650,6 +2395,13 @@ impl GetObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = GetObjectRequest::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1659,6 +2411,12 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1668,6 +2426,13 @@ impl GetObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = GetObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1677,6 +2442,12 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1686,6 +2457,13 @@ impl GetObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = GetObjectRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1695,6 +2473,13 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = GetObjectRequest::new().set_common_object_request_params(CommonObjectRequestParams::default()/* use setters */);
+    /// ```
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1704,6 +2489,14 @@ impl GetObjectRequest {
     }
 
     /// Sets or clears the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = GetObjectRequest::new().set_or_clear_common_object_request_params(Some(CommonObjectRequestParams::default()/* use setters */));
+    /// let x = GetObjectRequest::new().set_or_clear_common_object_request_params(None::<CommonObjectRequestParams>);
+    /// ```
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1713,6 +2506,13 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [read_mask][crate::model::GetObjectRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = GetObjectRequest::new().set_read_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1722,6 +2522,14 @@ impl GetObjectRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::GetObjectRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = GetObjectRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = GetObjectRequest::new().set_or_clear_read_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1731,6 +2539,12 @@ impl GetObjectRequest {
     }
 
     /// Sets the value of [restore_token][crate::model::GetObjectRequest::restore_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::GetObjectRequest;
+    /// let x = GetObjectRequest::new().set_restore_token("example");
+    /// ```
     pub fn set_restore_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_token = v.into();
         self
@@ -1796,6 +2610,13 @@ impl WriteObjectSpec {
     }
 
     /// Sets the value of [resource][crate::model::WriteObjectSpec::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// use google_cloud_storage::model::Object;
+    /// let x = WriteObjectSpec::new().set_resource(Object::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -1805,6 +2626,14 @@ impl WriteObjectSpec {
     }
 
     /// Sets or clears the value of [resource][crate::model::WriteObjectSpec::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// use google_cloud_storage::model::Object;
+    /// let x = WriteObjectSpec::new().set_or_clear_resource(Some(Object::default()/* use setters */));
+    /// let x = WriteObjectSpec::new().set_or_clear_resource(None::<Object>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -1814,12 +2643,24 @@ impl WriteObjectSpec {
     }
 
     /// Sets the value of [predefined_acl][crate::model::WriteObjectSpec::predefined_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_predefined_acl("example");
+    /// ```
     pub fn set_predefined_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predefined_acl = v.into();
         self
     }
 
     /// Sets the value of [if_generation_match][crate::model::WriteObjectSpec::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1829,6 +2670,13 @@ impl WriteObjectSpec {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::WriteObjectSpec::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = WriteObjectSpec::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1838,6 +2686,12 @@ impl WriteObjectSpec {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::WriteObjectSpec::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1847,6 +2701,13 @@ impl WriteObjectSpec {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::WriteObjectSpec::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = WriteObjectSpec::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1856,6 +2717,12 @@ impl WriteObjectSpec {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::WriteObjectSpec::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1865,6 +2732,13 @@ impl WriteObjectSpec {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::WriteObjectSpec::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = WriteObjectSpec::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1874,6 +2748,12 @@ impl WriteObjectSpec {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::WriteObjectSpec::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1883,6 +2763,13 @@ impl WriteObjectSpec {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::WriteObjectSpec::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = WriteObjectSpec::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1892,6 +2779,12 @@ impl WriteObjectSpec {
     }
 
     /// Sets the value of [object_size][crate::model::WriteObjectSpec::object_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_object_size(42);
+    /// ```
     pub fn set_object_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1901,6 +2794,13 @@ impl WriteObjectSpec {
     }
 
     /// Sets or clears the value of [object_size][crate::model::WriteObjectSpec::object_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_or_clear_object_size(Some(42));
+    /// let x = WriteObjectSpec::new().set_or_clear_object_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_object_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1910,6 +2810,12 @@ impl WriteObjectSpec {
     }
 
     /// Sets the value of [appendable][crate::model::WriteObjectSpec::appendable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_appendable(true);
+    /// ```
     pub fn set_appendable<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1919,6 +2825,13 @@ impl WriteObjectSpec {
     }
 
     /// Sets or clears the value of [appendable][crate::model::WriteObjectSpec::appendable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::WriteObjectSpec;
+    /// let x = WriteObjectSpec::new().set_or_clear_appendable(Some(false));
+    /// let x = WriteObjectSpec::new().set_or_clear_appendable(None::<bool>);
+    /// ```
     pub fn set_or_clear_appendable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2019,48 +2932,97 @@ impl ListObjectsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListObjectsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListObjectsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListObjectsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [delimiter][crate::model::ListObjectsRequest::delimiter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_delimiter("example");
+    /// ```
     pub fn set_delimiter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delimiter = v.into();
         self
     }
 
     /// Sets the value of [include_trailing_delimiter][crate::model::ListObjectsRequest::include_trailing_delimiter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_include_trailing_delimiter(true);
+    /// ```
     pub fn set_include_trailing_delimiter<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_trailing_delimiter = v.into();
         self
     }
 
     /// Sets the value of [prefix][crate::model::ListObjectsRequest::prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_prefix("example");
+    /// ```
     pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.prefix = v.into();
         self
     }
 
     /// Sets the value of [versions][crate::model::ListObjectsRequest::versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_versions(true);
+    /// ```
     pub fn set_versions<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.versions = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListObjectsRequest::new().set_read_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2070,6 +3032,14 @@ impl ListObjectsRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListObjectsRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ListObjectsRequest::new().set_or_clear_read_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2079,6 +3049,12 @@ impl ListObjectsRequest {
     }
 
     /// Sets the value of [lexicographic_start][crate::model::ListObjectsRequest::lexicographic_start].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_lexicographic_start("example");
+    /// ```
     pub fn set_lexicographic_start<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2088,6 +3064,12 @@ impl ListObjectsRequest {
     }
 
     /// Sets the value of [lexicographic_end][crate::model::ListObjectsRequest::lexicographic_end].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_lexicographic_end("example");
+    /// ```
     pub fn set_lexicographic_end<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2097,24 +3079,48 @@ impl ListObjectsRequest {
     }
 
     /// Sets the value of [soft_deleted][crate::model::ListObjectsRequest::soft_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_soft_deleted(true);
+    /// ```
     pub fn set_soft_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.soft_deleted = v.into();
         self
     }
 
     /// Sets the value of [include_folders_as_prefixes][crate::model::ListObjectsRequest::include_folders_as_prefixes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_include_folders_as_prefixes(true);
+    /// ```
     pub fn set_include_folders_as_prefixes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_folders_as_prefixes = v.into();
         self
     }
 
     /// Sets the value of [match_glob][crate::model::ListObjectsRequest::match_glob].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_match_glob("example");
+    /// ```
     pub fn set_match_glob<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.match_glob = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListObjectsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsRequest;
+    /// let x = ListObjectsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2267,6 +3273,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [destination_name][crate::model::RewriteObjectRequest::destination_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_destination_name("example");
+    /// ```
     pub fn set_destination_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2276,6 +3288,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [destination_bucket][crate::model::RewriteObjectRequest::destination_bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_destination_bucket("example");
+    /// ```
     pub fn set_destination_bucket<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2285,6 +3303,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [destination_kms_key][crate::model::RewriteObjectRequest::destination_kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_destination_kms_key("example");
+    /// ```
     pub fn set_destination_kms_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2294,6 +3318,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [destination][crate::model::RewriteObjectRequest::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// use google_cloud_storage::model::Object;
+    /// let x = RewriteObjectRequest::new().set_destination(Object::default()/* use setters */);
+    /// ```
     pub fn set_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -2303,6 +3334,14 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [destination][crate::model::RewriteObjectRequest::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// use google_cloud_storage::model::Object;
+    /// let x = RewriteObjectRequest::new().set_or_clear_destination(Some(Object::default()/* use setters */));
+    /// let x = RewriteObjectRequest::new().set_or_clear_destination(None::<Object>);
+    /// ```
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -2312,30 +3351,60 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [source_bucket][crate::model::RewriteObjectRequest::source_bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_source_bucket("example");
+    /// ```
     pub fn set_source_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_bucket = v.into();
         self
     }
 
     /// Sets the value of [source_object][crate::model::RewriteObjectRequest::source_object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_source_object("example");
+    /// ```
     pub fn set_source_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_object = v.into();
         self
     }
 
     /// Sets the value of [source_generation][crate::model::RewriteObjectRequest::source_generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_source_generation(42);
+    /// ```
     pub fn set_source_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.source_generation = v.into();
         self
     }
 
     /// Sets the value of [rewrite_token][crate::model::RewriteObjectRequest::rewrite_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_rewrite_token("example");
+    /// ```
     pub fn set_rewrite_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rewrite_token = v.into();
         self
     }
 
     /// Sets the value of [destination_predefined_acl][crate::model::RewriteObjectRequest::destination_predefined_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_destination_predefined_acl("example");
+    /// ```
     pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2345,6 +3414,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2354,6 +3429,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2363,6 +3445,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2372,6 +3460,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2381,6 +3476,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2390,6 +3491,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2399,6 +3507,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2408,6 +3522,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2417,6 +3538,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_source_generation_match(42);
+    /// ```
     pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2426,6 +3553,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_generation_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2435,6 +3569,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_source_generation_not_match(42);
+    /// ```
     pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2444,6 +3584,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_generation_not_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_generation_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2456,6 +3603,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_source_metageneration_match(42);
+    /// ```
     pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2465,6 +3618,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_metageneration_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_metageneration_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2477,6 +3637,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_if_source_metageneration_not_match(42);
+    /// ```
     pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2486,6 +3652,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_metageneration_not_match(Some(42));
+    /// let x = RewriteObjectRequest::new().set_or_clear_if_source_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_metageneration_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2498,12 +3671,24 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [max_bytes_rewritten_per_call][crate::model::RewriteObjectRequest::max_bytes_rewritten_per_call].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_max_bytes_rewritten_per_call(42);
+    /// ```
     pub fn set_max_bytes_rewritten_per_call<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_bytes_rewritten_per_call = v.into();
         self
     }
 
     /// Sets the value of [copy_source_encryption_algorithm][crate::model::RewriteObjectRequest::copy_source_encryption_algorithm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_copy_source_encryption_algorithm("example");
+    /// ```
     pub fn set_copy_source_encryption_algorithm<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2513,6 +3698,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [copy_source_encryption_key_bytes][crate::model::RewriteObjectRequest::copy_source_encryption_key_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_copy_source_encryption_key_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_copy_source_encryption_key_bytes<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -2522,6 +3713,12 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [copy_source_encryption_key_sha256_bytes][crate::model::RewriteObjectRequest::copy_source_encryption_key_sha256_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// let x = RewriteObjectRequest::new().set_copy_source_encryption_key_sha256_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_copy_source_encryption_key_sha256_bytes<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -2531,6 +3728,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = RewriteObjectRequest::new().set_common_object_request_params(CommonObjectRequestParams::default()/* use setters */);
+    /// ```
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -2540,6 +3744,14 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = RewriteObjectRequest::new().set_or_clear_common_object_request_params(Some(CommonObjectRequestParams::default()/* use setters */));
+    /// let x = RewriteObjectRequest::new().set_or_clear_common_object_request_params(None::<CommonObjectRequestParams>);
+    /// ```
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -2549,6 +3761,13 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// use google_cloud_storage::model::ObjectChecksums;
+    /// let x = RewriteObjectRequest::new().set_object_checksums(ObjectChecksums::default()/* use setters */);
+    /// ```
     pub fn set_object_checksums<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -2558,6 +3777,14 @@ impl RewriteObjectRequest {
     }
 
     /// Sets or clears the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteObjectRequest;
+    /// use google_cloud_storage::model::ObjectChecksums;
+    /// let x = RewriteObjectRequest::new().set_or_clear_object_checksums(Some(ObjectChecksums::default()/* use setters */));
+    /// let x = RewriteObjectRequest::new().set_or_clear_object_checksums(None::<ObjectChecksums>);
+    /// ```
     pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -2606,30 +3833,61 @@ impl RewriteResponse {
     }
 
     /// Sets the value of [total_bytes_rewritten][crate::model::RewriteResponse::total_bytes_rewritten].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteResponse;
+    /// let x = RewriteResponse::new().set_total_bytes_rewritten(42);
+    /// ```
     pub fn set_total_bytes_rewritten<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_bytes_rewritten = v.into();
         self
     }
 
     /// Sets the value of [object_size][crate::model::RewriteResponse::object_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteResponse;
+    /// let x = RewriteResponse::new().set_object_size(42);
+    /// ```
     pub fn set_object_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.object_size = v.into();
         self
     }
 
     /// Sets the value of [done][crate::model::RewriteResponse::done].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteResponse;
+    /// let x = RewriteResponse::new().set_done(true);
+    /// ```
     pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.done = v.into();
         self
     }
 
     /// Sets the value of [rewrite_token][crate::model::RewriteResponse::rewrite_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteResponse;
+    /// let x = RewriteResponse::new().set_rewrite_token("example");
+    /// ```
     pub fn set_rewrite_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rewrite_token = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::RewriteResponse::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteResponse;
+    /// use google_cloud_storage::model::Object;
+    /// let x = RewriteResponse::new().set_resource(Object::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -2639,6 +3897,14 @@ impl RewriteResponse {
     }
 
     /// Sets or clears the value of [resource][crate::model::RewriteResponse::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::RewriteResponse;
+    /// use google_cloud_storage::model::Object;
+    /// let x = RewriteResponse::new().set_or_clear_resource(Some(Object::default()/* use setters */));
+    /// let x = RewriteResponse::new().set_or_clear_resource(None::<Object>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -2734,18 +4000,36 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [bucket][crate::model::MoveObjectRequest::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [source_object][crate::model::MoveObjectRequest::source_object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_source_object("example");
+    /// ```
     pub fn set_source_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_object = v.into();
         self
     }
 
     /// Sets the value of [destination_object][crate::model::MoveObjectRequest::destination_object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_destination_object("example");
+    /// ```
     pub fn set_destination_object<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2755,6 +4039,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_source_generation_match(42);
+    /// ```
     pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2764,6 +4054,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_generation_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2773,6 +4070,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_source_generation_not_match(42);
+    /// ```
     pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2782,6 +4085,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_generation_not_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_generation_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2794,6 +4104,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_source_metageneration_match(42);
+    /// ```
     pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2803,6 +4119,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_metageneration_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_metageneration_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2815,6 +4138,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_source_metageneration_not_match(42);
+    /// ```
     pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2824,6 +4153,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_metageneration_not_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_source_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_source_metageneration_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2836,6 +4172,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2845,6 +4187,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2854,6 +4203,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2863,6 +4218,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2872,6 +4234,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2881,6 +4249,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2890,6 +4265,12 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2899,6 +4280,13 @@ impl MoveObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::MoveObjectRequest;
+    /// let x = MoveObjectRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = MoveObjectRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2977,6 +4365,13 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [object][crate::model::UpdateObjectRequest::object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// use google_cloud_storage::model::Object;
+    /// let x = UpdateObjectRequest::new().set_object(Object::default()/* use setters */);
+    /// ```
     pub fn set_object<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -2986,6 +4381,14 @@ impl UpdateObjectRequest {
     }
 
     /// Sets or clears the value of [object][crate::model::UpdateObjectRequest::object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// use google_cloud_storage::model::Object;
+    /// let x = UpdateObjectRequest::new().set_or_clear_object(Some(Object::default()/* use setters */));
+    /// let x = UpdateObjectRequest::new().set_or_clear_object(None::<Object>);
+    /// ```
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -2995,6 +4398,12 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_if_generation_match(42);
+    /// ```
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3004,6 +4413,13 @@ impl UpdateObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_generation_match(Some(42));
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_generation_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3013,6 +4429,12 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_if_generation_not_match(42);
+    /// ```
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3022,6 +4444,13 @@ impl UpdateObjectRequest {
     }
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_generation_not_match(Some(42));
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_generation_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3031,6 +4460,12 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_if_metageneration_match(42);
+    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3040,6 +4475,13 @@ impl UpdateObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3049,6 +4491,12 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_if_metageneration_not_match(42);
+    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3058,6 +4506,13 @@ impl UpdateObjectRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = UpdateObjectRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3067,12 +4522,25 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [predefined_acl][crate::model::UpdateObjectRequest::predefined_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_predefined_acl("example");
+    /// ```
     pub fn set_predefined_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predefined_acl = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateObjectRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3082,6 +4550,14 @@ impl UpdateObjectRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateObjectRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateObjectRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3091,6 +4567,13 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = UpdateObjectRequest::new().set_common_object_request_params(CommonObjectRequestParams::default()/* use setters */);
+    /// ```
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -3100,6 +4583,14 @@ impl UpdateObjectRequest {
     }
 
     /// Sets or clears the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = UpdateObjectRequest::new().set_or_clear_common_object_request_params(Some(CommonObjectRequestParams::default()/* use setters */));
+    /// let x = UpdateObjectRequest::new().set_or_clear_common_object_request_params(None::<CommonObjectRequestParams>);
+    /// ```
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -3109,6 +4600,12 @@ impl UpdateObjectRequest {
     }
 
     /// Sets the value of [override_unlocked_retention][crate::model::UpdateObjectRequest::override_unlocked_retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::UpdateObjectRequest;
+    /// let x = UpdateObjectRequest::new().set_override_unlocked_retention(true);
+    /// ```
     pub fn set_override_unlocked_retention<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.override_unlocked_retention = v.into();
         self
@@ -3146,6 +4643,12 @@ impl CommonObjectRequestParams {
     }
 
     /// Sets the value of [encryption_algorithm][crate::model::CommonObjectRequestParams::encryption_algorithm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = CommonObjectRequestParams::new().set_encryption_algorithm("example");
+    /// ```
     pub fn set_encryption_algorithm<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3155,12 +4658,24 @@ impl CommonObjectRequestParams {
     }
 
     /// Sets the value of [encryption_key_bytes][crate::model::CommonObjectRequestParams::encryption_key_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = CommonObjectRequestParams::new().set_encryption_key_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_encryption_key_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.encryption_key_bytes = v.into();
         self
     }
 
     /// Sets the value of [encryption_key_sha256_bytes][crate::model::CommonObjectRequestParams::encryption_key_sha256_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CommonObjectRequestParams;
+    /// let x = CommonObjectRequestParams::new().set_encryption_key_sha256_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_encryption_key_sha256_bytes<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -3347,60 +4862,125 @@ impl Bucket {
     }
 
     /// Sets the value of [name][crate::model::Bucket::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [bucket_id][crate::model::Bucket::bucket_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_bucket_id("example");
+    /// ```
     pub fn set_bucket_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Bucket::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::Bucket::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [metageneration][crate::model::Bucket::metageneration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_metageneration(42);
+    /// ```
     pub fn set_metageneration<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.metageneration = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Bucket::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [location_type][crate::model::Bucket::location_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_location_type("example");
+    /// ```
     pub fn set_location_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_type = v.into();
         self
     }
 
     /// Sets the value of [storage_class][crate::model::Bucket::storage_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_storage_class("example");
+    /// ```
     pub fn set_storage_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_class = v.into();
         self
     }
 
     /// Sets the value of [rpo][crate::model::Bucket::rpo].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_rpo("example");
+    /// ```
     pub fn set_rpo<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rpo = v.into();
         self
     }
 
     /// Sets the value of [acl][crate::model::Bucket::acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::BucketAccessControl;
+    /// let x = Bucket::new()
+    ///     .set_acl([
+    ///         BucketAccessControl::default()/* use setters */,
+    ///         BucketAccessControl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_acl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3412,6 +4992,17 @@ impl Bucket {
     }
 
     /// Sets the value of [default_object_acl][crate::model::Bucket::default_object_acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = Bucket::new()
+    ///     .set_default_object_acl([
+    ///         ObjectAccessControl::default()/* use setters */,
+    ///         ObjectAccessControl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_default_object_acl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3423,6 +5014,13 @@ impl Bucket {
     }
 
     /// Sets the value of [lifecycle][crate::model::Bucket::lifecycle].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Lifecycle;
+    /// let x = Bucket::new().set_lifecycle(Lifecycle::default()/* use setters */);
+    /// ```
     pub fn set_lifecycle<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Lifecycle>,
@@ -3432,6 +5030,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [lifecycle][crate::model::Bucket::lifecycle].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Lifecycle;
+    /// let x = Bucket::new().set_or_clear_lifecycle(Some(Lifecycle::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_lifecycle(None::<Lifecycle>);
+    /// ```
     pub fn set_or_clear_lifecycle<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Lifecycle>,
@@ -3441,6 +5047,13 @@ impl Bucket {
     }
 
     /// Sets the value of [create_time][crate::model::Bucket::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use wkt::Timestamp;
+    /// let x = Bucket::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3450,6 +5063,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Bucket::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use wkt::Timestamp;
+    /// let x = Bucket::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3459,6 +5080,17 @@ impl Bucket {
     }
 
     /// Sets the value of [cors][crate::model::Bucket::cors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Cors;
+    /// let x = Bucket::new()
+    ///     .set_cors([
+    ///         Cors::default()/* use setters */,
+    ///         Cors::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3470,6 +5102,13 @@ impl Bucket {
     }
 
     /// Sets the value of [update_time][crate::model::Bucket::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use wkt::Timestamp;
+    /// let x = Bucket::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3479,6 +5118,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Bucket::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use wkt::Timestamp;
+    /// let x = Bucket::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3488,12 +5135,27 @@ impl Bucket {
     }
 
     /// Sets the value of [default_event_based_hold][crate::model::Bucket::default_event_based_hold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_default_event_based_hold(true);
+    /// ```
     pub fn set_default_event_based_hold<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.default_event_based_hold = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Bucket::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3506,6 +5168,13 @@ impl Bucket {
     }
 
     /// Sets the value of [website][crate::model::Bucket::website].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Website;
+    /// let x = Bucket::new().set_website(Website::default()/* use setters */);
+    /// ```
     pub fn set_website<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Website>,
@@ -3515,6 +5184,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [website][crate::model::Bucket::website].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Website;
+    /// let x = Bucket::new().set_or_clear_website(Some(Website::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_website(None::<Website>);
+    /// ```
     pub fn set_or_clear_website<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Website>,
@@ -3524,6 +5201,13 @@ impl Bucket {
     }
 
     /// Sets the value of [versioning][crate::model::Bucket::versioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Versioning;
+    /// let x = Bucket::new().set_versioning(Versioning::default()/* use setters */);
+    /// ```
     pub fn set_versioning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Versioning>,
@@ -3533,6 +5217,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [versioning][crate::model::Bucket::versioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Versioning;
+    /// let x = Bucket::new().set_or_clear_versioning(Some(Versioning::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_versioning(None::<Versioning>);
+    /// ```
     pub fn set_or_clear_versioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Versioning>,
@@ -3542,6 +5234,13 @@ impl Bucket {
     }
 
     /// Sets the value of [logging][crate::model::Bucket::logging].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Logging;
+    /// let x = Bucket::new().set_logging(Logging::default()/* use setters */);
+    /// ```
     pub fn set_logging<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Logging>,
@@ -3551,6 +5250,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [logging][crate::model::Bucket::logging].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Logging;
+    /// let x = Bucket::new().set_or_clear_logging(Some(Logging::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_logging(None::<Logging>);
+    /// ```
     pub fn set_or_clear_logging<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Logging>,
@@ -3560,6 +5267,13 @@ impl Bucket {
     }
 
     /// Sets the value of [owner][crate::model::Bucket::owner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::Owner;
+    /// let x = Bucket::new().set_owner(Owner::default()/* use setters */);
+    /// ```
     pub fn set_owner<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Owner>,
@@ -3569,6 +5283,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [owner][crate::model::Bucket::owner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::Owner;
+    /// let x = Bucket::new().set_or_clear_owner(Some(Owner::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_owner(None::<Owner>);
+    /// ```
     pub fn set_or_clear_owner<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Owner>,
@@ -3578,6 +5300,13 @@ impl Bucket {
     }
 
     /// Sets the value of [encryption][crate::model::Bucket::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Encryption;
+    /// let x = Bucket::new().set_encryption(Encryption::default()/* use setters */);
+    /// ```
     pub fn set_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Encryption>,
@@ -3587,6 +5316,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [encryption][crate::model::Bucket::encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Encryption;
+    /// let x = Bucket::new().set_or_clear_encryption(Some(Encryption::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_encryption(None::<Encryption>);
+    /// ```
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Encryption>,
@@ -3596,6 +5333,13 @@ impl Bucket {
     }
 
     /// Sets the value of [billing][crate::model::Bucket::billing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Billing;
+    /// let x = Bucket::new().set_billing(Billing::default()/* use setters */);
+    /// ```
     pub fn set_billing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Billing>,
@@ -3605,6 +5349,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [billing][crate::model::Bucket::billing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Billing;
+    /// let x = Bucket::new().set_or_clear_billing(Some(Billing::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_billing(None::<Billing>);
+    /// ```
     pub fn set_or_clear_billing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Billing>,
@@ -3614,6 +5366,13 @@ impl Bucket {
     }
 
     /// Sets the value of [retention_policy][crate::model::Bucket::retention_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::RetentionPolicy;
+    /// let x = Bucket::new().set_retention_policy(RetentionPolicy::default()/* use setters */);
+    /// ```
     pub fn set_retention_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::RetentionPolicy>,
@@ -3623,6 +5382,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [retention_policy][crate::model::Bucket::retention_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::RetentionPolicy;
+    /// let x = Bucket::new().set_or_clear_retention_policy(Some(RetentionPolicy::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_retention_policy(None::<RetentionPolicy>);
+    /// ```
     pub fn set_or_clear_retention_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::RetentionPolicy>,
@@ -3632,6 +5399,13 @@ impl Bucket {
     }
 
     /// Sets the value of [iam_config][crate::model::Bucket::iam_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::IamConfig;
+    /// let x = Bucket::new().set_iam_config(IamConfig::default()/* use setters */);
+    /// ```
     pub fn set_iam_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::IamConfig>,
@@ -3641,6 +5415,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [iam_config][crate::model::Bucket::iam_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::IamConfig;
+    /// let x = Bucket::new().set_or_clear_iam_config(Some(IamConfig::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_iam_config(None::<IamConfig>);
+    /// ```
     pub fn set_or_clear_iam_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::IamConfig>,
@@ -3650,12 +5432,25 @@ impl Bucket {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Bucket::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// let x = Bucket::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [custom_placement_config][crate::model::Bucket::custom_placement_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::CustomPlacementConfig;
+    /// let x = Bucket::new().set_custom_placement_config(CustomPlacementConfig::default()/* use setters */);
+    /// ```
     pub fn set_custom_placement_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::CustomPlacementConfig>,
@@ -3665,6 +5460,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [custom_placement_config][crate::model::Bucket::custom_placement_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::CustomPlacementConfig;
+    /// let x = Bucket::new().set_or_clear_custom_placement_config(Some(CustomPlacementConfig::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_custom_placement_config(None::<CustomPlacementConfig>);
+    /// ```
     pub fn set_or_clear_custom_placement_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::CustomPlacementConfig>,
@@ -3674,6 +5477,13 @@ impl Bucket {
     }
 
     /// Sets the value of [autoclass][crate::model::Bucket::autoclass].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Autoclass;
+    /// let x = Bucket::new().set_autoclass(Autoclass::default()/* use setters */);
+    /// ```
     pub fn set_autoclass<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Autoclass>,
@@ -3683,6 +5493,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [autoclass][crate::model::Bucket::autoclass].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::Autoclass;
+    /// let x = Bucket::new().set_or_clear_autoclass(Some(Autoclass::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_autoclass(None::<Autoclass>);
+    /// ```
     pub fn set_or_clear_autoclass<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Autoclass>,
@@ -3692,6 +5510,13 @@ impl Bucket {
     }
 
     /// Sets the value of [hierarchical_namespace][crate::model::Bucket::hierarchical_namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::HierarchicalNamespace;
+    /// let x = Bucket::new().set_hierarchical_namespace(HierarchicalNamespace::default()/* use setters */);
+    /// ```
     pub fn set_hierarchical_namespace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::HierarchicalNamespace>,
@@ -3701,6 +5526,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [hierarchical_namespace][crate::model::Bucket::hierarchical_namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::HierarchicalNamespace;
+    /// let x = Bucket::new().set_or_clear_hierarchical_namespace(Some(HierarchicalNamespace::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_hierarchical_namespace(None::<HierarchicalNamespace>);
+    /// ```
     pub fn set_or_clear_hierarchical_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::HierarchicalNamespace>,
@@ -3710,6 +5543,13 @@ impl Bucket {
     }
 
     /// Sets the value of [soft_delete_policy][crate::model::Bucket::soft_delete_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::SoftDeletePolicy;
+    /// let x = Bucket::new().set_soft_delete_policy(SoftDeletePolicy::default()/* use setters */);
+    /// ```
     pub fn set_soft_delete_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::SoftDeletePolicy>,
@@ -3719,6 +5559,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [soft_delete_policy][crate::model::Bucket::soft_delete_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::SoftDeletePolicy;
+    /// let x = Bucket::new().set_or_clear_soft_delete_policy(Some(SoftDeletePolicy::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_soft_delete_policy(None::<SoftDeletePolicy>);
+    /// ```
     pub fn set_or_clear_soft_delete_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::SoftDeletePolicy>,
@@ -3728,6 +5576,13 @@ impl Bucket {
     }
 
     /// Sets the value of [object_retention][crate::model::Bucket::object_retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::ObjectRetention;
+    /// let x = Bucket::new().set_object_retention(ObjectRetention::default()/* use setters */);
+    /// ```
     pub fn set_object_retention<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::ObjectRetention>,
@@ -3737,6 +5592,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [object_retention][crate::model::Bucket::object_retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::ObjectRetention;
+    /// let x = Bucket::new().set_or_clear_object_retention(Some(ObjectRetention::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_object_retention(None::<ObjectRetention>);
+    /// ```
     pub fn set_or_clear_object_retention<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::ObjectRetention>,
@@ -3746,6 +5609,13 @@ impl Bucket {
     }
 
     /// Sets the value of [ip_filter][crate::model::Bucket::ip_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::IpFilter;
+    /// let x = Bucket::new().set_ip_filter(IpFilter::default()/* use setters */);
+    /// ```
     pub fn set_ip_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bucket::IpFilter>,
@@ -3755,6 +5625,14 @@ impl Bucket {
     }
 
     /// Sets or clears the value of [ip_filter][crate::model::Bucket::ip_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Bucket;
+    /// use google_cloud_storage::model::bucket::IpFilter;
+    /// let x = Bucket::new().set_or_clear_ip_filter(Some(IpFilter::default()/* use setters */));
+    /// let x = Bucket::new().set_or_clear_ip_filter(None::<IpFilter>);
+    /// ```
     pub fn set_or_clear_ip_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::IpFilter>,
@@ -3791,6 +5669,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [requester_pays][crate::model::bucket::Billing::requester_pays].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Billing;
+        /// let x = Billing::new().set_requester_pays(true);
+        /// ```
         pub fn set_requester_pays<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.requester_pays = v.into();
             self
@@ -3841,6 +5725,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [origin][crate::model::bucket::Cors::origin].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Cors;
+        /// let x = Cors::new().set_origin(["a", "b", "c"]);
+        /// ```
         pub fn set_origin<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3852,6 +5742,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [method][crate::model::bucket::Cors::method].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Cors;
+        /// let x = Cors::new().set_method(["a", "b", "c"]);
+        /// ```
         pub fn set_method<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3863,6 +5759,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [response_header][crate::model::bucket::Cors::response_header].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Cors;
+        /// let x = Cors::new().set_response_header(["a", "b", "c"]);
+        /// ```
         pub fn set_response_header<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3874,6 +5776,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [max_age_seconds][crate::model::bucket::Cors::max_age_seconds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Cors;
+        /// let x = Cors::new().set_max_age_seconds(42);
+        /// ```
         pub fn set_max_age_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_age_seconds = v.into();
             self
@@ -3927,6 +5835,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [default_kms_key][crate::model::bucket::Encryption::default_kms_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Encryption;
+        /// let x = Encryption::new().set_default_kms_key("example");
+        /// ```
         pub fn set_default_kms_key<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3936,6 +5850,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [google_managed_encryption_enforcement_config][crate::model::bucket::Encryption::google_managed_encryption_enforcement_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Encryption;
+        /// use google_cloud_storage::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
+        /// let x = Encryption::new().set_google_managed_encryption_enforcement_config(GoogleManagedEncryptionEnforcementConfig::default()/* use setters */);
+        /// ```
         pub fn set_google_managed_encryption_enforcement_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -3947,6 +5868,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [google_managed_encryption_enforcement_config][crate::model::bucket::Encryption::google_managed_encryption_enforcement_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Encryption;
+        /// use google_cloud_storage::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
+        /// let x = Encryption::new().set_or_clear_google_managed_encryption_enforcement_config(Some(GoogleManagedEncryptionEnforcementConfig::default()/* use setters */));
+        /// let x = Encryption::new().set_or_clear_google_managed_encryption_enforcement_config(None::<GoogleManagedEncryptionEnforcementConfig>);
+        /// ```
         pub fn set_or_clear_google_managed_encryption_enforcement_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3961,6 +5890,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [customer_managed_encryption_enforcement_config][crate::model::bucket::Encryption::customer_managed_encryption_enforcement_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Encryption;
+        /// use google_cloud_storage::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
+        /// let x = Encryption::new().set_customer_managed_encryption_enforcement_config(CustomerManagedEncryptionEnforcementConfig::default()/* use setters */);
+        /// ```
         pub fn set_customer_managed_encryption_enforcement_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -3973,6 +5909,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [customer_managed_encryption_enforcement_config][crate::model::bucket::Encryption::customer_managed_encryption_enforcement_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Encryption;
+        /// use google_cloud_storage::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
+        /// let x = Encryption::new().set_or_clear_customer_managed_encryption_enforcement_config(Some(CustomerManagedEncryptionEnforcementConfig::default()/* use setters */));
+        /// let x = Encryption::new().set_or_clear_customer_managed_encryption_enforcement_config(None::<CustomerManagedEncryptionEnforcementConfig>);
+        /// ```
         pub fn set_or_clear_customer_managed_encryption_enforcement_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3987,6 +5931,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [customer_supplied_encryption_enforcement_config][crate::model::bucket::Encryption::customer_supplied_encryption_enforcement_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Encryption;
+        /// use google_cloud_storage::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
+        /// let x = Encryption::new().set_customer_supplied_encryption_enforcement_config(CustomerSuppliedEncryptionEnforcementConfig::default()/* use setters */);
+        /// ```
         pub fn set_customer_supplied_encryption_enforcement_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -3999,6 +5950,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [customer_supplied_encryption_enforcement_config][crate::model::bucket::Encryption::customer_supplied_encryption_enforcement_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Encryption;
+        /// use google_cloud_storage::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
+        /// let x = Encryption::new().set_or_clear_customer_supplied_encryption_enforcement_config(Some(CustomerSuppliedEncryptionEnforcementConfig::default()/* use setters */));
+        /// let x = Encryption::new().set_or_clear_customer_supplied_encryption_enforcement_config(None::<CustomerSuppliedEncryptionEnforcementConfig>);
+        /// ```
         pub fn set_or_clear_customer_supplied_encryption_enforcement_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4048,6 +6007,12 @@ pub mod bucket {
             }
 
             /// Sets the value of [restriction_mode][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restriction_mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
+            /// let x = GoogleManagedEncryptionEnforcementConfig::new().set_restriction_mode("example");
+            /// ```
             pub fn set_restriction_mode<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -4057,6 +6022,13 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restriction_mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
+            /// let x = GoogleManagedEncryptionEnforcementConfig::new().set_or_clear_restriction_mode(Some("example"));
+            /// let x = GoogleManagedEncryptionEnforcementConfig::new().set_or_clear_restriction_mode(None::<String>);
+            /// ```
             pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -4066,6 +6038,13 @@ pub mod bucket {
             }
 
             /// Sets the value of [effective_time][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::effective_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
+            /// use wkt::Timestamp;
+            /// let x = GoogleManagedEncryptionEnforcementConfig::new().set_effective_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_effective_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4075,6 +6054,14 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::effective_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
+            /// use wkt::Timestamp;
+            /// let x = GoogleManagedEncryptionEnforcementConfig::new().set_or_clear_effective_time(Some(Timestamp::default()/* use setters */));
+            /// let x = GoogleManagedEncryptionEnforcementConfig::new().set_or_clear_effective_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4114,6 +6101,12 @@ pub mod bucket {
             }
 
             /// Sets the value of [restriction_mode][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restriction_mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
+            /// let x = CustomerManagedEncryptionEnforcementConfig::new().set_restriction_mode("example");
+            /// ```
             pub fn set_restriction_mode<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -4123,6 +6116,13 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restriction_mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
+            /// let x = CustomerManagedEncryptionEnforcementConfig::new().set_or_clear_restriction_mode(Some("example"));
+            /// let x = CustomerManagedEncryptionEnforcementConfig::new().set_or_clear_restriction_mode(None::<String>);
+            /// ```
             pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -4132,6 +6132,13 @@ pub mod bucket {
             }
 
             /// Sets the value of [effective_time][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::effective_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
+            /// use wkt::Timestamp;
+            /// let x = CustomerManagedEncryptionEnforcementConfig::new().set_effective_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_effective_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4141,6 +6148,14 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::effective_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
+            /// use wkt::Timestamp;
+            /// let x = CustomerManagedEncryptionEnforcementConfig::new().set_or_clear_effective_time(Some(Timestamp::default()/* use setters */));
+            /// let x = CustomerManagedEncryptionEnforcementConfig::new().set_or_clear_effective_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4181,6 +6196,12 @@ pub mod bucket {
             }
 
             /// Sets the value of [restriction_mode][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restriction_mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
+            /// let x = CustomerSuppliedEncryptionEnforcementConfig::new().set_restriction_mode("example");
+            /// ```
             pub fn set_restriction_mode<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -4190,6 +6211,13 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restriction_mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
+            /// let x = CustomerSuppliedEncryptionEnforcementConfig::new().set_or_clear_restriction_mode(Some("example"));
+            /// let x = CustomerSuppliedEncryptionEnforcementConfig::new().set_or_clear_restriction_mode(None::<String>);
+            /// ```
             pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -4199,6 +6227,13 @@ pub mod bucket {
             }
 
             /// Sets the value of [effective_time][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::effective_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
+            /// use wkt::Timestamp;
+            /// let x = CustomerSuppliedEncryptionEnforcementConfig::new().set_effective_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_effective_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4208,6 +6243,14 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::effective_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
+            /// use wkt::Timestamp;
+            /// let x = CustomerSuppliedEncryptionEnforcementConfig::new().set_or_clear_effective_time(Some(Timestamp::default()/* use setters */));
+            /// let x = CustomerSuppliedEncryptionEnforcementConfig::new().set_or_clear_effective_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4245,6 +6288,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [uniform_bucket_level_access][crate::model::bucket::IamConfig::uniform_bucket_level_access].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IamConfig;
+        /// use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+        /// let x = IamConfig::new().set_uniform_bucket_level_access(UniformBucketLevelAccess::default()/* use setters */);
+        /// ```
         pub fn set_uniform_bucket_level_access<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::bucket::iam_config::UniformBucketLevelAccess>,
@@ -4254,6 +6304,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [uniform_bucket_level_access][crate::model::bucket::IamConfig::uniform_bucket_level_access].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IamConfig;
+        /// use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+        /// let x = IamConfig::new().set_or_clear_uniform_bucket_level_access(Some(UniformBucketLevelAccess::default()/* use setters */));
+        /// let x = IamConfig::new().set_or_clear_uniform_bucket_level_access(None::<UniformBucketLevelAccess>);
+        /// ```
         pub fn set_or_clear_uniform_bucket_level_access<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4266,6 +6324,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [public_access_prevention][crate::model::bucket::IamConfig::public_access_prevention].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IamConfig;
+        /// let x = IamConfig::new().set_public_access_prevention("example");
+        /// ```
         pub fn set_public_access_prevention<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4310,12 +6374,25 @@ pub mod bucket {
             }
 
             /// Sets the value of [enabled][crate::model::bucket::iam_config::UniformBucketLevelAccess::enabled].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+            /// let x = UniformBucketLevelAccess::new().set_enabled(true);
+            /// ```
             pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.enabled = v.into();
                 self
             }
 
             /// Sets the value of [lock_time][crate::model::bucket::iam_config::UniformBucketLevelAccess::lock_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+            /// use wkt::Timestamp;
+            /// let x = UniformBucketLevelAccess::new().set_lock_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_lock_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4325,6 +6402,14 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [lock_time][crate::model::bucket::iam_config::UniformBucketLevelAccess::lock_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+            /// use wkt::Timestamp;
+            /// let x = UniformBucketLevelAccess::new().set_or_clear_lock_time(Some(Timestamp::default()/* use setters */));
+            /// let x = UniformBucketLevelAccess::new().set_or_clear_lock_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_lock_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4360,6 +6445,17 @@ pub mod bucket {
         }
 
         /// Sets the value of [rule][crate::model::bucket::Lifecycle::rule].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Lifecycle;
+        /// use google_cloud_storage::model::bucket::lifecycle::Rule;
+        /// let x = Lifecycle::new()
+        ///     .set_rule([
+        ///         Rule::default()/* use setters */,
+        ///         Rule::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_rule<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4402,6 +6498,13 @@ pub mod bucket {
             }
 
             /// Sets the value of [action][crate::model::bucket::lifecycle::Rule::action].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::lifecycle::Rule;
+            /// use google_cloud_storage::model::bucket::lifecycle::rule::Action;
+            /// let x = Rule::new().set_action(Action::default()/* use setters */);
+            /// ```
             pub fn set_action<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::bucket::lifecycle::rule::Action>,
@@ -4411,6 +6514,14 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [action][crate::model::bucket::lifecycle::Rule::action].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::lifecycle::Rule;
+            /// use google_cloud_storage::model::bucket::lifecycle::rule::Action;
+            /// let x = Rule::new().set_or_clear_action(Some(Action::default()/* use setters */));
+            /// let x = Rule::new().set_or_clear_action(None::<Action>);
+            /// ```
             pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::bucket::lifecycle::rule::Action>,
@@ -4420,6 +6531,13 @@ pub mod bucket {
             }
 
             /// Sets the value of [condition][crate::model::bucket::lifecycle::Rule::condition].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::lifecycle::Rule;
+            /// use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+            /// let x = Rule::new().set_condition(Condition::default()/* use setters */);
+            /// ```
             pub fn set_condition<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::bucket::lifecycle::rule::Condition>,
@@ -4429,6 +6547,14 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [condition][crate::model::bucket::lifecycle::Rule::condition].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::lifecycle::Rule;
+            /// use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+            /// let x = Rule::new().set_or_clear_condition(Some(Condition::default()/* use setters */));
+            /// let x = Rule::new().set_or_clear_condition(None::<Condition>);
+            /// ```
             pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::bucket::lifecycle::rule::Condition>,
@@ -4471,6 +6597,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [r#type][crate::model::bucket::lifecycle::rule::Action::type].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Action;
+                /// let x = Action::new().set_type("example");
+                /// ```
                 pub fn set_type<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4480,6 +6612,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [storage_class][crate::model::bucket::lifecycle::rule::Action::storage_class].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Action;
+                /// let x = Action::new().set_storage_class("example");
+                /// ```
                 pub fn set_storage_class<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4563,6 +6701,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [age_days][crate::model::bucket::lifecycle::rule::Condition::age_days].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_age_days(42);
+                /// ```
                 pub fn set_age_days<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -4572,6 +6716,13 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [age_days][crate::model::bucket::lifecycle::rule::Condition::age_days].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_or_clear_age_days(Some(42));
+                /// let x = Condition::new().set_or_clear_age_days(None::<i32>);
+                /// ```
                 pub fn set_or_clear_age_days<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -4581,6 +6732,13 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [created_before][crate::model::bucket::lifecycle::rule::Condition::created_before].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// use gtype::model::Date;
+                /// let x = Condition::new().set_created_before(Date::default()/* use setters */);
+                /// ```
                 pub fn set_created_before<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<gtype::model::Date>,
@@ -4590,6 +6748,14 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [created_before][crate::model::bucket::lifecycle::rule::Condition::created_before].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// use gtype::model::Date;
+                /// let x = Condition::new().set_or_clear_created_before(Some(Date::default()/* use setters */));
+                /// let x = Condition::new().set_or_clear_created_before(None::<Date>);
+                /// ```
                 pub fn set_or_clear_created_before<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<gtype::model::Date>,
@@ -4599,6 +6765,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [is_live][crate::model::bucket::lifecycle::rule::Condition::is_live].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_is_live(true);
+                /// ```
                 pub fn set_is_live<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<bool>,
@@ -4608,6 +6780,13 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [is_live][crate::model::bucket::lifecycle::rule::Condition::is_live].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_or_clear_is_live(Some(false));
+                /// let x = Condition::new().set_or_clear_is_live(None::<bool>);
+                /// ```
                 pub fn set_or_clear_is_live<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<bool>,
@@ -4617,6 +6796,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [num_newer_versions][crate::model::bucket::lifecycle::rule::Condition::num_newer_versions].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_num_newer_versions(42);
+                /// ```
                 pub fn set_num_newer_versions<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -4626,6 +6811,13 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [num_newer_versions][crate::model::bucket::lifecycle::rule::Condition::num_newer_versions].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_or_clear_num_newer_versions(Some(42));
+                /// let x = Condition::new().set_or_clear_num_newer_versions(None::<i32>);
+                /// ```
                 pub fn set_or_clear_num_newer_versions<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -4638,6 +6830,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [matches_storage_class][crate::model::bucket::lifecycle::rule::Condition::matches_storage_class].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_matches_storage_class(["a", "b", "c"]);
+                /// ```
                 pub fn set_matches_storage_class<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -4649,6 +6847,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_days_since_custom_time(42);
+                /// ```
                 pub fn set_days_since_custom_time<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -4658,6 +6862,13 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_or_clear_days_since_custom_time(Some(42));
+                /// let x = Condition::new().set_or_clear_days_since_custom_time(None::<i32>);
+                /// ```
                 pub fn set_or_clear_days_since_custom_time<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -4670,6 +6881,13 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [custom_time_before][crate::model::bucket::lifecycle::rule::Condition::custom_time_before].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// use gtype::model::Date;
+                /// let x = Condition::new().set_custom_time_before(Date::default()/* use setters */);
+                /// ```
                 pub fn set_custom_time_before<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<gtype::model::Date>,
@@ -4679,6 +6897,14 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [custom_time_before][crate::model::bucket::lifecycle::rule::Condition::custom_time_before].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// use gtype::model::Date;
+                /// let x = Condition::new().set_or_clear_custom_time_before(Some(Date::default()/* use setters */));
+                /// let x = Condition::new().set_or_clear_custom_time_before(None::<Date>);
+                /// ```
                 pub fn set_or_clear_custom_time_before<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -4691,6 +6917,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [days_since_noncurrent_time][crate::model::bucket::lifecycle::rule::Condition::days_since_noncurrent_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_days_since_noncurrent_time(42);
+                /// ```
                 pub fn set_days_since_noncurrent_time<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -4700,6 +6932,13 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [days_since_noncurrent_time][crate::model::bucket::lifecycle::rule::Condition::days_since_noncurrent_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_or_clear_days_since_noncurrent_time(Some(42));
+                /// let x = Condition::new().set_or_clear_days_since_noncurrent_time(None::<i32>);
+                /// ```
                 pub fn set_or_clear_days_since_noncurrent_time<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -4712,6 +6951,13 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [noncurrent_time_before][crate::model::bucket::lifecycle::rule::Condition::noncurrent_time_before].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// use gtype::model::Date;
+                /// let x = Condition::new().set_noncurrent_time_before(Date::default()/* use setters */);
+                /// ```
                 pub fn set_noncurrent_time_before<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<gtype::model::Date>,
@@ -4721,6 +6967,14 @@ pub mod bucket {
                 }
 
                 /// Sets or clears the value of [noncurrent_time_before][crate::model::bucket::lifecycle::rule::Condition::noncurrent_time_before].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// use gtype::model::Date;
+                /// let x = Condition::new().set_or_clear_noncurrent_time_before(Some(Date::default()/* use setters */));
+                /// let x = Condition::new().set_or_clear_noncurrent_time_before(None::<Date>);
+                /// ```
                 pub fn set_or_clear_noncurrent_time_before<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -4733,6 +6987,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [matches_prefix][crate::model::bucket::lifecycle::rule::Condition::matches_prefix].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_matches_prefix(["a", "b", "c"]);
+                /// ```
                 pub fn set_matches_prefix<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -4744,6 +7004,12 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [matches_suffix][crate::model::bucket::lifecycle::rule::Condition::matches_suffix].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_storage::model::bucket::lifecycle::rule::Condition;
+                /// let x = Condition::new().set_matches_suffix(["a", "b", "c"]);
+                /// ```
                 pub fn set_matches_suffix<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -4783,12 +7049,24 @@ pub mod bucket {
         }
 
         /// Sets the value of [log_bucket][crate::model::bucket::Logging::log_bucket].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Logging;
+        /// let x = Logging::new().set_log_bucket("example");
+        /// ```
         pub fn set_log_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.log_bucket = v.into();
             self
         }
 
         /// Sets the value of [log_object_prefix][crate::model::bucket::Logging::log_object_prefix].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Logging;
+        /// let x = Logging::new().set_log_object_prefix("example");
+        /// ```
         pub fn set_log_object_prefix<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4821,6 +7099,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [enabled][crate::model::bucket::ObjectRetention::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::ObjectRetention;
+        /// let x = ObjectRetention::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -4860,6 +7144,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [effective_time][crate::model::bucket::RetentionPolicy::effective_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::RetentionPolicy;
+        /// use wkt::Timestamp;
+        /// let x = RetentionPolicy::new().set_effective_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_effective_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4869,6 +7160,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [effective_time][crate::model::bucket::RetentionPolicy::effective_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::RetentionPolicy;
+        /// use wkt::Timestamp;
+        /// let x = RetentionPolicy::new().set_or_clear_effective_time(Some(Timestamp::default()/* use setters */));
+        /// let x = RetentionPolicy::new().set_or_clear_effective_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4878,12 +7177,25 @@ pub mod bucket {
         }
 
         /// Sets the value of [is_locked][crate::model::bucket::RetentionPolicy::is_locked].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::RetentionPolicy;
+        /// let x = RetentionPolicy::new().set_is_locked(true);
+        /// ```
         pub fn set_is_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_locked = v.into();
             self
         }
 
         /// Sets the value of [retention_duration][crate::model::bucket::RetentionPolicy::retention_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::RetentionPolicy;
+        /// use wkt::Duration;
+        /// let x = RetentionPolicy::new().set_retention_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_retention_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4893,6 +7205,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [retention_duration][crate::model::bucket::RetentionPolicy::retention_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::RetentionPolicy;
+        /// use wkt::Duration;
+        /// let x = RetentionPolicy::new().set_or_clear_retention_duration(Some(Duration::default()/* use setters */));
+        /// let x = RetentionPolicy::new().set_or_clear_retention_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4929,6 +7249,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [retention_duration][crate::model::bucket::SoftDeletePolicy::retention_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::SoftDeletePolicy;
+        /// use wkt::Duration;
+        /// let x = SoftDeletePolicy::new().set_retention_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_retention_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4938,6 +7265,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [retention_duration][crate::model::bucket::SoftDeletePolicy::retention_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::SoftDeletePolicy;
+        /// use wkt::Duration;
+        /// let x = SoftDeletePolicy::new().set_or_clear_retention_duration(Some(Duration::default()/* use setters */));
+        /// let x = SoftDeletePolicy::new().set_or_clear_retention_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4947,6 +7282,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [effective_time][crate::model::bucket::SoftDeletePolicy::effective_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::SoftDeletePolicy;
+        /// use wkt::Timestamp;
+        /// let x = SoftDeletePolicy::new().set_effective_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_effective_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4956,6 +7298,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [effective_time][crate::model::bucket::SoftDeletePolicy::effective_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::SoftDeletePolicy;
+        /// use wkt::Timestamp;
+        /// let x = SoftDeletePolicy::new().set_or_clear_effective_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SoftDeletePolicy::new().set_or_clear_effective_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4989,6 +7339,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [enabled][crate::model::bucket::Versioning::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Versioning;
+        /// let x = Versioning::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -5029,6 +7385,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [main_page_suffix][crate::model::bucket::Website::main_page_suffix].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Website;
+        /// let x = Website::new().set_main_page_suffix("example");
+        /// ```
         pub fn set_main_page_suffix<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5038,6 +7400,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [not_found_page][crate::model::bucket::Website::not_found_page].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Website;
+        /// let x = Website::new().set_not_found_page("example");
+        /// ```
         pub fn set_not_found_page<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5073,6 +7441,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [data_locations][crate::model::bucket::CustomPlacementConfig::data_locations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::CustomPlacementConfig;
+        /// let x = CustomPlacementConfig::new().set_data_locations(["a", "b", "c"]);
+        /// ```
         pub fn set_data_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5121,12 +7495,25 @@ pub mod bucket {
         }
 
         /// Sets the value of [enabled][crate::model::bucket::Autoclass::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Autoclass;
+        /// let x = Autoclass::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [toggle_time][crate::model::bucket::Autoclass::toggle_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Autoclass;
+        /// use wkt::Timestamp;
+        /// let x = Autoclass::new().set_toggle_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_toggle_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5136,6 +7523,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [toggle_time][crate::model::bucket::Autoclass::toggle_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Autoclass;
+        /// use wkt::Timestamp;
+        /// let x = Autoclass::new().set_or_clear_toggle_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Autoclass::new().set_or_clear_toggle_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_toggle_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5145,6 +7540,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [terminal_storage_class][crate::model::bucket::Autoclass::terminal_storage_class].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Autoclass;
+        /// let x = Autoclass::new().set_terminal_storage_class("example");
+        /// ```
         pub fn set_terminal_storage_class<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -5154,6 +7555,13 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [terminal_storage_class][crate::model::bucket::Autoclass::terminal_storage_class].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Autoclass;
+        /// let x = Autoclass::new().set_or_clear_terminal_storage_class(Some("example"));
+        /// let x = Autoclass::new().set_or_clear_terminal_storage_class(None::<String>);
+        /// ```
         pub fn set_or_clear_terminal_storage_class<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -5163,6 +7571,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [terminal_storage_class_update_time][crate::model::bucket::Autoclass::terminal_storage_class_update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Autoclass;
+        /// use wkt::Timestamp;
+        /// let x = Autoclass::new().set_terminal_storage_class_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_terminal_storage_class_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5172,6 +7587,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [terminal_storage_class_update_time][crate::model::bucket::Autoclass::terminal_storage_class_update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::Autoclass;
+        /// use wkt::Timestamp;
+        /// let x = Autoclass::new().set_or_clear_terminal_storage_class_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Autoclass::new().set_or_clear_terminal_storage_class_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_terminal_storage_class_update_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -5232,6 +7655,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [mode][crate::model::bucket::IpFilter::mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// let x = IpFilter::new().set_mode("example");
+        /// ```
         pub fn set_mode<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -5241,6 +7670,13 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [mode][crate::model::bucket::IpFilter::mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// let x = IpFilter::new().set_or_clear_mode(Some("example"));
+        /// let x = IpFilter::new().set_or_clear_mode(None::<String>);
+        /// ```
         pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -5250,6 +7686,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [public_network_source][crate::model::bucket::IpFilter::public_network_source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// use google_cloud_storage::model::bucket::ip_filter::PublicNetworkSource;
+        /// let x = IpFilter::new().set_public_network_source(PublicNetworkSource::default()/* use setters */);
+        /// ```
         pub fn set_public_network_source<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>,
@@ -5259,6 +7702,14 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [public_network_source][crate::model::bucket::IpFilter::public_network_source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// use google_cloud_storage::model::bucket::ip_filter::PublicNetworkSource;
+        /// let x = IpFilter::new().set_or_clear_public_network_source(Some(PublicNetworkSource::default()/* use setters */));
+        /// let x = IpFilter::new().set_or_clear_public_network_source(None::<PublicNetworkSource>);
+        /// ```
         pub fn set_or_clear_public_network_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>,
@@ -5268,6 +7719,17 @@ pub mod bucket {
         }
 
         /// Sets the value of [vpc_network_sources][crate::model::bucket::IpFilter::vpc_network_sources].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// use google_cloud_storage::model::bucket::ip_filter::VpcNetworkSource;
+        /// let x = IpFilter::new()
+        ///     .set_vpc_network_sources([
+        ///         VpcNetworkSource::default()/* use setters */,
+        ///         VpcNetworkSource::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_vpc_network_sources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5279,12 +7741,24 @@ pub mod bucket {
         }
 
         /// Sets the value of [allow_cross_org_vpcs][crate::model::bucket::IpFilter::allow_cross_org_vpcs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// let x = IpFilter::new().set_allow_cross_org_vpcs(true);
+        /// ```
         pub fn set_allow_cross_org_vpcs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_cross_org_vpcs = v.into();
             self
         }
 
         /// Sets the value of [allow_all_service_agent_access][crate::model::bucket::IpFilter::allow_all_service_agent_access].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// let x = IpFilter::new().set_allow_all_service_agent_access(true);
+        /// ```
         pub fn set_allow_all_service_agent_access<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -5294,6 +7768,13 @@ pub mod bucket {
         }
 
         /// Sets or clears the value of [allow_all_service_agent_access][crate::model::bucket::IpFilter::allow_all_service_agent_access].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::IpFilter;
+        /// let x = IpFilter::new().set_or_clear_allow_all_service_agent_access(Some(false));
+        /// let x = IpFilter::new().set_or_clear_allow_all_service_agent_access(None::<bool>);
+        /// ```
         pub fn set_or_clear_allow_all_service_agent_access<T>(
             mut self,
             v: std::option::Option<T>,
@@ -5335,6 +7816,12 @@ pub mod bucket {
             }
 
             /// Sets the value of [allowed_ip_cidr_ranges][crate::model::bucket::ip_filter::PublicNetworkSource::allowed_ip_cidr_ranges].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::ip_filter::PublicNetworkSource;
+            /// let x = PublicNetworkSource::new().set_allowed_ip_cidr_ranges(["a", "b", "c"]);
+            /// ```
             pub fn set_allowed_ip_cidr_ranges<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -5378,6 +7865,12 @@ pub mod bucket {
             }
 
             /// Sets the value of [network][crate::model::bucket::ip_filter::VpcNetworkSource::network].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::ip_filter::VpcNetworkSource;
+            /// let x = VpcNetworkSource::new().set_network("example");
+            /// ```
             pub fn set_network<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -5387,6 +7880,13 @@ pub mod bucket {
             }
 
             /// Sets or clears the value of [network][crate::model::bucket::ip_filter::VpcNetworkSource::network].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::ip_filter::VpcNetworkSource;
+            /// let x = VpcNetworkSource::new().set_or_clear_network(Some("example"));
+            /// let x = VpcNetworkSource::new().set_or_clear_network(None::<String>);
+            /// ```
             pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -5396,6 +7896,12 @@ pub mod bucket {
             }
 
             /// Sets the value of [allowed_ip_cidr_ranges][crate::model::bucket::ip_filter::VpcNetworkSource::allowed_ip_cidr_ranges].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storage::model::bucket::ip_filter::VpcNetworkSource;
+            /// let x = VpcNetworkSource::new().set_allowed_ip_cidr_ranges(["a", "b", "c"]);
+            /// ```
             pub fn set_allowed_ip_cidr_ranges<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -5430,6 +7936,12 @@ pub mod bucket {
         }
 
         /// Sets the value of [enabled][crate::model::bucket::HierarchicalNamespace::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::bucket::HierarchicalNamespace;
+        /// let x = HierarchicalNamespace::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -5505,54 +8017,109 @@ impl BucketAccessControl {
     }
 
     /// Sets the value of [role][crate::model::BucketAccessControl::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_role("example");
+    /// ```
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::BucketAccessControl::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [entity][crate::model::BucketAccessControl::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_entity("example");
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
     }
 
     /// Sets the value of [entity_alt][crate::model::BucketAccessControl::entity_alt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_entity_alt("example");
+    /// ```
     pub fn set_entity_alt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_alt = v.into();
         self
     }
 
     /// Sets the value of [entity_id][crate::model::BucketAccessControl::entity_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_entity_id("example");
+    /// ```
     pub fn set_entity_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::BucketAccessControl::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [email][crate::model::BucketAccessControl::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::BucketAccessControl::domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// let x = BucketAccessControl::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [project_team][crate::model::BucketAccessControl::project_team].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// use google_cloud_storage::model::ProjectTeam;
+    /// let x = BucketAccessControl::new().set_project_team(ProjectTeam::default()/* use setters */);
+    /// ```
     pub fn set_project_team<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProjectTeam>,
@@ -5562,6 +8129,14 @@ impl BucketAccessControl {
     }
 
     /// Sets or clears the value of [project_team][crate::model::BucketAccessControl::project_team].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::BucketAccessControl;
+    /// use google_cloud_storage::model::ProjectTeam;
+    /// let x = BucketAccessControl::new().set_or_clear_project_team(Some(ProjectTeam::default()/* use setters */));
+    /// let x = BucketAccessControl::new().set_or_clear_project_team(None::<ProjectTeam>);
+    /// ```
     pub fn set_or_clear_project_team<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectTeam>,
@@ -5604,6 +8179,12 @@ impl ObjectChecksums {
     }
 
     /// Sets the value of [crc32c][crate::model::ObjectChecksums::crc32c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectChecksums;
+    /// let x = ObjectChecksums::new().set_crc32c(42);
+    /// ```
     pub fn set_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<u32>,
@@ -5613,6 +8194,13 @@ impl ObjectChecksums {
     }
 
     /// Sets or clears the value of [crc32c][crate::model::ObjectChecksums::crc32c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectChecksums;
+    /// let x = ObjectChecksums::new().set_or_clear_crc32c(Some(42));
+    /// let x = ObjectChecksums::new().set_or_clear_crc32c(None::<i32>);
+    /// ```
     pub fn set_or_clear_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<u32>,
@@ -5622,6 +8210,12 @@ impl ObjectChecksums {
     }
 
     /// Sets the value of [md5_hash][crate::model::ObjectChecksums::md5_hash].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectChecksums;
+    /// let x = ObjectChecksums::new().set_md5_hash(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_md5_hash<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.md5_hash = v.into();
         self
@@ -5656,12 +8250,25 @@ impl ObjectCustomContextPayload {
     }
 
     /// Sets the value of [value][crate::model::ObjectCustomContextPayload::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectCustomContextPayload;
+    /// let x = ObjectCustomContextPayload::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ObjectCustomContextPayload::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectCustomContextPayload;
+    /// use wkt::Timestamp;
+    /// let x = ObjectCustomContextPayload::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5671,6 +8278,14 @@ impl ObjectCustomContextPayload {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ObjectCustomContextPayload::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectCustomContextPayload;
+    /// use wkt::Timestamp;
+    /// let x = ObjectCustomContextPayload::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ObjectCustomContextPayload::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5680,6 +8295,13 @@ impl ObjectCustomContextPayload {
     }
 
     /// Sets the value of [update_time][crate::model::ObjectCustomContextPayload::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectCustomContextPayload;
+    /// use wkt::Timestamp;
+    /// let x = ObjectCustomContextPayload::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5689,6 +8311,14 @@ impl ObjectCustomContextPayload {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ObjectCustomContextPayload::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectCustomContextPayload;
+    /// use wkt::Timestamp;
+    /// let x = ObjectCustomContextPayload::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ObjectCustomContextPayload::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5721,6 +8351,16 @@ impl ObjectContexts {
     }
 
     /// Sets the value of [custom][crate::model::ObjectContexts::custom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectContexts;
+    /// use google_cloud_storage::model::ObjectCustomContextPayload;
+    /// let x = ObjectContexts::new().set_custom([
+    ///     ("key0", ObjectCustomContextPayload::default()/* use setters */),
+    ///     ("key1", ObjectCustomContextPayload::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_custom<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5760,6 +8400,12 @@ impl CustomerEncryption {
     }
 
     /// Sets the value of [encryption_algorithm][crate::model::CustomerEncryption::encryption_algorithm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CustomerEncryption;
+    /// let x = CustomerEncryption::new().set_encryption_algorithm("example");
+    /// ```
     pub fn set_encryption_algorithm<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5769,6 +8415,12 @@ impl CustomerEncryption {
     }
 
     /// Sets the value of [key_sha256_bytes][crate::model::CustomerEncryption::key_sha256_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::CustomerEncryption;
+    /// let x = CustomerEncryption::new().set_key_sha256_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_key_sha256_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.key_sha256_bytes = v.into();
         self
@@ -5964,30 +8616,60 @@ impl Object {
     }
 
     /// Sets the value of [name][crate::model::Object::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [bucket][crate::model::Object::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Object::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::Object::generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [restore_token][crate::model::Object::restore_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_restore_token("example");
+    /// ```
     pub fn set_restore_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5997,6 +8679,13 @@ impl Object {
     }
 
     /// Sets or clears the value of [restore_token][crate::model::Object::restore_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_or_clear_restore_token(Some("example"));
+    /// let x = Object::new().set_or_clear_restore_token(None::<String>);
+    /// ```
     pub fn set_or_clear_restore_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6006,24 +8695,48 @@ impl Object {
     }
 
     /// Sets the value of [metageneration][crate::model::Object::metageneration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_metageneration(42);
+    /// ```
     pub fn set_metageneration<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.metageneration = v.into();
         self
     }
 
     /// Sets the value of [storage_class][crate::model::Object::storage_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_storage_class("example");
+    /// ```
     pub fn set_storage_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_class = v.into();
         self
     }
 
     /// Sets the value of [size][crate::model::Object::size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_size(42);
+    /// ```
     pub fn set_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size = v.into();
         self
     }
 
     /// Sets the value of [content_encoding][crate::model::Object::content_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_content_encoding("example");
+    /// ```
     pub fn set_content_encoding<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6033,6 +8746,12 @@ impl Object {
     }
 
     /// Sets the value of [content_disposition][crate::model::Object::content_disposition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_content_disposition("example");
+    /// ```
     pub fn set_content_disposition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6042,12 +8761,29 @@ impl Object {
     }
 
     /// Sets the value of [cache_control][crate::model::Object::cache_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_cache_control("example");
+    /// ```
     pub fn set_cache_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cache_control = v.into();
         self
     }
 
     /// Sets the value of [acl][crate::model::Object::acl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = Object::new()
+    ///     .set_acl([
+    ///         ObjectAccessControl::default()/* use setters */,
+    ///         ObjectAccessControl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_acl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6059,6 +8795,12 @@ impl Object {
     }
 
     /// Sets the value of [content_language][crate::model::Object::content_language].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_content_language("example");
+    /// ```
     pub fn set_content_language<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6068,6 +8810,13 @@ impl Object {
     }
 
     /// Sets the value of [delete_time][crate::model::Object::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6077,6 +8826,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Object::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6086,6 +8843,13 @@ impl Object {
     }
 
     /// Sets the value of [finalize_time][crate::model::Object::finalize_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_finalize_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_finalize_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6095,6 +8859,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [finalize_time][crate::model::Object::finalize_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_finalize_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_finalize_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_finalize_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6104,12 +8876,25 @@ impl Object {
     }
 
     /// Sets the value of [content_type][crate::model::Object::content_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_content_type("example");
+    /// ```
     pub fn set_content_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_type = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Object::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6119,6 +8904,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Object::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6128,12 +8921,25 @@ impl Object {
     }
 
     /// Sets the value of [component_count][crate::model::Object::component_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_component_count(42);
+    /// ```
     pub fn set_component_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.component_count = v.into();
         self
     }
 
     /// Sets the value of [checksums][crate::model::Object::checksums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::ObjectChecksums;
+    /// let x = Object::new().set_checksums(ObjectChecksums::default()/* use setters */);
+    /// ```
     pub fn set_checksums<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -6143,6 +8949,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [checksums][crate::model::Object::checksums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::ObjectChecksums;
+    /// let x = Object::new().set_or_clear_checksums(Some(ObjectChecksums::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_checksums(None::<ObjectChecksums>);
+    /// ```
     pub fn set_or_clear_checksums<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -6152,6 +8966,13 @@ impl Object {
     }
 
     /// Sets the value of [update_time][crate::model::Object::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6161,6 +8982,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Object::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6170,12 +8999,25 @@ impl Object {
     }
 
     /// Sets the value of [kms_key][crate::model::Object::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [update_storage_class_time][crate::model::Object::update_storage_class_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_update_storage_class_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_storage_class_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6185,6 +9027,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [update_storage_class_time][crate::model::Object::update_storage_class_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_update_storage_class_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_update_storage_class_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_storage_class_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6194,12 +9044,25 @@ impl Object {
     }
 
     /// Sets the value of [temporary_hold][crate::model::Object::temporary_hold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_temporary_hold(true);
+    /// ```
     pub fn set_temporary_hold<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.temporary_hold = v.into();
         self
     }
 
     /// Sets the value of [retention_expire_time][crate::model::Object::retention_expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_retention_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_retention_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6209,6 +9072,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [retention_expire_time][crate::model::Object::retention_expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_retention_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_retention_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_retention_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6218,6 +9089,15 @@ impl Object {
     }
 
     /// Sets the value of [metadata][crate::model::Object::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6230,6 +9110,13 @@ impl Object {
     }
 
     /// Sets the value of [contexts][crate::model::Object::contexts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::ObjectContexts;
+    /// let x = Object::new().set_contexts(ObjectContexts::default()/* use setters */);
+    /// ```
     pub fn set_contexts<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ObjectContexts>,
@@ -6239,6 +9126,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [contexts][crate::model::Object::contexts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::ObjectContexts;
+    /// let x = Object::new().set_or_clear_contexts(Some(ObjectContexts::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_contexts(None::<ObjectContexts>);
+    /// ```
     pub fn set_or_clear_contexts<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectContexts>,
@@ -6248,6 +9143,12 @@ impl Object {
     }
 
     /// Sets the value of [event_based_hold][crate::model::Object::event_based_hold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_event_based_hold(true);
+    /// ```
     pub fn set_event_based_hold<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6257,6 +9158,13 @@ impl Object {
     }
 
     /// Sets or clears the value of [event_based_hold][crate::model::Object::event_based_hold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// let x = Object::new().set_or_clear_event_based_hold(Some(false));
+    /// let x = Object::new().set_or_clear_event_based_hold(None::<bool>);
+    /// ```
     pub fn set_or_clear_event_based_hold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6266,6 +9174,13 @@ impl Object {
     }
 
     /// Sets the value of [owner][crate::model::Object::owner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::Owner;
+    /// let x = Object::new().set_owner(Owner::default()/* use setters */);
+    /// ```
     pub fn set_owner<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Owner>,
@@ -6275,6 +9190,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [owner][crate::model::Object::owner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::Owner;
+    /// let x = Object::new().set_or_clear_owner(Some(Owner::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_owner(None::<Owner>);
+    /// ```
     pub fn set_or_clear_owner<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Owner>,
@@ -6284,6 +9207,13 @@ impl Object {
     }
 
     /// Sets the value of [customer_encryption][crate::model::Object::customer_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::CustomerEncryption;
+    /// let x = Object::new().set_customer_encryption(CustomerEncryption::default()/* use setters */);
+    /// ```
     pub fn set_customer_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryption>,
@@ -6293,6 +9223,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [customer_encryption][crate::model::Object::customer_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::CustomerEncryption;
+    /// let x = Object::new().set_or_clear_customer_encryption(Some(CustomerEncryption::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_customer_encryption(None::<CustomerEncryption>);
+    /// ```
     pub fn set_or_clear_customer_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryption>,
@@ -6302,6 +9240,13 @@ impl Object {
     }
 
     /// Sets the value of [custom_time][crate::model::Object::custom_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_custom_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_custom_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6311,6 +9256,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [custom_time][crate::model::Object::custom_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_custom_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_custom_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_custom_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6320,6 +9273,13 @@ impl Object {
     }
 
     /// Sets the value of [soft_delete_time][crate::model::Object::soft_delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_soft_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_soft_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6329,6 +9289,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [soft_delete_time][crate::model::Object::soft_delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_soft_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_soft_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_soft_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6338,6 +9306,13 @@ impl Object {
     }
 
     /// Sets the value of [hard_delete_time][crate::model::Object::hard_delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_hard_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_hard_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6347,6 +9322,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [hard_delete_time][crate::model::Object::hard_delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use wkt::Timestamp;
+    /// let x = Object::new().set_or_clear_hard_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_hard_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_hard_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6356,6 +9339,13 @@ impl Object {
     }
 
     /// Sets the value of [retention][crate::model::Object::retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::object::Retention;
+    /// let x = Object::new().set_retention(Retention::default()/* use setters */);
+    /// ```
     pub fn set_retention<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::object::Retention>,
@@ -6365,6 +9355,14 @@ impl Object {
     }
 
     /// Sets or clears the value of [retention][crate::model::Object::retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Object;
+    /// use google_cloud_storage::model::object::Retention;
+    /// let x = Object::new().set_or_clear_retention(Some(Retention::default()/* use setters */));
+    /// let x = Object::new().set_or_clear_retention(None::<Retention>);
+    /// ```
     pub fn set_or_clear_retention<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::object::Retention>,
@@ -6406,6 +9404,14 @@ pub mod object {
         }
 
         /// Sets the value of [mode][crate::model::object::Retention::mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::object::Retention;
+        /// use google_cloud_storage::model::object::retention::Mode;
+        /// let x0 = Retention::new().set_mode(Mode::Unlocked);
+        /// let x1 = Retention::new().set_mode(Mode::Locked);
+        /// ```
         pub fn set_mode<T: std::convert::Into<crate::model::object::retention::Mode>>(
             mut self,
             v: T,
@@ -6415,6 +9421,13 @@ pub mod object {
         }
 
         /// Sets the value of [retain_until_time][crate::model::object::Retention::retain_until_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::object::Retention;
+        /// use wkt::Timestamp;
+        /// let x = Retention::new().set_retain_until_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_retain_until_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6424,6 +9437,14 @@ pub mod object {
         }
 
         /// Sets or clears the value of [retain_until_time][crate::model::object::Retention::retain_until_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storage::model::object::Retention;
+        /// use wkt::Timestamp;
+        /// let x = Retention::new().set_or_clear_retain_until_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Retention::new().set_or_clear_retain_until_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_retain_until_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6652,54 +9673,109 @@ impl ObjectAccessControl {
     }
 
     /// Sets the value of [role][crate::model::ObjectAccessControl::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_role("example");
+    /// ```
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::ObjectAccessControl::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [entity][crate::model::ObjectAccessControl::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_entity("example");
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
     }
 
     /// Sets the value of [entity_alt][crate::model::ObjectAccessControl::entity_alt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_entity_alt("example");
+    /// ```
     pub fn set_entity_alt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_alt = v.into();
         self
     }
 
     /// Sets the value of [entity_id][crate::model::ObjectAccessControl::entity_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_entity_id("example");
+    /// ```
     pub fn set_entity_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::ObjectAccessControl::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [email][crate::model::ObjectAccessControl::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::ObjectAccessControl::domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// let x = ObjectAccessControl::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [project_team][crate::model::ObjectAccessControl::project_team].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// use google_cloud_storage::model::ProjectTeam;
+    /// let x = ObjectAccessControl::new().set_project_team(ProjectTeam::default()/* use setters */);
+    /// ```
     pub fn set_project_team<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProjectTeam>,
@@ -6709,6 +9785,14 @@ impl ObjectAccessControl {
     }
 
     /// Sets or clears the value of [project_team][crate::model::ObjectAccessControl::project_team].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ObjectAccessControl;
+    /// use google_cloud_storage::model::ProjectTeam;
+    /// let x = ObjectAccessControl::new().set_or_clear_project_team(Some(ProjectTeam::default()/* use setters */));
+    /// let x = ObjectAccessControl::new().set_or_clear_project_team(None::<ProjectTeam>);
+    /// ```
     pub fn set_or_clear_project_team<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectTeam>,
@@ -6748,6 +9832,17 @@ impl ListObjectsResponse {
     }
 
     /// Sets the value of [objects][crate::model::ListObjectsResponse::objects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsResponse;
+    /// use google_cloud_storage::model::Object;
+    /// let x = ListObjectsResponse::new()
+    ///     .set_objects([
+    ///         Object::default()/* use setters */,
+    ///         Object::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6759,6 +9854,12 @@ impl ListObjectsResponse {
     }
 
     /// Sets the value of [prefixes][crate::model::ListObjectsResponse::prefixes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsResponse;
+    /// let x = ListObjectsResponse::new().set_prefixes(["a", "b", "c"]);
+    /// ```
     pub fn set_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6770,6 +9871,12 @@ impl ListObjectsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListObjectsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ListObjectsResponse;
+    /// let x = ListObjectsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6815,12 +9922,24 @@ impl ProjectTeam {
     }
 
     /// Sets the value of [project_number][crate::model::ProjectTeam::project_number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ProjectTeam;
+    /// let x = ProjectTeam::new().set_project_number("example");
+    /// ```
     pub fn set_project_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_number = v.into();
         self
     }
 
     /// Sets the value of [team][crate::model::ProjectTeam::team].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::ProjectTeam;
+    /// let x = ProjectTeam::new().set_team("example");
+    /// ```
     pub fn set_team<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.team = v.into();
         self
@@ -6852,12 +9971,24 @@ impl Owner {
     }
 
     /// Sets the value of [entity][crate::model::Owner::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Owner;
+    /// let x = Owner::new().set_entity("example");
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
     }
 
     /// Sets the value of [entity_id][crate::model::Owner::entity_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model::Owner;
+    /// let x = Owner::new().set_entity_id("example");
+    /// ```
     pub fn set_entity_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_id = v.into();
         self

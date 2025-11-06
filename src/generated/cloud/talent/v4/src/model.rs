@@ -57,6 +57,13 @@ impl TimestampRange {
     }
 
     /// Sets the value of [start_time][crate::model::TimestampRange::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::TimestampRange;
+    /// use wkt::Timestamp;
+    /// let x = TimestampRange::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -66,6 +73,14 @@ impl TimestampRange {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimestampRange::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::TimestampRange;
+    /// use wkt::Timestamp;
+    /// let x = TimestampRange::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimestampRange::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -75,6 +90,13 @@ impl TimestampRange {
     }
 
     /// Sets the value of [end_time][crate::model::TimestampRange::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::TimestampRange;
+    /// use wkt::Timestamp;
+    /// let x = TimestampRange::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -84,6 +106,14 @@ impl TimestampRange {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimestampRange::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::TimestampRange;
+    /// use wkt::Timestamp;
+    /// let x = TimestampRange::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimestampRange::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -142,6 +172,15 @@ impl Location {
     }
 
     /// Sets the value of [location_type][crate::model::Location::location_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Location;
+    /// use google_cloud_talent_v4::model::location::LocationType;
+    /// let x0 = Location::new().set_location_type(LocationType::Country);
+    /// let x1 = Location::new().set_location_type(LocationType::AdministrativeArea);
+    /// let x2 = Location::new().set_location_type(LocationType::SubAdministrativeArea);
+    /// ```
     pub fn set_location_type<T: std::convert::Into<crate::model::location::LocationType>>(
         mut self,
         v: T,
@@ -151,6 +190,13 @@ impl Location {
     }
 
     /// Sets the value of [postal_address][crate::model::Location::postal_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Location;
+    /// use gtype::model::PostalAddress;
+    /// let x = Location::new().set_postal_address(PostalAddress::default()/* use setters */);
+    /// ```
     pub fn set_postal_address<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::PostalAddress>,
@@ -160,6 +206,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [postal_address][crate::model::Location::postal_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Location;
+    /// use gtype::model::PostalAddress;
+    /// let x = Location::new().set_or_clear_postal_address(Some(PostalAddress::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_postal_address(None::<PostalAddress>);
+    /// ```
     pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::PostalAddress>,
@@ -169,6 +223,13 @@ impl Location {
     }
 
     /// Sets the value of [lat_lng][crate::model::Location::lat_lng].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Location;
+    /// use gtype::model::LatLng;
+    /// let x = Location::new().set_lat_lng(LatLng::default()/* use setters */);
+    /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -178,6 +239,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [lat_lng][crate::model::Location::lat_lng].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Location;
+    /// use gtype::model::LatLng;
+    /// let x = Location::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_lat_lng(None::<LatLng>);
+    /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -187,6 +256,12 @@ impl Location {
     }
 
     /// Sets the value of [radius_miles][crate::model::Location::radius_miles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Location;
+    /// let x = Location::new().set_radius_miles(42.0);
+    /// ```
     pub fn set_radius_miles<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.radius_miles = v.into();
         self
@@ -488,30 +563,61 @@ impl RequestMetadata {
     }
 
     /// Sets the value of [domain][crate::model::RequestMetadata::domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::RequestMetadata;
+    /// let x = RequestMetadata::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [session_id][crate::model::RequestMetadata::session_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::RequestMetadata;
+    /// let x = RequestMetadata::new().set_session_id("example");
+    /// ```
     pub fn set_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session_id = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::RequestMetadata::user_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::RequestMetadata;
+    /// let x = RequestMetadata::new().set_user_id("example");
+    /// ```
     pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing_ids][crate::model::RequestMetadata::allow_missing_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::RequestMetadata;
+    /// let x = RequestMetadata::new().set_allow_missing_ids(true);
+    /// ```
     pub fn set_allow_missing_ids<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing_ids = v.into();
         self
     }
 
     /// Sets the value of [device_info][crate::model::RequestMetadata::device_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::RequestMetadata;
+    /// use google_cloud_talent_v4::model::DeviceInfo;
+    /// let x = RequestMetadata::new().set_device_info(DeviceInfo::default()/* use setters */);
+    /// ```
     pub fn set_device_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeviceInfo>,
@@ -521,6 +627,14 @@ impl RequestMetadata {
     }
 
     /// Sets or clears the value of [device_info][crate::model::RequestMetadata::device_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::RequestMetadata;
+    /// use google_cloud_talent_v4::model::DeviceInfo;
+    /// let x = RequestMetadata::new().set_or_clear_device_info(Some(DeviceInfo::default()/* use setters */));
+    /// let x = RequestMetadata::new().set_or_clear_device_info(None::<DeviceInfo>);
+    /// ```
     pub fn set_or_clear_device_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeviceInfo>,
@@ -553,6 +667,12 @@ impl ResponseMetadata {
     }
 
     /// Sets the value of [request_id][crate::model::ResponseMetadata::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = ResponseMetadata::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -587,6 +707,15 @@ impl DeviceInfo {
     }
 
     /// Sets the value of [device_type][crate::model::DeviceInfo::device_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::DeviceInfo;
+    /// use google_cloud_talent_v4::model::device_info::DeviceType;
+    /// let x0 = DeviceInfo::new().set_device_type(DeviceType::Web);
+    /// let x1 = DeviceInfo::new().set_device_type(DeviceType::MobileWeb);
+    /// let x2 = DeviceInfo::new().set_device_type(DeviceType::Android);
+    /// ```
     pub fn set_device_type<T: std::convert::Into<crate::model::device_info::DeviceType>>(
         mut self,
         v: T,
@@ -596,6 +725,12 @@ impl DeviceInfo {
     }
 
     /// Sets the value of [id][crate::model::DeviceInfo::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::DeviceInfo;
+    /// let x = DeviceInfo::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -841,6 +976,12 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [string_values][crate::model::CustomAttribute::string_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_string_values(["a", "b", "c"]);
+    /// ```
     pub fn set_string_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -852,6 +993,12 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [long_values][crate::model::CustomAttribute::long_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_long_values([1, 2, 3]);
+    /// ```
     pub fn set_long_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -863,12 +1010,24 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [filterable][crate::model::CustomAttribute::filterable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_filterable(true);
+    /// ```
     pub fn set_filterable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.filterable = v.into();
         self
     }
 
     /// Sets the value of [keyword_searchable][crate::model::CustomAttribute::keyword_searchable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_keyword_searchable(true);
+    /// ```
     pub fn set_keyword_searchable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.keyword_searchable = v.into();
         self
@@ -909,18 +1068,36 @@ impl SpellingCorrection {
     }
 
     /// Sets the value of [corrected][crate::model::SpellingCorrection::corrected].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SpellingCorrection;
+    /// let x = SpellingCorrection::new().set_corrected(true);
+    /// ```
     pub fn set_corrected<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.corrected = v.into();
         self
     }
 
     /// Sets the value of [corrected_text][crate::model::SpellingCorrection::corrected_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SpellingCorrection;
+    /// let x = SpellingCorrection::new().set_corrected_text("example");
+    /// ```
     pub fn set_corrected_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.corrected_text = v.into();
         self
     }
 
     /// Sets the value of [corrected_html][crate::model::SpellingCorrection::corrected_html].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SpellingCorrection;
+    /// let x = SpellingCorrection::new().set_corrected_html("example");
+    /// ```
     pub fn set_corrected_html<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.corrected_html = v.into();
         self
@@ -987,6 +1164,17 @@ impl CompensationInfo {
     }
 
     /// Sets the value of [entries][crate::model::CompensationInfo::entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationInfo;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+    /// let x = CompensationInfo::new()
+    ///     .set_entries([
+    ///         CompensationEntry::default()/* use setters */,
+    ///         CompensationEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -998,6 +1186,13 @@ impl CompensationInfo {
     }
 
     /// Sets the value of [annualized_base_compensation_range][crate::model::CompensationInfo::annualized_base_compensation_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationInfo;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+    /// let x = CompensationInfo::new().set_annualized_base_compensation_range(CompensationRange::default()/* use setters */);
+    /// ```
     pub fn set_annualized_base_compensation_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
@@ -1007,6 +1202,14 @@ impl CompensationInfo {
     }
 
     /// Sets or clears the value of [annualized_base_compensation_range][crate::model::CompensationInfo::annualized_base_compensation_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationInfo;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+    /// let x = CompensationInfo::new().set_or_clear_annualized_base_compensation_range(Some(CompensationRange::default()/* use setters */));
+    /// let x = CompensationInfo::new().set_or_clear_annualized_base_compensation_range(None::<CompensationRange>);
+    /// ```
     pub fn set_or_clear_annualized_base_compensation_range<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1019,6 +1222,13 @@ impl CompensationInfo {
     }
 
     /// Sets the value of [annualized_total_compensation_range][crate::model::CompensationInfo::annualized_total_compensation_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationInfo;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+    /// let x = CompensationInfo::new().set_annualized_total_compensation_range(CompensationRange::default()/* use setters */);
+    /// ```
     pub fn set_annualized_total_compensation_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
@@ -1028,6 +1238,14 @@ impl CompensationInfo {
     }
 
     /// Sets or clears the value of [annualized_total_compensation_range][crate::model::CompensationInfo::annualized_total_compensation_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationInfo;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+    /// let x = CompensationInfo::new().set_or_clear_annualized_total_compensation_range(Some(CompensationRange::default()/* use setters */));
+    /// let x = CompensationInfo::new().set_or_clear_annualized_total_compensation_range(None::<CompensationRange>);
+    /// ```
     pub fn set_or_clear_annualized_total_compensation_range<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1126,6 +1344,15 @@ pub mod compensation_info {
         }
 
         /// Sets the value of [r#type][crate::model::compensation_info::CompensationEntry::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// use google_cloud_talent_v4::model::compensation_info::CompensationType;
+        /// let x0 = CompensationEntry::new().set_type(CompensationType::Base);
+        /// let x1 = CompensationEntry::new().set_type(CompensationType::Bonus);
+        /// let x2 = CompensationEntry::new().set_type(CompensationType::SigningBonus);
+        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::compensation_info::CompensationType>,
         >(
@@ -1137,6 +1364,15 @@ pub mod compensation_info {
         }
 
         /// Sets the value of [unit][crate::model::compensation_info::CompensationEntry::unit].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// use google_cloud_talent_v4::model::compensation_info::CompensationUnit;
+        /// let x0 = CompensationEntry::new().set_unit(CompensationUnit::Hourly);
+        /// let x1 = CompensationEntry::new().set_unit(CompensationUnit::Daily);
+        /// let x2 = CompensationEntry::new().set_unit(CompensationUnit::Weekly);
+        /// ```
         pub fn set_unit<
             T: std::convert::Into<crate::model::compensation_info::CompensationUnit>,
         >(
@@ -1148,12 +1384,25 @@ pub mod compensation_info {
         }
 
         /// Sets the value of [description][crate::model::compensation_info::CompensationEntry::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// let x = CompensationEntry::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [expected_units_per_year][crate::model::compensation_info::CompensationEntry::expected_units_per_year].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// use wkt::DoubleValue;
+        /// let x = CompensationEntry::new().set_expected_units_per_year(DoubleValue::default()/* use setters */);
+        /// ```
         pub fn set_expected_units_per_year<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
@@ -1163,6 +1412,14 @@ pub mod compensation_info {
         }
 
         /// Sets or clears the value of [expected_units_per_year][crate::model::compensation_info::CompensationEntry::expected_units_per_year].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// use wkt::DoubleValue;
+        /// let x = CompensationEntry::new().set_or_clear_expected_units_per_year(Some(DoubleValue::default()/* use setters */));
+        /// let x = CompensationEntry::new().set_or_clear_expected_units_per_year(None::<DoubleValue>);
+        /// ```
         pub fn set_or_clear_expected_units_per_year<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
@@ -1175,6 +1432,14 @@ pub mod compensation_info {
         ///
         /// Note that all the setters affecting `compensation_amount` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// use gtype::model::Money;
+        /// let x = CompensationEntry::new().set_compensation_amount(Some(
+        ///     google_cloud_talent_v4::model::compensation_info::compensation_entry::CompensationAmount::Amount(Money::default().into())));
+        /// ```
         pub fn set_compensation_amount<
             T: std::convert::Into<
                     std::option::Option<
@@ -1207,6 +1472,15 @@ pub mod compensation_info {
         ///
         /// Note that all the setters affecting `compensation_amount` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// use gtype::model::Money;
+        /// let x = CompensationEntry::new().set_amount(Money::default()/* use setters */);
+        /// assert!(x.amount().is_some());
+        /// assert!(x.range().is_none());
+        /// ```
         pub fn set_amount<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
             mut self,
             v: T,
@@ -1240,6 +1514,15 @@ pub mod compensation_info {
         ///
         /// Note that all the setters affecting `compensation_amount` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationEntry;
+        /// use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+        /// let x = CompensationEntry::new().set_range(CompensationRange::default()/* use setters */);
+        /// assert!(x.range().is_some());
+        /// assert!(x.amount().is_none());
+        /// ```
         pub fn set_range<
             T: std::convert::Into<std::boxed::Box<crate::model::compensation_info::CompensationRange>>,
         >(
@@ -1305,6 +1588,13 @@ pub mod compensation_info {
         }
 
         /// Sets the value of [max_compensation][crate::model::compensation_info::CompensationRange::max_compensation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+        /// use gtype::model::Money;
+        /// let x = CompensationRange::new().set_max_compensation(Money::default()/* use setters */);
+        /// ```
         pub fn set_max_compensation<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1314,6 +1604,14 @@ pub mod compensation_info {
         }
 
         /// Sets or clears the value of [max_compensation][crate::model::compensation_info::CompensationRange::max_compensation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+        /// use gtype::model::Money;
+        /// let x = CompensationRange::new().set_or_clear_max_compensation(Some(Money::default()/* use setters */));
+        /// let x = CompensationRange::new().set_or_clear_max_compensation(None::<Money>);
+        /// ```
         pub fn set_or_clear_max_compensation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1323,6 +1621,13 @@ pub mod compensation_info {
         }
 
         /// Sets the value of [min_compensation][crate::model::compensation_info::CompensationRange::min_compensation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+        /// use gtype::model::Money;
+        /// let x = CompensationRange::new().set_min_compensation(Money::default()/* use setters */);
+        /// ```
         pub fn set_min_compensation<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1332,6 +1637,14 @@ pub mod compensation_info {
         }
 
         /// Sets or clears the value of [min_compensation][crate::model::compensation_info::CompensationRange::min_compensation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+        /// use gtype::model::Money;
+        /// let x = CompensationRange::new().set_or_clear_min_compensation(Some(Money::default()/* use setters */));
+        /// let x = CompensationRange::new().set_or_clear_min_compensation(None::<Money>);
+        /// ```
         pub fn set_or_clear_min_compensation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1772,6 +2085,15 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::BatchOperationMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// use google_cloud_talent_v4::model::batch_operation_metadata::State;
+    /// let x0 = BatchOperationMetadata::new().set_state(State::Initializing);
+    /// let x1 = BatchOperationMetadata::new().set_state(State::Processing);
+    /// let x2 = BatchOperationMetadata::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::batch_operation_metadata::State>>(
         mut self,
         v: T,
@@ -1781,6 +2103,12 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [state_description][crate::model::BatchOperationMetadata::state_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// let x = BatchOperationMetadata::new().set_state_description("example");
+    /// ```
     pub fn set_state_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1790,24 +2118,49 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [success_count][crate::model::BatchOperationMetadata::success_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// let x = BatchOperationMetadata::new().set_success_count(42);
+    /// ```
     pub fn set_success_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.success_count = v.into();
         self
     }
 
     /// Sets the value of [failure_count][crate::model::BatchOperationMetadata::failure_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// let x = BatchOperationMetadata::new().set_failure_count(42);
+    /// ```
     pub fn set_failure_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.failure_count = v.into();
         self
     }
 
     /// Sets the value of [total_count][crate::model::BatchOperationMetadata::total_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// let x = BatchOperationMetadata::new().set_total_count(42);
+    /// ```
     pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_count = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BatchOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1817,6 +2170,14 @@ impl BatchOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BatchOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1826,6 +2187,13 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::BatchOperationMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchOperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1835,6 +2203,14 @@ impl BatchOperationMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BatchOperationMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchOperationMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchOperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1844,6 +2220,13 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BatchOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1853,6 +2236,14 @@ impl BatchOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BatchOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2136,30 +2527,63 @@ impl Company {
     }
 
     /// Sets the value of [name][crate::model::Company::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Company::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [external_id][crate::model::Company::external_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_external_id("example");
+    /// ```
     pub fn set_external_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_id = v.into();
         self
     }
 
     /// Sets the value of [size][crate::model::Company::size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// use google_cloud_talent_v4::model::CompanySize;
+    /// let x0 = Company::new().set_size(CompanySize::Mini);
+    /// let x1 = Company::new().set_size(CompanySize::Small);
+    /// let x2 = Company::new().set_size(CompanySize::Smedium);
+    /// ```
     pub fn set_size<T: std::convert::Into<crate::model::CompanySize>>(mut self, v: T) -> Self {
         self.size = v.into();
         self
     }
 
     /// Sets the value of [headquarters_address][crate::model::Company::headquarters_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_headquarters_address("example");
+    /// ```
     pub fn set_headquarters_address<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2169,36 +2593,72 @@ impl Company {
     }
 
     /// Sets the value of [hiring_agency][crate::model::Company::hiring_agency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_hiring_agency(true);
+    /// ```
     pub fn set_hiring_agency<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.hiring_agency = v.into();
         self
     }
 
     /// Sets the value of [eeo_text][crate::model::Company::eeo_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_eeo_text("example");
+    /// ```
     pub fn set_eeo_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.eeo_text = v.into();
         self
     }
 
     /// Sets the value of [website_uri][crate::model::Company::website_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_website_uri("example");
+    /// ```
     pub fn set_website_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.website_uri = v.into();
         self
     }
 
     /// Sets the value of [career_site_uri][crate::model::Company::career_site_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_career_site_uri("example");
+    /// ```
     pub fn set_career_site_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.career_site_uri = v.into();
         self
     }
 
     /// Sets the value of [image_uri][crate::model::Company::image_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_image_uri("example");
+    /// ```
     pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_uri = v.into();
         self
     }
 
     /// Sets the value of [keyword_searchable_job_custom_attributes][crate::model::Company::keyword_searchable_job_custom_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_keyword_searchable_job_custom_attributes(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_keyword_searchable_job_custom_attributes<T, V>(mut self, v: T) -> Self
     where
@@ -2211,6 +2671,13 @@ impl Company {
     }
 
     /// Sets the value of [derived_info][crate::model::Company::derived_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// use google_cloud_talent_v4::model::company::DerivedInfo;
+    /// let x = Company::new().set_derived_info(DerivedInfo::default()/* use setters */);
+    /// ```
     pub fn set_derived_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::company::DerivedInfo>,
@@ -2220,6 +2687,14 @@ impl Company {
     }
 
     /// Sets or clears the value of [derived_info][crate::model::Company::derived_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// use google_cloud_talent_v4::model::company::DerivedInfo;
+    /// let x = Company::new().set_or_clear_derived_info(Some(DerivedInfo::default()/* use setters */));
+    /// let x = Company::new().set_or_clear_derived_info(None::<DerivedInfo>);
+    /// ```
     pub fn set_or_clear_derived_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::company::DerivedInfo>,
@@ -2229,6 +2704,12 @@ impl Company {
     }
 
     /// Sets the value of [suspended][crate::model::Company::suspended].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Company;
+    /// let x = Company::new().set_suspended(true);
+    /// ```
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
         self
@@ -2266,6 +2747,13 @@ pub mod company {
         }
 
         /// Sets the value of [headquarters_location][crate::model::company::DerivedInfo::headquarters_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::company::DerivedInfo;
+        /// use google_cloud_talent_v4::model::Location;
+        /// let x = DerivedInfo::new().set_headquarters_location(Location::default()/* use setters */);
+        /// ```
         pub fn set_headquarters_location<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Location>,
@@ -2275,6 +2763,14 @@ pub mod company {
         }
 
         /// Sets or clears the value of [headquarters_location][crate::model::company::DerivedInfo::headquarters_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::company::DerivedInfo;
+        /// use google_cloud_talent_v4::model::Location;
+        /// let x = DerivedInfo::new().set_or_clear_headquarters_location(Some(Location::default()/* use setters */));
+        /// let x = DerivedInfo::new().set_or_clear_headquarters_location(None::<Location>);
+        /// ```
         pub fn set_or_clear_headquarters_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Location>,
@@ -2313,12 +2809,25 @@ impl CreateCompanyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCompanyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateCompanyRequest;
+    /// let x = CreateCompanyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [company][crate::model::CreateCompanyRequest::company].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateCompanyRequest;
+    /// use google_cloud_talent_v4::model::Company;
+    /// let x = CreateCompanyRequest::new().set_company(Company::default()/* use setters */);
+    /// ```
     pub fn set_company<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Company>,
@@ -2328,6 +2837,14 @@ impl CreateCompanyRequest {
     }
 
     /// Sets or clears the value of [company][crate::model::CreateCompanyRequest::company].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateCompanyRequest;
+    /// use google_cloud_talent_v4::model::Company;
+    /// let x = CreateCompanyRequest::new().set_or_clear_company(Some(Company::default()/* use setters */));
+    /// let x = CreateCompanyRequest::new().set_or_clear_company(None::<Company>);
+    /// ```
     pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Company>,
@@ -2363,6 +2880,12 @@ impl GetCompanyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCompanyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::GetCompanyRequest;
+    /// let x = GetCompanyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2408,6 +2931,13 @@ impl UpdateCompanyRequest {
     }
 
     /// Sets the value of [company][crate::model::UpdateCompanyRequest::company].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateCompanyRequest;
+    /// use google_cloud_talent_v4::model::Company;
+    /// let x = UpdateCompanyRequest::new().set_company(Company::default()/* use setters */);
+    /// ```
     pub fn set_company<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Company>,
@@ -2417,6 +2947,14 @@ impl UpdateCompanyRequest {
     }
 
     /// Sets or clears the value of [company][crate::model::UpdateCompanyRequest::company].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateCompanyRequest;
+    /// use google_cloud_talent_v4::model::Company;
+    /// let x = UpdateCompanyRequest::new().set_or_clear_company(Some(Company::default()/* use setters */));
+    /// let x = UpdateCompanyRequest::new().set_or_clear_company(None::<Company>);
+    /// ```
     pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Company>,
@@ -2426,6 +2964,13 @@ impl UpdateCompanyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateCompanyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCompanyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2435,6 +2980,14 @@ impl UpdateCompanyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateCompanyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCompanyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCompanyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2470,6 +3023,12 @@ impl DeleteCompanyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCompanyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::DeleteCompanyRequest;
+    /// let x = DeleteCompanyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2519,24 +3078,48 @@ impl ListCompaniesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCompaniesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesRequest;
+    /// let x = ListCompaniesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCompaniesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesRequest;
+    /// let x = ListCompaniesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCompaniesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesRequest;
+    /// let x = ListCompaniesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [require_open_jobs][crate::model::ListCompaniesRequest::require_open_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesRequest;
+    /// let x = ListCompaniesRequest::new().set_require_open_jobs(true);
+    /// ```
     pub fn set_require_open_jobs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_open_jobs = v.into();
         self
@@ -2572,6 +3155,17 @@ impl ListCompaniesResponse {
     }
 
     /// Sets the value of [companies][crate::model::ListCompaniesResponse::companies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesResponse;
+    /// use google_cloud_talent_v4::model::Company;
+    /// let x = ListCompaniesResponse::new()
+    ///     .set_companies([
+    ///         Company::default()/* use setters */,
+    ///         Company::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_companies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2583,12 +3177,25 @@ impl ListCompaniesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCompaniesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesResponse;
+    /// let x = ListCompaniesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::ListCompaniesResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = ListCompaniesResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -2598,6 +3205,14 @@ impl ListCompaniesResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::ListCompaniesResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListCompaniesResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = ListCompaniesResponse::new().set_or_clear_metadata(Some(ResponseMetadata::default()/* use setters */));
+    /// let x = ListCompaniesResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -2683,18 +3298,36 @@ impl CompleteQueryRequest {
     }
 
     /// Sets the value of [tenant][crate::model::CompleteQueryRequest::tenant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_tenant("example");
+    /// ```
     pub fn set_tenant<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tenant = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::CompleteQueryRequest::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_language_codes(["a", "b", "c"]);
+    /// ```
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2706,18 +3339,38 @@ impl CompleteQueryRequest {
     }
 
     /// Sets the value of [page_size][crate::model::CompleteQueryRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [company][crate::model::CompleteQueryRequest::company].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_company("example");
+    /// ```
     pub fn set_company<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.company = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::CompleteQueryRequest::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
+    /// use google_cloud_talent_v4::model::complete_query_request::CompletionScope;
+    /// let x0 = CompleteQueryRequest::new().set_scope(CompletionScope::Tenant);
+    /// let x1 = CompleteQueryRequest::new().set_scope(CompletionScope::Public);
+    /// ```
     pub fn set_scope<
         T: std::convert::Into<crate::model::complete_query_request::CompletionScope>,
     >(
@@ -2729,6 +3382,15 @@ impl CompleteQueryRequest {
     }
 
     /// Sets the value of [r#type][crate::model::CompleteQueryRequest::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryRequest;
+    /// use google_cloud_talent_v4::model::complete_query_request::CompletionType;
+    /// let x0 = CompleteQueryRequest::new().set_type(CompletionType::JobTitle);
+    /// let x1 = CompleteQueryRequest::new().set_type(CompletionType::CompanyName);
+    /// let x2 = CompleteQueryRequest::new().set_type(CompletionType::Combined);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::complete_query_request::CompletionType>>(
         mut self,
         v: T,
@@ -3071,6 +3733,17 @@ impl CompleteQueryResponse {
     }
 
     /// Sets the value of [completion_results][crate::model::CompleteQueryResponse::completion_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryResponse;
+    /// use google_cloud_talent_v4::model::complete_query_response::CompletionResult;
+    /// let x = CompleteQueryResponse::new()
+    ///     .set_completion_results([
+    ///         CompletionResult::default()/* use setters */,
+    ///         CompletionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_completion_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3082,6 +3755,13 @@ impl CompleteQueryResponse {
     }
 
     /// Sets the value of [metadata][crate::model::CompleteQueryResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = CompleteQueryResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -3091,6 +3771,14 @@ impl CompleteQueryResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::CompleteQueryResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompleteQueryResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = CompleteQueryResponse::new().set_or_clear_metadata(Some(ResponseMetadata::default()/* use setters */));
+    /// let x = CompleteQueryResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -3136,12 +3824,27 @@ pub mod complete_query_response {
         }
 
         /// Sets the value of [suggestion][crate::model::complete_query_response::CompletionResult::suggestion].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::complete_query_response::CompletionResult;
+        /// let x = CompletionResult::new().set_suggestion("example");
+        /// ```
         pub fn set_suggestion<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.suggestion = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::complete_query_response::CompletionResult::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::complete_query_response::CompletionResult;
+        /// use google_cloud_talent_v4::model::complete_query_request::CompletionType;
+        /// let x0 = CompletionResult::new().set_type(CompletionType::JobTitle);
+        /// let x1 = CompletionResult::new().set_type(CompletionType::CompanyName);
+        /// let x2 = CompletionResult::new().set_type(CompletionType::Combined);
+        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::complete_query_request::CompletionType>,
         >(
@@ -3153,6 +3856,12 @@ pub mod complete_query_response {
         }
 
         /// Sets the value of [image_uri][crate::model::complete_query_response::CompletionResult::image_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::complete_query_response::CompletionResult;
+        /// let x = CompletionResult::new().set_image_uri("example");
+        /// ```
         pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.image_uri = v.into();
             self
@@ -3206,18 +3915,37 @@ impl ClientEvent {
     }
 
     /// Sets the value of [request_id][crate::model::ClientEvent::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ClientEvent;
+    /// let x = ClientEvent::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [event_id][crate::model::ClientEvent::event_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ClientEvent;
+    /// let x = ClientEvent::new().set_event_id("example");
+    /// ```
     pub fn set_event_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ClientEvent::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ClientEvent;
+    /// use wkt::Timestamp;
+    /// let x = ClientEvent::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3227,6 +3955,14 @@ impl ClientEvent {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ClientEvent::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ClientEvent;
+    /// use wkt::Timestamp;
+    /// let x = ClientEvent::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ClientEvent::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3236,6 +3972,12 @@ impl ClientEvent {
     }
 
     /// Sets the value of [event_notes][crate::model::ClientEvent::event_notes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ClientEvent;
+    /// let x = ClientEvent::new().set_event_notes("example");
+    /// ```
     pub fn set_event_notes<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_notes = v.into();
         self
@@ -3245,6 +3987,14 @@ impl ClientEvent {
     ///
     /// Note that all the setters affecting `event` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ClientEvent;
+    /// use google_cloud_talent_v4::model::JobEvent;
+    /// let x = ClientEvent::new().set_event(Some(
+    ///     google_cloud_talent_v4::model::client_event::Event::JobEvent(JobEvent::default().into())));
+    /// ```
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::client_event::Event>>,
     >(
@@ -3271,6 +4021,14 @@ impl ClientEvent {
     ///
     /// Note that all the setters affecting `event` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ClientEvent;
+    /// use google_cloud_talent_v4::model::JobEvent;
+    /// let x = ClientEvent::new().set_job_event(JobEvent::default()/* use setters */);
+    /// assert!(x.job_event().is_some());
+    /// ```
     pub fn set_job_event<T: std::convert::Into<std::boxed::Box<crate::model::JobEvent>>>(
         mut self,
         v: T,
@@ -3341,6 +4099,15 @@ impl JobEvent {
     }
 
     /// Sets the value of [r#type][crate::model::JobEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobEvent;
+    /// use google_cloud_talent_v4::model::job_event::JobEventType;
+    /// let x0 = JobEvent::new().set_type(JobEventType::Impression);
+    /// let x1 = JobEvent::new().set_type(JobEventType::View);
+    /// let x2 = JobEvent::new().set_type(JobEventType::ViewRedirect);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::job_event::JobEventType>>(
         mut self,
         v: T,
@@ -3350,6 +4117,12 @@ impl JobEvent {
     }
 
     /// Sets the value of [jobs][crate::model::JobEvent::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobEvent;
+    /// let x = JobEvent::new().set_jobs(["a", "b", "c"]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3684,12 +4457,25 @@ impl CreateClientEventRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClientEventRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateClientEventRequest;
+    /// let x = CreateClientEventRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [client_event][crate::model::CreateClientEventRequest::client_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateClientEventRequest;
+    /// use google_cloud_talent_v4::model::ClientEvent;
+    /// let x = CreateClientEventRequest::new().set_client_event(ClientEvent::default()/* use setters */);
+    /// ```
     pub fn set_client_event<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClientEvent>,
@@ -3699,6 +4485,14 @@ impl CreateClientEventRequest {
     }
 
     /// Sets or clears the value of [client_event][crate::model::CreateClientEventRequest::client_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateClientEventRequest;
+    /// use google_cloud_talent_v4::model::ClientEvent;
+    /// let x = CreateClientEventRequest::new().set_or_clear_client_event(Some(ClientEvent::default()/* use setters */));
+    /// let x = CreateClientEventRequest::new().set_or_clear_client_event(None::<ClientEvent>);
+    /// ```
     pub fn set_or_clear_client_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientEvent>,
@@ -3912,12 +4706,24 @@ impl JobQuery {
     }
 
     /// Sets the value of [query][crate::model::JobQuery::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [query_language_code][crate::model::JobQuery::query_language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_query_language_code("example");
+    /// ```
     pub fn set_query_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3927,6 +4733,12 @@ impl JobQuery {
     }
 
     /// Sets the value of [companies][crate::model::JobQuery::companies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_companies(["a", "b", "c"]);
+    /// ```
     pub fn set_companies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3938,6 +4750,17 @@ impl JobQuery {
     }
 
     /// Sets the value of [location_filters][crate::model::JobQuery::location_filters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::LocationFilter;
+    /// let x = JobQuery::new()
+    ///     .set_location_filters([
+    ///         LocationFilter::default()/* use setters */,
+    ///         LocationFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_location_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3949,6 +4772,17 @@ impl JobQuery {
     }
 
     /// Sets the value of [job_categories][crate::model::JobQuery::job_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::JobCategory;
+    /// let x = JobQuery::new().set_job_categories([
+    ///     JobCategory::AccountingAndFinance,
+    ///     JobCategory::AdministrativeAndOffice,
+    ///     JobCategory::AdvertisingAndMarketing,
+    /// ]);
+    /// ```
     pub fn set_job_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3960,6 +4794,13 @@ impl JobQuery {
     }
 
     /// Sets the value of [commute_filter][crate::model::JobQuery::commute_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::CommuteFilter;
+    /// let x = JobQuery::new().set_commute_filter(CommuteFilter::default()/* use setters */);
+    /// ```
     pub fn set_commute_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommuteFilter>,
@@ -3969,6 +4810,14 @@ impl JobQuery {
     }
 
     /// Sets or clears the value of [commute_filter][crate::model::JobQuery::commute_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::CommuteFilter;
+    /// let x = JobQuery::new().set_or_clear_commute_filter(Some(CommuteFilter::default()/* use setters */));
+    /// let x = JobQuery::new().set_or_clear_commute_filter(None::<CommuteFilter>);
+    /// ```
     pub fn set_or_clear_commute_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommuteFilter>,
@@ -3978,6 +4827,12 @@ impl JobQuery {
     }
 
     /// Sets the value of [company_display_names][crate::model::JobQuery::company_display_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_company_display_names(["a", "b", "c"]);
+    /// ```
     pub fn set_company_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3989,6 +4844,13 @@ impl JobQuery {
     }
 
     /// Sets the value of [compensation_filter][crate::model::JobQuery::compensation_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::CompensationFilter;
+    /// let x = JobQuery::new().set_compensation_filter(CompensationFilter::default()/* use setters */);
+    /// ```
     pub fn set_compensation_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompensationFilter>,
@@ -3998,6 +4860,14 @@ impl JobQuery {
     }
 
     /// Sets or clears the value of [compensation_filter][crate::model::JobQuery::compensation_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::CompensationFilter;
+    /// let x = JobQuery::new().set_or_clear_compensation_filter(Some(CompensationFilter::default()/* use setters */));
+    /// let x = JobQuery::new().set_or_clear_compensation_filter(None::<CompensationFilter>);
+    /// ```
     pub fn set_or_clear_compensation_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompensationFilter>,
@@ -4007,6 +4877,12 @@ impl JobQuery {
     }
 
     /// Sets the value of [custom_attribute_filter][crate::model::JobQuery::custom_attribute_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_custom_attribute_filter("example");
+    /// ```
     pub fn set_custom_attribute_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4016,12 +4892,29 @@ impl JobQuery {
     }
 
     /// Sets the value of [disable_spell_check][crate::model::JobQuery::disable_spell_check].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_disable_spell_check(true);
+    /// ```
     pub fn set_disable_spell_check<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_spell_check = v.into();
         self
     }
 
     /// Sets the value of [employment_types][crate::model::JobQuery::employment_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::EmploymentType;
+    /// let x = JobQuery::new().set_employment_types([
+    ///     EmploymentType::FullTime,
+    ///     EmploymentType::PartTime,
+    ///     EmploymentType::Contractor,
+    /// ]);
+    /// ```
     pub fn set_employment_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4033,6 +4926,12 @@ impl JobQuery {
     }
 
     /// Sets the value of [language_codes][crate::model::JobQuery::language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_language_codes(["a", "b", "c"]);
+    /// ```
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4044,6 +4943,13 @@ impl JobQuery {
     }
 
     /// Sets the value of [publish_time_range][crate::model::JobQuery::publish_time_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::TimestampRange;
+    /// let x = JobQuery::new().set_publish_time_range(TimestampRange::default()/* use setters */);
+    /// ```
     pub fn set_publish_time_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimestampRange>,
@@ -4053,6 +4959,14 @@ impl JobQuery {
     }
 
     /// Sets or clears the value of [publish_time_range][crate::model::JobQuery::publish_time_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// use google_cloud_talent_v4::model::TimestampRange;
+    /// let x = JobQuery::new().set_or_clear_publish_time_range(Some(TimestampRange::default()/* use setters */));
+    /// let x = JobQuery::new().set_or_clear_publish_time_range(None::<TimestampRange>);
+    /// ```
     pub fn set_or_clear_publish_time_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimestampRange>,
@@ -4062,6 +4976,12 @@ impl JobQuery {
     }
 
     /// Sets the value of [excluded_jobs][crate::model::JobQuery::excluded_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobQuery;
+    /// let x = JobQuery::new().set_excluded_jobs(["a", "b", "c"]);
+    /// ```
     pub fn set_excluded_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4158,18 +5078,37 @@ impl LocationFilter {
     }
 
     /// Sets the value of [address][crate::model::LocationFilter::address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::LocationFilter;
+    /// let x = LocationFilter::new().set_address("example");
+    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [region_code][crate::model::LocationFilter::region_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::LocationFilter;
+    /// let x = LocationFilter::new().set_region_code("example");
+    /// ```
     pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region_code = v.into();
         self
     }
 
     /// Sets the value of [lat_lng][crate::model::LocationFilter::lat_lng].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::LocationFilter;
+    /// use gtype::model::LatLng;
+    /// let x = LocationFilter::new().set_lat_lng(LatLng::default()/* use setters */);
+    /// ```
     pub fn set_lat_lng<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4179,6 +5118,14 @@ impl LocationFilter {
     }
 
     /// Sets or clears the value of [lat_lng][crate::model::LocationFilter::lat_lng].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::LocationFilter;
+    /// use gtype::model::LatLng;
+    /// let x = LocationFilter::new().set_or_clear_lat_lng(Some(LatLng::default()/* use setters */));
+    /// let x = LocationFilter::new().set_or_clear_lat_lng(None::<LatLng>);
+    /// ```
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4188,12 +5135,26 @@ impl LocationFilter {
     }
 
     /// Sets the value of [distance_in_miles][crate::model::LocationFilter::distance_in_miles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::LocationFilter;
+    /// let x = LocationFilter::new().set_distance_in_miles(42.0);
+    /// ```
     pub fn set_distance_in_miles<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.distance_in_miles = v.into();
         self
     }
 
     /// Sets the value of [telecommute_preference][crate::model::LocationFilter::telecommute_preference].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::LocationFilter;
+    /// use google_cloud_talent_v4::model::location_filter::TelecommutePreference;
+    /// let x0 = LocationFilter::new().set_telecommute_preference(TelecommutePreference::TelecommuteAllowed);
+    /// let x1 = LocationFilter::new().set_telecommute_preference(TelecommutePreference::TelecommuteJobsExcluded);
+    /// ```
     pub fn set_telecommute_preference<
         T: std::convert::Into<crate::model::location_filter::TelecommutePreference>,
     >(
@@ -4391,6 +5352,15 @@ impl CompensationFilter {
     }
 
     /// Sets the value of [r#type][crate::model::CompensationFilter::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationFilter;
+    /// use google_cloud_talent_v4::model::compensation_filter::FilterType;
+    /// let x0 = CompensationFilter::new().set_type(FilterType::UnitOnly);
+    /// let x1 = CompensationFilter::new().set_type(FilterType::UnitAndAmount);
+    /// let x2 = CompensationFilter::new().set_type(FilterType::AnnualizedBaseAmount);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::compensation_filter::FilterType>>(
         mut self,
         v: T,
@@ -4400,6 +5370,17 @@ impl CompensationFilter {
     }
 
     /// Sets the value of [units][crate::model::CompensationFilter::units].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationFilter;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationUnit;
+    /// let x = CompensationFilter::new().set_units([
+    ///     CompensationUnit::Hourly,
+    ///     CompensationUnit::Daily,
+    ///     CompensationUnit::Weekly,
+    /// ]);
+    /// ```
     pub fn set_units<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4411,6 +5392,13 @@ impl CompensationFilter {
     }
 
     /// Sets the value of [range][crate::model::CompensationFilter::range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationFilter;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+    /// let x = CompensationFilter::new().set_range(CompensationRange::default()/* use setters */);
+    /// ```
     pub fn set_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
@@ -4420,6 +5408,14 @@ impl CompensationFilter {
     }
 
     /// Sets or clears the value of [range][crate::model::CompensationFilter::range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationFilter;
+    /// use google_cloud_talent_v4::model::compensation_info::CompensationRange;
+    /// let x = CompensationFilter::new().set_or_clear_range(Some(CompensationRange::default()/* use setters */));
+    /// let x = CompensationFilter::new().set_or_clear_range(None::<CompensationRange>);
+    /// ```
     pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
@@ -4429,6 +5425,12 @@ impl CompensationFilter {
     }
 
     /// Sets the value of [include_jobs_with_unspecified_compensation_range][crate::model::CompensationFilter::include_jobs_with_unspecified_compensation_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CompensationFilter;
+    /// let x = CompensationFilter::new().set_include_jobs_with_unspecified_compensation_range(true);
+    /// ```
     pub fn set_include_jobs_with_unspecified_compensation_range<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -4671,6 +5673,15 @@ impl CommuteFilter {
     }
 
     /// Sets the value of [commute_method][crate::model::CommuteFilter::commute_method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use google_cloud_talent_v4::model::CommuteMethod;
+    /// let x0 = CommuteFilter::new().set_commute_method(CommuteMethod::Driving);
+    /// let x1 = CommuteFilter::new().set_commute_method(CommuteMethod::Transit);
+    /// let x2 = CommuteFilter::new().set_commute_method(CommuteMethod::Walking);
+    /// ```
     pub fn set_commute_method<T: std::convert::Into<crate::model::CommuteMethod>>(
         mut self,
         v: T,
@@ -4680,6 +5691,13 @@ impl CommuteFilter {
     }
 
     /// Sets the value of [start_coordinates][crate::model::CommuteFilter::start_coordinates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use gtype::model::LatLng;
+    /// let x = CommuteFilter::new().set_start_coordinates(LatLng::default()/* use setters */);
+    /// ```
     pub fn set_start_coordinates<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4689,6 +5707,14 @@ impl CommuteFilter {
     }
 
     /// Sets or clears the value of [start_coordinates][crate::model::CommuteFilter::start_coordinates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use gtype::model::LatLng;
+    /// let x = CommuteFilter::new().set_or_clear_start_coordinates(Some(LatLng::default()/* use setters */));
+    /// let x = CommuteFilter::new().set_or_clear_start_coordinates(None::<LatLng>);
+    /// ```
     pub fn set_or_clear_start_coordinates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4698,6 +5724,13 @@ impl CommuteFilter {
     }
 
     /// Sets the value of [travel_duration][crate::model::CommuteFilter::travel_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use wkt::Duration;
+    /// let x = CommuteFilter::new().set_travel_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_travel_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4707,6 +5740,14 @@ impl CommuteFilter {
     }
 
     /// Sets or clears the value of [travel_duration][crate::model::CommuteFilter::travel_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use wkt::Duration;
+    /// let x = CommuteFilter::new().set_or_clear_travel_duration(Some(Duration::default()/* use setters */));
+    /// let x = CommuteFilter::new().set_or_clear_travel_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4716,6 +5757,12 @@ impl CommuteFilter {
     }
 
     /// Sets the value of [allow_imprecise_addresses][crate::model::CommuteFilter::allow_imprecise_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// let x = CommuteFilter::new().set_allow_imprecise_addresses(true);
+    /// ```
     pub fn set_allow_imprecise_addresses<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_imprecise_addresses = v.into();
         self
@@ -4725,6 +5772,16 @@ impl CommuteFilter {
     ///
     /// Note that all the setters affecting `traffic_option` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use google_cloud_talent_v4::model::commute_filter::RoadTraffic;
+    /// let x0 = CommuteFilter::new().set_traffic_option(Some(
+    ///     google_cloud_talent_v4::model::commute_filter::TrafficOption::RoadTraffic(RoadTraffic::TrafficFree)));
+    /// let x1 = CommuteFilter::new().set_traffic_option(Some(
+    ///     google_cloud_talent_v4::model::commute_filter::TrafficOption::RoadTraffic(RoadTraffic::BusyHour)));
+    /// ```
     pub fn set_traffic_option<
         T: std::convert::Into<std::option::Option<crate::model::commute_filter::TrafficOption>>,
     >(
@@ -4753,6 +5810,18 @@ impl CommuteFilter {
     ///
     /// Note that all the setters affecting `traffic_option` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use google_cloud_talent_v4::model::commute_filter::RoadTraffic;
+    /// let x0 = CommuteFilter::new().set_road_traffic(RoadTraffic::TrafficFree);
+    /// let x1 = CommuteFilter::new().set_road_traffic(RoadTraffic::BusyHour);
+    /// assert!(x0.road_traffic().is_some());
+    /// assert!(x0.departure_time().is_none());
+    /// assert!(x1.road_traffic().is_some());
+    /// assert!(x1.departure_time().is_none());
+    /// ```
     pub fn set_road_traffic<T: std::convert::Into<crate::model::commute_filter::RoadTraffic>>(
         mut self,
         v: T,
@@ -4781,6 +5850,15 @@ impl CommuteFilter {
     ///
     /// Note that all the setters affecting `traffic_option` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CommuteFilter;
+    /// use gtype::model::TimeOfDay;
+    /// let x = CommuteFilter::new().set_departure_time(TimeOfDay::default()/* use setters */);
+    /// assert!(x.departure_time().is_some());
+    /// assert!(x.road_traffic().is_none());
+    /// ```
     pub fn set_departure_time<T: std::convert::Into<std::boxed::Box<gtype::model::TimeOfDay>>>(
         mut self,
         v: T,
@@ -4974,6 +6052,12 @@ impl HistogramQuery {
     }
 
     /// Sets the value of [histogram_query][crate::model::HistogramQuery::histogram_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::HistogramQuery;
+    /// let x = HistogramQuery::new().set_histogram_query("example");
+    /// ```
     pub fn set_histogram_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.histogram_query = v.into();
         self
@@ -5018,12 +6102,27 @@ impl HistogramQueryResult {
     }
 
     /// Sets the value of [histogram_query][crate::model::HistogramQueryResult::histogram_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::HistogramQueryResult;
+    /// let x = HistogramQueryResult::new().set_histogram_query("example");
+    /// ```
     pub fn set_histogram_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.histogram_query = v.into();
         self
     }
 
     /// Sets the value of [histogram][crate::model::HistogramQueryResult::histogram].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::HistogramQueryResult;
+    /// let x = HistogramQueryResult::new().set_histogram([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_histogram<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5385,36 +6484,72 @@ impl Job {
     }
 
     /// Sets the value of [name][crate::model::Job::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [company][crate::model::Job::company].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_company("example");
+    /// ```
     pub fn set_company<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.company = v.into();
         self
     }
 
     /// Sets the value of [requisition_id][crate::model::Job::requisition_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_requisition_id("example");
+    /// ```
     pub fn set_requisition_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.requisition_id = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::Job::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Job::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [addresses][crate::model::Job::addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5426,6 +6561,13 @@ impl Job {
     }
 
     /// Sets the value of [application_info][crate::model::Job::application_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::job::ApplicationInfo;
+    /// let x = Job::new().set_application_info(ApplicationInfo::default()/* use setters */);
+    /// ```
     pub fn set_application_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::job::ApplicationInfo>,
@@ -5435,6 +6577,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [application_info][crate::model::Job::application_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::job::ApplicationInfo;
+    /// let x = Job::new().set_or_clear_application_info(Some(ApplicationInfo::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_application_info(None::<ApplicationInfo>);
+    /// ```
     pub fn set_or_clear_application_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::job::ApplicationInfo>,
@@ -5444,6 +6594,17 @@ impl Job {
     }
 
     /// Sets the value of [job_benefits][crate::model::Job::job_benefits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::JobBenefit;
+    /// let x = Job::new().set_job_benefits([
+    ///     JobBenefit::ChildCare,
+    ///     JobBenefit::Dental,
+    ///     JobBenefit::DomesticPartner,
+    /// ]);
+    /// ```
     pub fn set_job_benefits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5455,6 +6616,13 @@ impl Job {
     }
 
     /// Sets the value of [compensation_info][crate::model::Job::compensation_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::CompensationInfo;
+    /// let x = Job::new().set_compensation_info(CompensationInfo::default()/* use setters */);
+    /// ```
     pub fn set_compensation_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompensationInfo>,
@@ -5464,6 +6632,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [compensation_info][crate::model::Job::compensation_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::CompensationInfo;
+    /// let x = Job::new().set_or_clear_compensation_info(Some(CompensationInfo::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_compensation_info(None::<CompensationInfo>);
+    /// ```
     pub fn set_or_clear_compensation_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompensationInfo>,
@@ -5473,6 +6649,16 @@ impl Job {
     }
 
     /// Sets the value of [custom_attributes][crate::model::Job::custom_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::CustomAttribute;
+    /// let x = Job::new().set_custom_attributes([
+    ///     ("key0", CustomAttribute::default()/* use setters */),
+    ///     ("key1", CustomAttribute::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_custom_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5485,6 +6671,17 @@ impl Job {
     }
 
     /// Sets the value of [degree_types][crate::model::Job::degree_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::DegreeType;
+    /// let x = Job::new().set_degree_types([
+    ///     DegreeType::PrimaryEducation,
+    ///     DegreeType::LowerSecondaryEducation,
+    ///     DegreeType::UpperSecondaryEducation,
+    /// ]);
+    /// ```
     pub fn set_degree_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5496,12 +6693,29 @@ impl Job {
     }
 
     /// Sets the value of [department][crate::model::Job::department].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_department("example");
+    /// ```
     pub fn set_department<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.department = v.into();
         self
     }
 
     /// Sets the value of [employment_types][crate::model::Job::employment_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::EmploymentType;
+    /// let x = Job::new().set_employment_types([
+    ///     EmploymentType::FullTime,
+    ///     EmploymentType::PartTime,
+    ///     EmploymentType::Contractor,
+    /// ]);
+    /// ```
     pub fn set_employment_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5513,36 +6727,75 @@ impl Job {
     }
 
     /// Sets the value of [incentives][crate::model::Job::incentives].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_incentives("example");
+    /// ```
     pub fn set_incentives<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.incentives = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::Job::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [job_level][crate::model::Job::job_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::JobLevel;
+    /// let x0 = Job::new().set_job_level(JobLevel::EntryLevel);
+    /// let x1 = Job::new().set_job_level(JobLevel::Experienced);
+    /// let x2 = Job::new().set_job_level(JobLevel::Manager);
+    /// ```
     pub fn set_job_level<T: std::convert::Into<crate::model::JobLevel>>(mut self, v: T) -> Self {
         self.job_level = v.into();
         self
     }
 
     /// Sets the value of [promotion_value][crate::model::Job::promotion_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_promotion_value(42);
+    /// ```
     pub fn set_promotion_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.promotion_value = v.into();
         self
     }
 
     /// Sets the value of [qualifications][crate::model::Job::qualifications].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_qualifications("example");
+    /// ```
     pub fn set_qualifications<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.qualifications = v.into();
         self
     }
 
     /// Sets the value of [responsibilities][crate::model::Job::responsibilities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_responsibilities("example");
+    /// ```
     pub fn set_responsibilities<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5552,6 +6805,15 @@ impl Job {
     }
 
     /// Sets the value of [posting_region][crate::model::Job::posting_region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::PostingRegion;
+    /// let x0 = Job::new().set_posting_region(PostingRegion::AdministrativeArea);
+    /// let x1 = Job::new().set_posting_region(PostingRegion::Nation);
+    /// let x2 = Job::new().set_posting_region(PostingRegion::Telecommute);
+    /// ```
     pub fn set_posting_region<T: std::convert::Into<crate::model::PostingRegion>>(
         mut self,
         v: T,
@@ -5561,6 +6823,15 @@ impl Job {
     }
 
     /// Sets the value of [visibility][crate::model::Job::visibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::Visibility;
+    /// let x0 = Job::new().set_visibility(Visibility::AccountOnly);
+    /// let x1 = Job::new().set_visibility(Visibility::SharedWithGoogle);
+    /// let x2 = Job::new().set_visibility(Visibility::SharedWithPublic);
+    /// ```
     #[deprecated]
     pub fn set_visibility<T: std::convert::Into<crate::model::Visibility>>(mut self, v: T) -> Self {
         self.visibility = v.into();
@@ -5568,6 +6839,13 @@ impl Job {
     }
 
     /// Sets the value of [job_start_time][crate::model::Job::job_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_job_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_job_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5577,6 +6855,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [job_start_time][crate::model::Job::job_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_job_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_job_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_job_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5586,6 +6872,13 @@ impl Job {
     }
 
     /// Sets the value of [job_end_time][crate::model::Job::job_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_job_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_job_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5595,6 +6888,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [job_end_time][crate::model::Job::job_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_job_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_job_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_job_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5604,6 +6905,13 @@ impl Job {
     }
 
     /// Sets the value of [posting_publish_time][crate::model::Job::posting_publish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_posting_publish_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_posting_publish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5613,6 +6921,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [posting_publish_time][crate::model::Job::posting_publish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_posting_publish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_posting_publish_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_posting_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5622,6 +6938,13 @@ impl Job {
     }
 
     /// Sets the value of [posting_expire_time][crate::model::Job::posting_expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_posting_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_posting_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5631,6 +6954,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [posting_expire_time][crate::model::Job::posting_expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_posting_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_posting_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_posting_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5640,6 +6971,13 @@ impl Job {
     }
 
     /// Sets the value of [posting_create_time][crate::model::Job::posting_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_posting_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_posting_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5649,6 +6987,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [posting_create_time][crate::model::Job::posting_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_posting_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_posting_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_posting_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5658,6 +7004,13 @@ impl Job {
     }
 
     /// Sets the value of [posting_update_time][crate::model::Job::posting_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_posting_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_posting_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5667,6 +7020,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [posting_update_time][crate::model::Job::posting_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_posting_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_posting_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_posting_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5676,6 +7037,12 @@ impl Job {
     }
 
     /// Sets the value of [company_display_name][crate::model::Job::company_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// let x = Job::new().set_company_display_name("example");
+    /// ```
     pub fn set_company_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5685,6 +7052,13 @@ impl Job {
     }
 
     /// Sets the value of [derived_info][crate::model::Job::derived_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::job::DerivedInfo;
+    /// let x = Job::new().set_derived_info(DerivedInfo::default()/* use setters */);
+    /// ```
     pub fn set_derived_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::job::DerivedInfo>,
@@ -5694,6 +7068,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [derived_info][crate::model::Job::derived_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::job::DerivedInfo;
+    /// let x = Job::new().set_or_clear_derived_info(Some(DerivedInfo::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_derived_info(None::<DerivedInfo>);
+    /// ```
     pub fn set_or_clear_derived_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::job::DerivedInfo>,
@@ -5703,6 +7085,13 @@ impl Job {
     }
 
     /// Sets the value of [processing_options][crate::model::Job::processing_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::job::ProcessingOptions;
+    /// let x = Job::new().set_processing_options(ProcessingOptions::default()/* use setters */);
+    /// ```
     pub fn set_processing_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::job::ProcessingOptions>,
@@ -5712,6 +7101,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [processing_options][crate::model::Job::processing_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Job;
+    /// use google_cloud_talent_v4::model::job::ProcessingOptions;
+    /// let x = Job::new().set_or_clear_processing_options(Some(ProcessingOptions::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_processing_options(None::<ProcessingOptions>);
+    /// ```
     pub fn set_or_clear_processing_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::job::ProcessingOptions>,
@@ -5766,6 +7163,12 @@ pub mod job {
         }
 
         /// Sets the value of [emails][crate::model::job::ApplicationInfo::emails].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::job::ApplicationInfo;
+        /// let x = ApplicationInfo::new().set_emails(["a", "b", "c"]);
+        /// ```
         pub fn set_emails<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5777,12 +7180,24 @@ pub mod job {
         }
 
         /// Sets the value of [instruction][crate::model::job::ApplicationInfo::instruction].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::job::ApplicationInfo;
+        /// let x = ApplicationInfo::new().set_instruction("example");
+        /// ```
         pub fn set_instruction<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.instruction = v.into();
             self
         }
 
         /// Sets the value of [uris][crate::model::job::ApplicationInfo::uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::job::ApplicationInfo;
+        /// let x = ApplicationInfo::new().set_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5831,6 +7246,17 @@ pub mod job {
         }
 
         /// Sets the value of [locations][crate::model::job::DerivedInfo::locations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::job::DerivedInfo;
+        /// use google_cloud_talent_v4::model::Location;
+        /// let x = DerivedInfo::new()
+        ///     .set_locations([
+        ///         Location::default()/* use setters */,
+        ///         Location::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5842,6 +7268,17 @@ pub mod job {
         }
 
         /// Sets the value of [job_categories][crate::model::job::DerivedInfo::job_categories].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::job::DerivedInfo;
+        /// use google_cloud_talent_v4::model::JobCategory;
+        /// let x = DerivedInfo::new().set_job_categories([
+        ///     JobCategory::AccountingAndFinance,
+        ///     JobCategory::AdministrativeAndOffice,
+        ///     JobCategory::AdvertisingAndMarketing,
+        /// ]);
+        /// ```
         pub fn set_job_categories<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5893,6 +7330,12 @@ pub mod job {
         }
 
         /// Sets the value of [disable_street_address_resolution][crate::model::job::ProcessingOptions::disable_street_address_resolution].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::job::ProcessingOptions;
+        /// let x = ProcessingOptions::new().set_disable_street_address_resolution(true);
+        /// ```
         pub fn set_disable_street_address_resolution<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -5902,6 +7345,14 @@ pub mod job {
         }
 
         /// Sets the value of [html_sanitization][crate::model::job::ProcessingOptions::html_sanitization].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::job::ProcessingOptions;
+        /// use google_cloud_talent_v4::model::HtmlSanitization;
+        /// let x0 = ProcessingOptions::new().set_html_sanitization(HtmlSanitization::Disabled);
+        /// let x1 = ProcessingOptions::new().set_html_sanitization(HtmlSanitization::SimpleFormattingOnly);
+        /// ```
         pub fn set_html_sanitization<T: std::convert::Into<crate::model::HtmlSanitization>>(
             mut self,
             v: T,
@@ -5940,12 +7391,25 @@ impl CreateJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateJobRequest;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = CreateJobRequest::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -5955,6 +7419,14 @@ impl CreateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateJobRequest;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = CreateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = CreateJobRequest::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -5990,6 +7462,12 @@ impl GetJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::GetJobRequest;
+    /// let x = GetJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6033,6 +7511,13 @@ impl UpdateJobRequest {
     }
 
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateJobRequest;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = UpdateJobRequest::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -6042,6 +7527,14 @@ impl UpdateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateJobRequest;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = UpdateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = UpdateJobRequest::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -6051,6 +7544,13 @@ impl UpdateJobRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateJobRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateJobRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6060,6 +7560,14 @@ impl UpdateJobRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateJobRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateJobRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateJobRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6095,6 +7603,12 @@ impl DeleteJobRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6175,30 +7689,63 @@ impl ListJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [job_view][crate::model::ListJobsRequest::job_view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsRequest;
+    /// use google_cloud_talent_v4::model::JobView;
+    /// let x0 = ListJobsRequest::new().set_job_view(JobView::IdOnly);
+    /// let x1 = ListJobsRequest::new().set_job_view(JobView::Minimal);
+    /// let x2 = ListJobsRequest::new().set_job_view(JobView::Small);
+    /// ```
     pub fn set_job_view<T: std::convert::Into<crate::model::JobView>>(mut self, v: T) -> Self {
         self.job_view = v.into();
         self
@@ -6237,6 +7784,17 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsResponse;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = ListJobsResponse::new()
+    ///     .set_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6248,12 +7806,25 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsResponse;
+    /// let x = ListJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::ListJobsResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = ListJobsResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -6263,6 +7834,14 @@ impl ListJobsResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::ListJobsResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListJobsResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = ListJobsResponse::new().set_or_clear_metadata(Some(ResponseMetadata::default()/* use setters */));
+    /// let x = ListJobsResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -6644,12 +8223,26 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// let x = SearchJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [search_mode][crate::model::SearchJobsRequest::search_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::search_jobs_request::SearchMode;
+    /// let x0 = SearchJobsRequest::new().set_search_mode(SearchMode::JobSearch);
+    /// let x1 = SearchJobsRequest::new().set_search_mode(SearchMode::FeaturedJobSearch);
+    /// ```
     pub fn set_search_mode<T: std::convert::Into<crate::model::search_jobs_request::SearchMode>>(
         mut self,
         v: T,
@@ -6659,6 +8252,13 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::RequestMetadata;
+    /// let x = SearchJobsRequest::new().set_request_metadata(RequestMetadata::default()/* use setters */);
+    /// ```
     pub fn set_request_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RequestMetadata>,
@@ -6668,6 +8268,14 @@ impl SearchJobsRequest {
     }
 
     /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::RequestMetadata;
+    /// let x = SearchJobsRequest::new().set_or_clear_request_metadata(Some(RequestMetadata::default()/* use setters */));
+    /// let x = SearchJobsRequest::new().set_or_clear_request_metadata(None::<RequestMetadata>);
+    /// ```
     pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RequestMetadata>,
@@ -6677,6 +8285,13 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [job_query][crate::model::SearchJobsRequest::job_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::JobQuery;
+    /// let x = SearchJobsRequest::new().set_job_query(JobQuery::default()/* use setters */);
+    /// ```
     pub fn set_job_query<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::JobQuery>,
@@ -6686,6 +8301,14 @@ impl SearchJobsRequest {
     }
 
     /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::JobQuery;
+    /// let x = SearchJobsRequest::new().set_or_clear_job_query(Some(JobQuery::default()/* use setters */));
+    /// let x = SearchJobsRequest::new().set_or_clear_job_query(None::<JobQuery>);
+    /// ```
     pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobQuery>,
@@ -6695,12 +8318,29 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [enable_broadening][crate::model::SearchJobsRequest::enable_broadening].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// let x = SearchJobsRequest::new().set_enable_broadening(true);
+    /// ```
     pub fn set_enable_broadening<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_broadening = v.into();
         self
     }
 
     /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::HistogramQuery;
+    /// let x = SearchJobsRequest::new()
+    ///     .set_histogram_queries([
+    ///         HistogramQuery::default()/* use setters */,
+    ///         HistogramQuery::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6712,36 +8352,78 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [job_view][crate::model::SearchJobsRequest::job_view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::JobView;
+    /// let x0 = SearchJobsRequest::new().set_job_view(JobView::IdOnly);
+    /// let x1 = SearchJobsRequest::new().set_job_view(JobView::Minimal);
+    /// let x2 = SearchJobsRequest::new().set_job_view(JobView::Small);
+    /// ```
     pub fn set_job_view<T: std::convert::Into<crate::model::JobView>>(mut self, v: T) -> Self {
         self.job_view = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::model::SearchJobsRequest::offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// let x = SearchJobsRequest::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
     }
 
     /// Sets the value of [max_page_size][crate::model::SearchJobsRequest::max_page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// let x = SearchJobsRequest::new().set_max_page_size(42);
+    /// ```
     pub fn set_max_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// let x = SearchJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::SearchJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// let x = SearchJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [diversification_level][crate::model::SearchJobsRequest::diversification_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::search_jobs_request::DiversificationLevel;
+    /// let x0 = SearchJobsRequest::new().set_diversification_level(DiversificationLevel::Disabled);
+    /// let x1 = SearchJobsRequest::new().set_diversification_level(DiversificationLevel::Simple);
+    /// let x2 = SearchJobsRequest::new().set_diversification_level(DiversificationLevel::OnePerCompany);
+    /// ```
     pub fn set_diversification_level<
         T: std::convert::Into<crate::model::search_jobs_request::DiversificationLevel>,
     >(
@@ -6753,6 +8435,13 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::search_jobs_request::CustomRankingInfo;
+    /// let x = SearchJobsRequest::new().set_custom_ranking_info(CustomRankingInfo::default()/* use setters */);
+    /// ```
     pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
@@ -6762,6 +8451,14 @@ impl SearchJobsRequest {
     }
 
     /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::search_jobs_request::CustomRankingInfo;
+    /// let x = SearchJobsRequest::new().set_or_clear_custom_ranking_info(Some(CustomRankingInfo::default()/* use setters */));
+    /// let x = SearchJobsRequest::new().set_or_clear_custom_ranking_info(None::<CustomRankingInfo>);
+    /// ```
     pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
@@ -6771,6 +8468,12 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [disable_keyword_match][crate::model::SearchJobsRequest::disable_keyword_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// let x = SearchJobsRequest::new().set_disable_keyword_match(true);
+    /// ```
     #[deprecated]
     pub fn set_disable_keyword_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_keyword_match = v.into();
@@ -6778,6 +8481,15 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [keyword_match_mode][crate::model::SearchJobsRequest::keyword_match_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::search_jobs_request::KeywordMatchMode;
+    /// let x0 = SearchJobsRequest::new().set_keyword_match_mode(KeywordMatchMode::KeywordMatchDisabled);
+    /// let x1 = SearchJobsRequest::new().set_keyword_match_mode(KeywordMatchMode::KeywordMatchAll);
+    /// let x2 = SearchJobsRequest::new().set_keyword_match_mode(KeywordMatchMode::KeywordMatchTitleOnly);
+    /// ```
     pub fn set_keyword_match_mode<
         T: std::convert::Into<crate::model::search_jobs_request::KeywordMatchMode>,
     >(
@@ -6789,6 +8501,15 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [relevance_threshold][crate::model::SearchJobsRequest::relevance_threshold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsRequest;
+    /// use google_cloud_talent_v4::model::search_jobs_request::RelevanceThreshold;
+    /// let x0 = SearchJobsRequest::new().set_relevance_threshold(RelevanceThreshold::Lowest);
+    /// let x1 = SearchJobsRequest::new().set_relevance_threshold(RelevanceThreshold::Low);
+    /// let x2 = SearchJobsRequest::new().set_relevance_threshold(RelevanceThreshold::Medium);
+    /// ```
     pub fn set_relevance_threshold<
         T: std::convert::Into<crate::model::search_jobs_request::RelevanceThreshold>,
     >(
@@ -6864,6 +8585,15 @@ pub mod search_jobs_request {
         }
 
         /// Sets the value of [importance_level][crate::model::search_jobs_request::CustomRankingInfo::importance_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_request::CustomRankingInfo;
+        /// use google_cloud_talent_v4::model::search_jobs_request::custom_ranking_info::ImportanceLevel;
+        /// let x0 = CustomRankingInfo::new().set_importance_level(ImportanceLevel::None);
+        /// let x1 = CustomRankingInfo::new().set_importance_level(ImportanceLevel::Low);
+        /// let x2 = CustomRankingInfo::new().set_importance_level(ImportanceLevel::Mild);
+        /// ```
         pub fn set_importance_level<
             T: std::convert::Into<
                     crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
@@ -6877,6 +8607,12 @@ pub mod search_jobs_request {
         }
 
         /// Sets the value of [ranking_expression][crate::model::search_jobs_request::CustomRankingInfo::ranking_expression].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_request::CustomRankingInfo;
+        /// let x = CustomRankingInfo::new().set_ranking_expression("example");
+        /// ```
         pub fn set_ranking_expression<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7789,6 +9525,17 @@ impl SearchJobsResponse {
     }
 
     /// Sets the value of [matching_jobs][crate::model::SearchJobsResponse::matching_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+    /// let x = SearchJobsResponse::new()
+    ///     .set_matching_jobs([
+    ///         MatchingJob::default()/* use setters */,
+    ///         MatchingJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_matching_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7800,6 +9547,17 @@ impl SearchJobsResponse {
     }
 
     /// Sets the value of [histogram_query_results][crate::model::SearchJobsResponse::histogram_query_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// use google_cloud_talent_v4::model::HistogramQueryResult;
+    /// let x = SearchJobsResponse::new()
+    ///     .set_histogram_query_results([
+    ///         HistogramQueryResult::default()/* use setters */,
+    ///         HistogramQueryResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_histogram_query_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7811,12 +9569,29 @@ impl SearchJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// let x = SearchJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [location_filters][crate::model::SearchJobsResponse::location_filters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// use google_cloud_talent_v4::model::Location;
+    /// let x = SearchJobsResponse::new()
+    ///     .set_location_filters([
+    ///         Location::default()/* use setters */,
+    ///         Location::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_location_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7828,12 +9603,25 @@ impl SearchJobsResponse {
     }
 
     /// Sets the value of [total_size][crate::model::SearchJobsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// let x = SearchJobsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::SearchJobsResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = SearchJobsResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -7843,6 +9631,14 @@ impl SearchJobsResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::SearchJobsResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = SearchJobsResponse::new().set_or_clear_metadata(Some(ResponseMetadata::default()/* use setters */));
+    /// let x = SearchJobsResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -7852,12 +9648,25 @@ impl SearchJobsResponse {
     }
 
     /// Sets the value of [broadened_query_jobs_count][crate::model::SearchJobsResponse::broadened_query_jobs_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// let x = SearchJobsResponse::new().set_broadened_query_jobs_count(42);
+    /// ```
     pub fn set_broadened_query_jobs_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.broadened_query_jobs_count = v.into();
         self
     }
 
     /// Sets the value of [spell_correction][crate::model::SearchJobsResponse::spell_correction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// use google_cloud_talent_v4::model::SpellingCorrection;
+    /// let x = SearchJobsResponse::new().set_spell_correction(SpellingCorrection::default()/* use setters */);
+    /// ```
     pub fn set_spell_correction<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpellingCorrection>,
@@ -7867,6 +9676,14 @@ impl SearchJobsResponse {
     }
 
     /// Sets or clears the value of [spell_correction][crate::model::SearchJobsResponse::spell_correction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::SearchJobsResponse;
+    /// use google_cloud_talent_v4::model::SpellingCorrection;
+    /// let x = SearchJobsResponse::new().set_or_clear_spell_correction(Some(SpellingCorrection::default()/* use setters */));
+    /// let x = SearchJobsResponse::new().set_or_clear_spell_correction(None::<SpellingCorrection>);
+    /// ```
     pub fn set_or_clear_spell_correction<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpellingCorrection>,
@@ -7936,6 +9753,13 @@ pub mod search_jobs_response {
         }
 
         /// Sets the value of [job][crate::model::search_jobs_response::MatchingJob::job].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+        /// use google_cloud_talent_v4::model::Job;
+        /// let x = MatchingJob::new().set_job(Job::default()/* use setters */);
+        /// ```
         pub fn set_job<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
@@ -7945,6 +9769,14 @@ pub mod search_jobs_response {
         }
 
         /// Sets or clears the value of [job][crate::model::search_jobs_response::MatchingJob::job].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+        /// use google_cloud_talent_v4::model::Job;
+        /// let x = MatchingJob::new().set_or_clear_job(Some(Job::default()/* use setters */));
+        /// let x = MatchingJob::new().set_or_clear_job(None::<Job>);
+        /// ```
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
@@ -7954,12 +9786,24 @@ pub mod search_jobs_response {
         }
 
         /// Sets the value of [job_summary][crate::model::search_jobs_response::MatchingJob::job_summary].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+        /// let x = MatchingJob::new().set_job_summary("example");
+        /// ```
         pub fn set_job_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.job_summary = v.into();
             self
         }
 
         /// Sets the value of [job_title_snippet][crate::model::search_jobs_response::MatchingJob::job_title_snippet].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+        /// let x = MatchingJob::new().set_job_title_snippet("example");
+        /// ```
         pub fn set_job_title_snippet<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7969,6 +9813,12 @@ pub mod search_jobs_response {
         }
 
         /// Sets the value of [search_text_snippet][crate::model::search_jobs_response::MatchingJob::search_text_snippet].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+        /// let x = MatchingJob::new().set_search_text_snippet("example");
+        /// ```
         pub fn set_search_text_snippet<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7978,6 +9828,13 @@ pub mod search_jobs_response {
         }
 
         /// Sets the value of [commute_info][crate::model::search_jobs_response::MatchingJob::commute_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+        /// use google_cloud_talent_v4::model::search_jobs_response::CommuteInfo;
+        /// let x = MatchingJob::new().set_commute_info(CommuteInfo::default()/* use setters */);
+        /// ```
         pub fn set_commute_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::search_jobs_response::CommuteInfo>,
@@ -7987,6 +9844,14 @@ pub mod search_jobs_response {
         }
 
         /// Sets or clears the value of [commute_info][crate::model::search_jobs_response::MatchingJob::commute_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::MatchingJob;
+        /// use google_cloud_talent_v4::model::search_jobs_response::CommuteInfo;
+        /// let x = MatchingJob::new().set_or_clear_commute_info(Some(CommuteInfo::default()/* use setters */));
+        /// let x = MatchingJob::new().set_or_clear_commute_info(None::<CommuteInfo>);
+        /// ```
         pub fn set_or_clear_commute_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_jobs_response::CommuteInfo>,
@@ -8024,6 +9889,13 @@ pub mod search_jobs_response {
         }
 
         /// Sets the value of [job_location][crate::model::search_jobs_response::CommuteInfo::job_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::CommuteInfo;
+        /// use google_cloud_talent_v4::model::Location;
+        /// let x = CommuteInfo::new().set_job_location(Location::default()/* use setters */);
+        /// ```
         pub fn set_job_location<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Location>,
@@ -8033,6 +9905,14 @@ pub mod search_jobs_response {
         }
 
         /// Sets or clears the value of [job_location][crate::model::search_jobs_response::CommuteInfo::job_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::CommuteInfo;
+        /// use google_cloud_talent_v4::model::Location;
+        /// let x = CommuteInfo::new().set_or_clear_job_location(Some(Location::default()/* use setters */));
+        /// let x = CommuteInfo::new().set_or_clear_job_location(None::<Location>);
+        /// ```
         pub fn set_or_clear_job_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Location>,
@@ -8042,6 +9922,13 @@ pub mod search_jobs_response {
         }
 
         /// Sets the value of [travel_duration][crate::model::search_jobs_response::CommuteInfo::travel_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::CommuteInfo;
+        /// use wkt::Duration;
+        /// let x = CommuteInfo::new().set_travel_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_travel_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -8051,6 +9938,14 @@ pub mod search_jobs_response {
         }
 
         /// Sets or clears the value of [travel_duration][crate::model::search_jobs_response::CommuteInfo::travel_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_talent_v4::model::search_jobs_response::CommuteInfo;
+        /// use wkt::Duration;
+        /// let x = CommuteInfo::new().set_or_clear_travel_duration(Some(Duration::default()/* use setters */));
+        /// let x = CommuteInfo::new().set_or_clear_travel_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -8090,12 +9985,29 @@ impl BatchCreateJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchCreateJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchCreateJobsRequest;
+    /// let x = BatchCreateJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [jobs][crate::model::BatchCreateJobsRequest::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchCreateJobsRequest;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = BatchCreateJobsRequest::new()
+    ///     .set_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8158,12 +10070,29 @@ impl BatchUpdateJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchUpdateJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchUpdateJobsRequest;
+    /// let x = BatchUpdateJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [jobs][crate::model::BatchUpdateJobsRequest::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchUpdateJobsRequest;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = BatchUpdateJobsRequest::new()
+    ///     .set_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8175,6 +10104,13 @@ impl BatchUpdateJobsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchUpdateJobsRequest;
+    /// use wkt::FieldMask;
+    /// let x = BatchUpdateJobsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8184,6 +10120,14 @@ impl BatchUpdateJobsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchUpdateJobsRequest;
+    /// use wkt::FieldMask;
+    /// let x = BatchUpdateJobsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = BatchUpdateJobsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8228,12 +10172,24 @@ impl BatchDeleteJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchDeleteJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchDeleteJobsRequest;
+    /// let x = BatchDeleteJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::BatchDeleteJobsRequest::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchDeleteJobsRequest;
+    /// let x = BatchDeleteJobsRequest::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8284,6 +10240,13 @@ impl JobResult {
     }
 
     /// Sets the value of [job][crate::model::JobResult::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobResult;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = JobResult::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -8293,6 +10256,14 @@ impl JobResult {
     }
 
     /// Sets or clears the value of [job][crate::model::JobResult::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobResult;
+    /// use google_cloud_talent_v4::model::Job;
+    /// let x = JobResult::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = JobResult::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -8302,6 +10273,13 @@ impl JobResult {
     }
 
     /// Sets the value of [status][crate::model::JobResult::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobResult;
+    /// use rpc::model::Status;
+    /// let x = JobResult::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -8311,6 +10289,14 @@ impl JobResult {
     }
 
     /// Sets or clears the value of [status][crate::model::JobResult::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::JobResult;
+    /// use rpc::model::Status;
+    /// let x = JobResult::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = JobResult::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -8350,6 +10336,17 @@ impl BatchCreateJobsResponse {
     }
 
     /// Sets the value of [job_results][crate::model::BatchCreateJobsResponse::job_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchCreateJobsResponse;
+    /// use google_cloud_talent_v4::model::JobResult;
+    /// let x = BatchCreateJobsResponse::new()
+    ///     .set_job_results([
+    ///         JobResult::default()/* use setters */,
+    ///         JobResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_job_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8391,6 +10388,17 @@ impl BatchUpdateJobsResponse {
     }
 
     /// Sets the value of [job_results][crate::model::BatchUpdateJobsResponse::job_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchUpdateJobsResponse;
+    /// use google_cloud_talent_v4::model::JobResult;
+    /// let x = BatchUpdateJobsResponse::new()
+    ///     .set_job_results([
+    ///         JobResult::default()/* use setters */,
+    ///         JobResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_job_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8432,6 +10440,17 @@ impl BatchDeleteJobsResponse {
     }
 
     /// Sets the value of [job_results][crate::model::BatchDeleteJobsResponse::job_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::BatchDeleteJobsResponse;
+    /// use google_cloud_talent_v4::model::JobResult;
+    /// let x = BatchDeleteJobsResponse::new()
+    ///     .set_job_results([
+    ///         JobResult::default()/* use setters */,
+    ///         JobResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_job_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8480,12 +10499,24 @@ impl Tenant {
     }
 
     /// Sets the value of [name][crate::model::Tenant::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Tenant;
+    /// let x = Tenant::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [external_id][crate::model::Tenant::external_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::Tenant;
+    /// let x = Tenant::new().set_external_id("example");
+    /// ```
     pub fn set_external_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_id = v.into();
         self
@@ -8520,12 +10551,25 @@ impl CreateTenantRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTenantRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateTenantRequest;
+    /// let x = CreateTenantRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [tenant][crate::model::CreateTenantRequest::tenant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateTenantRequest;
+    /// use google_cloud_talent_v4::model::Tenant;
+    /// let x = CreateTenantRequest::new().set_tenant(Tenant::default()/* use setters */);
+    /// ```
     pub fn set_tenant<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Tenant>,
@@ -8535,6 +10579,14 @@ impl CreateTenantRequest {
     }
 
     /// Sets or clears the value of [tenant][crate::model::CreateTenantRequest::tenant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::CreateTenantRequest;
+    /// use google_cloud_talent_v4::model::Tenant;
+    /// let x = CreateTenantRequest::new().set_or_clear_tenant(Some(Tenant::default()/* use setters */));
+    /// let x = CreateTenantRequest::new().set_or_clear_tenant(None::<Tenant>);
+    /// ```
     pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tenant>,
@@ -8569,6 +10621,12 @@ impl GetTenantRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTenantRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::GetTenantRequest;
+    /// let x = GetTenantRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8613,6 +10671,13 @@ impl UpdateTenantRequest {
     }
 
     /// Sets the value of [tenant][crate::model::UpdateTenantRequest::tenant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateTenantRequest;
+    /// use google_cloud_talent_v4::model::Tenant;
+    /// let x = UpdateTenantRequest::new().set_tenant(Tenant::default()/* use setters */);
+    /// ```
     pub fn set_tenant<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Tenant>,
@@ -8622,6 +10687,14 @@ impl UpdateTenantRequest {
     }
 
     /// Sets or clears the value of [tenant][crate::model::UpdateTenantRequest::tenant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateTenantRequest;
+    /// use google_cloud_talent_v4::model::Tenant;
+    /// let x = UpdateTenantRequest::new().set_or_clear_tenant(Some(Tenant::default()/* use setters */));
+    /// let x = UpdateTenantRequest::new().set_or_clear_tenant(None::<Tenant>);
+    /// ```
     pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tenant>,
@@ -8631,6 +10704,13 @@ impl UpdateTenantRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateTenantRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTenantRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8640,6 +10720,14 @@ impl UpdateTenantRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::UpdateTenantRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTenantRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTenantRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8674,6 +10762,12 @@ impl DeleteTenantRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTenantRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::DeleteTenantRequest;
+    /// let x = DeleteTenantRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8712,18 +10806,36 @@ impl ListTenantsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTenantsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListTenantsRequest;
+    /// let x = ListTenantsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTenantsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListTenantsRequest;
+    /// let x = ListTenantsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTenantsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListTenantsRequest;
+    /// let x = ListTenantsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -8759,6 +10871,17 @@ impl ListTenantsResponse {
     }
 
     /// Sets the value of [tenants][crate::model::ListTenantsResponse::tenants].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListTenantsResponse;
+    /// use google_cloud_talent_v4::model::Tenant;
+    /// let x = ListTenantsResponse::new()
+    ///     .set_tenants([
+    ///         Tenant::default()/* use setters */,
+    ///         Tenant::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tenants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8770,12 +10893,25 @@ impl ListTenantsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTenantsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListTenantsResponse;
+    /// let x = ListTenantsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::ListTenantsResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListTenantsResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = ListTenantsResponse::new().set_metadata(ResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -8785,6 +10921,14 @@ impl ListTenantsResponse {
     }
 
     /// Sets or clears the value of [metadata][crate::model::ListTenantsResponse::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::model::ListTenantsResponse;
+    /// use google_cloud_talent_v4::model::ResponseMetadata;
+    /// let x = ListTenantsResponse::new().set_or_clear_metadata(Some(ResponseMetadata::default()/* use setters */));
+    /// let x = ListTenantsResponse::new().set_or_clear_metadata(None::<ResponseMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,

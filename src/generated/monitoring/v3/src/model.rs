@@ -164,18 +164,37 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [name][crate::model::AlertPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = AlertPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::AlertPolicy::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = AlertPolicy::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [documentation][crate::model::AlertPolicy::documentation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::alert_policy::Documentation;
+    /// let x = AlertPolicy::new().set_documentation(Documentation::default()/* use setters */);
+    /// ```
     pub fn set_documentation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::alert_policy::Documentation>,
@@ -185,6 +204,14 @@ impl AlertPolicy {
     }
 
     /// Sets or clears the value of [documentation][crate::model::AlertPolicy::documentation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::alert_policy::Documentation;
+    /// let x = AlertPolicy::new().set_or_clear_documentation(Some(Documentation::default()/* use setters */));
+    /// let x = AlertPolicy::new().set_or_clear_documentation(None::<Documentation>);
+    /// ```
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::alert_policy::Documentation>,
@@ -194,6 +221,15 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [user_labels][crate::model::AlertPolicy::user_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = AlertPolicy::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -206,6 +242,17 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [conditions][crate::model::AlertPolicy::conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::alert_policy::Condition;
+    /// let x = AlertPolicy::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -217,6 +264,15 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [combiner][crate::model::AlertPolicy::combiner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::alert_policy::ConditionCombinerType;
+    /// let x0 = AlertPolicy::new().set_combiner(ConditionCombinerType::And);
+    /// let x1 = AlertPolicy::new().set_combiner(ConditionCombinerType::Or);
+    /// let x2 = AlertPolicy::new().set_combiner(ConditionCombinerType::AndWithMatchingResource);
+    /// ```
     pub fn set_combiner<
         T: std::convert::Into<crate::model::alert_policy::ConditionCombinerType>,
     >(
@@ -228,6 +284,13 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [enabled][crate::model::AlertPolicy::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use wkt::BoolValue;
+    /// let x = AlertPolicy::new().set_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -237,6 +300,14 @@ impl AlertPolicy {
     }
 
     /// Sets or clears the value of [enabled][crate::model::AlertPolicy::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use wkt::BoolValue;
+    /// let x = AlertPolicy::new().set_or_clear_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = AlertPolicy::new().set_or_clear_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -246,6 +317,13 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [validity][crate::model::AlertPolicy::validity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use rpc::model::Status;
+    /// let x = AlertPolicy::new().set_validity(Status::default()/* use setters */);
+    /// ```
     pub fn set_validity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -255,6 +333,14 @@ impl AlertPolicy {
     }
 
     /// Sets or clears the value of [validity][crate::model::AlertPolicy::validity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use rpc::model::Status;
+    /// let x = AlertPolicy::new().set_or_clear_validity(Some(Status::default()/* use setters */));
+    /// let x = AlertPolicy::new().set_or_clear_validity(None::<Status>);
+    /// ```
     pub fn set_or_clear_validity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -264,6 +350,12 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [notification_channels][crate::model::AlertPolicy::notification_channels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = AlertPolicy::new().set_notification_channels(["a", "b", "c"]);
+    /// ```
     pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -275,6 +367,13 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [creation_record][crate::model::AlertPolicy::creation_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = AlertPolicy::new().set_creation_record(MutationRecord::default()/* use setters */);
+    /// ```
     pub fn set_creation_record<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MutationRecord>,
@@ -284,6 +383,14 @@ impl AlertPolicy {
     }
 
     /// Sets or clears the value of [creation_record][crate::model::AlertPolicy::creation_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = AlertPolicy::new().set_or_clear_creation_record(Some(MutationRecord::default()/* use setters */));
+    /// let x = AlertPolicy::new().set_or_clear_creation_record(None::<MutationRecord>);
+    /// ```
     pub fn set_or_clear_creation_record<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MutationRecord>,
@@ -293,6 +400,13 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [mutation_record][crate::model::AlertPolicy::mutation_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = AlertPolicy::new().set_mutation_record(MutationRecord::default()/* use setters */);
+    /// ```
     pub fn set_mutation_record<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MutationRecord>,
@@ -302,6 +416,14 @@ impl AlertPolicy {
     }
 
     /// Sets or clears the value of [mutation_record][crate::model::AlertPolicy::mutation_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = AlertPolicy::new().set_or_clear_mutation_record(Some(MutationRecord::default()/* use setters */));
+    /// let x = AlertPolicy::new().set_or_clear_mutation_record(None::<MutationRecord>);
+    /// ```
     pub fn set_or_clear_mutation_record<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MutationRecord>,
@@ -311,6 +433,13 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [alert_strategy][crate::model::AlertPolicy::alert_strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+    /// let x = AlertPolicy::new().set_alert_strategy(AlertStrategy::default()/* use setters */);
+    /// ```
     pub fn set_alert_strategy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::alert_policy::AlertStrategy>,
@@ -320,6 +449,14 @@ impl AlertPolicy {
     }
 
     /// Sets or clears the value of [alert_strategy][crate::model::AlertPolicy::alert_strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+    /// let x = AlertPolicy::new().set_or_clear_alert_strategy(Some(AlertStrategy::default()/* use setters */));
+    /// let x = AlertPolicy::new().set_or_clear_alert_strategy(None::<AlertStrategy>);
+    /// ```
     pub fn set_or_clear_alert_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::alert_policy::AlertStrategy>,
@@ -329,6 +466,15 @@ impl AlertPolicy {
     }
 
     /// Sets the value of [severity][crate::model::AlertPolicy::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::model::alert_policy::Severity;
+    /// let x0 = AlertPolicy::new().set_severity(Severity::Critical);
+    /// let x1 = AlertPolicy::new().set_severity(Severity::Error);
+    /// let x2 = AlertPolicy::new().set_severity(Severity::Warning);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::alert_policy::Severity>>(
         mut self,
         v: T,
@@ -394,24 +540,53 @@ pub mod alert_policy {
         }
 
         /// Sets the value of [content][crate::model::alert_policy::Documentation::content].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Documentation;
+        /// let x = Documentation::new().set_content("example");
+        /// ```
         pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.content = v.into();
             self
         }
 
         /// Sets the value of [mime_type][crate::model::alert_policy::Documentation::mime_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Documentation;
+        /// let x = Documentation::new().set_mime_type("example");
+        /// ```
         pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mime_type = v.into();
             self
         }
 
         /// Sets the value of [subject][crate::model::alert_policy::Documentation::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Documentation;
+        /// let x = Documentation::new().set_subject("example");
+        /// ```
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject = v.into();
             self
         }
 
         /// Sets the value of [links][crate::model::alert_policy::Documentation::links].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Documentation;
+        /// use google_cloud_monitoring_v3::model::alert_policy::documentation::Link;
+        /// let x = Documentation::new()
+        ///     .set_links([
+        ///         Link::default()/* use setters */,
+        ///         Link::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_links<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -458,6 +633,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [display_name][crate::model::alert_policy::documentation::Link::display_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::documentation::Link;
+            /// let x = Link::new().set_display_name("example");
+            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -467,6 +648,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [url][crate::model::alert_policy::documentation::Link::url].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::documentation::Link;
+            /// let x = Link::new().set_url("example");
+            /// ```
             pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.url = v.into();
                 self
@@ -535,12 +722,24 @@ pub mod alert_policy {
         }
 
         /// Sets the value of [name][crate::model::alert_policy::Condition::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// let x = Condition::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::alert_policy::Condition::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// let x = Condition::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -553,6 +752,14 @@ pub mod alert_policy {
         ///
         /// Note that all the setters affecting `condition` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+        /// let x = Condition::new().set_condition(Some(
+        ///     google_cloud_monitoring_v3::model::alert_policy::condition::Condition::ConditionThreshold(MetricThreshold::default().into())));
+        /// ```
         pub fn set_condition<
             T: std::convert::Into<
                     std::option::Option<crate::model::alert_policy::condition::Condition>,
@@ -587,6 +794,19 @@ pub mod alert_policy {
         ///
         /// Note that all the setters affecting `condition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+        /// let x = Condition::new().set_condition_threshold(MetricThreshold::default()/* use setters */);
+        /// assert!(x.condition_threshold().is_some());
+        /// assert!(x.condition_absent().is_none());
+        /// assert!(x.condition_matched_log().is_none());
+        /// assert!(x.condition_monitoring_query_language().is_none());
+        /// assert!(x.condition_prometheus_query_language().is_none());
+        /// assert!(x.condition_sql().is_none());
+        /// ```
         pub fn set_condition_threshold<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
@@ -623,6 +843,19 @@ pub mod alert_policy {
         ///
         /// Note that all the setters affecting `condition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// use google_cloud_monitoring_v3::model::alert_policy::condition::MetricAbsence;
+        /// let x = Condition::new().set_condition_absent(MetricAbsence::default()/* use setters */);
+        /// assert!(x.condition_absent().is_some());
+        /// assert!(x.condition_threshold().is_none());
+        /// assert!(x.condition_matched_log().is_none());
+        /// assert!(x.condition_monitoring_query_language().is_none());
+        /// assert!(x.condition_prometheus_query_language().is_none());
+        /// assert!(x.condition_sql().is_none());
+        /// ```
         pub fn set_condition_absent<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
@@ -658,6 +891,19 @@ pub mod alert_policy {
         ///
         /// Note that all the setters affecting `condition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// use google_cloud_monitoring_v3::model::alert_policy::condition::LogMatch;
+        /// let x = Condition::new().set_condition_matched_log(LogMatch::default()/* use setters */);
+        /// assert!(x.condition_matched_log().is_some());
+        /// assert!(x.condition_threshold().is_none());
+        /// assert!(x.condition_absent().is_none());
+        /// assert!(x.condition_monitoring_query_language().is_none());
+        /// assert!(x.condition_prometheus_query_language().is_none());
+        /// assert!(x.condition_sql().is_none());
+        /// ```
         pub fn set_condition_matched_log<
             T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>,
         >(
@@ -692,6 +938,19 @@ pub mod alert_policy {
         ///
         /// Note that all the setters affecting `condition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// use google_cloud_monitoring_v3::model::alert_policy::condition::MonitoringQueryLanguageCondition;
+        /// let x = Condition::new().set_condition_monitoring_query_language(MonitoringQueryLanguageCondition::default()/* use setters */);
+        /// assert!(x.condition_monitoring_query_language().is_some());
+        /// assert!(x.condition_threshold().is_none());
+        /// assert!(x.condition_absent().is_none());
+        /// assert!(x.condition_matched_log().is_none());
+        /// assert!(x.condition_prometheus_query_language().is_none());
+        /// assert!(x.condition_sql().is_none());
+        /// ```
         pub fn set_condition_monitoring_query_language<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -732,6 +991,19 @@ pub mod alert_policy {
         ///
         /// Note that all the setters affecting `condition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+        /// let x = Condition::new().set_condition_prometheus_query_language(PrometheusQueryLanguageCondition::default()/* use setters */);
+        /// assert!(x.condition_prometheus_query_language().is_some());
+        /// assert!(x.condition_threshold().is_none());
+        /// assert!(x.condition_absent().is_none());
+        /// assert!(x.condition_matched_log().is_none());
+        /// assert!(x.condition_monitoring_query_language().is_none());
+        /// assert!(x.condition_sql().is_none());
+        /// ```
         pub fn set_condition_prometheus_query_language<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -772,6 +1044,19 @@ pub mod alert_policy {
         ///
         /// Note that all the setters affecting `condition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
+        /// use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+        /// let x = Condition::new().set_condition_sql(SqlCondition::default()/* use setters */);
+        /// assert!(x.condition_sql().is_some());
+        /// assert!(x.condition_threshold().is_none());
+        /// assert!(x.condition_absent().is_none());
+        /// assert!(x.condition_matched_log().is_none());
+        /// assert!(x.condition_monitoring_query_language().is_none());
+        /// assert!(x.condition_prometheus_query_language().is_none());
+        /// ```
         pub fn set_condition_sql<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
@@ -818,6 +1103,13 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `r#type` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::trigger::Type;
+            /// let x = Trigger::new().set_type(Some(Type::Count(42)));
+            /// ```
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<crate::model::alert_policy::condition::trigger::Type>,
@@ -848,6 +1140,14 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = Trigger::new().set_count(42);
+            /// assert!(x.count().is_some());
+            /// assert!(x.percent().is_none());
+            /// ```
             pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.r#type = std::option::Option::Some(
                     crate::model::alert_policy::condition::trigger::Type::Count(v.into()),
@@ -873,6 +1173,14 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = Trigger::new().set_percent(42.0);
+            /// assert!(x.percent().is_some());
+            /// assert!(x.count().is_none());
+            /// ```
             pub fn set_percent<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.r#type = std::option::Option::Some(
                     crate::model::alert_policy::condition::trigger::Type::Percent(v.into()),
@@ -1014,12 +1322,29 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [filter][crate::model::alert_policy::condition::MetricThreshold::filter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// let x = MetricThreshold::new().set_filter("example");
+            /// ```
             pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.filter = v.into();
                 self
             }
 
             /// Sets the value of [aggregations][crate::model::alert_policy::condition::MetricThreshold::aggregations].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::Aggregation;
+            /// let x = MetricThreshold::new()
+            ///     .set_aggregations([
+            ///         Aggregation::default()/* use setters */,
+            ///         Aggregation::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_aggregations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1031,6 +1356,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [denominator_filter][crate::model::alert_policy::condition::MetricThreshold::denominator_filter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// let x = MetricThreshold::new().set_denominator_filter("example");
+            /// ```
             pub fn set_denominator_filter<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1040,6 +1371,17 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [denominator_aggregations][crate::model::alert_policy::condition::MetricThreshold::denominator_aggregations].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::Aggregation;
+            /// let x = MetricThreshold::new()
+            ///     .set_denominator_aggregations([
+            ///         Aggregation::default()/* use setters */,
+            ///         Aggregation::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_denominator_aggregations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1051,6 +1393,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [forecast_options][crate::model::alert_policy::condition::MetricThreshold::forecast_options].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::metric_threshold::ForecastOptions;
+            /// let x = MetricThreshold::new().set_forecast_options(ForecastOptions::default()/* use setters */);
+            /// ```
             pub fn set_forecast_options<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -1062,6 +1411,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [forecast_options][crate::model::alert_policy::condition::MetricThreshold::forecast_options].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::metric_threshold::ForecastOptions;
+            /// let x = MetricThreshold::new().set_or_clear_forecast_options(Some(ForecastOptions::default()/* use setters */));
+            /// let x = MetricThreshold::new().set_or_clear_forecast_options(None::<ForecastOptions>);
+            /// ```
             pub fn set_or_clear_forecast_options<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -1073,6 +1430,15 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [comparison][crate::model::alert_policy::condition::MetricThreshold::comparison].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::ComparisonType;
+            /// let x0 = MetricThreshold::new().set_comparison(ComparisonType::ComparisonGt);
+            /// let x1 = MetricThreshold::new().set_comparison(ComparisonType::ComparisonGe);
+            /// let x2 = MetricThreshold::new().set_comparison(ComparisonType::ComparisonLt);
+            /// ```
             pub fn set_comparison<T: std::convert::Into<crate::model::ComparisonType>>(
                 mut self,
                 v: T,
@@ -1082,12 +1448,25 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [threshold_value][crate::model::alert_policy::condition::MetricThreshold::threshold_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// let x = MetricThreshold::new().set_threshold_value(42.0);
+            /// ```
             pub fn set_threshold_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.threshold_value = v.into();
                 self
             }
 
             /// Sets the value of [duration][crate::model::alert_policy::condition::MetricThreshold::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use wkt::Duration;
+            /// let x = MetricThreshold::new().set_duration(Duration::default()/* use setters */);
+            /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1097,6 +1476,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [duration][crate::model::alert_policy::condition::MetricThreshold::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use wkt::Duration;
+            /// let x = MetricThreshold::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+            /// let x = MetricThreshold::new().set_or_clear_duration(None::<Duration>);
+            /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1106,6 +1493,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [trigger][crate::model::alert_policy::condition::MetricThreshold::trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = MetricThreshold::new().set_trigger(Trigger::default()/* use setters */);
+            /// ```
             pub fn set_trigger<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
@@ -1115,6 +1509,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [trigger][crate::model::alert_policy::condition::MetricThreshold::trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = MetricThreshold::new().set_or_clear_trigger(Some(Trigger::default()/* use setters */));
+            /// let x = MetricThreshold::new().set_or_clear_trigger(None::<Trigger>);
+            /// ```
             pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
@@ -1124,6 +1526,15 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [evaluation_missing_data][crate::model::alert_policy::condition::MetricThreshold::evaluation_missing_data].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::EvaluationMissingData;
+            /// let x0 = MetricThreshold::new().set_evaluation_missing_data(EvaluationMissingData::Inactive);
+            /// let x1 = MetricThreshold::new().set_evaluation_missing_data(EvaluationMissingData::Active);
+            /// let x2 = MetricThreshold::new().set_evaluation_missing_data(EvaluationMissingData::NoOp);
+            /// ```
             pub fn set_evaluation_missing_data<
                 T: std::convert::Into<crate::model::alert_policy::condition::EvaluationMissingData>,
             >(
@@ -1168,6 +1579,13 @@ pub mod alert_policy {
                 }
 
                 /// Sets the value of [forecast_horizon][crate::model::alert_policy::condition::metric_threshold::ForecastOptions::forecast_horizon].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::metric_threshold::ForecastOptions;
+                /// use wkt::Duration;
+                /// let x = ForecastOptions::new().set_forecast_horizon(Duration::default()/* use setters */);
+                /// ```
                 pub fn set_forecast_horizon<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -1177,6 +1595,14 @@ pub mod alert_policy {
                 }
 
                 /// Sets or clears the value of [forecast_horizon][crate::model::alert_policy::condition::metric_threshold::ForecastOptions::forecast_horizon].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::metric_threshold::ForecastOptions;
+                /// use wkt::Duration;
+                /// let x = ForecastOptions::new().set_or_clear_forecast_horizon(Some(Duration::default()/* use setters */));
+                /// let x = ForecastOptions::new().set_or_clear_forecast_horizon(None::<Duration>);
+                /// ```
                 pub fn set_or_clear_forecast_horizon<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -1251,12 +1677,29 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [filter][crate::model::alert_policy::condition::MetricAbsence::filter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricAbsence;
+            /// let x = MetricAbsence::new().set_filter("example");
+            /// ```
             pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.filter = v.into();
                 self
             }
 
             /// Sets the value of [aggregations][crate::model::alert_policy::condition::MetricAbsence::aggregations].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricAbsence;
+            /// use google_cloud_monitoring_v3::model::Aggregation;
+            /// let x = MetricAbsence::new()
+            ///     .set_aggregations([
+            ///         Aggregation::default()/* use setters */,
+            ///         Aggregation::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_aggregations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1268,6 +1711,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [duration][crate::model::alert_policy::condition::MetricAbsence::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricAbsence;
+            /// use wkt::Duration;
+            /// let x = MetricAbsence::new().set_duration(Duration::default()/* use setters */);
+            /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1277,6 +1727,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [duration][crate::model::alert_policy::condition::MetricAbsence::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricAbsence;
+            /// use wkt::Duration;
+            /// let x = MetricAbsence::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+            /// let x = MetricAbsence::new().set_or_clear_duration(None::<Duration>);
+            /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1286,6 +1744,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [trigger][crate::model::alert_policy::condition::MetricAbsence::trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricAbsence;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = MetricAbsence::new().set_trigger(Trigger::default()/* use setters */);
+            /// ```
             pub fn set_trigger<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
@@ -1295,6 +1760,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [trigger][crate::model::alert_policy::condition::MetricAbsence::trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricAbsence;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = MetricAbsence::new().set_or_clear_trigger(Some(Trigger::default()/* use setters */));
+            /// let x = MetricAbsence::new().set_or_clear_trigger(None::<Trigger>);
+            /// ```
             pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
@@ -1345,12 +1818,27 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [filter][crate::model::alert_policy::condition::LogMatch::filter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::LogMatch;
+            /// let x = LogMatch::new().set_filter("example");
+            /// ```
             pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.filter = v.into();
                 self
             }
 
             /// Sets the value of [label_extractors][crate::model::alert_policy::condition::LogMatch::label_extractors].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::LogMatch;
+            /// let x = LogMatch::new().set_label_extractors([
+            ///     ("key0", "abc"),
+            ///     ("key1", "xyz"),
+            /// ]);
+            /// ```
             pub fn set_label_extractors<T, K, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1412,12 +1900,25 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [query][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::query].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MonitoringQueryLanguageCondition;
+            /// let x = MonitoringQueryLanguageCondition::new().set_query("example");
+            /// ```
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
                 self
             }
 
             /// Sets the value of [duration][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MonitoringQueryLanguageCondition;
+            /// use wkt::Duration;
+            /// let x = MonitoringQueryLanguageCondition::new().set_duration(Duration::default()/* use setters */);
+            /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1427,6 +1928,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [duration][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MonitoringQueryLanguageCondition;
+            /// use wkt::Duration;
+            /// let x = MonitoringQueryLanguageCondition::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+            /// let x = MonitoringQueryLanguageCondition::new().set_or_clear_duration(None::<Duration>);
+            /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1436,6 +1945,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [trigger][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MonitoringQueryLanguageCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = MonitoringQueryLanguageCondition::new().set_trigger(Trigger::default()/* use setters */);
+            /// ```
             pub fn set_trigger<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
@@ -1445,6 +1961,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [trigger][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MonitoringQueryLanguageCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::Trigger;
+            /// let x = MonitoringQueryLanguageCondition::new().set_or_clear_trigger(Some(Trigger::default()/* use setters */));
+            /// let x = MonitoringQueryLanguageCondition::new().set_or_clear_trigger(None::<Trigger>);
+            /// ```
             pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
@@ -1454,6 +1978,15 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [evaluation_missing_data][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::evaluation_missing_data].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MonitoringQueryLanguageCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::EvaluationMissingData;
+            /// let x0 = MonitoringQueryLanguageCondition::new().set_evaluation_missing_data(EvaluationMissingData::Inactive);
+            /// let x1 = MonitoringQueryLanguageCondition::new().set_evaluation_missing_data(EvaluationMissingData::Active);
+            /// let x2 = MonitoringQueryLanguageCondition::new().set_evaluation_missing_data(EvaluationMissingData::NoOp);
+            /// ```
             pub fn set_evaluation_missing_data<
                 T: std::convert::Into<crate::model::alert_policy::condition::EvaluationMissingData>,
             >(
@@ -1584,12 +2117,25 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [query][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::query].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// let x = PrometheusQueryLanguageCondition::new().set_query("example");
+            /// ```
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
                 self
             }
 
             /// Sets the value of [duration][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// use wkt::Duration;
+            /// let x = PrometheusQueryLanguageCondition::new().set_duration(Duration::default()/* use setters */);
+            /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1599,6 +2145,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [duration][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::duration].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// use wkt::Duration;
+            /// let x = PrometheusQueryLanguageCondition::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+            /// let x = PrometheusQueryLanguageCondition::new().set_or_clear_duration(None::<Duration>);
+            /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1608,6 +2162,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [evaluation_interval][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::evaluation_interval].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// use wkt::Duration;
+            /// let x = PrometheusQueryLanguageCondition::new().set_evaluation_interval(Duration::default()/* use setters */);
+            /// ```
             pub fn set_evaluation_interval<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1617,6 +2178,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [evaluation_interval][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::evaluation_interval].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// use wkt::Duration;
+            /// let x = PrometheusQueryLanguageCondition::new().set_or_clear_evaluation_interval(Some(Duration::default()/* use setters */));
+            /// let x = PrometheusQueryLanguageCondition::new().set_or_clear_evaluation_interval(None::<Duration>);
+            /// ```
             pub fn set_or_clear_evaluation_interval<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -1626,6 +2195,15 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [labels][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::labels].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// let x = PrometheusQueryLanguageCondition::new().set_labels([
+            ///     ("key0", "abc"),
+            ///     ("key1", "xyz"),
+            /// ]);
+            /// ```
             pub fn set_labels<T, K, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1638,6 +2216,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [rule_group][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::rule_group].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// let x = PrometheusQueryLanguageCondition::new().set_rule_group("example");
+            /// ```
             pub fn set_rule_group<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1647,6 +2231,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [alert_rule][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::alert_rule].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// let x = PrometheusQueryLanguageCondition::new().set_alert_rule("example");
+            /// ```
             pub fn set_alert_rule<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1656,6 +2246,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [disable_metric_validation][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::disable_metric_validation].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
+            /// let x = PrometheusQueryLanguageCondition::new().set_disable_metric_validation(true);
+            /// ```
             pub fn set_disable_metric_validation<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -1713,6 +2309,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [query][crate::model::alert_policy::condition::SqlCondition::query].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// let x = SqlCondition::new().set_query("example");
+            /// ```
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
                 self
@@ -1722,6 +2324,14 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `schedule` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Minutes;
+            /// let x = SqlCondition::new().set_schedule(Some(
+            ///     google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Schedule::Minutes(Minutes::default().into())));
+            /// ```
             pub fn set_schedule<
                 T: std::convert::Into<
                         std::option::Option<
@@ -1758,6 +2368,16 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `schedule` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Minutes;
+            /// let x = SqlCondition::new().set_minutes(Minutes::default()/* use setters */);
+            /// assert!(x.minutes().is_some());
+            /// assert!(x.hourly().is_none());
+            /// assert!(x.daily().is_none());
+            /// ```
             pub fn set_minutes<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -1798,6 +2418,16 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `schedule` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Hourly;
+            /// let x = SqlCondition::new().set_hourly(Hourly::default()/* use setters */);
+            /// assert!(x.hourly().is_some());
+            /// assert!(x.minutes().is_none());
+            /// assert!(x.daily().is_none());
+            /// ```
             pub fn set_hourly<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -1838,6 +2468,16 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `schedule` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
+            /// let x = SqlCondition::new().set_daily(Daily::default()/* use setters */);
+            /// assert!(x.daily().is_some());
+            /// assert!(x.minutes().is_none());
+            /// assert!(x.hourly().is_none());
+            /// ```
             pub fn set_daily<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -1858,6 +2498,14 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `evaluate` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::RowCountTest;
+            /// let x = SqlCondition::new().set_evaluate(Some(
+            ///     google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Evaluate::RowCountTest(RowCountTest::default().into())));
+            /// ```
             pub fn set_evaluate<
                 T: std::convert::Into<
                         std::option::Option<
@@ -1894,6 +2542,15 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `evaluate` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::RowCountTest;
+            /// let x = SqlCondition::new().set_row_count_test(RowCountTest::default()/* use setters */);
+            /// assert!(x.row_count_test().is_some());
+            /// assert!(x.boolean_test().is_none());
+            /// ```
             pub fn set_row_count_test<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -1934,6 +2591,15 @@ pub mod alert_policy {
             ///
             /// Note that all the setters affecting `evaluate` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::condition::SqlCondition;
+            /// use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::BooleanTest;
+            /// let x = SqlCondition::new().set_boolean_test(BooleanTest::default()/* use setters */);
+            /// assert!(x.boolean_test().is_some());
+            /// assert!(x.row_count_test().is_none());
+            /// ```
             pub fn set_boolean_test<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -1982,6 +2648,12 @@ pub mod alert_policy {
                 }
 
                 /// Sets the value of [periodicity][crate::model::alert_policy::condition::sql_condition::Minutes::periodicity].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Minutes;
+                /// let x = Minutes::new().set_periodicity(42);
+                /// ```
                 pub fn set_periodicity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.periodicity = v.into();
                     self
@@ -2017,12 +2689,24 @@ pub mod alert_policy {
                 }
 
                 /// Sets the value of [periodicity][crate::model::alert_policy::condition::sql_condition::Hourly::periodicity].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Hourly;
+                /// let x = Hourly::new().set_periodicity(42);
+                /// ```
                 pub fn set_periodicity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.periodicity = v.into();
                     self
                 }
 
                 /// Sets the value of [minute_offset][crate::model::alert_policy::condition::sql_condition::Hourly::minute_offset].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Hourly;
+                /// let x = Hourly::new().set_minute_offset(42);
+                /// ```
                 pub fn set_minute_offset<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -2032,6 +2716,13 @@ pub mod alert_policy {
                 }
 
                 /// Sets or clears the value of [minute_offset][crate::model::alert_policy::condition::sql_condition::Hourly::minute_offset].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Hourly;
+                /// let x = Hourly::new().set_or_clear_minute_offset(Some(42));
+                /// let x = Hourly::new().set_or_clear_minute_offset(None::<i32>);
+                /// ```
                 pub fn set_or_clear_minute_offset<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -2069,12 +2760,25 @@ pub mod alert_policy {
                 }
 
                 /// Sets the value of [periodicity][crate::model::alert_policy::condition::sql_condition::Daily::periodicity].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
+                /// let x = Daily::new().set_periodicity(42);
+                /// ```
                 pub fn set_periodicity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.periodicity = v.into();
                     self
                 }
 
                 /// Sets the value of [execution_time][crate::model::alert_policy::condition::sql_condition::Daily::execution_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
+                /// use gtype::model::TimeOfDay;
+                /// let x = Daily::new().set_execution_time(TimeOfDay::default()/* use setters */);
+                /// ```
                 pub fn set_execution_time<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2084,6 +2788,14 @@ pub mod alert_policy {
                 }
 
                 /// Sets or clears the value of [execution_time][crate::model::alert_policy::condition::sql_condition::Daily::execution_time].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Daily;
+                /// use gtype::model::TimeOfDay;
+                /// let x = Daily::new().set_or_clear_execution_time(Some(TimeOfDay::default()/* use setters */));
+                /// let x = Daily::new().set_or_clear_execution_time(None::<TimeOfDay>);
+                /// ```
                 pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2120,6 +2832,15 @@ pub mod alert_policy {
                 }
 
                 /// Sets the value of [comparison][crate::model::alert_policy::condition::sql_condition::RowCountTest::comparison].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::RowCountTest;
+                /// use google_cloud_monitoring_v3::model::ComparisonType;
+                /// let x0 = RowCountTest::new().set_comparison(ComparisonType::ComparisonGt);
+                /// let x1 = RowCountTest::new().set_comparison(ComparisonType::ComparisonGe);
+                /// let x2 = RowCountTest::new().set_comparison(ComparisonType::ComparisonLt);
+                /// ```
                 pub fn set_comparison<T: std::convert::Into<crate::model::ComparisonType>>(
                     mut self,
                     v: T,
@@ -2129,6 +2850,12 @@ pub mod alert_policy {
                 }
 
                 /// Sets the value of [threshold][crate::model::alert_policy::condition::sql_condition::RowCountTest::threshold].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::RowCountTest;
+                /// let x = RowCountTest::new().set_threshold(42);
+                /// ```
                 pub fn set_threshold<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                     self.threshold = v.into();
                     self
@@ -2159,6 +2886,12 @@ pub mod alert_policy {
                 }
 
                 /// Sets the value of [column][crate::model::alert_policy::condition::sql_condition::BooleanTest::column].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::BooleanTest;
+                /// let x = BooleanTest::new().set_column("example");
+                /// ```
                 pub fn set_column<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2428,6 +3161,13 @@ pub mod alert_policy {
         }
 
         /// Sets the value of [notification_rate_limit][crate::model::alert_policy::AlertStrategy::notification_rate_limit].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+        /// use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationRateLimit;
+        /// let x = AlertStrategy::new().set_notification_rate_limit(NotificationRateLimit::default()/* use setters */);
+        /// ```
         pub fn set_notification_rate_limit<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -2439,6 +3179,14 @@ pub mod alert_policy {
         }
 
         /// Sets or clears the value of [notification_rate_limit][crate::model::alert_policy::AlertStrategy::notification_rate_limit].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+        /// use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationRateLimit;
+        /// let x = AlertStrategy::new().set_or_clear_notification_rate_limit(Some(NotificationRateLimit::default()/* use setters */));
+        /// let x = AlertStrategy::new().set_or_clear_notification_rate_limit(None::<NotificationRateLimit>);
+        /// ```
         pub fn set_or_clear_notification_rate_limit<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -2450,6 +3198,16 @@ pub mod alert_policy {
         }
 
         /// Sets the value of [notification_prompts][crate::model::alert_policy::AlertStrategy::notification_prompts].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+        /// use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationPrompt;
+        /// let x = AlertStrategy::new().set_notification_prompts([
+        ///     NotificationPrompt::Opened,
+        ///     NotificationPrompt::Closed,
+        /// ]);
+        /// ```
         pub fn set_notification_prompts<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2461,6 +3219,13 @@ pub mod alert_policy {
         }
 
         /// Sets the value of [auto_close][crate::model::alert_policy::AlertStrategy::auto_close].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+        /// use wkt::Duration;
+        /// let x = AlertStrategy::new().set_auto_close(Duration::default()/* use setters */);
+        /// ```
         pub fn set_auto_close<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2470,6 +3235,14 @@ pub mod alert_policy {
         }
 
         /// Sets or clears the value of [auto_close][crate::model::alert_policy::AlertStrategy::auto_close].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+        /// use wkt::Duration;
+        /// let x = AlertStrategy::new().set_or_clear_auto_close(Some(Duration::default()/* use setters */));
+        /// let x = AlertStrategy::new().set_or_clear_auto_close(None::<Duration>);
+        /// ```
         pub fn set_or_clear_auto_close<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2479,6 +3252,17 @@ pub mod alert_policy {
         }
 
         /// Sets the value of [notification_channel_strategy][crate::model::alert_policy::AlertStrategy::notification_channel_strategy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::alert_policy::AlertStrategy;
+        /// use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationChannelStrategy;
+        /// let x = AlertStrategy::new()
+        ///     .set_notification_channel_strategy([
+        ///         NotificationChannelStrategy::default()/* use setters */,
+        ///         NotificationChannelStrategy::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_notification_channel_strategy<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2520,6 +3304,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [period][crate::model::alert_policy::alert_strategy::NotificationRateLimit::period].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationRateLimit;
+            /// use wkt::Duration;
+            /// let x = NotificationRateLimit::new().set_period(Duration::default()/* use setters */);
+            /// ```
             pub fn set_period<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2529,6 +3320,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [period][crate::model::alert_policy::alert_strategy::NotificationRateLimit::period].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationRateLimit;
+            /// use wkt::Duration;
+            /// let x = NotificationRateLimit::new().set_or_clear_period(Some(Duration::default()/* use setters */));
+            /// let x = NotificationRateLimit::new().set_or_clear_period(None::<Duration>);
+            /// ```
             pub fn set_or_clear_period<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2573,6 +3372,12 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [notification_channel_names][crate::model::alert_policy::alert_strategy::NotificationChannelStrategy::notification_channel_names].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationChannelStrategy;
+            /// let x = NotificationChannelStrategy::new().set_notification_channel_names(["a", "b", "c"]);
+            /// ```
             pub fn set_notification_channel_names<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2584,6 +3389,13 @@ pub mod alert_policy {
             }
 
             /// Sets the value of [renotify_interval][crate::model::alert_policy::alert_strategy::NotificationChannelStrategy::renotify_interval].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationChannelStrategy;
+            /// use wkt::Duration;
+            /// let x = NotificationChannelStrategy::new().set_renotify_interval(Duration::default()/* use setters */);
+            /// ```
             pub fn set_renotify_interval<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2593,6 +3405,14 @@ pub mod alert_policy {
             }
 
             /// Sets or clears the value of [renotify_interval][crate::model::alert_policy::alert_strategy::NotificationChannelStrategy::renotify_interval].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::alert_policy::alert_strategy::NotificationChannelStrategy;
+            /// use wkt::Duration;
+            /// let x = NotificationChannelStrategy::new().set_or_clear_renotify_interval(Some(Duration::default()/* use setters */));
+            /// let x = NotificationChannelStrategy::new().set_or_clear_renotify_interval(None::<Duration>);
+            /// ```
             pub fn set_or_clear_renotify_interval<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -3072,12 +3892,25 @@ impl CreateAlertPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateAlertPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateAlertPolicyRequest;
+    /// let x = CreateAlertPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [alert_policy][crate::model::CreateAlertPolicyRequest::alert_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateAlertPolicyRequest;
+    /// use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = CreateAlertPolicyRequest::new().set_alert_policy(AlertPolicy::default()/* use setters */);
+    /// ```
     pub fn set_alert_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AlertPolicy>,
@@ -3087,6 +3920,14 @@ impl CreateAlertPolicyRequest {
     }
 
     /// Sets or clears the value of [alert_policy][crate::model::CreateAlertPolicyRequest::alert_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateAlertPolicyRequest;
+    /// use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = CreateAlertPolicyRequest::new().set_or_clear_alert_policy(Some(AlertPolicy::default()/* use setters */));
+    /// let x = CreateAlertPolicyRequest::new().set_or_clear_alert_policy(None::<AlertPolicy>);
+    /// ```
     pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AlertPolicy>,
@@ -3122,6 +3963,12 @@ impl GetAlertPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAlertPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetAlertPolicyRequest;
+    /// let x = GetAlertPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3188,30 +4035,60 @@ impl ListAlertPoliciesRequest {
     }
 
     /// Sets the value of [name][crate::model::ListAlertPoliciesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesRequest;
+    /// let x = ListAlertPoliciesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAlertPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesRequest;
+    /// let x = ListAlertPoliciesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAlertPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesRequest;
+    /// let x = ListAlertPoliciesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAlertPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesRequest;
+    /// let x = ListAlertPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAlertPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesRequest;
+    /// let x = ListAlertPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3249,6 +4126,17 @@ impl ListAlertPoliciesResponse {
     }
 
     /// Sets the value of [alert_policies][crate::model::ListAlertPoliciesResponse::alert_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesResponse;
+    /// use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = ListAlertPoliciesResponse::new()
+    ///     .set_alert_policies([
+    ///         AlertPolicy::default()/* use setters */,
+    ///         AlertPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_alert_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3260,12 +4148,24 @@ impl ListAlertPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAlertPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesResponse;
+    /// let x = ListAlertPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListAlertPoliciesResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListAlertPoliciesResponse;
+    /// let x = ListAlertPoliciesResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -3334,6 +4234,13 @@ impl UpdateAlertPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAlertPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateAlertPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAlertPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3343,6 +4250,14 @@ impl UpdateAlertPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAlertPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateAlertPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAlertPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAlertPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3352,6 +4267,13 @@ impl UpdateAlertPolicyRequest {
     }
 
     /// Sets the value of [alert_policy][crate::model::UpdateAlertPolicyRequest::alert_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateAlertPolicyRequest;
+    /// use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = UpdateAlertPolicyRequest::new().set_alert_policy(AlertPolicy::default()/* use setters */);
+    /// ```
     pub fn set_alert_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AlertPolicy>,
@@ -3361,6 +4283,14 @@ impl UpdateAlertPolicyRequest {
     }
 
     /// Sets or clears the value of [alert_policy][crate::model::UpdateAlertPolicyRequest::alert_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateAlertPolicyRequest;
+    /// use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// let x = UpdateAlertPolicyRequest::new().set_or_clear_alert_policy(Some(AlertPolicy::default()/* use setters */));
+    /// let x = UpdateAlertPolicyRequest::new().set_or_clear_alert_policy(None::<AlertPolicy>);
+    /// ```
     pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AlertPolicy>,
@@ -3400,6 +4330,12 @@ impl DeleteAlertPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAlertPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteAlertPolicyRequest;
+    /// let x = DeleteAlertPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3431,6 +4367,13 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TypedValue;
+    /// use google_cloud_monitoring_v3::model::typed_value::Value;
+    /// let x = TypedValue::new().set_value(Some(Value::BoolValue(true)));
+    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>,
     >(
@@ -3457,6 +4400,17 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TypedValue;
+    /// let x = TypedValue::new().set_bool_value(true);
+    /// assert!(x.bool_value().is_some());
+    /// assert!(x.int64_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.distribution_value().is_none());
+    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::BoolValue(v.into()));
@@ -3479,6 +4433,17 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TypedValue;
+    /// let x = TypedValue::new().set_int64_value(42);
+    /// assert!(x.int64_value().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.distribution_value().is_none());
+    /// ```
     pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::Int64Value(v.into()));
@@ -3501,6 +4466,17 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TypedValue;
+    /// let x = TypedValue::new().set_double_value(42.0);
+    /// assert!(x.double_value().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.int64_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.distribution_value().is_none());
+    /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::DoubleValue(v.into()));
@@ -3523,6 +4499,17 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TypedValue;
+    /// let x = TypedValue::new().set_string_value("example");
+    /// assert!(x.string_value().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.int64_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.distribution_value().is_none());
+    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::StringValue(v.into()));
@@ -3547,6 +4534,18 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TypedValue;
+    /// use api::model::Distribution;
+    /// let x = TypedValue::new().set_distribution_value(Distribution::default()/* use setters */);
+    /// assert!(x.distribution_value().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.int64_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// ```
     pub fn set_distribution_value<
         T: std::convert::Into<std::boxed::Box<api::model::Distribution>>,
     >(
@@ -3648,6 +4647,13 @@ impl TimeInterval {
     }
 
     /// Sets the value of [end_time][crate::model::TimeInterval::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3657,6 +4663,14 @@ impl TimeInterval {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeInterval::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeInterval::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3666,6 +4680,13 @@ impl TimeInterval {
     }
 
     /// Sets the value of [start_time][crate::model::TimeInterval::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3675,6 +4696,14 @@ impl TimeInterval {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeInterval::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeInterval;
+    /// use wkt::Timestamp;
+    /// let x = TimeInterval::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeInterval::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3795,6 +4824,13 @@ impl Aggregation {
     }
 
     /// Sets the value of [alignment_period][crate::model::Aggregation::alignment_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Aggregation;
+    /// use wkt::Duration;
+    /// let x = Aggregation::new().set_alignment_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_alignment_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3804,6 +4840,14 @@ impl Aggregation {
     }
 
     /// Sets or clears the value of [alignment_period][crate::model::Aggregation::alignment_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Aggregation;
+    /// use wkt::Duration;
+    /// let x = Aggregation::new().set_or_clear_alignment_period(Some(Duration::default()/* use setters */));
+    /// let x = Aggregation::new().set_or_clear_alignment_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3813,6 +4857,15 @@ impl Aggregation {
     }
 
     /// Sets the value of [per_series_aligner][crate::model::Aggregation::per_series_aligner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Aggregation;
+    /// use google_cloud_monitoring_v3::model::aggregation::Aligner;
+    /// let x0 = Aggregation::new().set_per_series_aligner(Aligner::AlignDelta);
+    /// let x1 = Aggregation::new().set_per_series_aligner(Aligner::AlignRate);
+    /// let x2 = Aggregation::new().set_per_series_aligner(Aligner::AlignInterpolate);
+    /// ```
     pub fn set_per_series_aligner<T: std::convert::Into<crate::model::aggregation::Aligner>>(
         mut self,
         v: T,
@@ -3822,6 +4875,15 @@ impl Aggregation {
     }
 
     /// Sets the value of [cross_series_reducer][crate::model::Aggregation::cross_series_reducer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Aggregation;
+    /// use google_cloud_monitoring_v3::model::aggregation::Reducer;
+    /// let x0 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMean);
+    /// let x1 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMin);
+    /// let x2 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMax);
+    /// ```
     pub fn set_cross_series_reducer<T: std::convert::Into<crate::model::aggregation::Reducer>>(
         mut self,
         v: T,
@@ -3831,6 +4893,12 @@ impl Aggregation {
     }
 
     /// Sets the value of [group_by_fields][crate::model::Aggregation::group_by_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Aggregation;
+    /// let x = Aggregation::new().set_group_by_fields(["a", "b", "c"]);
+    /// ```
     pub fn set_group_by_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4494,6 +5562,15 @@ impl DroppedLabels {
     }
 
     /// Sets the value of [label][crate::model::DroppedLabels::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DroppedLabels;
+    /// let x = DroppedLabels::new().set_label([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_label<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4581,30 +5658,60 @@ impl Group {
     }
 
     /// Sets the value of [name][crate::model::Group::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Group;
+    /// let x = Group::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Group::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Group;
+    /// let x = Group::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [parent_name][crate::model::Group::parent_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Group;
+    /// let x = Group::new().set_parent_name("example");
+    /// ```
     pub fn set_parent_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::Group::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Group;
+    /// let x = Group::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [is_cluster][crate::model::Group::is_cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Group;
+    /// let x = Group::new().set_is_cluster(true);
+    /// ```
     pub fn set_is_cluster<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_cluster = v.into();
         self
@@ -4652,18 +5759,36 @@ impl ListGroupsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListGroupsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4673,6 +5798,13 @@ impl ListGroupsRequest {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
+    /// use google_cloud_monitoring_v3::model::list_groups_request::Filter;
+    /// let x = ListGroupsRequest::new().set_filter(Some(Filter::ChildrenOfGroup("example".to_string())));
+    /// ```
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::list_groups_request::Filter>>,
     >(
@@ -4701,6 +5833,15 @@ impl ListGroupsRequest {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_children_of_group("example");
+    /// assert!(x.children_of_group().is_some());
+    /// assert!(x.ancestors_of_group().is_none());
+    /// assert!(x.descendants_of_group().is_none());
+    /// ```
     pub fn set_children_of_group<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4729,6 +5870,15 @@ impl ListGroupsRequest {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_ancestors_of_group("example");
+    /// assert!(x.ancestors_of_group().is_some());
+    /// assert!(x.children_of_group().is_none());
+    /// assert!(x.descendants_of_group().is_none());
+    /// ```
     pub fn set_ancestors_of_group<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4757,6 +5907,15 @@ impl ListGroupsRequest {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsRequest;
+    /// let x = ListGroupsRequest::new().set_descendants_of_group("example");
+    /// assert!(x.descendants_of_group().is_some());
+    /// assert!(x.children_of_group().is_none());
+    /// assert!(x.ancestors_of_group().is_none());
+    /// ```
     pub fn set_descendants_of_group<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4839,6 +5998,17 @@ impl ListGroupsResponse {
     }
 
     /// Sets the value of [group][crate::model::ListGroupsResponse::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsResponse;
+    /// use google_cloud_monitoring_v3::model::Group;
+    /// let x = ListGroupsResponse::new()
+    ///     .set_group([
+    ///         Group::default()/* use setters */,
+    ///         Group::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_group<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4850,6 +6020,12 @@ impl ListGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupsResponse;
+    /// let x = ListGroupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4896,6 +6072,12 @@ impl GetGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGroupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetGroupRequest;
+    /// let x = GetGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4937,12 +6119,25 @@ impl CreateGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateGroupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateGroupRequest;
+    /// let x = CreateGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [group][crate::model::CreateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateGroupRequest;
+    /// use google_cloud_monitoring_v3::model::Group;
+    /// let x = CreateGroupRequest::new().set_group(Group::default()/* use setters */);
+    /// ```
     pub fn set_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -4952,6 +6147,14 @@ impl CreateGroupRequest {
     }
 
     /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateGroupRequest;
+    /// use google_cloud_monitoring_v3::model::Group;
+    /// let x = CreateGroupRequest::new().set_or_clear_group(Some(Group::default()/* use setters */));
+    /// let x = CreateGroupRequest::new().set_or_clear_group(None::<Group>);
+    /// ```
     pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -4961,6 +6164,12 @@ impl CreateGroupRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateGroupRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateGroupRequest;
+    /// let x = CreateGroupRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4994,6 +6203,13 @@ impl UpdateGroupRequest {
     }
 
     /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateGroupRequest;
+    /// use google_cloud_monitoring_v3::model::Group;
+    /// let x = UpdateGroupRequest::new().set_group(Group::default()/* use setters */);
+    /// ```
     pub fn set_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -5003,6 +6219,14 @@ impl UpdateGroupRequest {
     }
 
     /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateGroupRequest;
+    /// use google_cloud_monitoring_v3::model::Group;
+    /// let x = UpdateGroupRequest::new().set_or_clear_group(Some(Group::default()/* use setters */));
+    /// let x = UpdateGroupRequest::new().set_or_clear_group(None::<Group>);
+    /// ```
     pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Group>,
@@ -5012,6 +6236,12 @@ impl UpdateGroupRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateGroupRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateGroupRequest;
+    /// let x = UpdateGroupRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5050,12 +6280,24 @@ impl DeleteGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteGroupRequest;
+    /// let x = DeleteGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [recursive][crate::model::DeleteGroupRequest::recursive].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteGroupRequest;
+    /// let x = DeleteGroupRequest::new().set_recursive(true);
+    /// ```
     pub fn set_recursive<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.recursive = v.into();
         self
@@ -5114,30 +6356,61 @@ impl ListGroupMembersRequest {
     }
 
     /// Sets the value of [name][crate::model::ListGroupMembersRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersRequest;
+    /// let x = ListGroupMembersRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGroupMembersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersRequest;
+    /// let x = ListGroupMembersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGroupMembersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersRequest;
+    /// let x = ListGroupMembersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGroupMembersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersRequest;
+    /// let x = ListGroupMembersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [interval][crate::model::ListGroupMembersRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersRequest;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = ListGroupMembersRequest::new().set_interval(TimeInterval::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -5147,6 +6420,14 @@ impl ListGroupMembersRequest {
     }
 
     /// Sets or clears the value of [interval][crate::model::ListGroupMembersRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersRequest;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = ListGroupMembersRequest::new().set_or_clear_interval(Some(TimeInterval::default()/* use setters */));
+    /// let x = ListGroupMembersRequest::new().set_or_clear_interval(None::<TimeInterval>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -5186,6 +6467,17 @@ impl ListGroupMembersResponse {
     }
 
     /// Sets the value of [members][crate::model::ListGroupMembersResponse::members].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersResponse;
+    /// use api::model::MonitoredResource;
+    /// let x = ListGroupMembersResponse::new()
+    ///     .set_members([
+    ///         MonitoredResource::default()/* use setters */,
+    ///         MonitoredResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5197,12 +6489,24 @@ impl ListGroupMembersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGroupMembersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersResponse;
+    /// let x = ListGroupMembersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListGroupMembersResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListGroupMembersResponse;
+    /// let x = ListGroupMembersResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -5256,6 +6560,13 @@ impl Point {
     }
 
     /// Sets the value of [interval][crate::model::Point::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Point;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = Point::new().set_interval(TimeInterval::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -5265,6 +6576,14 @@ impl Point {
     }
 
     /// Sets or clears the value of [interval][crate::model::Point::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Point;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = Point::new().set_or_clear_interval(Some(TimeInterval::default()/* use setters */));
+    /// let x = Point::new().set_or_clear_interval(None::<TimeInterval>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -5274,6 +6593,13 @@ impl Point {
     }
 
     /// Sets the value of [value][crate::model::Point::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Point;
+    /// use google_cloud_monitoring_v3::model::TypedValue;
+    /// let x = Point::new().set_value(TypedValue::default()/* use setters */);
+    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TypedValue>,
@@ -5283,6 +6609,14 @@ impl Point {
     }
 
     /// Sets or clears the value of [value][crate::model::Point::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Point;
+    /// use google_cloud_monitoring_v3::model::TypedValue;
+    /// let x = Point::new().set_or_clear_value(Some(TypedValue::default()/* use setters */));
+    /// let x = Point::new().set_or_clear_value(None::<TypedValue>);
+    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TypedValue>,
@@ -5372,6 +6706,13 @@ impl TimeSeries {
     }
 
     /// Sets the value of [metric][crate::model::TimeSeries::metric].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::Metric;
+    /// let x = TimeSeries::new().set_metric(Metric::default()/* use setters */);
+    /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Metric>,
@@ -5381,6 +6722,14 @@ impl TimeSeries {
     }
 
     /// Sets or clears the value of [metric][crate::model::TimeSeries::metric].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::Metric;
+    /// let x = TimeSeries::new().set_or_clear_metric(Some(Metric::default()/* use setters */));
+    /// let x = TimeSeries::new().set_or_clear_metric(None::<Metric>);
+    /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Metric>,
@@ -5390,6 +6739,13 @@ impl TimeSeries {
     }
 
     /// Sets the value of [resource][crate::model::TimeSeries::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::MonitoredResource;
+    /// let x = TimeSeries::new().set_resource(MonitoredResource::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
@@ -5399,6 +6755,14 @@ impl TimeSeries {
     }
 
     /// Sets or clears the value of [resource][crate::model::TimeSeries::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::MonitoredResource;
+    /// let x = TimeSeries::new().set_or_clear_resource(Some(MonitoredResource::default()/* use setters */));
+    /// let x = TimeSeries::new().set_or_clear_resource(None::<MonitoredResource>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
@@ -5408,6 +6772,13 @@ impl TimeSeries {
     }
 
     /// Sets the value of [metadata][crate::model::TimeSeries::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::MonitoredResourceMetadata;
+    /// let x = TimeSeries::new().set_metadata(MonitoredResourceMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResourceMetadata>,
@@ -5417,6 +6788,14 @@ impl TimeSeries {
     }
 
     /// Sets or clears the value of [metadata][crate::model::TimeSeries::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::MonitoredResourceMetadata;
+    /// let x = TimeSeries::new().set_or_clear_metadata(Some(MonitoredResourceMetadata::default()/* use setters */));
+    /// let x = TimeSeries::new().set_or_clear_metadata(None::<MonitoredResourceMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResourceMetadata>,
@@ -5426,6 +6805,15 @@ impl TimeSeries {
     }
 
     /// Sets the value of [metric_kind][crate::model::TimeSeries::metric_kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::metric_descriptor::MetricKind;
+    /// let x0 = TimeSeries::new().set_metric_kind(MetricKind::Gauge);
+    /// let x1 = TimeSeries::new().set_metric_kind(MetricKind::Delta);
+    /// let x2 = TimeSeries::new().set_metric_kind(MetricKind::Cumulative);
+    /// ```
     pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
         mut self,
         v: T,
@@ -5435,6 +6823,15 @@ impl TimeSeries {
     }
 
     /// Sets the value of [value_type][crate::model::TimeSeries::value_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use api::model::metric_descriptor::ValueType;
+    /// let x0 = TimeSeries::new().set_value_type(ValueType::Bool);
+    /// let x1 = TimeSeries::new().set_value_type(ValueType::Int64);
+    /// let x2 = TimeSeries::new().set_value_type(ValueType::Double);
+    /// ```
     pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
         mut self,
         v: T,
@@ -5444,6 +6841,17 @@ impl TimeSeries {
     }
 
     /// Sets the value of [points][crate::model::TimeSeries::points].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// use google_cloud_monitoring_v3::model::Point;
+    /// let x = TimeSeries::new()
+    ///     .set_points([
+    ///         Point::default()/* use setters */,
+    ///         Point::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5455,12 +6863,24 @@ impl TimeSeries {
     }
 
     /// Sets the value of [unit][crate::model::TimeSeries::unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// let x = TimeSeries::new().set_unit("example");
+    /// ```
     pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::TimeSeries::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeries;
+    /// let x = TimeSeries::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -5492,6 +6912,17 @@ impl TimeSeriesDescriptor {
     }
 
     /// Sets the value of [label_descriptors][crate::model::TimeSeriesDescriptor::label_descriptors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeriesDescriptor;
+    /// use api::model::LabelDescriptor;
+    /// let x = TimeSeriesDescriptor::new()
+    ///     .set_label_descriptors([
+    ///         LabelDescriptor::default()/* use setters */,
+    ///         LabelDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_label_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5503,6 +6934,17 @@ impl TimeSeriesDescriptor {
     }
 
     /// Sets the value of [point_descriptors][crate::model::TimeSeriesDescriptor::point_descriptors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeriesDescriptor;
+    /// use google_cloud_monitoring_v3::model::time_series_descriptor::ValueDescriptor;
+    /// let x = TimeSeriesDescriptor::new()
+    ///     .set_point_descriptors([
+    ///         ValueDescriptor::default()/* use setters */,
+    ///         ValueDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_point_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5553,12 +6995,27 @@ pub mod time_series_descriptor {
         }
 
         /// Sets the value of [key][crate::model::time_series_descriptor::ValueDescriptor::key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::time_series_descriptor::ValueDescriptor;
+        /// let x = ValueDescriptor::new().set_key("example");
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [value_type][crate::model::time_series_descriptor::ValueDescriptor::value_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::time_series_descriptor::ValueDescriptor;
+        /// use api::model::metric_descriptor::ValueType;
+        /// let x0 = ValueDescriptor::new().set_value_type(ValueType::Bool);
+        /// let x1 = ValueDescriptor::new().set_value_type(ValueType::Int64);
+        /// let x2 = ValueDescriptor::new().set_value_type(ValueType::Double);
+        /// ```
         pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
             mut self,
             v: T,
@@ -5568,6 +7025,15 @@ pub mod time_series_descriptor {
         }
 
         /// Sets the value of [metric_kind][crate::model::time_series_descriptor::ValueDescriptor::metric_kind].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::time_series_descriptor::ValueDescriptor;
+        /// use api::model::metric_descriptor::MetricKind;
+        /// let x0 = ValueDescriptor::new().set_metric_kind(MetricKind::Gauge);
+        /// let x1 = ValueDescriptor::new().set_metric_kind(MetricKind::Delta);
+        /// let x2 = ValueDescriptor::new().set_metric_kind(MetricKind::Cumulative);
+        /// ```
         pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
             mut self,
             v: T,
@@ -5577,6 +7043,12 @@ pub mod time_series_descriptor {
         }
 
         /// Sets the value of [unit][crate::model::time_series_descriptor::ValueDescriptor::unit].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::time_series_descriptor::ValueDescriptor;
+        /// let x = ValueDescriptor::new().set_unit("example");
+        /// ```
         pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.unit = v.into();
             self
@@ -5613,6 +7085,17 @@ impl TimeSeriesData {
     }
 
     /// Sets the value of [label_values][crate::model::TimeSeriesData::label_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeriesData;
+    /// use google_cloud_monitoring_v3::model::LabelValue;
+    /// let x = TimeSeriesData::new()
+    ///     .set_label_values([
+    ///         LabelValue::default()/* use setters */,
+    ///         LabelValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_label_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5624,6 +7107,17 @@ impl TimeSeriesData {
     }
 
     /// Sets the value of [point_data][crate::model::TimeSeriesData::point_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeriesData;
+    /// use google_cloud_monitoring_v3::model::time_series_data::PointData;
+    /// let x = TimeSeriesData::new()
+    ///     .set_point_data([
+    ///         PointData::default()/* use setters */,
+    ///         PointData::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_point_data<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5667,6 +7161,17 @@ pub mod time_series_data {
         }
 
         /// Sets the value of [values][crate::model::time_series_data::PointData::values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::time_series_data::PointData;
+        /// use google_cloud_monitoring_v3::model::TypedValue;
+        /// let x = PointData::new()
+        ///     .set_values([
+        ///         TypedValue::default()/* use setters */,
+        ///         TypedValue::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5678,6 +7183,13 @@ pub mod time_series_data {
         }
 
         /// Sets the value of [time_interval][crate::model::time_series_data::PointData::time_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::time_series_data::PointData;
+        /// use google_cloud_monitoring_v3::model::TimeInterval;
+        /// let x = PointData::new().set_time_interval(TimeInterval::default()/* use setters */);
+        /// ```
         pub fn set_time_interval<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TimeInterval>,
@@ -5687,6 +7199,14 @@ pub mod time_series_data {
         }
 
         /// Sets or clears the value of [time_interval][crate::model::time_series_data::PointData::time_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::time_series_data::PointData;
+        /// use google_cloud_monitoring_v3::model::TimeInterval;
+        /// let x = PointData::new().set_or_clear_time_interval(Some(TimeInterval::default()/* use setters */));
+        /// let x = PointData::new().set_or_clear_time_interval(None::<TimeInterval>);
+        /// ```
         pub fn set_or_clear_time_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeInterval>,
@@ -5722,6 +7242,13 @@ impl LabelValue {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::LabelValue;
+    /// use google_cloud_monitoring_v3::model::label_value::Value;
+    /// let x = LabelValue::new().set_value(Some(Value::BoolValue(true)));
+    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::label_value::Value>>,
     >(
@@ -5748,6 +7275,15 @@ impl LabelValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::LabelValue;
+    /// let x = LabelValue::new().set_bool_value(true);
+    /// assert!(x.bool_value().is_some());
+    /// assert!(x.int64_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::label_value::Value::BoolValue(v.into()));
@@ -5770,6 +7306,15 @@ impl LabelValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::LabelValue;
+    /// let x = LabelValue::new().set_int64_value(42);
+    /// assert!(x.int64_value().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// ```
     pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::label_value::Value::Int64Value(v.into()));
@@ -5792,6 +7337,15 @@ impl LabelValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::LabelValue;
+    /// let x = LabelValue::new().set_string_value("example");
+    /// assert!(x.string_value().is_some());
+    /// assert!(x.bool_value().is_none());
+    /// assert!(x.int64_value().is_none());
+    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::label_value::Value::StringValue(v.into()));
@@ -5843,6 +7397,13 @@ impl QueryError {
     }
 
     /// Sets the value of [locator][crate::model::QueryError::locator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryError;
+    /// use google_cloud_monitoring_v3::model::TextLocator;
+    /// let x = QueryError::new().set_locator(TextLocator::default()/* use setters */);
+    /// ```
     pub fn set_locator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextLocator>,
@@ -5852,6 +7413,14 @@ impl QueryError {
     }
 
     /// Sets or clears the value of [locator][crate::model::QueryError::locator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryError;
+    /// use google_cloud_monitoring_v3::model::TextLocator;
+    /// let x = QueryError::new().set_or_clear_locator(Some(TextLocator::default()/* use setters */));
+    /// let x = QueryError::new().set_or_clear_locator(None::<TextLocator>);
+    /// ```
     pub fn set_or_clear_locator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextLocator>,
@@ -5861,6 +7430,12 @@ impl QueryError {
     }
 
     /// Sets the value of [message][crate::model::QueryError::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryError;
+    /// let x = QueryError::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -5934,12 +7509,25 @@ impl TextLocator {
     }
 
     /// Sets the value of [source][crate::model::TextLocator::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// let x = TextLocator::new().set_source("example");
+    /// ```
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
         self
     }
 
     /// Sets the value of [start_position][crate::model::TextLocator::start_position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// use google_cloud_monitoring_v3::model::text_locator::Position;
+    /// let x = TextLocator::new().set_start_position(Position::default()/* use setters */);
+    /// ```
     pub fn set_start_position<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text_locator::Position>,
@@ -5949,6 +7537,14 @@ impl TextLocator {
     }
 
     /// Sets or clears the value of [start_position][crate::model::TextLocator::start_position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// use google_cloud_monitoring_v3::model::text_locator::Position;
+    /// let x = TextLocator::new().set_or_clear_start_position(Some(Position::default()/* use setters */));
+    /// let x = TextLocator::new().set_or_clear_start_position(None::<Position>);
+    /// ```
     pub fn set_or_clear_start_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_locator::Position>,
@@ -5958,6 +7554,13 @@ impl TextLocator {
     }
 
     /// Sets the value of [end_position][crate::model::TextLocator::end_position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// use google_cloud_monitoring_v3::model::text_locator::Position;
+    /// let x = TextLocator::new().set_end_position(Position::default()/* use setters */);
+    /// ```
     pub fn set_end_position<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text_locator::Position>,
@@ -5967,6 +7570,14 @@ impl TextLocator {
     }
 
     /// Sets or clears the value of [end_position][crate::model::TextLocator::end_position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// use google_cloud_monitoring_v3::model::text_locator::Position;
+    /// let x = TextLocator::new().set_or_clear_end_position(Some(Position::default()/* use setters */));
+    /// let x = TextLocator::new().set_or_clear_end_position(None::<Position>);
+    /// ```
     pub fn set_or_clear_end_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_locator::Position>,
@@ -5976,6 +7587,13 @@ impl TextLocator {
     }
 
     /// Sets the value of [nested_locator][crate::model::TextLocator::nested_locator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// use google_cloud_monitoring_v3::model::TextLocator;
+    /// let x = TextLocator::new().set_nested_locator(TextLocator::default()/* use setters */);
+    /// ```
     pub fn set_nested_locator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextLocator>,
@@ -5985,6 +7603,14 @@ impl TextLocator {
     }
 
     /// Sets or clears the value of [nested_locator][crate::model::TextLocator::nested_locator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// use google_cloud_monitoring_v3::model::TextLocator;
+    /// let x = TextLocator::new().set_or_clear_nested_locator(Some(TextLocator::default()/* use setters */));
+    /// let x = TextLocator::new().set_or_clear_nested_locator(None::<TextLocator>);
+    /// ```
     pub fn set_or_clear_nested_locator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextLocator>,
@@ -5994,6 +7620,12 @@ impl TextLocator {
     }
 
     /// Sets the value of [nesting_reason][crate::model::TextLocator::nesting_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TextLocator;
+    /// let x = TextLocator::new().set_nesting_reason("example");
+    /// ```
     pub fn set_nesting_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.nesting_reason = v.into();
         self
@@ -6031,12 +7663,24 @@ pub mod text_locator {
         }
 
         /// Sets the value of [line][crate::model::text_locator::Position::line].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::text_locator::Position;
+        /// let x = Position::new().set_line(42);
+        /// ```
         pub fn set_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.line = v.into();
             self
         }
 
         /// Sets the value of [column][crate::model::text_locator::Position::column].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::text_locator::Position;
+        /// let x = Position::new().set_column(42);
+        /// ```
         pub fn set_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.column = v.into();
             self
@@ -6090,24 +7734,48 @@ impl ListMonitoredResourceDescriptorsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListMonitoredResourceDescriptorsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMonitoredResourceDescriptorsRequest;
+    /// let x = ListMonitoredResourceDescriptorsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMonitoredResourceDescriptorsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMonitoredResourceDescriptorsRequest;
+    /// let x = ListMonitoredResourceDescriptorsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMonitoredResourceDescriptorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMonitoredResourceDescriptorsRequest;
+    /// let x = ListMonitoredResourceDescriptorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMonitoredResourceDescriptorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMonitoredResourceDescriptorsRequest;
+    /// let x = ListMonitoredResourceDescriptorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6142,6 +7810,17 @@ impl ListMonitoredResourceDescriptorsResponse {
     }
 
     /// Sets the value of [resource_descriptors][crate::model::ListMonitoredResourceDescriptorsResponse::resource_descriptors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMonitoredResourceDescriptorsResponse;
+    /// use api::model::MonitoredResourceDescriptor;
+    /// let x = ListMonitoredResourceDescriptorsResponse::new()
+    ///     .set_resource_descriptors([
+    ///         MonitoredResourceDescriptor::default()/* use setters */,
+    ///         MonitoredResourceDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6153,6 +7832,12 @@ impl ListMonitoredResourceDescriptorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMonitoredResourceDescriptorsResponse;
+    /// let x = ListMonitoredResourceDescriptorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6202,6 +7887,12 @@ impl GetMonitoredResourceDescriptorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMonitoredResourceDescriptorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetMonitoredResourceDescriptorRequest;
+    /// let x = GetMonitoredResourceDescriptorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6272,30 +7963,60 @@ impl ListMetricDescriptorsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListMetricDescriptorsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsRequest;
+    /// let x = ListMetricDescriptorsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMetricDescriptorsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsRequest;
+    /// let x = ListMetricDescriptorsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMetricDescriptorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsRequest;
+    /// let x = ListMetricDescriptorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMetricDescriptorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsRequest;
+    /// let x = ListMetricDescriptorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [active_only][crate::model::ListMetricDescriptorsRequest::active_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsRequest;
+    /// let x = ListMetricDescriptorsRequest::new().set_active_only(true);
+    /// ```
     pub fn set_active_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.active_only = v.into();
         self
@@ -6330,6 +8051,17 @@ impl ListMetricDescriptorsResponse {
     }
 
     /// Sets the value of [metric_descriptors][crate::model::ListMetricDescriptorsResponse::metric_descriptors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsResponse;
+    /// use api::model::MetricDescriptor;
+    /// let x = ListMetricDescriptorsResponse::new()
+    ///     .set_metric_descriptors([
+    ///         MetricDescriptor::default()/* use setters */,
+    ///         MetricDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_metric_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6341,6 +8073,12 @@ impl ListMetricDescriptorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMetricDescriptorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListMetricDescriptorsResponse;
+    /// let x = ListMetricDescriptorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6391,6 +8129,12 @@ impl GetMetricDescriptorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMetricDescriptorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetMetricDescriptorRequest;
+    /// let x = GetMetricDescriptorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6427,12 +8171,25 @@ impl CreateMetricDescriptorRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateMetricDescriptorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateMetricDescriptorRequest;
+    /// let x = CreateMetricDescriptorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [metric_descriptor][crate::model::CreateMetricDescriptorRequest::metric_descriptor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateMetricDescriptorRequest;
+    /// use api::model::MetricDescriptor;
+    /// let x = CreateMetricDescriptorRequest::new().set_metric_descriptor(MetricDescriptor::default()/* use setters */);
+    /// ```
     pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::MetricDescriptor>,
@@ -6442,6 +8199,14 @@ impl CreateMetricDescriptorRequest {
     }
 
     /// Sets or clears the value of [metric_descriptor][crate::model::CreateMetricDescriptorRequest::metric_descriptor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateMetricDescriptorRequest;
+    /// use api::model::MetricDescriptor;
+    /// let x = CreateMetricDescriptorRequest::new().set_or_clear_metric_descriptor(Some(MetricDescriptor::default()/* use setters */));
+    /// let x = CreateMetricDescriptorRequest::new().set_or_clear_metric_descriptor(None::<MetricDescriptor>);
+    /// ```
     pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MetricDescriptor>,
@@ -6481,6 +8246,12 @@ impl DeleteMetricDescriptorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMetricDescriptorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteMetricDescriptorRequest;
+    /// let x = DeleteMetricDescriptorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6564,18 +8335,37 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets the value of [name][crate::model::ListTimeSeriesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// let x = ListTimeSeriesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTimeSeriesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// let x = ListTimeSeriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [interval][crate::model::ListTimeSeriesRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = ListTimeSeriesRequest::new().set_interval(TimeInterval::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -6585,6 +8375,14 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets or clears the value of [interval][crate::model::ListTimeSeriesRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = ListTimeSeriesRequest::new().set_or_clear_interval(Some(TimeInterval::default()/* use setters */));
+    /// let x = ListTimeSeriesRequest::new().set_or_clear_interval(None::<TimeInterval>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -6594,6 +8392,13 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets the value of [aggregation][crate::model::ListTimeSeriesRequest::aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::Aggregation;
+    /// let x = ListTimeSeriesRequest::new().set_aggregation(Aggregation::default()/* use setters */);
+    /// ```
     pub fn set_aggregation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -6603,6 +8408,14 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets or clears the value of [aggregation][crate::model::ListTimeSeriesRequest::aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::Aggregation;
+    /// let x = ListTimeSeriesRequest::new().set_or_clear_aggregation(Some(Aggregation::default()/* use setters */));
+    /// let x = ListTimeSeriesRequest::new().set_or_clear_aggregation(None::<Aggregation>);
+    /// ```
     pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -6612,6 +8425,13 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets the value of [secondary_aggregation][crate::model::ListTimeSeriesRequest::secondary_aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::Aggregation;
+    /// let x = ListTimeSeriesRequest::new().set_secondary_aggregation(Aggregation::default()/* use setters */);
+    /// ```
     pub fn set_secondary_aggregation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -6621,6 +8441,14 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets or clears the value of [secondary_aggregation][crate::model::ListTimeSeriesRequest::secondary_aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::Aggregation;
+    /// let x = ListTimeSeriesRequest::new().set_or_clear_secondary_aggregation(Some(Aggregation::default()/* use setters */));
+    /// let x = ListTimeSeriesRequest::new().set_or_clear_secondary_aggregation(None::<Aggregation>);
+    /// ```
     pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -6630,12 +8458,25 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets the value of [order_by][crate::model::ListTimeSeriesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// let x = ListTimeSeriesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListTimeSeriesRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::list_time_series_request::TimeSeriesView;
+    /// let x0 = ListTimeSeriesRequest::new().set_view(TimeSeriesView::Headers);
+    /// ```
     pub fn set_view<
         T: std::convert::Into<crate::model::list_time_series_request::TimeSeriesView>,
     >(
@@ -6647,12 +8488,24 @@ impl ListTimeSeriesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListTimeSeriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// let x = ListTimeSeriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTimeSeriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesRequest;
+    /// let x = ListTimeSeriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6831,6 +8684,17 @@ impl ListTimeSeriesResponse {
     }
 
     /// Sets the value of [time_series][crate::model::ListTimeSeriesResponse::time_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesResponse;
+    /// use google_cloud_monitoring_v3::model::TimeSeries;
+    /// let x = ListTimeSeriesResponse::new()
+    ///     .set_time_series([
+    ///         TimeSeries::default()/* use setters */,
+    ///         TimeSeries::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_time_series<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6842,12 +8706,29 @@ impl ListTimeSeriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTimeSeriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesResponse;
+    /// let x = ListTimeSeriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [execution_errors][crate::model::ListTimeSeriesResponse::execution_errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesResponse;
+    /// use rpc::model::Status;
+    /// let x = ListTimeSeriesResponse::new()
+    ///     .set_execution_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_execution_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6859,6 +8740,12 @@ impl ListTimeSeriesResponse {
     }
 
     /// Sets the value of [unit][crate::model::ListTimeSeriesResponse::unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListTimeSeriesResponse;
+    /// let x = ListTimeSeriesResponse::new().set_unit("example");
+    /// ```
     pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit = v.into();
         self
@@ -6916,12 +8803,29 @@ impl CreateTimeSeriesRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateTimeSeriesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesRequest;
+    /// let x = CreateTimeSeriesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [time_series][crate::model::CreateTimeSeriesRequest::time_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesRequest;
+    /// use google_cloud_monitoring_v3::model::TimeSeries;
+    /// let x = CreateTimeSeriesRequest::new()
+    ///     .set_time_series([
+    ///         TimeSeries::default()/* use setters */,
+    ///         TimeSeries::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_time_series<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6960,6 +8864,13 @@ impl CreateTimeSeriesError {
     }
 
     /// Sets the value of [time_series][crate::model::CreateTimeSeriesError::time_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
+    /// use google_cloud_monitoring_v3::model::TimeSeries;
+    /// let x = CreateTimeSeriesError::new().set_time_series(TimeSeries::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_time_series<T>(mut self, v: T) -> Self
     where
@@ -6970,6 +8881,14 @@ impl CreateTimeSeriesError {
     }
 
     /// Sets or clears the value of [time_series][crate::model::CreateTimeSeriesError::time_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
+    /// use google_cloud_monitoring_v3::model::TimeSeries;
+    /// let x = CreateTimeSeriesError::new().set_or_clear_time_series(Some(TimeSeries::default()/* use setters */));
+    /// let x = CreateTimeSeriesError::new().set_or_clear_time_series(None::<TimeSeries>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_time_series<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6980,6 +8899,13 @@ impl CreateTimeSeriesError {
     }
 
     /// Sets the value of [status][crate::model::CreateTimeSeriesError::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
+    /// use rpc::model::Status;
+    /// let x = CreateTimeSeriesError::new().set_status(Status::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_status<T>(mut self, v: T) -> Self
     where
@@ -6990,6 +8916,14 @@ impl CreateTimeSeriesError {
     }
 
     /// Sets or clears the value of [status][crate::model::CreateTimeSeriesError::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesError;
+    /// use rpc::model::Status;
+    /// let x = CreateTimeSeriesError::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = CreateTimeSeriesError::new().set_or_clear_status(None::<Status>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -7028,18 +8962,41 @@ impl CreateTimeSeriesSummary {
     }
 
     /// Sets the value of [total_point_count][crate::model::CreateTimeSeriesSummary::total_point_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesSummary;
+    /// let x = CreateTimeSeriesSummary::new().set_total_point_count(42);
+    /// ```
     pub fn set_total_point_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_point_count = v.into();
         self
     }
 
     /// Sets the value of [success_point_count][crate::model::CreateTimeSeriesSummary::success_point_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesSummary;
+    /// let x = CreateTimeSeriesSummary::new().set_success_point_count(42);
+    /// ```
     pub fn set_success_point_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.success_point_count = v.into();
         self
     }
 
     /// Sets the value of [errors][crate::model::CreateTimeSeriesSummary::errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateTimeSeriesSummary;
+    /// use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
+    /// let x = CreateTimeSeriesSummary::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7081,6 +9038,13 @@ pub mod create_time_series_summary {
         }
 
         /// Sets the value of [status][crate::model::create_time_series_summary::Error::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
+        /// use rpc::model::Status;
+        /// let x = Error::new().set_status(Status::default()/* use setters */);
+        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -7090,6 +9054,14 @@ pub mod create_time_series_summary {
         }
 
         /// Sets or clears the value of [status][crate::model::create_time_series_summary::Error::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
+        /// use rpc::model::Status;
+        /// let x = Error::new().set_or_clear_status(Some(Status::default()/* use setters */));
+        /// let x = Error::new().set_or_clear_status(None::<Status>);
+        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -7099,6 +9071,12 @@ pub mod create_time_series_summary {
         }
 
         /// Sets the value of [point_count][crate::model::create_time_series_summary::Error::point_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::create_time_series_summary::Error;
+        /// let x = Error::new().set_point_count(42);
+        /// ```
         pub fn set_point_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.point_count = v.into();
             self
@@ -7150,24 +9128,48 @@ impl QueryTimeSeriesRequest {
     }
 
     /// Sets the value of [name][crate::model::QueryTimeSeriesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesRequest;
+    /// let x = QueryTimeSeriesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::QueryTimeSeriesRequest::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesRequest;
+    /// let x = QueryTimeSeriesRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::QueryTimeSeriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesRequest;
+    /// let x = QueryTimeSeriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryTimeSeriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesRequest;
+    /// let x = QueryTimeSeriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7212,6 +9214,13 @@ impl QueryTimeSeriesResponse {
     }
 
     /// Sets the value of [time_series_descriptor][crate::model::QueryTimeSeriesResponse::time_series_descriptor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesResponse;
+    /// use google_cloud_monitoring_v3::model::TimeSeriesDescriptor;
+    /// let x = QueryTimeSeriesResponse::new().set_time_series_descriptor(TimeSeriesDescriptor::default()/* use setters */);
+    /// ```
     pub fn set_time_series_descriptor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeSeriesDescriptor>,
@@ -7221,6 +9230,14 @@ impl QueryTimeSeriesResponse {
     }
 
     /// Sets or clears the value of [time_series_descriptor][crate::model::QueryTimeSeriesResponse::time_series_descriptor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesResponse;
+    /// use google_cloud_monitoring_v3::model::TimeSeriesDescriptor;
+    /// let x = QueryTimeSeriesResponse::new().set_or_clear_time_series_descriptor(Some(TimeSeriesDescriptor::default()/* use setters */));
+    /// let x = QueryTimeSeriesResponse::new().set_or_clear_time_series_descriptor(None::<TimeSeriesDescriptor>);
+    /// ```
     pub fn set_or_clear_time_series_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeSeriesDescriptor>,
@@ -7230,6 +9247,17 @@ impl QueryTimeSeriesResponse {
     }
 
     /// Sets the value of [time_series_data][crate::model::QueryTimeSeriesResponse::time_series_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesResponse;
+    /// use google_cloud_monitoring_v3::model::TimeSeriesData;
+    /// let x = QueryTimeSeriesResponse::new()
+    ///     .set_time_series_data([
+    ///         TimeSeriesData::default()/* use setters */,
+    ///         TimeSeriesData::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_time_series_data<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7241,12 +9269,29 @@ impl QueryTimeSeriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryTimeSeriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesResponse;
+    /// let x = QueryTimeSeriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [partial_errors][crate::model::QueryTimeSeriesResponse::partial_errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryTimeSeriesResponse;
+    /// use rpc::model::Status;
+    /// let x = QueryTimeSeriesResponse::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7298,6 +9343,17 @@ impl QueryErrorList {
     }
 
     /// Sets the value of [errors][crate::model::QueryErrorList::errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryErrorList;
+    /// use google_cloud_monitoring_v3::model::QueryError;
+    /// let x = QueryErrorList::new()
+    ///     .set_errors([
+    ///         QueryError::default()/* use setters */,
+    ///         QueryError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7309,6 +9365,12 @@ impl QueryErrorList {
     }
 
     /// Sets the value of [error_summary][crate::model::QueryErrorList::error_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::QueryErrorList;
+    /// let x = QueryErrorList::new().set_error_summary("example");
+    /// ```
     pub fn set_error_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_summary = v.into();
         self
@@ -7340,6 +9402,13 @@ impl MutationRecord {
     }
 
     /// Sets the value of [mutate_time][crate::model::MutationRecord::mutate_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::MutationRecord;
+    /// use wkt::Timestamp;
+    /// let x = MutationRecord::new().set_mutate_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_mutate_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7349,6 +9418,14 @@ impl MutationRecord {
     }
 
     /// Sets or clears the value of [mutate_time][crate::model::MutationRecord::mutate_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::MutationRecord;
+    /// use wkt::Timestamp;
+    /// let x = MutationRecord::new().set_or_clear_mutate_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MutationRecord::new().set_or_clear_mutate_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_mutate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7358,6 +9435,12 @@ impl MutationRecord {
     }
 
     /// Sets the value of [mutated_by][crate::model::MutationRecord::mutated_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = MutationRecord::new().set_mutated_by("example");
+    /// ```
     pub fn set_mutated_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mutated_by = v.into();
         self
@@ -7423,30 +9506,65 @@ impl NotificationChannelDescriptor {
     }
 
     /// Sets the value of [name][crate::model::NotificationChannelDescriptor::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// let x = NotificationChannelDescriptor::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::NotificationChannelDescriptor::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// let x = NotificationChannelDescriptor::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::NotificationChannelDescriptor::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// let x = NotificationChannelDescriptor::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::NotificationChannelDescriptor::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// let x = NotificationChannelDescriptor::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::NotificationChannelDescriptor::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// use api::model::LabelDescriptor;
+    /// let x = NotificationChannelDescriptor::new()
+    ///     .set_labels([
+    ///         LabelDescriptor::default()/* use setters */,
+    ///         LabelDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7458,6 +9576,16 @@ impl NotificationChannelDescriptor {
     }
 
     /// Sets the value of [supported_tiers][crate::model::NotificationChannelDescriptor::supported_tiers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// use google_cloud_monitoring_v3::model::ServiceTier;
+    /// let x = NotificationChannelDescriptor::new().set_supported_tiers([
+    ///     ServiceTier::Basic,
+    ///     ServiceTier::Premium,
+    /// ]);
+    /// ```
     #[deprecated]
     pub fn set_supported_tiers<T, V>(mut self, v: T) -> Self
     where
@@ -7470,6 +9598,15 @@ impl NotificationChannelDescriptor {
     }
 
     /// Sets the value of [launch_stage][crate::model::NotificationChannelDescriptor::launch_stage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// use api::model::LaunchStage;
+    /// let x0 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
         mut self,
         v: T,
@@ -7589,30 +9726,63 @@ impl NotificationChannel {
     }
 
     /// Sets the value of [r#type][crate::model::NotificationChannel::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = NotificationChannel::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::NotificationChannel::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = NotificationChannel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::NotificationChannel::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = NotificationChannel::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::NotificationChannel::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = NotificationChannel::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::NotificationChannel::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = NotificationChannel::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7625,6 +9795,15 @@ impl NotificationChannel {
     }
 
     /// Sets the value of [user_labels][crate::model::NotificationChannel::user_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = NotificationChannel::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7637,6 +9816,14 @@ impl NotificationChannel {
     }
 
     /// Sets the value of [verification_status][crate::model::NotificationChannel::verification_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use google_cloud_monitoring_v3::model::notification_channel::VerificationStatus;
+    /// let x0 = NotificationChannel::new().set_verification_status(VerificationStatus::Unverified);
+    /// let x1 = NotificationChannel::new().set_verification_status(VerificationStatus::Verified);
+    /// ```
     pub fn set_verification_status<
         T: std::convert::Into<crate::model::notification_channel::VerificationStatus>,
     >(
@@ -7648,6 +9835,13 @@ impl NotificationChannel {
     }
 
     /// Sets the value of [enabled][crate::model::NotificationChannel::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use wkt::BoolValue;
+    /// let x = NotificationChannel::new().set_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -7657,6 +9851,14 @@ impl NotificationChannel {
     }
 
     /// Sets or clears the value of [enabled][crate::model::NotificationChannel::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use wkt::BoolValue;
+    /// let x = NotificationChannel::new().set_or_clear_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = NotificationChannel::new().set_or_clear_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -7666,6 +9868,13 @@ impl NotificationChannel {
     }
 
     /// Sets the value of [creation_record][crate::model::NotificationChannel::creation_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = NotificationChannel::new().set_creation_record(MutationRecord::default()/* use setters */);
+    /// ```
     pub fn set_creation_record<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MutationRecord>,
@@ -7675,6 +9884,14 @@ impl NotificationChannel {
     }
 
     /// Sets or clears the value of [creation_record][crate::model::NotificationChannel::creation_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = NotificationChannel::new().set_or_clear_creation_record(Some(MutationRecord::default()/* use setters */));
+    /// let x = NotificationChannel::new().set_or_clear_creation_record(None::<MutationRecord>);
+    /// ```
     pub fn set_or_clear_creation_record<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MutationRecord>,
@@ -7684,6 +9901,17 @@ impl NotificationChannel {
     }
 
     /// Sets the value of [mutation_records][crate::model::NotificationChannel::mutation_records].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use google_cloud_monitoring_v3::model::MutationRecord;
+    /// let x = NotificationChannel::new()
+    ///     .set_mutation_records([
+    ///         MutationRecord::default()/* use setters */,
+    ///         MutationRecord::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mutation_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7894,18 +10122,36 @@ impl ListNotificationChannelDescriptorsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListNotificationChannelDescriptorsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelDescriptorsRequest;
+    /// let x = ListNotificationChannelDescriptorsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNotificationChannelDescriptorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelDescriptorsRequest;
+    /// let x = ListNotificationChannelDescriptorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNotificationChannelDescriptorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelDescriptorsRequest;
+    /// let x = ListNotificationChannelDescriptorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7941,6 +10187,17 @@ impl ListNotificationChannelDescriptorsResponse {
     }
 
     /// Sets the value of [channel_descriptors][crate::model::ListNotificationChannelDescriptorsResponse::channel_descriptors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelDescriptorsResponse;
+    /// use google_cloud_monitoring_v3::model::NotificationChannelDescriptor;
+    /// let x = ListNotificationChannelDescriptorsResponse::new()
+    ///     .set_channel_descriptors([
+    ///         NotificationChannelDescriptor::default()/* use setters */,
+    ///         NotificationChannelDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_channel_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7952,6 +10209,12 @@ impl ListNotificationChannelDescriptorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNotificationChannelDescriptorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelDescriptorsResponse;
+    /// let x = ListNotificationChannelDescriptorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7998,6 +10261,12 @@ impl GetNotificationChannelDescriptorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNotificationChannelDescriptorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelDescriptorRequest;
+    /// let x = GetNotificationChannelDescriptorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8040,12 +10309,25 @@ impl CreateNotificationChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateNotificationChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateNotificationChannelRequest;
+    /// let x = CreateNotificationChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [notification_channel][crate::model::CreateNotificationChannelRequest::notification_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateNotificationChannelRequest;
+    /// use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = CreateNotificationChannelRequest::new().set_notification_channel(NotificationChannel::default()/* use setters */);
+    /// ```
     pub fn set_notification_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotificationChannel>,
@@ -8055,6 +10337,14 @@ impl CreateNotificationChannelRequest {
     }
 
     /// Sets or clears the value of [notification_channel][crate::model::CreateNotificationChannelRequest::notification_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateNotificationChannelRequest;
+    /// use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = CreateNotificationChannelRequest::new().set_or_clear_notification_channel(Some(NotificationChannel::default()/* use setters */));
+    /// let x = CreateNotificationChannelRequest::new().set_or_clear_notification_channel(None::<NotificationChannel>);
+    /// ```
     pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationChannel>,
@@ -8126,30 +10416,60 @@ impl ListNotificationChannelsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListNotificationChannelsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsRequest;
+    /// let x = ListNotificationChannelsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNotificationChannelsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsRequest;
+    /// let x = ListNotificationChannelsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListNotificationChannelsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsRequest;
+    /// let x = ListNotificationChannelsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNotificationChannelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsRequest;
+    /// let x = ListNotificationChannelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNotificationChannelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsRequest;
+    /// let x = ListNotificationChannelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8188,6 +10508,17 @@ impl ListNotificationChannelsResponse {
     }
 
     /// Sets the value of [notification_channels][crate::model::ListNotificationChannelsResponse::notification_channels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsResponse;
+    /// use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = ListNotificationChannelsResponse::new()
+    ///     .set_notification_channels([
+    ///         NotificationChannel::default()/* use setters */,
+    ///         NotificationChannel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8199,12 +10530,24 @@ impl ListNotificationChannelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNotificationChannelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsResponse;
+    /// let x = ListNotificationChannelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListNotificationChannelsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListNotificationChannelsResponse;
+    /// let x = ListNotificationChannelsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -8251,6 +10594,12 @@ impl GetNotificationChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNotificationChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelRequest;
+    /// let x = GetNotificationChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8285,6 +10634,13 @@ impl UpdateNotificationChannelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNotificationChannelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateNotificationChannelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNotificationChannelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8294,6 +10650,14 @@ impl UpdateNotificationChannelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNotificationChannelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateNotificationChannelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNotificationChannelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNotificationChannelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8303,6 +10667,13 @@ impl UpdateNotificationChannelRequest {
     }
 
     /// Sets the value of [notification_channel][crate::model::UpdateNotificationChannelRequest::notification_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateNotificationChannelRequest;
+    /// use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = UpdateNotificationChannelRequest::new().set_notification_channel(NotificationChannel::default()/* use setters */);
+    /// ```
     pub fn set_notification_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotificationChannel>,
@@ -8312,6 +10683,14 @@ impl UpdateNotificationChannelRequest {
     }
 
     /// Sets or clears the value of [notification_channel][crate::model::UpdateNotificationChannelRequest::notification_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateNotificationChannelRequest;
+    /// use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// let x = UpdateNotificationChannelRequest::new().set_or_clear_notification_channel(Some(NotificationChannel::default()/* use setters */));
+    /// let x = UpdateNotificationChannelRequest::new().set_or_clear_notification_channel(None::<NotificationChannel>);
+    /// ```
     pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationChannel>,
@@ -8353,12 +10732,24 @@ impl DeleteNotificationChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNotificationChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteNotificationChannelRequest;
+    /// let x = DeleteNotificationChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteNotificationChannelRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteNotificationChannelRequest;
+    /// let x = DeleteNotificationChannelRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -8387,6 +10778,12 @@ impl SendNotificationChannelVerificationCodeRequest {
     }
 
     /// Sets the value of [name][crate::model::SendNotificationChannelVerificationCodeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::SendNotificationChannelVerificationCodeRequest;
+    /// let x = SendNotificationChannelVerificationCodeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8428,12 +10825,25 @@ impl GetNotificationChannelVerificationCodeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNotificationChannelVerificationCodeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelVerificationCodeRequest;
+    /// let x = GetNotificationChannelVerificationCodeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::GetNotificationChannelVerificationCodeRequest::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelVerificationCodeRequest;
+    /// use wkt::Timestamp;
+    /// let x = GetNotificationChannelVerificationCodeRequest::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8443,6 +10853,14 @@ impl GetNotificationChannelVerificationCodeRequest {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::GetNotificationChannelVerificationCodeRequest::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelVerificationCodeRequest;
+    /// use wkt::Timestamp;
+    /// let x = GetNotificationChannelVerificationCodeRequest::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GetNotificationChannelVerificationCodeRequest::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8482,12 +10900,25 @@ impl GetNotificationChannelVerificationCodeResponse {
     }
 
     /// Sets the value of [code][crate::model::GetNotificationChannelVerificationCodeResponse::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelVerificationCodeResponse;
+    /// let x = GetNotificationChannelVerificationCodeResponse::new().set_code("example");
+    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::GetNotificationChannelVerificationCodeResponse::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelVerificationCodeResponse;
+    /// use wkt::Timestamp;
+    /// let x = GetNotificationChannelVerificationCodeResponse::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8497,6 +10928,14 @@ impl GetNotificationChannelVerificationCodeResponse {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::GetNotificationChannelVerificationCodeResponse::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetNotificationChannelVerificationCodeResponse;
+    /// use wkt::Timestamp;
+    /// let x = GetNotificationChannelVerificationCodeResponse::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GetNotificationChannelVerificationCodeResponse::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8537,12 +10976,24 @@ impl VerifyNotificationChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::VerifyNotificationChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::VerifyNotificationChannelRequest;
+    /// let x = VerifyNotificationChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [code][crate::model::VerifyNotificationChannelRequest::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::VerifyNotificationChannelRequest;
+    /// let x = VerifyNotificationChannelRequest::new().set_code("example");
+    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
@@ -8602,18 +11053,37 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// let x = Service::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Service::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// let x = Service::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [basic_service][crate::model::Service::basic_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::BasicService;
+    /// let x = Service::new().set_basic_service(BasicService::default()/* use setters */);
+    /// ```
     pub fn set_basic_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::service::BasicService>,
@@ -8623,6 +11093,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [basic_service][crate::model::Service::basic_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::BasicService;
+    /// let x = Service::new().set_or_clear_basic_service(Some(BasicService::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_basic_service(None::<BasicService>);
+    /// ```
     pub fn set_or_clear_basic_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::service::BasicService>,
@@ -8632,6 +11110,13 @@ impl Service {
     }
 
     /// Sets the value of [telemetry][crate::model::Service::telemetry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::Telemetry;
+    /// let x = Service::new().set_telemetry(Telemetry::default()/* use setters */);
+    /// ```
     pub fn set_telemetry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::service::Telemetry>,
@@ -8641,6 +11126,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [telemetry][crate::model::Service::telemetry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::Telemetry;
+    /// let x = Service::new().set_or_clear_telemetry(Some(Telemetry::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_telemetry(None::<Telemetry>);
+    /// ```
     pub fn set_or_clear_telemetry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::service::Telemetry>,
@@ -8650,6 +11143,15 @@ impl Service {
     }
 
     /// Sets the value of [user_labels][crate::model::Service::user_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// let x = Service::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8665,6 +11167,14 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::Custom;
+    /// let x = Service::new().set_identifier(Some(
+    ///     google_cloud_monitoring_v3::model::service::Identifier::Custom(Custom::default().into())));
+    /// ```
     pub fn set_identifier<
         T: std::convert::Into<std::option::Option<crate::model::service::Identifier>>,
     >(
@@ -8691,6 +11201,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::Custom;
+    /// let x = Service::new().set_custom(Custom::default()/* use setters */);
+    /// assert!(x.custom().is_some());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::service::Custom>>>(
         mut self,
         v: T,
@@ -8718,6 +11245,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::AppEngine;
+    /// let x = Service::new().set_app_engine(AppEngine::default()/* use setters */);
+    /// assert!(x.app_engine().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_app_engine<
         T: std::convert::Into<std::boxed::Box<crate::model::service::AppEngine>>,
     >(
@@ -8747,6 +11291,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::CloudEndpoints;
+    /// let x = Service::new().set_cloud_endpoints(CloudEndpoints::default()/* use setters */);
+    /// assert!(x.cloud_endpoints().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_cloud_endpoints<
         T: std::convert::Into<std::boxed::Box<crate::model::service::CloudEndpoints>>,
     >(
@@ -8776,6 +11337,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::ClusterIstio;
+    /// let x = Service::new().set_cluster_istio(ClusterIstio::default()/* use setters */);
+    /// assert!(x.cluster_istio().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_cluster_istio<
         T: std::convert::Into<std::boxed::Box<crate::model::service::ClusterIstio>>,
     >(
@@ -8805,6 +11383,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::MeshIstio;
+    /// let x = Service::new().set_mesh_istio(MeshIstio::default()/* use setters */);
+    /// assert!(x.mesh_istio().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_mesh_istio<
         T: std::convert::Into<std::boxed::Box<crate::model::service::MeshIstio>>,
     >(
@@ -8836,6 +11431,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::IstioCanonicalService;
+    /// let x = Service::new().set_istio_canonical_service(IstioCanonicalService::default()/* use setters */);
+    /// assert!(x.istio_canonical_service().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_istio_canonical_service<
         T: std::convert::Into<std::boxed::Box<crate::model::service::IstioCanonicalService>>,
     >(
@@ -8866,6 +11478,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::CloudRun;
+    /// let x = Service::new().set_cloud_run(CloudRun::default()/* use setters */);
+    /// assert!(x.cloud_run().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_cloud_run<
         T: std::convert::Into<std::boxed::Box<crate::model::service::CloudRun>>,
     >(
@@ -8895,6 +11524,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::GkeNamespace;
+    /// let x = Service::new().set_gke_namespace(GkeNamespace::default()/* use setters */);
+    /// assert!(x.gke_namespace().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_gke_namespace<
         T: std::convert::Into<std::boxed::Box<crate::model::service::GkeNamespace>>,
     >(
@@ -8924,6 +11570,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::GkeWorkload;
+    /// let x = Service::new().set_gke_workload(GkeWorkload::default()/* use setters */);
+    /// assert!(x.gke_workload().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_service().is_none());
+    /// ```
     pub fn set_gke_workload<
         T: std::convert::Into<std::boxed::Box<crate::model::service::GkeWorkload>>,
     >(
@@ -8953,6 +11616,23 @@ impl Service {
     ///
     /// Note that all the setters affecting `identifier` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::model::service::GkeService;
+    /// let x = Service::new().set_gke_service(GkeService::default()/* use setters */);
+    /// assert!(x.gke_service().is_some());
+    /// assert!(x.custom().is_none());
+    /// assert!(x.app_engine().is_none());
+    /// assert!(x.cloud_endpoints().is_none());
+    /// assert!(x.cluster_istio().is_none());
+    /// assert!(x.mesh_istio().is_none());
+    /// assert!(x.istio_canonical_service().is_none());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke_namespace().is_none());
+    /// assert!(x.gke_workload().is_none());
+    /// ```
     pub fn set_gke_service<
         T: std::convert::Into<std::boxed::Box<crate::model::service::GkeService>>,
     >(
@@ -9015,6 +11695,12 @@ pub mod service {
         }
 
         /// Sets the value of [module_id][crate::model::service::AppEngine::module_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::AppEngine;
+        /// let x = AppEngine::new().set_module_id("example");
+        /// ```
         pub fn set_module_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.module_id = v.into();
             self
@@ -9045,6 +11731,12 @@ pub mod service {
         }
 
         /// Sets the value of [service][crate::model::service::CloudEndpoints::service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::CloudEndpoints;
+        /// let x = CloudEndpoints::new().set_service("example");
+        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
@@ -9090,12 +11782,24 @@ pub mod service {
         }
 
         /// Sets the value of [location][crate::model::service::ClusterIstio::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::ClusterIstio;
+        /// let x = ClusterIstio::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::service::ClusterIstio::cluster_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::ClusterIstio;
+        /// let x = ClusterIstio::new().set_cluster_name("example");
+        /// ```
         pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9105,6 +11809,12 @@ pub mod service {
         }
 
         /// Sets the value of [service_namespace][crate::model::service::ClusterIstio::service_namespace].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::ClusterIstio;
+        /// let x = ClusterIstio::new().set_service_namespace("example");
+        /// ```
         pub fn set_service_namespace<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9114,6 +11824,12 @@ pub mod service {
         }
 
         /// Sets the value of [service_name][crate::model::service::ClusterIstio::service_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::ClusterIstio;
+        /// let x = ClusterIstio::new().set_service_name("example");
+        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9155,12 +11871,24 @@ pub mod service {
         }
 
         /// Sets the value of [mesh_uid][crate::model::service::MeshIstio::mesh_uid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::MeshIstio;
+        /// let x = MeshIstio::new().set_mesh_uid("example");
+        /// ```
         pub fn set_mesh_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mesh_uid = v.into();
             self
         }
 
         /// Sets the value of [service_namespace][crate::model::service::MeshIstio::service_namespace].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::MeshIstio;
+        /// let x = MeshIstio::new().set_service_namespace("example");
+        /// ```
         pub fn set_service_namespace<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9170,6 +11898,12 @@ pub mod service {
         }
 
         /// Sets the value of [service_name][crate::model::service::MeshIstio::service_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::MeshIstio;
+        /// let x = MeshIstio::new().set_service_name("example");
+        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9216,12 +11950,24 @@ pub mod service {
         }
 
         /// Sets the value of [mesh_uid][crate::model::service::IstioCanonicalService::mesh_uid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::IstioCanonicalService;
+        /// let x = IstioCanonicalService::new().set_mesh_uid("example");
+        /// ```
         pub fn set_mesh_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mesh_uid = v.into();
             self
         }
 
         /// Sets the value of [canonical_service_namespace][crate::model::service::IstioCanonicalService::canonical_service_namespace].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::IstioCanonicalService;
+        /// let x = IstioCanonicalService::new().set_canonical_service_namespace("example");
+        /// ```
         pub fn set_canonical_service_namespace<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9231,6 +11977,12 @@ pub mod service {
         }
 
         /// Sets the value of [canonical_service][crate::model::service::IstioCanonicalService::canonical_service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::IstioCanonicalService;
+        /// let x = IstioCanonicalService::new().set_canonical_service("example");
+        /// ```
         pub fn set_canonical_service<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9269,6 +12021,12 @@ pub mod service {
         }
 
         /// Sets the value of [service_name][crate::model::service::CloudRun::service_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::CloudRun;
+        /// let x = CloudRun::new().set_service_name("example");
+        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9278,6 +12036,12 @@ pub mod service {
         }
 
         /// Sets the value of [location][crate::model::service::CloudRun::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::CloudRun;
+        /// let x = CloudRun::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
@@ -9319,18 +12083,36 @@ pub mod service {
         }
 
         /// Sets the value of [project_id][crate::model::service::GkeNamespace::project_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeNamespace;
+        /// let x = GkeNamespace::new().set_project_id("example");
+        /// ```
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::service::GkeNamespace::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeNamespace;
+        /// let x = GkeNamespace::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::service::GkeNamespace::cluster_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeNamespace;
+        /// let x = GkeNamespace::new().set_cluster_name("example");
+        /// ```
         pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9340,6 +12122,12 @@ pub mod service {
         }
 
         /// Sets the value of [namespace_name][crate::model::service::GkeNamespace::namespace_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeNamespace;
+        /// let x = GkeNamespace::new().set_namespace_name("example");
+        /// ```
         pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9390,18 +12178,36 @@ pub mod service {
         }
 
         /// Sets the value of [project_id][crate::model::service::GkeWorkload::project_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
+        /// let x = GkeWorkload::new().set_project_id("example");
+        /// ```
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::service::GkeWorkload::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
+        /// let x = GkeWorkload::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::service::GkeWorkload::cluster_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
+        /// let x = GkeWorkload::new().set_cluster_name("example");
+        /// ```
         pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9411,6 +12217,12 @@ pub mod service {
         }
 
         /// Sets the value of [namespace_name][crate::model::service::GkeWorkload::namespace_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
+        /// let x = GkeWorkload::new().set_namespace_name("example");
+        /// ```
         pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9420,6 +12232,12 @@ pub mod service {
         }
 
         /// Sets the value of [top_level_controller_type][crate::model::service::GkeWorkload::top_level_controller_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
+        /// let x = GkeWorkload::new().set_top_level_controller_type("example");
+        /// ```
         pub fn set_top_level_controller_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9429,6 +12247,12 @@ pub mod service {
         }
 
         /// Sets the value of [top_level_controller_name][crate::model::service::GkeWorkload::top_level_controller_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
+        /// let x = GkeWorkload::new().set_top_level_controller_name("example");
+        /// ```
         pub fn set_top_level_controller_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9479,18 +12303,36 @@ pub mod service {
         }
 
         /// Sets the value of [project_id][crate::model::service::GkeService::project_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeService;
+        /// let x = GkeService::new().set_project_id("example");
+        /// ```
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::service::GkeService::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeService;
+        /// let x = GkeService::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::service::GkeService::cluster_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeService;
+        /// let x = GkeService::new().set_cluster_name("example");
+        /// ```
         pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9500,6 +12342,12 @@ pub mod service {
         }
 
         /// Sets the value of [namespace_name][crate::model::service::GkeService::namespace_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeService;
+        /// let x = GkeService::new().set_namespace_name("example");
+        /// ```
         pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9509,6 +12357,12 @@ pub mod service {
         }
 
         /// Sets the value of [service_name][crate::model::service::GkeService::service_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::GkeService;
+        /// let x = GkeService::new().set_service_name("example");
+        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9551,6 +12405,12 @@ pub mod service {
         }
 
         /// Sets the value of [service_type][crate::model::service::BasicService::service_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::BasicService;
+        /// let x = BasicService::new().set_service_type("example");
+        /// ```
         pub fn set_service_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9560,6 +12420,15 @@ pub mod service {
         }
 
         /// Sets the value of [service_labels][crate::model::service::BasicService::service_labels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::BasicService;
+        /// let x = BasicService::new().set_service_labels([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_service_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9595,6 +12464,12 @@ pub mod service {
         }
 
         /// Sets the value of [resource_name][crate::model::service::Telemetry::resource_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::service::Telemetry;
+        /// let x = Telemetry::new().set_resource_name("example");
+        /// ```
         pub fn set_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9687,18 +12562,37 @@ impl ServiceLevelObjective {
     }
 
     /// Sets the value of [name][crate::model::ServiceLevelObjective::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = ServiceLevelObjective::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ServiceLevelObjective::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = ServiceLevelObjective::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [service_level_indicator][crate::model::ServiceLevelObjective::service_level_indicator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelIndicator;
+    /// let x = ServiceLevelObjective::new().set_service_level_indicator(ServiceLevelIndicator::default()/* use setters */);
+    /// ```
     pub fn set_service_level_indicator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLevelIndicator>,
@@ -9708,6 +12602,14 @@ impl ServiceLevelObjective {
     }
 
     /// Sets or clears the value of [service_level_indicator][crate::model::ServiceLevelObjective::service_level_indicator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelIndicator;
+    /// let x = ServiceLevelObjective::new().set_or_clear_service_level_indicator(Some(ServiceLevelIndicator::default()/* use setters */));
+    /// let x = ServiceLevelObjective::new().set_or_clear_service_level_indicator(None::<ServiceLevelIndicator>);
+    /// ```
     pub fn set_or_clear_service_level_indicator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLevelIndicator>,
@@ -9717,12 +12619,27 @@ impl ServiceLevelObjective {
     }
 
     /// Sets the value of [goal][crate::model::ServiceLevelObjective::goal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = ServiceLevelObjective::new().set_goal(42.0);
+    /// ```
     pub fn set_goal<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.goal = v.into();
         self
     }
 
     /// Sets the value of [user_labels][crate::model::ServiceLevelObjective::user_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = ServiceLevelObjective::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9738,6 +12655,18 @@ impl ServiceLevelObjective {
     ///
     /// Note that all the setters affecting `period` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// use gtype::model::CalendarPeriod;
+    /// let x0 = ServiceLevelObjective::new().set_period(Some(
+    ///     google_cloud_monitoring_v3::model::service_level_objective::Period::CalendarPeriod(CalendarPeriod::Day)));
+    /// let x1 = ServiceLevelObjective::new().set_period(Some(
+    ///     google_cloud_monitoring_v3::model::service_level_objective::Period::CalendarPeriod(CalendarPeriod::Week)));
+    /// let x2 = ServiceLevelObjective::new().set_period(Some(
+    ///     google_cloud_monitoring_v3::model::service_level_objective::Period::CalendarPeriod(CalendarPeriod::Fortnight)));
+    /// ```
     pub fn set_period<
         T: std::convert::Into<std::option::Option<crate::model::service_level_objective::Period>>,
     >(
@@ -9766,6 +12695,15 @@ impl ServiceLevelObjective {
     ///
     /// Note that all the setters affecting `period` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// use wkt::Duration;
+    /// let x = ServiceLevelObjective::new().set_rolling_period(Duration::default()/* use setters */);
+    /// assert!(x.rolling_period().is_some());
+    /// assert!(x.calendar_period().is_none());
+    /// ```
     pub fn set_rolling_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -9794,6 +12732,21 @@ impl ServiceLevelObjective {
     ///
     /// Note that all the setters affecting `period` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// use gtype::model::CalendarPeriod;
+    /// let x0 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Day);
+    /// let x1 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Week);
+    /// let x2 = ServiceLevelObjective::new().set_calendar_period(CalendarPeriod::Fortnight);
+    /// assert!(x0.calendar_period().is_some());
+    /// assert!(x0.rolling_period().is_none());
+    /// assert!(x1.calendar_period().is_some());
+    /// assert!(x1.rolling_period().is_none());
+    /// assert!(x2.calendar_period().is_some());
+    /// assert!(x2.rolling_period().is_none());
+    /// ```
     pub fn set_calendar_period<T: std::convert::Into<gtype::model::CalendarPeriod>>(
         mut self,
         v: T,
@@ -10002,6 +12955,14 @@ impl ServiceLevelIndicator {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelIndicator;
+    /// use google_cloud_monitoring_v3::model::BasicSli;
+    /// let x = ServiceLevelIndicator::new().set_type(Some(
+    ///     google_cloud_monitoring_v3::model::service_level_indicator::Type::BasicSli(BasicSli::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::service_level_indicator::Type>>,
     >(
@@ -10030,6 +12991,16 @@ impl ServiceLevelIndicator {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelIndicator;
+    /// use google_cloud_monitoring_v3::model::BasicSli;
+    /// let x = ServiceLevelIndicator::new().set_basic_sli(BasicSli::default()/* use setters */);
+    /// assert!(x.basic_sli().is_some());
+    /// assert!(x.request_based().is_none());
+    /// assert!(x.windows_based().is_none());
+    /// ```
     pub fn set_basic_sli<T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>>(
         mut self,
         v: T,
@@ -10060,6 +13031,16 @@ impl ServiceLevelIndicator {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelIndicator;
+    /// use google_cloud_monitoring_v3::model::RequestBasedSli;
+    /// let x = ServiceLevelIndicator::new().set_request_based(RequestBasedSli::default()/* use setters */);
+    /// assert!(x.request_based().is_some());
+    /// assert!(x.basic_sli().is_none());
+    /// assert!(x.windows_based().is_none());
+    /// ```
     pub fn set_request_based<
         T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>,
     >(
@@ -10092,6 +13073,16 @@ impl ServiceLevelIndicator {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ServiceLevelIndicator;
+    /// use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// let x = ServiceLevelIndicator::new().set_windows_based(WindowsBasedSli::default()/* use setters */);
+    /// assert!(x.windows_based().is_some());
+    /// assert!(x.basic_sli().is_none());
+    /// assert!(x.request_based().is_none());
+    /// ```
     pub fn set_windows_based<
         T: std::convert::Into<std::boxed::Box<crate::model::WindowsBasedSli>>,
     >(
@@ -10173,6 +13164,12 @@ impl BasicSli {
     }
 
     /// Sets the value of [method][crate::model::BasicSli::method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::BasicSli;
+    /// let x = BasicSli::new().set_method(["a", "b", "c"]);
+    /// ```
     pub fn set_method<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10184,6 +13181,12 @@ impl BasicSli {
     }
 
     /// Sets the value of [location][crate::model::BasicSli::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::BasicSli;
+    /// let x = BasicSli::new().set_location(["a", "b", "c"]);
+    /// ```
     pub fn set_location<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10195,6 +13198,12 @@ impl BasicSli {
     }
 
     /// Sets the value of [version][crate::model::BasicSli::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::BasicSli;
+    /// let x = BasicSli::new().set_version(["a", "b", "c"]);
+    /// ```
     pub fn set_version<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10209,6 +13218,14 @@ impl BasicSli {
     ///
     /// Note that all the setters affecting `sli_criteria` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::BasicSli;
+    /// use google_cloud_monitoring_v3::model::basic_sli::AvailabilityCriteria;
+    /// let x = BasicSli::new().set_sli_criteria(Some(
+    ///     google_cloud_monitoring_v3::model::basic_sli::SliCriteria::Availability(AvailabilityCriteria::default().into())));
+    /// ```
     pub fn set_sli_criteria<
         T: std::convert::Into<std::option::Option<crate::model::basic_sli::SliCriteria>>,
     >(
@@ -10237,6 +13254,15 @@ impl BasicSli {
     ///
     /// Note that all the setters affecting `sli_criteria` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::BasicSli;
+    /// use google_cloud_monitoring_v3::model::basic_sli::AvailabilityCriteria;
+    /// let x = BasicSli::new().set_availability(AvailabilityCriteria::default()/* use setters */);
+    /// assert!(x.availability().is_some());
+    /// assert!(x.latency().is_none());
+    /// ```
     pub fn set_availability<
         T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::AvailabilityCriteria>>,
     >(
@@ -10266,6 +13292,15 @@ impl BasicSli {
     ///
     /// Note that all the setters affecting `sli_criteria` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::BasicSli;
+    /// use google_cloud_monitoring_v3::model::basic_sli::LatencyCriteria;
+    /// let x = BasicSli::new().set_latency(LatencyCriteria::default()/* use setters */);
+    /// assert!(x.latency().is_some());
+    /// assert!(x.availability().is_none());
+    /// ```
     pub fn set_latency<
         T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::LatencyCriteria>>,
     >(
@@ -10325,6 +13360,13 @@ pub mod basic_sli {
         }
 
         /// Sets the value of [threshold][crate::model::basic_sli::LatencyCriteria::threshold].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::basic_sli::LatencyCriteria;
+        /// use wkt::Duration;
+        /// let x = LatencyCriteria::new().set_threshold(Duration::default()/* use setters */);
+        /// ```
         pub fn set_threshold<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10334,6 +13376,14 @@ pub mod basic_sli {
         }
 
         /// Sets or clears the value of [threshold][crate::model::basic_sli::LatencyCriteria::threshold].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::basic_sli::LatencyCriteria;
+        /// use wkt::Duration;
+        /// let x = LatencyCriteria::new().set_or_clear_threshold(Some(Duration::default()/* use setters */));
+        /// let x = LatencyCriteria::new().set_or_clear_threshold(None::<Duration>);
+        /// ```
         pub fn set_or_clear_threshold<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10381,12 +13431,24 @@ impl Range {
     }
 
     /// Sets the value of [min][crate::model::Range::min].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Range;
+    /// let x = Range::new().set_min(42.0);
+    /// ```
     pub fn set_min<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.min = v.into();
         self
     }
 
     /// Sets the value of [max][crate::model::Range::max].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Range;
+    /// let x = Range::new().set_max(42.0);
+    /// ```
     pub fn set_max<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.max = v.into();
         self
@@ -10419,6 +13481,14 @@ impl RequestBasedSli {
     ///
     /// Note that all the setters affecting `method` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::RequestBasedSli;
+    /// use google_cloud_monitoring_v3::model::TimeSeriesRatio;
+    /// let x = RequestBasedSli::new().set_method(Some(
+    ///     google_cloud_monitoring_v3::model::request_based_sli::Method::GoodTotalRatio(TimeSeriesRatio::default().into())));
+    /// ```
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::request_based_sli::Method>>,
     >(
@@ -10449,6 +13519,15 @@ impl RequestBasedSli {
     ///
     /// Note that all the setters affecting `method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::RequestBasedSli;
+    /// use google_cloud_monitoring_v3::model::TimeSeriesRatio;
+    /// let x = RequestBasedSli::new().set_good_total_ratio(TimeSeriesRatio::default()/* use setters */);
+    /// assert!(x.good_total_ratio().is_some());
+    /// assert!(x.distribution_cut().is_none());
+    /// ```
     pub fn set_good_total_ratio<
         T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesRatio>>,
     >(
@@ -10481,6 +13560,15 @@ impl RequestBasedSli {
     ///
     /// Note that all the setters affecting `method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::RequestBasedSli;
+    /// use google_cloud_monitoring_v3::model::DistributionCut;
+    /// let x = RequestBasedSli::new().set_distribution_cut(DistributionCut::default()/* use setters */);
+    /// assert!(x.distribution_cut().is_some());
+    /// assert!(x.good_total_ratio().is_none());
+    /// ```
     pub fn set_distribution_cut<
         T: std::convert::Into<std::boxed::Box<crate::model::DistributionCut>>,
     >(
@@ -10557,6 +13645,12 @@ impl TimeSeriesRatio {
     }
 
     /// Sets the value of [good_service_filter][crate::model::TimeSeriesRatio::good_service_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeriesRatio;
+    /// let x = TimeSeriesRatio::new().set_good_service_filter("example");
+    /// ```
     pub fn set_good_service_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10566,6 +13660,12 @@ impl TimeSeriesRatio {
     }
 
     /// Sets the value of [bad_service_filter][crate::model::TimeSeriesRatio::bad_service_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeriesRatio;
+    /// let x = TimeSeriesRatio::new().set_bad_service_filter("example");
+    /// ```
     pub fn set_bad_service_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10575,6 +13675,12 @@ impl TimeSeriesRatio {
     }
 
     /// Sets the value of [total_service_filter][crate::model::TimeSeriesRatio::total_service_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::TimeSeriesRatio;
+    /// let x = TimeSeriesRatio::new().set_total_service_filter("example");
+    /// ```
     pub fn set_total_service_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10616,6 +13722,12 @@ impl DistributionCut {
     }
 
     /// Sets the value of [distribution_filter][crate::model::DistributionCut::distribution_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DistributionCut;
+    /// let x = DistributionCut::new().set_distribution_filter("example");
+    /// ```
     pub fn set_distribution_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10625,6 +13737,13 @@ impl DistributionCut {
     }
 
     /// Sets the value of [range][crate::model::DistributionCut::range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DistributionCut;
+    /// use google_cloud_monitoring_v3::model::Range;
+    /// let x = DistributionCut::new().set_range(Range::default()/* use setters */);
+    /// ```
     pub fn set_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Range>,
@@ -10634,6 +13753,14 @@ impl DistributionCut {
     }
 
     /// Sets or clears the value of [range][crate::model::DistributionCut::range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DistributionCut;
+    /// use google_cloud_monitoring_v3::model::Range;
+    /// let x = DistributionCut::new().set_or_clear_range(Some(Range::default()/* use setters */));
+    /// let x = DistributionCut::new().set_or_clear_range(None::<Range>);
+    /// ```
     pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Range>,
@@ -10671,6 +13798,13 @@ impl WindowsBasedSli {
     }
 
     /// Sets the value of [window_period][crate::model::WindowsBasedSli::window_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// use wkt::Duration;
+    /// let x = WindowsBasedSli::new().set_window_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_window_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -10680,6 +13814,14 @@ impl WindowsBasedSli {
     }
 
     /// Sets or clears the value of [window_period][crate::model::WindowsBasedSli::window_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// use wkt::Duration;
+    /// let x = WindowsBasedSli::new().set_or_clear_window_period(Some(Duration::default()/* use setters */));
+    /// let x = WindowsBasedSli::new().set_or_clear_window_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_window_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -10692,6 +13834,13 @@ impl WindowsBasedSli {
     ///
     /// Note that all the setters affecting `window_criterion` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// use google_cloud_monitoring_v3::model::windows_based_sli::WindowCriterion;
+    /// let x = WindowsBasedSli::new().set_window_criterion(Some(WindowCriterion::GoodBadMetricFilter("example".to_string())));
+    /// ```
     pub fn set_window_criterion<
         T: std::convert::Into<std::option::Option<crate::model::windows_based_sli::WindowCriterion>>,
     >(
@@ -10720,6 +13869,16 @@ impl WindowsBasedSli {
     ///
     /// Note that all the setters affecting `window_criterion` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// let x = WindowsBasedSli::new().set_good_bad_metric_filter("example");
+    /// assert!(x.good_bad_metric_filter().is_some());
+    /// assert!(x.good_total_ratio_threshold().is_none());
+    /// assert!(x.metric_mean_in_range().is_none());
+    /// assert!(x.metric_sum_in_range().is_none());
+    /// ```
     pub fn set_good_bad_metric_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10751,6 +13910,17 @@ impl WindowsBasedSli {
     ///
     /// Note that all the setters affecting `window_criterion` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// use google_cloud_monitoring_v3::model::windows_based_sli::PerformanceThreshold;
+    /// let x = WindowsBasedSli::new().set_good_total_ratio_threshold(PerformanceThreshold::default()/* use setters */);
+    /// assert!(x.good_total_ratio_threshold().is_some());
+    /// assert!(x.good_bad_metric_filter().is_none());
+    /// assert!(x.metric_mean_in_range().is_none());
+    /// assert!(x.metric_sum_in_range().is_none());
+    /// ```
     pub fn set_good_total_ratio_threshold<
         T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>>,
     >(
@@ -10783,6 +13953,17 @@ impl WindowsBasedSli {
     ///
     /// Note that all the setters affecting `window_criterion` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// use google_cloud_monitoring_v3::model::windows_based_sli::MetricRange;
+    /// let x = WindowsBasedSli::new().set_metric_mean_in_range(MetricRange::default()/* use setters */);
+    /// assert!(x.metric_mean_in_range().is_some());
+    /// assert!(x.good_bad_metric_filter().is_none());
+    /// assert!(x.good_total_ratio_threshold().is_none());
+    /// assert!(x.metric_sum_in_range().is_none());
+    /// ```
     pub fn set_metric_mean_in_range<
         T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>,
     >(
@@ -10815,6 +13996,17 @@ impl WindowsBasedSli {
     ///
     /// Note that all the setters affecting `window_criterion` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::WindowsBasedSli;
+    /// use google_cloud_monitoring_v3::model::windows_based_sli::MetricRange;
+    /// let x = WindowsBasedSli::new().set_metric_sum_in_range(MetricRange::default()/* use setters */);
+    /// assert!(x.metric_sum_in_range().is_some());
+    /// assert!(x.good_bad_metric_filter().is_none());
+    /// assert!(x.good_total_ratio_threshold().is_none());
+    /// assert!(x.metric_mean_in_range().is_none());
+    /// ```
     pub fn set_metric_sum_in_range<
         T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>,
     >(
@@ -10861,6 +14053,12 @@ pub mod windows_based_sli {
         }
 
         /// Sets the value of [threshold][crate::model::windows_based_sli::PerformanceThreshold::threshold].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::windows_based_sli::PerformanceThreshold;
+        /// let x = PerformanceThreshold::new().set_threshold(42.0);
+        /// ```
         pub fn set_threshold<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.threshold = v.into();
             self
@@ -10870,6 +14068,14 @@ pub mod windows_based_sli {
         ///
         /// Note that all the setters affecting `r#type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::windows_based_sli::PerformanceThreshold;
+        /// use google_cloud_monitoring_v3::model::RequestBasedSli;
+        /// let x = PerformanceThreshold::new().set_type(Some(
+        ///     google_cloud_monitoring_v3::model::windows_based_sli::performance_threshold::Type::Performance(RequestBasedSli::default().into())));
+        /// ```
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -10904,6 +14110,15 @@ pub mod windows_based_sli {
         ///
         /// Note that all the setters affecting `r#type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::windows_based_sli::PerformanceThreshold;
+        /// use google_cloud_monitoring_v3::model::RequestBasedSli;
+        /// let x = PerformanceThreshold::new().set_performance(RequestBasedSli::default()/* use setters */);
+        /// assert!(x.performance().is_some());
+        /// assert!(x.basic_sli_performance().is_none());
+        /// ```
         pub fn set_performance<
             T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>,
         >(
@@ -10934,6 +14149,15 @@ pub mod windows_based_sli {
         ///
         /// Note that all the setters affecting `r#type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::windows_based_sli::PerformanceThreshold;
+        /// use google_cloud_monitoring_v3::model::BasicSli;
+        /// let x = PerformanceThreshold::new().set_basic_sli_performance(BasicSli::default()/* use setters */);
+        /// assert!(x.basic_sli_performance().is_some());
+        /// assert!(x.performance().is_none());
+        /// ```
         pub fn set_basic_sli_performance<
             T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>,
         >(
@@ -10996,12 +14220,25 @@ pub mod windows_based_sli {
         }
 
         /// Sets the value of [time_series][crate::model::windows_based_sli::MetricRange::time_series].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::windows_based_sli::MetricRange;
+        /// let x = MetricRange::new().set_time_series("example");
+        /// ```
         pub fn set_time_series<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.time_series = v.into();
             self
         }
 
         /// Sets the value of [range][crate::model::windows_based_sli::MetricRange::range].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::windows_based_sli::MetricRange;
+        /// use google_cloud_monitoring_v3::model::Range;
+        /// let x = MetricRange::new().set_range(Range::default()/* use setters */);
+        /// ```
         pub fn set_range<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Range>,
@@ -11011,6 +14248,14 @@ pub mod windows_based_sli {
         }
 
         /// Sets or clears the value of [range][crate::model::windows_based_sli::MetricRange::range].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::windows_based_sli::MetricRange;
+        /// use google_cloud_monitoring_v3::model::Range;
+        /// let x = MetricRange::new().set_or_clear_range(Some(Range::default()/* use setters */));
+        /// let x = MetricRange::new().set_or_clear_range(None::<Range>);
+        /// ```
         pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Range>,
@@ -11076,18 +14321,37 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceRequest;
+    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceRequest;
+    /// let x = CreateServiceRequest::new().set_service_id("example");
+    /// ```
     pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_id = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceRequest;
+    /// use google_cloud_monitoring_v3::model::Service;
+    /// let x = CreateServiceRequest::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -11097,6 +14361,14 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceRequest;
+    /// use google_cloud_monitoring_v3::model::Service;
+    /// let x = CreateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = CreateServiceRequest::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -11132,6 +14404,12 @@ impl GetServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetServiceRequest;
+    /// let x = GetServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11196,24 +14474,48 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServicesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -11247,6 +14549,17 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServicesResponse;
+    /// use google_cloud_monitoring_v3::model::Service;
+    /// let x = ListServicesResponse::new()
+    ///     .set_services([
+    ///         Service::default()/* use setters */,
+    ///         Service::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11258,6 +14571,12 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServicesResponse;
+    /// let x = ListServicesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -11304,6 +14623,13 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceRequest;
+    /// use google_cloud_monitoring_v3::model::Service;
+    /// let x = UpdateServiceRequest::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -11313,6 +14639,14 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceRequest;
+    /// use google_cloud_monitoring_v3::model::Service;
+    /// let x = UpdateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = UpdateServiceRequest::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -11322,6 +14656,13 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11331,6 +14672,14 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11366,6 +14715,12 @@ impl DeleteServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteServiceRequest;
+    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11408,12 +14763,24 @@ impl CreateServiceLevelObjectiveRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceLevelObjectiveRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceLevelObjectiveRequest;
+    /// let x = CreateServiceLevelObjectiveRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_level_objective_id][crate::model::CreateServiceLevelObjectiveRequest::service_level_objective_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceLevelObjectiveRequest;
+    /// let x = CreateServiceLevelObjectiveRequest::new().set_service_level_objective_id("example");
+    /// ```
     pub fn set_service_level_objective_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11423,6 +14790,13 @@ impl CreateServiceLevelObjectiveRequest {
     }
 
     /// Sets the value of [service_level_objective][crate::model::CreateServiceLevelObjectiveRequest::service_level_objective].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceLevelObjectiveRequest;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = CreateServiceLevelObjectiveRequest::new().set_service_level_objective(ServiceLevelObjective::default()/* use setters */);
+    /// ```
     pub fn set_service_level_objective<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLevelObjective>,
@@ -11432,6 +14806,14 @@ impl CreateServiceLevelObjectiveRequest {
     }
 
     /// Sets or clears the value of [service_level_objective][crate::model::CreateServiceLevelObjectiveRequest::service_level_objective].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateServiceLevelObjectiveRequest;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = CreateServiceLevelObjectiveRequest::new().set_or_clear_service_level_objective(Some(ServiceLevelObjective::default()/* use setters */));
+    /// let x = CreateServiceLevelObjectiveRequest::new().set_or_clear_service_level_objective(None::<ServiceLevelObjective>);
+    /// ```
     pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLevelObjective>,
@@ -11474,12 +14856,26 @@ impl GetServiceLevelObjectiveRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceLevelObjectiveRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetServiceLevelObjectiveRequest;
+    /// let x = GetServiceLevelObjectiveRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetServiceLevelObjectiveRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetServiceLevelObjectiveRequest;
+    /// use google_cloud_monitoring_v3::model::service_level_objective::View;
+    /// let x0 = GetServiceLevelObjectiveRequest::new().set_view(View::Full);
+    /// let x1 = GetServiceLevelObjectiveRequest::new().set_view(View::Explicit);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::service_level_objective::View>>(
         mut self,
         v: T,
@@ -11535,30 +14931,62 @@ impl ListServiceLevelObjectivesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServiceLevelObjectivesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesRequest;
+    /// let x = ListServiceLevelObjectivesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServiceLevelObjectivesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesRequest;
+    /// let x = ListServiceLevelObjectivesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServiceLevelObjectivesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesRequest;
+    /// let x = ListServiceLevelObjectivesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServiceLevelObjectivesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesRequest;
+    /// let x = ListServiceLevelObjectivesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListServiceLevelObjectivesRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesRequest;
+    /// use google_cloud_monitoring_v3::model::service_level_objective::View;
+    /// let x0 = ListServiceLevelObjectivesRequest::new().set_view(View::Full);
+    /// let x1 = ListServiceLevelObjectivesRequest::new().set_view(View::Explicit);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::service_level_objective::View>>(
         mut self,
         v: T,
@@ -11595,6 +15023,17 @@ impl ListServiceLevelObjectivesResponse {
     }
 
     /// Sets the value of [service_level_objectives][crate::model::ListServiceLevelObjectivesResponse::service_level_objectives].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesResponse;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = ListServiceLevelObjectivesResponse::new()
+    ///     .set_service_level_objectives([
+    ///         ServiceLevelObjective::default()/* use setters */,
+    ///         ServiceLevelObjective::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_level_objectives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11606,6 +15045,12 @@ impl ListServiceLevelObjectivesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServiceLevelObjectivesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListServiceLevelObjectivesResponse;
+    /// let x = ListServiceLevelObjectivesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -11652,6 +15097,13 @@ impl UpdateServiceLevelObjectiveRequest {
     }
 
     /// Sets the value of [service_level_objective][crate::model::UpdateServiceLevelObjectiveRequest::service_level_objective].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceLevelObjectiveRequest;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = UpdateServiceLevelObjectiveRequest::new().set_service_level_objective(ServiceLevelObjective::default()/* use setters */);
+    /// ```
     pub fn set_service_level_objective<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLevelObjective>,
@@ -11661,6 +15113,14 @@ impl UpdateServiceLevelObjectiveRequest {
     }
 
     /// Sets or clears the value of [service_level_objective][crate::model::UpdateServiceLevelObjectiveRequest::service_level_objective].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceLevelObjectiveRequest;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// let x = UpdateServiceLevelObjectiveRequest::new().set_or_clear_service_level_objective(Some(ServiceLevelObjective::default()/* use setters */));
+    /// let x = UpdateServiceLevelObjectiveRequest::new().set_or_clear_service_level_objective(None::<ServiceLevelObjective>);
+    /// ```
     pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceLevelObjective>,
@@ -11670,6 +15130,13 @@ impl UpdateServiceLevelObjectiveRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceLevelObjectiveRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceLevelObjectiveRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceLevelObjectiveRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11679,6 +15146,14 @@ impl UpdateServiceLevelObjectiveRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceLevelObjectiveRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateServiceLevelObjectiveRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceLevelObjectiveRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateServiceLevelObjectiveRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11715,6 +15190,12 @@ impl DeleteServiceLevelObjectiveRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceLevelObjectiveRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteServiceLevelObjectiveRequest;
+    /// let x = DeleteServiceLevelObjectiveRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11767,12 +15248,25 @@ impl Snooze {
     }
 
     /// Sets the value of [name][crate::model::Snooze::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Snooze;
+    /// let x = Snooze::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [criteria][crate::model::Snooze::criteria].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Snooze;
+    /// use google_cloud_monitoring_v3::model::snooze::Criteria;
+    /// let x = Snooze::new().set_criteria(Criteria::default()/* use setters */);
+    /// ```
     pub fn set_criteria<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::snooze::Criteria>,
@@ -11782,6 +15276,14 @@ impl Snooze {
     }
 
     /// Sets or clears the value of [criteria][crate::model::Snooze::criteria].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Snooze;
+    /// use google_cloud_monitoring_v3::model::snooze::Criteria;
+    /// let x = Snooze::new().set_or_clear_criteria(Some(Criteria::default()/* use setters */));
+    /// let x = Snooze::new().set_or_clear_criteria(None::<Criteria>);
+    /// ```
     pub fn set_or_clear_criteria<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::snooze::Criteria>,
@@ -11791,6 +15293,13 @@ impl Snooze {
     }
 
     /// Sets the value of [interval][crate::model::Snooze::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Snooze;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = Snooze::new().set_interval(TimeInterval::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -11800,6 +15309,14 @@ impl Snooze {
     }
 
     /// Sets or clears the value of [interval][crate::model::Snooze::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Snooze;
+    /// use google_cloud_monitoring_v3::model::TimeInterval;
+    /// let x = Snooze::new().set_or_clear_interval(Some(TimeInterval::default()/* use setters */));
+    /// let x = Snooze::new().set_or_clear_interval(None::<TimeInterval>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -11809,6 +15326,12 @@ impl Snooze {
     }
 
     /// Sets the value of [display_name][crate::model::Snooze::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::Snooze;
+    /// let x = Snooze::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -11872,6 +15395,12 @@ pub mod snooze {
         }
 
         /// Sets the value of [policies][crate::model::snooze::Criteria::policies].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::snooze::Criteria;
+        /// let x = Criteria::new().set_policies(["a", "b", "c"]);
+        /// ```
         pub fn set_policies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11883,6 +15412,12 @@ pub mod snooze {
         }
 
         /// Sets the value of [filter][crate::model::snooze::Criteria::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::snooze::Criteria;
+        /// let x = Criteria::new().set_filter("example");
+        /// ```
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
             self
@@ -11923,12 +15458,25 @@ impl CreateSnoozeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSnoozeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateSnoozeRequest;
+    /// let x = CreateSnoozeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [snooze][crate::model::CreateSnoozeRequest::snooze].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateSnoozeRequest;
+    /// use google_cloud_monitoring_v3::model::Snooze;
+    /// let x = CreateSnoozeRequest::new().set_snooze(Snooze::default()/* use setters */);
+    /// ```
     pub fn set_snooze<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Snooze>,
@@ -11938,6 +15486,14 @@ impl CreateSnoozeRequest {
     }
 
     /// Sets or clears the value of [snooze][crate::model::CreateSnoozeRequest::snooze].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateSnoozeRequest;
+    /// use google_cloud_monitoring_v3::model::Snooze;
+    /// let x = CreateSnoozeRequest::new().set_or_clear_snooze(Some(Snooze::default()/* use setters */));
+    /// let x = CreateSnoozeRequest::new().set_or_clear_snooze(None::<Snooze>);
+    /// ```
     pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snooze>,
@@ -12001,24 +15557,48 @@ impl ListSnoozesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSnoozesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListSnoozesRequest;
+    /// let x = ListSnoozesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSnoozesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListSnoozesRequest;
+    /// let x = ListSnoozesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSnoozesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListSnoozesRequest;
+    /// let x = ListSnoozesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSnoozesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListSnoozesRequest;
+    /// let x = ListSnoozesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -12052,6 +15632,17 @@ impl ListSnoozesResponse {
     }
 
     /// Sets the value of [snoozes][crate::model::ListSnoozesResponse::snoozes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListSnoozesResponse;
+    /// use google_cloud_monitoring_v3::model::Snooze;
+    /// let x = ListSnoozesResponse::new()
+    ///     .set_snoozes([
+    ///         Snooze::default()/* use setters */,
+    ///         Snooze::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_snoozes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12063,6 +15654,12 @@ impl ListSnoozesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSnoozesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListSnoozesResponse;
+    /// let x = ListSnoozesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -12110,6 +15707,12 @@ impl GetSnoozeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSnoozeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetSnoozeRequest;
+    /// let x = GetSnoozeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -12174,6 +15777,13 @@ impl UpdateSnoozeRequest {
     }
 
     /// Sets the value of [snooze][crate::model::UpdateSnoozeRequest::snooze].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateSnoozeRequest;
+    /// use google_cloud_monitoring_v3::model::Snooze;
+    /// let x = UpdateSnoozeRequest::new().set_snooze(Snooze::default()/* use setters */);
+    /// ```
     pub fn set_snooze<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Snooze>,
@@ -12183,6 +15793,14 @@ impl UpdateSnoozeRequest {
     }
 
     /// Sets or clears the value of [snooze][crate::model::UpdateSnoozeRequest::snooze].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateSnoozeRequest;
+    /// use google_cloud_monitoring_v3::model::Snooze;
+    /// let x = UpdateSnoozeRequest::new().set_or_clear_snooze(Some(Snooze::default()/* use setters */));
+    /// let x = UpdateSnoozeRequest::new().set_or_clear_snooze(None::<Snooze>);
+    /// ```
     pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snooze>,
@@ -12192,6 +15810,13 @@ impl UpdateSnoozeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSnoozeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateSnoozeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSnoozeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12201,6 +15826,14 @@ impl UpdateSnoozeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSnoozeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateSnoozeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSnoozeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSnoozeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12253,6 +15886,12 @@ impl SpanContext {
     }
 
     /// Sets the value of [span_name][crate::model::SpanContext::span_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::SpanContext;
+    /// let x = SpanContext::new().set_span_name("example");
+    /// ```
     pub fn set_span_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.span_name = v.into();
         self
@@ -12310,36 +15949,74 @@ impl InternalChecker {
     }
 
     /// Sets the value of [name][crate::model::InternalChecker::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::InternalChecker;
+    /// let x = InternalChecker::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::InternalChecker::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::InternalChecker;
+    /// let x = InternalChecker::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::InternalChecker::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::InternalChecker;
+    /// let x = InternalChecker::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [gcp_zone][crate::model::InternalChecker::gcp_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::InternalChecker;
+    /// let x = InternalChecker::new().set_gcp_zone("example");
+    /// ```
     pub fn set_gcp_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_zone = v.into();
         self
     }
 
     /// Sets the value of [peer_project_id][crate::model::InternalChecker::peer_project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::InternalChecker;
+    /// let x = InternalChecker::new().set_peer_project_id("example");
+    /// ```
     pub fn set_peer_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_project_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::InternalChecker::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::InternalChecker;
+    /// use google_cloud_monitoring_v3::model::internal_checker::State;
+    /// let x0 = InternalChecker::new().set_state(State::Creating);
+    /// let x1 = InternalChecker::new().set_state(State::Running);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::internal_checker::State>>(
         mut self,
         v: T,
@@ -12522,6 +16199,14 @@ impl SyntheticMonitorTarget {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::SyntheticMonitorTarget;
+    /// use google_cloud_monitoring_v3::model::synthetic_monitor_target::CloudFunctionV2Target;
+    /// let x = SyntheticMonitorTarget::new().set_target(Some(
+    ///     google_cloud_monitoring_v3::model::synthetic_monitor_target::Target::CloudFunctionV2(CloudFunctionV2Target::default().into())));
+    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::synthetic_monitor_target::Target>>,
     >(
@@ -12554,6 +16239,14 @@ impl SyntheticMonitorTarget {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::SyntheticMonitorTarget;
+    /// use google_cloud_monitoring_v3::model::synthetic_monitor_target::CloudFunctionV2Target;
+    /// let x = SyntheticMonitorTarget::new().set_cloud_function_v2(CloudFunctionV2Target::default()/* use setters */);
+    /// assert!(x.cloud_function_v2().is_some());
+    /// ```
     pub fn set_cloud_function_v2<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
@@ -12604,12 +16297,25 @@ pub mod synthetic_monitor_target {
         }
 
         /// Sets the value of [name][crate::model::synthetic_monitor_target::CloudFunctionV2Target::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::synthetic_monitor_target::CloudFunctionV2Target;
+        /// let x = CloudFunctionV2Target::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [cloud_run_revision][crate::model::synthetic_monitor_target::CloudFunctionV2Target::cloud_run_revision].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::synthetic_monitor_target::CloudFunctionV2Target;
+        /// use api::model::MonitoredResource;
+        /// let x = CloudFunctionV2Target::new().set_cloud_run_revision(MonitoredResource::default()/* use setters */);
+        /// ```
         pub fn set_cloud_run_revision<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<api::model::MonitoredResource>,
@@ -12619,6 +16325,14 @@ pub mod synthetic_monitor_target {
         }
 
         /// Sets or clears the value of [cloud_run_revision][crate::model::synthetic_monitor_target::CloudFunctionV2Target::cloud_run_revision].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::synthetic_monitor_target::CloudFunctionV2Target;
+        /// use api::model::MonitoredResource;
+        /// let x = CloudFunctionV2Target::new().set_or_clear_cloud_run_revision(Some(MonitoredResource::default()/* use setters */));
+        /// let x = CloudFunctionV2Target::new().set_or_clear_cloud_run_revision(None::<MonitoredResource>);
+        /// ```
         pub fn set_or_clear_cloud_run_revision<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<api::model::MonitoredResource>,
@@ -12736,18 +16450,37 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [name][crate::model::UptimeCheckConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = UptimeCheckConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::UptimeCheckConfig::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = UptimeCheckConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [period][crate::model::UptimeCheckConfig::period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use wkt::Duration;
+    /// let x = UptimeCheckConfig::new().set_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12757,6 +16490,14 @@ impl UptimeCheckConfig {
     }
 
     /// Sets or clears the value of [period][crate::model::UptimeCheckConfig::period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use wkt::Duration;
+    /// let x = UptimeCheckConfig::new().set_or_clear_period(Some(Duration::default()/* use setters */));
+    /// let x = UptimeCheckConfig::new().set_or_clear_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12766,6 +16507,13 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [timeout][crate::model::UptimeCheckConfig::timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use wkt::Duration;
+    /// let x = UptimeCheckConfig::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12775,6 +16523,14 @@ impl UptimeCheckConfig {
     }
 
     /// Sets or clears the value of [timeout][crate::model::UptimeCheckConfig::timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use wkt::Duration;
+    /// let x = UptimeCheckConfig::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = UptimeCheckConfig::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12784,6 +16540,17 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [content_matchers][crate::model::UptimeCheckConfig::content_matchers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::uptime_check_config::ContentMatcher;
+    /// let x = UptimeCheckConfig::new()
+    ///     .set_content_matchers([
+    ///         ContentMatcher::default()/* use setters */,
+    ///         ContentMatcher::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_content_matchers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12795,6 +16562,14 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [checker_type][crate::model::UptimeCheckConfig::checker_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::uptime_check_config::CheckerType;
+    /// let x0 = UptimeCheckConfig::new().set_checker_type(CheckerType::StaticIpCheckers);
+    /// let x1 = UptimeCheckConfig::new().set_checker_type(CheckerType::VpcCheckers);
+    /// ```
     pub fn set_checker_type<
         T: std::convert::Into<crate::model::uptime_check_config::CheckerType>,
     >(
@@ -12806,6 +16581,17 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [selected_regions][crate::model::UptimeCheckConfig::selected_regions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckRegion;
+    /// let x = UptimeCheckConfig::new().set_selected_regions([
+    ///     UptimeCheckRegion::Usa,
+    ///     UptimeCheckRegion::Europe,
+    ///     UptimeCheckRegion::SouthAmerica,
+    /// ]);
+    /// ```
     pub fn set_selected_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12817,6 +16603,12 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [is_internal][crate::model::UptimeCheckConfig::is_internal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = UptimeCheckConfig::new().set_is_internal(true);
+    /// ```
     #[deprecated]
     pub fn set_is_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_internal = v.into();
@@ -12824,6 +16616,17 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [internal_checkers][crate::model::UptimeCheckConfig::internal_checkers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::InternalChecker;
+    /// let x = UptimeCheckConfig::new()
+    ///     .set_internal_checkers([
+    ///         InternalChecker::default()/* use setters */,
+    ///         InternalChecker::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_internal_checkers<T, V>(mut self, v: T) -> Self
     where
@@ -12836,6 +16639,15 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [user_labels][crate::model::UptimeCheckConfig::user_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = UptimeCheckConfig::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12851,6 +16663,14 @@ impl UptimeCheckConfig {
     ///
     /// Note that all the setters affecting `resource` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use api::model::MonitoredResource;
+    /// let x = UptimeCheckConfig::new().set_resource(Some(
+    ///     google_cloud_monitoring_v3::model::uptime_check_config::Resource::MonitoredResource(MonitoredResource::default().into())));
+    /// ```
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::Resource>>,
     >(
@@ -12881,6 +16701,16 @@ impl UptimeCheckConfig {
     ///
     /// Note that all the setters affecting `resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use api::model::MonitoredResource;
+    /// let x = UptimeCheckConfig::new().set_monitored_resource(MonitoredResource::default()/* use setters */);
+    /// assert!(x.monitored_resource().is_some());
+    /// assert!(x.resource_group().is_none());
+    /// assert!(x.synthetic_monitor().is_none());
+    /// ```
     pub fn set_monitored_resource<
         T: std::convert::Into<std::boxed::Box<api::model::MonitoredResource>>,
     >(
@@ -12914,6 +16744,16 @@ impl UptimeCheckConfig {
     ///
     /// Note that all the setters affecting `resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::uptime_check_config::ResourceGroup;
+    /// let x = UptimeCheckConfig::new().set_resource_group(ResourceGroup::default()/* use setters */);
+    /// assert!(x.resource_group().is_some());
+    /// assert!(x.monitored_resource().is_none());
+    /// assert!(x.synthetic_monitor().is_none());
+    /// ```
     pub fn set_resource_group<
         T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>,
     >(
@@ -12946,6 +16786,16 @@ impl UptimeCheckConfig {
     ///
     /// Note that all the setters affecting `resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::SyntheticMonitorTarget;
+    /// let x = UptimeCheckConfig::new().set_synthetic_monitor(SyntheticMonitorTarget::default()/* use setters */);
+    /// assert!(x.synthetic_monitor().is_some());
+    /// assert!(x.monitored_resource().is_none());
+    /// assert!(x.resource_group().is_none());
+    /// ```
     pub fn set_synthetic_monitor<
         T: std::convert::Into<std::boxed::Box<crate::model::SyntheticMonitorTarget>>,
     >(
@@ -12962,6 +16812,14 @@ impl UptimeCheckConfig {
     ///
     /// Note that all the setters affecting `check_request_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+    /// let x = UptimeCheckConfig::new().set_check_request_type(Some(
+    ///     google_cloud_monitoring_v3::model::uptime_check_config::CheckRequestType::HttpCheck(HttpCheck::default().into())));
+    /// ```
     pub fn set_check_request_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::uptime_check_config::CheckRequestType>,
@@ -12994,6 +16852,15 @@ impl UptimeCheckConfig {
     ///
     /// Note that all the setters affecting `check_request_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+    /// let x = UptimeCheckConfig::new().set_http_check(HttpCheck::default()/* use setters */);
+    /// assert!(x.http_check().is_some());
+    /// assert!(x.tcp_check().is_none());
+    /// ```
     pub fn set_http_check<
         T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::HttpCheck>>,
     >(
@@ -13026,6 +16893,15 @@ impl UptimeCheckConfig {
     ///
     /// Note that all the setters affecting `check_request_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::model::uptime_check_config::TcpCheck;
+    /// let x = UptimeCheckConfig::new().set_tcp_check(TcpCheck::default()/* use setters */);
+    /// assert!(x.tcp_check().is_some());
+    /// assert!(x.http_check().is_none());
+    /// ```
     pub fn set_tcp_check<
         T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::TcpCheck>>,
     >(
@@ -13072,12 +16948,26 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [group_id][crate::model::uptime_check_config::ResourceGroup::group_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::ResourceGroup;
+        /// let x = ResourceGroup::new().set_group_id("example");
+        /// ```
         pub fn set_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.group_id = v.into();
             self
         }
 
         /// Sets the value of [resource_type][crate::model::uptime_check_config::ResourceGroup::resource_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::ResourceGroup;
+        /// use google_cloud_monitoring_v3::model::GroupResourceType;
+        /// let x0 = ResourceGroup::new().set_resource_type(GroupResourceType::Instance);
+        /// let x1 = ResourceGroup::new().set_resource_type(GroupResourceType::AwsElbLoadBalancer);
+        /// ```
         pub fn set_resource_type<T: std::convert::Into<crate::model::GroupResourceType>>(
             mut self,
             v: T,
@@ -13111,6 +17001,12 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [pings_count][crate::model::uptime_check_config::PingConfig::pings_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::PingConfig;
+        /// let x = PingConfig::new().set_pings_count(42);
+        /// ```
         pub fn set_pings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.pings_count = v.into();
             self
@@ -13232,6 +17128,14 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [request_method][crate::model::uptime_check_config::HttpCheck::request_method].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::RequestMethod;
+        /// let x0 = HttpCheck::new().set_request_method(RequestMethod::Get);
+        /// let x1 = HttpCheck::new().set_request_method(RequestMethod::Post);
+        /// ```
         pub fn set_request_method<
             T: std::convert::Into<crate::model::uptime_check_config::http_check::RequestMethod>,
         >(
@@ -13243,24 +17147,49 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [use_ssl][crate::model::uptime_check_config::HttpCheck::use_ssl].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_use_ssl(true);
+        /// ```
         pub fn set_use_ssl<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.use_ssl = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::uptime_check_config::HttpCheck::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [port][crate::model::uptime_check_config::HttpCheck::port].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_port(42);
+        /// ```
         pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.port = v.into();
             self
         }
 
         /// Sets the value of [auth_info][crate::model::uptime_check_config::HttpCheck::auth_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::BasicAuthentication;
+        /// let x = HttpCheck::new().set_auth_info(BasicAuthentication::default()/* use setters */);
+        /// ```
         pub fn set_auth_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -13272,6 +17201,14 @@ pub mod uptime_check_config {
         }
 
         /// Sets or clears the value of [auth_info][crate::model::uptime_check_config::HttpCheck::auth_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::BasicAuthentication;
+        /// let x = HttpCheck::new().set_or_clear_auth_info(Some(BasicAuthentication::default()/* use setters */));
+        /// let x = HttpCheck::new().set_or_clear_auth_info(None::<BasicAuthentication>);
+        /// ```
         pub fn set_or_clear_auth_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -13283,12 +17220,27 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [mask_headers][crate::model::uptime_check_config::HttpCheck::mask_headers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_mask_headers(true);
+        /// ```
         pub fn set_mask_headers<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.mask_headers = v.into();
             self
         }
 
         /// Sets the value of [headers][crate::model::uptime_check_config::HttpCheck::headers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_headers([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_headers<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13301,6 +17253,14 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [content_type][crate::model::uptime_check_config::HttpCheck::content_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ContentType;
+        /// let x0 = HttpCheck::new().set_content_type(ContentType::UrlEncoded);
+        /// let x1 = HttpCheck::new().set_content_type(ContentType::UserProvided);
+        /// ```
         pub fn set_content_type<
             T: std::convert::Into<crate::model::uptime_check_config::http_check::ContentType>,
         >(
@@ -13312,6 +17272,12 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [custom_content_type][crate::model::uptime_check_config::HttpCheck::custom_content_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_custom_content_type("example");
+        /// ```
         pub fn set_custom_content_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13321,18 +17287,41 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [validate_ssl][crate::model::uptime_check_config::HttpCheck::validate_ssl].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_validate_ssl(true);
+        /// ```
         pub fn set_validate_ssl<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.validate_ssl = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::uptime_check_config::HttpCheck::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// let x = HttpCheck::new().set_body(bytes::Bytes::from_static(b"example"));
+        /// ```
         pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.body = v.into();
             self
         }
 
         /// Sets the value of [accepted_response_status_codes][crate::model::uptime_check_config::HttpCheck::accepted_response_status_codes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ResponseStatusCode;
+        /// let x = HttpCheck::new()
+        ///     .set_accepted_response_status_codes([
+        ///         ResponseStatusCode::default()/* use setters */,
+        ///         ResponseStatusCode::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_accepted_response_status_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13346,6 +17335,13 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [ping_config][crate::model::uptime_check_config::HttpCheck::ping_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::PingConfig;
+        /// let x = HttpCheck::new().set_ping_config(PingConfig::default()/* use setters */);
+        /// ```
         pub fn set_ping_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
@@ -13355,6 +17351,14 @@ pub mod uptime_check_config {
         }
 
         /// Sets or clears the value of [ping_config][crate::model::uptime_check_config::HttpCheck::ping_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::PingConfig;
+        /// let x = HttpCheck::new().set_or_clear_ping_config(Some(PingConfig::default()/* use setters */));
+        /// let x = HttpCheck::new().set_or_clear_ping_config(None::<PingConfig>);
+        /// ```
         pub fn set_or_clear_ping_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
@@ -13367,6 +17371,14 @@ pub mod uptime_check_config {
         ///
         /// Note that all the setters affecting `auth_method` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ServiceAgentAuthentication;
+        /// let x = HttpCheck::new().set_auth_method(Some(
+        ///     google_cloud_monitoring_v3::model::uptime_check_config::http_check::AuthMethod::ServiceAgentAuthentication(ServiceAgentAuthentication::default().into())));
+        /// ```
         pub fn set_auth_method<
             T: std::convert::Into<
                     std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>,
@@ -13401,6 +17413,14 @@ pub mod uptime_check_config {
         ///
         /// Note that all the setters affecting `auth_method` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ServiceAgentAuthentication;
+        /// let x = HttpCheck::new().set_service_agent_authentication(ServiceAgentAuthentication::default()/* use setters */);
+        /// assert!(x.service_agent_authentication().is_some());
+        /// ```
         pub fn set_service_agent_authentication<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -13453,6 +17473,12 @@ pub mod uptime_check_config {
             }
 
             /// Sets the value of [username][crate::model::uptime_check_config::http_check::BasicAuthentication::username].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::BasicAuthentication;
+            /// let x = BasicAuthentication::new().set_username("example");
+            /// ```
             pub fn set_username<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -13462,6 +17488,12 @@ pub mod uptime_check_config {
             }
 
             /// Sets the value of [password][crate::model::uptime_check_config::http_check::BasicAuthentication::password].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::BasicAuthentication;
+            /// let x = BasicAuthentication::new().set_password("example");
+            /// ```
             pub fn set_password<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -13499,6 +17531,13 @@ pub mod uptime_check_config {
             ///
             /// Note that all the setters affecting `status_code` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ResponseStatusCode;
+            /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::response_status_code::StatusCode;
+            /// let x = ResponseStatusCode::new().set_status_code(Some(StatusCode::StatusValue(42)));
+            /// ```
             pub fn set_status_code<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::http_check::response_status_code::StatusCode>>>(mut self, v: T) -> Self
             {
                 self.status_code = v.into();
@@ -13521,6 +17560,14 @@ pub mod uptime_check_config {
             ///
             /// Note that all the setters affecting `status_code` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ResponseStatusCode;
+            /// let x = ResponseStatusCode::new().set_status_value(42);
+            /// assert!(x.status_value().is_some());
+            /// assert!(x.status_class().is_none());
+            /// ```
             pub fn set_status_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.status_code = std::option::Option::Some(
                     crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusValue(
@@ -13550,6 +17597,21 @@ pub mod uptime_check_config {
             ///
             /// Note that all the setters affecting `status_code` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ResponseStatusCode;
+            /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::response_status_code::StatusClass;
+            /// let x0 = ResponseStatusCode::new().set_status_class(StatusClass::StatusClass1Xx);
+            /// let x1 = ResponseStatusCode::new().set_status_class(StatusClass::StatusClass2Xx);
+            /// let x2 = ResponseStatusCode::new().set_status_class(StatusClass::StatusClass3Xx);
+            /// assert!(x0.status_class().is_some());
+            /// assert!(x0.status_value().is_none());
+            /// assert!(x1.status_class().is_some());
+            /// assert!(x1.status_value().is_none());
+            /// assert!(x2.status_class().is_some());
+            /// assert!(x2.status_value().is_none());
+            /// ```
             pub fn set_status_class<T: std::convert::Into<crate::model::uptime_check_config::http_check::response_status_code::StatusClass>>(mut self, v: T) -> Self{
                 self.status_code = std::option::Option::Some(
                     crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusClass(
@@ -13753,10 +17815,10 @@ pub mod uptime_check_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ServiceAgentAuthentication {
-
+        
             /// Type of authentication.
             pub r#type: crate::model::uptime_check_config::http_check::service_agent_authentication::ServiceAgentAuthenticationType,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -13766,6 +17828,13 @@ pub mod uptime_check_config {
             }
 
             /// Sets the value of [r#type][crate::model::uptime_check_config::http_check::ServiceAgentAuthentication::type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::ServiceAgentAuthentication;
+            /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::service_agent_authentication::ServiceAgentAuthenticationType;
+            /// let x0 = ServiceAgentAuthentication::new().set_type(ServiceAgentAuthenticationType::OidcToken);
+            /// ```
             pub fn set_type<T: std::convert::Into<crate::model::uptime_check_config::http_check::service_agent_authentication::ServiceAgentAuthenticationType>>(mut self, v: T) -> Self{
                 self.r#type = v.into();
                 self
@@ -14224,12 +18293,25 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [port][crate::model::uptime_check_config::TcpCheck::port].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::TcpCheck;
+        /// let x = TcpCheck::new().set_port(42);
+        /// ```
         pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.port = v.into();
             self
         }
 
         /// Sets the value of [ping_config][crate::model::uptime_check_config::TcpCheck::ping_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::TcpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::PingConfig;
+        /// let x = TcpCheck::new().set_ping_config(PingConfig::default()/* use setters */);
+        /// ```
         pub fn set_ping_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
@@ -14239,6 +18321,14 @@ pub mod uptime_check_config {
         }
 
         /// Sets or clears the value of [ping_config][crate::model::uptime_check_config::TcpCheck::ping_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::TcpCheck;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::PingConfig;
+        /// let x = TcpCheck::new().set_or_clear_ping_config(Some(PingConfig::default()/* use setters */));
+        /// let x = TcpCheck::new().set_or_clear_ping_config(None::<PingConfig>);
+        /// ```
         pub fn set_or_clear_ping_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
@@ -14286,12 +18376,27 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [content][crate::model::uptime_check_config::ContentMatcher::content].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::ContentMatcher;
+        /// let x = ContentMatcher::new().set_content("example");
+        /// ```
         pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.content = v.into();
             self
         }
 
         /// Sets the value of [matcher][crate::model::uptime_check_config::ContentMatcher::matcher].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::ContentMatcher;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::ContentMatcherOption;
+        /// let x0 = ContentMatcher::new().set_matcher(ContentMatcherOption::ContainsString);
+        /// let x1 = ContentMatcher::new().set_matcher(ContentMatcherOption::NotContainsString);
+        /// let x2 = ContentMatcher::new().set_matcher(ContentMatcherOption::MatchesRegex);
+        /// ```
         pub fn set_matcher<
             T: std::convert::Into<
                     crate::model::uptime_check_config::content_matcher::ContentMatcherOption,
@@ -14308,6 +18413,14 @@ pub mod uptime_check_config {
         ///
         /// Note that all the setters affecting `additional_matcher_info` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::ContentMatcher;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::JsonPathMatcher;
+        /// let x = ContentMatcher::new().set_additional_matcher_info(Some(
+        ///     google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::AdditionalMatcherInfo::JsonPathMatcher(JsonPathMatcher::default().into())));
+        /// ```
         pub fn set_additional_matcher_info<
             T: std::convert::Into<
                     std::option::Option<
@@ -14342,6 +18455,14 @@ pub mod uptime_check_config {
         ///
         /// Note that all the setters affecting `additional_matcher_info` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_v3::model::uptime_check_config::ContentMatcher;
+        /// use google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::JsonPathMatcher;
+        /// let x = ContentMatcher::new().set_json_path_matcher(JsonPathMatcher::default()/* use setters */);
+        /// assert!(x.json_path_matcher().is_some());
+        /// ```
         pub fn set_json_path_matcher<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -14378,15 +18499,15 @@ pub mod uptime_check_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct JsonPathMatcher {
-
+        
             /// JSONPath within the response output pointing to the expected
             /// `ContentMatcher::content` to match against.
             pub json_path: std::string::String,
-
+        
             /// The type of JSONPath match that will be applied to the JSON output
             /// (`ContentMatcher.content`)
             pub json_matcher: crate::model::uptime_check_config::content_matcher::json_path_matcher::JsonPathMatcherOption,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -14396,6 +18517,12 @@ pub mod uptime_check_config {
             }
 
             /// Sets the value of [json_path][crate::model::uptime_check_config::content_matcher::JsonPathMatcher::json_path].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::JsonPathMatcher;
+            /// let x = JsonPathMatcher::new().set_json_path("example");
+            /// ```
             pub fn set_json_path<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -14405,6 +18532,14 @@ pub mod uptime_check_config {
             }
 
             /// Sets the value of [json_matcher][crate::model::uptime_check_config::content_matcher::JsonPathMatcher::json_matcher].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::JsonPathMatcher;
+            /// use google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::json_path_matcher::JsonPathMatcherOption;
+            /// let x0 = JsonPathMatcher::new().set_json_matcher(JsonPathMatcherOption::ExactMatch);
+            /// let x1 = JsonPathMatcher::new().set_json_matcher(JsonPathMatcherOption::RegexMatch);
+            /// ```
             pub fn set_json_matcher<T: std::convert::Into<crate::model::uptime_check_config::content_matcher::json_path_matcher::JsonPathMatcherOption>>(mut self, v: T) -> Self{
                 self.json_matcher = v.into();
                 self
@@ -14957,6 +19092,15 @@ impl UptimeCheckIp {
     }
 
     /// Sets the value of [region][crate::model::UptimeCheckIp::region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckIp;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckRegion;
+    /// let x0 = UptimeCheckIp::new().set_region(UptimeCheckRegion::Usa);
+    /// let x1 = UptimeCheckIp::new().set_region(UptimeCheckRegion::Europe);
+    /// let x2 = UptimeCheckIp::new().set_region(UptimeCheckRegion::SouthAmerica);
+    /// ```
     pub fn set_region<T: std::convert::Into<crate::model::UptimeCheckRegion>>(
         mut self,
         v: T,
@@ -14966,12 +19110,24 @@ impl UptimeCheckIp {
     }
 
     /// Sets the value of [location][crate::model::UptimeCheckIp::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckIp;
+    /// let x = UptimeCheckIp::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::UptimeCheckIp::ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UptimeCheckIp;
+    /// let x = UptimeCheckIp::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
@@ -15024,24 +19180,48 @@ impl ListUptimeCheckConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUptimeCheckConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsRequest;
+    /// let x = ListUptimeCheckConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListUptimeCheckConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsRequest;
+    /// let x = ListUptimeCheckConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListUptimeCheckConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsRequest;
+    /// let x = ListUptimeCheckConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUptimeCheckConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsRequest;
+    /// let x = ListUptimeCheckConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -15081,6 +19261,17 @@ impl ListUptimeCheckConfigsResponse {
     }
 
     /// Sets the value of [uptime_check_configs][crate::model::ListUptimeCheckConfigsResponse::uptime_check_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsResponse;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = ListUptimeCheckConfigsResponse::new()
+    ///     .set_uptime_check_configs([
+    ///         UptimeCheckConfig::default()/* use setters */,
+    ///         UptimeCheckConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uptime_check_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15092,12 +19283,24 @@ impl ListUptimeCheckConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUptimeCheckConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsResponse;
+    /// let x = ListUptimeCheckConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListUptimeCheckConfigsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckConfigsResponse;
+    /// let x = ListUptimeCheckConfigsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -15144,6 +19347,12 @@ impl GetUptimeCheckConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetUptimeCheckConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::GetUptimeCheckConfigRequest;
+    /// let x = GetUptimeCheckConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15181,12 +19390,25 @@ impl CreateUptimeCheckConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateUptimeCheckConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateUptimeCheckConfigRequest;
+    /// let x = CreateUptimeCheckConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [uptime_check_config][crate::model::CreateUptimeCheckConfigRequest::uptime_check_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateUptimeCheckConfigRequest;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = CreateUptimeCheckConfigRequest::new().set_uptime_check_config(UptimeCheckConfig::default()/* use setters */);
+    /// ```
     pub fn set_uptime_check_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UptimeCheckConfig>,
@@ -15196,6 +19418,14 @@ impl CreateUptimeCheckConfigRequest {
     }
 
     /// Sets or clears the value of [uptime_check_config][crate::model::CreateUptimeCheckConfigRequest::uptime_check_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::CreateUptimeCheckConfigRequest;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = CreateUptimeCheckConfigRequest::new().set_or_clear_uptime_check_config(Some(UptimeCheckConfig::default()/* use setters */));
+    /// let x = CreateUptimeCheckConfigRequest::new().set_or_clear_uptime_check_config(None::<UptimeCheckConfig>);
+    /// ```
     pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UptimeCheckConfig>,
@@ -15243,6 +19473,13 @@ impl UpdateUptimeCheckConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateUptimeCheckConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateUptimeCheckConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateUptimeCheckConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15252,6 +19489,14 @@ impl UpdateUptimeCheckConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateUptimeCheckConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateUptimeCheckConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateUptimeCheckConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateUptimeCheckConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15261,6 +19506,13 @@ impl UpdateUptimeCheckConfigRequest {
     }
 
     /// Sets the value of [uptime_check_config][crate::model::UpdateUptimeCheckConfigRequest::uptime_check_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateUptimeCheckConfigRequest;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = UpdateUptimeCheckConfigRequest::new().set_uptime_check_config(UptimeCheckConfig::default()/* use setters */);
+    /// ```
     pub fn set_uptime_check_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UptimeCheckConfig>,
@@ -15270,6 +19522,14 @@ impl UpdateUptimeCheckConfigRequest {
     }
 
     /// Sets or clears the value of [uptime_check_config][crate::model::UpdateUptimeCheckConfigRequest::uptime_check_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::UpdateUptimeCheckConfigRequest;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// let x = UpdateUptimeCheckConfigRequest::new().set_or_clear_uptime_check_config(Some(UptimeCheckConfig::default()/* use setters */));
+    /// let x = UpdateUptimeCheckConfigRequest::new().set_or_clear_uptime_check_config(None::<UptimeCheckConfig>);
+    /// ```
     pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UptimeCheckConfig>,
@@ -15305,6 +19565,12 @@ impl DeleteUptimeCheckConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteUptimeCheckConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::DeleteUptimeCheckConfigRequest;
+    /// let x = DeleteUptimeCheckConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15343,12 +19609,24 @@ impl ListUptimeCheckIpsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListUptimeCheckIpsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckIpsRequest;
+    /// let x = ListUptimeCheckIpsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUptimeCheckIpsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckIpsRequest;
+    /// let x = ListUptimeCheckIpsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -15386,6 +19664,17 @@ impl ListUptimeCheckIpsResponse {
     }
 
     /// Sets the value of [uptime_check_ips][crate::model::ListUptimeCheckIpsResponse::uptime_check_ips].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckIpsResponse;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckIp;
+    /// let x = ListUptimeCheckIpsResponse::new()
+    ///     .set_uptime_check_ips([
+    ///         UptimeCheckIp::default()/* use setters */,
+    ///         UptimeCheckIp::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uptime_check_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15397,6 +19686,12 @@ impl ListUptimeCheckIpsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUptimeCheckIpsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::model::ListUptimeCheckIpsResponse;
+    /// let x = ListUptimeCheckIpsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self

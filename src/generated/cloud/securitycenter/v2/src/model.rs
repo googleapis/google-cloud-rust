@@ -111,18 +111,37 @@ impl Access {
     }
 
     /// Sets the value of [principal_email][crate::model::Access::principal_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_principal_email("example");
+    /// ```
     pub fn set_principal_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal_email = v.into();
         self
     }
 
     /// Sets the value of [caller_ip][crate::model::Access::caller_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_caller_ip("example");
+    /// ```
     pub fn set_caller_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.caller_ip = v.into();
         self
     }
 
     /// Sets the value of [caller_ip_geo][crate::model::Access::caller_ip_geo].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// use google_cloud_securitycenter_v2::model::Geolocation;
+    /// let x = Access::new().set_caller_ip_geo(Geolocation::default()/* use setters */);
+    /// ```
     pub fn set_caller_ip_geo<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Geolocation>,
@@ -132,6 +151,14 @@ impl Access {
     }
 
     /// Sets or clears the value of [caller_ip_geo][crate::model::Access::caller_ip_geo].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// use google_cloud_securitycenter_v2::model::Geolocation;
+    /// let x = Access::new().set_or_clear_caller_ip_geo(Some(Geolocation::default()/* use setters */));
+    /// let x = Access::new().set_or_clear_caller_ip_geo(None::<Geolocation>);
+    /// ```
     pub fn set_or_clear_caller_ip_geo<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Geolocation>,
@@ -141,6 +168,12 @@ impl Access {
     }
 
     /// Sets the value of [user_agent_family][crate::model::Access::user_agent_family].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_user_agent_family("example");
+    /// ```
     pub fn set_user_agent_family<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -150,24 +183,48 @@ impl Access {
     }
 
     /// Sets the value of [user_agent][crate::model::Access::user_agent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_user_agent("example");
+    /// ```
     pub fn set_user_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_agent = v.into();
         self
     }
 
     /// Sets the value of [service_name][crate::model::Access::service_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_service_name("example");
+    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [method_name][crate::model::Access::method_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_method_name("example");
+    /// ```
     pub fn set_method_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.method_name = v.into();
         self
     }
 
     /// Sets the value of [principal_subject][crate::model::Access::principal_subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_principal_subject("example");
+    /// ```
     pub fn set_principal_subject<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -177,6 +234,12 @@ impl Access {
     }
 
     /// Sets the value of [service_account_key_name][crate::model::Access::service_account_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_service_account_key_name("example");
+    /// ```
     pub fn set_service_account_key_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -186,6 +249,17 @@ impl Access {
     }
 
     /// Sets the value of [service_account_delegation_info][crate::model::Access::service_account_delegation_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// use google_cloud_securitycenter_v2::model::ServiceAccountDelegationInfo;
+    /// let x = Access::new()
+    ///     .set_service_account_delegation_info([
+    ///         ServiceAccountDelegationInfo::default()/* use setters */,
+    ///         ServiceAccountDelegationInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_account_delegation_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -197,6 +271,12 @@ impl Access {
     }
 
     /// Sets the value of [user_name][crate::model::Access::user_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Access::new().set_user_name("example");
+    /// ```
     pub fn set_user_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_name = v.into();
         self
@@ -234,12 +314,24 @@ impl ServiceAccountDelegationInfo {
     }
 
     /// Sets the value of [principal_email][crate::model::ServiceAccountDelegationInfo::principal_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ServiceAccountDelegationInfo;
+    /// let x = ServiceAccountDelegationInfo::new().set_principal_email("example");
+    /// ```
     pub fn set_principal_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal_email = v.into();
         self
     }
 
     /// Sets the value of [principal_subject][crate::model::ServiceAccountDelegationInfo::principal_subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ServiceAccountDelegationInfo;
+    /// let x = ServiceAccountDelegationInfo::new().set_principal_subject("example");
+    /// ```
     pub fn set_principal_subject<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -271,6 +363,12 @@ impl Geolocation {
     }
 
     /// Sets the value of [region_code][crate::model::Geolocation::region_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Geolocation;
+    /// let x = Geolocation::new().set_region_code("example");
+    /// ```
     pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region_code = v.into();
         self
@@ -299,6 +397,12 @@ impl AffectedResources {
     }
 
     /// Sets the value of [count][crate::model::AffectedResources::count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AffectedResources;
+    /// let x = AffectedResources::new().set_count(42);
+    /// ```
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
@@ -345,36 +449,75 @@ impl AiModel {
     }
 
     /// Sets the value of [name][crate::model::AiModel::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = AiModel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::AiModel::domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = AiModel::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [library][crate::model::AiModel::library].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = AiModel::new().set_library("example");
+    /// ```
     pub fn set_library<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.library = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::AiModel::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = AiModel::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [publisher][crate::model::AiModel::publisher].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = AiModel::new().set_publisher("example");
+    /// ```
     pub fn set_publisher<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.publisher = v.into();
         self
     }
 
     /// Sets the value of [deployment_platform][crate::model::AiModel::deployment_platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AiModel;
+    /// use google_cloud_securitycenter_v2::model::ai_model::DeploymentPlatform;
+    /// let x0 = AiModel::new().set_deployment_platform(DeploymentPlatform::VertexAi);
+    /// let x1 = AiModel::new().set_deployment_platform(DeploymentPlatform::Gke);
+    /// let x2 = AiModel::new().set_deployment_platform(DeploymentPlatform::Gce);
+    /// ```
     pub fn set_deployment_platform<
         T: std::convert::Into<crate::model::ai_model::DeploymentPlatform>,
     >(
@@ -386,6 +529,12 @@ impl AiModel {
     }
 
     /// Sets the value of [display_name][crate::model::AiModel::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = AiModel::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -571,12 +720,24 @@ impl Application {
     }
 
     /// Sets the value of [base_uri][crate::model::Application::base_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Application;
+    /// let x = Application::new().set_base_uri("example");
+    /// ```
     pub fn set_base_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_uri = v.into();
         self
     }
 
     /// Sets the value of [full_uri][crate::model::Application::full_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Application;
+    /// let x = Application::new().set_full_uri("example");
+    /// ```
     pub fn set_full_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_uri = v.into();
         self
@@ -631,12 +792,25 @@ impl AttackExposure {
     }
 
     /// Sets the value of [score][crate::model::AttackExposure::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// let x = AttackExposure::new().set_score(42.0);
+    /// ```
     pub fn set_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
     }
 
     /// Sets the value of [latest_calculation_time][crate::model::AttackExposure::latest_calculation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// use wkt::Timestamp;
+    /// let x = AttackExposure::new().set_latest_calculation_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_latest_calculation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -646,6 +820,14 @@ impl AttackExposure {
     }
 
     /// Sets or clears the value of [latest_calculation_time][crate::model::AttackExposure::latest_calculation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// use wkt::Timestamp;
+    /// let x = AttackExposure::new().set_or_clear_latest_calculation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AttackExposure::new().set_or_clear_latest_calculation_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_latest_calculation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -655,6 +837,12 @@ impl AttackExposure {
     }
 
     /// Sets the value of [attack_exposure_result][crate::model::AttackExposure::attack_exposure_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// let x = AttackExposure::new().set_attack_exposure_result("example");
+    /// ```
     pub fn set_attack_exposure_result<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -664,6 +852,14 @@ impl AttackExposure {
     }
 
     /// Sets the value of [state][crate::model::AttackExposure::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// use google_cloud_securitycenter_v2::model::attack_exposure::State;
+    /// let x0 = AttackExposure::new().set_state(State::Calculated);
+    /// let x1 = AttackExposure::new().set_state(State::NotCalculated);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::attack_exposure::State>>(
         mut self,
         v: T,
@@ -673,6 +869,12 @@ impl AttackExposure {
     }
 
     /// Sets the value of [exposed_high_value_resources_count][crate::model::AttackExposure::exposed_high_value_resources_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// let x = AttackExposure::new().set_exposed_high_value_resources_count(42);
+    /// ```
     pub fn set_exposed_high_value_resources_count<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -682,6 +884,12 @@ impl AttackExposure {
     }
 
     /// Sets the value of [exposed_medium_value_resources_count][crate::model::AttackExposure::exposed_medium_value_resources_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// let x = AttackExposure::new().set_exposed_medium_value_resources_count(42);
+    /// ```
     pub fn set_exposed_medium_value_resources_count<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -691,6 +899,12 @@ impl AttackExposure {
     }
 
     /// Sets the value of [exposed_low_value_resources_count][crate::model::AttackExposure::exposed_low_value_resources_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// let x = AttackExposure::new().set_exposed_low_value_resources_count(42);
+    /// ```
     pub fn set_exposed_low_value_resources_count<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -867,12 +1081,29 @@ impl AttackPath {
     }
 
     /// Sets the value of [name][crate::model::AttackPath::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackPath;
+    /// let x = AttackPath::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [path_nodes][crate::model::AttackPath::path_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackPath;
+    /// use google_cloud_securitycenter_v2::model::attack_path::AttackPathNode;
+    /// let x = AttackPath::new()
+    ///     .set_path_nodes([
+    ///         AttackPathNode::default()/* use setters */,
+    ///         AttackPathNode::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_path_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -884,6 +1115,17 @@ impl AttackPath {
     }
 
     /// Sets the value of [edges][crate::model::AttackPath::edges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AttackPath;
+    /// use google_cloud_securitycenter_v2::model::attack_path::AttackPathEdge;
+    /// let x = AttackPath::new()
+    ///     .set_edges([
+    ///         AttackPathEdge::default()/* use setters */,
+    ///         AttackPathEdge::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_edges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -943,12 +1185,24 @@ pub mod attack_path {
         }
 
         /// Sets the value of [resource][crate::model::attack_path::AttackPathNode::resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathNode;
+        /// let x = AttackPathNode::new().set_resource("example");
+        /// ```
         pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource = v.into();
             self
         }
 
         /// Sets the value of [resource_type][crate::model::attack_path::AttackPathNode::resource_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathNode;
+        /// let x = AttackPathNode::new().set_resource_type("example");
+        /// ```
         pub fn set_resource_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -958,6 +1212,12 @@ pub mod attack_path {
         }
 
         /// Sets the value of [display_name][crate::model::attack_path::AttackPathNode::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathNode;
+        /// let x = AttackPathNode::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -967,6 +1227,17 @@ pub mod attack_path {
         }
 
         /// Sets the value of [associated_findings][crate::model::attack_path::AttackPathNode::associated_findings].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathNode;
+        /// use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::PathNodeAssociatedFinding;
+        /// let x = AttackPathNode::new()
+        ///     .set_associated_findings([
+        ///         PathNodeAssociatedFinding::default()/* use setters */,
+        ///         PathNodeAssociatedFinding::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_associated_findings<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -980,12 +1251,29 @@ pub mod attack_path {
         }
 
         /// Sets the value of [uuid][crate::model::attack_path::AttackPathNode::uuid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathNode;
+        /// let x = AttackPathNode::new().set_uuid("example");
+        /// ```
         pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uuid = v.into();
             self
         }
 
         /// Sets the value of [attack_steps][crate::model::attack_path::AttackPathNode::attack_steps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathNode;
+        /// use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::AttackStepNode;
+        /// let x = AttackPathNode::new()
+        ///     .set_attack_steps([
+        ///         AttackStepNode::default()/* use setters */,
+        ///         AttackStepNode::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_attack_steps<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1031,6 +1319,12 @@ pub mod attack_path {
             }
 
             /// Sets the value of [canonical_finding][crate::model::attack_path::attack_path_node::PathNodeAssociatedFinding::canonical_finding].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::PathNodeAssociatedFinding;
+            /// let x = PathNodeAssociatedFinding::new().set_canonical_finding("example");
+            /// ```
             pub fn set_canonical_finding<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1040,6 +1334,12 @@ pub mod attack_path {
             }
 
             /// Sets the value of [finding_category][crate::model::attack_path::attack_path_node::PathNodeAssociatedFinding::finding_category].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::PathNodeAssociatedFinding;
+            /// let x = PathNodeAssociatedFinding::new().set_finding_category("example");
+            /// ```
             pub fn set_finding_category<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1049,6 +1349,12 @@ pub mod attack_path {
             }
 
             /// Sets the value of [name][crate::model::attack_path::attack_path_node::PathNodeAssociatedFinding::name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::PathNodeAssociatedFinding;
+            /// let x = PathNodeAssociatedFinding::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
@@ -1089,12 +1395,27 @@ pub mod attack_path {
             }
 
             /// Sets the value of [uuid][crate::model::attack_path::attack_path_node::AttackStepNode::uuid].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::AttackStepNode;
+            /// let x = AttackStepNode::new().set_uuid("example");
+            /// ```
             pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uuid = v.into();
                 self
             }
 
             /// Sets the value of [r#type][crate::model::attack_path::attack_path_node::AttackStepNode::type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::AttackStepNode;
+            /// use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::NodeType;
+            /// let x0 = AttackStepNode::new().set_type(NodeType::And);
+            /// let x1 = AttackStepNode::new().set_type(NodeType::Or);
+            /// let x2 = AttackStepNode::new().set_type(NodeType::Defense);
+            /// ```
             pub fn set_type<
                 T: std::convert::Into<crate::model::attack_path::attack_path_node::NodeType>,
             >(
@@ -1106,6 +1427,12 @@ pub mod attack_path {
             }
 
             /// Sets the value of [display_name][crate::model::attack_path::attack_path_node::AttackStepNode::display_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::AttackStepNode;
+            /// let x = AttackStepNode::new().set_display_name("example");
+            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1115,6 +1442,15 @@ pub mod attack_path {
             }
 
             /// Sets the value of [labels][crate::model::attack_path::attack_path_node::AttackStepNode::labels].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::AttackStepNode;
+            /// let x = AttackStepNode::new().set_labels([
+            ///     ("key0", "abc"),
+            ///     ("key1", "xyz"),
+            /// ]);
+            /// ```
             pub fn set_labels<T, K, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1127,6 +1463,12 @@ pub mod attack_path {
             }
 
             /// Sets the value of [description][crate::model::attack_path::attack_path_node::AttackStepNode::description].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::attack_path::attack_path_node::AttackStepNode;
+            /// let x = AttackStepNode::new().set_description("example");
+            /// ```
             pub fn set_description<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1312,12 +1654,24 @@ pub mod attack_path {
         }
 
         /// Sets the value of [source][crate::model::attack_path::AttackPathEdge::source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathEdge;
+        /// let x = AttackPathEdge::new().set_source("example");
+        /// ```
         pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = v.into();
             self
         }
 
         /// Sets the value of [destination][crate::model::attack_path::AttackPathEdge::destination].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::attack_path::AttackPathEdge;
+        /// let x = AttackPathEdge::new().set_destination("example");
+        /// ```
         pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination = v.into();
             self
@@ -1402,12 +1756,24 @@ impl BackupDisasterRecovery {
     }
 
     /// Sets the value of [backup_template][crate::model::BackupDisasterRecovery::backup_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_backup_template("example");
+    /// ```
     pub fn set_backup_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_template = v.into();
         self
     }
 
     /// Sets the value of [policies][crate::model::BackupDisasterRecovery::policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_policies(["a", "b", "c"]);
+    /// ```
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1419,12 +1785,24 @@ impl BackupDisasterRecovery {
     }
 
     /// Sets the value of [host][crate::model::BackupDisasterRecovery::host].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_host("example");
+    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
     }
 
     /// Sets the value of [applications][crate::model::BackupDisasterRecovery::applications].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_applications(["a", "b", "c"]);
+    /// ```
     pub fn set_applications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1436,12 +1814,24 @@ impl BackupDisasterRecovery {
     }
 
     /// Sets the value of [storage_pool][crate::model::BackupDisasterRecovery::storage_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_storage_pool("example");
+    /// ```
     pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_pool = v.into();
         self
     }
 
     /// Sets the value of [policy_options][crate::model::BackupDisasterRecovery::policy_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_policy_options(["a", "b", "c"]);
+    /// ```
     pub fn set_policy_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1453,24 +1843,49 @@ impl BackupDisasterRecovery {
     }
 
     /// Sets the value of [profile][crate::model::BackupDisasterRecovery::profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_profile("example");
+    /// ```
     pub fn set_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.profile = v.into();
         self
     }
 
     /// Sets the value of [appliance][crate::model::BackupDisasterRecovery::appliance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_appliance("example");
+    /// ```
     pub fn set_appliance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.appliance = v.into();
         self
     }
 
     /// Sets the value of [backup_type][crate::model::BackupDisasterRecovery::backup_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = BackupDisasterRecovery::new().set_backup_type("example");
+    /// ```
     pub fn set_backup_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_type = v.into();
         self
     }
 
     /// Sets the value of [backup_create_time][crate::model::BackupDisasterRecovery::backup_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// use wkt::Timestamp;
+    /// let x = BackupDisasterRecovery::new().set_backup_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_backup_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1480,6 +1895,14 @@ impl BackupDisasterRecovery {
     }
 
     /// Sets or clears the value of [backup_create_time][crate::model::BackupDisasterRecovery::backup_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// use wkt::Timestamp;
+    /// let x = BackupDisasterRecovery::new().set_or_clear_backup_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupDisasterRecovery::new().set_or_clear_backup_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_backup_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1573,30 +1996,61 @@ impl BigQueryExport {
     }
 
     /// Sets the value of [name][crate::model::BigQueryExport::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::BigQueryExport::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::BigQueryExport::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::BigQueryExport::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BigQueryExport::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// use wkt::Timestamp;
+    /// let x = BigQueryExport::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1606,6 +2060,14 @@ impl BigQueryExport {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BigQueryExport::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// use wkt::Timestamp;
+    /// let x = BigQueryExport::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BigQueryExport::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1615,6 +2077,13 @@ impl BigQueryExport {
     }
 
     /// Sets the value of [update_time][crate::model::BigQueryExport::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// use wkt::Timestamp;
+    /// let x = BigQueryExport::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1624,6 +2093,14 @@ impl BigQueryExport {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BigQueryExport::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// use wkt::Timestamp;
+    /// let x = BigQueryExport::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BigQueryExport::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1633,6 +2110,12 @@ impl BigQueryExport {
     }
 
     /// Sets the value of [most_recent_editor][crate::model::BigQueryExport::most_recent_editor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_most_recent_editor("example");
+    /// ```
     pub fn set_most_recent_editor<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1642,6 +2125,12 @@ impl BigQueryExport {
     }
 
     /// Sets the value of [principal][crate::model::BigQueryExport::principal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = BigQueryExport::new().set_principal("example");
+    /// ```
     pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal = v.into();
         self
@@ -1674,6 +2163,12 @@ impl Chokepoint {
     }
 
     /// Sets the value of [related_findings][crate::model::Chokepoint::related_findings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Chokepoint;
+    /// let x = Chokepoint::new().set_related_findings(["a", "b", "c"]);
+    /// ```
     pub fn set_related_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1731,6 +2226,13 @@ impl CloudArmor {
     }
 
     /// Sets the value of [security_policy][crate::model::CloudArmor::security_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::SecurityPolicy;
+    /// let x = CloudArmor::new().set_security_policy(SecurityPolicy::default()/* use setters */);
+    /// ```
     pub fn set_security_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPolicy>,
@@ -1740,6 +2242,14 @@ impl CloudArmor {
     }
 
     /// Sets or clears the value of [security_policy][crate::model::CloudArmor::security_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::SecurityPolicy;
+    /// let x = CloudArmor::new().set_or_clear_security_policy(Some(SecurityPolicy::default()/* use setters */));
+    /// let x = CloudArmor::new().set_or_clear_security_policy(None::<SecurityPolicy>);
+    /// ```
     pub fn set_or_clear_security_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPolicy>,
@@ -1749,6 +2259,13 @@ impl CloudArmor {
     }
 
     /// Sets the value of [requests][crate::model::CloudArmor::requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::Requests;
+    /// let x = CloudArmor::new().set_requests(Requests::default()/* use setters */);
+    /// ```
     pub fn set_requests<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Requests>,
@@ -1758,6 +2275,14 @@ impl CloudArmor {
     }
 
     /// Sets or clears the value of [requests][crate::model::CloudArmor::requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::Requests;
+    /// let x = CloudArmor::new().set_or_clear_requests(Some(Requests::default()/* use setters */));
+    /// let x = CloudArmor::new().set_or_clear_requests(None::<Requests>);
+    /// ```
     pub fn set_or_clear_requests<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Requests>,
@@ -1767,6 +2292,13 @@ impl CloudArmor {
     }
 
     /// Sets the value of [adaptive_protection][crate::model::CloudArmor::adaptive_protection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::AdaptiveProtection;
+    /// let x = CloudArmor::new().set_adaptive_protection(AdaptiveProtection::default()/* use setters */);
+    /// ```
     pub fn set_adaptive_protection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveProtection>,
@@ -1776,6 +2308,14 @@ impl CloudArmor {
     }
 
     /// Sets or clears the value of [adaptive_protection][crate::model::CloudArmor::adaptive_protection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::AdaptiveProtection;
+    /// let x = CloudArmor::new().set_or_clear_adaptive_protection(Some(AdaptiveProtection::default()/* use setters */));
+    /// let x = CloudArmor::new().set_or_clear_adaptive_protection(None::<AdaptiveProtection>);
+    /// ```
     pub fn set_or_clear_adaptive_protection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveProtection>,
@@ -1785,6 +2325,13 @@ impl CloudArmor {
     }
 
     /// Sets the value of [attack][crate::model::CloudArmor::attack].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::Attack;
+    /// let x = CloudArmor::new().set_attack(Attack::default()/* use setters */);
+    /// ```
     pub fn set_attack<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attack>,
@@ -1794,6 +2341,14 @@ impl CloudArmor {
     }
 
     /// Sets or clears the value of [attack][crate::model::CloudArmor::attack].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use google_cloud_securitycenter_v2::model::Attack;
+    /// let x = CloudArmor::new().set_or_clear_attack(Some(Attack::default()/* use setters */));
+    /// let x = CloudArmor::new().set_or_clear_attack(None::<Attack>);
+    /// ```
     pub fn set_or_clear_attack<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attack>,
@@ -1803,12 +2358,25 @@ impl CloudArmor {
     }
 
     /// Sets the value of [threat_vector][crate::model::CloudArmor::threat_vector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// let x = CloudArmor::new().set_threat_vector("example");
+    /// ```
     pub fn set_threat_vector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.threat_vector = v.into();
         self
     }
 
     /// Sets the value of [duration][crate::model::CloudArmor::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use wkt::Duration;
+    /// let x = CloudArmor::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1818,6 +2386,14 @@ impl CloudArmor {
     }
 
     /// Sets or clears the value of [duration][crate::model::CloudArmor::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// use wkt::Duration;
+    /// let x = CloudArmor::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = CloudArmor::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1860,18 +2436,36 @@ impl SecurityPolicy {
     }
 
     /// Sets the value of [name][crate::model::SecurityPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPolicy;
+    /// let x = SecurityPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::SecurityPolicy::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPolicy;
+    /// let x = SecurityPolicy::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [preview][crate::model::SecurityPolicy::preview].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPolicy;
+    /// let x = SecurityPolicy::new().set_preview(true);
+    /// ```
     pub fn set_preview<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.preview = v.into();
         self
@@ -1911,24 +2505,48 @@ impl Requests {
     }
 
     /// Sets the value of [ratio][crate::model::Requests::ratio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Requests;
+    /// let x = Requests::new().set_ratio(42.0);
+    /// ```
     pub fn set_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.ratio = v.into();
         self
     }
 
     /// Sets the value of [short_term_allowed][crate::model::Requests::short_term_allowed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Requests;
+    /// let x = Requests::new().set_short_term_allowed(42);
+    /// ```
     pub fn set_short_term_allowed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.short_term_allowed = v.into();
         self
     }
 
     /// Sets the value of [long_term_allowed][crate::model::Requests::long_term_allowed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Requests;
+    /// let x = Requests::new().set_long_term_allowed(42);
+    /// ```
     pub fn set_long_term_allowed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.long_term_allowed = v.into();
         self
     }
 
     /// Sets the value of [long_term_denied][crate::model::Requests::long_term_denied].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Requests;
+    /// let x = Requests::new().set_long_term_denied(42);
+    /// ```
     pub fn set_long_term_denied<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.long_term_denied = v.into();
         self
@@ -1962,6 +2580,12 @@ impl AdaptiveProtection {
     }
 
     /// Sets the value of [confidence][crate::model::AdaptiveProtection::confidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AdaptiveProtection;
+    /// let x = AdaptiveProtection::new().set_confidence(42.0);
+    /// ```
     pub fn set_confidence<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -2006,24 +2630,48 @@ impl Attack {
     }
 
     /// Sets the value of [volume_pps_long][crate::model::Attack::volume_pps_long].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Attack;
+    /// let x = Attack::new().set_volume_pps_long(42);
+    /// ```
     pub fn set_volume_pps_long<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.volume_pps_long = v.into();
         self
     }
 
     /// Sets the value of [volume_bps_long][crate::model::Attack::volume_bps_long].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Attack;
+    /// let x = Attack::new().set_volume_bps_long(42);
+    /// ```
     pub fn set_volume_bps_long<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.volume_bps_long = v.into();
         self
     }
 
     /// Sets the value of [classification][crate::model::Attack::classification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Attack;
+    /// let x = Attack::new().set_classification("example");
+    /// ```
     pub fn set_classification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.classification = v.into();
         self
     }
 
     /// Sets the value of [volume_pps][crate::model::Attack::volume_pps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Attack;
+    /// let x = Attack::new().set_volume_pps(42);
+    /// ```
     #[deprecated]
     pub fn set_volume_pps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volume_pps = v.into();
@@ -2031,6 +2679,12 @@ impl Attack {
     }
 
     /// Sets the value of [volume_bps][crate::model::Attack::volume_bps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Attack;
+    /// let x = Attack::new().set_volume_bps(42);
+    /// ```
     #[deprecated]
     pub fn set_volume_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volume_bps = v.into();
@@ -2065,12 +2719,26 @@ impl CloudDlpDataProfile {
     }
 
     /// Sets the value of [data_profile][crate::model::CloudDlpDataProfile::data_profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudDlpDataProfile;
+    /// let x = CloudDlpDataProfile::new().set_data_profile("example");
+    /// ```
     pub fn set_data_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_profile = v.into();
         self
     }
 
     /// Sets the value of [parent_type][crate::model::CloudDlpDataProfile::parent_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudDlpDataProfile;
+    /// use google_cloud_securitycenter_v2::model::cloud_dlp_data_profile::ParentType;
+    /// let x0 = CloudDlpDataProfile::new().set_parent_type(ParentType::Organization);
+    /// let x1 = CloudDlpDataProfile::new().set_parent_type(ParentType::Project);
+    /// ```
     pub fn set_parent_type<
         T: std::convert::Into<crate::model::cloud_dlp_data_profile::ParentType>,
     >(
@@ -2257,24 +2925,48 @@ impl CloudDlpInspection {
     }
 
     /// Sets the value of [inspect_job][crate::model::CloudDlpInspection::inspect_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudDlpInspection;
+    /// let x = CloudDlpInspection::new().set_inspect_job("example");
+    /// ```
     pub fn set_inspect_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.inspect_job = v.into();
         self
     }
 
     /// Sets the value of [info_type][crate::model::CloudDlpInspection::info_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudDlpInspection;
+    /// let x = CloudDlpInspection::new().set_info_type("example");
+    /// ```
     pub fn set_info_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.info_type = v.into();
         self
     }
 
     /// Sets the value of [info_type_count][crate::model::CloudDlpInspection::info_type_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudDlpInspection;
+    /// let x = CloudDlpInspection::new().set_info_type_count(42);
+    /// ```
     pub fn set_info_type_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.info_type_count = v.into();
         self
     }
 
     /// Sets the value of [full_scan][crate::model::CloudDlpInspection::full_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudDlpInspection;
+    /// let x = CloudDlpInspection::new().set_full_scan(true);
+    /// ```
     pub fn set_full_scan<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.full_scan = v.into();
         self
@@ -2311,18 +3003,36 @@ impl Compliance {
     }
 
     /// Sets the value of [standard][crate::model::Compliance::standard].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Compliance;
+    /// let x = Compliance::new().set_standard("example");
+    /// ```
     pub fn set_standard<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.standard = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Compliance::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Compliance;
+    /// let x = Compliance::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [ids][crate::model::Compliance::ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Compliance;
+    /// let x = Compliance::new().set_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2370,30 +3080,63 @@ impl Connection {
     }
 
     /// Sets the value of [destination_ip][crate::model::Connection::destination_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Connection;
+    /// let x = Connection::new().set_destination_ip("example");
+    /// ```
     pub fn set_destination_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_ip = v.into();
         self
     }
 
     /// Sets the value of [destination_port][crate::model::Connection::destination_port].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Connection;
+    /// let x = Connection::new().set_destination_port(42);
+    /// ```
     pub fn set_destination_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.destination_port = v.into();
         self
     }
 
     /// Sets the value of [source_ip][crate::model::Connection::source_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Connection;
+    /// let x = Connection::new().set_source_ip("example");
+    /// ```
     pub fn set_source_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_ip = v.into();
         self
     }
 
     /// Sets the value of [source_port][crate::model::Connection::source_port].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Connection;
+    /// let x = Connection::new().set_source_port(42);
+    /// ```
     pub fn set_source_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.source_port = v.into();
         self
     }
 
     /// Sets the value of [protocol][crate::model::Connection::protocol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Connection;
+    /// use google_cloud_securitycenter_v2::model::connection::Protocol;
+    /// let x0 = Connection::new().set_protocol(Protocol::Icmp);
+    /// let x1 = Connection::new().set_protocol(Protocol::Tcp);
+    /// let x2 = Connection::new().set_protocol(Protocol::Udp);
+    /// ```
     pub fn set_protocol<T: std::convert::Into<crate::model::connection::Protocol>>(
         mut self,
         v: T,
@@ -2584,6 +3327,17 @@ impl ContactDetails {
     }
 
     /// Sets the value of [contacts][crate::model::ContactDetails::contacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ContactDetails;
+    /// use google_cloud_securitycenter_v2::model::Contact;
+    /// let x = ContactDetails::new()
+    ///     .set_contacts([
+    ///         Contact::default()/* use setters */,
+    ///         Contact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2617,6 +3371,12 @@ impl Contact {
     }
 
     /// Sets the value of [email][crate::model::Contact::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Contact;
+    /// let x = Contact::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -2659,24 +3419,53 @@ impl Container {
     }
 
     /// Sets the value of [name][crate::model::Container::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Container;
+    /// let x = Container::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::Container::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Container;
+    /// let x = Container::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [image_id][crate::model::Container::image_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Container;
+    /// let x = Container::new().set_image_id("example");
+    /// ```
     pub fn set_image_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Container::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Container;
+    /// use google_cloud_securitycenter_v2::model::Label;
+    /// let x = Container::new()
+    ///     .set_labels([
+    ///         Label::default()/* use setters */,
+    ///         Label::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2688,6 +3477,13 @@ impl Container {
     }
 
     /// Sets the value of [create_time][crate::model::Container::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Container;
+    /// use wkt::Timestamp;
+    /// let x = Container::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2697,6 +3493,14 @@ impl Container {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Container::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Container;
+    /// use wkt::Timestamp;
+    /// let x = Container::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2739,18 +3543,39 @@ impl DataAccessEvent {
     }
 
     /// Sets the value of [event_id][crate::model::DataAccessEvent::event_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataAccessEvent;
+    /// let x = DataAccessEvent::new().set_event_id("example");
+    /// ```
     pub fn set_event_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_id = v.into();
         self
     }
 
     /// Sets the value of [principal_email][crate::model::DataAccessEvent::principal_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataAccessEvent;
+    /// let x = DataAccessEvent::new().set_principal_email("example");
+    /// ```
     pub fn set_principal_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal_email = v.into();
         self
     }
 
     /// Sets the value of [operation][crate::model::DataAccessEvent::operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataAccessEvent;
+    /// use google_cloud_securitycenter_v2::model::data_access_event::Operation;
+    /// let x0 = DataAccessEvent::new().set_operation(Operation::Read);
+    /// let x1 = DataAccessEvent::new().set_operation(Operation::Move);
+    /// let x2 = DataAccessEvent::new().set_operation(Operation::Copy);
+    /// ```
     pub fn set_operation<T: std::convert::Into<crate::model::data_access_event::Operation>>(
         mut self,
         v: T,
@@ -2760,6 +3585,13 @@ impl DataAccessEvent {
     }
 
     /// Sets the value of [event_time][crate::model::DataAccessEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataAccessEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessEvent::new().set_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2769,6 +3601,14 @@ impl DataAccessEvent {
     }
 
     /// Sets or clears the value of [event_time][crate::model::DataAccessEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataAccessEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessEvent::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAccessEvent::new().set_or_clear_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2960,18 +3800,39 @@ impl DataFlowEvent {
     }
 
     /// Sets the value of [event_id][crate::model::DataFlowEvent::event_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataFlowEvent;
+    /// let x = DataFlowEvent::new().set_event_id("example");
+    /// ```
     pub fn set_event_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_id = v.into();
         self
     }
 
     /// Sets the value of [principal_email][crate::model::DataFlowEvent::principal_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataFlowEvent;
+    /// let x = DataFlowEvent::new().set_principal_email("example");
+    /// ```
     pub fn set_principal_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal_email = v.into();
         self
     }
 
     /// Sets the value of [operation][crate::model::DataFlowEvent::operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataFlowEvent;
+    /// use google_cloud_securitycenter_v2::model::data_flow_event::Operation;
+    /// let x0 = DataFlowEvent::new().set_operation(Operation::Read);
+    /// let x1 = DataFlowEvent::new().set_operation(Operation::Move);
+    /// let x2 = DataFlowEvent::new().set_operation(Operation::Copy);
+    /// ```
     pub fn set_operation<T: std::convert::Into<crate::model::data_flow_event::Operation>>(
         mut self,
         v: T,
@@ -2981,6 +3842,12 @@ impl DataFlowEvent {
     }
 
     /// Sets the value of [violated_location][crate::model::DataFlowEvent::violated_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataFlowEvent;
+    /// let x = DataFlowEvent::new().set_violated_location("example");
+    /// ```
     pub fn set_violated_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2990,6 +3857,13 @@ impl DataFlowEvent {
     }
 
     /// Sets the value of [event_time][crate::model::DataFlowEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataFlowEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataFlowEvent::new().set_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2999,6 +3873,14 @@ impl DataFlowEvent {
     }
 
     /// Sets or clears the value of [event_time][crate::model::DataFlowEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataFlowEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataFlowEvent::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataFlowEvent::new().set_or_clear_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3200,6 +4082,13 @@ impl DataRetentionDeletionEvent {
     }
 
     /// Sets the value of [event_detection_time][crate::model::DataRetentionDeletionEvent::event_detection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataRetentionDeletionEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataRetentionDeletionEvent::new().set_event_detection_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_event_detection_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3209,6 +4098,14 @@ impl DataRetentionDeletionEvent {
     }
 
     /// Sets or clears the value of [event_detection_time][crate::model::DataRetentionDeletionEvent::event_detection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataRetentionDeletionEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataRetentionDeletionEvent::new().set_or_clear_event_detection_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataRetentionDeletionEvent::new().set_or_clear_event_detection_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_event_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3218,12 +4115,25 @@ impl DataRetentionDeletionEvent {
     }
 
     /// Sets the value of [data_object_count][crate::model::DataRetentionDeletionEvent::data_object_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataRetentionDeletionEvent;
+    /// let x = DataRetentionDeletionEvent::new().set_data_object_count(42);
+    /// ```
     pub fn set_data_object_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.data_object_count = v.into();
         self
     }
 
     /// Sets the value of [max_retention_allowed][crate::model::DataRetentionDeletionEvent::max_retention_allowed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataRetentionDeletionEvent;
+    /// use wkt::Duration;
+    /// let x = DataRetentionDeletionEvent::new().set_max_retention_allowed(Duration::default()/* use setters */);
+    /// ```
     pub fn set_max_retention_allowed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3233,6 +4143,14 @@ impl DataRetentionDeletionEvent {
     }
 
     /// Sets or clears the value of [max_retention_allowed][crate::model::DataRetentionDeletionEvent::max_retention_allowed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataRetentionDeletionEvent;
+    /// use wkt::Duration;
+    /// let x = DataRetentionDeletionEvent::new().set_or_clear_max_retention_allowed(Some(Duration::default()/* use setters */));
+    /// let x = DataRetentionDeletionEvent::new().set_or_clear_max_retention_allowed(None::<Duration>);
+    /// ```
     pub fn set_or_clear_max_retention_allowed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3242,6 +4160,13 @@ impl DataRetentionDeletionEvent {
     }
 
     /// Sets the value of [event_type][crate::model::DataRetentionDeletionEvent::event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DataRetentionDeletionEvent;
+    /// use google_cloud_securitycenter_v2::model::data_retention_deletion_event::EventType;
+    /// let x0 = DataRetentionDeletionEvent::new().set_event_type(EventType::MaxTtlExceeded);
+    /// ```
     pub fn set_event_type<
         T: std::convert::Into<crate::model::data_retention_deletion_event::EventType>,
     >(
@@ -3438,30 +4363,60 @@ impl Database {
     }
 
     /// Sets the value of [name][crate::model::Database::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Database::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Database::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Database::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [user_name][crate::model::Database::user_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Database::new().set_user_name("example");
+    /// ```
     pub fn set_user_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_name = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::Database::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Database::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [grantees][crate::model::Database::grantees].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Database::new().set_grantees(["a", "b", "c"]);
+    /// ```
     pub fn set_grantees<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3473,6 +4428,12 @@ impl Database {
     }
 
     /// Sets the value of [version][crate::model::Database::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Database::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -3502,6 +4463,12 @@ impl Disk {
     }
 
     /// Sets the value of [name][crate::model::Disk::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Disk;
+    /// let x = Disk::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3542,6 +4509,17 @@ impl Exfiltration {
     }
 
     /// Sets the value of [sources][crate::model::Exfiltration::sources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Exfiltration;
+    /// use google_cloud_securitycenter_v2::model::ExfilResource;
+    /// let x = Exfiltration::new()
+    ///     .set_sources([
+    ///         ExfilResource::default()/* use setters */,
+    ///         ExfilResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3553,6 +4531,17 @@ impl Exfiltration {
     }
 
     /// Sets the value of [targets][crate::model::Exfiltration::targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Exfiltration;
+    /// use google_cloud_securitycenter_v2::model::ExfilResource;
+    /// let x = Exfiltration::new()
+    ///     .set_targets([
+    ///         ExfilResource::default()/* use setters */,
+    ///         ExfilResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3564,6 +4553,12 @@ impl Exfiltration {
     }
 
     /// Sets the value of [total_exfiltrated_bytes][crate::model::Exfiltration::total_exfiltrated_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Exfiltration;
+    /// let x = Exfiltration::new().set_total_exfiltrated_bytes(42);
+    /// ```
     pub fn set_total_exfiltrated_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_exfiltrated_bytes = v.into();
         self
@@ -3600,12 +4595,24 @@ impl ExfilResource {
     }
 
     /// Sets the value of [name][crate::model::ExfilResource::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExfilResource;
+    /// let x = ExfilResource::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [components][crate::model::ExfilResource::components].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExfilResource;
+    /// let x = ExfilResource::new().set_components(["a", "b", "c"]);
+    /// ```
     pub fn set_components<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3686,12 +4693,24 @@ impl ExternalSystem {
     }
 
     /// Sets the value of [name][crate::model::ExternalSystem::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = ExternalSystem::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [assignees][crate::model::ExternalSystem::assignees].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = ExternalSystem::new().set_assignees(["a", "b", "c"]);
+    /// ```
     pub fn set_assignees<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3703,18 +4722,37 @@ impl ExternalSystem {
     }
 
     /// Sets the value of [external_uid][crate::model::ExternalSystem::external_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = ExternalSystem::new().set_external_uid("example");
+    /// ```
     pub fn set_external_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_uid = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::ExternalSystem::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = ExternalSystem::new().set_status("example");
+    /// ```
     pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [external_system_update_time][crate::model::ExternalSystem::external_system_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_external_system_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_external_system_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3724,6 +4762,14 @@ impl ExternalSystem {
     }
 
     /// Sets or clears the value of [external_system_update_time][crate::model::ExternalSystem::external_system_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_or_clear_external_system_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalSystem::new().set_or_clear_external_system_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_external_system_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3733,18 +4779,37 @@ impl ExternalSystem {
     }
 
     /// Sets the value of [case_uri][crate::model::ExternalSystem::case_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = ExternalSystem::new().set_case_uri("example");
+    /// ```
     pub fn set_case_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.case_uri = v.into();
         self
     }
 
     /// Sets the value of [case_priority][crate::model::ExternalSystem::case_priority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = ExternalSystem::new().set_case_priority("example");
+    /// ```
     pub fn set_case_priority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.case_priority = v.into();
         self
     }
 
     /// Sets the value of [case_sla][crate::model::ExternalSystem::case_sla].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_case_sla(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_case_sla<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3754,6 +4819,14 @@ impl ExternalSystem {
     }
 
     /// Sets or clears the value of [case_sla][crate::model::ExternalSystem::case_sla].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_or_clear_case_sla(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalSystem::new().set_or_clear_case_sla(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_case_sla<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3763,6 +4836,13 @@ impl ExternalSystem {
     }
 
     /// Sets the value of [case_create_time][crate::model::ExternalSystem::case_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_case_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_case_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3772,6 +4852,14 @@ impl ExternalSystem {
     }
 
     /// Sets or clears the value of [case_create_time][crate::model::ExternalSystem::case_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_or_clear_case_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalSystem::new().set_or_clear_case_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_case_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3781,6 +4869,13 @@ impl ExternalSystem {
     }
 
     /// Sets the value of [case_close_time][crate::model::ExternalSystem::case_close_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_case_close_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_case_close_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3790,6 +4885,14 @@ impl ExternalSystem {
     }
 
     /// Sets or clears the value of [case_close_time][crate::model::ExternalSystem::case_close_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use wkt::Timestamp;
+    /// let x = ExternalSystem::new().set_or_clear_case_close_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalSystem::new().set_or_clear_case_close_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_case_close_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3799,6 +4902,13 @@ impl ExternalSystem {
     }
 
     /// Sets the value of [ticket_info][crate::model::ExternalSystem::ticket_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+    /// let x = ExternalSystem::new().set_ticket_info(TicketInfo::default()/* use setters */);
+    /// ```
     pub fn set_ticket_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::external_system::TicketInfo>,
@@ -3808,6 +4918,14 @@ impl ExternalSystem {
     }
 
     /// Sets or clears the value of [ticket_info][crate::model::ExternalSystem::ticket_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+    /// let x = ExternalSystem::new().set_or_clear_ticket_info(Some(TicketInfo::default()/* use setters */));
+    /// let x = ExternalSystem::new().set_or_clear_ticket_info(None::<TicketInfo>);
+    /// ```
     pub fn set_or_clear_ticket_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::external_system::TicketInfo>,
@@ -3861,36 +4979,73 @@ pub mod external_system {
         }
 
         /// Sets the value of [id][crate::model::external_system::TicketInfo::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+        /// let x = TicketInfo::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [assignee][crate::model::external_system::TicketInfo::assignee].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+        /// let x = TicketInfo::new().set_assignee("example");
+        /// ```
         pub fn set_assignee<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.assignee = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::external_system::TicketInfo::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+        /// let x = TicketInfo::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [uri][crate::model::external_system::TicketInfo::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+        /// let x = TicketInfo::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [status][crate::model::external_system::TicketInfo::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+        /// let x = TicketInfo::new().set_status("example");
+        /// ```
         pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
         }
 
         /// Sets the value of [update_time][crate::model::external_system::TicketInfo::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+        /// use wkt::Timestamp;
+        /// let x = TicketInfo::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3900,6 +5055,14 @@ pub mod external_system {
         }
 
         /// Sets or clears the value of [update_time][crate::model::external_system::TicketInfo::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::external_system::TicketInfo;
+        /// use wkt::Timestamp;
+        /// let x = TicketInfo::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TicketInfo::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3958,42 +5121,85 @@ impl File {
     }
 
     /// Sets the value of [path][crate::model::File::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// let x = File::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [size][crate::model::File::size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// let x = File::new().set_size(42);
+    /// ```
     pub fn set_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size = v.into();
         self
     }
 
     /// Sets the value of [sha256][crate::model::File::sha256].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// let x = File::new().set_sha256("example");
+    /// ```
     pub fn set_sha256<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha256 = v.into();
         self
     }
 
     /// Sets the value of [hashed_size][crate::model::File::hashed_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// let x = File::new().set_hashed_size(42);
+    /// ```
     pub fn set_hashed_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.hashed_size = v.into();
         self
     }
 
     /// Sets the value of [partially_hashed][crate::model::File::partially_hashed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// let x = File::new().set_partially_hashed(true);
+    /// ```
     pub fn set_partially_hashed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.partially_hashed = v.into();
         self
     }
 
     /// Sets the value of [contents][crate::model::File::contents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// let x = File::new().set_contents("example");
+    /// ```
     pub fn set_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.contents = v.into();
         self
     }
 
     /// Sets the value of [disk_path][crate::model::File::disk_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// use google_cloud_securitycenter_v2::model::file::DiskPath;
+    /// let x = File::new().set_disk_path(DiskPath::default()/* use setters */);
+    /// ```
     pub fn set_disk_path<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::file::DiskPath>,
@@ -4003,6 +5209,14 @@ impl File {
     }
 
     /// Sets or clears the value of [disk_path][crate::model::File::disk_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// use google_cloud_securitycenter_v2::model::file::DiskPath;
+    /// let x = File::new().set_or_clear_disk_path(Some(DiskPath::default()/* use setters */));
+    /// let x = File::new().set_or_clear_disk_path(None::<DiskPath>);
+    /// ```
     pub fn set_or_clear_disk_path<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::file::DiskPath>,
@@ -4012,6 +5226,17 @@ impl File {
     }
 
     /// Sets the value of [operations][crate::model::File::operations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::File;
+    /// use google_cloud_securitycenter_v2::model::file::FileOperation;
+    /// let x = File::new()
+    ///     .set_operations([
+    ///         FileOperation::default()/* use setters */,
+    ///         FileOperation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4055,6 +5280,12 @@ pub mod file {
         }
 
         /// Sets the value of [partition_uuid][crate::model::file::DiskPath::partition_uuid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::file::DiskPath;
+        /// let x = DiskPath::new().set_partition_uuid("example");
+        /// ```
         pub fn set_partition_uuid<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4064,6 +5295,12 @@ pub mod file {
         }
 
         /// Sets the value of [relative_path][crate::model::file::DiskPath::relative_path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::file::DiskPath;
+        /// let x = DiskPath::new().set_relative_path("example");
+        /// ```
         pub fn set_relative_path<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4095,6 +5332,15 @@ pub mod file {
         }
 
         /// Sets the value of [r#type][crate::model::file::FileOperation::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::file::FileOperation;
+        /// use google_cloud_securitycenter_v2::model::file::file_operation::OperationType;
+        /// let x0 = FileOperation::new().set_type(OperationType::Open);
+        /// let x1 = FileOperation::new().set_type(OperationType::Read);
+        /// let x2 = FileOperation::new().set_type(OperationType::Rename);
+        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::file::file_operation::OperationType>,
         >(
@@ -4590,48 +5836,102 @@ impl Finding {
     }
 
     /// Sets the value of [name][crate::model::Finding::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [canonical_name][crate::model::Finding::canonical_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_canonical_name("example");
+    /// ```
     pub fn set_canonical_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.canonical_name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::Finding::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [resource_name][crate::model::Finding::resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_resource_name("example");
+    /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Finding::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::finding::State;
+    /// let x0 = Finding::new().set_state(State::Active);
+    /// let x1 = Finding::new().set_state(State::Inactive);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::finding::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::Finding::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_category("example");
+    /// ```
     pub fn set_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
 
     /// Sets the value of [external_uri][crate::model::Finding::external_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_external_uri("example");
+    /// ```
     pub fn set_external_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_uri = v.into();
         self
     }
 
     /// Sets the value of [source_properties][crate::model::Finding::source_properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use wkt::Value;
+    /// let x = Finding::new().set_source_properties([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_source_properties<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4644,6 +5944,13 @@ impl Finding {
     }
 
     /// Sets the value of [security_marks][crate::model::Finding::security_marks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::SecurityMarks;
+    /// let x = Finding::new().set_security_marks(SecurityMarks::default()/* use setters */);
+    /// ```
     pub fn set_security_marks<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecurityMarks>,
@@ -4653,6 +5960,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [security_marks][crate::model::Finding::security_marks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::SecurityMarks;
+    /// let x = Finding::new().set_or_clear_security_marks(Some(SecurityMarks::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_security_marks(None::<SecurityMarks>);
+    /// ```
     pub fn set_or_clear_security_marks<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecurityMarks>,
@@ -4662,6 +5977,13 @@ impl Finding {
     }
 
     /// Sets the value of [event_time][crate::model::Finding::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4671,6 +5993,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [event_time][crate::model::Finding::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4680,6 +6010,13 @@ impl Finding {
     }
 
     /// Sets the value of [create_time][crate::model::Finding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4689,6 +6026,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Finding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4698,6 +6043,15 @@ impl Finding {
     }
 
     /// Sets the value of [severity][crate::model::Finding::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::finding::Severity;
+    /// let x0 = Finding::new().set_severity(Severity::Critical);
+    /// let x1 = Finding::new().set_severity(Severity::High);
+    /// let x2 = Finding::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::finding::Severity>>(
         mut self,
         v: T,
@@ -4707,12 +6061,28 @@ impl Finding {
     }
 
     /// Sets the value of [mute][crate::model::Finding::mute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::finding::Mute;
+    /// let x0 = Finding::new().set_mute(Mute::Muted);
+    /// let x1 = Finding::new().set_mute(Mute::Unmuted);
+    /// let x2 = Finding::new().set_mute(Mute::Undefined);
+    /// ```
     pub fn set_mute<T: std::convert::Into<crate::model::finding::Mute>>(mut self, v: T) -> Self {
         self.mute = v.into();
         self
     }
 
     /// Sets the value of [mute_info][crate::model::Finding::mute_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::finding::MuteInfo;
+    /// let x = Finding::new().set_mute_info(MuteInfo::default()/* use setters */);
+    /// ```
     pub fn set_mute_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::finding::MuteInfo>,
@@ -4722,6 +6092,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [mute_info][crate::model::Finding::mute_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::finding::MuteInfo;
+    /// let x = Finding::new().set_or_clear_mute_info(Some(MuteInfo::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_mute_info(None::<MuteInfo>);
+    /// ```
     pub fn set_or_clear_mute_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::finding::MuteInfo>,
@@ -4731,6 +6109,15 @@ impl Finding {
     }
 
     /// Sets the value of [finding_class][crate::model::Finding::finding_class].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::finding::FindingClass;
+    /// let x0 = Finding::new().set_finding_class(FindingClass::Threat);
+    /// let x1 = Finding::new().set_finding_class(FindingClass::Vulnerability);
+    /// let x2 = Finding::new().set_finding_class(FindingClass::Misconfiguration);
+    /// ```
     pub fn set_finding_class<T: std::convert::Into<crate::model::finding::FindingClass>>(
         mut self,
         v: T,
@@ -4740,6 +6127,13 @@ impl Finding {
     }
 
     /// Sets the value of [indicator][crate::model::Finding::indicator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Indicator;
+    /// let x = Finding::new().set_indicator(Indicator::default()/* use setters */);
+    /// ```
     pub fn set_indicator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Indicator>,
@@ -4749,6 +6143,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [indicator][crate::model::Finding::indicator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Indicator;
+    /// let x = Finding::new().set_or_clear_indicator(Some(Indicator::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_indicator(None::<Indicator>);
+    /// ```
     pub fn set_or_clear_indicator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Indicator>,
@@ -4758,6 +6160,13 @@ impl Finding {
     }
 
     /// Sets the value of [vulnerability][crate::model::Finding::vulnerability].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// let x = Finding::new().set_vulnerability(Vulnerability::default()/* use setters */);
+    /// ```
     pub fn set_vulnerability<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Vulnerability>,
@@ -4767,6 +6176,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [vulnerability][crate::model::Finding::vulnerability].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// let x = Finding::new().set_or_clear_vulnerability(Some(Vulnerability::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_vulnerability(None::<Vulnerability>);
+    /// ```
     pub fn set_or_clear_vulnerability<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Vulnerability>,
@@ -4776,6 +6193,13 @@ impl Finding {
     }
 
     /// Sets the value of [mute_update_time][crate::model::Finding::mute_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_mute_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_mute_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4785,6 +6209,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [mute_update_time][crate::model::Finding::mute_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_or_clear_mute_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_mute_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_mute_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4794,6 +6226,16 @@ impl Finding {
     }
 
     /// Sets the value of [external_systems][crate::model::Finding::external_systems].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = Finding::new().set_external_systems([
+    ///     ("key0", ExternalSystem::default()/* use setters */),
+    ///     ("key1", ExternalSystem::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_external_systems<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4806,6 +6248,13 @@ impl Finding {
     }
 
     /// Sets the value of [mitre_attack][crate::model::Finding::mitre_attack].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::MitreAttack;
+    /// let x = Finding::new().set_mitre_attack(MitreAttack::default()/* use setters */);
+    /// ```
     pub fn set_mitre_attack<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MitreAttack>,
@@ -4815,6 +6264,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [mitre_attack][crate::model::Finding::mitre_attack].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::MitreAttack;
+    /// let x = Finding::new().set_or_clear_mitre_attack(Some(MitreAttack::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_mitre_attack(None::<MitreAttack>);
+    /// ```
     pub fn set_or_clear_mitre_attack<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MitreAttack>,
@@ -4824,6 +6281,13 @@ impl Finding {
     }
 
     /// Sets the value of [access][crate::model::Finding::access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Finding::new().set_access(Access::default()/* use setters */);
+    /// ```
     pub fn set_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Access>,
@@ -4833,6 +6297,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [access][crate::model::Finding::access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Access;
+    /// let x = Finding::new().set_or_clear_access(Some(Access::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_access(None::<Access>);
+    /// ```
     pub fn set_or_clear_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Access>,
@@ -4842,6 +6314,17 @@ impl Finding {
     }
 
     /// Sets the value of [connections][crate::model::Finding::connections].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Connection;
+    /// let x = Finding::new()
+    ///     .set_connections([
+    ///         Connection::default()/* use setters */,
+    ///         Connection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4853,12 +6336,29 @@ impl Finding {
     }
 
     /// Sets the value of [mute_initiator][crate::model::Finding::mute_initiator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_mute_initiator("example");
+    /// ```
     pub fn set_mute_initiator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mute_initiator = v.into();
         self
     }
 
     /// Sets the value of [processes][crate::model::Finding::processes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Finding::new()
+    ///     .set_processes([
+    ///         Process::default()/* use setters */,
+    ///         Process::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_processes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4870,6 +6370,16 @@ impl Finding {
     }
 
     /// Sets the value of [contacts][crate::model::Finding::contacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::ContactDetails;
+    /// let x = Finding::new().set_contacts([
+    ///     ("key0", ContactDetails::default()/* use setters */),
+    ///     ("key1", ContactDetails::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_contacts<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4882,6 +6392,17 @@ impl Finding {
     }
 
     /// Sets the value of [compliances][crate::model::Finding::compliances].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Compliance;
+    /// let x = Finding::new()
+    ///     .set_compliances([
+    ///         Compliance::default()/* use setters */,
+    ///         Compliance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_compliances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4893,6 +6414,12 @@ impl Finding {
     }
 
     /// Sets the value of [parent_display_name][crate::model::Finding::parent_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_parent_display_name("example");
+    /// ```
     pub fn set_parent_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4902,12 +6429,25 @@ impl Finding {
     }
 
     /// Sets the value of [description][crate::model::Finding::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [exfiltration][crate::model::Finding::exfiltration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Exfiltration;
+    /// let x = Finding::new().set_exfiltration(Exfiltration::default()/* use setters */);
+    /// ```
     pub fn set_exfiltration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Exfiltration>,
@@ -4917,6 +6457,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [exfiltration][crate::model::Finding::exfiltration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Exfiltration;
+    /// let x = Finding::new().set_or_clear_exfiltration(Some(Exfiltration::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_exfiltration(None::<Exfiltration>);
+    /// ```
     pub fn set_or_clear_exfiltration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Exfiltration>,
@@ -4926,6 +6474,17 @@ impl Finding {
     }
 
     /// Sets the value of [iam_bindings][crate::model::Finding::iam_bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::IamBinding;
+    /// let x = Finding::new()
+    ///     .set_iam_bindings([
+    ///         IamBinding::default()/* use setters */,
+    ///         IamBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_iam_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4937,18 +6496,41 @@ impl Finding {
     }
 
     /// Sets the value of [next_steps][crate::model::Finding::next_steps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_next_steps("example");
+    /// ```
     pub fn set_next_steps<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_steps = v.into();
         self
     }
 
     /// Sets the value of [module_name][crate::model::Finding::module_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = Finding::new().set_module_name("example");
+    /// ```
     pub fn set_module_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.module_name = v.into();
         self
     }
 
     /// Sets the value of [containers][crate::model::Finding::containers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Container;
+    /// let x = Finding::new()
+    ///     .set_containers([
+    ///         Container::default()/* use setters */,
+    ///         Container::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4960,6 +6542,13 @@ impl Finding {
     }
 
     /// Sets the value of [kubernetes][crate::model::Finding::kubernetes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// let x = Finding::new().set_kubernetes(Kubernetes::default()/* use setters */);
+    /// ```
     pub fn set_kubernetes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Kubernetes>,
@@ -4969,6 +6558,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [kubernetes][crate::model::Finding::kubernetes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// let x = Finding::new().set_or_clear_kubernetes(Some(Kubernetes::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_kubernetes(None::<Kubernetes>);
+    /// ```
     pub fn set_or_clear_kubernetes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Kubernetes>,
@@ -4978,6 +6575,13 @@ impl Finding {
     }
 
     /// Sets the value of [database][crate::model::Finding::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Finding::new().set_database(Database::default()/* use setters */);
+    /// ```
     pub fn set_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -4987,6 +6591,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [database][crate::model::Finding::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Database;
+    /// let x = Finding::new().set_or_clear_database(Some(Database::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_database(None::<Database>);
+    /// ```
     pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -4996,6 +6608,13 @@ impl Finding {
     }
 
     /// Sets the value of [attack_exposure][crate::model::Finding::attack_exposure].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// let x = Finding::new().set_attack_exposure(AttackExposure::default()/* use setters */);
+    /// ```
     pub fn set_attack_exposure<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AttackExposure>,
@@ -5005,6 +6624,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [attack_exposure][crate::model::Finding::attack_exposure].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AttackExposure;
+    /// let x = Finding::new().set_or_clear_attack_exposure(Some(AttackExposure::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_attack_exposure(None::<AttackExposure>);
+    /// ```
     pub fn set_or_clear_attack_exposure<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AttackExposure>,
@@ -5014,6 +6641,17 @@ impl Finding {
     }
 
     /// Sets the value of [files][crate::model::Finding::files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::File;
+    /// let x = Finding::new()
+    ///     .set_files([
+    ///         File::default()/* use setters */,
+    ///         File::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5025,6 +6663,13 @@ impl Finding {
     }
 
     /// Sets the value of [cloud_dlp_inspection][crate::model::Finding::cloud_dlp_inspection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::CloudDlpInspection;
+    /// let x = Finding::new().set_cloud_dlp_inspection(CloudDlpInspection::default()/* use setters */);
+    /// ```
     pub fn set_cloud_dlp_inspection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudDlpInspection>,
@@ -5034,6 +6679,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [cloud_dlp_inspection][crate::model::Finding::cloud_dlp_inspection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::CloudDlpInspection;
+    /// let x = Finding::new().set_or_clear_cloud_dlp_inspection(Some(CloudDlpInspection::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_cloud_dlp_inspection(None::<CloudDlpInspection>);
+    /// ```
     pub fn set_or_clear_cloud_dlp_inspection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudDlpInspection>,
@@ -5043,6 +6696,13 @@ impl Finding {
     }
 
     /// Sets the value of [cloud_dlp_data_profile][crate::model::Finding::cloud_dlp_data_profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::CloudDlpDataProfile;
+    /// let x = Finding::new().set_cloud_dlp_data_profile(CloudDlpDataProfile::default()/* use setters */);
+    /// ```
     pub fn set_cloud_dlp_data_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudDlpDataProfile>,
@@ -5052,6 +6712,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [cloud_dlp_data_profile][crate::model::Finding::cloud_dlp_data_profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::CloudDlpDataProfile;
+    /// let x = Finding::new().set_or_clear_cloud_dlp_data_profile(Some(CloudDlpDataProfile::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_cloud_dlp_data_profile(None::<CloudDlpDataProfile>);
+    /// ```
     pub fn set_or_clear_cloud_dlp_data_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudDlpDataProfile>,
@@ -5061,6 +6729,13 @@ impl Finding {
     }
 
     /// Sets the value of [kernel_rootkit][crate::model::Finding::kernel_rootkit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = Finding::new().set_kernel_rootkit(KernelRootkit::default()/* use setters */);
+    /// ```
     pub fn set_kernel_rootkit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KernelRootkit>,
@@ -5070,6 +6745,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [kernel_rootkit][crate::model::Finding::kernel_rootkit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = Finding::new().set_or_clear_kernel_rootkit(Some(KernelRootkit::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_kernel_rootkit(None::<KernelRootkit>);
+    /// ```
     pub fn set_or_clear_kernel_rootkit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KernelRootkit>,
@@ -5079,6 +6762,17 @@ impl Finding {
     }
 
     /// Sets the value of [org_policies][crate::model::Finding::org_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::OrgPolicy;
+    /// let x = Finding::new()
+    ///     .set_org_policies([
+    ///         OrgPolicy::default()/* use setters */,
+    ///         OrgPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_org_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5090,6 +6784,13 @@ impl Finding {
     }
 
     /// Sets the value of [job][crate::model::Finding::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Job;
+    /// let x = Finding::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -5099,6 +6800,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [job][crate::model::Finding::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Job;
+    /// let x = Finding::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -5108,6 +6817,13 @@ impl Finding {
     }
 
     /// Sets the value of [application][crate::model::Finding::application].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Application;
+    /// let x = Finding::new().set_application(Application::default()/* use setters */);
+    /// ```
     pub fn set_application<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Application>,
@@ -5117,6 +6833,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [application][crate::model::Finding::application].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Application;
+    /// let x = Finding::new().set_or_clear_application(Some(Application::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_application(None::<Application>);
+    /// ```
     pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Application>,
@@ -5126,6 +6850,13 @@ impl Finding {
     }
 
     /// Sets the value of [ip_rules][crate::model::Finding::ip_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::IpRules;
+    /// let x = Finding::new().set_ip_rules(IpRules::default()/* use setters */);
+    /// ```
     pub fn set_ip_rules<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IpRules>,
@@ -5135,6 +6866,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [ip_rules][crate::model::Finding::ip_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::IpRules;
+    /// let x = Finding::new().set_or_clear_ip_rules(Some(IpRules::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_ip_rules(None::<IpRules>);
+    /// ```
     pub fn set_or_clear_ip_rules<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IpRules>,
@@ -5144,6 +6883,13 @@ impl Finding {
     }
 
     /// Sets the value of [backup_disaster_recovery][crate::model::Finding::backup_disaster_recovery].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = Finding::new().set_backup_disaster_recovery(BackupDisasterRecovery::default()/* use setters */);
+    /// ```
     pub fn set_backup_disaster_recovery<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupDisasterRecovery>,
@@ -5153,6 +6899,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [backup_disaster_recovery][crate::model::Finding::backup_disaster_recovery].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::BackupDisasterRecovery;
+    /// let x = Finding::new().set_or_clear_backup_disaster_recovery(Some(BackupDisasterRecovery::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_backup_disaster_recovery(None::<BackupDisasterRecovery>);
+    /// ```
     pub fn set_or_clear_backup_disaster_recovery<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupDisasterRecovery>,
@@ -5162,6 +6916,13 @@ impl Finding {
     }
 
     /// Sets the value of [security_posture][crate::model::Finding::security_posture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = Finding::new().set_security_posture(SecurityPosture::default()/* use setters */);
+    /// ```
     pub fn set_security_posture<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPosture>,
@@ -5171,6 +6932,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [security_posture][crate::model::Finding::security_posture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = Finding::new().set_or_clear_security_posture(Some(SecurityPosture::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_security_posture(None::<SecurityPosture>);
+    /// ```
     pub fn set_or_clear_security_posture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPosture>,
@@ -5180,6 +6949,17 @@ impl Finding {
     }
 
     /// Sets the value of [log_entries][crate::model::Finding::log_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::LogEntry;
+    /// let x = Finding::new()
+    ///     .set_log_entries([
+    ///         LogEntry::default()/* use setters */,
+    ///         LogEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_log_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5191,6 +6971,17 @@ impl Finding {
     }
 
     /// Sets the value of [load_balancers][crate::model::Finding::load_balancers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::LoadBalancer;
+    /// let x = Finding::new()
+    ///     .set_load_balancers([
+    ///         LoadBalancer::default()/* use setters */,
+    ///         LoadBalancer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_load_balancers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5202,6 +6993,13 @@ impl Finding {
     }
 
     /// Sets the value of [cloud_armor][crate::model::Finding::cloud_armor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// let x = Finding::new().set_cloud_armor(CloudArmor::default()/* use setters */);
+    /// ```
     pub fn set_cloud_armor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudArmor>,
@@ -5211,6 +7009,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [cloud_armor][crate::model::Finding::cloud_armor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::CloudArmor;
+    /// let x = Finding::new().set_or_clear_cloud_armor(Some(CloudArmor::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_cloud_armor(None::<CloudArmor>);
+    /// ```
     pub fn set_or_clear_cloud_armor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudArmor>,
@@ -5220,6 +7026,13 @@ impl Finding {
     }
 
     /// Sets the value of [notebook][crate::model::Finding::notebook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Notebook;
+    /// let x = Finding::new().set_notebook(Notebook::default()/* use setters */);
+    /// ```
     pub fn set_notebook<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Notebook>,
@@ -5229,6 +7042,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [notebook][crate::model::Finding::notebook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Notebook;
+    /// let x = Finding::new().set_or_clear_notebook(Some(Notebook::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_notebook(None::<Notebook>);
+    /// ```
     pub fn set_or_clear_notebook<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Notebook>,
@@ -5238,6 +7059,13 @@ impl Finding {
     }
 
     /// Sets the value of [toxic_combination][crate::model::Finding::toxic_combination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::ToxicCombination;
+    /// let x = Finding::new().set_toxic_combination(ToxicCombination::default()/* use setters */);
+    /// ```
     pub fn set_toxic_combination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ToxicCombination>,
@@ -5247,6 +7075,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [toxic_combination][crate::model::Finding::toxic_combination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::ToxicCombination;
+    /// let x = Finding::new().set_or_clear_toxic_combination(Some(ToxicCombination::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_toxic_combination(None::<ToxicCombination>);
+    /// ```
     pub fn set_or_clear_toxic_combination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ToxicCombination>,
@@ -5256,6 +7092,17 @@ impl Finding {
     }
 
     /// Sets the value of [group_memberships][crate::model::Finding::group_memberships].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::GroupMembership;
+    /// let x = Finding::new()
+    ///     .set_group_memberships([
+    ///         GroupMembership::default()/* use setters */,
+    ///         GroupMembership::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_group_memberships<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5267,6 +7114,13 @@ impl Finding {
     }
 
     /// Sets the value of [disk][crate::model::Finding::disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Disk;
+    /// let x = Finding::new().set_disk(Disk::default()/* use setters */);
+    /// ```
     pub fn set_disk<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Disk>,
@@ -5276,6 +7130,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [disk][crate::model::Finding::disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Disk;
+    /// let x = Finding::new().set_or_clear_disk(Some(Disk::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_disk(None::<Disk>);
+    /// ```
     pub fn set_or_clear_disk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Disk>,
@@ -5285,6 +7147,17 @@ impl Finding {
     }
 
     /// Sets the value of [data_access_events][crate::model::Finding::data_access_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::DataAccessEvent;
+    /// let x = Finding::new()
+    ///     .set_data_access_events([
+    ///         DataAccessEvent::default()/* use setters */,
+    ///         DataAccessEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_access_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5296,6 +7169,17 @@ impl Finding {
     }
 
     /// Sets the value of [data_flow_events][crate::model::Finding::data_flow_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::DataFlowEvent;
+    /// let x = Finding::new()
+    ///     .set_data_flow_events([
+    ///         DataFlowEvent::default()/* use setters */,
+    ///         DataFlowEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_flow_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5307,6 +7191,17 @@ impl Finding {
     }
 
     /// Sets the value of [networks][crate::model::Finding::networks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Network;
+    /// let x = Finding::new()
+    ///     .set_networks([
+    ///         Network::default()/* use setters */,
+    ///         Network::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5318,6 +7213,17 @@ impl Finding {
     }
 
     /// Sets the value of [data_retention_deletion_events][crate::model::Finding::data_retention_deletion_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::DataRetentionDeletionEvent;
+    /// let x = Finding::new()
+    ///     .set_data_retention_deletion_events([
+    ///         DataRetentionDeletionEvent::default()/* use setters */,
+    ///         DataRetentionDeletionEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_retention_deletion_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5329,6 +7235,13 @@ impl Finding {
     }
 
     /// Sets the value of [affected_resources][crate::model::Finding::affected_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AffectedResources;
+    /// let x = Finding::new().set_affected_resources(AffectedResources::default()/* use setters */);
+    /// ```
     pub fn set_affected_resources<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AffectedResources>,
@@ -5338,6 +7251,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [affected_resources][crate::model::Finding::affected_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AffectedResources;
+    /// let x = Finding::new().set_or_clear_affected_resources(Some(AffectedResources::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_affected_resources(None::<AffectedResources>);
+    /// ```
     pub fn set_or_clear_affected_resources<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AffectedResources>,
@@ -5347,6 +7268,13 @@ impl Finding {
     }
 
     /// Sets the value of [ai_model][crate::model::Finding::ai_model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = Finding::new().set_ai_model(AiModel::default()/* use setters */);
+    /// ```
     pub fn set_ai_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AiModel>,
@@ -5356,6 +7284,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [ai_model][crate::model::Finding::ai_model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AiModel;
+    /// let x = Finding::new().set_or_clear_ai_model(Some(AiModel::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_ai_model(None::<AiModel>);
+    /// ```
     pub fn set_or_clear_ai_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AiModel>,
@@ -5365,6 +7301,13 @@ impl Finding {
     }
 
     /// Sets the value of [chokepoint][crate::model::Finding::chokepoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Chokepoint;
+    /// let x = Finding::new().set_chokepoint(Chokepoint::default()/* use setters */);
+    /// ```
     pub fn set_chokepoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Chokepoint>,
@@ -5374,6 +7317,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [chokepoint][crate::model::Finding::chokepoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Chokepoint;
+    /// let x = Finding::new().set_or_clear_chokepoint(Some(Chokepoint::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_chokepoint(None::<Chokepoint>);
+    /// ```
     pub fn set_or_clear_chokepoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Chokepoint>,
@@ -5383,6 +7334,13 @@ impl Finding {
     }
 
     /// Sets the value of [vertex_ai][crate::model::Finding::vertex_ai].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::VertexAi;
+    /// let x = Finding::new().set_vertex_ai(VertexAi::default()/* use setters */);
+    /// ```
     pub fn set_vertex_ai<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VertexAi>,
@@ -5392,6 +7350,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [vertex_ai][crate::model::Finding::vertex_ai].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::VertexAi;
+    /// let x = Finding::new().set_or_clear_vertex_ai(Some(VertexAi::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_vertex_ai(None::<VertexAi>);
+    /// ```
     pub fn set_or_clear_vertex_ai<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VertexAi>,
@@ -5434,6 +7400,13 @@ pub mod finding {
         }
 
         /// Sets the value of [static_mute][crate::model::finding::MuteInfo::static_mute].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::finding::MuteInfo;
+        /// use google_cloud_securitycenter_v2::model::finding::mute_info::StaticMute;
+        /// let x = MuteInfo::new().set_static_mute(StaticMute::default()/* use setters */);
+        /// ```
         pub fn set_static_mute<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::finding::mute_info::StaticMute>,
@@ -5443,6 +7416,14 @@ pub mod finding {
         }
 
         /// Sets or clears the value of [static_mute][crate::model::finding::MuteInfo::static_mute].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::finding::MuteInfo;
+        /// use google_cloud_securitycenter_v2::model::finding::mute_info::StaticMute;
+        /// let x = MuteInfo::new().set_or_clear_static_mute(Some(StaticMute::default()/* use setters */));
+        /// let x = MuteInfo::new().set_or_clear_static_mute(None::<StaticMute>);
+        /// ```
         pub fn set_or_clear_static_mute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::finding::mute_info::StaticMute>,
@@ -5452,6 +7433,17 @@ pub mod finding {
         }
 
         /// Sets the value of [dynamic_mute_records][crate::model::finding::MuteInfo::dynamic_mute_records].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::finding::MuteInfo;
+        /// use google_cloud_securitycenter_v2::model::finding::mute_info::DynamicMuteRecord;
+        /// let x = MuteInfo::new()
+        ///     .set_dynamic_mute_records([
+        ///         DynamicMuteRecord::default()/* use setters */,
+        ///         DynamicMuteRecord::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dynamic_mute_records<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5496,6 +7488,15 @@ pub mod finding {
             }
 
             /// Sets the value of [state][crate::model::finding::mute_info::StaticMute::state].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::finding::mute_info::StaticMute;
+            /// use google_cloud_securitycenter_v2::model::finding::Mute;
+            /// let x0 = StaticMute::new().set_state(Mute::Muted);
+            /// let x1 = StaticMute::new().set_state(Mute::Unmuted);
+            /// let x2 = StaticMute::new().set_state(Mute::Undefined);
+            /// ```
             pub fn set_state<T: std::convert::Into<crate::model::finding::Mute>>(
                 mut self,
                 v: T,
@@ -5505,6 +7506,13 @@ pub mod finding {
             }
 
             /// Sets the value of [apply_time][crate::model::finding::mute_info::StaticMute::apply_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::finding::mute_info::StaticMute;
+            /// use wkt::Timestamp;
+            /// let x = StaticMute::new().set_apply_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_apply_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -5514,6 +7522,14 @@ pub mod finding {
             }
 
             /// Sets or clears the value of [apply_time][crate::model::finding::mute_info::StaticMute::apply_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::finding::mute_info::StaticMute;
+            /// use wkt::Timestamp;
+            /// let x = StaticMute::new().set_or_clear_apply_time(Some(Timestamp::default()/* use setters */));
+            /// let x = StaticMute::new().set_or_clear_apply_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_apply_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -5551,6 +7567,12 @@ pub mod finding {
             }
 
             /// Sets the value of [mute_config][crate::model::finding::mute_info::DynamicMuteRecord::mute_config].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::finding::mute_info::DynamicMuteRecord;
+            /// let x = DynamicMuteRecord::new().set_mute_config("example");
+            /// ```
             pub fn set_mute_config<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5560,6 +7582,13 @@ pub mod finding {
             }
 
             /// Sets the value of [match_time][crate::model::finding::mute_info::DynamicMuteRecord::match_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::finding::mute_info::DynamicMuteRecord;
+            /// use wkt::Timestamp;
+            /// let x = DynamicMuteRecord::new().set_match_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_match_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -5569,6 +7598,14 @@ pub mod finding {
             }
 
             /// Sets or clears the value of [match_time][crate::model::finding::mute_info::DynamicMuteRecord::match_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::finding::mute_info::DynamicMuteRecord;
+            /// use wkt::Timestamp;
+            /// let x = DynamicMuteRecord::new().set_or_clear_match_time(Some(Timestamp::default()/* use setters */));
+            /// let x = DynamicMuteRecord::new().set_or_clear_match_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_match_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -6254,12 +8291,24 @@ impl Folder {
     }
 
     /// Sets the value of [resource_folder][crate::model::Folder::resource_folder].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Folder;
+    /// let x = Folder::new().set_resource_folder("example");
+    /// ```
     pub fn set_resource_folder<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_folder = v.into();
         self
     }
 
     /// Sets the value of [resource_folder_display_name][crate::model::Folder::resource_folder_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Folder;
+    /// let x = Folder::new().set_resource_folder_display_name("example");
+    /// ```
     pub fn set_resource_folder_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6295,6 +8344,14 @@ impl GroupMembership {
     }
 
     /// Sets the value of [group_type][crate::model::GroupMembership::group_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupMembership;
+    /// use google_cloud_securitycenter_v2::model::group_membership::GroupType;
+    /// let x0 = GroupMembership::new().set_group_type(GroupType::ToxicCombination);
+    /// let x1 = GroupMembership::new().set_group_type(GroupType::Chokepoint);
+    /// ```
     pub fn set_group_type<T: std::convert::Into<crate::model::group_membership::GroupType>>(
         mut self,
         v: T,
@@ -6304,6 +8361,12 @@ impl GroupMembership {
     }
 
     /// Sets the value of [group_id][crate::model::GroupMembership::group_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupMembership;
+    /// let x = GroupMembership::new().set_group_id("example");
+    /// ```
     pub fn set_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group_id = v.into();
         self
@@ -6479,6 +8542,14 @@ impl IamBinding {
     }
 
     /// Sets the value of [action][crate::model::IamBinding::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IamBinding;
+    /// use google_cloud_securitycenter_v2::model::iam_binding::Action;
+    /// let x0 = IamBinding::new().set_action(Action::Add);
+    /// let x1 = IamBinding::new().set_action(Action::Remove);
+    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::iam_binding::Action>>(
         mut self,
         v: T,
@@ -6488,12 +8559,24 @@ impl IamBinding {
     }
 
     /// Sets the value of [role][crate::model::IamBinding::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IamBinding;
+    /// let x = IamBinding::new().set_role("example");
+    /// ```
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of [member][crate::model::IamBinding::member].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IamBinding;
+    /// let x = IamBinding::new().set_member("example");
+    /// ```
     pub fn set_member<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.member = v.into();
         self
@@ -6674,6 +8757,12 @@ impl Indicator {
     }
 
     /// Sets the value of [ip_addresses][crate::model::Indicator::ip_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Indicator;
+    /// let x = Indicator::new().set_ip_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6685,6 +8774,12 @@ impl Indicator {
     }
 
     /// Sets the value of [domains][crate::model::Indicator::domains].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Indicator;
+    /// let x = Indicator::new().set_domains(["a", "b", "c"]);
+    /// ```
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6696,6 +8791,17 @@ impl Indicator {
     }
 
     /// Sets the value of [signatures][crate::model::Indicator::signatures].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Indicator;
+    /// use google_cloud_securitycenter_v2::model::indicator::ProcessSignature;
+    /// let x = Indicator::new()
+    ///     .set_signatures([
+    ///         ProcessSignature::default()/* use setters */,
+    ///         ProcessSignature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_signatures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6707,6 +8813,12 @@ impl Indicator {
     }
 
     /// Sets the value of [uris][crate::model::Indicator::uris].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Indicator;
+    /// let x = Indicator::new().set_uris(["a", "b", "c"]);
+    /// ```
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6748,6 +8860,14 @@ pub mod indicator {
         }
 
         /// Sets the value of [signature_type][crate::model::indicator::ProcessSignature::signature_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::indicator::ProcessSignature;
+        /// use google_cloud_securitycenter_v2::model::indicator::process_signature::SignatureType;
+        /// let x0 = ProcessSignature::new().set_signature_type(SignatureType::Process);
+        /// let x1 = ProcessSignature::new().set_signature_type(SignatureType::File);
+        /// ```
         pub fn set_signature_type<
             T: std::convert::Into<crate::model::indicator::process_signature::SignatureType>,
         >(
@@ -6762,6 +8882,14 @@ pub mod indicator {
         ///
         /// Note that all the setters affecting `signature` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::indicator::ProcessSignature;
+        /// use google_cloud_securitycenter_v2::model::indicator::process_signature::MemoryHashSignature;
+        /// let x = ProcessSignature::new().set_signature(Some(
+        ///     google_cloud_securitycenter_v2::model::indicator::process_signature::Signature::MemoryHashSignature(MemoryHashSignature::default().into())));
+        /// ```
         pub fn set_signature<
             T: std::convert::Into<
                     std::option::Option<crate::model::indicator::process_signature::Signature>,
@@ -6796,6 +8924,15 @@ pub mod indicator {
         ///
         /// Note that all the setters affecting `signature` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::indicator::ProcessSignature;
+        /// use google_cloud_securitycenter_v2::model::indicator::process_signature::MemoryHashSignature;
+        /// let x = ProcessSignature::new().set_memory_hash_signature(MemoryHashSignature::default()/* use setters */);
+        /// assert!(x.memory_hash_signature().is_some());
+        /// assert!(x.yara_rule_signature().is_none());
+        /// ```
         pub fn set_memory_hash_signature<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6836,6 +8973,15 @@ pub mod indicator {
         ///
         /// Note that all the setters affecting `signature` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::indicator::ProcessSignature;
+        /// use google_cloud_securitycenter_v2::model::indicator::process_signature::YaraRuleSignature;
+        /// let x = ProcessSignature::new().set_yara_rule_signature(YaraRuleSignature::default()/* use setters */);
+        /// assert!(x.yara_rule_signature().is_some());
+        /// assert!(x.memory_hash_signature().is_none());
+        /// ```
         pub fn set_yara_rule_signature<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::indicator::process_signature::YaraRuleSignature>,
@@ -6884,6 +9030,12 @@ pub mod indicator {
             }
 
             /// Sets the value of [binary_family][crate::model::indicator::process_signature::MemoryHashSignature::binary_family].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::indicator::process_signature::MemoryHashSignature;
+            /// let x = MemoryHashSignature::new().set_binary_family("example");
+            /// ```
             pub fn set_binary_family<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -6893,6 +9045,17 @@ pub mod indicator {
             }
 
             /// Sets the value of [detections][crate::model::indicator::process_signature::MemoryHashSignature::detections].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::indicator::process_signature::MemoryHashSignature;
+            /// use google_cloud_securitycenter_v2::model::indicator::process_signature::memory_hash_signature::Detection;
+            /// let x = MemoryHashSignature::new()
+            ///     .set_detections([
+            ///         Detection::default()/* use setters */,
+            ///         Detection::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detections<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6936,6 +9099,12 @@ pub mod indicator {
                 }
 
                 /// Sets the value of [binary][crate::model::indicator::process_signature::memory_hash_signature::Detection::binary].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_securitycenter_v2::model::indicator::process_signature::memory_hash_signature::Detection;
+                /// let x = Detection::new().set_binary("example");
+                /// ```
                 pub fn set_binary<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -6945,6 +9114,12 @@ pub mod indicator {
                 }
 
                 /// Sets the value of [percent_pages_matched][crate::model::indicator::process_signature::memory_hash_signature::Detection::percent_pages_matched].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_securitycenter_v2::model::indicator::process_signature::memory_hash_signature::Detection;
+                /// let x = Detection::new().set_percent_pages_matched(42.0);
+                /// ```
                 pub fn set_percent_pages_matched<T: std::convert::Into<f64>>(
                     mut self,
                     v: T,
@@ -6977,6 +9152,12 @@ pub mod indicator {
             }
 
             /// Sets the value of [yara_rule][crate::model::indicator::process_signature::YaraRuleSignature::yara_rule].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::indicator::process_signature::YaraRuleSignature;
+            /// let x = YaraRuleSignature::new().set_yara_rule("example");
+            /// ```
             pub fn set_yara_rule<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -7178,6 +9359,14 @@ impl IpRules {
     }
 
     /// Sets the value of [direction][crate::model::IpRules::direction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRules;
+    /// use google_cloud_securitycenter_v2::model::ip_rules::Direction;
+    /// let x0 = IpRules::new().set_direction(Direction::Ingress);
+    /// let x1 = IpRules::new().set_direction(Direction::Egress);
+    /// ```
     pub fn set_direction<T: std::convert::Into<crate::model::ip_rules::Direction>>(
         mut self,
         v: T,
@@ -7187,6 +9376,12 @@ impl IpRules {
     }
 
     /// Sets the value of [source_ip_ranges][crate::model::IpRules::source_ip_ranges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRules;
+    /// let x = IpRules::new().set_source_ip_ranges(["a", "b", "c"]);
+    /// ```
     pub fn set_source_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7198,6 +9393,12 @@ impl IpRules {
     }
 
     /// Sets the value of [destination_ip_ranges][crate::model::IpRules::destination_ip_ranges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRules;
+    /// let x = IpRules::new().set_destination_ip_ranges(["a", "b", "c"]);
+    /// ```
     pub fn set_destination_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7209,6 +9410,12 @@ impl IpRules {
     }
 
     /// Sets the value of [exposed_services][crate::model::IpRules::exposed_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRules;
+    /// let x = IpRules::new().set_exposed_services(["a", "b", "c"]);
+    /// ```
     pub fn set_exposed_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7223,6 +9430,14 @@ impl IpRules {
     ///
     /// Note that all the setters affecting `rules` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRules;
+    /// use google_cloud_securitycenter_v2::model::Allowed;
+    /// let x = IpRules::new().set_rules(Some(
+    ///     google_cloud_securitycenter_v2::model::ip_rules::Rules::Allowed(Allowed::default().into())));
+    /// ```
     pub fn set_rules<T: std::convert::Into<std::option::Option<crate::model::ip_rules::Rules>>>(
         mut self,
         v: T,
@@ -7247,6 +9462,15 @@ impl IpRules {
     ///
     /// Note that all the setters affecting `rules` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRules;
+    /// use google_cloud_securitycenter_v2::model::Allowed;
+    /// let x = IpRules::new().set_allowed(Allowed::default()/* use setters */);
+    /// assert!(x.allowed().is_some());
+    /// assert!(x.denied().is_none());
+    /// ```
     pub fn set_allowed<T: std::convert::Into<std::boxed::Box<crate::model::Allowed>>>(
         mut self,
         v: T,
@@ -7271,6 +9495,15 @@ impl IpRules {
     ///
     /// Note that all the setters affecting `rules` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRules;
+    /// use google_cloud_securitycenter_v2::model::Denied;
+    /// let x = IpRules::new().set_denied(Denied::default()/* use setters */);
+    /// assert!(x.denied().is_some());
+    /// assert!(x.allowed().is_none());
+    /// ```
     pub fn set_denied<T: std::convert::Into<std::boxed::Box<crate::model::Denied>>>(
         mut self,
         v: T,
@@ -7459,12 +9692,29 @@ impl IpRule {
     }
 
     /// Sets the value of [protocol][crate::model::IpRule::protocol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRule;
+    /// let x = IpRule::new().set_protocol("example");
+    /// ```
     pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
     }
 
     /// Sets the value of [port_ranges][crate::model::IpRule::port_ranges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::IpRule;
+    /// use google_cloud_securitycenter_v2::model::ip_rule::PortRange;
+    /// let x = IpRule::new()
+    ///     .set_port_ranges([
+    ///         PortRange::default()/* use setters */,
+    ///         PortRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_port_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7509,12 +9759,24 @@ pub mod ip_rule {
         }
 
         /// Sets the value of [min][crate::model::ip_rule::PortRange::min].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::ip_rule::PortRange;
+        /// let x = PortRange::new().set_min(42);
+        /// ```
         pub fn set_min<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.min = v.into();
             self
         }
 
         /// Sets the value of [max][crate::model::ip_rule::PortRange::max].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::ip_rule::PortRange;
+        /// let x = PortRange::new().set_max(42);
+        /// ```
         pub fn set_max<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max = v.into();
             self
@@ -7544,6 +9806,17 @@ impl Allowed {
     }
 
     /// Sets the value of [ip_rules][crate::model::Allowed::ip_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Allowed;
+    /// use google_cloud_securitycenter_v2::model::IpRule;
+    /// let x = Allowed::new()
+    ///     .set_ip_rules([
+    ///         IpRule::default()/* use setters */,
+    ///         IpRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ip_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7577,6 +9850,17 @@ impl Denied {
     }
 
     /// Sets the value of [ip_rules][crate::model::Denied::ip_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Denied;
+    /// use google_cloud_securitycenter_v2::model::IpRule;
+    /// let x = Denied::new()
+    ///     .set_ip_rules([
+    ///         IpRule::default()/* use setters */,
+    ///         IpRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ip_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7622,24 +9906,51 @@ impl Job {
     }
 
     /// Sets the value of [name][crate::model::Job::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Job;
+    /// let x = Job::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Job::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Job;
+    /// use google_cloud_securitycenter_v2::model::JobState;
+    /// let x0 = Job::new().set_state(JobState::Pending);
+    /// let x1 = Job::new().set_state(JobState::Running);
+    /// let x2 = Job::new().set_state(JobState::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::JobState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [error_code][crate::model::Job::error_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Job;
+    /// let x = Job::new().set_error_code(42);
+    /// ```
     pub fn set_error_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.error_code = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Job::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Job;
+    /// let x = Job::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -7699,18 +10010,36 @@ impl KernelRootkit {
     }
 
     /// Sets the value of [name][crate::model::KernelRootkit::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [unexpected_code_modification][crate::model::KernelRootkit::unexpected_code_modification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_code_modification(true);
+    /// ```
     pub fn set_unexpected_code_modification<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unexpected_code_modification = v.into();
         self
     }
 
     /// Sets the value of [unexpected_read_only_data_modification][crate::model::KernelRootkit::unexpected_read_only_data_modification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_read_only_data_modification(true);
+    /// ```
     pub fn set_unexpected_read_only_data_modification<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -7720,36 +10049,72 @@ impl KernelRootkit {
     }
 
     /// Sets the value of [unexpected_ftrace_handler][crate::model::KernelRootkit::unexpected_ftrace_handler].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_ftrace_handler(true);
+    /// ```
     pub fn set_unexpected_ftrace_handler<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unexpected_ftrace_handler = v.into();
         self
     }
 
     /// Sets the value of [unexpected_kprobe_handler][crate::model::KernelRootkit::unexpected_kprobe_handler].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_kprobe_handler(true);
+    /// ```
     pub fn set_unexpected_kprobe_handler<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unexpected_kprobe_handler = v.into();
         self
     }
 
     /// Sets the value of [unexpected_kernel_code_pages][crate::model::KernelRootkit::unexpected_kernel_code_pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_kernel_code_pages(true);
+    /// ```
     pub fn set_unexpected_kernel_code_pages<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unexpected_kernel_code_pages = v.into();
         self
     }
 
     /// Sets the value of [unexpected_system_call_handler][crate::model::KernelRootkit::unexpected_system_call_handler].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_system_call_handler(true);
+    /// ```
     pub fn set_unexpected_system_call_handler<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unexpected_system_call_handler = v.into();
         self
     }
 
     /// Sets the value of [unexpected_interrupt_handler][crate::model::KernelRootkit::unexpected_interrupt_handler].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_interrupt_handler(true);
+    /// ```
     pub fn set_unexpected_interrupt_handler<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unexpected_interrupt_handler = v.into();
         self
     }
 
     /// Sets the value of [unexpected_processes_in_runqueue][crate::model::KernelRootkit::unexpected_processes_in_runqueue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::KernelRootkit;
+    /// let x = KernelRootkit::new().set_unexpected_processes_in_runqueue(true);
+    /// ```
     pub fn set_unexpected_processes_in_runqueue<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -7811,6 +10176,17 @@ impl Kubernetes {
     }
 
     /// Sets the value of [pods][crate::model::Kubernetes::pods].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// use google_cloud_securitycenter_v2::model::kubernetes::Pod;
+    /// let x = Kubernetes::new()
+    ///     .set_pods([
+    ///         Pod::default()/* use setters */,
+    ///         Pod::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7822,6 +10198,17 @@ impl Kubernetes {
     }
 
     /// Sets the value of [nodes][crate::model::Kubernetes::nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// use google_cloud_securitycenter_v2::model::kubernetes::Node;
+    /// let x = Kubernetes::new()
+    ///     .set_nodes([
+    ///         Node::default()/* use setters */,
+    ///         Node::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7833,6 +10220,17 @@ impl Kubernetes {
     }
 
     /// Sets the value of [node_pools][crate::model::Kubernetes::node_pools].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// use google_cloud_securitycenter_v2::model::kubernetes::NodePool;
+    /// let x = Kubernetes::new()
+    ///     .set_node_pools([
+    ///         NodePool::default()/* use setters */,
+    ///         NodePool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_node_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7844,6 +10242,17 @@ impl Kubernetes {
     }
 
     /// Sets the value of [roles][crate::model::Kubernetes::roles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// use google_cloud_securitycenter_v2::model::kubernetes::Role;
+    /// let x = Kubernetes::new()
+    ///     .set_roles([
+    ///         Role::default()/* use setters */,
+    ///         Role::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7855,6 +10264,17 @@ impl Kubernetes {
     }
 
     /// Sets the value of [bindings][crate::model::Kubernetes::bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// use google_cloud_securitycenter_v2::model::kubernetes::Binding;
+    /// let x = Kubernetes::new()
+    ///     .set_bindings([
+    ///         Binding::default()/* use setters */,
+    ///         Binding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7866,6 +10286,17 @@ impl Kubernetes {
     }
 
     /// Sets the value of [access_reviews][crate::model::Kubernetes::access_reviews].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+    /// let x = Kubernetes::new()
+    ///     .set_access_reviews([
+    ///         AccessReview::default()/* use setters */,
+    ///         AccessReview::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_access_reviews<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7877,6 +10308,17 @@ impl Kubernetes {
     }
 
     /// Sets the value of [objects][crate::model::Kubernetes::objects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Kubernetes;
+    /// use google_cloud_securitycenter_v2::model::kubernetes::Object;
+    /// let x = Kubernetes::new()
+    ///     .set_objects([
+    ///         Object::default()/* use setters */,
+    ///         Object::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7925,18 +10367,41 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [ns][crate::model::kubernetes::Pod::ns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Pod;
+        /// let x = Pod::new().set_ns("example");
+        /// ```
         pub fn set_ns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ns = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::kubernetes::Pod::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Pod;
+        /// let x = Pod::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [labels][crate::model::kubernetes::Pod::labels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Pod;
+        /// use google_cloud_securitycenter_v2::model::Label;
+        /// let x = Pod::new()
+        ///     .set_labels([
+        ///         Label::default()/* use setters */,
+        ///         Label::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7948,6 +10413,17 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [containers][crate::model::kubernetes::Pod::containers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Pod;
+        /// use google_cloud_securitycenter_v2::model::Container;
+        /// let x = Pod::new()
+        ///     .set_containers([
+        ///         Container::default()/* use setters */,
+        ///         Container::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_containers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7982,6 +10458,12 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [name][crate::model::kubernetes::Node::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Node;
+        /// let x = Node::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -8013,12 +10495,29 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [name][crate::model::kubernetes::NodePool::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::NodePool;
+        /// let x = NodePool::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [nodes][crate::model::kubernetes::NodePool::nodes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::NodePool;
+        /// use google_cloud_securitycenter_v2::model::kubernetes::Node;
+        /// let x = NodePool::new()
+        ///     .set_nodes([
+        ///         Node::default()/* use setters */,
+        ///         Node::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_nodes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8058,6 +10557,14 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [kind][crate::model::kubernetes::Role::kind].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Role;
+        /// use google_cloud_securitycenter_v2::model::kubernetes::role::Kind;
+        /// let x0 = Role::new().set_kind(Kind::Role);
+        /// let x1 = Role::new().set_kind(Kind::ClusterRole);
+        /// ```
         pub fn set_kind<T: std::convert::Into<crate::model::kubernetes::role::Kind>>(
             mut self,
             v: T,
@@ -8067,12 +10574,24 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [ns][crate::model::kubernetes::Role::ns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Role;
+        /// let x = Role::new().set_ns("example");
+        /// ```
         pub fn set_ns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ns = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::kubernetes::Role::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Role;
+        /// let x = Role::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -8252,18 +10771,37 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [ns][crate::model::kubernetes::Binding::ns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Binding;
+        /// let x = Binding::new().set_ns("example");
+        /// ```
         pub fn set_ns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ns = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::kubernetes::Binding::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Binding;
+        /// let x = Binding::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [role][crate::model::kubernetes::Binding::role].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Binding;
+        /// use google_cloud_securitycenter_v2::model::kubernetes::Role;
+        /// let x = Binding::new().set_role(Role::default()/* use setters */);
+        /// ```
         pub fn set_role<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::kubernetes::Role>,
@@ -8273,6 +10811,14 @@ pub mod kubernetes {
         }
 
         /// Sets or clears the value of [role][crate::model::kubernetes::Binding::role].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Binding;
+        /// use google_cloud_securitycenter_v2::model::kubernetes::Role;
+        /// let x = Binding::new().set_or_clear_role(Some(Role::default()/* use setters */));
+        /// let x = Binding::new().set_or_clear_role(None::<Role>);
+        /// ```
         pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::kubernetes::Role>,
@@ -8282,6 +10828,17 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [subjects][crate::model::kubernetes::Binding::subjects].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Binding;
+        /// use google_cloud_securitycenter_v2::model::kubernetes::Subject;
+        /// let x = Binding::new()
+        ///     .set_subjects([
+        ///         Subject::default()/* use setters */,
+        ///         Subject::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_subjects<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8321,6 +10878,15 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [kind][crate::model::kubernetes::Subject::kind].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Subject;
+        /// use google_cloud_securitycenter_v2::model::kubernetes::subject::AuthType;
+        /// let x0 = Subject::new().set_kind(AuthType::User);
+        /// let x1 = Subject::new().set_kind(AuthType::Serviceaccount);
+        /// let x2 = Subject::new().set_kind(AuthType::Group);
+        /// ```
         pub fn set_kind<T: std::convert::Into<crate::model::kubernetes::subject::AuthType>>(
             mut self,
             v: T,
@@ -8330,12 +10896,24 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [ns][crate::model::kubernetes::Subject::ns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Subject;
+        /// let x = Subject::new().set_ns("example");
+        /// ```
         pub fn set_ns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ns = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::kubernetes::Subject::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Subject;
+        /// let x = Subject::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -8536,42 +11114,84 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [group][crate::model::kubernetes::AccessReview::group].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+        /// let x = AccessReview::new().set_group("example");
+        /// ```
         pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.group = v.into();
             self
         }
 
         /// Sets the value of [ns][crate::model::kubernetes::AccessReview::ns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+        /// let x = AccessReview::new().set_ns("example");
+        /// ```
         pub fn set_ns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ns = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::kubernetes::AccessReview::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+        /// let x = AccessReview::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [resource][crate::model::kubernetes::AccessReview::resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+        /// let x = AccessReview::new().set_resource("example");
+        /// ```
         pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource = v.into();
             self
         }
 
         /// Sets the value of [subresource][crate::model::kubernetes::AccessReview::subresource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+        /// let x = AccessReview::new().set_subresource("example");
+        /// ```
         pub fn set_subresource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subresource = v.into();
             self
         }
 
         /// Sets the value of [verb][crate::model::kubernetes::AccessReview::verb].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+        /// let x = AccessReview::new().set_verb("example");
+        /// ```
         pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.verb = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::kubernetes::AccessReview::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::AccessReview;
+        /// let x = AccessReview::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -8617,30 +11237,65 @@ pub mod kubernetes {
         }
 
         /// Sets the value of [group][crate::model::kubernetes::Object::group].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Object;
+        /// let x = Object::new().set_group("example");
+        /// ```
         pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.group = v.into();
             self
         }
 
         /// Sets the value of [kind][crate::model::kubernetes::Object::kind].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Object;
+        /// let x = Object::new().set_kind("example");
+        /// ```
         pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = v.into();
             self
         }
 
         /// Sets the value of [ns][crate::model::kubernetes::Object::ns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Object;
+        /// let x = Object::new().set_ns("example");
+        /// ```
         pub fn set_ns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ns = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::kubernetes::Object::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Object;
+        /// let x = Object::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [containers][crate::model::kubernetes::Object::containers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::kubernetes::Object;
+        /// use google_cloud_securitycenter_v2::model::Container;
+        /// let x = Object::new()
+        ///     .set_containers([
+        ///         Container::default()/* use setters */,
+        ///         Container::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_containers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8681,12 +11336,24 @@ impl Label {
     }
 
     /// Sets the value of [name][crate::model::Label::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Label;
+    /// let x = Label::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::Label::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Label;
+    /// let x = Label::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -8716,6 +11383,12 @@ impl LoadBalancer {
     }
 
     /// Sets the value of [name][crate::model::LoadBalancer::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::LoadBalancer;
+    /// let x = LoadBalancer::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8747,6 +11420,14 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `log_entry` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::LogEntry;
+    /// use google_cloud_securitycenter_v2::model::CloudLoggingEntry;
+    /// let x = LogEntry::new().set_log_entry(Some(
+    ///     google_cloud_securitycenter_v2::model::log_entry::LogEntry::CloudLoggingEntry(CloudLoggingEntry::default().into())));
+    /// ```
     pub fn set_log_entry<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::LogEntry>>,
     >(
@@ -8775,6 +11456,14 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `log_entry` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::LogEntry;
+    /// use google_cloud_securitycenter_v2::model::CloudLoggingEntry;
+    /// let x = LogEntry::new().set_cloud_logging_entry(CloudLoggingEntry::default()/* use setters */);
+    /// assert!(x.cloud_logging_entry().is_some());
+    /// ```
     pub fn set_cloud_logging_entry<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudLoggingEntry>>,
     >(
@@ -8838,18 +11527,36 @@ impl CloudLoggingEntry {
     }
 
     /// Sets the value of [insert_id][crate::model::CloudLoggingEntry::insert_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudLoggingEntry;
+    /// let x = CloudLoggingEntry::new().set_insert_id("example");
+    /// ```
     pub fn set_insert_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.insert_id = v.into();
         self
     }
 
     /// Sets the value of [log_id][crate::model::CloudLoggingEntry::log_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudLoggingEntry;
+    /// let x = CloudLoggingEntry::new().set_log_id("example");
+    /// ```
     pub fn set_log_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_id = v.into();
         self
     }
 
     /// Sets the value of [resource_container][crate::model::CloudLoggingEntry::resource_container].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudLoggingEntry;
+    /// let x = CloudLoggingEntry::new().set_resource_container("example");
+    /// ```
     pub fn set_resource_container<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8859,6 +11566,13 @@ impl CloudLoggingEntry {
     }
 
     /// Sets the value of [timestamp][crate::model::CloudLoggingEntry::timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudLoggingEntry;
+    /// use wkt::Timestamp;
+    /// let x = CloudLoggingEntry::new().set_timestamp(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8868,6 +11582,14 @@ impl CloudLoggingEntry {
     }
 
     /// Sets or clears the value of [timestamp][crate::model::CloudLoggingEntry::timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CloudLoggingEntry;
+    /// use wkt::Timestamp;
+    /// let x = CloudLoggingEntry::new().set_or_clear_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = CloudLoggingEntry::new().set_or_clear_timestamp(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8918,6 +11640,15 @@ impl MitreAttack {
     }
 
     /// Sets the value of [primary_tactic][crate::model::MitreAttack::primary_tactic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MitreAttack;
+    /// use google_cloud_securitycenter_v2::model::mitre_attack::Tactic;
+    /// let x0 = MitreAttack::new().set_primary_tactic(Tactic::Reconnaissance);
+    /// let x1 = MitreAttack::new().set_primary_tactic(Tactic::ResourceDevelopment);
+    /// let x2 = MitreAttack::new().set_primary_tactic(Tactic::InitialAccess);
+    /// ```
     pub fn set_primary_tactic<T: std::convert::Into<crate::model::mitre_attack::Tactic>>(
         mut self,
         v: T,
@@ -8927,6 +11658,17 @@ impl MitreAttack {
     }
 
     /// Sets the value of [primary_techniques][crate::model::MitreAttack::primary_techniques].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MitreAttack;
+    /// use google_cloud_securitycenter_v2::model::mitre_attack::Technique;
+    /// let x = MitreAttack::new().set_primary_techniques([
+    ///     Technique::DataObfuscation,
+    ///     Technique::DataObfuscationSteganography,
+    ///     Technique::OsCredentialDumping,
+    /// ]);
+    /// ```
     pub fn set_primary_techniques<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8938,6 +11680,17 @@ impl MitreAttack {
     }
 
     /// Sets the value of [additional_tactics][crate::model::MitreAttack::additional_tactics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MitreAttack;
+    /// use google_cloud_securitycenter_v2::model::mitre_attack::Tactic;
+    /// let x = MitreAttack::new().set_additional_tactics([
+    ///     Tactic::Reconnaissance,
+    ///     Tactic::ResourceDevelopment,
+    ///     Tactic::InitialAccess,
+    /// ]);
+    /// ```
     pub fn set_additional_tactics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8949,6 +11702,17 @@ impl MitreAttack {
     }
 
     /// Sets the value of [additional_techniques][crate::model::MitreAttack::additional_techniques].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MitreAttack;
+    /// use google_cloud_securitycenter_v2::model::mitre_attack::Technique;
+    /// let x = MitreAttack::new().set_additional_techniques([
+    ///     Technique::DataObfuscation,
+    ///     Technique::DataObfuscationSteganography,
+    ///     Technique::OsCredentialDumping,
+    /// ]);
+    /// ```
     pub fn set_additional_techniques<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8960,6 +11724,12 @@ impl MitreAttack {
     }
 
     /// Sets the value of [version][crate::model::MitreAttack::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MitreAttack;
+    /// let x = MitreAttack::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -10515,24 +13285,49 @@ impl MuteConfig {
     }
 
     /// Sets the value of [name][crate::model::MuteConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = MuteConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::MuteConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = MuteConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::MuteConfig::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = MuteConfig::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MuteConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// use wkt::Timestamp;
+    /// let x = MuteConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10542,6 +13337,14 @@ impl MuteConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MuteConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// use wkt::Timestamp;
+    /// let x = MuteConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MuteConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10551,6 +13354,13 @@ impl MuteConfig {
     }
 
     /// Sets the value of [update_time][crate::model::MuteConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// use wkt::Timestamp;
+    /// let x = MuteConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10560,6 +13370,14 @@ impl MuteConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MuteConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// use wkt::Timestamp;
+    /// let x = MuteConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MuteConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10569,6 +13387,12 @@ impl MuteConfig {
     }
 
     /// Sets the value of [most_recent_editor][crate::model::MuteConfig::most_recent_editor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = MuteConfig::new().set_most_recent_editor("example");
+    /// ```
     pub fn set_most_recent_editor<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10578,6 +13402,14 @@ impl MuteConfig {
     }
 
     /// Sets the value of [r#type][crate::model::MuteConfig::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// use google_cloud_securitycenter_v2::model::mute_config::MuteConfigType;
+    /// let x0 = MuteConfig::new().set_type(MuteConfigType::Static);
+    /// let x1 = MuteConfig::new().set_type(MuteConfigType::Dynamic);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::mute_config::MuteConfigType>>(
         mut self,
         v: T,
@@ -10587,6 +13419,13 @@ impl MuteConfig {
     }
 
     /// Sets the value of [expiry_time][crate::model::MuteConfig::expiry_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// use wkt::Timestamp;
+    /// let x = MuteConfig::new().set_expiry_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expiry_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10596,6 +13435,14 @@ impl MuteConfig {
     }
 
     /// Sets or clears the value of [expiry_time][crate::model::MuteConfig::expiry_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// use wkt::Timestamp;
+    /// let x = MuteConfig::new().set_or_clear_expiry_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MuteConfig::new().set_or_clear_expiry_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expiry_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10773,6 +13620,12 @@ impl Network {
     }
 
     /// Sets the value of [name][crate::model::Network::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Network;
+    /// let x = Network::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10812,24 +13665,49 @@ impl Notebook {
     }
 
     /// Sets the value of [name][crate::model::Notebook::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Notebook;
+    /// let x = Notebook::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::Notebook::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Notebook;
+    /// let x = Notebook::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [last_author][crate::model::Notebook::last_author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Notebook;
+    /// let x = Notebook::new().set_last_author("example");
+    /// ```
     pub fn set_last_author<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_author = v.into();
         self
     }
 
     /// Sets the value of [notebook_update_time][crate::model::Notebook::notebook_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Notebook;
+    /// use wkt::Timestamp;
+    /// let x = Notebook::new().set_notebook_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_notebook_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10839,6 +13717,14 @@ impl Notebook {
     }
 
     /// Sets or clears the value of [notebook_update_time][crate::model::Notebook::notebook_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Notebook;
+    /// use wkt::Timestamp;
+    /// let x = Notebook::new().set_or_clear_notebook_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Notebook::new().set_or_clear_notebook_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_notebook_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10899,30 +13785,61 @@ impl NotificationConfig {
     }
 
     /// Sets the value of [name][crate::model::NotificationConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = NotificationConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::NotificationConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = NotificationConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [pubsub_topic][crate::model::NotificationConfig::pubsub_topic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = NotificationConfig::new().set_pubsub_topic("example");
+    /// ```
     pub fn set_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pubsub_topic = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::NotificationConfig::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = NotificationConfig::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::NotificationConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// use wkt::Timestamp;
+    /// let x = NotificationConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10932,6 +13849,14 @@ impl NotificationConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::NotificationConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// use wkt::Timestamp;
+    /// let x = NotificationConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = NotificationConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10944,6 +13869,14 @@ impl NotificationConfig {
     ///
     /// Note that all the setters affecting `notify_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// use google_cloud_securitycenter_v2::model::notification_config::StreamingConfig;
+    /// let x = NotificationConfig::new().set_notify_config(Some(
+    ///     google_cloud_securitycenter_v2::model::notification_config::NotifyConfig::StreamingConfig(StreamingConfig::default().into())));
+    /// ```
     pub fn set_notify_config<
         T: std::convert::Into<std::option::Option<crate::model::notification_config::NotifyConfig>>,
     >(
@@ -10975,6 +13908,14 @@ impl NotificationConfig {
     ///
     /// Note that all the setters affecting `notify_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// use google_cloud_securitycenter_v2::model::notification_config::StreamingConfig;
+    /// let x = NotificationConfig::new().set_streaming_config(StreamingConfig::default()/* use setters */);
+    /// assert!(x.streaming_config().is_some());
+    /// ```
     pub fn set_streaming_config<
         T: std::convert::Into<std::boxed::Box<crate::model::notification_config::StreamingConfig>>,
     >(
@@ -11036,6 +13977,12 @@ pub mod notification_config {
         }
 
         /// Sets the value of [filter][crate::model::notification_config::StreamingConfig::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::notification_config::StreamingConfig;
+        /// let x = StreamingConfig::new().set_filter("example");
+        /// ```
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
             self
@@ -11079,6 +14026,12 @@ impl NotificationMessage {
     }
 
     /// Sets the value of [notification_config_name][crate::model::NotificationMessage::notification_config_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationMessage;
+    /// let x = NotificationMessage::new().set_notification_config_name("example");
+    /// ```
     pub fn set_notification_config_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11088,6 +14041,13 @@ impl NotificationMessage {
     }
 
     /// Sets the value of [resource][crate::model::NotificationMessage::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationMessage;
+    /// use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = NotificationMessage::new().set_resource(Resource::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Resource>,
@@ -11097,6 +14057,14 @@ impl NotificationMessage {
     }
 
     /// Sets or clears the value of [resource][crate::model::NotificationMessage::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationMessage;
+    /// use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = NotificationMessage::new().set_or_clear_resource(Some(Resource::default()/* use setters */));
+    /// let x = NotificationMessage::new().set_or_clear_resource(None::<Resource>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Resource>,
@@ -11109,6 +14077,14 @@ impl NotificationMessage {
     ///
     /// Note that all the setters affecting `event` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationMessage;
+    /// use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = NotificationMessage::new().set_event(Some(
+    ///     google_cloud_securitycenter_v2::model::notification_message::Event::Finding(Finding::default().into())));
+    /// ```
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::notification_message::Event>>,
     >(
@@ -11135,6 +14111,14 @@ impl NotificationMessage {
     ///
     /// Note that all the setters affecting `event` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::NotificationMessage;
+    /// use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = NotificationMessage::new().set_finding(Finding::default()/* use setters */);
+    /// assert!(x.finding().is_some());
+    /// ```
     pub fn set_finding<T: std::convert::Into<std::boxed::Box<crate::model::Finding>>>(
         mut self,
         v: T,
@@ -11184,6 +14168,12 @@ impl OrgPolicy {
     }
 
     /// Sets the value of [name][crate::model::OrgPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::OrgPolicy;
+    /// let x = OrgPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11247,12 +14237,25 @@ impl Process {
     }
 
     /// Sets the value of [name][crate::model::Process::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Process::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [binary][crate::model::Process::binary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// use google_cloud_securitycenter_v2::model::File;
+    /// let x = Process::new().set_binary(File::default()/* use setters */);
+    /// ```
     pub fn set_binary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::File>,
@@ -11262,6 +14265,14 @@ impl Process {
     }
 
     /// Sets or clears the value of [binary][crate::model::Process::binary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// use google_cloud_securitycenter_v2::model::File;
+    /// let x = Process::new().set_or_clear_binary(Some(File::default()/* use setters */));
+    /// let x = Process::new().set_or_clear_binary(None::<File>);
+    /// ```
     pub fn set_or_clear_binary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::File>,
@@ -11271,6 +14282,17 @@ impl Process {
     }
 
     /// Sets the value of [libraries][crate::model::Process::libraries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// use google_cloud_securitycenter_v2::model::File;
+    /// let x = Process::new()
+    ///     .set_libraries([
+    ///         File::default()/* use setters */,
+    ///         File::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_libraries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11282,6 +14304,13 @@ impl Process {
     }
 
     /// Sets the value of [script][crate::model::Process::script].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// use google_cloud_securitycenter_v2::model::File;
+    /// let x = Process::new().set_script(File::default()/* use setters */);
+    /// ```
     pub fn set_script<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::File>,
@@ -11291,6 +14320,14 @@ impl Process {
     }
 
     /// Sets or clears the value of [script][crate::model::Process::script].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// use google_cloud_securitycenter_v2::model::File;
+    /// let x = Process::new().set_or_clear_script(Some(File::default()/* use setters */));
+    /// let x = Process::new().set_or_clear_script(None::<File>);
+    /// ```
     pub fn set_or_clear_script<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::File>,
@@ -11300,6 +14337,12 @@ impl Process {
     }
 
     /// Sets the value of [args][crate::model::Process::args].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Process::new().set_args(["a", "b", "c"]);
+    /// ```
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11311,12 +14354,29 @@ impl Process {
     }
 
     /// Sets the value of [arguments_truncated][crate::model::Process::arguments_truncated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Process::new().set_arguments_truncated(true);
+    /// ```
     pub fn set_arguments_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.arguments_truncated = v.into();
         self
     }
 
     /// Sets the value of [env_variables][crate::model::Process::env_variables].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// use google_cloud_securitycenter_v2::model::EnvironmentVariable;
+    /// let x = Process::new()
+    ///     .set_env_variables([
+    ///         EnvironmentVariable::default()/* use setters */,
+    ///         EnvironmentVariable::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_env_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11328,24 +14388,48 @@ impl Process {
     }
 
     /// Sets the value of [env_variables_truncated][crate::model::Process::env_variables_truncated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Process::new().set_env_variables_truncated(true);
+    /// ```
     pub fn set_env_variables_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.env_variables_truncated = v.into();
         self
     }
 
     /// Sets the value of [pid][crate::model::Process::pid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Process::new().set_pid(42);
+    /// ```
     pub fn set_pid<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.pid = v.into();
         self
     }
 
     /// Sets the value of [parent_pid][crate::model::Process::parent_pid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Process::new().set_parent_pid(42);
+    /// ```
     pub fn set_parent_pid<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parent_pid = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::Process::user_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Process;
+    /// let x = Process::new().set_user_id(42);
+    /// ```
     pub fn set_user_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
@@ -11378,12 +14462,24 @@ impl EnvironmentVariable {
     }
 
     /// Sets the value of [name][crate::model::EnvironmentVariable::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::EnvironmentVariable;
+    /// let x = EnvironmentVariable::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [val][crate::model::EnvironmentVariable::val].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::EnvironmentVariable;
+    /// let x = EnvironmentVariable::new().set_val("example");
+    /// ```
     pub fn set_val<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.val = v.into();
         self
@@ -11446,24 +14542,51 @@ impl Resource {
     }
 
     /// Sets the value of [name][crate::model::Resource::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = Resource::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Resource::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = Resource::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Resource::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = Resource::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [cloud_provider][crate::model::Resource::cloud_provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// use google_cloud_securitycenter_v2::model::CloudProvider;
+    /// let x0 = Resource::new().set_cloud_provider(CloudProvider::GoogleCloudPlatform);
+    /// let x1 = Resource::new().set_cloud_provider(CloudProvider::AmazonWebServices);
+    /// let x2 = Resource::new().set_cloud_provider(CloudProvider::MicrosoftAzure);
+    /// ```
     pub fn set_cloud_provider<T: std::convert::Into<crate::model::CloudProvider>>(
         mut self,
         v: T,
@@ -11473,18 +14596,37 @@ impl Resource {
     }
 
     /// Sets the value of [service][crate::model::Resource::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = Resource::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Resource::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = Resource::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [resource_path][crate::model::Resource::resource_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// use google_cloud_securitycenter_v2::model::ResourcePath;
+    /// let x = Resource::new().set_resource_path(ResourcePath::default()/* use setters */);
+    /// ```
     pub fn set_resource_path<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourcePath>,
@@ -11494,6 +14636,14 @@ impl Resource {
     }
 
     /// Sets or clears the value of [resource_path][crate::model::Resource::resource_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// use google_cloud_securitycenter_v2::model::ResourcePath;
+    /// let x = Resource::new().set_or_clear_resource_path(Some(ResourcePath::default()/* use setters */));
+    /// let x = Resource::new().set_or_clear_resource_path(None::<ResourcePath>);
+    /// ```
     pub fn set_or_clear_resource_path<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourcePath>,
@@ -11503,6 +14653,12 @@ impl Resource {
     }
 
     /// Sets the value of [resource_path_string][crate::model::Resource::resource_path_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// let x = Resource::new().set_resource_path_string("example");
+    /// ```
     pub fn set_resource_path_string<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11515,6 +14671,14 @@ impl Resource {
     ///
     /// Note that all the setters affecting `cloud_provider_metadata` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// let x = Resource::new().set_cloud_provider_metadata(Some(
+    ///     google_cloud_securitycenter_v2::model::resource::CloudProviderMetadata::GcpMetadata(GcpMetadata::default().into())));
+    /// ```
     pub fn set_cloud_provider_metadata<
         T: std::convert::Into<std::option::Option<crate::model::resource::CloudProviderMetadata>>,
     >(
@@ -11543,6 +14707,16 @@ impl Resource {
     ///
     /// Note that all the setters affecting `cloud_provider_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// let x = Resource::new().set_gcp_metadata(GcpMetadata::default()/* use setters */);
+    /// assert!(x.gcp_metadata().is_some());
+    /// assert!(x.aws_metadata().is_none());
+    /// assert!(x.azure_metadata().is_none());
+    /// ```
     pub fn set_gcp_metadata<T: std::convert::Into<std::boxed::Box<crate::model::GcpMetadata>>>(
         mut self,
         v: T,
@@ -11571,6 +14745,16 @@ impl Resource {
     ///
     /// Note that all the setters affecting `cloud_provider_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// use google_cloud_securitycenter_v2::model::AwsMetadata;
+    /// let x = Resource::new().set_aws_metadata(AwsMetadata::default()/* use setters */);
+    /// assert!(x.aws_metadata().is_some());
+    /// assert!(x.gcp_metadata().is_none());
+    /// assert!(x.azure_metadata().is_none());
+    /// ```
     pub fn set_aws_metadata<T: std::convert::Into<std::boxed::Box<crate::model::AwsMetadata>>>(
         mut self,
         v: T,
@@ -11601,6 +14785,16 @@ impl Resource {
     ///
     /// Note that all the setters affecting `cloud_provider_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Resource;
+    /// use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// let x = Resource::new().set_azure_metadata(AzureMetadata::default()/* use setters */);
+    /// assert!(x.azure_metadata().is_some());
+    /// assert!(x.gcp_metadata().is_none());
+    /// assert!(x.aws_metadata().is_none());
+    /// ```
     pub fn set_azure_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::AzureMetadata>>,
     >(
@@ -11672,12 +14866,24 @@ impl GcpMetadata {
     }
 
     /// Sets the value of [project][crate::model::GcpMetadata::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// let x = GcpMetadata::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [project_display_name][crate::model::GcpMetadata::project_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// let x = GcpMetadata::new().set_project_display_name("example");
+    /// ```
     pub fn set_project_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11687,12 +14893,24 @@ impl GcpMetadata {
     }
 
     /// Sets the value of [parent][crate::model::GcpMetadata::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// let x = GcpMetadata::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [parent_display_name][crate::model::GcpMetadata::parent_display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// let x = GcpMetadata::new().set_parent_display_name("example");
+    /// ```
     pub fn set_parent_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11702,6 +14920,17 @@ impl GcpMetadata {
     }
 
     /// Sets the value of [folders][crate::model::GcpMetadata::folders].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// use google_cloud_securitycenter_v2::model::Folder;
+    /// let x = GcpMetadata::new()
+    ///     .set_folders([
+    ///         Folder::default()/* use setters */,
+    ///         Folder::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11713,6 +14942,12 @@ impl GcpMetadata {
     }
 
     /// Sets the value of [organization][crate::model::GcpMetadata::organization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GcpMetadata;
+    /// let x = GcpMetadata::new().set_organization("example");
+    /// ```
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
@@ -11749,6 +14984,13 @@ impl AwsMetadata {
     }
 
     /// Sets the value of [organization][crate::model::AwsMetadata::organization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AwsMetadata;
+    /// use google_cloud_securitycenter_v2::model::aws_metadata::AwsOrganization;
+    /// let x = AwsMetadata::new().set_organization(AwsOrganization::default()/* use setters */);
+    /// ```
     pub fn set_organization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::aws_metadata::AwsOrganization>,
@@ -11758,6 +15000,14 @@ impl AwsMetadata {
     }
 
     /// Sets or clears the value of [organization][crate::model::AwsMetadata::organization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AwsMetadata;
+    /// use google_cloud_securitycenter_v2::model::aws_metadata::AwsOrganization;
+    /// let x = AwsMetadata::new().set_or_clear_organization(Some(AwsOrganization::default()/* use setters */));
+    /// let x = AwsMetadata::new().set_or_clear_organization(None::<AwsOrganization>);
+    /// ```
     pub fn set_or_clear_organization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::aws_metadata::AwsOrganization>,
@@ -11767,6 +15017,17 @@ impl AwsMetadata {
     }
 
     /// Sets the value of [organizational_units][crate::model::AwsMetadata::organizational_units].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AwsMetadata;
+    /// use google_cloud_securitycenter_v2::model::aws_metadata::AwsOrganizationalUnit;
+    /// let x = AwsMetadata::new()
+    ///     .set_organizational_units([
+    ///         AwsOrganizationalUnit::default()/* use setters */,
+    ///         AwsOrganizationalUnit::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_organizational_units<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11778,6 +15039,13 @@ impl AwsMetadata {
     }
 
     /// Sets the value of [account][crate::model::AwsMetadata::account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AwsMetadata;
+    /// use google_cloud_securitycenter_v2::model::aws_metadata::AwsAccount;
+    /// let x = AwsMetadata::new().set_account(AwsAccount::default()/* use setters */);
+    /// ```
     pub fn set_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::aws_metadata::AwsAccount>,
@@ -11787,6 +15055,14 @@ impl AwsMetadata {
     }
 
     /// Sets or clears the value of [account][crate::model::AwsMetadata::account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AwsMetadata;
+    /// use google_cloud_securitycenter_v2::model::aws_metadata::AwsAccount;
+    /// let x = AwsMetadata::new().set_or_clear_account(Some(AwsAccount::default()/* use setters */));
+    /// let x = AwsMetadata::new().set_or_clear_account(None::<AwsAccount>);
+    /// ```
     pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::aws_metadata::AwsAccount>,
@@ -11827,6 +15103,12 @@ pub mod aws_metadata {
         }
 
         /// Sets the value of [id][crate::model::aws_metadata::AwsOrganization::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::aws_metadata::AwsOrganization;
+        /// let x = AwsOrganization::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
@@ -11864,12 +15146,24 @@ pub mod aws_metadata {
         }
 
         /// Sets the value of [id][crate::model::aws_metadata::AwsOrganizationalUnit::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::aws_metadata::AwsOrganizationalUnit;
+        /// let x = AwsOrganizationalUnit::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::aws_metadata::AwsOrganizationalUnit::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::aws_metadata::AwsOrganizationalUnit;
+        /// let x = AwsOrganizationalUnit::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -11901,12 +15195,24 @@ pub mod aws_metadata {
         }
 
         /// Sets the value of [id][crate::model::aws_metadata::AwsAccount::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::aws_metadata::AwsAccount;
+        /// let x = AwsAccount::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::aws_metadata::AwsAccount::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::aws_metadata::AwsAccount;
+        /// let x = AwsAccount::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -11947,6 +15253,17 @@ impl AzureMetadata {
     }
 
     /// Sets the value of [management_groups][crate::model::AzureMetadata::management_groups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// use google_cloud_securitycenter_v2::model::azure_metadata::AzureManagementGroup;
+    /// let x = AzureMetadata::new()
+    ///     .set_management_groups([
+    ///         AzureManagementGroup::default()/* use setters */,
+    ///         AzureManagementGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_management_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11958,6 +15275,13 @@ impl AzureMetadata {
     }
 
     /// Sets the value of [subscription][crate::model::AzureMetadata::subscription].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// use google_cloud_securitycenter_v2::model::azure_metadata::AzureSubscription;
+    /// let x = AzureMetadata::new().set_subscription(AzureSubscription::default()/* use setters */);
+    /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::azure_metadata::AzureSubscription>,
@@ -11967,6 +15291,14 @@ impl AzureMetadata {
     }
 
     /// Sets or clears the value of [subscription][crate::model::AzureMetadata::subscription].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// use google_cloud_securitycenter_v2::model::azure_metadata::AzureSubscription;
+    /// let x = AzureMetadata::new().set_or_clear_subscription(Some(AzureSubscription::default()/* use setters */));
+    /// let x = AzureMetadata::new().set_or_clear_subscription(None::<AzureSubscription>);
+    /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::azure_metadata::AzureSubscription>,
@@ -11976,6 +15308,13 @@ impl AzureMetadata {
     }
 
     /// Sets the value of [resource_group][crate::model::AzureMetadata::resource_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// use google_cloud_securitycenter_v2::model::azure_metadata::AzureResourceGroup;
+    /// let x = AzureMetadata::new().set_resource_group(AzureResourceGroup::default()/* use setters */);
+    /// ```
     pub fn set_resource_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::azure_metadata::AzureResourceGroup>,
@@ -11985,6 +15324,14 @@ impl AzureMetadata {
     }
 
     /// Sets or clears the value of [resource_group][crate::model::AzureMetadata::resource_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// use google_cloud_securitycenter_v2::model::azure_metadata::AzureResourceGroup;
+    /// let x = AzureMetadata::new().set_or_clear_resource_group(Some(AzureResourceGroup::default()/* use setters */));
+    /// let x = AzureMetadata::new().set_or_clear_resource_group(None::<AzureResourceGroup>);
+    /// ```
     pub fn set_or_clear_resource_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::azure_metadata::AzureResourceGroup>,
@@ -11994,6 +15341,13 @@ impl AzureMetadata {
     }
 
     /// Sets the value of [tenant][crate::model::AzureMetadata::tenant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// use google_cloud_securitycenter_v2::model::azure_metadata::AzureTenant;
+    /// let x = AzureMetadata::new().set_tenant(AzureTenant::default()/* use setters */);
+    /// ```
     pub fn set_tenant<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::azure_metadata::AzureTenant>,
@@ -12003,6 +15357,14 @@ impl AzureMetadata {
     }
 
     /// Sets or clears the value of [tenant][crate::model::AzureMetadata::tenant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::AzureMetadata;
+    /// use google_cloud_securitycenter_v2::model::azure_metadata::AzureTenant;
+    /// let x = AzureMetadata::new().set_or_clear_tenant(Some(AzureTenant::default()/* use setters */));
+    /// let x = AzureMetadata::new().set_or_clear_tenant(None::<AzureTenant>);
+    /// ```
     pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::azure_metadata::AzureTenant>,
@@ -12043,12 +15405,24 @@ pub mod azure_metadata {
         }
 
         /// Sets the value of [id][crate::model::azure_metadata::AzureManagementGroup::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureManagementGroup;
+        /// let x = AzureManagementGroup::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::azure_metadata::AzureManagementGroup::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureManagementGroup;
+        /// let x = AzureManagementGroup::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12084,12 +15458,24 @@ pub mod azure_metadata {
         }
 
         /// Sets the value of [id][crate::model::azure_metadata::AzureSubscription::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureSubscription;
+        /// let x = AzureSubscription::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::azure_metadata::AzureSubscription::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureSubscription;
+        /// let x = AzureSubscription::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12124,12 +15510,24 @@ pub mod azure_metadata {
         }
 
         /// Sets the value of [id][crate::model::azure_metadata::AzureResourceGroup::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureResourceGroup;
+        /// let x = AzureResourceGroup::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::azure_metadata::AzureResourceGroup::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureResourceGroup;
+        /// let x = AzureResourceGroup::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -12162,12 +15560,24 @@ pub mod azure_metadata {
         }
 
         /// Sets the value of [id][crate::model::azure_metadata::AzureTenant::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureTenant;
+        /// let x = AzureTenant::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::azure_metadata::AzureTenant::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::azure_metadata::AzureTenant;
+        /// let x = AzureTenant::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12202,6 +15612,17 @@ impl ResourcePath {
     }
 
     /// Sets the value of [nodes][crate::model::ResourcePath::nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourcePath;
+    /// use google_cloud_securitycenter_v2::model::resource_path::ResourcePathNode;
+    /// let x = ResourcePath::new()
+    ///     .set_nodes([
+    ///         ResourcePathNode::default()/* use setters */,
+    ///         ResourcePathNode::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12247,6 +15668,15 @@ pub mod resource_path {
         }
 
         /// Sets the value of [node_type][crate::model::resource_path::ResourcePathNode::node_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::resource_path::ResourcePathNode;
+        /// use google_cloud_securitycenter_v2::model::resource_path::ResourcePathNodeType;
+        /// let x0 = ResourcePathNode::new().set_node_type(ResourcePathNodeType::GcpOrganization);
+        /// let x1 = ResourcePathNode::new().set_node_type(ResourcePathNodeType::GcpFolder);
+        /// let x2 = ResourcePathNode::new().set_node_type(ResourcePathNodeType::GcpProject);
+        /// ```
         pub fn set_node_type<
             T: std::convert::Into<crate::model::resource_path::ResourcePathNodeType>,
         >(
@@ -12258,12 +15688,24 @@ pub mod resource_path {
         }
 
         /// Sets the value of [id][crate::model::resource_path::ResourcePathNode::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::resource_path::ResourcePathNode;
+        /// let x = ResourcePathNode::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::resource_path::ResourcePathNode::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::resource_path::ResourcePathNode;
+        /// let x = ResourcePathNode::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12530,12 +15972,27 @@ impl ResourceValueConfig {
     }
 
     /// Sets the value of [name][crate::model::ResourceValueConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = ResourceValueConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_value][crate::model::ResourceValueConfig::resource_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use google_cloud_securitycenter_v2::model::ResourceValue;
+    /// let x0 = ResourceValueConfig::new().set_resource_value(ResourceValue::High);
+    /// let x1 = ResourceValueConfig::new().set_resource_value(ResourceValue::Medium);
+    /// let x2 = ResourceValueConfig::new().set_resource_value(ResourceValue::Low);
+    /// ```
     pub fn set_resource_value<T: std::convert::Into<crate::model::ResourceValue>>(
         mut self,
         v: T,
@@ -12545,6 +16002,12 @@ impl ResourceValueConfig {
     }
 
     /// Sets the value of [tag_values][crate::model::ResourceValueConfig::tag_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = ResourceValueConfig::new().set_tag_values(["a", "b", "c"]);
+    /// ```
     pub fn set_tag_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12556,18 +16019,39 @@ impl ResourceValueConfig {
     }
 
     /// Sets the value of [resource_type][crate::model::ResourceValueConfig::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = ResourceValueConfig::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::ResourceValueConfig::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = ResourceValueConfig::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [resource_labels_selector][crate::model::ResourceValueConfig::resource_labels_selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = ResourceValueConfig::new().set_resource_labels_selector([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_labels_selector<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12580,12 +16064,25 @@ impl ResourceValueConfig {
     }
 
     /// Sets the value of [description][crate::model::ResourceValueConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = ResourceValueConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ResourceValueConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use wkt::Timestamp;
+    /// let x = ResourceValueConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12595,6 +16092,14 @@ impl ResourceValueConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ResourceValueConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use wkt::Timestamp;
+    /// let x = ResourceValueConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceValueConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12604,6 +16109,13 @@ impl ResourceValueConfig {
     }
 
     /// Sets the value of [update_time][crate::model::ResourceValueConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use wkt::Timestamp;
+    /// let x = ResourceValueConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12613,6 +16125,14 @@ impl ResourceValueConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ResourceValueConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use wkt::Timestamp;
+    /// let x = ResourceValueConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceValueConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12622,6 +16142,15 @@ impl ResourceValueConfig {
     }
 
     /// Sets the value of [cloud_provider][crate::model::ResourceValueConfig::cloud_provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use google_cloud_securitycenter_v2::model::CloudProvider;
+    /// let x0 = ResourceValueConfig::new().set_cloud_provider(CloudProvider::GoogleCloudPlatform);
+    /// let x1 = ResourceValueConfig::new().set_cloud_provider(CloudProvider::AmazonWebServices);
+    /// let x2 = ResourceValueConfig::new().set_cloud_provider(CloudProvider::MicrosoftAzure);
+    /// ```
     pub fn set_cloud_provider<T: std::convert::Into<crate::model::CloudProvider>>(
         mut self,
         v: T,
@@ -12631,6 +16160,13 @@ impl ResourceValueConfig {
     }
 
     /// Sets the value of [sensitive_data_protection_mapping][crate::model::ResourceValueConfig::sensitive_data_protection_mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use google_cloud_securitycenter_v2::model::resource_value_config::SensitiveDataProtectionMapping;
+    /// let x = ResourceValueConfig::new().set_sensitive_data_protection_mapping(SensitiveDataProtectionMapping::default()/* use setters */);
+    /// ```
     pub fn set_sensitive_data_protection_mapping<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::resource_value_config::SensitiveDataProtectionMapping>,
@@ -12640,6 +16176,14 @@ impl ResourceValueConfig {
     }
 
     /// Sets or clears the value of [sensitive_data_protection_mapping][crate::model::ResourceValueConfig::sensitive_data_protection_mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// use google_cloud_securitycenter_v2::model::resource_value_config::SensitiveDataProtectionMapping;
+    /// let x = ResourceValueConfig::new().set_or_clear_sensitive_data_protection_mapping(Some(SensitiveDataProtectionMapping::default()/* use setters */));
+    /// let x = ResourceValueConfig::new().set_or_clear_sensitive_data_protection_mapping(None::<SensitiveDataProtectionMapping>);
+    /// ```
     pub fn set_or_clear_sensitive_data_protection_mapping<T>(
         mut self,
         v: std::option::Option<T>,
@@ -12686,6 +16230,15 @@ pub mod resource_value_config {
         }
 
         /// Sets the value of [high_sensitivity_mapping][crate::model::resource_value_config::SensitiveDataProtectionMapping::high_sensitivity_mapping].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::resource_value_config::SensitiveDataProtectionMapping;
+        /// use google_cloud_securitycenter_v2::model::ResourceValue;
+        /// let x0 = SensitiveDataProtectionMapping::new().set_high_sensitivity_mapping(ResourceValue::High);
+        /// let x1 = SensitiveDataProtectionMapping::new().set_high_sensitivity_mapping(ResourceValue::Medium);
+        /// let x2 = SensitiveDataProtectionMapping::new().set_high_sensitivity_mapping(ResourceValue::Low);
+        /// ```
         pub fn set_high_sensitivity_mapping<T: std::convert::Into<crate::model::ResourceValue>>(
             mut self,
             v: T,
@@ -12695,6 +16248,15 @@ pub mod resource_value_config {
         }
 
         /// Sets the value of [medium_sensitivity_mapping][crate::model::resource_value_config::SensitiveDataProtectionMapping::medium_sensitivity_mapping].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::resource_value_config::SensitiveDataProtectionMapping;
+        /// use google_cloud_securitycenter_v2::model::ResourceValue;
+        /// let x0 = SensitiveDataProtectionMapping::new().set_medium_sensitivity_mapping(ResourceValue::High);
+        /// let x1 = SensitiveDataProtectionMapping::new().set_medium_sensitivity_mapping(ResourceValue::Medium);
+        /// let x2 = SensitiveDataProtectionMapping::new().set_medium_sensitivity_mapping(ResourceValue::Low);
+        /// ```
         pub fn set_medium_sensitivity_mapping<
             T: std::convert::Into<crate::model::ResourceValue>,
         >(
@@ -12771,12 +16333,27 @@ impl SecurityMarks {
     }
 
     /// Sets the value of [name][crate::model::SecurityMarks::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityMarks;
+    /// let x = SecurityMarks::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [marks][crate::model::SecurityMarks::marks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityMarks;
+    /// let x = SecurityMarks::new().set_marks([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_marks<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12789,6 +16366,12 @@ impl SecurityMarks {
     }
 
     /// Sets the value of [canonical_name][crate::model::SecurityMarks::canonical_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityMarks;
+    /// let x = SecurityMarks::new().set_canonical_name("example");
+    /// ```
     pub fn set_canonical_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.canonical_name = v.into();
         self
@@ -12846,18 +16429,36 @@ impl SecurityPosture {
     }
 
     /// Sets the value of [name][crate::model::SecurityPosture::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = SecurityPosture::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::SecurityPosture::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = SecurityPosture::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [posture_deployment_resource][crate::model::SecurityPosture::posture_deployment_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = SecurityPosture::new().set_posture_deployment_resource("example");
+    /// ```
     pub fn set_posture_deployment_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12867,6 +16468,12 @@ impl SecurityPosture {
     }
 
     /// Sets the value of [posture_deployment][crate::model::SecurityPosture::posture_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = SecurityPosture::new().set_posture_deployment("example");
+    /// ```
     pub fn set_posture_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12876,24 +16483,53 @@ impl SecurityPosture {
     }
 
     /// Sets the value of [changed_policy][crate::model::SecurityPosture::changed_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = SecurityPosture::new().set_changed_policy("example");
+    /// ```
     pub fn set_changed_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.changed_policy = v.into();
         self
     }
 
     /// Sets the value of [policy_set][crate::model::SecurityPosture::policy_set].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = SecurityPosture::new().set_policy_set("example");
+    /// ```
     pub fn set_policy_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_set = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::SecurityPosture::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// let x = SecurityPosture::new().set_policy("example");
+    /// ```
     pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy = v.into();
         self
     }
 
     /// Sets the value of [policy_drift_details][crate::model::SecurityPosture::policy_drift_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityPosture;
+    /// use google_cloud_securitycenter_v2::model::security_posture::PolicyDriftDetails;
+    /// let x = SecurityPosture::new()
+    ///     .set_policy_drift_details([
+    ///         PolicyDriftDetails::default()/* use setters */,
+    ///         PolicyDriftDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_drift_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12942,12 +16578,24 @@ pub mod security_posture {
         }
 
         /// Sets the value of [field][crate::model::security_posture::PolicyDriftDetails::field].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::security_posture::PolicyDriftDetails;
+        /// let x = PolicyDriftDetails::new().set_field("example");
+        /// ```
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field = v.into();
             self
         }
 
         /// Sets the value of [expected_value][crate::model::security_posture::PolicyDriftDetails::expected_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::security_posture::PolicyDriftDetails;
+        /// let x = PolicyDriftDetails::new().set_expected_value("example");
+        /// ```
         pub fn set_expected_value<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12957,6 +16605,12 @@ pub mod security_posture {
         }
 
         /// Sets the value of [detected_value][crate::model::security_posture::PolicyDriftDetails::detected_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::security_posture::PolicyDriftDetails;
+        /// let x = PolicyDriftDetails::new().set_detected_value("example");
+        /// ```
         pub fn set_detected_value<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12994,12 +16648,29 @@ impl BatchCreateResourceValueConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchCreateResourceValueConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BatchCreateResourceValueConfigsRequest;
+    /// let x = BatchCreateResourceValueConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [requests][crate::model::BatchCreateResourceValueConfigsRequest::requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BatchCreateResourceValueConfigsRequest;
+    /// use google_cloud_securitycenter_v2::model::CreateResourceValueConfigRequest;
+    /// let x = BatchCreateResourceValueConfigsRequest::new()
+    ///     .set_requests([
+    ///         CreateResourceValueConfigRequest::default()/* use setters */,
+    ///         CreateResourceValueConfigRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13033,6 +16704,17 @@ impl BatchCreateResourceValueConfigsResponse {
     }
 
     /// Sets the value of [resource_value_configs][crate::model::BatchCreateResourceValueConfigsResponse::resource_value_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BatchCreateResourceValueConfigsResponse;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = BatchCreateResourceValueConfigsResponse::new()
+    ///     .set_resource_value_configs([
+    ///         ResourceValueConfig::default()/* use setters */,
+    ///         ResourceValueConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_value_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13108,18 +16790,38 @@ impl BulkMuteFindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BulkMuteFindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BulkMuteFindingsRequest;
+    /// let x = BulkMuteFindingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::BulkMuteFindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BulkMuteFindingsRequest;
+    /// let x = BulkMuteFindingsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [mute_state][crate::model::BulkMuteFindingsRequest::mute_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BulkMuteFindingsRequest;
+    /// use google_cloud_securitycenter_v2::model::bulk_mute_findings_request::MuteState;
+    /// let x0 = BulkMuteFindingsRequest::new().set_mute_state(MuteState::Muted);
+    /// let x1 = BulkMuteFindingsRequest::new().set_mute_state(MuteState::Undefined);
+    /// ```
     pub fn set_mute_state<
         T: std::convert::Into<crate::model::bulk_mute_findings_request::MuteState>,
     >(
@@ -13322,12 +17024,25 @@ impl CreateBigQueryExportRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBigQueryExportRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateBigQueryExportRequest;
+    /// let x = CreateBigQueryExportRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [big_query_export][crate::model::CreateBigQueryExportRequest::big_query_export].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateBigQueryExportRequest;
+    /// use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = CreateBigQueryExportRequest::new().set_big_query_export(BigQueryExport::default()/* use setters */);
+    /// ```
     pub fn set_big_query_export<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryExport>,
@@ -13337,6 +17052,14 @@ impl CreateBigQueryExportRequest {
     }
 
     /// Sets or clears the value of [big_query_export][crate::model::CreateBigQueryExportRequest::big_query_export].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateBigQueryExportRequest;
+    /// use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = CreateBigQueryExportRequest::new().set_or_clear_big_query_export(Some(BigQueryExport::default()/* use setters */));
+    /// let x = CreateBigQueryExportRequest::new().set_or_clear_big_query_export(None::<BigQueryExport>);
+    /// ```
     pub fn set_or_clear_big_query_export<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryExport>,
@@ -13346,6 +17069,12 @@ impl CreateBigQueryExportRequest {
     }
 
     /// Sets the value of [big_query_export_id][crate::model::CreateBigQueryExportRequest::big_query_export_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateBigQueryExportRequest;
+    /// let x = CreateBigQueryExportRequest::new().set_big_query_export_id("example");
+    /// ```
     pub fn set_big_query_export_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13391,18 +17120,37 @@ impl CreateFindingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFindingRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateFindingRequest;
+    /// let x = CreateFindingRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [finding_id][crate::model::CreateFindingRequest::finding_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateFindingRequest;
+    /// let x = CreateFindingRequest::new().set_finding_id("example");
+    /// ```
     pub fn set_finding_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_id = v.into();
         self
     }
 
     /// Sets the value of [finding][crate::model::CreateFindingRequest::finding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateFindingRequest;
+    /// use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = CreateFindingRequest::new().set_finding(Finding::default()/* use setters */);
+    /// ```
     pub fn set_finding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Finding>,
@@ -13412,6 +17160,14 @@ impl CreateFindingRequest {
     }
 
     /// Sets or clears the value of [finding][crate::model::CreateFindingRequest::finding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateFindingRequest;
+    /// use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = CreateFindingRequest::new().set_or_clear_finding(Some(Finding::default()/* use setters */));
+    /// let x = CreateFindingRequest::new().set_or_clear_finding(None::<Finding>);
+    /// ```
     pub fn set_or_clear_finding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Finding>,
@@ -13455,12 +17211,25 @@ impl CreateMuteConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMuteConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateMuteConfigRequest;
+    /// let x = CreateMuteConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [mute_config][crate::model::CreateMuteConfigRequest::mute_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateMuteConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = CreateMuteConfigRequest::new().set_mute_config(MuteConfig::default()/* use setters */);
+    /// ```
     pub fn set_mute_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MuteConfig>,
@@ -13470,6 +17239,14 @@ impl CreateMuteConfigRequest {
     }
 
     /// Sets or clears the value of [mute_config][crate::model::CreateMuteConfigRequest::mute_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateMuteConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = CreateMuteConfigRequest::new().set_or_clear_mute_config(Some(MuteConfig::default()/* use setters */));
+    /// let x = CreateMuteConfigRequest::new().set_or_clear_mute_config(None::<MuteConfig>);
+    /// ```
     pub fn set_or_clear_mute_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MuteConfig>,
@@ -13479,6 +17256,12 @@ impl CreateMuteConfigRequest {
     }
 
     /// Sets the value of [mute_config_id][crate::model::CreateMuteConfigRequest::mute_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateMuteConfigRequest;
+    /// let x = CreateMuteConfigRequest::new().set_mute_config_id("example");
+    /// ```
     pub fn set_mute_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mute_config_id = v.into();
         self
@@ -13521,18 +17304,37 @@ impl CreateNotificationConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNotificationConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateNotificationConfigRequest;
+    /// let x = CreateNotificationConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [config_id][crate::model::CreateNotificationConfigRequest::config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateNotificationConfigRequest;
+    /// let x = CreateNotificationConfigRequest::new().set_config_id("example");
+    /// ```
     pub fn set_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config_id = v.into();
         self
     }
 
     /// Sets the value of [notification_config][crate::model::CreateNotificationConfigRequest::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateNotificationConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = CreateNotificationConfigRequest::new().set_notification_config(NotificationConfig::default()/* use setters */);
+    /// ```
     pub fn set_notification_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -13542,6 +17344,14 @@ impl CreateNotificationConfigRequest {
     }
 
     /// Sets or clears the value of [notification_config][crate::model::CreateNotificationConfigRequest::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateNotificationConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = CreateNotificationConfigRequest::new().set_or_clear_notification_config(Some(NotificationConfig::default()/* use setters */));
+    /// let x = CreateNotificationConfigRequest::new().set_or_clear_notification_config(None::<NotificationConfig>);
+    /// ```
     pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -13576,12 +17386,25 @@ impl CreateResourceValueConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateResourceValueConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateResourceValueConfigRequest;
+    /// let x = CreateResourceValueConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [resource_value_config][crate::model::CreateResourceValueConfigRequest::resource_value_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateResourceValueConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = CreateResourceValueConfigRequest::new().set_resource_value_config(ResourceValueConfig::default()/* use setters */);
+    /// ```
     pub fn set_resource_value_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceValueConfig>,
@@ -13591,6 +17414,14 @@ impl CreateResourceValueConfigRequest {
     }
 
     /// Sets or clears the value of [resource_value_config][crate::model::CreateResourceValueConfigRequest::resource_value_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateResourceValueConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = CreateResourceValueConfigRequest::new().set_or_clear_resource_value_config(Some(ResourceValueConfig::default()/* use setters */));
+    /// let x = CreateResourceValueConfigRequest::new().set_or_clear_resource_value_config(None::<ResourceValueConfig>);
+    /// ```
     pub fn set_or_clear_resource_value_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceValueConfig>,
@@ -13627,12 +17458,25 @@ impl CreateSourceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateSourceRequest;
+    /// let x = CreateSourceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [source][crate::model::CreateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateSourceRequest;
+    /// use google_cloud_securitycenter_v2::model::Source;
+    /// let x = CreateSourceRequest::new().set_source(Source::default()/* use setters */);
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -13642,6 +17486,14 @@ impl CreateSourceRequest {
     }
 
     /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::CreateSourceRequest;
+    /// use google_cloud_securitycenter_v2::model::Source;
+    /// let x = CreateSourceRequest::new().set_or_clear_source(Some(Source::default()/* use setters */));
+    /// let x = CreateSourceRequest::new().set_or_clear_source(None::<Source>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -13680,6 +17532,12 @@ impl DeleteBigQueryExportRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBigQueryExportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DeleteBigQueryExportRequest;
+    /// let x = DeleteBigQueryExportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13719,6 +17577,12 @@ impl DeleteMuteConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMuteConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DeleteMuteConfigRequest;
+    /// let x = DeleteMuteConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13755,6 +17619,12 @@ impl DeleteNotificationConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNotificationConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DeleteNotificationConfigRequest;
+    /// let x = DeleteNotificationConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13783,6 +17653,12 @@ impl DeleteResourceValueConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteResourceValueConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::DeleteResourceValueConfigRequest;
+    /// let x = DeleteResourceValueConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13812,6 +17688,12 @@ impl BigQueryDestination {
     }
 
     /// Sets the value of [dataset][crate::model::BigQueryDestination::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::BigQueryDestination;
+    /// let x = BigQueryDestination::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
@@ -13843,6 +17725,13 @@ impl ExportFindingsMetadata {
     }
 
     /// Sets the value of [export_start_time][crate::model::ExportFindingsMetadata::export_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExportFindingsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportFindingsMetadata::new().set_export_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_export_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13852,6 +17741,14 @@ impl ExportFindingsMetadata {
     }
 
     /// Sets or clears the value of [export_start_time][crate::model::ExportFindingsMetadata::export_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExportFindingsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportFindingsMetadata::new().set_or_clear_export_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportFindingsMetadata::new().set_or_clear_export_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_export_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13864,6 +17761,14 @@ impl ExportFindingsMetadata {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExportFindingsMetadata;
+    /// use google_cloud_securitycenter_v2::model::BigQueryDestination;
+    /// let x = ExportFindingsMetadata::new().set_destination(Some(
+    ///     google_cloud_securitycenter_v2::model::export_findings_metadata::Destination::BigQueryDestination(BigQueryDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_findings_metadata::Destination>,
@@ -13896,6 +17801,14 @@ impl ExportFindingsMetadata {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ExportFindingsMetadata;
+    /// use google_cloud_securitycenter_v2::model::BigQueryDestination;
+    /// let x = ExportFindingsMetadata::new().set_big_query_destination(BigQueryDestination::default()/* use setters */);
+    /// assert!(x.big_query_destination().is_some());
+    /// ```
     pub fn set_big_query_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestination>>,
     >(
@@ -13971,6 +17884,12 @@ impl GetBigQueryExportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBigQueryExportRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GetBigQueryExportRequest;
+    /// let x = GetBigQueryExportRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14010,6 +17929,12 @@ impl GetMuteConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMuteConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GetMuteConfigRequest;
+    /// let x = GetMuteConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14046,6 +17971,12 @@ impl GetNotificationConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNotificationConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GetNotificationConfigRequest;
+    /// let x = GetNotificationConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14075,6 +18006,12 @@ impl GetResourceValueConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetResourceValueConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GetResourceValueConfigRequest;
+    /// let x = GetResourceValueConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14104,6 +18041,12 @@ impl GetSourceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GetSourceRequest;
+    /// let x = GetSourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14225,30 +18168,60 @@ impl GroupFindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::GroupFindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsRequest;
+    /// let x = GroupFindingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::GroupFindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsRequest;
+    /// let x = GroupFindingsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [group_by][crate::model::GroupFindingsRequest::group_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsRequest;
+    /// let x = GroupFindingsRequest::new().set_group_by("example");
+    /// ```
     pub fn set_group_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group_by = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::GroupFindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsRequest;
+    /// let x = GroupFindingsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::GroupFindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsRequest;
+    /// let x = GroupFindingsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -14286,6 +18259,17 @@ impl GroupFindingsResponse {
     }
 
     /// Sets the value of [group_by_results][crate::model::GroupFindingsResponse::group_by_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsResponse;
+    /// use google_cloud_securitycenter_v2::model::GroupResult;
+    /// let x = GroupFindingsResponse::new()
+    ///     .set_group_by_results([
+    ///         GroupResult::default()/* use setters */,
+    ///         GroupResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_group_by_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14297,12 +18281,24 @@ impl GroupFindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::GroupFindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsResponse;
+    /// let x = GroupFindingsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::GroupFindingsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupFindingsResponse;
+    /// let x = GroupFindingsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -14348,6 +18344,16 @@ impl GroupResult {
     }
 
     /// Sets the value of [properties][crate::model::GroupResult::properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupResult;
+    /// use wkt::Value;
+    /// let x = GroupResult::new().set_properties([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_properties<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14360,6 +18366,12 @@ impl GroupResult {
     }
 
     /// Sets the value of [count][crate::model::GroupResult::count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GroupResult;
+    /// let x = GroupResult::new().set_count(42);
+    /// ```
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
@@ -14410,24 +18422,48 @@ impl ListAttackPathsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAttackPathsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListAttackPathsRequest;
+    /// let x = ListAttackPathsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAttackPathsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListAttackPathsRequest;
+    /// let x = ListAttackPathsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAttackPathsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListAttackPathsRequest;
+    /// let x = ListAttackPathsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAttackPathsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListAttackPathsRequest;
+    /// let x = ListAttackPathsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -14461,6 +18497,17 @@ impl ListAttackPathsResponse {
     }
 
     /// Sets the value of [attack_paths][crate::model::ListAttackPathsResponse::attack_paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListAttackPathsResponse;
+    /// use google_cloud_securitycenter_v2::model::AttackPath;
+    /// let x = ListAttackPathsResponse::new()
+    ///     .set_attack_paths([
+    ///         AttackPath::default()/* use setters */,
+    ///         AttackPath::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_attack_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14472,6 +18519,12 @@ impl ListAttackPathsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAttackPathsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListAttackPathsResponse;
+    /// let x = ListAttackPathsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -14520,6 +18573,12 @@ impl GetSimulationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSimulationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GetSimulationRequest;
+    /// let x = GetSimulationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14551,6 +18610,12 @@ impl GetValuedResourceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetValuedResourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::GetValuedResourceRequest;
+    /// let x = GetValuedResourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14595,18 +18660,36 @@ impl ListBigQueryExportsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBigQueryExportsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListBigQueryExportsRequest;
+    /// let x = ListBigQueryExportsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBigQueryExportsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListBigQueryExportsRequest;
+    /// let x = ListBigQueryExportsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBigQueryExportsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListBigQueryExportsRequest;
+    /// let x = ListBigQueryExportsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -14639,6 +18722,17 @@ impl ListBigQueryExportsResponse {
     }
 
     /// Sets the value of [big_query_exports][crate::model::ListBigQueryExportsResponse::big_query_exports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListBigQueryExportsResponse;
+    /// use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = ListBigQueryExportsResponse::new()
+    ///     .set_big_query_exports([
+    ///         BigQueryExport::default()/* use setters */,
+    ///         BigQueryExport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_big_query_exports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14650,6 +18744,12 @@ impl ListBigQueryExportsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBigQueryExportsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListBigQueryExportsResponse;
+    /// let x = ListBigQueryExportsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -14804,24 +18904,49 @@ impl ListFindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListFindingsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [field_mask][crate::model::ListFindingsRequest::field_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListFindingsRequest::new().set_field_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_field_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14831,6 +18956,14 @@ impl ListFindingsRequest {
     }
 
     /// Sets or clears the value of [field_mask][crate::model::ListFindingsRequest::field_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListFindingsRequest::new().set_or_clear_field_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ListFindingsRequest::new().set_or_clear_field_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14840,12 +18973,24 @@ impl ListFindingsRequest {
     }
 
     /// Sets the value of [page_token][crate::model::ListFindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -14882,6 +19027,17 @@ impl ListFindingsResponse {
     }
 
     /// Sets the value of [list_findings_results][crate::model::ListFindingsResponse::list_findings_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsResponse;
+    /// use google_cloud_securitycenter_v2::model::list_findings_response::ListFindingsResult;
+    /// let x = ListFindingsResponse::new()
+    ///     .set_list_findings_results([
+    ///         ListFindingsResult::default()/* use setters */,
+    ///         ListFindingsResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_list_findings_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14893,12 +19049,24 @@ impl ListFindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsResponse;
+    /// let x = ListFindingsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListFindingsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListFindingsResponse;
+    /// let x = ListFindingsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -14951,6 +19119,13 @@ pub mod list_findings_response {
         }
 
         /// Sets the value of [finding][crate::model::list_findings_response::ListFindingsResult::finding].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::list_findings_response::ListFindingsResult;
+        /// use google_cloud_securitycenter_v2::model::Finding;
+        /// let x = ListFindingsResult::new().set_finding(Finding::default()/* use setters */);
+        /// ```
         pub fn set_finding<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Finding>,
@@ -14960,6 +19135,14 @@ pub mod list_findings_response {
         }
 
         /// Sets or clears the value of [finding][crate::model::list_findings_response::ListFindingsResult::finding].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::list_findings_response::ListFindingsResult;
+        /// use google_cloud_securitycenter_v2::model::Finding;
+        /// let x = ListFindingsResult::new().set_or_clear_finding(Some(Finding::default()/* use setters */));
+        /// let x = ListFindingsResult::new().set_or_clear_finding(None::<Finding>);
+        /// ```
         pub fn set_or_clear_finding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Finding>,
@@ -14969,6 +19152,13 @@ pub mod list_findings_response {
         }
 
         /// Sets the value of [resource][crate::model::list_findings_response::ListFindingsResult::resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::list_findings_response::ListFindingsResult;
+        /// use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+        /// let x = ListFindingsResult::new().set_resource(Resource::default()/* use setters */);
+        /// ```
         pub fn set_resource<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -14980,6 +19170,14 @@ pub mod list_findings_response {
         }
 
         /// Sets or clears the value of [resource][crate::model::list_findings_response::ListFindingsResult::resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::list_findings_response::ListFindingsResult;
+        /// use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+        /// let x = ListFindingsResult::new().set_or_clear_resource(Some(Resource::default()/* use setters */));
+        /// let x = ListFindingsResult::new().set_or_clear_resource(None::<Resource>);
+        /// ```
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -15007,29 +19205,29 @@ pub mod list_findings_response {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Resource {
-
+        
             /// The full resource name of the resource. See:
             /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
             pub name: std::string::String,
-
+        
             /// The human readable name of the resource.
             pub display_name: std::string::String,
-
+        
             /// The full resource type of the resource.
             pub r#type: std::string::String,
-
+        
             /// Indicates which cloud provider the finding is from.
             pub cloud_provider: crate::model::CloudProvider,
-
+        
             /// The service or resource provider associated with the resource.
             pub service: std::string::String,
-
+        
             /// The region or location of the service (if applicable).
             pub location: std::string::String,
-
+        
             /// Provides the path to the resource within the resource hierarchy.
             pub resource_path: std::option::Option<crate::model::ResourcePath>,
-
+        
             /// A string representation of the resource path.
             /// For Google Cloud, it has the format of
             /// `organizations/{organization_id}/folders/{folder_id}/folders/{folder_id}/projects/{project_id}`
@@ -15041,10 +19239,10 @@ pub mod list_findings_response {
             /// `mg/{management_group_id}/mg/{management_group_id}/subscription/{subscription_id}/rg/{resource_group_name}`
             /// where there can be any number of management groups.
             pub resource_path_string: std::string::String,
-
+        
             /// The metadata associated with the cloud provider.
             pub cloud_provider_metadata: std::option::Option<crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata>,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -15054,12 +19252,24 @@ pub mod list_findings_response {
             }
 
             /// Sets the value of [name][crate::model::list_findings_response::list_findings_result::Resource::name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// let x = Resource::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
             }
 
             /// Sets the value of [display_name][crate::model::list_findings_response::list_findings_result::Resource::display_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// let x = Resource::new().set_display_name("example");
+            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15069,12 +19279,27 @@ pub mod list_findings_response {
             }
 
             /// Sets the value of [r#type][crate::model::list_findings_response::list_findings_result::Resource::type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// let x = Resource::new().set_type("example");
+            /// ```
             pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.r#type = v.into();
                 self
             }
 
             /// Sets the value of [cloud_provider][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// use google_cloud_securitycenter_v2::model::CloudProvider;
+            /// let x0 = Resource::new().set_cloud_provider(CloudProvider::GoogleCloudPlatform);
+            /// let x1 = Resource::new().set_cloud_provider(CloudProvider::AmazonWebServices);
+            /// let x2 = Resource::new().set_cloud_provider(CloudProvider::MicrosoftAzure);
+            /// ```
             pub fn set_cloud_provider<T: std::convert::Into<crate::model::CloudProvider>>(
                 mut self,
                 v: T,
@@ -15084,12 +19309,24 @@ pub mod list_findings_response {
             }
 
             /// Sets the value of [service][crate::model::list_findings_response::list_findings_result::Resource::service].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// let x = Resource::new().set_service("example");
+            /// ```
             pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.service = v.into();
                 self
             }
 
             /// Sets the value of [location][crate::model::list_findings_response::list_findings_result::Resource::location].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// let x = Resource::new().set_location("example");
+            /// ```
             pub fn set_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15099,6 +19336,13 @@ pub mod list_findings_response {
             }
 
             /// Sets the value of [resource_path][crate::model::list_findings_response::list_findings_result::Resource::resource_path].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// use google_cloud_securitycenter_v2::model::ResourcePath;
+            /// let x = Resource::new().set_resource_path(ResourcePath::default()/* use setters */);
+            /// ```
             pub fn set_resource_path<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::ResourcePath>,
@@ -15108,6 +19352,14 @@ pub mod list_findings_response {
             }
 
             /// Sets or clears the value of [resource_path][crate::model::list_findings_response::list_findings_result::Resource::resource_path].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// use google_cloud_securitycenter_v2::model::ResourcePath;
+            /// let x = Resource::new().set_or_clear_resource_path(Some(ResourcePath::default()/* use setters */));
+            /// let x = Resource::new().set_or_clear_resource_path(None::<ResourcePath>);
+            /// ```
             pub fn set_or_clear_resource_path<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::ResourcePath>,
@@ -15117,6 +19369,12 @@ pub mod list_findings_response {
             }
 
             /// Sets the value of [resource_path_string][crate::model::list_findings_response::list_findings_result::Resource::resource_path_string].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// let x = Resource::new().set_resource_path_string("example");
+            /// ```
             pub fn set_resource_path_string<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15129,6 +19387,14 @@ pub mod list_findings_response {
             ///
             /// Note that all the setters affecting `cloud_provider_metadata` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// use google_cloud_securitycenter_v2::model::GcpMetadata;
+            /// let x = Resource::new().set_cloud_provider_metadata(Some(
+            ///     google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata::GcpMetadata(GcpMetadata::default().into())));
+            /// ```
             pub fn set_cloud_provider_metadata<T: std::convert::Into<std::option::Option<crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata>>>(mut self, v: T) -> Self
             {
                 self.cloud_provider_metadata = v.into();
@@ -15153,6 +19419,16 @@ pub mod list_findings_response {
             ///
             /// Note that all the setters affecting `cloud_provider_metadata` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// use google_cloud_securitycenter_v2::model::GcpMetadata;
+            /// let x = Resource::new().set_gcp_metadata(GcpMetadata::default()/* use setters */);
+            /// assert!(x.gcp_metadata().is_some());
+            /// assert!(x.aws_metadata().is_none());
+            /// assert!(x.azure_metadata().is_none());
+            /// ```
             pub fn set_gcp_metadata<
                 T: std::convert::Into<std::boxed::Box<crate::model::GcpMetadata>>,
             >(
@@ -15185,6 +19461,16 @@ pub mod list_findings_response {
             ///
             /// Note that all the setters affecting `cloud_provider_metadata` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// use google_cloud_securitycenter_v2::model::AwsMetadata;
+            /// let x = Resource::new().set_aws_metadata(AwsMetadata::default()/* use setters */);
+            /// assert!(x.aws_metadata().is_some());
+            /// assert!(x.gcp_metadata().is_none());
+            /// assert!(x.azure_metadata().is_none());
+            /// ```
             pub fn set_aws_metadata<
                 T: std::convert::Into<std::boxed::Box<crate::model::AwsMetadata>>,
             >(
@@ -15217,6 +19503,16 @@ pub mod list_findings_response {
             ///
             /// Note that all the setters affecting `cloud_provider_metadata` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securitycenter_v2::model::list_findings_response::list_findings_result::Resource;
+            /// use google_cloud_securitycenter_v2::model::AzureMetadata;
+            /// let x = Resource::new().set_azure_metadata(AzureMetadata::default()/* use setters */);
+            /// assert!(x.azure_metadata().is_some());
+            /// assert!(x.gcp_metadata().is_none());
+            /// assert!(x.aws_metadata().is_none());
+            /// ```
             pub fn set_azure_metadata<
                 T: std::convert::Into<std::boxed::Box<crate::model::AzureMetadata>>,
             >(
@@ -15294,18 +19590,36 @@ impl ListMuteConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMuteConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListMuteConfigsRequest;
+    /// let x = ListMuteConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMuteConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListMuteConfigsRequest;
+    /// let x = ListMuteConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMuteConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListMuteConfigsRequest;
+    /// let x = ListMuteConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -15338,6 +19652,17 @@ impl ListMuteConfigsResponse {
     }
 
     /// Sets the value of [mute_configs][crate::model::ListMuteConfigsResponse::mute_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListMuteConfigsResponse;
+    /// use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = ListMuteConfigsResponse::new()
+    ///     .set_mute_configs([
+    ///         MuteConfig::default()/* use setters */,
+    ///         MuteConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mute_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15349,6 +19674,12 @@ impl ListMuteConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMuteConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListMuteConfigsResponse;
+    /// let x = ListMuteConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -15404,18 +19735,36 @@ impl ListNotificationConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNotificationConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListNotificationConfigsRequest;
+    /// let x = ListNotificationConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNotificationConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListNotificationConfigsRequest;
+    /// let x = ListNotificationConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNotificationConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListNotificationConfigsRequest;
+    /// let x = ListNotificationConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -15448,6 +19797,17 @@ impl ListNotificationConfigsResponse {
     }
 
     /// Sets the value of [notification_configs][crate::model::ListNotificationConfigsResponse::notification_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListNotificationConfigsResponse;
+    /// use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = ListNotificationConfigsResponse::new()
+    ///     .set_notification_configs([
+    ///         NotificationConfig::default()/* use setters */,
+    ///         NotificationConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_notification_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15459,6 +19819,12 @@ impl ListNotificationConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNotificationConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListNotificationConfigsResponse;
+    /// let x = ListNotificationConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -15519,18 +19885,36 @@ impl ListResourceValueConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListResourceValueConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListResourceValueConfigsRequest;
+    /// let x = ListResourceValueConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListResourceValueConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListResourceValueConfigsRequest;
+    /// let x = ListResourceValueConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListResourceValueConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListResourceValueConfigsRequest;
+    /// let x = ListResourceValueConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -15563,6 +19947,17 @@ impl ListResourceValueConfigsResponse {
     }
 
     /// Sets the value of [resource_value_configs][crate::model::ListResourceValueConfigsResponse::resource_value_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListResourceValueConfigsResponse;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = ListResourceValueConfigsResponse::new()
+    ///     .set_resource_value_configs([
+    ///         ResourceValueConfig::default()/* use setters */,
+    ///         ResourceValueConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_value_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15574,6 +19969,12 @@ impl ListResourceValueConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListResourceValueConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListResourceValueConfigsResponse;
+    /// let x = ListResourceValueConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -15627,18 +20028,36 @@ impl ListSourcesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListSourcesRequest;
+    /// let x = ListSourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -15671,6 +20090,17 @@ impl ListSourcesResponse {
     }
 
     /// Sets the value of [sources][crate::model::ListSourcesResponse::sources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListSourcesResponse;
+    /// use google_cloud_securitycenter_v2::model::Source;
+    /// let x = ListSourcesResponse::new()
+    ///     .set_sources([
+    ///         Source::default()/* use setters */,
+    ///         Source::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15682,6 +20112,12 @@ impl ListSourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListSourcesResponse;
+    /// let x = ListSourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -15764,30 +20200,60 @@ impl ListValuedResourcesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListValuedResourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesRequest;
+    /// let x = ListValuedResourcesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListValuedResourcesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesRequest;
+    /// let x = ListValuedResourcesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListValuedResourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesRequest;
+    /// let x = ListValuedResourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListValuedResourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesRequest;
+    /// let x = ListValuedResourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListValuedResourcesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesRequest;
+    /// let x = ListValuedResourcesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -15823,6 +20289,17 @@ impl ListValuedResourcesResponse {
     }
 
     /// Sets the value of [valued_resources][crate::model::ListValuedResourcesResponse::valued_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesResponse;
+    /// use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// let x = ListValuedResourcesResponse::new()
+    ///     .set_valued_resources([
+    ///         ValuedResource::default()/* use setters */,
+    ///         ValuedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_valued_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15834,12 +20311,24 @@ impl ListValuedResourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListValuedResourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesResponse;
+    /// let x = ListValuedResourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListValuedResourcesResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ListValuedResourcesResponse;
+    /// let x = ListValuedResourcesResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -15901,12 +20390,26 @@ impl SetFindingStateRequest {
     }
 
     /// Sets the value of [name][crate::model::SetFindingStateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SetFindingStateRequest;
+    /// let x = SetFindingStateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::SetFindingStateRequest::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SetFindingStateRequest;
+    /// use google_cloud_securitycenter_v2::model::finding::State;
+    /// let x0 = SetFindingStateRequest::new().set_state(State::Active);
+    /// let x1 = SetFindingStateRequest::new().set_state(State::Inactive);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::finding::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -15954,12 +20457,27 @@ impl SetMuteRequest {
     }
 
     /// Sets the value of [name][crate::model::SetMuteRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SetMuteRequest;
+    /// let x = SetMuteRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [mute][crate::model::SetMuteRequest::mute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SetMuteRequest;
+    /// use google_cloud_securitycenter_v2::model::finding::Mute;
+    /// let x0 = SetMuteRequest::new().set_mute(Mute::Muted);
+    /// let x1 = SetMuteRequest::new().set_mute(Mute::Unmuted);
+    /// let x2 = SetMuteRequest::new().set_mute(Mute::Undefined);
+    /// ```
     pub fn set_mute<T: std::convert::Into<crate::model::finding::Mute>>(mut self, v: T) -> Self {
         self.mute = v.into();
         self
@@ -15992,6 +20510,13 @@ impl UpdateBigQueryExportRequest {
     }
 
     /// Sets the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateBigQueryExportRequest;
+    /// use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = UpdateBigQueryExportRequest::new().set_big_query_export(BigQueryExport::default()/* use setters */);
+    /// ```
     pub fn set_big_query_export<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryExport>,
@@ -16001,6 +20526,14 @@ impl UpdateBigQueryExportRequest {
     }
 
     /// Sets or clears the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateBigQueryExportRequest;
+    /// use google_cloud_securitycenter_v2::model::BigQueryExport;
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_big_query_export(Some(BigQueryExport::default()/* use setters */));
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_big_query_export(None::<BigQueryExport>);
+    /// ```
     pub fn set_or_clear_big_query_export<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryExport>,
@@ -16010,6 +20543,13 @@ impl UpdateBigQueryExportRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateBigQueryExportRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBigQueryExportRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16019,6 +20559,14 @@ impl UpdateBigQueryExportRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateBigQueryExportRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBigQueryExportRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16055,6 +20603,13 @@ impl UpdateExternalSystemRequest {
     }
 
     /// Sets the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateExternalSystemRequest;
+    /// use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = UpdateExternalSystemRequest::new().set_external_system(ExternalSystem::default()/* use setters */);
+    /// ```
     pub fn set_external_system<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExternalSystem>,
@@ -16064,6 +20619,14 @@ impl UpdateExternalSystemRequest {
     }
 
     /// Sets or clears the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateExternalSystemRequest;
+    /// use google_cloud_securitycenter_v2::model::ExternalSystem;
+    /// let x = UpdateExternalSystemRequest::new().set_or_clear_external_system(Some(ExternalSystem::default()/* use setters */));
+    /// let x = UpdateExternalSystemRequest::new().set_or_clear_external_system(None::<ExternalSystem>);
+    /// ```
     pub fn set_or_clear_external_system<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalSystem>,
@@ -16073,6 +20636,13 @@ impl UpdateExternalSystemRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateExternalSystemRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateExternalSystemRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExternalSystemRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16082,6 +20652,14 @@ impl UpdateExternalSystemRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExternalSystemRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateExternalSystemRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExternalSystemRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateExternalSystemRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16127,6 +20705,13 @@ impl UpdateFindingRequest {
     }
 
     /// Sets the value of [finding][crate::model::UpdateFindingRequest::finding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateFindingRequest;
+    /// use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = UpdateFindingRequest::new().set_finding(Finding::default()/* use setters */);
+    /// ```
     pub fn set_finding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Finding>,
@@ -16136,6 +20721,14 @@ impl UpdateFindingRequest {
     }
 
     /// Sets or clears the value of [finding][crate::model::UpdateFindingRequest::finding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateFindingRequest;
+    /// use google_cloud_securitycenter_v2::model::Finding;
+    /// let x = UpdateFindingRequest::new().set_or_clear_finding(Some(Finding::default()/* use setters */));
+    /// let x = UpdateFindingRequest::new().set_or_clear_finding(None::<Finding>);
+    /// ```
     pub fn set_or_clear_finding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Finding>,
@@ -16145,6 +20738,13 @@ impl UpdateFindingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateFindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16154,6 +20754,14 @@ impl UpdateFindingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateFindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16189,6 +20797,13 @@ impl UpdateMuteConfigRequest {
     }
 
     /// Sets the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateMuteConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = UpdateMuteConfigRequest::new().set_mute_config(MuteConfig::default()/* use setters */);
+    /// ```
     pub fn set_mute_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MuteConfig>,
@@ -16198,6 +20813,14 @@ impl UpdateMuteConfigRequest {
     }
 
     /// Sets or clears the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateMuteConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::MuteConfig;
+    /// let x = UpdateMuteConfigRequest::new().set_or_clear_mute_config(Some(MuteConfig::default()/* use setters */));
+    /// let x = UpdateMuteConfigRequest::new().set_or_clear_mute_config(None::<MuteConfig>);
+    /// ```
     pub fn set_or_clear_mute_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MuteConfig>,
@@ -16207,6 +20830,13 @@ impl UpdateMuteConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMuteConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateMuteConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMuteConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16216,6 +20846,14 @@ impl UpdateMuteConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMuteConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateMuteConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMuteConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMuteConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16252,6 +20890,13 @@ impl UpdateNotificationConfigRequest {
     }
 
     /// Sets the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateNotificationConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = UpdateNotificationConfigRequest::new().set_notification_config(NotificationConfig::default()/* use setters */);
+    /// ```
     pub fn set_notification_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -16261,6 +20906,14 @@ impl UpdateNotificationConfigRequest {
     }
 
     /// Sets or clears the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateNotificationConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::NotificationConfig;
+    /// let x = UpdateNotificationConfigRequest::new().set_or_clear_notification_config(Some(NotificationConfig::default()/* use setters */));
+    /// let x = UpdateNotificationConfigRequest::new().set_or_clear_notification_config(None::<NotificationConfig>);
+    /// ```
     pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -16270,6 +20923,13 @@ impl UpdateNotificationConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNotificationConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateNotificationConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNotificationConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16279,6 +20939,14 @@ impl UpdateNotificationConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNotificationConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateNotificationConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNotificationConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNotificationConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16318,6 +20986,13 @@ impl UpdateResourceValueConfigRequest {
     }
 
     /// Sets the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateResourceValueConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = UpdateResourceValueConfigRequest::new().set_resource_value_config(ResourceValueConfig::default()/* use setters */);
+    /// ```
     pub fn set_resource_value_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceValueConfig>,
@@ -16327,6 +21002,14 @@ impl UpdateResourceValueConfigRequest {
     }
 
     /// Sets or clears the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateResourceValueConfigRequest;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfig;
+    /// let x = UpdateResourceValueConfigRequest::new().set_or_clear_resource_value_config(Some(ResourceValueConfig::default()/* use setters */));
+    /// let x = UpdateResourceValueConfigRequest::new().set_or_clear_resource_value_config(None::<ResourceValueConfig>);
+    /// ```
     pub fn set_or_clear_resource_value_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceValueConfig>,
@@ -16336,6 +21019,13 @@ impl UpdateResourceValueConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateResourceValueConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateResourceValueConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateResourceValueConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16345,6 +21035,14 @@ impl UpdateResourceValueConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateResourceValueConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateResourceValueConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateResourceValueConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateResourceValueConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16383,6 +21081,13 @@ impl UpdateSecurityMarksRequest {
     }
 
     /// Sets the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSecurityMarksRequest;
+    /// use google_cloud_securitycenter_v2::model::SecurityMarks;
+    /// let x = UpdateSecurityMarksRequest::new().set_security_marks(SecurityMarks::default()/* use setters */);
+    /// ```
     pub fn set_security_marks<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecurityMarks>,
@@ -16392,6 +21097,14 @@ impl UpdateSecurityMarksRequest {
     }
 
     /// Sets or clears the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSecurityMarksRequest;
+    /// use google_cloud_securitycenter_v2::model::SecurityMarks;
+    /// let x = UpdateSecurityMarksRequest::new().set_or_clear_security_marks(Some(SecurityMarks::default()/* use setters */));
+    /// let x = UpdateSecurityMarksRequest::new().set_or_clear_security_marks(None::<SecurityMarks>);
+    /// ```
     pub fn set_or_clear_security_marks<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecurityMarks>,
@@ -16401,6 +21114,13 @@ impl UpdateSecurityMarksRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSecurityMarksRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSecurityMarksRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecurityMarksRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16410,6 +21130,14 @@ impl UpdateSecurityMarksRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSecurityMarksRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSecurityMarksRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecurityMarksRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSecurityMarksRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16446,6 +21174,13 @@ impl UpdateSourceRequest {
     }
 
     /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSourceRequest;
+    /// use google_cloud_securitycenter_v2::model::Source;
+    /// let x = UpdateSourceRequest::new().set_source(Source::default()/* use setters */);
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -16455,6 +21190,14 @@ impl UpdateSourceRequest {
     }
 
     /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSourceRequest;
+    /// use google_cloud_securitycenter_v2::model::Source;
+    /// let x = UpdateSourceRequest::new().set_or_clear_source(Some(Source::default()/* use setters */));
+    /// let x = UpdateSourceRequest::new().set_or_clear_source(None::<Source>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -16464,6 +21207,13 @@ impl UpdateSourceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSourceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16473,6 +21223,14 @@ impl UpdateSourceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::UpdateSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSourceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSourceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16515,12 +21273,25 @@ impl Simulation {
     }
 
     /// Sets the value of [name][crate::model::Simulation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Simulation;
+    /// let x = Simulation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Simulation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Simulation;
+    /// use wkt::Timestamp;
+    /// let x = Simulation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16530,6 +21301,14 @@ impl Simulation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Simulation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Simulation;
+    /// use wkt::Timestamp;
+    /// let x = Simulation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Simulation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16539,6 +21318,17 @@ impl Simulation {
     }
 
     /// Sets the value of [resource_value_configs_metadata][crate::model::Simulation::resource_value_configs_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Simulation;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfigMetadata;
+    /// let x = Simulation::new()
+    ///     .set_resource_value_configs_metadata([
+    ///         ResourceValueConfigMetadata::default()/* use setters */,
+    ///         ResourceValueConfigMetadata::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_value_configs_metadata<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16550,6 +21340,15 @@ impl Simulation {
     }
 
     /// Sets the value of [cloud_provider][crate::model::Simulation::cloud_provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Simulation;
+    /// use google_cloud_securitycenter_v2::model::CloudProvider;
+    /// let x0 = Simulation::new().set_cloud_provider(CloudProvider::GoogleCloudPlatform);
+    /// let x1 = Simulation::new().set_cloud_provider(CloudProvider::AmazonWebServices);
+    /// let x2 = Simulation::new().set_cloud_provider(CloudProvider::MicrosoftAzure);
+    /// ```
     pub fn set_cloud_provider<T: std::convert::Into<crate::model::CloudProvider>>(
         mut self,
         v: T,
@@ -16611,24 +21410,48 @@ impl Source {
     }
 
     /// Sets the value of [name][crate::model::Source::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Source;
+    /// let x = Source::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Source::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Source;
+    /// let x = Source::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Source::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Source;
+    /// let x = Source::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [canonical_name][crate::model::Source::canonical_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Source;
+    /// let x = Source::new().set_canonical_name("example");
+    /// ```
     pub fn set_canonical_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.canonical_name = v.into();
         self
@@ -16668,12 +21491,24 @@ impl ToxicCombination {
     }
 
     /// Sets the value of [attack_exposure_score][crate::model::ToxicCombination::attack_exposure_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ToxicCombination;
+    /// let x = ToxicCombination::new().set_attack_exposure_score(42.0);
+    /// ```
     pub fn set_attack_exposure_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.attack_exposure_score = v.into();
         self
     }
 
     /// Sets the value of [related_findings][crate::model::ToxicCombination::related_findings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ToxicCombination;
+    /// let x = ToxicCombination::new().set_related_findings(["a", "b", "c"]);
+    /// ```
     pub fn set_related_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16734,30 +21569,63 @@ impl ValuedResource {
     }
 
     /// Sets the value of [name][crate::model::ValuedResource::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// let x = ValuedResource::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::ValuedResource::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// let x = ValuedResource::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::ValuedResource::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// let x = ValuedResource::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ValuedResource::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// let x = ValuedResource::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [resource_value][crate::model::ValuedResource::resource_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// use google_cloud_securitycenter_v2::model::valued_resource::ResourceValue;
+    /// let x0 = ValuedResource::new().set_resource_value(ResourceValue::Low);
+    /// let x1 = ValuedResource::new().set_resource_value(ResourceValue::Medium);
+    /// let x2 = ValuedResource::new().set_resource_value(ResourceValue::High);
+    /// ```
     pub fn set_resource_value<
         T: std::convert::Into<crate::model::valued_resource::ResourceValue>,
     >(
@@ -16769,12 +21637,29 @@ impl ValuedResource {
     }
 
     /// Sets the value of [exposed_score][crate::model::ValuedResource::exposed_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// let x = ValuedResource::new().set_exposed_score(42.0);
+    /// ```
     pub fn set_exposed_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.exposed_score = v.into();
         self
     }
 
     /// Sets the value of [resource_value_configs_used][crate::model::ValuedResource::resource_value_configs_used].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ValuedResource;
+    /// use google_cloud_securitycenter_v2::model::ResourceValueConfigMetadata;
+    /// let x = ValuedResource::new()
+    ///     .set_resource_value_configs_used([
+    ///         ResourceValueConfigMetadata::default()/* use setters */,
+    ///         ResourceValueConfigMetadata::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_value_configs_used<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16953,6 +21838,12 @@ impl ResourceValueConfigMetadata {
     }
 
     /// Sets the value of [name][crate::model::ResourceValueConfigMetadata::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::ResourceValueConfigMetadata;
+    /// let x = ResourceValueConfigMetadata::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16984,6 +21875,17 @@ impl VertexAi {
     }
 
     /// Sets the value of [datasets][crate::model::VertexAi::datasets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::VertexAi;
+    /// use google_cloud_securitycenter_v2::model::vertex_ai::Dataset;
+    /// let x = VertexAi::new()
+    ///     .set_datasets([
+    ///         Dataset::default()/* use setters */,
+    ///         Dataset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16995,6 +21897,17 @@ impl VertexAi {
     }
 
     /// Sets the value of [pipelines][crate::model::VertexAi::pipelines].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::VertexAi;
+    /// use google_cloud_securitycenter_v2::model::vertex_ai::Pipeline;
+    /// let x = VertexAi::new()
+    ///     .set_pipelines([
+    ///         Pipeline::default()/* use setters */,
+    ///         Pipeline::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pipelines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17041,12 +21954,24 @@ pub mod vertex_ai {
         }
 
         /// Sets the value of [name][crate::model::vertex_ai::Dataset::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::vertex_ai::Dataset;
+        /// let x = Dataset::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::vertex_ai::Dataset::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::vertex_ai::Dataset;
+        /// let x = Dataset::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17056,6 +21981,12 @@ pub mod vertex_ai {
         }
 
         /// Sets the value of [source][crate::model::vertex_ai::Dataset::source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::vertex_ai::Dataset;
+        /// let x = Dataset::new().set_source("example");
+        /// ```
         pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = v.into();
             self
@@ -17088,12 +22019,24 @@ pub mod vertex_ai {
         }
 
         /// Sets the value of [name][crate::model::vertex_ai::Pipeline::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::vertex_ai::Pipeline;
+        /// let x = Pipeline::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::vertex_ai::Pipeline::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securitycenter_v2::model::vertex_ai::Pipeline;
+        /// let x = Pipeline::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17148,6 +22091,13 @@ impl Vulnerability {
     }
 
     /// Sets the value of [cve][crate::model::Vulnerability::cve].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::Cve;
+    /// let x = Vulnerability::new().set_cve(Cve::default()/* use setters */);
+    /// ```
     pub fn set_cve<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cve>,
@@ -17157,6 +22107,14 @@ impl Vulnerability {
     }
 
     /// Sets or clears the value of [cve][crate::model::Vulnerability::cve].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::Cve;
+    /// let x = Vulnerability::new().set_or_clear_cve(Some(Cve::default()/* use setters */));
+    /// let x = Vulnerability::new().set_or_clear_cve(None::<Cve>);
+    /// ```
     pub fn set_or_clear_cve<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cve>,
@@ -17166,6 +22124,13 @@ impl Vulnerability {
     }
 
     /// Sets the value of [offending_package][crate::model::Vulnerability::offending_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Vulnerability::new().set_offending_package(Package::default()/* use setters */);
+    /// ```
     pub fn set_offending_package<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Package>,
@@ -17175,6 +22140,14 @@ impl Vulnerability {
     }
 
     /// Sets or clears the value of [offending_package][crate::model::Vulnerability::offending_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Vulnerability::new().set_or_clear_offending_package(Some(Package::default()/* use setters */));
+    /// let x = Vulnerability::new().set_or_clear_offending_package(None::<Package>);
+    /// ```
     pub fn set_or_clear_offending_package<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Package>,
@@ -17184,6 +22157,13 @@ impl Vulnerability {
     }
 
     /// Sets the value of [fixed_package][crate::model::Vulnerability::fixed_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Vulnerability::new().set_fixed_package(Package::default()/* use setters */);
+    /// ```
     pub fn set_fixed_package<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Package>,
@@ -17193,6 +22173,14 @@ impl Vulnerability {
     }
 
     /// Sets or clears the value of [fixed_package][crate::model::Vulnerability::fixed_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Vulnerability::new().set_or_clear_fixed_package(Some(Package::default()/* use setters */));
+    /// let x = Vulnerability::new().set_or_clear_fixed_package(None::<Package>);
+    /// ```
     pub fn set_or_clear_fixed_package<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Package>,
@@ -17202,6 +22190,13 @@ impl Vulnerability {
     }
 
     /// Sets the value of [security_bulletin][crate::model::Vulnerability::security_bulletin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::SecurityBulletin;
+    /// let x = Vulnerability::new().set_security_bulletin(SecurityBulletin::default()/* use setters */);
+    /// ```
     pub fn set_security_bulletin<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecurityBulletin>,
@@ -17211,6 +22206,14 @@ impl Vulnerability {
     }
 
     /// Sets or clears the value of [security_bulletin][crate::model::Vulnerability::security_bulletin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::SecurityBulletin;
+    /// let x = Vulnerability::new().set_or_clear_security_bulletin(Some(SecurityBulletin::default()/* use setters */));
+    /// let x = Vulnerability::new().set_or_clear_security_bulletin(None::<SecurityBulletin>);
+    /// ```
     pub fn set_or_clear_security_bulletin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecurityBulletin>,
@@ -17220,18 +22223,41 @@ impl Vulnerability {
     }
 
     /// Sets the value of [provider_risk_score][crate::model::Vulnerability::provider_risk_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// let x = Vulnerability::new().set_provider_risk_score(42);
+    /// ```
     pub fn set_provider_risk_score<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.provider_risk_score = v.into();
         self
     }
 
     /// Sets the value of [reachable][crate::model::Vulnerability::reachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// let x = Vulnerability::new().set_reachable(true);
+    /// ```
     pub fn set_reachable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reachable = v.into();
         self
     }
 
     /// Sets the value of [cwes][crate::model::Vulnerability::cwes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Vulnerability;
+    /// use google_cloud_securitycenter_v2::model::Cwe;
+    /// let x = Vulnerability::new()
+    ///     .set_cwes([
+    ///         Cwe::default()/* use setters */,
+    ///         Cwe::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cwes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17298,12 +22324,29 @@ impl Cve {
     }
 
     /// Sets the value of [id][crate::model::Cve::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// let x = Cve::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [references][crate::model::Cve::references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use google_cloud_securitycenter_v2::model::Reference;
+    /// let x = Cve::new()
+    ///     .set_references([
+    ///         Reference::default()/* use setters */,
+    ///         Reference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17315,6 +22358,13 @@ impl Cve {
     }
 
     /// Sets the value of [cvssv3][crate::model::Cve::cvssv3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// let x = Cve::new().set_cvssv3(Cvssv3::default()/* use setters */);
+    /// ```
     pub fn set_cvssv3<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cvssv3>,
@@ -17324,6 +22374,14 @@ impl Cve {
     }
 
     /// Sets or clears the value of [cvssv3][crate::model::Cve::cvssv3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// let x = Cve::new().set_or_clear_cvssv3(Some(Cvssv3::default()/* use setters */));
+    /// let x = Cve::new().set_or_clear_cvssv3(None::<Cvssv3>);
+    /// ```
     pub fn set_or_clear_cvssv3<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cvssv3>,
@@ -17333,12 +22391,27 @@ impl Cve {
     }
 
     /// Sets the value of [upstream_fix_available][crate::model::Cve::upstream_fix_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// let x = Cve::new().set_upstream_fix_available(true);
+    /// ```
     pub fn set_upstream_fix_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.upstream_fix_available = v.into();
         self
     }
 
     /// Sets the value of [impact][crate::model::Cve::impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use google_cloud_securitycenter_v2::model::cve::RiskRating;
+    /// let x0 = Cve::new().set_impact(RiskRating::Low);
+    /// let x1 = Cve::new().set_impact(RiskRating::Medium);
+    /// let x2 = Cve::new().set_impact(RiskRating::High);
+    /// ```
     pub fn set_impact<T: std::convert::Into<crate::model::cve::RiskRating>>(
         mut self,
         v: T,
@@ -17348,6 +22421,15 @@ impl Cve {
     }
 
     /// Sets the value of [exploitation_activity][crate::model::Cve::exploitation_activity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use google_cloud_securitycenter_v2::model::cve::ExploitationActivity;
+    /// let x0 = Cve::new().set_exploitation_activity(ExploitationActivity::Wide);
+    /// let x1 = Cve::new().set_exploitation_activity(ExploitationActivity::Confirmed);
+    /// let x2 = Cve::new().set_exploitation_activity(ExploitationActivity::Available);
+    /// ```
     pub fn set_exploitation_activity<
         T: std::convert::Into<crate::model::cve::ExploitationActivity>,
     >(
@@ -17359,18 +22441,37 @@ impl Cve {
     }
 
     /// Sets the value of [observed_in_the_wild][crate::model::Cve::observed_in_the_wild].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// let x = Cve::new().set_observed_in_the_wild(true);
+    /// ```
     pub fn set_observed_in_the_wild<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.observed_in_the_wild = v.into();
         self
     }
 
     /// Sets the value of [zero_day][crate::model::Cve::zero_day].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// let x = Cve::new().set_zero_day(true);
+    /// ```
     pub fn set_zero_day<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.zero_day = v.into();
         self
     }
 
     /// Sets the value of [exploit_release_date][crate::model::Cve::exploit_release_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use wkt::Timestamp;
+    /// let x = Cve::new().set_exploit_release_date(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_exploit_release_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17380,6 +22481,14 @@ impl Cve {
     }
 
     /// Sets or clears the value of [exploit_release_date][crate::model::Cve::exploit_release_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use wkt::Timestamp;
+    /// let x = Cve::new().set_or_clear_exploit_release_date(Some(Timestamp::default()/* use setters */));
+    /// let x = Cve::new().set_or_clear_exploit_release_date(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_exploit_release_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17389,6 +22498,13 @@ impl Cve {
     }
 
     /// Sets the value of [first_exploitation_date][crate::model::Cve::first_exploitation_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use wkt::Timestamp;
+    /// let x = Cve::new().set_first_exploitation_date(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_first_exploitation_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17398,6 +22514,14 @@ impl Cve {
     }
 
     /// Sets or clears the value of [first_exploitation_date][crate::model::Cve::first_exploitation_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cve;
+    /// use wkt::Timestamp;
+    /// let x = Cve::new().set_or_clear_first_exploitation_date(Some(Timestamp::default()/* use setters */));
+    /// let x = Cve::new().set_or_clear_first_exploitation_date(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_first_exploitation_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17745,12 +22869,24 @@ impl Reference {
     }
 
     /// Sets the value of [source][crate::model::Reference::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Reference;
+    /// let x = Reference::new().set_source("example");
+    /// ```
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::Reference::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Reference;
+    /// let x = Reference::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -17816,12 +22952,27 @@ impl Cvssv3 {
     }
 
     /// Sets the value of [base_score][crate::model::Cvssv3::base_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// let x = Cvssv3::new().set_base_score(42.0);
+    /// ```
     pub fn set_base_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.base_score = v.into();
         self
     }
 
     /// Sets the value of [attack_vector][crate::model::Cvssv3::attack_vector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::AttackVector;
+    /// let x0 = Cvssv3::new().set_attack_vector(AttackVector::Network);
+    /// let x1 = Cvssv3::new().set_attack_vector(AttackVector::Adjacent);
+    /// let x2 = Cvssv3::new().set_attack_vector(AttackVector::Local);
+    /// ```
     pub fn set_attack_vector<T: std::convert::Into<crate::model::cvssv_3::AttackVector>>(
         mut self,
         v: T,
@@ -17831,6 +22982,14 @@ impl Cvssv3 {
     }
 
     /// Sets the value of [attack_complexity][crate::model::Cvssv3::attack_complexity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::AttackComplexity;
+    /// let x0 = Cvssv3::new().set_attack_complexity(AttackComplexity::Low);
+    /// let x1 = Cvssv3::new().set_attack_complexity(AttackComplexity::High);
+    /// ```
     pub fn set_attack_complexity<T: std::convert::Into<crate::model::cvssv_3::AttackComplexity>>(
         mut self,
         v: T,
@@ -17840,6 +22999,15 @@ impl Cvssv3 {
     }
 
     /// Sets the value of [privileges_required][crate::model::Cvssv3::privileges_required].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::PrivilegesRequired;
+    /// let x0 = Cvssv3::new().set_privileges_required(PrivilegesRequired::None);
+    /// let x1 = Cvssv3::new().set_privileges_required(PrivilegesRequired::Low);
+    /// let x2 = Cvssv3::new().set_privileges_required(PrivilegesRequired::High);
+    /// ```
     pub fn set_privileges_required<
         T: std::convert::Into<crate::model::cvssv_3::PrivilegesRequired>,
     >(
@@ -17851,6 +23019,14 @@ impl Cvssv3 {
     }
 
     /// Sets the value of [user_interaction][crate::model::Cvssv3::user_interaction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::UserInteraction;
+    /// let x0 = Cvssv3::new().set_user_interaction(UserInteraction::None);
+    /// let x1 = Cvssv3::new().set_user_interaction(UserInteraction::Required);
+    /// ```
     pub fn set_user_interaction<T: std::convert::Into<crate::model::cvssv_3::UserInteraction>>(
         mut self,
         v: T,
@@ -17860,12 +23036,29 @@ impl Cvssv3 {
     }
 
     /// Sets the value of [scope][crate::model::Cvssv3::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::Scope;
+    /// let x0 = Cvssv3::new().set_scope(Scope::Unchanged);
+    /// let x1 = Cvssv3::new().set_scope(Scope::Changed);
+    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::cvssv_3::Scope>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [confidentiality_impact][crate::model::Cvssv3::confidentiality_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::Impact;
+    /// let x0 = Cvssv3::new().set_confidentiality_impact(Impact::High);
+    /// let x1 = Cvssv3::new().set_confidentiality_impact(Impact::Low);
+    /// let x2 = Cvssv3::new().set_confidentiality_impact(Impact::None);
+    /// ```
     pub fn set_confidentiality_impact<T: std::convert::Into<crate::model::cvssv_3::Impact>>(
         mut self,
         v: T,
@@ -17875,6 +23068,15 @@ impl Cvssv3 {
     }
 
     /// Sets the value of [integrity_impact][crate::model::Cvssv3::integrity_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::Impact;
+    /// let x0 = Cvssv3::new().set_integrity_impact(Impact::High);
+    /// let x1 = Cvssv3::new().set_integrity_impact(Impact::Low);
+    /// let x2 = Cvssv3::new().set_integrity_impact(Impact::None);
+    /// ```
     pub fn set_integrity_impact<T: std::convert::Into<crate::model::cvssv_3::Impact>>(
         mut self,
         v: T,
@@ -17884,6 +23086,15 @@ impl Cvssv3 {
     }
 
     /// Sets the value of [availability_impact][crate::model::Cvssv3::availability_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cvssv3;
+    /// use google_cloud_securitycenter_v2::model::cvssv_3::Impact;
+    /// let x0 = Cvssv3::new().set_availability_impact(Impact::High);
+    /// let x1 = Cvssv3::new().set_availability_impact(Impact::Low);
+    /// let x2 = Cvssv3::new().set_availability_impact(Impact::None);
+    /// ```
     pub fn set_availability_impact<T: std::convert::Into<crate::model::cvssv_3::Impact>>(
         mut self,
         v: T,
@@ -18779,24 +23990,48 @@ impl Package {
     }
 
     /// Sets the value of [package_name][crate::model::Package::package_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Package::new().set_package_name("example");
+    /// ```
     pub fn set_package_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_name = v.into();
         self
     }
 
     /// Sets the value of [cpe_uri][crate::model::Package::cpe_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Package::new().set_cpe_uri("example");
+    /// ```
     pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe_uri = v.into();
         self
     }
 
     /// Sets the value of [package_type][crate::model::Package::package_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Package::new().set_package_type("example");
+    /// ```
     pub fn set_package_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_type = v.into();
         self
     }
 
     /// Sets the value of [package_version][crate::model::Package::package_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Package;
+    /// let x = Package::new().set_package_version("example");
+    /// ```
     pub fn set_package_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_version = v.into();
         self
@@ -18832,12 +24067,25 @@ impl SecurityBulletin {
     }
 
     /// Sets the value of [bulletin_id][crate::model::SecurityBulletin::bulletin_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityBulletin;
+    /// let x = SecurityBulletin::new().set_bulletin_id("example");
+    /// ```
     pub fn set_bulletin_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bulletin_id = v.into();
         self
     }
 
     /// Sets the value of [submission_time][crate::model::SecurityBulletin::submission_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityBulletin;
+    /// use wkt::Timestamp;
+    /// let x = SecurityBulletin::new().set_submission_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_submission_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18847,6 +24095,14 @@ impl SecurityBulletin {
     }
 
     /// Sets or clears the value of [submission_time][crate::model::SecurityBulletin::submission_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityBulletin;
+    /// use wkt::Timestamp;
+    /// let x = SecurityBulletin::new().set_or_clear_submission_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecurityBulletin::new().set_or_clear_submission_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_submission_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18856,6 +24112,12 @@ impl SecurityBulletin {
     }
 
     /// Sets the value of [suggested_upgrade_version][crate::model::SecurityBulletin::suggested_upgrade_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::SecurityBulletin;
+    /// let x = SecurityBulletin::new().set_suggested_upgrade_version("example");
+    /// ```
     pub fn set_suggested_upgrade_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -18892,12 +24154,29 @@ impl Cwe {
     }
 
     /// Sets the value of [id][crate::model::Cwe::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cwe;
+    /// let x = Cwe::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [references][crate::model::Cwe::references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::model::Cwe;
+    /// use google_cloud_securitycenter_v2::model::Reference;
+    /// let x = Cwe::new()
+    ///     .set_references([
+    ///         Reference::default()/* use setters */,
+    ///         Reference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

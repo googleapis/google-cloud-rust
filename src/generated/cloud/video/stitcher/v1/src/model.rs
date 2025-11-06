@@ -58,12 +58,29 @@ impl LiveAdTagDetail {
     }
 
     /// Sets the value of [name][crate::model::LiveAdTagDetail::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveAdTagDetail;
+    /// let x = LiveAdTagDetail::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ad_requests][crate::model::LiveAdTagDetail::ad_requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveAdTagDetail;
+    /// use google_cloud_video_stitcher_v1::model::AdRequest;
+    /// let x = LiveAdTagDetail::new()
+    ///     .set_ad_requests([
+    ///         AdRequest::default()/* use setters */,
+    ///         AdRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ad_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -103,12 +120,29 @@ impl VodAdTagDetail {
     }
 
     /// Sets the value of [name][crate::model::VodAdTagDetail::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodAdTagDetail;
+    /// let x = VodAdTagDetail::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ad_requests][crate::model::VodAdTagDetail::ad_requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodAdTagDetail;
+    /// use google_cloud_video_stitcher_v1::model::AdRequest;
+    /// let x = VodAdTagDetail::new()
+    ///     .set_ad_requests([
+    ///         AdRequest::default()/* use setters */,
+    ///         AdRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ad_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -148,12 +182,25 @@ impl AdRequest {
     }
 
     /// Sets the value of [uri][crate::model::AdRequest::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdRequest;
+    /// let x = AdRequest::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [request_metadata][crate::model::AdRequest::request_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdRequest;
+    /// use google_cloud_video_stitcher_v1::model::RequestMetadata;
+    /// let x = AdRequest::new().set_request_metadata(RequestMetadata::default()/* use setters */);
+    /// ```
     pub fn set_request_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RequestMetadata>,
@@ -163,6 +210,14 @@ impl AdRequest {
     }
 
     /// Sets or clears the value of [request_metadata][crate::model::AdRequest::request_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdRequest;
+    /// use google_cloud_video_stitcher_v1::model::RequestMetadata;
+    /// let x = AdRequest::new().set_or_clear_request_metadata(Some(RequestMetadata::default()/* use setters */));
+    /// let x = AdRequest::new().set_or_clear_request_metadata(None::<RequestMetadata>);
+    /// ```
     pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RequestMetadata>,
@@ -172,6 +227,13 @@ impl AdRequest {
     }
 
     /// Sets the value of [response_metadata][crate::model::AdRequest::response_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdRequest;
+    /// use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// let x = AdRequest::new().set_response_metadata(ResponseMetadata::default()/* use setters */);
+    /// ```
     pub fn set_response_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -181,6 +243,14 @@ impl AdRequest {
     }
 
     /// Sets or clears the value of [response_metadata][crate::model::AdRequest::response_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdRequest;
+    /// use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// let x = AdRequest::new().set_or_clear_response_metadata(Some(ResponseMetadata::default()/* use setters */));
+    /// let x = AdRequest::new().set_or_clear_response_metadata(None::<ResponseMetadata>);
+    /// ```
     pub fn set_or_clear_response_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -212,6 +282,13 @@ impl RequestMetadata {
     }
 
     /// Sets the value of [headers][crate::model::RequestMetadata::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::RequestMetadata;
+    /// use wkt::Struct;
+    /// let x = RequestMetadata::new().set_headers(Struct::default()/* use setters */);
+    /// ```
     pub fn set_headers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -221,6 +298,14 @@ impl RequestMetadata {
     }
 
     /// Sets or clears the value of [headers][crate::model::RequestMetadata::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::RequestMetadata;
+    /// use wkt::Struct;
+    /// let x = RequestMetadata::new().set_or_clear_headers(Some(Struct::default()/* use setters */));
+    /// let x = RequestMetadata::new().set_or_clear_headers(None::<Struct>);
+    /// ```
     pub fn set_or_clear_headers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -267,12 +352,25 @@ impl ResponseMetadata {
     }
 
     /// Sets the value of [error][crate::model::ResponseMetadata::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// let x = ResponseMetadata::new().set_error("example");
+    /// ```
     pub fn set_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error = v.into();
         self
     }
 
     /// Sets the value of [headers][crate::model::ResponseMetadata::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// use wkt::Struct;
+    /// let x = ResponseMetadata::new().set_headers(Struct::default()/* use setters */);
+    /// ```
     pub fn set_headers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -282,6 +380,14 @@ impl ResponseMetadata {
     }
 
     /// Sets or clears the value of [headers][crate::model::ResponseMetadata::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// use wkt::Struct;
+    /// let x = ResponseMetadata::new().set_or_clear_headers(Some(Struct::default()/* use setters */));
+    /// let x = ResponseMetadata::new().set_or_clear_headers(None::<Struct>);
+    /// ```
     pub fn set_or_clear_headers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -291,18 +397,37 @@ impl ResponseMetadata {
     }
 
     /// Sets the value of [status_code][crate::model::ResponseMetadata::status_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// let x = ResponseMetadata::new().set_status_code("example");
+    /// ```
     pub fn set_status_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_code = v.into();
         self
     }
 
     /// Sets the value of [size_bytes][crate::model::ResponseMetadata::size_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// let x = ResponseMetadata::new().set_size_bytes(42);
+    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [duration][crate::model::ResponseMetadata::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// use wkt::Duration;
+    /// let x = ResponseMetadata::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -312,6 +437,14 @@ impl ResponseMetadata {
     }
 
     /// Sets or clears the value of [duration][crate::model::ResponseMetadata::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// use wkt::Duration;
+    /// let x = ResponseMetadata::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = ResponseMetadata::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -321,6 +454,12 @@ impl ResponseMetadata {
     }
 
     /// Sets the value of [body][crate::model::ResponseMetadata::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ResponseMetadata;
+    /// let x = ResponseMetadata::new().set_body("example");
+    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -359,12 +498,24 @@ impl CdnKey {
     }
 
     /// Sets the value of [name][crate::model::CdnKey::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// let x = CdnKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [hostname][crate::model::CdnKey::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// let x = CdnKey::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
@@ -374,6 +525,14 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// use google_cloud_video_stitcher_v1::model::GoogleCdnKey;
+    /// let x = CdnKey::new().set_cdn_key_config(Some(
+    ///     google_cloud_video_stitcher_v1::model::cdn_key::CdnKeyConfig::GoogleCdnKey(GoogleCdnKey::default().into())));
+    /// ```
     pub fn set_cdn_key_config<
         T: std::convert::Into<std::option::Option<crate::model::cdn_key::CdnKeyConfig>>,
     >(
@@ -402,6 +561,16 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// use google_cloud_video_stitcher_v1::model::GoogleCdnKey;
+    /// let x = CdnKey::new().set_google_cdn_key(GoogleCdnKey::default()/* use setters */);
+    /// assert!(x.google_cdn_key().is_some());
+    /// assert!(x.akamai_cdn_key().is_none());
+    /// assert!(x.media_cdn_key().is_none());
+    /// ```
     pub fn set_google_cdn_key<
         T: std::convert::Into<std::boxed::Box<crate::model::GoogleCdnKey>>,
     >(
@@ -431,6 +600,16 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// use google_cloud_video_stitcher_v1::model::AkamaiCdnKey;
+    /// let x = CdnKey::new().set_akamai_cdn_key(AkamaiCdnKey::default()/* use setters */);
+    /// assert!(x.akamai_cdn_key().is_some());
+    /// assert!(x.google_cdn_key().is_none());
+    /// assert!(x.media_cdn_key().is_none());
+    /// ```
     pub fn set_akamai_cdn_key<
         T: std::convert::Into<std::boxed::Box<crate::model::AkamaiCdnKey>>,
     >(
@@ -460,6 +639,16 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// use google_cloud_video_stitcher_v1::model::MediaCdnKey;
+    /// let x = CdnKey::new().set_media_cdn_key(MediaCdnKey::default()/* use setters */);
+    /// assert!(x.media_cdn_key().is_some());
+    /// assert!(x.google_cdn_key().is_none());
+    /// assert!(x.akamai_cdn_key().is_none());
+    /// ```
     pub fn set_media_cdn_key<T: std::convert::Into<std::boxed::Box<crate::model::MediaCdnKey>>>(
         mut self,
         v: T,
@@ -513,12 +702,24 @@ impl GoogleCdnKey {
     }
 
     /// Sets the value of [private_key][crate::model::GoogleCdnKey::private_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GoogleCdnKey;
+    /// let x = GoogleCdnKey::new().set_private_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_private_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key = v.into();
         self
     }
 
     /// Sets the value of [key_name][crate::model::GoogleCdnKey::key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GoogleCdnKey;
+    /// let x = GoogleCdnKey::new().set_key_name("example");
+    /// ```
     pub fn set_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_name = v.into();
         self
@@ -547,6 +748,12 @@ impl AkamaiCdnKey {
     }
 
     /// Sets the value of [token_key][crate::model::AkamaiCdnKey::token_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AkamaiCdnKey;
+    /// let x = AkamaiCdnKey::new().set_token_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_token_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.token_key = v.into();
         self
@@ -582,18 +789,37 @@ impl MediaCdnKey {
     }
 
     /// Sets the value of [private_key][crate::model::MediaCdnKey::private_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::MediaCdnKey;
+    /// let x = MediaCdnKey::new().set_private_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_private_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key = v.into();
         self
     }
 
     /// Sets the value of [key_name][crate::model::MediaCdnKey::key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::MediaCdnKey;
+    /// let x = MediaCdnKey::new().set_key_name("example");
+    /// ```
     pub fn set_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_name = v.into();
         self
     }
 
     /// Sets the value of [token_config][crate::model::MediaCdnKey::token_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::MediaCdnKey;
+    /// use google_cloud_video_stitcher_v1::model::media_cdn_key::TokenConfig;
+    /// let x = MediaCdnKey::new().set_token_config(TokenConfig::default()/* use setters */);
+    /// ```
     pub fn set_token_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::media_cdn_key::TokenConfig>,
@@ -603,6 +829,14 @@ impl MediaCdnKey {
     }
 
     /// Sets or clears the value of [token_config][crate::model::MediaCdnKey::token_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::MediaCdnKey;
+    /// use google_cloud_video_stitcher_v1::model::media_cdn_key::TokenConfig;
+    /// let x = MediaCdnKey::new().set_or_clear_token_config(Some(TokenConfig::default()/* use setters */));
+    /// let x = MediaCdnKey::new().set_or_clear_token_config(None::<TokenConfig>);
+    /// ```
     pub fn set_or_clear_token_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::media_cdn_key::TokenConfig>,
@@ -646,6 +880,12 @@ pub mod media_cdn_key {
         }
 
         /// Sets the value of [query_parameter][crate::model::media_cdn_key::TokenConfig::query_parameter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_stitcher_v1::model::media_cdn_key::TokenConfig;
+        /// let x = TokenConfig::new().set_query_parameter("example");
+        /// ```
         pub fn set_query_parameter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -681,6 +921,15 @@ impl CompanionAds {
     }
 
     /// Sets the value of [display_requirement][crate::model::CompanionAds::display_requirement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CompanionAds;
+    /// use google_cloud_video_stitcher_v1::model::companion_ads::DisplayRequirement;
+    /// let x0 = CompanionAds::new().set_display_requirement(DisplayRequirement::All);
+    /// let x1 = CompanionAds::new().set_display_requirement(DisplayRequirement::Any);
+    /// let x2 = CompanionAds::new().set_display_requirement(DisplayRequirement::None);
+    /// ```
     pub fn set_display_requirement<
         T: std::convert::Into<crate::model::companion_ads::DisplayRequirement>,
     >(
@@ -692,6 +941,17 @@ impl CompanionAds {
     }
 
     /// Sets the value of [companions][crate::model::CompanionAds::companions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CompanionAds;
+    /// use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = CompanionAds::new()
+    ///     .set_companions([
+    ///         Companion::default()/* use setters */,
+    ///         Companion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_companions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -899,54 +1159,113 @@ impl Companion {
     }
 
     /// Sets the value of [api_framework][crate::model::Companion::api_framework].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_api_framework("example");
+    /// ```
     pub fn set_api_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_framework = v.into();
         self
     }
 
     /// Sets the value of [height_px][crate::model::Companion::height_px].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_height_px(42);
+    /// ```
     pub fn set_height_px<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.height_px = v.into();
         self
     }
 
     /// Sets the value of [width_px][crate::model::Companion::width_px].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_width_px(42);
+    /// ```
     pub fn set_width_px<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.width_px = v.into();
         self
     }
 
     /// Sets the value of [asset_height_px][crate::model::Companion::asset_height_px].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_asset_height_px(42);
+    /// ```
     pub fn set_asset_height_px<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.asset_height_px = v.into();
         self
     }
 
     /// Sets the value of [expanded_height_px][crate::model::Companion::expanded_height_px].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_expanded_height_px(42);
+    /// ```
     pub fn set_expanded_height_px<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.expanded_height_px = v.into();
         self
     }
 
     /// Sets the value of [asset_width_px][crate::model::Companion::asset_width_px].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_asset_width_px(42);
+    /// ```
     pub fn set_asset_width_px<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.asset_width_px = v.into();
         self
     }
 
     /// Sets the value of [expanded_width_px][crate::model::Companion::expanded_width_px].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_expanded_width_px(42);
+    /// ```
     pub fn set_expanded_width_px<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.expanded_width_px = v.into();
         self
     }
 
     /// Sets the value of [ad_slot_id][crate::model::Companion::ad_slot_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// let x = Companion::new().set_ad_slot_id("example");
+    /// ```
     pub fn set_ad_slot_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ad_slot_id = v.into();
         self
     }
 
     /// Sets the value of [events][crate::model::Companion::events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// use google_cloud_video_stitcher_v1::model::Event;
+    /// let x = Companion::new()
+    ///     .set_events([
+    ///         Event::default()/* use setters */,
+    ///         Event::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -961,6 +1280,14 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// use google_cloud_video_stitcher_v1::model::IframeAdResource;
+    /// let x = Companion::new().set_ad_resource(Some(
+    ///     google_cloud_video_stitcher_v1::model::companion::AdResource::IframeAdResource(IframeAdResource::default().into())));
+    /// ```
     pub fn set_ad_resource<
         T: std::convert::Into<std::option::Option<crate::model::companion::AdResource>>,
     >(
@@ -991,6 +1318,16 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// use google_cloud_video_stitcher_v1::model::IframeAdResource;
+    /// let x = Companion::new().set_iframe_ad_resource(IframeAdResource::default()/* use setters */);
+    /// assert!(x.iframe_ad_resource().is_some());
+    /// assert!(x.static_ad_resource().is_none());
+    /// assert!(x.html_ad_resource().is_none());
+    /// ```
     pub fn set_iframe_ad_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::IframeAdResource>>,
     >(
@@ -1023,6 +1360,16 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// use google_cloud_video_stitcher_v1::model::StaticAdResource;
+    /// let x = Companion::new().set_static_ad_resource(StaticAdResource::default()/* use setters */);
+    /// assert!(x.static_ad_resource().is_some());
+    /// assert!(x.iframe_ad_resource().is_none());
+    /// assert!(x.html_ad_resource().is_none());
+    /// ```
     pub fn set_static_ad_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::StaticAdResource>>,
     >(
@@ -1053,6 +1400,16 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Companion;
+    /// use google_cloud_video_stitcher_v1::model::HtmlAdResource;
+    /// let x = Companion::new().set_html_ad_resource(HtmlAdResource::default()/* use setters */);
+    /// assert!(x.html_ad_resource().is_some());
+    /// assert!(x.iframe_ad_resource().is_none());
+    /// assert!(x.static_ad_resource().is_none());
+    /// ```
     pub fn set_html_ad_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::HtmlAdResource>>,
     >(
@@ -1106,6 +1463,12 @@ impl HtmlAdResource {
     }
 
     /// Sets the value of [html_source][crate::model::HtmlAdResource::html_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::HtmlAdResource;
+    /// let x = HtmlAdResource::new().set_html_source("example");
+    /// ```
     pub fn set_html_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.html_source = v.into();
         self
@@ -1134,6 +1497,12 @@ impl IframeAdResource {
     }
 
     /// Sets the value of [uri][crate::model::IframeAdResource::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::IframeAdResource;
+    /// let x = IframeAdResource::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -1165,12 +1534,24 @@ impl StaticAdResource {
     }
 
     /// Sets the value of [uri][crate::model::StaticAdResource::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::StaticAdResource;
+    /// let x = StaticAdResource::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [creative_type][crate::model::StaticAdResource::creative_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::StaticAdResource;
+    /// let x = StaticAdResource::new().set_creative_type("example");
+    /// ```
     pub fn set_creative_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creative_type = v.into();
         self
@@ -1208,24 +1589,52 @@ impl Event {
     }
 
     /// Sets the value of [r#type][crate::model::Event::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Event;
+    /// use google_cloud_video_stitcher_v1::model::event::EventType;
+    /// let x0 = Event::new().set_type(EventType::CreativeView);
+    /// let x1 = Event::new().set_type(EventType::Start);
+    /// let x2 = Event::new().set_type(EventType::BreakStart);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::event::EventType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::Event::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Event;
+    /// let x = Event::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Event::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Event;
+    /// let x = Event::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::model::Event::offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Event;
+    /// use wkt::Duration;
+    /// let x = Event::new().set_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1235,6 +1644,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [offset][crate::model::Event::offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Event;
+    /// use wkt::Duration;
+    /// let x = Event::new().set_or_clear_offset(Some(Duration::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1566,6 +1983,13 @@ impl ProgressEvent {
     }
 
     /// Sets the value of [time_offset][crate::model::ProgressEvent::time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ProgressEvent;
+    /// use wkt::Duration;
+    /// let x = ProgressEvent::new().set_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1575,6 +1999,14 @@ impl ProgressEvent {
     }
 
     /// Sets or clears the value of [time_offset][crate::model::ProgressEvent::time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ProgressEvent;
+    /// use wkt::Duration;
+    /// let x = ProgressEvent::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = ProgressEvent::new().set_or_clear_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1584,6 +2016,17 @@ impl ProgressEvent {
     }
 
     /// Sets the value of [events][crate::model::ProgressEvent::events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ProgressEvent;
+    /// use google_cloud_video_stitcher_v1::model::Event;
+    /// let x = ProgressEvent::new()
+    ///     .set_events([
+    ///         Event::default()/* use setters */,
+    ///         Event::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1620,6 +2063,15 @@ impl FetchOptions {
     }
 
     /// Sets the value of [headers][crate::model::FetchOptions::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::FetchOptions;
+    /// let x = FetchOptions::new().set_headers([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1687,24 +2139,49 @@ impl LiveConfig {
     }
 
     /// Sets the value of [name][crate::model::LiveConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = LiveConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_uri][crate::model::LiveConfig::source_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = LiveConfig::new().set_source_uri("example");
+    /// ```
     pub fn set_source_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_uri = v.into();
         self
     }
 
     /// Sets the value of [ad_tag_uri][crate::model::LiveConfig::ad_tag_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = LiveConfig::new().set_ad_tag_uri("example");
+    /// ```
     pub fn set_ad_tag_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ad_tag_uri = v.into();
         self
     }
 
     /// Sets the value of [gam_live_config][crate::model::LiveConfig::gam_live_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::GamLiveConfig;
+    /// let x = LiveConfig::new().set_gam_live_config(GamLiveConfig::default()/* use setters */);
+    /// ```
     pub fn set_gam_live_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GamLiveConfig>,
@@ -1714,6 +2191,14 @@ impl LiveConfig {
     }
 
     /// Sets or clears the value of [gam_live_config][crate::model::LiveConfig::gam_live_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::GamLiveConfig;
+    /// let x = LiveConfig::new().set_or_clear_gam_live_config(Some(GamLiveConfig::default()/* use setters */));
+    /// let x = LiveConfig::new().set_or_clear_gam_live_config(None::<GamLiveConfig>);
+    /// ```
     pub fn set_or_clear_gam_live_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GamLiveConfig>,
@@ -1723,6 +2208,15 @@ impl LiveConfig {
     }
 
     /// Sets the value of [state][crate::model::LiveConfig::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::live_config::State;
+    /// let x0 = LiveConfig::new().set_state(State::Creating);
+    /// let x1 = LiveConfig::new().set_state(State::Ready);
+    /// let x2 = LiveConfig::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::live_config::State>>(
         mut self,
         v: T,
@@ -1732,6 +2226,14 @@ impl LiveConfig {
     }
 
     /// Sets the value of [ad_tracking][crate::model::LiveConfig::ad_tracking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::AdTracking;
+    /// let x0 = LiveConfig::new().set_ad_tracking(AdTracking::Client);
+    /// let x1 = LiveConfig::new().set_ad_tracking(AdTracking::Server);
+    /// ```
     pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(
         mut self,
         v: T,
@@ -1741,12 +2243,26 @@ impl LiveConfig {
     }
 
     /// Sets the value of [default_slate][crate::model::LiveConfig::default_slate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = LiveConfig::new().set_default_slate("example");
+    /// ```
     pub fn set_default_slate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_slate = v.into();
         self
     }
 
     /// Sets the value of [stitching_policy][crate::model::LiveConfig::stitching_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::live_config::StitchingPolicy;
+    /// let x0 = LiveConfig::new().set_stitching_policy(StitchingPolicy::CutCurrent);
+    /// let x1 = LiveConfig::new().set_stitching_policy(StitchingPolicy::CompleteAd);
+    /// ```
     pub fn set_stitching_policy<
         T: std::convert::Into<crate::model::live_config::StitchingPolicy>,
     >(
@@ -1758,6 +2274,13 @@ impl LiveConfig {
     }
 
     /// Sets the value of [prefetch_config][crate::model::LiveConfig::prefetch_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::PrefetchConfig;
+    /// let x = LiveConfig::new().set_prefetch_config(PrefetchConfig::default()/* use setters */);
+    /// ```
     pub fn set_prefetch_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrefetchConfig>,
@@ -1767,6 +2290,14 @@ impl LiveConfig {
     }
 
     /// Sets or clears the value of [prefetch_config][crate::model::LiveConfig::prefetch_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::PrefetchConfig;
+    /// let x = LiveConfig::new().set_or_clear_prefetch_config(Some(PrefetchConfig::default()/* use setters */));
+    /// let x = LiveConfig::new().set_or_clear_prefetch_config(None::<PrefetchConfig>);
+    /// ```
     pub fn set_or_clear_prefetch_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrefetchConfig>,
@@ -1776,6 +2307,13 @@ impl LiveConfig {
     }
 
     /// Sets the value of [source_fetch_options][crate::model::LiveConfig::source_fetch_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::FetchOptions;
+    /// let x = LiveConfig::new().set_source_fetch_options(FetchOptions::default()/* use setters */);
+    /// ```
     pub fn set_source_fetch_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FetchOptions>,
@@ -1785,6 +2323,14 @@ impl LiveConfig {
     }
 
     /// Sets or clears the value of [source_fetch_options][crate::model::LiveConfig::source_fetch_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// use google_cloud_video_stitcher_v1::model::FetchOptions;
+    /// let x = LiveConfig::new().set_or_clear_source_fetch_options(Some(FetchOptions::default()/* use setters */));
+    /// let x = LiveConfig::new().set_or_clear_source_fetch_options(None::<FetchOptions>);
+    /// ```
     pub fn set_or_clear_source_fetch_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FetchOptions>,
@@ -2103,12 +2649,25 @@ impl PrefetchConfig {
     }
 
     /// Sets the value of [enabled][crate::model::PrefetchConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::PrefetchConfig;
+    /// let x = PrefetchConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [initial_ad_request_duration][crate::model::PrefetchConfig::initial_ad_request_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::PrefetchConfig;
+    /// use wkt::Duration;
+    /// let x = PrefetchConfig::new().set_initial_ad_request_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_initial_ad_request_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2118,6 +2677,14 @@ impl PrefetchConfig {
     }
 
     /// Sets or clears the value of [initial_ad_request_duration][crate::model::PrefetchConfig::initial_ad_request_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::PrefetchConfig;
+    /// use wkt::Duration;
+    /// let x = PrefetchConfig::new().set_or_clear_initial_ad_request_duration(Some(Duration::default()/* use setters */));
+    /// let x = PrefetchConfig::new().set_or_clear_initial_ad_request_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_initial_ad_request_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2155,18 +2722,36 @@ impl GamLiveConfig {
     }
 
     /// Sets the value of [network_code][crate::model::GamLiveConfig::network_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GamLiveConfig;
+    /// let x = GamLiveConfig::new().set_network_code("example");
+    /// ```
     pub fn set_network_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_code = v.into();
         self
     }
 
     /// Sets the value of [asset_key][crate::model::GamLiveConfig::asset_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GamLiveConfig;
+    /// let x = GamLiveConfig::new().set_asset_key("example");
+    /// ```
     pub fn set_asset_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_key = v.into();
         self
     }
 
     /// Sets the value of [custom_asset_key][crate::model::GamLiveConfig::custom_asset_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GamLiveConfig;
+    /// let x = GamLiveConfig::new().set_custom_asset_key("example");
+    /// ```
     pub fn set_custom_asset_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2251,12 +2836,25 @@ impl VodSession {
     }
 
     /// Sets the value of [name][crate::model::VodSession::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = VodSession::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [interstitials][crate::model::VodSession::interstitials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// use google_cloud_video_stitcher_v1::model::Interstitials;
+    /// let x = VodSession::new().set_interstitials(Interstitials::default()/* use setters */);
+    /// ```
     pub fn set_interstitials<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Interstitials>,
@@ -2266,6 +2864,14 @@ impl VodSession {
     }
 
     /// Sets or clears the value of [interstitials][crate::model::VodSession::interstitials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// use google_cloud_video_stitcher_v1::model::Interstitials;
+    /// let x = VodSession::new().set_or_clear_interstitials(Some(Interstitials::default()/* use setters */));
+    /// let x = VodSession::new().set_or_clear_interstitials(None::<Interstitials>);
+    /// ```
     pub fn set_or_clear_interstitials<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Interstitials>,
@@ -2275,24 +2881,51 @@ impl VodSession {
     }
 
     /// Sets the value of [play_uri][crate::model::VodSession::play_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = VodSession::new().set_play_uri("example");
+    /// ```
     pub fn set_play_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.play_uri = v.into();
         self
     }
 
     /// Sets the value of [source_uri][crate::model::VodSession::source_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = VodSession::new().set_source_uri("example");
+    /// ```
     pub fn set_source_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_uri = v.into();
         self
     }
 
     /// Sets the value of [ad_tag_uri][crate::model::VodSession::ad_tag_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = VodSession::new().set_ad_tag_uri("example");
+    /// ```
     pub fn set_ad_tag_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ad_tag_uri = v.into();
         self
     }
 
     /// Sets the value of [ad_tag_macro_map][crate::model::VodSession::ad_tag_macro_map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = VodSession::new().set_ad_tag_macro_map([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_ad_tag_macro_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2305,6 +2938,13 @@ impl VodSession {
     }
 
     /// Sets the value of [manifest_options][crate::model::VodSession::manifest_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// use google_cloud_video_stitcher_v1::model::ManifestOptions;
+    /// let x = VodSession::new().set_manifest_options(ManifestOptions::default()/* use setters */);
+    /// ```
     pub fn set_manifest_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManifestOptions>,
@@ -2314,6 +2954,14 @@ impl VodSession {
     }
 
     /// Sets or clears the value of [manifest_options][crate::model::VodSession::manifest_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// use google_cloud_video_stitcher_v1::model::ManifestOptions;
+    /// let x = VodSession::new().set_or_clear_manifest_options(Some(ManifestOptions::default()/* use setters */));
+    /// let x = VodSession::new().set_or_clear_manifest_options(None::<ManifestOptions>);
+    /// ```
     pub fn set_or_clear_manifest_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManifestOptions>,
@@ -2323,12 +2971,26 @@ impl VodSession {
     }
 
     /// Sets the value of [asset_id][crate::model::VodSession::asset_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = VodSession::new().set_asset_id("example");
+    /// ```
     pub fn set_asset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_id = v.into();
         self
     }
 
     /// Sets the value of [ad_tracking][crate::model::VodSession::ad_tracking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// use google_cloud_video_stitcher_v1::model::AdTracking;
+    /// let x0 = VodSession::new().set_ad_tracking(AdTracking::Client);
+    /// let x1 = VodSession::new().set_ad_tracking(AdTracking::Server);
+    /// ```
     pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(
         mut self,
         v: T,
@@ -2338,6 +3000,13 @@ impl VodSession {
     }
 
     /// Sets the value of [gam_settings][crate::model::VodSession::gam_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// use google_cloud_video_stitcher_v1::model::vod_session::GamSettings;
+    /// let x = VodSession::new().set_gam_settings(GamSettings::default()/* use setters */);
+    /// ```
     pub fn set_gam_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vod_session::GamSettings>,
@@ -2347,6 +3016,14 @@ impl VodSession {
     }
 
     /// Sets or clears the value of [gam_settings][crate::model::VodSession::gam_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// use google_cloud_video_stitcher_v1::model::vod_session::GamSettings;
+    /// let x = VodSession::new().set_or_clear_gam_settings(Some(GamSettings::default()/* use setters */));
+    /// let x = VodSession::new().set_or_clear_gam_settings(None::<GamSettings>);
+    /// ```
     pub fn set_or_clear_gam_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vod_session::GamSettings>,
@@ -2356,6 +3033,12 @@ impl VodSession {
     }
 
     /// Sets the value of [vod_config][crate::model::VodSession::vod_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = VodSession::new().set_vod_config("example");
+    /// ```
     pub fn set_vod_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vod_config = v.into();
         self
@@ -2393,6 +3076,12 @@ pub mod vod_session {
         }
 
         /// Sets the value of [network_code][crate::model::vod_session::GamSettings::network_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_stitcher_v1::model::vod_session::GamSettings;
+        /// let x = GamSettings::new().set_network_code("example");
+        /// ```
         pub fn set_network_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2402,6 +3091,12 @@ pub mod vod_session {
         }
 
         /// Sets the value of [stream_id][crate::model::vod_session::GamSettings::stream_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_stitcher_v1::model::vod_session::GamSettings;
+        /// let x = GamSettings::new().set_stream_id("example");
+        /// ```
         pub fn set_stream_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.stream_id = v.into();
             self
@@ -2434,6 +3129,17 @@ impl Interstitials {
     }
 
     /// Sets the value of [ad_breaks][crate::model::Interstitials::ad_breaks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Interstitials;
+    /// use google_cloud_video_stitcher_v1::model::VodSessionAdBreak;
+    /// let x = Interstitials::new()
+    ///     .set_ad_breaks([
+    ///         VodSessionAdBreak::default()/* use setters */,
+    ///         VodSessionAdBreak::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ad_breaks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2445,6 +3151,13 @@ impl Interstitials {
     }
 
     /// Sets the value of [session_content][crate::model::Interstitials::session_content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Interstitials;
+    /// use google_cloud_video_stitcher_v1::model::VodSessionContent;
+    /// let x = Interstitials::new().set_session_content(VodSessionContent::default()/* use setters */);
+    /// ```
     pub fn set_session_content<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VodSessionContent>,
@@ -2454,6 +3167,14 @@ impl Interstitials {
     }
 
     /// Sets or clears the value of [session_content][crate::model::Interstitials::session_content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Interstitials;
+    /// use google_cloud_video_stitcher_v1::model::VodSessionContent;
+    /// let x = Interstitials::new().set_or_clear_session_content(Some(VodSessionContent::default()/* use setters */));
+    /// let x = Interstitials::new().set_or_clear_session_content(None::<VodSessionContent>);
+    /// ```
     pub fn set_or_clear_session_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VodSessionContent>,
@@ -2495,6 +3216,13 @@ impl VodSessionAd {
     }
 
     /// Sets the value of [duration][crate::model::VodSessionAd::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAd;
+    /// use wkt::Duration;
+    /// let x = VodSessionAd::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2504,6 +3232,14 @@ impl VodSessionAd {
     }
 
     /// Sets or clears the value of [duration][crate::model::VodSessionAd::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAd;
+    /// use wkt::Duration;
+    /// let x = VodSessionAd::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = VodSessionAd::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2513,6 +3249,13 @@ impl VodSessionAd {
     }
 
     /// Sets the value of [companion_ads][crate::model::VodSessionAd::companion_ads].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAd;
+    /// use google_cloud_video_stitcher_v1::model::CompanionAds;
+    /// let x = VodSessionAd::new().set_companion_ads(CompanionAds::default()/* use setters */);
+    /// ```
     pub fn set_companion_ads<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompanionAds>,
@@ -2522,6 +3265,14 @@ impl VodSessionAd {
     }
 
     /// Sets or clears the value of [companion_ads][crate::model::VodSessionAd::companion_ads].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAd;
+    /// use google_cloud_video_stitcher_v1::model::CompanionAds;
+    /// let x = VodSessionAd::new().set_or_clear_companion_ads(Some(CompanionAds::default()/* use setters */));
+    /// let x = VodSessionAd::new().set_or_clear_companion_ads(None::<CompanionAds>);
+    /// ```
     pub fn set_or_clear_companion_ads<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompanionAds>,
@@ -2531,6 +3282,17 @@ impl VodSessionAd {
     }
 
     /// Sets the value of [activity_events][crate::model::VodSessionAd::activity_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAd;
+    /// use google_cloud_video_stitcher_v1::model::Event;
+    /// let x = VodSessionAd::new()
+    ///     .set_activity_events([
+    ///         Event::default()/* use setters */,
+    ///         Event::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_activity_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2565,6 +3327,13 @@ impl VodSessionContent {
     }
 
     /// Sets the value of [duration][crate::model::VodSessionContent::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionContent;
+    /// use wkt::Duration;
+    /// let x = VodSessionContent::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2574,6 +3343,14 @@ impl VodSessionContent {
     }
 
     /// Sets or clears the value of [duration][crate::model::VodSessionContent::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionContent;
+    /// use wkt::Duration;
+    /// let x = VodSessionContent::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = VodSessionContent::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2614,6 +3391,17 @@ impl VodSessionAdBreak {
     }
 
     /// Sets the value of [progress_events][crate::model::VodSessionAdBreak::progress_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAdBreak;
+    /// use google_cloud_video_stitcher_v1::model::ProgressEvent;
+    /// let x = VodSessionAdBreak::new()
+    ///     .set_progress_events([
+    ///         ProgressEvent::default()/* use setters */,
+    ///         ProgressEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_progress_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2625,6 +3413,17 @@ impl VodSessionAdBreak {
     }
 
     /// Sets the value of [ads][crate::model::VodSessionAdBreak::ads].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAdBreak;
+    /// use google_cloud_video_stitcher_v1::model::VodSessionAd;
+    /// let x = VodSessionAdBreak::new()
+    ///     .set_ads([
+    ///         VodSessionAd::default()/* use setters */,
+    ///         VodSessionAd::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2636,6 +3435,13 @@ impl VodSessionAdBreak {
     }
 
     /// Sets the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAdBreak;
+    /// use wkt::Duration;
+    /// let x = VodSessionAdBreak::new().set_end_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2645,6 +3451,14 @@ impl VodSessionAdBreak {
     }
 
     /// Sets or clears the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAdBreak;
+    /// use wkt::Duration;
+    /// let x = VodSessionAdBreak::new().set_or_clear_end_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = VodSessionAdBreak::new().set_or_clear_end_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2654,6 +3468,13 @@ impl VodSessionAdBreak {
     }
 
     /// Sets the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAdBreak;
+    /// use wkt::Duration;
+    /// let x = VodSessionAdBreak::new().set_start_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2663,6 +3484,14 @@ impl VodSessionAdBreak {
     }
 
     /// Sets or clears the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodSessionAdBreak;
+    /// use wkt::Duration;
+    /// let x = VodSessionAdBreak::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = VodSessionAdBreak::new().set_or_clear_start_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2729,18 +3558,39 @@ impl LiveSession {
     }
 
     /// Sets the value of [name][crate::model::LiveSession::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// let x = LiveSession::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [play_uri][crate::model::LiveSession::play_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// let x = LiveSession::new().set_play_uri("example");
+    /// ```
     pub fn set_play_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.play_uri = v.into();
         self
     }
 
     /// Sets the value of [ad_tag_macros][crate::model::LiveSession::ad_tag_macros].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// let x = LiveSession::new().set_ad_tag_macros([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_ad_tag_macros<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2753,6 +3603,13 @@ impl LiveSession {
     }
 
     /// Sets the value of [manifest_options][crate::model::LiveSession::manifest_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// use google_cloud_video_stitcher_v1::model::ManifestOptions;
+    /// let x = LiveSession::new().set_manifest_options(ManifestOptions::default()/* use setters */);
+    /// ```
     pub fn set_manifest_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManifestOptions>,
@@ -2762,6 +3619,14 @@ impl LiveSession {
     }
 
     /// Sets or clears the value of [manifest_options][crate::model::LiveSession::manifest_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// use google_cloud_video_stitcher_v1::model::ManifestOptions;
+    /// let x = LiveSession::new().set_or_clear_manifest_options(Some(ManifestOptions::default()/* use setters */));
+    /// let x = LiveSession::new().set_or_clear_manifest_options(None::<ManifestOptions>);
+    /// ```
     pub fn set_or_clear_manifest_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManifestOptions>,
@@ -2771,6 +3636,13 @@ impl LiveSession {
     }
 
     /// Sets the value of [gam_settings][crate::model::LiveSession::gam_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// use google_cloud_video_stitcher_v1::model::live_session::GamSettings;
+    /// let x = LiveSession::new().set_gam_settings(GamSettings::default()/* use setters */);
+    /// ```
     pub fn set_gam_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::live_session::GamSettings>,
@@ -2780,6 +3652,14 @@ impl LiveSession {
     }
 
     /// Sets or clears the value of [gam_settings][crate::model::LiveSession::gam_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// use google_cloud_video_stitcher_v1::model::live_session::GamSettings;
+    /// let x = LiveSession::new().set_or_clear_gam_settings(Some(GamSettings::default()/* use setters */));
+    /// let x = LiveSession::new().set_or_clear_gam_settings(None::<GamSettings>);
+    /// ```
     pub fn set_or_clear_gam_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::live_session::GamSettings>,
@@ -2789,12 +3669,26 @@ impl LiveSession {
     }
 
     /// Sets the value of [live_config][crate::model::LiveSession::live_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// let x = LiveSession::new().set_live_config("example");
+    /// ```
     pub fn set_live_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.live_config = v.into();
         self
     }
 
     /// Sets the value of [ad_tracking][crate::model::LiveSession::ad_tracking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// use google_cloud_video_stitcher_v1::model::AdTracking;
+    /// let x0 = LiveSession::new().set_ad_tracking(AdTracking::Client);
+    /// let x1 = LiveSession::new().set_ad_tracking(AdTracking::Server);
+    /// ```
     pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(
         mut self,
         v: T,
@@ -2839,12 +3733,27 @@ pub mod live_session {
         }
 
         /// Sets the value of [stream_id][crate::model::live_session::GamSettings::stream_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_stitcher_v1::model::live_session::GamSettings;
+        /// let x = GamSettings::new().set_stream_id("example");
+        /// ```
         pub fn set_stream_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.stream_id = v.into();
             self
         }
 
         /// Sets the value of [targeting_parameters][crate::model::live_session::GamSettings::targeting_parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_stitcher_v1::model::live_session::GamSettings;
+        /// let x = GamSettings::new().set_targeting_parameters([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_targeting_parameters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2885,6 +3794,17 @@ impl ManifestOptions {
     }
 
     /// Sets the value of [include_renditions][crate::model::ManifestOptions::include_renditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ManifestOptions;
+    /// use google_cloud_video_stitcher_v1::model::RenditionFilter;
+    /// let x = ManifestOptions::new()
+    ///     .set_include_renditions([
+    ///         RenditionFilter::default()/* use setters */,
+    ///         RenditionFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_include_renditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2896,6 +3816,14 @@ impl ManifestOptions {
     }
 
     /// Sets the value of [bitrate_order][crate::model::ManifestOptions::bitrate_order].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ManifestOptions;
+    /// use google_cloud_video_stitcher_v1::model::manifest_options::OrderPolicy;
+    /// let x0 = ManifestOptions::new().set_bitrate_order(OrderPolicy::Ascending);
+    /// let x1 = ManifestOptions::new().set_bitrate_order(OrderPolicy::Descending);
+    /// ```
     pub fn set_bitrate_order<T: std::convert::Into<crate::model::manifest_options::OrderPolicy>>(
         mut self,
         v: T,
@@ -3070,12 +3998,24 @@ impl RenditionFilter {
     }
 
     /// Sets the value of [bitrate_bps][crate::model::RenditionFilter::bitrate_bps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::RenditionFilter;
+    /// let x = RenditionFilter::new().set_bitrate_bps(42);
+    /// ```
     pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.bitrate_bps = v.into();
         self
     }
 
     /// Sets the value of [codecs][crate::model::RenditionFilter::codecs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::RenditionFilter;
+    /// let x = RenditionFilter::new().set_codecs("example");
+    /// ```
     pub fn set_codecs<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.codecs = v.into();
         self
@@ -3112,18 +4052,37 @@ impl Slate {
     }
 
     /// Sets the value of [name][crate::model::Slate::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Slate;
+    /// let x = Slate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::Slate::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Slate;
+    /// let x = Slate::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [gam_slate][crate::model::Slate::gam_slate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Slate;
+    /// use google_cloud_video_stitcher_v1::model::slate::GamSlate;
+    /// let x = Slate::new().set_gam_slate(GamSlate::default()/* use setters */);
+    /// ```
     pub fn set_gam_slate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::slate::GamSlate>,
@@ -3133,6 +4092,14 @@ impl Slate {
     }
 
     /// Sets or clears the value of [gam_slate][crate::model::Slate::gam_slate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::Slate;
+    /// use google_cloud_video_stitcher_v1::model::slate::GamSlate;
+    /// let x = Slate::new().set_or_clear_gam_slate(Some(GamSlate::default()/* use setters */));
+    /// let x = Slate::new().set_or_clear_gam_slate(None::<GamSlate>);
+    /// ```
     pub fn set_or_clear_gam_slate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::slate::GamSlate>,
@@ -3173,6 +4140,12 @@ pub mod slate {
         }
 
         /// Sets the value of [network_code][crate::model::slate::GamSlate::network_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_stitcher_v1::model::slate::GamSlate;
+        /// let x = GamSlate::new().set_network_code("example");
+        /// ```
         pub fn set_network_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3182,6 +4155,12 @@ pub mod slate {
         }
 
         /// Sets the value of [gam_slate_id][crate::model::slate::GamSlate::gam_slate_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_stitcher_v1::model::slate::GamSlate;
+        /// let x = GamSlate::new().set_gam_slate_id(42);
+        /// ```
         pub fn set_gam_slate_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.gam_slate_id = v.into();
             self
@@ -3217,12 +4196,29 @@ impl VodStitchDetail {
     }
 
     /// Sets the value of [name][crate::model::VodStitchDetail::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodStitchDetail;
+    /// let x = VodStitchDetail::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ad_stitch_details][crate::model::VodStitchDetail::ad_stitch_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodStitchDetail;
+    /// use google_cloud_video_stitcher_v1::model::AdStitchDetail;
+    /// let x = VodStitchDetail::new()
+    ///     .set_ad_stitch_details([
+    ///         AdStitchDetail::default()/* use setters */,
+    ///         AdStitchDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ad_stitch_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3268,18 +4264,37 @@ impl AdStitchDetail {
     }
 
     /// Sets the value of [ad_break_id][crate::model::AdStitchDetail::ad_break_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdStitchDetail;
+    /// let x = AdStitchDetail::new().set_ad_break_id("example");
+    /// ```
     pub fn set_ad_break_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ad_break_id = v.into();
         self
     }
 
     /// Sets the value of [ad_id][crate::model::AdStitchDetail::ad_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdStitchDetail;
+    /// let x = AdStitchDetail::new().set_ad_id("example");
+    /// ```
     pub fn set_ad_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ad_id = v.into();
         self
     }
 
     /// Sets the value of [ad_time_offset][crate::model::AdStitchDetail::ad_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdStitchDetail;
+    /// use wkt::Duration;
+    /// let x = AdStitchDetail::new().set_ad_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_ad_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3289,6 +4304,14 @@ impl AdStitchDetail {
     }
 
     /// Sets or clears the value of [ad_time_offset][crate::model::AdStitchDetail::ad_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdStitchDetail;
+    /// use wkt::Duration;
+    /// let x = AdStitchDetail::new().set_or_clear_ad_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = AdStitchDetail::new().set_or_clear_ad_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_ad_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3298,12 +4321,28 @@ impl AdStitchDetail {
     }
 
     /// Sets the value of [skip_reason][crate::model::AdStitchDetail::skip_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdStitchDetail;
+    /// let x = AdStitchDetail::new().set_skip_reason("example");
+    /// ```
     pub fn set_skip_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skip_reason = v.into();
         self
     }
 
     /// Sets the value of [media][crate::model::AdStitchDetail::media].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::AdStitchDetail;
+    /// use wkt::Value;
+    /// let x = AdStitchDetail::new().set_media([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_media<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3350,12 +4389,25 @@ impl CreateCdnKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCdnKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateCdnKeyRequest;
+    /// let x = CreateCdnKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateCdnKeyRequest;
+    /// use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// let x = CreateCdnKeyRequest::new().set_cdn_key(CdnKey::default()/* use setters */);
+    /// ```
     pub fn set_cdn_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CdnKey>,
@@ -3365,6 +4417,14 @@ impl CreateCdnKeyRequest {
     }
 
     /// Sets or clears the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateCdnKeyRequest;
+    /// use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// let x = CreateCdnKeyRequest::new().set_or_clear_cdn_key(Some(CdnKey::default()/* use setters */));
+    /// let x = CreateCdnKeyRequest::new().set_or_clear_cdn_key(None::<CdnKey>);
+    /// ```
     pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CdnKey>,
@@ -3374,6 +4434,12 @@ impl CreateCdnKeyRequest {
     }
 
     /// Sets the value of [cdn_key_id][crate::model::CreateCdnKeyRequest::cdn_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateCdnKeyRequest;
+    /// let x = CreateCdnKeyRequest::new().set_cdn_key_id("example");
+    /// ```
     pub fn set_cdn_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cdn_key_id = v.into();
         self
@@ -3416,30 +4482,60 @@ impl ListCdnKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCdnKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysRequest;
+    /// let x = ListCdnKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCdnKeysRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysRequest;
+    /// let x = ListCdnKeysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCdnKeysRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysRequest;
+    /// let x = ListCdnKeysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCdnKeysRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysRequest;
+    /// let x = ListCdnKeysRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCdnKeysRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysRequest;
+    /// let x = ListCdnKeysRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3474,6 +4570,17 @@ impl ListCdnKeysResponse {
     }
 
     /// Sets the value of [cdn_keys][crate::model::ListCdnKeysResponse::cdn_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysResponse;
+    /// use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// let x = ListCdnKeysResponse::new()
+    ///     .set_cdn_keys([
+    ///         CdnKey::default()/* use setters */,
+    ///         CdnKey::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cdn_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3485,12 +4592,24 @@ impl ListCdnKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCdnKeysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysResponse;
+    /// let x = ListCdnKeysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCdnKeysResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListCdnKeysResponse;
+    /// let x = ListCdnKeysResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3539,6 +4658,12 @@ impl GetCdnKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCdnKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetCdnKeyRequest;
+    /// let x = GetCdnKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3568,6 +4693,12 @@ impl DeleteCdnKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCdnKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::DeleteCdnKeyRequest;
+    /// let x = DeleteCdnKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3601,6 +4732,13 @@ impl UpdateCdnKeyRequest {
     }
 
     /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateCdnKeyRequest;
+    /// use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// let x = UpdateCdnKeyRequest::new().set_cdn_key(CdnKey::default()/* use setters */);
+    /// ```
     pub fn set_cdn_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CdnKey>,
@@ -3610,6 +4748,14 @@ impl UpdateCdnKeyRequest {
     }
 
     /// Sets or clears the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateCdnKeyRequest;
+    /// use google_cloud_video_stitcher_v1::model::CdnKey;
+    /// let x = UpdateCdnKeyRequest::new().set_or_clear_cdn_key(Some(CdnKey::default()/* use setters */));
+    /// let x = UpdateCdnKeyRequest::new().set_or_clear_cdn_key(None::<CdnKey>);
+    /// ```
     pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CdnKey>,
@@ -3619,6 +4765,13 @@ impl UpdateCdnKeyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateCdnKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCdnKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3628,6 +4781,14 @@ impl UpdateCdnKeyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateCdnKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCdnKeyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCdnKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3663,12 +4824,25 @@ impl CreateVodSessionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVodSessionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodSessionRequest;
+    /// let x = CreateVodSessionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodSessionRequest;
+    /// use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = CreateVodSessionRequest::new().set_vod_session(VodSession::default()/* use setters */);
+    /// ```
     pub fn set_vod_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VodSession>,
@@ -3678,6 +4852,14 @@ impl CreateVodSessionRequest {
     }
 
     /// Sets or clears the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodSessionRequest;
+    /// use google_cloud_video_stitcher_v1::model::VodSession;
+    /// let x = CreateVodSessionRequest::new().set_or_clear_vod_session(Some(VodSession::default()/* use setters */));
+    /// let x = CreateVodSessionRequest::new().set_or_clear_vod_session(None::<VodSession>);
+    /// ```
     pub fn set_or_clear_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VodSession>,
@@ -3710,6 +4892,12 @@ impl GetVodSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVodSessionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetVodSessionRequest;
+    /// let x = GetVodSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3745,18 +4933,36 @@ impl ListVodStitchDetailsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVodStitchDetailsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodStitchDetailsRequest;
+    /// let x = ListVodStitchDetailsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVodStitchDetailsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodStitchDetailsRequest;
+    /// let x = ListVodStitchDetailsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVodStitchDetailsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodStitchDetailsRequest;
+    /// let x = ListVodStitchDetailsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3788,6 +4994,17 @@ impl ListVodStitchDetailsResponse {
     }
 
     /// Sets the value of [vod_stitch_details][crate::model::ListVodStitchDetailsResponse::vod_stitch_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodStitchDetailsResponse;
+    /// use google_cloud_video_stitcher_v1::model::VodStitchDetail;
+    /// let x = ListVodStitchDetailsResponse::new()
+    ///     .set_vod_stitch_details([
+    ///         VodStitchDetail::default()/* use setters */,
+    ///         VodStitchDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vod_stitch_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3799,6 +5016,12 @@ impl ListVodStitchDetailsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVodStitchDetailsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodStitchDetailsResponse;
+    /// let x = ListVodStitchDetailsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3843,6 +5066,12 @@ impl GetVodStitchDetailRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVodStitchDetailRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetVodStitchDetailRequest;
+    /// let x = GetVodStitchDetailRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3878,18 +5107,36 @@ impl ListVodAdTagDetailsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVodAdTagDetailsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodAdTagDetailsRequest;
+    /// let x = ListVodAdTagDetailsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVodAdTagDetailsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodAdTagDetailsRequest;
+    /// let x = ListVodAdTagDetailsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVodAdTagDetailsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodAdTagDetailsRequest;
+    /// let x = ListVodAdTagDetailsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3921,6 +5168,17 @@ impl ListVodAdTagDetailsResponse {
     }
 
     /// Sets the value of [vod_ad_tag_details][crate::model::ListVodAdTagDetailsResponse::vod_ad_tag_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodAdTagDetailsResponse;
+    /// use google_cloud_video_stitcher_v1::model::VodAdTagDetail;
+    /// let x = ListVodAdTagDetailsResponse::new()
+    ///     .set_vod_ad_tag_details([
+    ///         VodAdTagDetail::default()/* use setters */,
+    ///         VodAdTagDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vod_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3932,6 +5190,12 @@ impl ListVodAdTagDetailsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVodAdTagDetailsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodAdTagDetailsResponse;
+    /// let x = ListVodAdTagDetailsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3976,6 +5240,12 @@ impl GetVodAdTagDetailRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVodAdTagDetailRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetVodAdTagDetailRequest;
+    /// let x = GetVodAdTagDetailRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4011,18 +5281,36 @@ impl ListLiveAdTagDetailsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLiveAdTagDetailsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveAdTagDetailsRequest;
+    /// let x = ListLiveAdTagDetailsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLiveAdTagDetailsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveAdTagDetailsRequest;
+    /// let x = ListLiveAdTagDetailsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLiveAdTagDetailsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveAdTagDetailsRequest;
+    /// let x = ListLiveAdTagDetailsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4054,6 +5342,17 @@ impl ListLiveAdTagDetailsResponse {
     }
 
     /// Sets the value of [live_ad_tag_details][crate::model::ListLiveAdTagDetailsResponse::live_ad_tag_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveAdTagDetailsResponse;
+    /// use google_cloud_video_stitcher_v1::model::LiveAdTagDetail;
+    /// let x = ListLiveAdTagDetailsResponse::new()
+    ///     .set_live_ad_tag_details([
+    ///         LiveAdTagDetail::default()/* use setters */,
+    ///         LiveAdTagDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_live_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4065,6 +5364,12 @@ impl ListLiveAdTagDetailsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLiveAdTagDetailsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveAdTagDetailsResponse;
+    /// let x = ListLiveAdTagDetailsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4108,6 +5413,12 @@ impl GetLiveAdTagDetailRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLiveAdTagDetailRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetLiveAdTagDetailRequest;
+    /// let x = GetLiveAdTagDetailRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4161,18 +5472,37 @@ impl CreateSlateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSlateRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateSlateRequest;
+    /// let x = CreateSlateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [slate_id][crate::model::CreateSlateRequest::slate_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateSlateRequest;
+    /// let x = CreateSlateRequest::new().set_slate_id("example");
+    /// ```
     pub fn set_slate_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.slate_id = v.into();
         self
     }
 
     /// Sets the value of [slate][crate::model::CreateSlateRequest::slate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateSlateRequest;
+    /// use google_cloud_video_stitcher_v1::model::Slate;
+    /// let x = CreateSlateRequest::new().set_slate(Slate::default()/* use setters */);
+    /// ```
     pub fn set_slate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Slate>,
@@ -4182,6 +5512,14 @@ impl CreateSlateRequest {
     }
 
     /// Sets or clears the value of [slate][crate::model::CreateSlateRequest::slate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateSlateRequest;
+    /// use google_cloud_video_stitcher_v1::model::Slate;
+    /// let x = CreateSlateRequest::new().set_or_clear_slate(Some(Slate::default()/* use setters */));
+    /// let x = CreateSlateRequest::new().set_or_clear_slate(None::<Slate>);
+    /// ```
     pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Slate>,
@@ -4191,6 +5529,12 @@ impl CreateSlateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateSlateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateSlateRequest;
+    /// let x = CreateSlateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4220,6 +5564,12 @@ impl GetSlateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSlateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetSlateRequest;
+    /// let x = GetSlateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4262,30 +5612,60 @@ impl ListSlatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSlatesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesRequest;
+    /// let x = ListSlatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSlatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesRequest;
+    /// let x = ListSlatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSlatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesRequest;
+    /// let x = ListSlatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSlatesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesRequest;
+    /// let x = ListSlatesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListSlatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesRequest;
+    /// let x = ListSlatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4320,6 +5700,17 @@ impl ListSlatesResponse {
     }
 
     /// Sets the value of [slates][crate::model::ListSlatesResponse::slates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesResponse;
+    /// use google_cloud_video_stitcher_v1::model::Slate;
+    /// let x = ListSlatesResponse::new()
+    ///     .set_slates([
+    ///         Slate::default()/* use setters */,
+    ///         Slate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_slates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4331,12 +5722,24 @@ impl ListSlatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSlatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesResponse;
+    /// let x = ListSlatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListSlatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListSlatesResponse;
+    /// let x = ListSlatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4387,6 +5790,13 @@ impl UpdateSlateRequest {
     }
 
     /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateSlateRequest;
+    /// use google_cloud_video_stitcher_v1::model::Slate;
+    /// let x = UpdateSlateRequest::new().set_slate(Slate::default()/* use setters */);
+    /// ```
     pub fn set_slate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Slate>,
@@ -4396,6 +5806,14 @@ impl UpdateSlateRequest {
     }
 
     /// Sets or clears the value of [slate][crate::model::UpdateSlateRequest::slate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateSlateRequest;
+    /// use google_cloud_video_stitcher_v1::model::Slate;
+    /// let x = UpdateSlateRequest::new().set_or_clear_slate(Some(Slate::default()/* use setters */));
+    /// let x = UpdateSlateRequest::new().set_or_clear_slate(None::<Slate>);
+    /// ```
     pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Slate>,
@@ -4405,6 +5823,13 @@ impl UpdateSlateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateSlateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSlateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4414,6 +5839,14 @@ impl UpdateSlateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateSlateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSlateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSlateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4446,6 +5879,12 @@ impl DeleteSlateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSlateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::DeleteSlateRequest;
+    /// let x = DeleteSlateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4478,12 +5917,25 @@ impl CreateLiveSessionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLiveSessionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveSessionRequest;
+    /// let x = CreateLiveSessionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveSessionRequest;
+    /// use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// let x = CreateLiveSessionRequest::new().set_live_session(LiveSession::default()/* use setters */);
+    /// ```
     pub fn set_live_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LiveSession>,
@@ -4493,6 +5945,14 @@ impl CreateLiveSessionRequest {
     }
 
     /// Sets or clears the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveSessionRequest;
+    /// use google_cloud_video_stitcher_v1::model::LiveSession;
+    /// let x = CreateLiveSessionRequest::new().set_or_clear_live_session(Some(LiveSession::default()/* use setters */));
+    /// let x = CreateLiveSessionRequest::new().set_or_clear_live_session(None::<LiveSession>);
+    /// ```
     pub fn set_or_clear_live_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LiveSession>,
@@ -4525,6 +5985,12 @@ impl GetLiveSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLiveSessionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetLiveSessionRequest;
+    /// let x = GetLiveSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4575,18 +6041,37 @@ impl CreateLiveConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLiveConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveConfigRequest;
+    /// let x = CreateLiveConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [live_config_id][crate::model::CreateLiveConfigRequest::live_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveConfigRequest;
+    /// let x = CreateLiveConfigRequest::new().set_live_config_id("example");
+    /// ```
     pub fn set_live_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.live_config_id = v.into();
         self
     }
 
     /// Sets the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = CreateLiveConfigRequest::new().set_live_config(LiveConfig::default()/* use setters */);
+    /// ```
     pub fn set_live_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LiveConfig>,
@@ -4596,6 +6081,14 @@ impl CreateLiveConfigRequest {
     }
 
     /// Sets or clears the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = CreateLiveConfigRequest::new().set_or_clear_live_config(Some(LiveConfig::default()/* use setters */));
+    /// let x = CreateLiveConfigRequest::new().set_or_clear_live_config(None::<LiveConfig>);
+    /// ```
     pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LiveConfig>,
@@ -4605,6 +6098,12 @@ impl CreateLiveConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateLiveConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateLiveConfigRequest;
+    /// let x = CreateLiveConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4649,30 +6148,60 @@ impl ListLiveConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLiveConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsRequest;
+    /// let x = ListLiveConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLiveConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsRequest;
+    /// let x = ListLiveConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLiveConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsRequest;
+    /// let x = ListLiveConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListLiveConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsRequest;
+    /// let x = ListLiveConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListLiveConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsRequest;
+    /// let x = ListLiveConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4707,6 +6236,17 @@ impl ListLiveConfigsResponse {
     }
 
     /// Sets the value of [live_configs][crate::model::ListLiveConfigsResponse::live_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsResponse;
+    /// use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = ListLiveConfigsResponse::new()
+    ///     .set_live_configs([
+    ///         LiveConfig::default()/* use setters */,
+    ///         LiveConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_live_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4718,12 +6258,24 @@ impl ListLiveConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLiveConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsResponse;
+    /// let x = ListLiveConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListLiveConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListLiveConfigsResponse;
+    /// let x = ListLiveConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4773,6 +6325,12 @@ impl GetLiveConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLiveConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetLiveConfigRequest;
+    /// let x = GetLiveConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4802,6 +6360,12 @@ impl DeleteLiveConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLiveConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::DeleteLiveConfigRequest;
+    /// let x = DeleteLiveConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4836,6 +6400,13 @@ impl UpdateLiveConfigRequest {
     }
 
     /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateLiveConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = UpdateLiveConfigRequest::new().set_live_config(LiveConfig::default()/* use setters */);
+    /// ```
     pub fn set_live_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LiveConfig>,
@@ -4845,6 +6416,14 @@ impl UpdateLiveConfigRequest {
     }
 
     /// Sets or clears the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateLiveConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::LiveConfig;
+    /// let x = UpdateLiveConfigRequest::new().set_or_clear_live_config(Some(LiveConfig::default()/* use setters */));
+    /// let x = UpdateLiveConfigRequest::new().set_or_clear_live_config(None::<LiveConfig>);
+    /// ```
     pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LiveConfig>,
@@ -4854,6 +6433,13 @@ impl UpdateLiveConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateLiveConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLiveConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4863,6 +6449,14 @@ impl UpdateLiveConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateLiveConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLiveConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateLiveConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4916,18 +6510,37 @@ impl CreateVodConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVodConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodConfigRequest;
+    /// let x = CreateVodConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [vod_config_id][crate::model::CreateVodConfigRequest::vod_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodConfigRequest;
+    /// let x = CreateVodConfigRequest::new().set_vod_config_id("example");
+    /// ```
     pub fn set_vod_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vod_config_id = v.into();
         self
     }
 
     /// Sets the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = CreateVodConfigRequest::new().set_vod_config(VodConfig::default()/* use setters */);
+    /// ```
     pub fn set_vod_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VodConfig>,
@@ -4937,6 +6550,14 @@ impl CreateVodConfigRequest {
     }
 
     /// Sets or clears the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = CreateVodConfigRequest::new().set_or_clear_vod_config(Some(VodConfig::default()/* use setters */));
+    /// let x = CreateVodConfigRequest::new().set_or_clear_vod_config(None::<VodConfig>);
+    /// ```
     pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VodConfig>,
@@ -4946,6 +6567,12 @@ impl CreateVodConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateVodConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::CreateVodConfigRequest;
+    /// let x = CreateVodConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4991,30 +6618,60 @@ impl ListVodConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVodConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsRequest;
+    /// let x = ListVodConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVodConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsRequest;
+    /// let x = ListVodConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVodConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsRequest;
+    /// let x = ListVodConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVodConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsRequest;
+    /// let x = ListVodConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListVodConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsRequest;
+    /// let x = ListVodConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5049,6 +6706,17 @@ impl ListVodConfigsResponse {
     }
 
     /// Sets the value of [vod_configs][crate::model::ListVodConfigsResponse::vod_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsResponse;
+    /// use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = ListVodConfigsResponse::new()
+    ///     .set_vod_configs([
+    ///         VodConfig::default()/* use setters */,
+    ///         VodConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vod_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5060,12 +6728,24 @@ impl ListVodConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVodConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsResponse;
+    /// let x = ListVodConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListVodConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::ListVodConfigsResponse;
+    /// let x = ListVodConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5114,6 +6794,12 @@ impl GetVodConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVodConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GetVodConfigRequest;
+    /// let x = GetVodConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5143,6 +6829,12 @@ impl DeleteVodConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVodConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::DeleteVodConfigRequest;
+    /// let x = DeleteVodConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5177,6 +6869,13 @@ impl UpdateVodConfigRequest {
     }
 
     /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateVodConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = UpdateVodConfigRequest::new().set_vod_config(VodConfig::default()/* use setters */);
+    /// ```
     pub fn set_vod_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VodConfig>,
@@ -5186,6 +6885,14 @@ impl UpdateVodConfigRequest {
     }
 
     /// Sets or clears the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateVodConfigRequest;
+    /// use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = UpdateVodConfigRequest::new().set_or_clear_vod_config(Some(VodConfig::default()/* use setters */));
+    /// let x = UpdateVodConfigRequest::new().set_or_clear_vod_config(None::<VodConfig>);
+    /// ```
     pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VodConfig>,
@@ -5195,6 +6902,13 @@ impl UpdateVodConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateVodConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVodConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5204,6 +6918,14 @@ impl UpdateVodConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::UpdateVodConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVodConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateVodConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5244,6 +6966,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5253,6 +6982,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5262,6 +6999,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5271,6 +7015,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5280,12 +7032,24 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
@@ -5330,24 +7094,49 @@ impl VodConfig {
     }
 
     /// Sets the value of [name][crate::model::VodConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = VodConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_uri][crate::model::VodConfig::source_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = VodConfig::new().set_source_uri("example");
+    /// ```
     pub fn set_source_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_uri = v.into();
         self
     }
 
     /// Sets the value of [ad_tag_uri][crate::model::VodConfig::ad_tag_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// let x = VodConfig::new().set_ad_tag_uri("example");
+    /// ```
     pub fn set_ad_tag_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ad_tag_uri = v.into();
         self
     }
 
     /// Sets the value of [gam_vod_config][crate::model::VodConfig::gam_vod_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// use google_cloud_video_stitcher_v1::model::GamVodConfig;
+    /// let x = VodConfig::new().set_gam_vod_config(GamVodConfig::default()/* use setters */);
+    /// ```
     pub fn set_gam_vod_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GamVodConfig>,
@@ -5357,6 +7146,14 @@ impl VodConfig {
     }
 
     /// Sets or clears the value of [gam_vod_config][crate::model::VodConfig::gam_vod_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// use google_cloud_video_stitcher_v1::model::GamVodConfig;
+    /// let x = VodConfig::new().set_or_clear_gam_vod_config(Some(GamVodConfig::default()/* use setters */));
+    /// let x = VodConfig::new().set_or_clear_gam_vod_config(None::<GamVodConfig>);
+    /// ```
     pub fn set_or_clear_gam_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GamVodConfig>,
@@ -5366,6 +7163,15 @@ impl VodConfig {
     }
 
     /// Sets the value of [state][crate::model::VodConfig::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// use google_cloud_video_stitcher_v1::model::vod_config::State;
+    /// let x0 = VodConfig::new().set_state(State::Creating);
+    /// let x1 = VodConfig::new().set_state(State::Ready);
+    /// let x2 = VodConfig::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::vod_config::State>>(
         mut self,
         v: T,
@@ -5375,6 +7181,13 @@ impl VodConfig {
     }
 
     /// Sets the value of [source_fetch_options][crate::model::VodConfig::source_fetch_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// use google_cloud_video_stitcher_v1::model::FetchOptions;
+    /// let x = VodConfig::new().set_source_fetch_options(FetchOptions::default()/* use setters */);
+    /// ```
     pub fn set_source_fetch_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FetchOptions>,
@@ -5384,6 +7197,14 @@ impl VodConfig {
     }
 
     /// Sets or clears the value of [source_fetch_options][crate::model::VodConfig::source_fetch_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::VodConfig;
+    /// use google_cloud_video_stitcher_v1::model::FetchOptions;
+    /// let x = VodConfig::new().set_or_clear_source_fetch_options(Some(FetchOptions::default()/* use setters */));
+    /// let x = VodConfig::new().set_or_clear_source_fetch_options(None::<FetchOptions>);
+    /// ```
     pub fn set_or_clear_source_fetch_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FetchOptions>,
@@ -5560,6 +7381,12 @@ impl GamVodConfig {
     }
 
     /// Sets the value of [network_code][crate::model::GamVodConfig::network_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::model::GamVodConfig;
+    /// let x = GamVodConfig::new().set_network_code("example");
+    /// ```
     pub fn set_network_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_code = v.into();
         self

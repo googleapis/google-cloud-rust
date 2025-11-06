@@ -55,6 +55,12 @@ impl DataEncryptionState {
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::DataEncryptionState::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = DataEncryptionState::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -134,12 +140,25 @@ impl Repository {
     }
 
     /// Sets the value of [name][crate::model::Repository::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Repository::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use wkt::Timestamp;
+    /// let x = Repository::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -149,6 +168,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Repository::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use wkt::Timestamp;
+    /// let x = Repository::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -158,12 +185,25 @@ impl Repository {
     }
 
     /// Sets the value of [display_name][crate::model::Repository::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [git_remote_settings][crate::model::Repository::git_remote_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+    /// let x = Repository::new().set_git_remote_settings(GitRemoteSettings::default()/* use setters */);
+    /// ```
     pub fn set_git_remote_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::repository::GitRemoteSettings>,
@@ -173,6 +213,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [git_remote_settings][crate::model::Repository::git_remote_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+    /// let x = Repository::new().set_or_clear_git_remote_settings(Some(GitRemoteSettings::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_git_remote_settings(None::<GitRemoteSettings>);
+    /// ```
     pub fn set_or_clear_git_remote_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::repository::GitRemoteSettings>,
@@ -182,6 +230,12 @@ impl Repository {
     }
 
     /// Sets the value of [npmrc_environment_variables_secret_version][crate::model::Repository::npmrc_environment_variables_secret_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_npmrc_environment_variables_secret_version("example");
+    /// ```
     pub fn set_npmrc_environment_variables_secret_version<
         T: std::convert::Into<std::string::String>,
     >(
@@ -193,6 +247,13 @@ impl Repository {
     }
 
     /// Sets the value of [workspace_compilation_overrides][crate::model::Repository::workspace_compilation_overrides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::repository::WorkspaceCompilationOverrides;
+    /// let x = Repository::new().set_workspace_compilation_overrides(WorkspaceCompilationOverrides::default()/* use setters */);
+    /// ```
     pub fn set_workspace_compilation_overrides<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::repository::WorkspaceCompilationOverrides>,
@@ -202,6 +263,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [workspace_compilation_overrides][crate::model::Repository::workspace_compilation_overrides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::repository::WorkspaceCompilationOverrides;
+    /// let x = Repository::new().set_or_clear_workspace_compilation_overrides(Some(WorkspaceCompilationOverrides::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_workspace_compilation_overrides(None::<WorkspaceCompilationOverrides>);
+    /// ```
     pub fn set_or_clear_workspace_compilation_overrides<T>(
         mut self,
         v: std::option::Option<T>,
@@ -214,6 +283,15 @@ impl Repository {
     }
 
     /// Sets the value of [labels][crate::model::Repository::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -226,24 +304,49 @@ impl Repository {
     }
 
     /// Sets the value of [set_authenticated_user_admin][crate::model::Repository::set_authenticated_user_admin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_set_authenticated_user_admin(true);
+    /// ```
     pub fn set_set_authenticated_user_admin<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.set_authenticated_user_admin = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::Repository::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::Repository::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [data_encryption_state][crate::model::Repository::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = Repository::new().set_data_encryption_state(DataEncryptionState::default()/* use setters */);
+    /// ```
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -253,6 +356,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [data_encryption_state][crate::model::Repository::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = Repository::new().set_or_clear_data_encryption_state(Some(DataEncryptionState::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_data_encryption_state(None::<DataEncryptionState>);
+    /// ```
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -262,6 +373,12 @@ impl Repository {
     }
 
     /// Sets the value of [internal_metadata][crate::model::Repository::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -271,6 +388,13 @@ impl Repository {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::Repository::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = Repository::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -325,12 +449,24 @@ pub mod repository {
         }
 
         /// Sets the value of [url][crate::model::repository::GitRemoteSettings::url].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// let x = GitRemoteSettings::new().set_url("example");
+        /// ```
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
             self
         }
 
         /// Sets the value of [default_branch][crate::model::repository::GitRemoteSettings::default_branch].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// let x = GitRemoteSettings::new().set_default_branch("example");
+        /// ```
         pub fn set_default_branch<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -340,6 +476,12 @@ pub mod repository {
         }
 
         /// Sets the value of [authentication_token_secret_version][crate::model::repository::GitRemoteSettings::authentication_token_secret_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// let x = GitRemoteSettings::new().set_authentication_token_secret_version("example");
+        /// ```
         pub fn set_authentication_token_secret_version<
             T: std::convert::Into<std::string::String>,
         >(
@@ -351,6 +493,13 @@ pub mod repository {
         }
 
         /// Sets the value of [ssh_authentication_config][crate::model::repository::GitRemoteSettings::ssh_authentication_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// use google_cloud_dataform_v1::model::repository::git_remote_settings::SshAuthenticationConfig;
+        /// let x = GitRemoteSettings::new().set_ssh_authentication_config(SshAuthenticationConfig::default()/* use setters */);
+        /// ```
         pub fn set_ssh_authentication_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -362,6 +511,14 @@ pub mod repository {
         }
 
         /// Sets or clears the value of [ssh_authentication_config][crate::model::repository::GitRemoteSettings::ssh_authentication_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// use google_cloud_dataform_v1::model::repository::git_remote_settings::SshAuthenticationConfig;
+        /// let x = GitRemoteSettings::new().set_or_clear_ssh_authentication_config(Some(SshAuthenticationConfig::default()/* use setters */));
+        /// let x = GitRemoteSettings::new().set_or_clear_ssh_authentication_config(None::<SshAuthenticationConfig>);
+        /// ```
         pub fn set_or_clear_ssh_authentication_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -376,6 +533,15 @@ pub mod repository {
         }
 
         /// Sets the value of [token_status][crate::model::repository::GitRemoteSettings::token_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// use google_cloud_dataform_v1::model::repository::git_remote_settings::TokenStatus;
+        /// let x0 = GitRemoteSettings::new().set_token_status(TokenStatus::NotFound);
+        /// let x1 = GitRemoteSettings::new().set_token_status(TokenStatus::Invalid);
+        /// let x2 = GitRemoteSettings::new().set_token_status(TokenStatus::Valid);
+        /// ```
         #[deprecated]
         pub fn set_token_status<
             T: std::convert::Into<crate::model::repository::git_remote_settings::TokenStatus>,
@@ -421,6 +587,12 @@ pub mod repository {
             }
 
             /// Sets the value of [user_private_key_secret_version][crate::model::repository::git_remote_settings::SshAuthenticationConfig::user_private_key_secret_version].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::repository::git_remote_settings::SshAuthenticationConfig;
+            /// let x = SshAuthenticationConfig::new().set_user_private_key_secret_version("example");
+            /// ```
             pub fn set_user_private_key_secret_version<
                 T: std::convert::Into<std::string::String>,
             >(
@@ -432,6 +604,12 @@ pub mod repository {
             }
 
             /// Sets the value of [host_public_key][crate::model::repository::git_remote_settings::SshAuthenticationConfig::host_public_key].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::repository::git_remote_settings::SshAuthenticationConfig;
+            /// let x = SshAuthenticationConfig::new().set_host_public_key("example");
+            /// ```
             pub fn set_host_public_key<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -614,6 +792,12 @@ pub mod repository {
         }
 
         /// Sets the value of [default_database][crate::model::repository::WorkspaceCompilationOverrides::default_database].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::WorkspaceCompilationOverrides;
+        /// let x = WorkspaceCompilationOverrides::new().set_default_database("example");
+        /// ```
         pub fn set_default_database<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -623,6 +807,12 @@ pub mod repository {
         }
 
         /// Sets the value of [schema_suffix][crate::model::repository::WorkspaceCompilationOverrides::schema_suffix].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::WorkspaceCompilationOverrides;
+        /// let x = WorkspaceCompilationOverrides::new().set_schema_suffix("example");
+        /// ```
         pub fn set_schema_suffix<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -632,6 +822,12 @@ pub mod repository {
         }
 
         /// Sets the value of [table_prefix][crate::model::repository::WorkspaceCompilationOverrides::table_prefix].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::repository::WorkspaceCompilationOverrides;
+        /// let x = WorkspaceCompilationOverrides::new().set_table_prefix("example");
+        /// ```
         pub fn set_table_prefix<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -686,30 +882,60 @@ impl ListRepositoriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRepositoriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRepositoriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRepositoriesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRepositoriesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -745,6 +971,17 @@ impl ListRepositoriesResponse {
     }
 
     /// Sets the value of [repositories][crate::model::ListRepositoriesResponse::repositories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesResponse;
+    /// use google_cloud_dataform_v1::model::Repository;
+    /// let x = ListRepositoriesResponse::new()
+    ///     .set_repositories([
+    ///         Repository::default()/* use setters */,
+    ///         Repository::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -756,12 +993,24 @@ impl ListRepositoriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesResponse;
+    /// let x = ListRepositoriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRepositoriesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListRepositoriesResponse;
+    /// let x = ListRepositoriesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -809,6 +1058,12 @@ impl GetRepositoryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::GetRepositoryRequest;
+    /// let x = GetRepositoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -845,12 +1100,25 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateRepositoryRequest;
+    /// let x = CreateRepositoryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateRepositoryRequest;
+    /// use google_cloud_dataform_v1::model::Repository;
+    /// let x = CreateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
+    /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -860,6 +1128,14 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateRepositoryRequest;
+    /// use google_cloud_dataform_v1::model::Repository;
+    /// let x = CreateRepositoryRequest::new().set_or_clear_repository(Some(Repository::default()/* use setters */));
+    /// let x = CreateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
+    /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -869,6 +1145,12 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets the value of [repository_id][crate::model::CreateRepositoryRequest::repository_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateRepositoryRequest;
+    /// let x = CreateRepositoryRequest::new().set_repository_id("example");
+    /// ```
     pub fn set_repository_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository_id = v.into();
         self
@@ -901,6 +1183,13 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateRepositoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRepositoryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -910,6 +1199,14 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateRepositoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -919,6 +1216,13 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateRepositoryRequest;
+    /// use google_cloud_dataform_v1::model::Repository;
+    /// let x = UpdateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
+    /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -928,6 +1232,14 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets or clears the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateRepositoryRequest;
+    /// use google_cloud_dataform_v1::model::Repository;
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(Some(Repository::default()/* use setters */));
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
+    /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -964,12 +1276,24 @@ impl DeleteRepositoryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DeleteRepositoryRequest;
+    /// let x = DeleteRepositoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteRepositoryRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DeleteRepositoryRequest;
+    /// let x = DeleteRepositoryRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -1013,12 +1337,25 @@ impl CommitRepositoryChangesRequest {
     }
 
     /// Sets the value of [name][crate::model::CommitRepositoryChangesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitRepositoryChangesRequest;
+    /// let x = CommitRepositoryChangesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [commit_metadata][crate::model::CommitRepositoryChangesRequest::commit_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitRepositoryChangesRequest;
+    /// use google_cloud_dataform_v1::model::CommitMetadata;
+    /// let x = CommitRepositoryChangesRequest::new().set_commit_metadata(CommitMetadata::default()/* use setters */);
+    /// ```
     pub fn set_commit_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommitMetadata>,
@@ -1028,6 +1365,14 @@ impl CommitRepositoryChangesRequest {
     }
 
     /// Sets or clears the value of [commit_metadata][crate::model::CommitRepositoryChangesRequest::commit_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitRepositoryChangesRequest;
+    /// use google_cloud_dataform_v1::model::CommitMetadata;
+    /// let x = CommitRepositoryChangesRequest::new().set_or_clear_commit_metadata(Some(CommitMetadata::default()/* use setters */));
+    /// let x = CommitRepositoryChangesRequest::new().set_or_clear_commit_metadata(None::<CommitMetadata>);
+    /// ```
     pub fn set_or_clear_commit_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommitMetadata>,
@@ -1037,6 +1382,12 @@ impl CommitRepositoryChangesRequest {
     }
 
     /// Sets the value of [required_head_commit_sha][crate::model::CommitRepositoryChangesRequest::required_head_commit_sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitRepositoryChangesRequest;
+    /// let x = CommitRepositoryChangesRequest::new().set_required_head_commit_sha("example");
+    /// ```
     pub fn set_required_head_commit_sha<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1046,6 +1397,16 @@ impl CommitRepositoryChangesRequest {
     }
 
     /// Sets the value of [file_operations][crate::model::CommitRepositoryChangesRequest::file_operations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitRepositoryChangesRequest;
+    /// use google_cloud_dataform_v1::model::commit_repository_changes_request::FileOperation;
+    /// let x = CommitRepositoryChangesRequest::new().set_file_operations([
+    ///     ("key0", FileOperation::default()/* use setters */),
+    ///     ("key1", FileOperation::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_file_operations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1090,6 +1451,14 @@ pub mod commit_repository_changes_request {
         ///
         /// Note that all the setters affecting `operation` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::commit_repository_changes_request::FileOperation;
+        /// use google_cloud_dataform_v1::model::commit_repository_changes_request::file_operation::WriteFile;
+        /// let x = FileOperation::new().set_operation(Some(
+        ///     google_cloud_dataform_v1::model::commit_repository_changes_request::file_operation::Operation::WriteFile(WriteFile::default().into())));
+        /// ```
         pub fn set_operation<
             T: std::convert::Into<
                     std::option::Option<
@@ -1126,6 +1495,15 @@ pub mod commit_repository_changes_request {
         ///
         /// Note that all the setters affecting `operation` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::commit_repository_changes_request::FileOperation;
+        /// use google_cloud_dataform_v1::model::commit_repository_changes_request::file_operation::WriteFile;
+        /// let x = FileOperation::new().set_write_file(WriteFile::default()/* use setters */);
+        /// assert!(x.write_file().is_some());
+        /// assert!(x.delete_file().is_none());
+        /// ```
         pub fn set_write_file<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -1166,6 +1544,15 @@ pub mod commit_repository_changes_request {
         ///
         /// Note that all the setters affecting `operation` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::commit_repository_changes_request::FileOperation;
+        /// use google_cloud_dataform_v1::model::commit_repository_changes_request::file_operation::DeleteFile;
+        /// let x = FileOperation::new().set_delete_file(DeleteFile::default()/* use setters */);
+        /// assert!(x.delete_file().is_some());
+        /// assert!(x.write_file().is_none());
+        /// ```
         pub fn set_delete_file<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -1212,6 +1599,12 @@ pub mod commit_repository_changes_request {
             }
 
             /// Sets the value of [contents][crate::model::commit_repository_changes_request::file_operation::WriteFile::contents].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::commit_repository_changes_request::file_operation::WriteFile;
+            /// let x = WriteFile::new().set_contents(bytes::Bytes::from_static(b"example"));
+            /// ```
             pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.contents = v.into();
                 self
@@ -1279,6 +1672,12 @@ impl CommitRepositoryChangesResponse {
     }
 
     /// Sets the value of [commit_sha][crate::model::CommitRepositoryChangesResponse::commit_sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitRepositoryChangesResponse;
+    /// let x = CommitRepositoryChangesResponse::new().set_commit_sha("example");
+    /// ```
     pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.commit_sha = v.into();
         self
@@ -1314,18 +1713,36 @@ impl ReadRepositoryFileRequest {
     }
 
     /// Sets the value of [name][crate::model::ReadRepositoryFileRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadRepositoryFileRequest;
+    /// let x = ReadRepositoryFileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [commit_sha][crate::model::ReadRepositoryFileRequest::commit_sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadRepositoryFileRequest;
+    /// let x = ReadRepositoryFileRequest::new().set_commit_sha("example");
+    /// ```
     pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.commit_sha = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::ReadRepositoryFileRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadRepositoryFileRequest;
+    /// let x = ReadRepositoryFileRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -1354,6 +1771,12 @@ impl ReadRepositoryFileResponse {
     }
 
     /// Sets the value of [contents][crate::model::ReadRepositoryFileResponse::contents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadRepositoryFileResponse;
+    /// let x = ReadRepositoryFileResponse::new().set_contents(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.contents = v.into();
         self
@@ -1404,30 +1827,60 @@ impl QueryRepositoryDirectoryContentsRequest {
     }
 
     /// Sets the value of [name][crate::model::QueryRepositoryDirectoryContentsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsRequest;
+    /// let x = QueryRepositoryDirectoryContentsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [commit_sha][crate::model::QueryRepositoryDirectoryContentsRequest::commit_sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsRequest;
+    /// let x = QueryRepositoryDirectoryContentsRequest::new().set_commit_sha("example");
+    /// ```
     pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.commit_sha = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::QueryRepositoryDirectoryContentsRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsRequest;
+    /// let x = QueryRepositoryDirectoryContentsRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::QueryRepositoryDirectoryContentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsRequest;
+    /// let x = QueryRepositoryDirectoryContentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryRepositoryDirectoryContentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsRequest;
+    /// let x = QueryRepositoryDirectoryContentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1460,6 +1913,17 @@ impl QueryRepositoryDirectoryContentsResponse {
     }
 
     /// Sets the value of [directory_entries][crate::model::QueryRepositoryDirectoryContentsResponse::directory_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsResponse;
+    /// use google_cloud_dataform_v1::model::DirectoryEntry;
+    /// let x = QueryRepositoryDirectoryContentsResponse::new()
+    ///     .set_directory_entries([
+    ///         DirectoryEntry::default()/* use setters */,
+    ///         DirectoryEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_directory_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1471,6 +1935,12 @@ impl QueryRepositoryDirectoryContentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryRepositoryDirectoryContentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryRepositoryDirectoryContentsResponse;
+    /// let x = QueryRepositoryDirectoryContentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1526,18 +1996,36 @@ impl FetchRepositoryHistoryRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchRepositoryHistoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchRepositoryHistoryRequest;
+    /// let x = FetchRepositoryHistoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchRepositoryHistoryRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchRepositoryHistoryRequest;
+    /// let x = FetchRepositoryHistoryRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchRepositoryHistoryRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchRepositoryHistoryRequest;
+    /// let x = FetchRepositoryHistoryRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1570,6 +2058,17 @@ impl FetchRepositoryHistoryResponse {
     }
 
     /// Sets the value of [commits][crate::model::FetchRepositoryHistoryResponse::commits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchRepositoryHistoryResponse;
+    /// use google_cloud_dataform_v1::model::CommitLogEntry;
+    /// let x = FetchRepositoryHistoryResponse::new()
+    ///     .set_commits([
+    ///         CommitLogEntry::default()/* use setters */,
+    ///         CommitLogEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_commits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1581,6 +2080,12 @@ impl FetchRepositoryHistoryResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchRepositoryHistoryResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchRepositoryHistoryResponse;
+    /// let x = FetchRepositoryHistoryResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1632,6 +2137,13 @@ impl CommitLogEntry {
     }
 
     /// Sets the value of [commit_time][crate::model::CommitLogEntry::commit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitLogEntry;
+    /// use wkt::Timestamp;
+    /// let x = CommitLogEntry::new().set_commit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_commit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1641,6 +2153,14 @@ impl CommitLogEntry {
     }
 
     /// Sets or clears the value of [commit_time][crate::model::CommitLogEntry::commit_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitLogEntry;
+    /// use wkt::Timestamp;
+    /// let x = CommitLogEntry::new().set_or_clear_commit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CommitLogEntry::new().set_or_clear_commit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1650,12 +2170,25 @@ impl CommitLogEntry {
     }
 
     /// Sets the value of [commit_sha][crate::model::CommitLogEntry::commit_sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitLogEntry;
+    /// let x = CommitLogEntry::new().set_commit_sha("example");
+    /// ```
     pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.commit_sha = v.into();
         self
     }
 
     /// Sets the value of [author][crate::model::CommitLogEntry::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitLogEntry;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitLogEntry::new().set_author(CommitAuthor::default()/* use setters */);
+    /// ```
     pub fn set_author<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -1665,6 +2198,14 @@ impl CommitLogEntry {
     }
 
     /// Sets or clears the value of [author][crate::model::CommitLogEntry::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitLogEntry;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitLogEntry::new().set_or_clear_author(Some(CommitAuthor::default()/* use setters */));
+    /// let x = CommitLogEntry::new().set_or_clear_author(None::<CommitAuthor>);
+    /// ```
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -1674,6 +2215,12 @@ impl CommitLogEntry {
     }
 
     /// Sets the value of [commit_message][crate::model::CommitLogEntry::commit_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitLogEntry;
+    /// let x = CommitLogEntry::new().set_commit_message("example");
+    /// ```
     pub fn set_commit_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.commit_message = v.into();
         self
@@ -1705,6 +2252,13 @@ impl CommitMetadata {
     }
 
     /// Sets the value of [author][crate::model::CommitMetadata::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitMetadata;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitMetadata::new().set_author(CommitAuthor::default()/* use setters */);
+    /// ```
     pub fn set_author<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -1714,6 +2268,14 @@ impl CommitMetadata {
     }
 
     /// Sets or clears the value of [author][crate::model::CommitMetadata::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitMetadata;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitMetadata::new().set_or_clear_author(Some(CommitAuthor::default()/* use setters */));
+    /// let x = CommitMetadata::new().set_or_clear_author(None::<CommitAuthor>);
+    /// ```
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -1723,6 +2285,12 @@ impl CommitMetadata {
     }
 
     /// Sets the value of [commit_message][crate::model::CommitMetadata::commit_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitMetadata;
+    /// let x = CommitMetadata::new().set_commit_message("example");
+    /// ```
     pub fn set_commit_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.commit_message = v.into();
         self
@@ -1751,6 +2319,12 @@ impl ComputeRepositoryAccessTokenStatusRequest {
     }
 
     /// Sets the value of [name][crate::model::ComputeRepositoryAccessTokenStatusRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ComputeRepositoryAccessTokenStatusRequest;
+    /// let x = ComputeRepositoryAccessTokenStatusRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1779,6 +2353,15 @@ impl ComputeRepositoryAccessTokenStatusResponse {
     }
 
     /// Sets the value of [token_status][crate::model::ComputeRepositoryAccessTokenStatusResponse::token_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ComputeRepositoryAccessTokenStatusResponse;
+    /// use google_cloud_dataform_v1::model::compute_repository_access_token_status_response::TokenStatus;
+    /// let x0 = ComputeRepositoryAccessTokenStatusResponse::new().set_token_status(TokenStatus::NotFound);
+    /// let x1 = ComputeRepositoryAccessTokenStatusResponse::new().set_token_status(TokenStatus::Invalid);
+    /// let x2 = ComputeRepositoryAccessTokenStatusResponse::new().set_token_status(TokenStatus::Valid);
+    /// ```
     pub fn set_token_status<
         T: std::convert::Into<
                 crate::model::compute_repository_access_token_status_response::TokenStatus,
@@ -1960,6 +2543,12 @@ impl FetchRemoteBranchesRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchRemoteBranchesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchRemoteBranchesRequest;
+    /// let x = FetchRemoteBranchesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1988,6 +2577,12 @@ impl FetchRemoteBranchesResponse {
     }
 
     /// Sets the value of [branches][crate::model::FetchRemoteBranchesResponse::branches].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchRemoteBranchesResponse;
+    /// let x = FetchRemoteBranchesResponse::new().set_branches(["a", "b", "c"]);
+    /// ```
     pub fn set_branches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2033,12 +2628,25 @@ impl Workspace {
     }
 
     /// Sets the value of [name][crate::model::Workspace::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// let x = Workspace::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Workspace::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// use wkt::Timestamp;
+    /// let x = Workspace::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2048,6 +2656,14 @@ impl Workspace {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Workspace::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// use wkt::Timestamp;
+    /// let x = Workspace::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Workspace::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2057,6 +2673,13 @@ impl Workspace {
     }
 
     /// Sets the value of [data_encryption_state][crate::model::Workspace::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = Workspace::new().set_data_encryption_state(DataEncryptionState::default()/* use setters */);
+    /// ```
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -2066,6 +2689,14 @@ impl Workspace {
     }
 
     /// Sets or clears the value of [data_encryption_state][crate::model::Workspace::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = Workspace::new().set_or_clear_data_encryption_state(Some(DataEncryptionState::default()/* use setters */));
+    /// let x = Workspace::new().set_or_clear_data_encryption_state(None::<DataEncryptionState>);
+    /// ```
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -2075,6 +2706,12 @@ impl Workspace {
     }
 
     /// Sets the value of [internal_metadata][crate::model::Workspace::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// let x = Workspace::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2084,6 +2721,13 @@ impl Workspace {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::Workspace::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// let x = Workspace::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = Workspace::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2137,30 +2781,60 @@ impl ListWorkspacesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkspacesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesRequest;
+    /// let x = ListWorkspacesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkspacesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesRequest;
+    /// let x = ListWorkspacesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkspacesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesRequest;
+    /// let x = ListWorkspacesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListWorkspacesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesRequest;
+    /// let x = ListWorkspacesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListWorkspacesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesRequest;
+    /// let x = ListWorkspacesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2196,6 +2870,17 @@ impl ListWorkspacesResponse {
     }
 
     /// Sets the value of [workspaces][crate::model::ListWorkspacesResponse::workspaces].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesResponse;
+    /// use google_cloud_dataform_v1::model::Workspace;
+    /// let x = ListWorkspacesResponse::new()
+    ///     .set_workspaces([
+    ///         Workspace::default()/* use setters */,
+    ///         Workspace::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_workspaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2207,12 +2892,24 @@ impl ListWorkspacesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkspacesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesResponse;
+    /// let x = ListWorkspacesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkspacesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkspacesResponse;
+    /// let x = ListWorkspacesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2260,6 +2957,12 @@ impl GetWorkspaceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkspaceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::GetWorkspaceRequest;
+    /// let x = GetWorkspaceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2296,12 +2999,25 @@ impl CreateWorkspaceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkspaceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkspaceRequest;
+    /// let x = CreateWorkspaceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workspace][crate::model::CreateWorkspaceRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkspaceRequest;
+    /// use google_cloud_dataform_v1::model::Workspace;
+    /// let x = CreateWorkspaceRequest::new().set_workspace(Workspace::default()/* use setters */);
+    /// ```
     pub fn set_workspace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workspace>,
@@ -2311,6 +3027,14 @@ impl CreateWorkspaceRequest {
     }
 
     /// Sets or clears the value of [workspace][crate::model::CreateWorkspaceRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkspaceRequest;
+    /// use google_cloud_dataform_v1::model::Workspace;
+    /// let x = CreateWorkspaceRequest::new().set_or_clear_workspace(Some(Workspace::default()/* use setters */));
+    /// let x = CreateWorkspaceRequest::new().set_or_clear_workspace(None::<Workspace>);
+    /// ```
     pub fn set_or_clear_workspace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workspace>,
@@ -2320,6 +3044,12 @@ impl CreateWorkspaceRequest {
     }
 
     /// Sets the value of [workspace_id][crate::model::CreateWorkspaceRequest::workspace_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkspaceRequest;
+    /// let x = CreateWorkspaceRequest::new().set_workspace_id("example");
+    /// ```
     pub fn set_workspace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace_id = v.into();
         self
@@ -2348,6 +3078,12 @@ impl DeleteWorkspaceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkspaceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DeleteWorkspaceRequest;
+    /// let x = DeleteWorkspaceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2379,12 +3115,24 @@ impl CommitAuthor {
     }
 
     /// Sets the value of [name][crate::model::CommitAuthor::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitAuthor::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [email_address][crate::model::CommitAuthor::email_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitAuthor::new().set_email_address("example");
+    /// ```
     pub fn set_email_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email_address = v.into();
         self
@@ -2421,18 +3169,37 @@ impl PullGitCommitsRequest {
     }
 
     /// Sets the value of [name][crate::model::PullGitCommitsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::PullGitCommitsRequest;
+    /// let x = PullGitCommitsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [remote_branch][crate::model::PullGitCommitsRequest::remote_branch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::PullGitCommitsRequest;
+    /// let x = PullGitCommitsRequest::new().set_remote_branch("example");
+    /// ```
     pub fn set_remote_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remote_branch = v.into();
         self
     }
 
     /// Sets the value of [author][crate::model::PullGitCommitsRequest::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::PullGitCommitsRequest;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = PullGitCommitsRequest::new().set_author(CommitAuthor::default()/* use setters */);
+    /// ```
     pub fn set_author<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -2442,6 +3209,14 @@ impl PullGitCommitsRequest {
     }
 
     /// Sets or clears the value of [author][crate::model::PullGitCommitsRequest::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::PullGitCommitsRequest;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = PullGitCommitsRequest::new().set_or_clear_author(Some(CommitAuthor::default()/* use setters */));
+    /// let x = PullGitCommitsRequest::new().set_or_clear_author(None::<CommitAuthor>);
+    /// ```
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -2497,12 +3272,24 @@ impl PushGitCommitsRequest {
     }
 
     /// Sets the value of [name][crate::model::PushGitCommitsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::PushGitCommitsRequest;
+    /// let x = PushGitCommitsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [remote_branch][crate::model::PushGitCommitsRequest::remote_branch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::PushGitCommitsRequest;
+    /// let x = PushGitCommitsRequest::new().set_remote_branch("example");
+    /// ```
     pub fn set_remote_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remote_branch = v.into();
         self
@@ -2550,6 +3337,12 @@ impl FetchFileGitStatusesRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchFileGitStatusesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchFileGitStatusesRequest;
+    /// let x = FetchFileGitStatusesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2580,6 +3373,17 @@ impl FetchFileGitStatusesResponse {
     }
 
     /// Sets the value of [uncommitted_file_changes][crate::model::FetchFileGitStatusesResponse::uncommitted_file_changes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchFileGitStatusesResponse;
+    /// use google_cloud_dataform_v1::model::fetch_file_git_statuses_response::UncommittedFileChange;
+    /// let x = FetchFileGitStatusesResponse::new()
+    ///     .set_uncommitted_file_changes([
+    ///         UncommittedFileChange::default()/* use setters */,
+    ///         UncommittedFileChange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uncommitted_file_changes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2623,12 +3427,27 @@ pub mod fetch_file_git_statuses_response {
         }
 
         /// Sets the value of [path][crate::model::fetch_file_git_statuses_response::UncommittedFileChange::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::fetch_file_git_statuses_response::UncommittedFileChange;
+        /// let x = UncommittedFileChange::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::fetch_file_git_statuses_response::UncommittedFileChange::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::fetch_file_git_statuses_response::UncommittedFileChange;
+        /// use google_cloud_dataform_v1::model::fetch_file_git_statuses_response::uncommitted_file_change::State;
+        /// let x0 = UncommittedFileChange::new().set_state(State::Added);
+        /// let x1 = UncommittedFileChange::new().set_state(State::Deleted);
+        /// let x2 = UncommittedFileChange::new().set_state(State::Modified);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<
                     crate::model::fetch_file_git_statuses_response::uncommitted_file_change::State,
@@ -2824,12 +3643,24 @@ impl FetchGitAheadBehindRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchGitAheadBehindRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchGitAheadBehindRequest;
+    /// let x = FetchGitAheadBehindRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [remote_branch][crate::model::FetchGitAheadBehindRequest::remote_branch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchGitAheadBehindRequest;
+    /// let x = FetchGitAheadBehindRequest::new().set_remote_branch("example");
+    /// ```
     pub fn set_remote_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remote_branch = v.into();
         self
@@ -2861,12 +3692,24 @@ impl FetchGitAheadBehindResponse {
     }
 
     /// Sets the value of [commits_ahead][crate::model::FetchGitAheadBehindResponse::commits_ahead].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchGitAheadBehindResponse;
+    /// let x = FetchGitAheadBehindResponse::new().set_commits_ahead(42);
+    /// ```
     pub fn set_commits_ahead<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.commits_ahead = v.into();
         self
     }
 
     /// Sets the value of [commits_behind][crate::model::FetchGitAheadBehindResponse::commits_behind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchGitAheadBehindResponse;
+    /// let x = FetchGitAheadBehindResponse::new().set_commits_behind(42);
+    /// ```
     pub fn set_commits_behind<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.commits_behind = v.into();
         self
@@ -2905,12 +3748,25 @@ impl CommitWorkspaceChangesRequest {
     }
 
     /// Sets the value of [name][crate::model::CommitWorkspaceChangesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitWorkspaceChangesRequest;
+    /// let x = CommitWorkspaceChangesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [author][crate::model::CommitWorkspaceChangesRequest::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitWorkspaceChangesRequest;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitWorkspaceChangesRequest::new().set_author(CommitAuthor::default()/* use setters */);
+    /// ```
     pub fn set_author<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -2920,6 +3776,14 @@ impl CommitWorkspaceChangesRequest {
     }
 
     /// Sets or clears the value of [author][crate::model::CommitWorkspaceChangesRequest::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitWorkspaceChangesRequest;
+    /// use google_cloud_dataform_v1::model::CommitAuthor;
+    /// let x = CommitWorkspaceChangesRequest::new().set_or_clear_author(Some(CommitAuthor::default()/* use setters */));
+    /// let x = CommitWorkspaceChangesRequest::new().set_or_clear_author(None::<CommitAuthor>);
+    /// ```
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommitAuthor>,
@@ -2929,12 +3793,24 @@ impl CommitWorkspaceChangesRequest {
     }
 
     /// Sets the value of [commit_message][crate::model::CommitWorkspaceChangesRequest::commit_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitWorkspaceChangesRequest;
+    /// let x = CommitWorkspaceChangesRequest::new().set_commit_message("example");
+    /// ```
     pub fn set_commit_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.commit_message = v.into();
         self
     }
 
     /// Sets the value of [paths][crate::model::CommitWorkspaceChangesRequest::paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CommitWorkspaceChangesRequest;
+    /// let x = CommitWorkspaceChangesRequest::new().set_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2994,12 +3870,24 @@ impl ResetWorkspaceChangesRequest {
     }
 
     /// Sets the value of [name][crate::model::ResetWorkspaceChangesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ResetWorkspaceChangesRequest;
+    /// let x = ResetWorkspaceChangesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [paths][crate::model::ResetWorkspaceChangesRequest::paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ResetWorkspaceChangesRequest;
+    /// let x = ResetWorkspaceChangesRequest::new().set_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3011,6 +3899,12 @@ impl ResetWorkspaceChangesRequest {
     }
 
     /// Sets the value of [clean][crate::model::ResetWorkspaceChangesRequest::clean].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ResetWorkspaceChangesRequest;
+    /// let x = ResetWorkspaceChangesRequest::new().set_clean(true);
+    /// ```
     pub fn set_clean<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.clean = v.into();
         self
@@ -3062,12 +3956,24 @@ impl FetchFileDiffRequest {
     }
 
     /// Sets the value of [workspace][crate::model::FetchFileDiffRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchFileDiffRequest;
+    /// let x = FetchFileDiffRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::FetchFileDiffRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchFileDiffRequest;
+    /// let x = FetchFileDiffRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -3096,6 +4002,12 @@ impl FetchFileDiffResponse {
     }
 
     /// Sets the value of [formatted_diff][crate::model::FetchFileDiffResponse::formatted_diff].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FetchFileDiffResponse;
+    /// let x = FetchFileDiffResponse::new().set_formatted_diff("example");
+    /// ```
     pub fn set_formatted_diff<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.formatted_diff = v.into();
         self
@@ -3141,24 +4053,48 @@ impl QueryDirectoryContentsRequest {
     }
 
     /// Sets the value of [workspace][crate::model::QueryDirectoryContentsRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsRequest;
+    /// let x = QueryDirectoryContentsRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::QueryDirectoryContentsRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsRequest;
+    /// let x = QueryDirectoryContentsRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::QueryDirectoryContentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsRequest;
+    /// let x = QueryDirectoryContentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryDirectoryContentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsRequest;
+    /// let x = QueryDirectoryContentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3191,6 +4127,17 @@ impl QueryDirectoryContentsResponse {
     }
 
     /// Sets the value of [directory_entries][crate::model::QueryDirectoryContentsResponse::directory_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsResponse;
+    /// use google_cloud_dataform_v1::model::DirectoryEntry;
+    /// let x = QueryDirectoryContentsResponse::new()
+    ///     .set_directory_entries([
+    ///         DirectoryEntry::default()/* use setters */,
+    ///         DirectoryEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_directory_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3202,6 +4149,12 @@ impl QueryDirectoryContentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryDirectoryContentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsResponse;
+    /// let x = QueryDirectoryContentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3247,6 +4200,13 @@ impl DirectoryEntry {
     ///
     /// Note that all the setters affecting `entry` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DirectoryEntry;
+    /// use google_cloud_dataform_v1::model::directory_entry::Entry;
+    /// let x = DirectoryEntry::new().set_entry(Some(Entry::File("example".to_string())));
+    /// ```
     pub fn set_entry<
         T: std::convert::Into<std::option::Option<crate::model::directory_entry::Entry>>,
     >(
@@ -3273,6 +4233,14 @@ impl DirectoryEntry {
     ///
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DirectoryEntry;
+    /// let x = DirectoryEntry::new().set_file("example");
+    /// assert!(x.file().is_some());
+    /// assert!(x.directory().is_none());
+    /// ```
     pub fn set_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry =
             std::option::Option::Some(crate::model::directory_entry::Entry::File(v.into()));
@@ -3295,6 +4263,14 @@ impl DirectoryEntry {
     ///
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DirectoryEntry;
+    /// let x = DirectoryEntry::new().set_directory("example");
+    /// assert!(x.directory().is_some());
+    /// assert!(x.file().is_none());
+    /// ```
     pub fn set_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry =
             std::option::Option::Some(crate::model::directory_entry::Entry::Directory(v.into()));
@@ -3358,24 +4334,48 @@ impl SearchFilesRequest {
     }
 
     /// Sets the value of [workspace][crate::model::SearchFilesRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchFilesRequest;
+    /// let x = SearchFilesRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchFilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchFilesRequest;
+    /// let x = SearchFilesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchFilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchFilesRequest;
+    /// let x = SearchFilesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::SearchFilesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchFilesRequest;
+    /// let x = SearchFilesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3408,6 +4408,17 @@ impl SearchFilesResponse {
     }
 
     /// Sets the value of [search_results][crate::model::SearchFilesResponse::search_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchFilesResponse;
+    /// use google_cloud_dataform_v1::model::SearchResult;
+    /// let x = SearchFilesResponse::new()
+    ///     .set_search_results([
+    ///         SearchResult::default()/* use setters */,
+    ///         SearchResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_search_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3419,6 +4430,12 @@ impl SearchFilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchFilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchFilesResponse;
+    /// let x = SearchFilesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3464,6 +4481,14 @@ impl SearchResult {
     ///
     /// Note that all the setters affecting `entry` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchResult;
+    /// use google_cloud_dataform_v1::model::FileSearchResult;
+    /// let x = SearchResult::new().set_entry(Some(
+    ///     google_cloud_dataform_v1::model::search_result::Entry::File(FileSearchResult::default().into())));
+    /// ```
     pub fn set_entry<
         T: std::convert::Into<std::option::Option<crate::model::search_result::Entry>>,
     >(
@@ -3490,6 +4515,15 @@ impl SearchResult {
     ///
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchResult;
+    /// use google_cloud_dataform_v1::model::FileSearchResult;
+    /// let x = SearchResult::new().set_file(FileSearchResult::default()/* use setters */);
+    /// assert!(x.file().is_some());
+    /// assert!(x.directory().is_none());
+    /// ```
     pub fn set_file<T: std::convert::Into<std::boxed::Box<crate::model::FileSearchResult>>>(
         mut self,
         v: T,
@@ -3516,6 +4550,15 @@ impl SearchResult {
     ///
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::SearchResult;
+    /// use google_cloud_dataform_v1::model::DirectorySearchResult;
+    /// let x = SearchResult::new().set_directory(DirectorySearchResult::default()/* use setters */);
+    /// assert!(x.directory().is_some());
+    /// assert!(x.file().is_none());
+    /// ```
     pub fn set_directory<
         T: std::convert::Into<std::boxed::Box<crate::model::DirectorySearchResult>>,
     >(
@@ -3566,6 +4609,12 @@ impl FileSearchResult {
     }
 
     /// Sets the value of [path][crate::model::FileSearchResult::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::FileSearchResult;
+    /// let x = FileSearchResult::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -3594,6 +4643,12 @@ impl DirectorySearchResult {
     }
 
     /// Sets the value of [path][crate::model::DirectorySearchResult::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DirectorySearchResult;
+    /// let x = DirectorySearchResult::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -3626,12 +4681,24 @@ impl MakeDirectoryRequest {
     }
 
     /// Sets the value of [workspace][crate::model::MakeDirectoryRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MakeDirectoryRequest;
+    /// let x = MakeDirectoryRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::MakeDirectoryRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MakeDirectoryRequest;
+    /// let x = MakeDirectoryRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -3683,12 +4750,24 @@ impl RemoveDirectoryRequest {
     }
 
     /// Sets the value of [workspace][crate::model::RemoveDirectoryRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::RemoveDirectoryRequest;
+    /// let x = RemoveDirectoryRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::RemoveDirectoryRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::RemoveDirectoryRequest;
+    /// let x = RemoveDirectoryRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -3744,18 +4823,36 @@ impl MoveDirectoryRequest {
     }
 
     /// Sets the value of [workspace][crate::model::MoveDirectoryRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MoveDirectoryRequest;
+    /// let x = MoveDirectoryRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::MoveDirectoryRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MoveDirectoryRequest;
+    /// let x = MoveDirectoryRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [new_path][crate::model::MoveDirectoryRequest::new_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MoveDirectoryRequest;
+    /// let x = MoveDirectoryRequest::new().set_new_path("example");
+    /// ```
     pub fn set_new_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_path = v.into();
         self
@@ -3811,18 +4908,36 @@ impl ReadFileRequest {
     }
 
     /// Sets the value of [workspace][crate::model::ReadFileRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadFileRequest;
+    /// let x = ReadFileRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::ReadFileRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadFileRequest;
+    /// let x = ReadFileRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [revision][crate::model::ReadFileRequest::revision].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadFileRequest;
+    /// let x = ReadFileRequest::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
@@ -3851,6 +4966,12 @@ impl ReadFileResponse {
     }
 
     /// Sets the value of [file_contents][crate::model::ReadFileResponse::file_contents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReadFileResponse;
+    /// let x = ReadFileResponse::new().set_file_contents(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_file_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.file_contents = v.into();
         self
@@ -3883,12 +5004,24 @@ impl RemoveFileRequest {
     }
 
     /// Sets the value of [workspace][crate::model::RemoveFileRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::RemoveFileRequest;
+    /// let x = RemoveFileRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::RemoveFileRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::RemoveFileRequest;
+    /// let x = RemoveFileRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -3944,18 +5077,36 @@ impl MoveFileRequest {
     }
 
     /// Sets the value of [workspace][crate::model::MoveFileRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MoveFileRequest;
+    /// let x = MoveFileRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::MoveFileRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MoveFileRequest;
+    /// let x = MoveFileRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [new_path][crate::model::MoveFileRequest::new_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::MoveFileRequest;
+    /// let x = MoveFileRequest::new().set_new_path("example");
+    /// ```
     pub fn set_new_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_path = v.into();
         self
@@ -4009,18 +5160,36 @@ impl WriteFileRequest {
     }
 
     /// Sets the value of [workspace][crate::model::WriteFileRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WriteFileRequest;
+    /// let x = WriteFileRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::WriteFileRequest::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WriteFileRequest;
+    /// let x = WriteFileRequest::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [contents][crate::model::WriteFileRequest::contents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WriteFileRequest;
+    /// let x = WriteFileRequest::new().set_contents(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.contents = v.into();
         self
@@ -4068,6 +5237,12 @@ impl InstallNpmPackagesRequest {
     }
 
     /// Sets the value of [workspace][crate::model::InstallNpmPackagesRequest::workspace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::InstallNpmPackagesRequest;
+    /// let x = InstallNpmPackagesRequest::new().set_workspace("example");
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
@@ -4160,18 +5335,37 @@ impl ReleaseConfig {
     }
 
     /// Sets the value of [name][crate::model::ReleaseConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [git_commitish][crate::model::ReleaseConfig::git_commitish].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_git_commitish("example");
+    /// ```
     pub fn set_git_commitish<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.git_commitish = v.into();
         self
     }
 
     /// Sets the value of [code_compilation_config][crate::model::ReleaseConfig::code_compilation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = ReleaseConfig::new().set_code_compilation_config(CodeCompilationConfig::default()/* use setters */);
+    /// ```
     pub fn set_code_compilation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CodeCompilationConfig>,
@@ -4181,6 +5375,14 @@ impl ReleaseConfig {
     }
 
     /// Sets or clears the value of [code_compilation_config][crate::model::ReleaseConfig::code_compilation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = ReleaseConfig::new().set_or_clear_code_compilation_config(Some(CodeCompilationConfig::default()/* use setters */));
+    /// let x = ReleaseConfig::new().set_or_clear_code_compilation_config(None::<CodeCompilationConfig>);
+    /// ```
     pub fn set_or_clear_code_compilation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CodeCompilationConfig>,
@@ -4190,18 +5392,41 @@ impl ReleaseConfig {
     }
 
     /// Sets the value of [cron_schedule][crate::model::ReleaseConfig::cron_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_cron_schedule("example");
+    /// ```
     pub fn set_cron_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cron_schedule = v.into();
         self
     }
 
     /// Sets the value of [time_zone][crate::model::ReleaseConfig::time_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_time_zone("example");
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [recent_scheduled_release_records][crate::model::ReleaseConfig::recent_scheduled_release_records].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
+    /// let x = ReleaseConfig::new()
+    ///     .set_recent_scheduled_release_records([
+    ///         ScheduledReleaseRecord::default()/* use setters */,
+    ///         ScheduledReleaseRecord::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_recent_scheduled_release_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4213,6 +5438,12 @@ impl ReleaseConfig {
     }
 
     /// Sets the value of [release_compilation_result][crate::model::ReleaseConfig::release_compilation_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_release_compilation_result("example");
+    /// ```
     pub fn set_release_compilation_result<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4222,12 +5453,24 @@ impl ReleaseConfig {
     }
 
     /// Sets the value of [disabled][crate::model::ReleaseConfig::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [internal_metadata][crate::model::ReleaseConfig::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4237,6 +5480,13 @@ impl ReleaseConfig {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::ReleaseConfig::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ReleaseConfig::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = ReleaseConfig::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4278,6 +5528,13 @@ pub mod release_config {
         }
 
         /// Sets the value of [release_time][crate::model::release_config::ScheduledReleaseRecord::release_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
+        /// use wkt::Timestamp;
+        /// let x = ScheduledReleaseRecord::new().set_release_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_release_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4287,6 +5544,14 @@ pub mod release_config {
         }
 
         /// Sets or clears the value of [release_time][crate::model::release_config::ScheduledReleaseRecord::release_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
+        /// use wkt::Timestamp;
+        /// let x = ScheduledReleaseRecord::new().set_or_clear_release_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ScheduledReleaseRecord::new().set_or_clear_release_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_release_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4299,6 +5564,13 @@ pub mod release_config {
         ///
         /// Note that all the setters affecting `result` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
+        /// use google_cloud_dataform_v1::model::release_config::scheduled_release_record::Result;
+        /// let x = ScheduledReleaseRecord::new().set_result(Some(Result::CompilationResult("example".to_string())));
+        /// ```
         pub fn set_result<
             T: std::convert::Into<
                     std::option::Option<
@@ -4329,6 +5601,14 @@ pub mod release_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
+        /// let x = ScheduledReleaseRecord::new().set_compilation_result("example");
+        /// assert!(x.compilation_result().is_some());
+        /// assert!(x.error_status().is_none());
+        /// ```
         pub fn set_compilation_result<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4359,6 +5639,15 @@ pub mod release_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::release_config::ScheduledReleaseRecord;
+        /// use rpc::model::Status;
+        /// let x = ScheduledReleaseRecord::new().set_error_status(Status::default()/* use setters */);
+        /// assert!(x.error_status().is_some());
+        /// assert!(x.compilation_result().is_none());
+        /// ```
         pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
             mut self,
             v: T,
@@ -4428,18 +5717,36 @@ impl ListReleaseConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReleaseConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListReleaseConfigsRequest;
+    /// let x = ListReleaseConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReleaseConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListReleaseConfigsRequest;
+    /// let x = ListReleaseConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReleaseConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListReleaseConfigsRequest;
+    /// let x = ListReleaseConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4475,6 +5782,17 @@ impl ListReleaseConfigsResponse {
     }
 
     /// Sets the value of [release_configs][crate::model::ListReleaseConfigsResponse::release_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListReleaseConfigsResponse;
+    /// use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = ListReleaseConfigsResponse::new()
+    ///     .set_release_configs([
+    ///         ReleaseConfig::default()/* use setters */,
+    ///         ReleaseConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_release_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4486,12 +5804,24 @@ impl ListReleaseConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReleaseConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListReleaseConfigsResponse;
+    /// let x = ListReleaseConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListReleaseConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListReleaseConfigsResponse;
+    /// let x = ListReleaseConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4539,6 +5869,12 @@ impl GetReleaseConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReleaseConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::GetReleaseConfigRequest;
+    /// let x = GetReleaseConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4575,12 +5911,25 @@ impl CreateReleaseConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReleaseConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateReleaseConfigRequest;
+    /// let x = CreateReleaseConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [release_config][crate::model::CreateReleaseConfigRequest::release_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateReleaseConfigRequest;
+    /// use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = CreateReleaseConfigRequest::new().set_release_config(ReleaseConfig::default()/* use setters */);
+    /// ```
     pub fn set_release_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseConfig>,
@@ -4590,6 +5939,14 @@ impl CreateReleaseConfigRequest {
     }
 
     /// Sets or clears the value of [release_config][crate::model::CreateReleaseConfigRequest::release_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateReleaseConfigRequest;
+    /// use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = CreateReleaseConfigRequest::new().set_or_clear_release_config(Some(ReleaseConfig::default()/* use setters */));
+    /// let x = CreateReleaseConfigRequest::new().set_or_clear_release_config(None::<ReleaseConfig>);
+    /// ```
     pub fn set_or_clear_release_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseConfig>,
@@ -4599,6 +5956,12 @@ impl CreateReleaseConfigRequest {
     }
 
     /// Sets the value of [release_config_id][crate::model::CreateReleaseConfigRequest::release_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateReleaseConfigRequest;
+    /// let x = CreateReleaseConfigRequest::new().set_release_config_id("example");
+    /// ```
     pub fn set_release_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4634,6 +5997,13 @@ impl UpdateReleaseConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateReleaseConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateReleaseConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReleaseConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4643,6 +6013,14 @@ impl UpdateReleaseConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReleaseConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateReleaseConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReleaseConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateReleaseConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4652,6 +6030,13 @@ impl UpdateReleaseConfigRequest {
     }
 
     /// Sets the value of [release_config][crate::model::UpdateReleaseConfigRequest::release_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateReleaseConfigRequest;
+    /// use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = UpdateReleaseConfigRequest::new().set_release_config(ReleaseConfig::default()/* use setters */);
+    /// ```
     pub fn set_release_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseConfig>,
@@ -4661,6 +6046,14 @@ impl UpdateReleaseConfigRequest {
     }
 
     /// Sets or clears the value of [release_config][crate::model::UpdateReleaseConfigRequest::release_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateReleaseConfigRequest;
+    /// use google_cloud_dataform_v1::model::ReleaseConfig;
+    /// let x = UpdateReleaseConfigRequest::new().set_or_clear_release_config(Some(ReleaseConfig::default()/* use setters */));
+    /// let x = UpdateReleaseConfigRequest::new().set_or_clear_release_config(None::<ReleaseConfig>);
+    /// ```
     pub fn set_or_clear_release_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseConfig>,
@@ -4692,6 +6085,12 @@ impl DeleteReleaseConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteReleaseConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DeleteReleaseConfigRequest;
+    /// let x = DeleteReleaseConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4748,12 +6147,25 @@ impl CompilationResult {
     }
 
     /// Sets the value of [name][crate::model::CompilationResult::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [code_compilation_config][crate::model::CompilationResult::code_compilation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CompilationResult::new().set_code_compilation_config(CodeCompilationConfig::default()/* use setters */);
+    /// ```
     pub fn set_code_compilation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CodeCompilationConfig>,
@@ -4763,6 +6175,14 @@ impl CompilationResult {
     }
 
     /// Sets or clears the value of [code_compilation_config][crate::model::CompilationResult::code_compilation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CompilationResult::new().set_or_clear_code_compilation_config(Some(CodeCompilationConfig::default()/* use setters */));
+    /// let x = CompilationResult::new().set_or_clear_code_compilation_config(None::<CodeCompilationConfig>);
+    /// ```
     pub fn set_or_clear_code_compilation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CodeCompilationConfig>,
@@ -4772,6 +6192,12 @@ impl CompilationResult {
     }
 
     /// Sets the value of [resolved_git_commit_sha][crate::model::CompilationResult::resolved_git_commit_sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_resolved_git_commit_sha("example");
+    /// ```
     pub fn set_resolved_git_commit_sha<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4781,6 +6207,12 @@ impl CompilationResult {
     }
 
     /// Sets the value of [dataform_core_version][crate::model::CompilationResult::dataform_core_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_dataform_core_version("example");
+    /// ```
     pub fn set_dataform_core_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4790,6 +6222,17 @@ impl CompilationResult {
     }
 
     /// Sets the value of [compilation_errors][crate::model::CompilationResult::compilation_errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::compilation_result::CompilationError;
+    /// let x = CompilationResult::new()
+    ///     .set_compilation_errors([
+    ///         CompilationError::default()/* use setters */,
+    ///         CompilationError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_compilation_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4801,6 +6244,13 @@ impl CompilationResult {
     }
 
     /// Sets the value of [data_encryption_state][crate::model::CompilationResult::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = CompilationResult::new().set_data_encryption_state(DataEncryptionState::default()/* use setters */);
+    /// ```
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -4810,6 +6260,14 @@ impl CompilationResult {
     }
 
     /// Sets or clears the value of [data_encryption_state][crate::model::CompilationResult::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = CompilationResult::new().set_or_clear_data_encryption_state(Some(DataEncryptionState::default()/* use setters */));
+    /// let x = CompilationResult::new().set_or_clear_data_encryption_state(None::<DataEncryptionState>);
+    /// ```
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -4819,6 +6277,13 @@ impl CompilationResult {
     }
 
     /// Sets the value of [create_time][crate::model::CompilationResult::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use wkt::Timestamp;
+    /// let x = CompilationResult::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4828,6 +6293,14 @@ impl CompilationResult {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CompilationResult::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use wkt::Timestamp;
+    /// let x = CompilationResult::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CompilationResult::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4837,6 +6310,12 @@ impl CompilationResult {
     }
 
     /// Sets the value of [internal_metadata][crate::model::CompilationResult::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4846,6 +6325,13 @@ impl CompilationResult {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::CompilationResult::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = CompilationResult::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4858,6 +6344,13 @@ impl CompilationResult {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::compilation_result::Source;
+    /// let x = CompilationResult::new().set_source(Some(Source::GitCommitish("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::compilation_result::Source>>,
     >(
@@ -4886,6 +6379,15 @@ impl CompilationResult {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_git_commitish("example");
+    /// assert!(x.git_commitish().is_some());
+    /// assert!(x.workspace().is_none());
+    /// assert!(x.release_config().is_none());
+    /// ```
     pub fn set_git_commitish<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::compilation_result::Source::GitCommitish(v.into()),
@@ -4909,6 +6411,15 @@ impl CompilationResult {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_workspace("example");
+    /// assert!(x.workspace().is_some());
+    /// assert!(x.git_commitish().is_none());
+    /// assert!(x.release_config().is_none());
+    /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::compilation_result::Source::Workspace(v.into()),
@@ -4934,6 +6445,15 @@ impl CompilationResult {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CompilationResult::new().set_release_config("example");
+    /// assert!(x.release_config().is_some());
+    /// assert!(x.git_commitish().is_none());
+    /// assert!(x.workspace().is_none());
+    /// ```
     pub fn set_release_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::compilation_result::Source::ReleaseConfig(v.into()),
@@ -4980,24 +6500,49 @@ pub mod compilation_result {
         }
 
         /// Sets the value of [message][crate::model::compilation_result::CompilationError::message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result::CompilationError;
+        /// let x = CompilationError::new().set_message("example");
+        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self
         }
 
         /// Sets the value of [stack][crate::model::compilation_result::CompilationError::stack].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result::CompilationError;
+        /// let x = CompilationError::new().set_stack("example");
+        /// ```
         pub fn set_stack<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.stack = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::compilation_result::CompilationError::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result::CompilationError;
+        /// let x = CompilationError::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [action_target][crate::model::compilation_result::CompilationError::action_target].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result::CompilationError;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = CompilationError::new().set_action_target(Target::default()/* use setters */);
+        /// ```
         pub fn set_action_target<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Target>,
@@ -5007,6 +6552,14 @@ pub mod compilation_result {
         }
 
         /// Sets or clears the value of [action_target][crate::model::compilation_result::CompilationError::action_target].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result::CompilationError;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = CompilationError::new().set_or_clear_action_target(Some(Target::default()/* use setters */));
+        /// let x = CompilationError::new().set_or_clear_action_target(None::<Target>);
+        /// ```
         pub fn set_or_clear_action_target<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Target>,
@@ -5090,6 +6643,12 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [default_database][crate::model::CodeCompilationConfig::default_database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_default_database("example");
+    /// ```
     pub fn set_default_database<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5099,12 +6658,24 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [default_schema][crate::model::CodeCompilationConfig::default_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_default_schema("example");
+    /// ```
     pub fn set_default_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_schema = v.into();
         self
     }
 
     /// Sets the value of [default_location][crate::model::CodeCompilationConfig::default_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_default_location("example");
+    /// ```
     pub fn set_default_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5114,6 +6685,12 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [assertion_schema][crate::model::CodeCompilationConfig::assertion_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_assertion_schema("example");
+    /// ```
     pub fn set_assertion_schema<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5123,6 +6700,15 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [vars][crate::model::CodeCompilationConfig::vars].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_vars([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_vars<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5135,24 +6721,48 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [database_suffix][crate::model::CodeCompilationConfig::database_suffix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_database_suffix("example");
+    /// ```
     pub fn set_database_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_suffix = v.into();
         self
     }
 
     /// Sets the value of [schema_suffix][crate::model::CodeCompilationConfig::schema_suffix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_schema_suffix("example");
+    /// ```
     pub fn set_schema_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema_suffix = v.into();
         self
     }
 
     /// Sets the value of [table_prefix][crate::model::CodeCompilationConfig::table_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_table_prefix("example");
+    /// ```
     pub fn set_table_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_prefix = v.into();
         self
     }
 
     /// Sets the value of [builtin_assertion_name_prefix][crate::model::CodeCompilationConfig::builtin_assertion_name_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_builtin_assertion_name_prefix("example");
+    /// ```
     pub fn set_builtin_assertion_name_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5162,6 +6772,13 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [default_notebook_runtime_options][crate::model::CodeCompilationConfig::default_notebook_runtime_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// use google_cloud_dataform_v1::model::NotebookRuntimeOptions;
+    /// let x = CodeCompilationConfig::new().set_default_notebook_runtime_options(NotebookRuntimeOptions::default()/* use setters */);
+    /// ```
     pub fn set_default_notebook_runtime_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotebookRuntimeOptions>,
@@ -5171,6 +6788,14 @@ impl CodeCompilationConfig {
     }
 
     /// Sets or clears the value of [default_notebook_runtime_options][crate::model::CodeCompilationConfig::default_notebook_runtime_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// use google_cloud_dataform_v1::model::NotebookRuntimeOptions;
+    /// let x = CodeCompilationConfig::new().set_or_clear_default_notebook_runtime_options(Some(NotebookRuntimeOptions::default()/* use setters */));
+    /// let x = CodeCompilationConfig::new().set_or_clear_default_notebook_runtime_options(None::<NotebookRuntimeOptions>);
+    /// ```
     pub fn set_or_clear_default_notebook_runtime_options<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5211,6 +6836,12 @@ impl NotebookRuntimeOptions {
     }
 
     /// Sets the value of [ai_platform_notebook_runtime_template][crate::model::NotebookRuntimeOptions::ai_platform_notebook_runtime_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::NotebookRuntimeOptions;
+    /// let x = NotebookRuntimeOptions::new().set_ai_platform_notebook_runtime_template("example");
+    /// ```
     pub fn set_ai_platform_notebook_runtime_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5223,6 +6854,13 @@ impl NotebookRuntimeOptions {
     ///
     /// Note that all the setters affecting `execution_sink` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::NotebookRuntimeOptions;
+    /// use google_cloud_dataform_v1::model::notebook_runtime_options::ExecutionSink;
+    /// let x = NotebookRuntimeOptions::new().set_execution_sink(Some(ExecutionSink::GcsOutputBucket("example".to_string())));
+    /// ```
     pub fn set_execution_sink<
         T: std::convert::Into<
                 std::option::Option<crate::model::notebook_runtime_options::ExecutionSink>,
@@ -5253,6 +6891,13 @@ impl NotebookRuntimeOptions {
     ///
     /// Note that all the setters affecting `execution_sink` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::NotebookRuntimeOptions;
+    /// let x = NotebookRuntimeOptions::new().set_gcs_output_bucket("example");
+    /// assert!(x.gcs_output_bucket().is_some());
+    /// ```
     pub fn set_gcs_output_bucket<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5323,30 +6968,60 @@ impl ListCompilationResultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCompilationResultsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsRequest;
+    /// let x = ListCompilationResultsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCompilationResultsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsRequest;
+    /// let x = ListCompilationResultsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCompilationResultsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsRequest;
+    /// let x = ListCompilationResultsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCompilationResultsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsRequest;
+    /// let x = ListCompilationResultsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCompilationResultsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsRequest;
+    /// let x = ListCompilationResultsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -5382,6 +7057,17 @@ impl ListCompilationResultsResponse {
     }
 
     /// Sets the value of [compilation_results][crate::model::ListCompilationResultsResponse::compilation_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsResponse;
+    /// use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = ListCompilationResultsResponse::new()
+    ///     .set_compilation_results([
+    ///         CompilationResult::default()/* use setters */,
+    ///         CompilationResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_compilation_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5393,12 +7079,24 @@ impl ListCompilationResultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCompilationResultsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsResponse;
+    /// let x = ListCompilationResultsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCompilationResultsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListCompilationResultsResponse;
+    /// let x = ListCompilationResultsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5446,6 +7144,12 @@ impl GetCompilationResultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCompilationResultRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::GetCompilationResultRequest;
+    /// let x = GetCompilationResultRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5478,12 +7182,25 @@ impl CreateCompilationResultRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCompilationResultRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultRequest;
+    /// let x = CreateCompilationResultRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [compilation_result][crate::model::CreateCompilationResultRequest::compilation_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultRequest;
+    /// use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CreateCompilationResultRequest::new().set_compilation_result(CompilationResult::default()/* use setters */);
+    /// ```
     pub fn set_compilation_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompilationResult>,
@@ -5493,6 +7210,14 @@ impl CreateCompilationResultRequest {
     }
 
     /// Sets or clears the value of [compilation_result][crate::model::CreateCompilationResultRequest::compilation_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultRequest;
+    /// use google_cloud_dataform_v1::model::CompilationResult;
+    /// let x = CreateCompilationResultRequest::new().set_or_clear_compilation_result(Some(CompilationResult::default()/* use setters */));
+    /// let x = CreateCompilationResultRequest::new().set_or_clear_compilation_result(None::<CompilationResult>);
+    /// ```
     pub fn set_or_clear_compilation_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompilationResult>,
@@ -5531,18 +7256,36 @@ impl Target {
     }
 
     /// Sets the value of [database][crate::model::Target::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Target;
+    /// let x = Target::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [schema][crate::model::Target::schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Target;
+    /// let x = Target::new().set_schema("example");
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::Target::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Target;
+    /// let x = Target::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5577,12 +7320,29 @@ impl RelationDescriptor {
     }
 
     /// Sets the value of [description][crate::model::RelationDescriptor::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::RelationDescriptor;
+    /// let x = RelationDescriptor::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [columns][crate::model::RelationDescriptor::columns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::RelationDescriptor;
+    /// use google_cloud_dataform_v1::model::relation_descriptor::ColumnDescriptor;
+    /// let x = RelationDescriptor::new()
+    ///     .set_columns([
+    ///         ColumnDescriptor::default()/* use setters */,
+    ///         ColumnDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5594,6 +7354,15 @@ impl RelationDescriptor {
     }
 
     /// Sets the value of [bigquery_labels][crate::model::RelationDescriptor::bigquery_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::RelationDescriptor;
+    /// let x = RelationDescriptor::new().set_bigquery_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_bigquery_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5640,6 +7409,12 @@ pub mod relation_descriptor {
         }
 
         /// Sets the value of [path][crate::model::relation_descriptor::ColumnDescriptor::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::relation_descriptor::ColumnDescriptor;
+        /// let x = ColumnDescriptor::new().set_path(["a", "b", "c"]);
+        /// ```
         pub fn set_path<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5651,12 +7426,24 @@ pub mod relation_descriptor {
         }
 
         /// Sets the value of [description][crate::model::relation_descriptor::ColumnDescriptor::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::relation_descriptor::ColumnDescriptor;
+        /// let x = ColumnDescriptor::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [bigquery_policy_tags][crate::model::relation_descriptor::ColumnDescriptor::bigquery_policy_tags].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::relation_descriptor::ColumnDescriptor;
+        /// let x = ColumnDescriptor::new().set_bigquery_policy_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_bigquery_policy_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5708,6 +7495,13 @@ impl CompilationResultAction {
     }
 
     /// Sets the value of [target][crate::model::CompilationResultAction::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = CompilationResultAction::new().set_target(Target::default()/* use setters */);
+    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -5717,6 +7511,14 @@ impl CompilationResultAction {
     }
 
     /// Sets or clears the value of [target][crate::model::CompilationResultAction::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = CompilationResultAction::new().set_or_clear_target(Some(Target::default()/* use setters */));
+    /// let x = CompilationResultAction::new().set_or_clear_target(None::<Target>);
+    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -5726,6 +7528,13 @@ impl CompilationResultAction {
     }
 
     /// Sets the value of [canonical_target][crate::model::CompilationResultAction::canonical_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = CompilationResultAction::new().set_canonical_target(Target::default()/* use setters */);
+    /// ```
     pub fn set_canonical_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -5735,6 +7544,14 @@ impl CompilationResultAction {
     }
 
     /// Sets or clears the value of [canonical_target][crate::model::CompilationResultAction::canonical_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = CompilationResultAction::new().set_or_clear_canonical_target(Some(Target::default()/* use setters */));
+    /// let x = CompilationResultAction::new().set_or_clear_canonical_target(None::<Target>);
+    /// ```
     pub fn set_or_clear_canonical_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -5744,12 +7561,24 @@ impl CompilationResultAction {
     }
 
     /// Sets the value of [file_path][crate::model::CompilationResultAction::file_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// let x = CompilationResultAction::new().set_file_path("example");
+    /// ```
     pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_path = v.into();
         self
     }
 
     /// Sets the value of [internal_metadata][crate::model::CompilationResultAction::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// let x = CompilationResultAction::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5759,6 +7588,13 @@ impl CompilationResultAction {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::CompilationResultAction::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// let x = CompilationResultAction::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = CompilationResultAction::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5771,6 +7607,14 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+    /// let x = CompilationResultAction::new().set_compiled_object(Some(
+    ///     google_cloud_dataform_v1::model::compilation_result_action::CompiledObject::Relation(Relation::default().into())));
+    /// ```
     pub fn set_compiled_object<
         T: std::convert::Into<
                 std::option::Option<crate::model::compilation_result_action::CompiledObject>,
@@ -5804,6 +7648,19 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+    /// let x = CompilationResultAction::new().set_relation(Relation::default()/* use setters */);
+    /// assert!(x.relation().is_some());
+    /// assert!(x.operations().is_none());
+    /// assert!(x.assertion().is_none());
+    /// assert!(x.declaration().is_none());
+    /// assert!(x.notebook().is_none());
+    /// assert!(x.data_preparation().is_none());
+    /// ```
     pub fn set_relation<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Relation>>,
     >(
@@ -5837,6 +7694,19 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+    /// let x = CompilationResultAction::new().set_operations(Operations::default()/* use setters */);
+    /// assert!(x.operations().is_some());
+    /// assert!(x.relation().is_none());
+    /// assert!(x.assertion().is_none());
+    /// assert!(x.declaration().is_none());
+    /// assert!(x.notebook().is_none());
+    /// assert!(x.data_preparation().is_none());
+    /// ```
     pub fn set_operations<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Operations>>,
     >(
@@ -5870,6 +7740,19 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+    /// let x = CompilationResultAction::new().set_assertion(Assertion::default()/* use setters */);
+    /// assert!(x.assertion().is_some());
+    /// assert!(x.relation().is_none());
+    /// assert!(x.operations().is_none());
+    /// assert!(x.declaration().is_none());
+    /// assert!(x.notebook().is_none());
+    /// assert!(x.data_preparation().is_none());
+    /// ```
     pub fn set_assertion<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Assertion>>,
     >(
@@ -5903,6 +7786,19 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::Declaration;
+    /// let x = CompilationResultAction::new().set_declaration(Declaration::default()/* use setters */);
+    /// assert!(x.declaration().is_some());
+    /// assert!(x.relation().is_none());
+    /// assert!(x.operations().is_none());
+    /// assert!(x.assertion().is_none());
+    /// assert!(x.notebook().is_none());
+    /// assert!(x.data_preparation().is_none());
+    /// ```
     pub fn set_declaration<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Declaration>>,
     >(
@@ -5936,6 +7832,19 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::Notebook;
+    /// let x = CompilationResultAction::new().set_notebook(Notebook::default()/* use setters */);
+    /// assert!(x.notebook().is_some());
+    /// assert!(x.relation().is_none());
+    /// assert!(x.operations().is_none());
+    /// assert!(x.assertion().is_none());
+    /// assert!(x.declaration().is_none());
+    /// assert!(x.data_preparation().is_none());
+    /// ```
     pub fn set_notebook<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Notebook>>,
     >(
@@ -5970,6 +7879,19 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::DataPreparation;
+    /// let x = CompilationResultAction::new().set_data_preparation(DataPreparation::default()/* use setters */);
+    /// assert!(x.data_preparation().is_some());
+    /// assert!(x.relation().is_none());
+    /// assert!(x.operations().is_none());
+    /// assert!(x.assertion().is_none());
+    /// assert!(x.declaration().is_none());
+    /// assert!(x.notebook().is_none());
+    /// ```
     pub fn set_data_preparation<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::compilation_result_action::DataPreparation>,
@@ -6058,6 +7980,17 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [dependency_targets][crate::model::compilation_result_action::Relation::dependency_targets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = Relation::new()
+        ///     .set_dependency_targets([
+        ///         Target::default()/* use setters */,
+        ///         Target::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6069,12 +8002,24 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [disabled][crate::model::compilation_result_action::Relation::disabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_disabled(true);
+        /// ```
         pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disabled = v.into();
             self
         }
 
         /// Sets the value of [tags][crate::model::compilation_result_action::Relation::tags].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6086,6 +8031,13 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Relation::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Relation::new().set_relation_descriptor(RelationDescriptor::default()/* use setters */);
+        /// ```
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6095,6 +8047,14 @@ pub mod compilation_result_action {
         }
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Relation::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Relation::new().set_or_clear_relation_descriptor(Some(RelationDescriptor::default()/* use setters */));
+        /// let x = Relation::new().set_or_clear_relation_descriptor(None::<RelationDescriptor>);
+        /// ```
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6104,6 +8064,15 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [relation_type][crate::model::compilation_result_action::Relation::relation_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::relation::RelationType;
+        /// let x0 = Relation::new().set_relation_type(RelationType::Table);
+        /// let x1 = Relation::new().set_relation_type(RelationType::View);
+        /// let x2 = Relation::new().set_relation_type(RelationType::IncrementalTable);
+        /// ```
         pub fn set_relation_type<
             T: std::convert::Into<crate::model::compilation_result_action::relation::RelationType>,
         >(
@@ -6115,6 +8084,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [select_query][crate::model::compilation_result_action::Relation::select_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_select_query("example");
+        /// ```
         pub fn set_select_query<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6124,6 +8099,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [pre_operations][crate::model::compilation_result_action::Relation::pre_operations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_pre_operations(["a", "b", "c"]);
+        /// ```
         pub fn set_pre_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6135,6 +8116,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [post_operations][crate::model::compilation_result_action::Relation::post_operations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_post_operations(["a", "b", "c"]);
+        /// ```
         pub fn set_post_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6146,6 +8133,13 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [incremental_table_config][crate::model::compilation_result_action::Relation::incremental_table_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+        /// let x = Relation::new().set_incremental_table_config(IncrementalTableConfig::default()/* use setters */);
+        /// ```
         pub fn set_incremental_table_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -6157,6 +8151,14 @@ pub mod compilation_result_action {
         }
 
         /// Sets or clears the value of [incremental_table_config][crate::model::compilation_result_action::Relation::incremental_table_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+        /// let x = Relation::new().set_or_clear_incremental_table_config(Some(IncrementalTableConfig::default()/* use setters */));
+        /// let x = Relation::new().set_or_clear_incremental_table_config(None::<IncrementalTableConfig>);
+        /// ```
         pub fn set_or_clear_incremental_table_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -6168,6 +8170,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [partition_expression][crate::model::compilation_result_action::Relation::partition_expression].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_partition_expression("example");
+        /// ```
         pub fn set_partition_expression<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6177,6 +8185,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [cluster_expressions][crate::model::compilation_result_action::Relation::cluster_expressions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_cluster_expressions(["a", "b", "c"]);
+        /// ```
         pub fn set_cluster_expressions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6188,18 +8202,39 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [partition_expiration_days][crate::model::compilation_result_action::Relation::partition_expiration_days].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_partition_expiration_days(42);
+        /// ```
         pub fn set_partition_expiration_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.partition_expiration_days = v.into();
             self
         }
 
         /// Sets the value of [require_partition_filter][crate::model::compilation_result_action::Relation::require_partition_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_require_partition_filter(true);
+        /// ```
         pub fn set_require_partition_filter<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.require_partition_filter = v.into();
             self
         }
 
         /// Sets the value of [additional_options][crate::model::compilation_result_action::Relation::additional_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_additional_options([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_additional_options<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6262,6 +8297,12 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [incremental_select_query][crate::model::compilation_result_action::relation::IncrementalTableConfig::incremental_select_query].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+            /// let x = IncrementalTableConfig::new().set_incremental_select_query("example");
+            /// ```
             pub fn set_incremental_select_query<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -6271,12 +8312,24 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [refresh_disabled][crate::model::compilation_result_action::relation::IncrementalTableConfig::refresh_disabled].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+            /// let x = IncrementalTableConfig::new().set_refresh_disabled(true);
+            /// ```
             pub fn set_refresh_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.refresh_disabled = v.into();
                 self
             }
 
             /// Sets the value of [unique_key_parts][crate::model::compilation_result_action::relation::IncrementalTableConfig::unique_key_parts].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+            /// let x = IncrementalTableConfig::new().set_unique_key_parts(["a", "b", "c"]);
+            /// ```
             pub fn set_unique_key_parts<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6288,6 +8341,12 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [update_partition_filter][crate::model::compilation_result_action::relation::IncrementalTableConfig::update_partition_filter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+            /// let x = IncrementalTableConfig::new().set_update_partition_filter("example");
+            /// ```
             pub fn set_update_partition_filter<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -6297,6 +8356,12 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [incremental_pre_operations][crate::model::compilation_result_action::relation::IncrementalTableConfig::incremental_pre_operations].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+            /// let x = IncrementalTableConfig::new().set_incremental_pre_operations(["a", "b", "c"]);
+            /// ```
             pub fn set_incremental_pre_operations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6308,6 +8373,12 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [incremental_post_operations][crate::model::compilation_result_action::relation::IncrementalTableConfig::incremental_post_operations].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::relation::IncrementalTableConfig;
+            /// let x = IncrementalTableConfig::new().set_incremental_post_operations(["a", "b", "c"]);
+            /// ```
             pub fn set_incremental_post_operations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6508,6 +8579,17 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [dependency_targets][crate::model::compilation_result_action::Operations::dependency_targets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = Operations::new()
+        ///     .set_dependency_targets([
+        ///         Target::default()/* use setters */,
+        ///         Target::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6519,12 +8601,24 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [disabled][crate::model::compilation_result_action::Operations::disabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+        /// let x = Operations::new().set_disabled(true);
+        /// ```
         pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disabled = v.into();
             self
         }
 
         /// Sets the value of [tags][crate::model::compilation_result_action::Operations::tags].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+        /// let x = Operations::new().set_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6536,6 +8630,13 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Operations::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Operations::new().set_relation_descriptor(RelationDescriptor::default()/* use setters */);
+        /// ```
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6545,6 +8646,14 @@ pub mod compilation_result_action {
         }
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Operations::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Operations::new().set_or_clear_relation_descriptor(Some(RelationDescriptor::default()/* use setters */));
+        /// let x = Operations::new().set_or_clear_relation_descriptor(None::<RelationDescriptor>);
+        /// ```
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6554,6 +8663,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [queries][crate::model::compilation_result_action::Operations::queries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+        /// let x = Operations::new().set_queries(["a", "b", "c"]);
+        /// ```
         pub fn set_queries<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6565,6 +8680,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [has_output][crate::model::compilation_result_action::Operations::has_output].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Operations;
+        /// let x = Operations::new().set_has_output(true);
+        /// ```
         pub fn set_has_output<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.has_output = v.into();
             self
@@ -6612,6 +8733,17 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [dependency_targets][crate::model::compilation_result_action::Assertion::dependency_targets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = Assertion::new()
+        ///     .set_dependency_targets([
+        ///         Target::default()/* use setters */,
+        ///         Target::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6623,6 +8755,13 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [parent_action][crate::model::compilation_result_action::Assertion::parent_action].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = Assertion::new().set_parent_action(Target::default()/* use setters */);
+        /// ```
         pub fn set_parent_action<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Target>,
@@ -6632,6 +8771,14 @@ pub mod compilation_result_action {
         }
 
         /// Sets or clears the value of [parent_action][crate::model::compilation_result_action::Assertion::parent_action].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = Assertion::new().set_or_clear_parent_action(Some(Target::default()/* use setters */));
+        /// let x = Assertion::new().set_or_clear_parent_action(None::<Target>);
+        /// ```
         pub fn set_or_clear_parent_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Target>,
@@ -6641,12 +8788,24 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [disabled][crate::model::compilation_result_action::Assertion::disabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// let x = Assertion::new().set_disabled(true);
+        /// ```
         pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disabled = v.into();
             self
         }
 
         /// Sets the value of [tags][crate::model::compilation_result_action::Assertion::tags].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// let x = Assertion::new().set_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6658,6 +8817,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [select_query][crate::model::compilation_result_action::Assertion::select_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// let x = Assertion::new().set_select_query("example");
+        /// ```
         pub fn set_select_query<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6667,6 +8832,13 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Assertion::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Assertion::new().set_relation_descriptor(RelationDescriptor::default()/* use setters */);
+        /// ```
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6676,6 +8848,14 @@ pub mod compilation_result_action {
         }
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Assertion::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Assertion;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Assertion::new().set_or_clear_relation_descriptor(Some(RelationDescriptor::default()/* use setters */));
+        /// let x = Assertion::new().set_or_clear_relation_descriptor(None::<RelationDescriptor>);
+        /// ```
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6709,6 +8889,13 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Declaration::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Declaration;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Declaration::new().set_relation_descriptor(RelationDescriptor::default()/* use setters */);
+        /// ```
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6718,6 +8905,14 @@ pub mod compilation_result_action {
         }
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Declaration::relation_descriptor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Declaration;
+        /// use google_cloud_dataform_v1::model::RelationDescriptor;
+        /// let x = Declaration::new().set_or_clear_relation_descriptor(Some(RelationDescriptor::default()/* use setters */));
+        /// let x = Declaration::new().set_or_clear_relation_descriptor(None::<RelationDescriptor>);
+        /// ```
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RelationDescriptor>,
@@ -6758,6 +8953,17 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [dependency_targets][crate::model::compilation_result_action::Notebook::dependency_targets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Notebook;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = Notebook::new()
+        ///     .set_dependency_targets([
+        ///         Target::default()/* use setters */,
+        ///         Target::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6769,18 +8975,36 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [disabled][crate::model::compilation_result_action::Notebook::disabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Notebook;
+        /// let x = Notebook::new().set_disabled(true);
+        /// ```
         pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disabled = v.into();
             self
         }
 
         /// Sets the value of [contents][crate::model::compilation_result_action::Notebook::contents].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Notebook;
+        /// let x = Notebook::new().set_contents("example");
+        /// ```
         pub fn set_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.contents = v.into();
             self
         }
 
         /// Sets the value of [tags][crate::model::compilation_result_action::Notebook::tags].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Notebook;
+        /// let x = Notebook::new().set_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6825,6 +9049,17 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [dependency_targets][crate::model::compilation_result_action::DataPreparation::dependency_targets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::DataPreparation;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = DataPreparation::new()
+        ///     .set_dependency_targets([
+        ///         Target::default()/* use setters */,
+        ///         Target::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6836,12 +9071,24 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [disabled][crate::model::compilation_result_action::DataPreparation::disabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::DataPreparation;
+        /// let x = DataPreparation::new().set_disabled(true);
+        /// ```
         pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disabled = v.into();
             self
         }
 
         /// Sets the value of [tags][crate::model::compilation_result_action::DataPreparation::tags].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::DataPreparation;
+        /// let x = DataPreparation::new().set_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6856,6 +9103,13 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `definition` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::DataPreparation;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::Definition;
+        /// let x = DataPreparation::new().set_definition(Some(Definition::ContentsYaml("example".to_string())));
+        /// ```
         pub fn set_definition<
             T: std::convert::Into<
                     std::option::Option<
@@ -6886,6 +9140,14 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::DataPreparation;
+        /// let x = DataPreparation::new().set_contents_yaml("example");
+        /// assert!(x.contents_yaml().is_some());
+        /// assert!(x.contents_sql().is_none());
+        /// ```
         pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6920,6 +9182,15 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::DataPreparation;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::SqlDefinition;
+        /// let x = DataPreparation::new().set_contents_sql(SqlDefinition::default()/* use setters */);
+        /// assert!(x.contents_sql().is_some());
+        /// assert!(x.contents_yaml().is_none());
+        /// ```
         pub fn set_contents_sql<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6975,12 +9246,25 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [query][crate::model::compilation_result_action::data_preparation::SqlDefinition::query].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::SqlDefinition;
+            /// let x = SqlDefinition::new().set_query("example");
+            /// ```
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
                 self
             }
 
             /// Sets the value of [error_table][crate::model::compilation_result_action::data_preparation::SqlDefinition::error_table].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::SqlDefinition;
+            /// use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::ErrorTable;
+            /// let x = SqlDefinition::new().set_error_table(ErrorTable::default()/* use setters */);
+            /// ```
             pub fn set_error_table<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -6992,6 +9276,14 @@ pub mod compilation_result_action {
             }
 
             /// Sets or clears the value of [error_table][crate::model::compilation_result_action::data_preparation::SqlDefinition::error_table].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::SqlDefinition;
+            /// use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::ErrorTable;
+            /// let x = SqlDefinition::new().set_or_clear_error_table(Some(ErrorTable::default()/* use setters */));
+            /// let x = SqlDefinition::new().set_or_clear_error_table(None::<ErrorTable>);
+            /// ```
             pub fn set_or_clear_error_table<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -7003,6 +9295,13 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [load][crate::model::compilation_result_action::data_preparation::SqlDefinition::load].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::SqlDefinition;
+            /// use google_cloud_dataform_v1::model::compilation_result_action::LoadConfig;
+            /// let x = SqlDefinition::new().set_load(LoadConfig::default()/* use setters */);
+            /// ```
             pub fn set_load<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>,
@@ -7012,6 +9311,14 @@ pub mod compilation_result_action {
             }
 
             /// Sets or clears the value of [load][crate::model::compilation_result_action::data_preparation::SqlDefinition::load].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::SqlDefinition;
+            /// use google_cloud_dataform_v1::model::compilation_result_action::LoadConfig;
+            /// let x = SqlDefinition::new().set_or_clear_load(Some(LoadConfig::default()/* use setters */));
+            /// let x = SqlDefinition::new().set_or_clear_load(None::<LoadConfig>);
+            /// ```
             pub fn set_or_clear_load<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>,
@@ -7048,6 +9355,13 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [target][crate::model::compilation_result_action::data_preparation::ErrorTable::target].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::ErrorTable;
+            /// use google_cloud_dataform_v1::model::Target;
+            /// let x = ErrorTable::new().set_target(Target::default()/* use setters */);
+            /// ```
             pub fn set_target<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::Target>,
@@ -7057,6 +9371,14 @@ pub mod compilation_result_action {
             }
 
             /// Sets or clears the value of [target][crate::model::compilation_result_action::data_preparation::ErrorTable::target].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::ErrorTable;
+            /// use google_cloud_dataform_v1::model::Target;
+            /// let x = ErrorTable::new().set_or_clear_target(Some(Target::default()/* use setters */));
+            /// let x = ErrorTable::new().set_or_clear_target(None::<Target>);
+            /// ```
             pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::Target>,
@@ -7066,6 +9388,12 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [retention_days][crate::model::compilation_result_action::data_preparation::ErrorTable::retention_days].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::compilation_result_action::data_preparation::ErrorTable;
+            /// let x = ErrorTable::new().set_retention_days(42);
+            /// ```
             pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.retention_days = v.into();
                 self
@@ -7113,6 +9441,14 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::LoadConfig;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::SimpleLoadMode;
+        /// let x = LoadConfig::new().set_mode(Some(
+        ///     google_cloud_dataform_v1::model::compilation_result_action::load_config::Mode::Replace(SimpleLoadMode::default().into())));
+        /// ```
         pub fn set_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::compilation_result_action::load_config::Mode>,
@@ -7147,6 +9483,17 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::LoadConfig;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::SimpleLoadMode;
+        /// let x = LoadConfig::new().set_replace(SimpleLoadMode::default()/* use setters */);
+        /// assert!(x.replace().is_some());
+        /// assert!(x.append().is_none());
+        /// assert!(x.maximum().is_none());
+        /// assert!(x.unique().is_none());
+        /// ```
         pub fn set_replace<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
@@ -7183,6 +9530,17 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::LoadConfig;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::SimpleLoadMode;
+        /// let x = LoadConfig::new().set_append(SimpleLoadMode::default()/* use setters */);
+        /// assert!(x.append().is_some());
+        /// assert!(x.replace().is_none());
+        /// assert!(x.maximum().is_none());
+        /// assert!(x.unique().is_none());
+        /// ```
         pub fn set_append<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
@@ -7219,6 +9577,17 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::LoadConfig;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::IncrementalLoadMode;
+        /// let x = LoadConfig::new().set_maximum(IncrementalLoadMode::default()/* use setters */);
+        /// assert!(x.maximum().is_some());
+        /// assert!(x.replace().is_none());
+        /// assert!(x.append().is_none());
+        /// assert!(x.unique().is_none());
+        /// ```
         pub fn set_maximum<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
@@ -7255,6 +9624,17 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::LoadConfig;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::IncrementalLoadMode;
+        /// let x = LoadConfig::new().set_unique(IncrementalLoadMode::default()/* use setters */);
+        /// assert!(x.unique().is_some());
+        /// assert!(x.replace().is_none());
+        /// assert!(x.append().is_none());
+        /// assert!(x.maximum().is_none());
+        /// ```
         pub fn set_unique<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
@@ -7333,6 +9713,12 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [column][crate::model::compilation_result_action::IncrementalLoadMode::column].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::IncrementalLoadMode;
+        /// let x = IncrementalLoadMode::new().set_column("example");
+        /// ```
         pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.column = v.into();
             self
@@ -7398,24 +9784,48 @@ impl QueryCompilationResultActionsRequest {
     }
 
     /// Sets the value of [name][crate::model::QueryCompilationResultActionsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryCompilationResultActionsRequest;
+    /// let x = QueryCompilationResultActionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::QueryCompilationResultActionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryCompilationResultActionsRequest;
+    /// let x = QueryCompilationResultActionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryCompilationResultActionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryCompilationResultActionsRequest;
+    /// let x = QueryCompilationResultActionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::QueryCompilationResultActionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryCompilationResultActionsRequest;
+    /// let x = QueryCompilationResultActionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -7448,6 +9858,17 @@ impl QueryCompilationResultActionsResponse {
     }
 
     /// Sets the value of [compilation_result_actions][crate::model::QueryCompilationResultActionsResponse::compilation_result_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryCompilationResultActionsResponse;
+    /// use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// let x = QueryCompilationResultActionsResponse::new()
+    ///     .set_compilation_result_actions([
+    ///         CompilationResultAction::default()/* use setters */,
+    ///         CompilationResultAction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_compilation_result_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7459,6 +9880,12 @@ impl QueryCompilationResultActionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryCompilationResultActionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryCompilationResultActionsResponse;
+    /// let x = QueryCompilationResultActionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7539,18 +9966,37 @@ impl WorkflowConfig {
     }
 
     /// Sets the value of [name][crate::model::WorkflowConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = WorkflowConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [release_config][crate::model::WorkflowConfig::release_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = WorkflowConfig::new().set_release_config("example");
+    /// ```
     pub fn set_release_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_config = v.into();
         self
     }
 
     /// Sets the value of [invocation_config][crate::model::WorkflowConfig::invocation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = WorkflowConfig::new().set_invocation_config(InvocationConfig::default()/* use setters */);
+    /// ```
     pub fn set_invocation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InvocationConfig>,
@@ -7560,6 +10006,14 @@ impl WorkflowConfig {
     }
 
     /// Sets or clears the value of [invocation_config][crate::model::WorkflowConfig::invocation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = WorkflowConfig::new().set_or_clear_invocation_config(Some(InvocationConfig::default()/* use setters */));
+    /// let x = WorkflowConfig::new().set_or_clear_invocation_config(None::<InvocationConfig>);
+    /// ```
     pub fn set_or_clear_invocation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InvocationConfig>,
@@ -7569,18 +10023,41 @@ impl WorkflowConfig {
     }
 
     /// Sets the value of [cron_schedule][crate::model::WorkflowConfig::cron_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = WorkflowConfig::new().set_cron_schedule("example");
+    /// ```
     pub fn set_cron_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cron_schedule = v.into();
         self
     }
 
     /// Sets the value of [time_zone][crate::model::WorkflowConfig::time_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = WorkflowConfig::new().set_time_zone("example");
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [recent_scheduled_execution_records][crate::model::WorkflowConfig::recent_scheduled_execution_records].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
+    /// let x = WorkflowConfig::new()
+    ///     .set_recent_scheduled_execution_records([
+    ///         ScheduledExecutionRecord::default()/* use setters */,
+    ///         ScheduledExecutionRecord::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_recent_scheduled_execution_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7592,12 +10069,25 @@ impl WorkflowConfig {
     }
 
     /// Sets the value of [disabled][crate::model::WorkflowConfig::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = WorkflowConfig::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::WorkflowConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkflowConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7607,6 +10097,14 @@ impl WorkflowConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::WorkflowConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkflowConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkflowConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7616,6 +10114,13 @@ impl WorkflowConfig {
     }
 
     /// Sets the value of [update_time][crate::model::WorkflowConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkflowConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7625,6 +10130,14 @@ impl WorkflowConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::WorkflowConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkflowConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkflowConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7634,6 +10147,12 @@ impl WorkflowConfig {
     }
 
     /// Sets the value of [internal_metadata][crate::model::WorkflowConfig::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = WorkflowConfig::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -7643,6 +10162,13 @@ impl WorkflowConfig {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::WorkflowConfig::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = WorkflowConfig::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = WorkflowConfig::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -7684,6 +10210,13 @@ pub mod workflow_config {
         }
 
         /// Sets the value of [execution_time][crate::model::workflow_config::ScheduledExecutionRecord::execution_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
+        /// use wkt::Timestamp;
+        /// let x = ScheduledExecutionRecord::new().set_execution_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_execution_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7693,6 +10226,14 @@ pub mod workflow_config {
         }
 
         /// Sets or clears the value of [execution_time][crate::model::workflow_config::ScheduledExecutionRecord::execution_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
+        /// use wkt::Timestamp;
+        /// let x = ScheduledExecutionRecord::new().set_or_clear_execution_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ScheduledExecutionRecord::new().set_or_clear_execution_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7705,6 +10246,13 @@ pub mod workflow_config {
         ///
         /// Note that all the setters affecting `result` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
+        /// use google_cloud_dataform_v1::model::workflow_config::scheduled_execution_record::Result;
+        /// let x = ScheduledExecutionRecord::new().set_result(Some(Result::WorkflowInvocation("example".to_string())));
+        /// ```
         pub fn set_result<
             T: std::convert::Into<
                     std::option::Option<
@@ -7735,6 +10283,14 @@ pub mod workflow_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
+        /// let x = ScheduledExecutionRecord::new().set_workflow_invocation("example");
+        /// assert!(x.workflow_invocation().is_some());
+        /// assert!(x.error_status().is_none());
+        /// ```
         pub fn set_workflow_invocation<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7765,6 +10321,15 @@ pub mod workflow_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_config::ScheduledExecutionRecord;
+        /// use rpc::model::Status;
+        /// let x = ScheduledExecutionRecord::new().set_error_status(Status::default()/* use setters */);
+        /// assert!(x.error_status().is_some());
+        /// assert!(x.workflow_invocation().is_none());
+        /// ```
         pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
             mut self,
             v: T,
@@ -7839,6 +10404,17 @@ impl InvocationConfig {
     }
 
     /// Sets the value of [included_targets][crate::model::InvocationConfig::included_targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = InvocationConfig::new()
+    ///     .set_included_targets([
+    ///         Target::default()/* use setters */,
+    ///         Target::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_included_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7850,6 +10426,12 @@ impl InvocationConfig {
     }
 
     /// Sets the value of [included_tags][crate::model::InvocationConfig::included_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = InvocationConfig::new().set_included_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_included_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7861,6 +10443,12 @@ impl InvocationConfig {
     }
 
     /// Sets the value of [transitive_dependencies_included][crate::model::InvocationConfig::transitive_dependencies_included].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = InvocationConfig::new().set_transitive_dependencies_included(true);
+    /// ```
     pub fn set_transitive_dependencies_included<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -7870,12 +10458,24 @@ impl InvocationConfig {
     }
 
     /// Sets the value of [transitive_dependents_included][crate::model::InvocationConfig::transitive_dependents_included].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = InvocationConfig::new().set_transitive_dependents_included(true);
+    /// ```
     pub fn set_transitive_dependents_included<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.transitive_dependents_included = v.into();
         self
     }
 
     /// Sets the value of [fully_refresh_incremental_tables_enabled][crate::model::InvocationConfig::fully_refresh_incremental_tables_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = InvocationConfig::new().set_fully_refresh_incremental_tables_enabled(true);
+    /// ```
     pub fn set_fully_refresh_incremental_tables_enabled<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -7885,6 +10485,12 @@ impl InvocationConfig {
     }
 
     /// Sets the value of [service_account][crate::model::InvocationConfig::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = InvocationConfig::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
@@ -7927,18 +10533,36 @@ impl ListWorkflowConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkflowConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowConfigsRequest;
+    /// let x = ListWorkflowConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkflowConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowConfigsRequest;
+    /// let x = ListWorkflowConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkflowConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowConfigsRequest;
+    /// let x = ListWorkflowConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7974,6 +10598,17 @@ impl ListWorkflowConfigsResponse {
     }
 
     /// Sets the value of [workflow_configs][crate::model::ListWorkflowConfigsResponse::workflow_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowConfigsResponse;
+    /// use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = ListWorkflowConfigsResponse::new()
+    ///     .set_workflow_configs([
+    ///         WorkflowConfig::default()/* use setters */,
+    ///         WorkflowConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_workflow_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7985,12 +10620,24 @@ impl ListWorkflowConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkflowConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowConfigsResponse;
+    /// let x = ListWorkflowConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkflowConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowConfigsResponse;
+    /// let x = ListWorkflowConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8038,6 +10685,12 @@ impl GetWorkflowConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkflowConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::GetWorkflowConfigRequest;
+    /// let x = GetWorkflowConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8074,12 +10727,25 @@ impl CreateWorkflowConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkflowConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkflowConfigRequest;
+    /// let x = CreateWorkflowConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workflow_config][crate::model::CreateWorkflowConfigRequest::workflow_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkflowConfigRequest;
+    /// use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = CreateWorkflowConfigRequest::new().set_workflow_config(WorkflowConfig::default()/* use setters */);
+    /// ```
     pub fn set_workflow_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkflowConfig>,
@@ -8089,6 +10755,14 @@ impl CreateWorkflowConfigRequest {
     }
 
     /// Sets or clears the value of [workflow_config][crate::model::CreateWorkflowConfigRequest::workflow_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkflowConfigRequest;
+    /// use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = CreateWorkflowConfigRequest::new().set_or_clear_workflow_config(Some(WorkflowConfig::default()/* use setters */));
+    /// let x = CreateWorkflowConfigRequest::new().set_or_clear_workflow_config(None::<WorkflowConfig>);
+    /// ```
     pub fn set_or_clear_workflow_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkflowConfig>,
@@ -8098,6 +10772,12 @@ impl CreateWorkflowConfigRequest {
     }
 
     /// Sets the value of [workflow_config_id][crate::model::CreateWorkflowConfigRequest::workflow_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkflowConfigRequest;
+    /// let x = CreateWorkflowConfigRequest::new().set_workflow_config_id("example");
+    /// ```
     pub fn set_workflow_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8133,6 +10813,13 @@ impl UpdateWorkflowConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkflowConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateWorkflowConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkflowConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8142,6 +10829,14 @@ impl UpdateWorkflowConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateWorkflowConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkflowConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateWorkflowConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8151,6 +10846,13 @@ impl UpdateWorkflowConfigRequest {
     }
 
     /// Sets the value of [workflow_config][crate::model::UpdateWorkflowConfigRequest::workflow_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateWorkflowConfigRequest;
+    /// use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = UpdateWorkflowConfigRequest::new().set_workflow_config(WorkflowConfig::default()/* use setters */);
+    /// ```
     pub fn set_workflow_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkflowConfig>,
@@ -8160,6 +10862,14 @@ impl UpdateWorkflowConfigRequest {
     }
 
     /// Sets or clears the value of [workflow_config][crate::model::UpdateWorkflowConfigRequest::workflow_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateWorkflowConfigRequest;
+    /// use google_cloud_dataform_v1::model::WorkflowConfig;
+    /// let x = UpdateWorkflowConfigRequest::new().set_or_clear_workflow_config(Some(WorkflowConfig::default()/* use setters */));
+    /// let x = UpdateWorkflowConfigRequest::new().set_or_clear_workflow_config(None::<WorkflowConfig>);
+    /// ```
     pub fn set_or_clear_workflow_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkflowConfig>,
@@ -8191,6 +10901,12 @@ impl DeleteWorkflowConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkflowConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DeleteWorkflowConfigRequest;
+    /// let x = DeleteWorkflowConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8245,12 +10961,25 @@ impl WorkflowInvocation {
     }
 
     /// Sets the value of [name][crate::model::WorkflowInvocation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = WorkflowInvocation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [invocation_config][crate::model::WorkflowInvocation::invocation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = WorkflowInvocation::new().set_invocation_config(InvocationConfig::default()/* use setters */);
+    /// ```
     pub fn set_invocation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InvocationConfig>,
@@ -8260,6 +10989,14 @@ impl WorkflowInvocation {
     }
 
     /// Sets or clears the value of [invocation_config][crate::model::WorkflowInvocation::invocation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = WorkflowInvocation::new().set_or_clear_invocation_config(Some(InvocationConfig::default()/* use setters */));
+    /// let x = WorkflowInvocation::new().set_or_clear_invocation_config(None::<InvocationConfig>);
+    /// ```
     pub fn set_or_clear_invocation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InvocationConfig>,
@@ -8269,6 +11006,15 @@ impl WorkflowInvocation {
     }
 
     /// Sets the value of [state][crate::model::WorkflowInvocation::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::workflow_invocation::State;
+    /// let x0 = WorkflowInvocation::new().set_state(State::Running);
+    /// let x1 = WorkflowInvocation::new().set_state(State::Succeeded);
+    /// let x2 = WorkflowInvocation::new().set_state(State::Cancelled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::workflow_invocation::State>>(
         mut self,
         v: T,
@@ -8278,6 +11024,13 @@ impl WorkflowInvocation {
     }
 
     /// Sets the value of [invocation_timing][crate::model::WorkflowInvocation::invocation_timing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use gtype::model::Interval;
+    /// let x = WorkflowInvocation::new().set_invocation_timing(Interval::default()/* use setters */);
+    /// ```
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -8287,6 +11040,14 @@ impl WorkflowInvocation {
     }
 
     /// Sets or clears the value of [invocation_timing][crate::model::WorkflowInvocation::invocation_timing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use gtype::model::Interval;
+    /// let x = WorkflowInvocation::new().set_or_clear_invocation_timing(Some(Interval::default()/* use setters */));
+    /// let x = WorkflowInvocation::new().set_or_clear_invocation_timing(None::<Interval>);
+    /// ```
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -8296,6 +11057,12 @@ impl WorkflowInvocation {
     }
 
     /// Sets the value of [resolved_compilation_result][crate::model::WorkflowInvocation::resolved_compilation_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = WorkflowInvocation::new().set_resolved_compilation_result("example");
+    /// ```
     pub fn set_resolved_compilation_result<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8305,6 +11072,13 @@ impl WorkflowInvocation {
     }
 
     /// Sets the value of [data_encryption_state][crate::model::WorkflowInvocation::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = WorkflowInvocation::new().set_data_encryption_state(DataEncryptionState::default()/* use setters */);
+    /// ```
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -8314,6 +11088,14 @@ impl WorkflowInvocation {
     }
 
     /// Sets or clears the value of [data_encryption_state][crate::model::WorkflowInvocation::data_encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::DataEncryptionState;
+    /// let x = WorkflowInvocation::new().set_or_clear_data_encryption_state(Some(DataEncryptionState::default()/* use setters */));
+    /// let x = WorkflowInvocation::new().set_or_clear_data_encryption_state(None::<DataEncryptionState>);
+    /// ```
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataEncryptionState>,
@@ -8323,6 +11105,12 @@ impl WorkflowInvocation {
     }
 
     /// Sets the value of [internal_metadata][crate::model::WorkflowInvocation::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = WorkflowInvocation::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -8332,6 +11120,13 @@ impl WorkflowInvocation {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::WorkflowInvocation::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = WorkflowInvocation::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = WorkflowInvocation::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -8344,6 +11139,13 @@ impl WorkflowInvocation {
     ///
     /// Note that all the setters affecting `compilation_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::workflow_invocation::CompilationSource;
+    /// let x = WorkflowInvocation::new().set_compilation_source(Some(CompilationSource::CompilationResult("example".to_string())));
+    /// ```
     pub fn set_compilation_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::workflow_invocation::CompilationSource>,
@@ -8374,6 +11176,14 @@ impl WorkflowInvocation {
     ///
     /// Note that all the setters affecting `compilation_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = WorkflowInvocation::new().set_compilation_result("example");
+    /// assert!(x.compilation_result().is_some());
+    /// assert!(x.workflow_config().is_none());
+    /// ```
     pub fn set_compilation_result<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8402,6 +11212,14 @@ impl WorkflowInvocation {
     ///
     /// Note that all the setters affecting `compilation_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = WorkflowInvocation::new().set_workflow_config("example");
+    /// assert!(x.workflow_config().is_some());
+    /// assert!(x.compilation_result().is_none());
+    /// ```
     pub fn set_workflow_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compilation_source = std::option::Option::Some(
             crate::model::workflow_invocation::CompilationSource::WorkflowConfig(v.into()),
@@ -8627,30 +11445,60 @@ impl ListWorkflowInvocationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkflowInvocationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsRequest;
+    /// let x = ListWorkflowInvocationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkflowInvocationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsRequest;
+    /// let x = ListWorkflowInvocationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkflowInvocationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsRequest;
+    /// let x = ListWorkflowInvocationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListWorkflowInvocationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsRequest;
+    /// let x = ListWorkflowInvocationsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListWorkflowInvocationsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsRequest;
+    /// let x = ListWorkflowInvocationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -8686,6 +11534,17 @@ impl ListWorkflowInvocationsResponse {
     }
 
     /// Sets the value of [workflow_invocations][crate::model::ListWorkflowInvocationsResponse::workflow_invocations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsResponse;
+    /// use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = ListWorkflowInvocationsResponse::new()
+    ///     .set_workflow_invocations([
+    ///         WorkflowInvocation::default()/* use setters */,
+    ///         WorkflowInvocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_workflow_invocations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8697,12 +11556,24 @@ impl ListWorkflowInvocationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkflowInvocationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsResponse;
+    /// let x = ListWorkflowInvocationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkflowInvocationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::ListWorkflowInvocationsResponse;
+    /// let x = ListWorkflowInvocationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8750,6 +11621,12 @@ impl GetWorkflowInvocationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkflowInvocationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::GetWorkflowInvocationRequest;
+    /// let x = GetWorkflowInvocationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8782,12 +11659,25 @@ impl CreateWorkflowInvocationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkflowInvocationRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkflowInvocationRequest;
+    /// let x = CreateWorkflowInvocationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workflow_invocation][crate::model::CreateWorkflowInvocationRequest::workflow_invocation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkflowInvocationRequest;
+    /// use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = CreateWorkflowInvocationRequest::new().set_workflow_invocation(WorkflowInvocation::default()/* use setters */);
+    /// ```
     pub fn set_workflow_invocation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkflowInvocation>,
@@ -8797,6 +11687,14 @@ impl CreateWorkflowInvocationRequest {
     }
 
     /// Sets or clears the value of [workflow_invocation][crate::model::CreateWorkflowInvocationRequest::workflow_invocation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CreateWorkflowInvocationRequest;
+    /// use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// let x = CreateWorkflowInvocationRequest::new().set_or_clear_workflow_invocation(Some(WorkflowInvocation::default()/* use setters */));
+    /// let x = CreateWorkflowInvocationRequest::new().set_or_clear_workflow_invocation(None::<WorkflowInvocation>);
+    /// ```
     pub fn set_or_clear_workflow_invocation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkflowInvocation>,
@@ -8828,6 +11726,12 @@ impl DeleteWorkflowInvocationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkflowInvocationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::DeleteWorkflowInvocationRequest;
+    /// let x = DeleteWorkflowInvocationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8856,6 +11760,12 @@ impl CancelWorkflowInvocationRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelWorkflowInvocationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::CancelWorkflowInvocationRequest;
+    /// let x = CancelWorkflowInvocationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8930,6 +11840,13 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets the value of [target][crate::model::WorkflowInvocationAction::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = WorkflowInvocationAction::new().set_target(Target::default()/* use setters */);
+    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -8939,6 +11856,14 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets or clears the value of [target][crate::model::WorkflowInvocationAction::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = WorkflowInvocationAction::new().set_or_clear_target(Some(Target::default()/* use setters */));
+    /// let x = WorkflowInvocationAction::new().set_or_clear_target(None::<Target>);
+    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -8948,6 +11873,13 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets the value of [canonical_target][crate::model::WorkflowInvocationAction::canonical_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = WorkflowInvocationAction::new().set_canonical_target(Target::default()/* use setters */);
+    /// ```
     pub fn set_canonical_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -8957,6 +11889,14 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets or clears the value of [canonical_target][crate::model::WorkflowInvocationAction::canonical_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::Target;
+    /// let x = WorkflowInvocationAction::new().set_or_clear_canonical_target(Some(Target::default()/* use setters */));
+    /// let x = WorkflowInvocationAction::new().set_or_clear_canonical_target(None::<Target>);
+    /// ```
     pub fn set_or_clear_canonical_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -8966,6 +11906,15 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets the value of [state][crate::model::WorkflowInvocationAction::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::workflow_invocation_action::State;
+    /// let x0 = WorkflowInvocationAction::new().set_state(State::Running);
+    /// let x1 = WorkflowInvocationAction::new().set_state(State::Skipped);
+    /// let x2 = WorkflowInvocationAction::new().set_state(State::Disabled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::workflow_invocation_action::State>>(
         mut self,
         v: T,
@@ -8975,12 +11924,25 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets the value of [failure_reason][crate::model::WorkflowInvocationAction::failure_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// let x = WorkflowInvocationAction::new().set_failure_reason("example");
+    /// ```
     pub fn set_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_reason = v.into();
         self
     }
 
     /// Sets the value of [invocation_timing][crate::model::WorkflowInvocationAction::invocation_timing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use gtype::model::Interval;
+    /// let x = WorkflowInvocationAction::new().set_invocation_timing(Interval::default()/* use setters */);
+    /// ```
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -8990,6 +11952,14 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets or clears the value of [invocation_timing][crate::model::WorkflowInvocationAction::invocation_timing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use gtype::model::Interval;
+    /// let x = WorkflowInvocationAction::new().set_or_clear_invocation_timing(Some(Interval::default()/* use setters */));
+    /// let x = WorkflowInvocationAction::new().set_or_clear_invocation_timing(None::<Interval>);
+    /// ```
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -8999,6 +11969,12 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets the value of [internal_metadata][crate::model::WorkflowInvocationAction::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// let x = WorkflowInvocationAction::new().set_internal_metadata("example");
+    /// ```
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9008,6 +11984,13 @@ impl WorkflowInvocationAction {
     }
 
     /// Sets or clears the value of [internal_metadata][crate::model::WorkflowInvocationAction::internal_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// let x = WorkflowInvocationAction::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = WorkflowInvocationAction::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9020,6 +12003,14 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryAction;
+    /// let x = WorkflowInvocationAction::new().set_action(Some(
+    ///     google_cloud_dataform_v1::model::workflow_invocation_action::Action::BigqueryAction(BigQueryAction::default().into())));
+    /// ```
     pub fn set_action<
         T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::Action>>,
     >(
@@ -9052,6 +12043,16 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryAction;
+    /// let x = WorkflowInvocationAction::new().set_bigquery_action(BigQueryAction::default()/* use setters */);
+    /// assert!(x.bigquery_action().is_some());
+    /// assert!(x.notebook_action().is_none());
+    /// assert!(x.data_preparation_action().is_none());
+    /// ```
     pub fn set_bigquery_action<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::workflow_invocation_action::BigQueryAction>,
@@ -9088,6 +12089,16 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::workflow_invocation_action::NotebookAction;
+    /// let x = WorkflowInvocationAction::new().set_notebook_action(NotebookAction::default()/* use setters */);
+    /// assert!(x.notebook_action().is_some());
+    /// assert!(x.bigquery_action().is_none());
+    /// assert!(x.data_preparation_action().is_none());
+    /// ```
     pub fn set_notebook_action<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::workflow_invocation_action::NotebookAction>,
@@ -9124,6 +12135,16 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::workflow_invocation_action::DataPreparationAction;
+    /// let x = WorkflowInvocationAction::new().set_data_preparation_action(DataPreparationAction::default()/* use setters */);
+    /// assert!(x.data_preparation_action().is_some());
+    /// assert!(x.bigquery_action().is_none());
+    /// assert!(x.notebook_action().is_none());
+    /// ```
     pub fn set_data_preparation_action<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
@@ -9170,12 +12191,24 @@ pub mod workflow_invocation_action {
         }
 
         /// Sets the value of [sql_script][crate::model::workflow_invocation_action::BigQueryAction::sql_script].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryAction;
+        /// let x = BigQueryAction::new().set_sql_script("example");
+        /// ```
         pub fn set_sql_script<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.sql_script = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::workflow_invocation_action::BigQueryAction::job_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryAction;
+        /// let x = BigQueryAction::new().set_job_id("example");
+        /// ```
         pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.job_id = v.into();
             self
@@ -9209,12 +12242,24 @@ pub mod workflow_invocation_action {
         }
 
         /// Sets the value of [contents][crate::model::workflow_invocation_action::NotebookAction::contents].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::NotebookAction;
+        /// let x = NotebookAction::new().set_contents("example");
+        /// ```
         pub fn set_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.contents = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::workflow_invocation_action::NotebookAction::job_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::NotebookAction;
+        /// let x = NotebookAction::new().set_job_id("example");
+        /// ```
         pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.job_id = v.into();
             self
@@ -9253,6 +12298,12 @@ pub mod workflow_invocation_action {
         }
 
         /// Sets the value of [generated_sql][crate::model::workflow_invocation_action::DataPreparationAction::generated_sql].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::DataPreparationAction;
+        /// let x = DataPreparationAction::new().set_generated_sql("example");
+        /// ```
         pub fn set_generated_sql<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9262,6 +12313,12 @@ pub mod workflow_invocation_action {
         }
 
         /// Sets the value of [job_id][crate::model::workflow_invocation_action::DataPreparationAction::job_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::DataPreparationAction;
+        /// let x = DataPreparationAction::new().set_job_id("example");
+        /// ```
         pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.job_id = v.into();
             self
@@ -9271,6 +12328,13 @@ pub mod workflow_invocation_action {
         ///
         /// Note that all the setters affecting `definition` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::DataPreparationAction;
+        /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::Definition;
+        /// let x = DataPreparationAction::new().set_definition(Some(Definition::ContentsYaml("example".to_string())));
+        /// ```
         pub fn set_definition<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::Definition>>>(mut self, v: T) -> Self
         {
             self.definition = v.into();
@@ -9293,6 +12357,14 @@ pub mod workflow_invocation_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::DataPreparationAction;
+        /// let x = DataPreparationAction::new().set_contents_yaml("example");
+        /// assert!(x.contents_yaml().is_some());
+        /// assert!(x.contents_sql().is_none());
+        /// ```
         pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9321,6 +12393,15 @@ pub mod workflow_invocation_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::DataPreparationAction;
+        /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition;
+        /// let x = DataPreparationAction::new().set_contents_sql(ActionSqlDefinition::default()/* use setters */);
+        /// assert!(x.contents_sql().is_some());
+        /// assert!(x.contents_yaml().is_none());
+        /// ```
         pub fn set_contents_sql<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>>>(mut self, v: T) -> Self{
             self.definition = std::option::Option::Some(
                 crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsSql(
@@ -9369,12 +12450,25 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets the value of [query][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::query].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition;
+            /// let x = ActionSqlDefinition::new().set_query("example");
+            /// ```
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
                 self
             }
 
             /// Sets the value of [error_table][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::error_table].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionErrorTable;
+            /// let x = ActionSqlDefinition::new().set_error_table(ActionErrorTable::default()/* use setters */);
+            /// ```
             pub fn set_error_table<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable>
             {
@@ -9383,6 +12477,14 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets or clears the value of [error_table][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::error_table].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionErrorTable;
+            /// let x = ActionSqlDefinition::new().set_or_clear_error_table(Some(ActionErrorTable::default()/* use setters */));
+            /// let x = ActionSqlDefinition::new().set_or_clear_error_table(None::<ActionErrorTable>);
+            /// ```
             pub fn set_or_clear_error_table<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable>
             {
@@ -9391,6 +12493,13 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets the value of [load_config][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::load_config].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig;
+            /// let x = ActionSqlDefinition::new().set_load_config(ActionLoadConfig::default()/* use setters */);
+            /// ```
             pub fn set_load_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig>
             {
@@ -9399,6 +12508,14 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets or clears the value of [load_config][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::load_config].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig;
+            /// let x = ActionSqlDefinition::new().set_or_clear_load_config(Some(ActionLoadConfig::default()/* use setters */));
+            /// let x = ActionSqlDefinition::new().set_or_clear_load_config(None::<ActionLoadConfig>);
+            /// ```
             pub fn set_or_clear_load_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig>
             {
@@ -9434,6 +12551,13 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets the value of [target][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::target].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionErrorTable;
+            /// use google_cloud_dataform_v1::model::Target;
+            /// let x = ActionErrorTable::new().set_target(Target::default()/* use setters */);
+            /// ```
             pub fn set_target<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::Target>,
@@ -9443,6 +12567,14 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets or clears the value of [target][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::target].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionErrorTable;
+            /// use google_cloud_dataform_v1::model::Target;
+            /// let x = ActionErrorTable::new().set_or_clear_target(Some(Target::default()/* use setters */));
+            /// let x = ActionErrorTable::new().set_or_clear_target(None::<Target>);
+            /// ```
             pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::Target>,
@@ -9452,6 +12584,12 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets the value of [retention_days][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::retention_days].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionErrorTable;
+            /// let x = ActionErrorTable::new().set_retention_days(42);
+            /// ```
             pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.retention_days = v.into();
                 self
@@ -9468,10 +12606,10 @@ pub mod workflow_invocation_action {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionLoadConfig {
-
+        
             /// Load mode
             pub mode: std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode>,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -9484,6 +12622,14 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode;
+            /// let x = ActionLoadConfig::new().set_mode(Some(
+            ///     google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Replace(ActionSimpleLoadMode::default().into())));
+            /// ```
             pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode>>>(mut self, v: T) -> Self
             {
                 self.mode = v.into();
@@ -9506,6 +12652,17 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode;
+            /// let x = ActionLoadConfig::new().set_replace(ActionSimpleLoadMode::default()/* use setters */);
+            /// assert!(x.replace().is_some());
+            /// assert!(x.append().is_none());
+            /// assert!(x.maximum().is_none());
+            /// assert!(x.unique().is_none());
+            /// ```
             pub fn set_replace<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self{
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Replace(
@@ -9531,6 +12688,17 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode;
+            /// let x = ActionLoadConfig::new().set_append(ActionSimpleLoadMode::default()/* use setters */);
+            /// assert!(x.append().is_some());
+            /// assert!(x.replace().is_none());
+            /// assert!(x.maximum().is_none());
+            /// assert!(x.unique().is_none());
+            /// ```
             pub fn set_append<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self{
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Append(
@@ -9556,6 +12724,17 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode;
+            /// let x = ActionLoadConfig::new().set_maximum(ActionIncrementalLoadMode::default()/* use setters */);
+            /// assert!(x.maximum().is_some());
+            /// assert!(x.replace().is_none());
+            /// assert!(x.append().is_none());
+            /// assert!(x.unique().is_none());
+            /// ```
             pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self{
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Maximum(
@@ -9581,6 +12760,17 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig;
+            /// use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode;
+            /// let x = ActionLoadConfig::new().set_unique(ActionIncrementalLoadMode::default()/* use setters */);
+            /// assert!(x.unique().is_some());
+            /// assert!(x.replace().is_none());
+            /// assert!(x.append().is_none());
+            /// assert!(x.maximum().is_none());
+            /// ```
             pub fn set_unique<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self{
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Unique(
@@ -9654,6 +12844,12 @@ pub mod workflow_invocation_action {
             }
 
             /// Sets the value of [column][crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode::column].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataform_v1::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode;
+            /// let x = ActionIncrementalLoadMode::new().set_column("example");
+            /// ```
             pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column = v.into();
                 self
@@ -9886,18 +13082,36 @@ impl QueryWorkflowInvocationActionsRequest {
     }
 
     /// Sets the value of [name][crate::model::QueryWorkflowInvocationActionsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryWorkflowInvocationActionsRequest;
+    /// let x = QueryWorkflowInvocationActionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::QueryWorkflowInvocationActionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryWorkflowInvocationActionsRequest;
+    /// let x = QueryWorkflowInvocationActionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryWorkflowInvocationActionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryWorkflowInvocationActionsRequest;
+    /// let x = QueryWorkflowInvocationActionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -9930,6 +13144,17 @@ impl QueryWorkflowInvocationActionsResponse {
     }
 
     /// Sets the value of [workflow_invocation_actions][crate::model::QueryWorkflowInvocationActionsResponse::workflow_invocation_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryWorkflowInvocationActionsResponse;
+    /// use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// let x = QueryWorkflowInvocationActionsResponse::new()
+    ///     .set_workflow_invocation_actions([
+    ///         WorkflowInvocationAction::default()/* use setters */,
+    ///         WorkflowInvocationAction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_workflow_invocation_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9941,6 +13166,12 @@ impl QueryWorkflowInvocationActionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryWorkflowInvocationActionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::QueryWorkflowInvocationActionsResponse;
+    /// let x = QueryWorkflowInvocationActionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -9987,12 +13218,24 @@ impl Config {
     }
 
     /// Sets the value of [name][crate::model::Config::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Config;
+    /// let x = Config::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [default_kms_key_name][crate::model::Config::default_kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::Config;
+    /// let x = Config::new().set_default_kms_key_name("example");
+    /// ```
     pub fn set_default_kms_key_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10024,6 +13267,12 @@ impl GetConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::GetConfigRequest;
+    /// let x = GetConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10055,6 +13304,13 @@ impl UpdateConfigRequest {
     }
 
     /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateConfigRequest;
+    /// use google_cloud_dataform_v1::model::Config;
+    /// let x = UpdateConfigRequest::new().set_config(Config::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Config>,
@@ -10064,6 +13320,14 @@ impl UpdateConfigRequest {
     }
 
     /// Sets or clears the value of [config][crate::model::UpdateConfigRequest::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateConfigRequest;
+    /// use google_cloud_dataform_v1::model::Config;
+    /// let x = UpdateConfigRequest::new().set_or_clear_config(Some(Config::default()/* use setters */));
+    /// let x = UpdateConfigRequest::new().set_or_clear_config(None::<Config>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Config>,
@@ -10073,6 +13337,13 @@ impl UpdateConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10082,6 +13353,14 @@ impl UpdateConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::model::UpdateConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

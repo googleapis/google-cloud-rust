@@ -96,12 +96,25 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -111,6 +124,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -120,6 +141,13 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -129,6 +157,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -138,6 +174,15 @@ impl Instance {
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = Instance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -150,6 +195,13 @@ impl Instance {
     }
 
     /// Sets the value of [private_config][crate::model::Instance::private_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+    /// let x = Instance::new().set_private_config(PrivateConfig::default()/* use setters */);
+    /// ```
     pub fn set_private_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::PrivateConfig>,
@@ -159,6 +211,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [private_config][crate::model::Instance::private_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+    /// let x = Instance::new().set_or_clear_private_config(Some(PrivateConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_private_config(None::<PrivateConfig>);
+    /// ```
     pub fn set_or_clear_private_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PrivateConfig>,
@@ -168,12 +228,28 @@ impl Instance {
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::State;
+    /// let x0 = Instance::new().set_state(State::Creating);
+    /// let x1 = Instance::new().set_state(State::Active);
+    /// let x2 = Instance::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_note][crate::model::Instance::state_note].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::StateNote;
+    /// let x0 = Instance::new().set_state_note(StateNote::PausedCmekUnavailable);
+    /// ```
     pub fn set_state_note<T: std::convert::Into<crate::model::instance::StateNote>>(
         mut self,
         v: T,
@@ -183,12 +259,25 @@ impl Instance {
     }
 
     /// Sets the value of [kms_key][crate::model::Instance::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = Instance::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [host_config][crate::model::Instance::host_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::HostConfig;
+    /// let x = Instance::new().set_host_config(HostConfig::default()/* use setters */);
+    /// ```
     pub fn set_host_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::HostConfig>,
@@ -198,6 +287,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [host_config][crate::model::Instance::host_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::HostConfig;
+    /// let x = Instance::new().set_or_clear_host_config(Some(HostConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_host_config(None::<HostConfig>);
+    /// ```
     pub fn set_or_clear_host_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::HostConfig>,
@@ -207,6 +304,13 @@ impl Instance {
     }
 
     /// Sets the value of [workforce_identity_federation_config][crate::model::Instance::workforce_identity_federation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::WorkforceIdentityFederationConfig;
+    /// let x = Instance::new().set_workforce_identity_federation_config(WorkforceIdentityFederationConfig::default()/* use setters */);
+    /// ```
     pub fn set_workforce_identity_federation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::WorkforceIdentityFederationConfig>,
@@ -216,6 +320,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [workforce_identity_federation_config][crate::model::Instance::workforce_identity_federation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::model::instance::WorkforceIdentityFederationConfig;
+    /// let x = Instance::new().set_or_clear_workforce_identity_federation_config(Some(WorkforceIdentityFederationConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_workforce_identity_federation_config(None::<WorkforceIdentityFederationConfig>);
+    /// ```
     pub fn set_or_clear_workforce_identity_federation_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -264,24 +376,48 @@ pub mod instance {
         }
 
         /// Sets the value of [html][crate::model::instance::HostConfig::html].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::HostConfig;
+        /// let x = HostConfig::new().set_html("example");
+        /// ```
         pub fn set_html<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.html = v.into();
             self
         }
 
         /// Sets the value of [api][crate::model::instance::HostConfig::api].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::HostConfig;
+        /// let x = HostConfig::new().set_api("example");
+        /// ```
         pub fn set_api<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.api = v.into();
             self
         }
 
         /// Sets the value of [git_http][crate::model::instance::HostConfig::git_http].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::HostConfig;
+        /// let x = HostConfig::new().set_git_http("example");
+        /// ```
         pub fn set_git_http<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.git_http = v.into();
             self
         }
 
         /// Sets the value of [git_ssh][crate::model::instance::HostConfig::git_ssh].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::HostConfig;
+        /// let x = HostConfig::new().set_git_ssh("example");
+        /// ```
         pub fn set_git_ssh<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.git_ssh = v.into();
             self
@@ -327,18 +463,36 @@ pub mod instance {
         }
 
         /// Sets the value of [is_private][crate::model::instance::PrivateConfig::is_private].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+        /// let x = PrivateConfig::new().set_is_private(true);
+        /// ```
         pub fn set_is_private<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_private = v.into();
             self
         }
 
         /// Sets the value of [ca_pool][crate::model::instance::PrivateConfig::ca_pool].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+        /// let x = PrivateConfig::new().set_ca_pool("example");
+        /// ```
         pub fn set_ca_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ca_pool = v.into();
             self
         }
 
         /// Sets the value of [http_service_attachment][crate::model::instance::PrivateConfig::http_service_attachment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+        /// let x = PrivateConfig::new().set_http_service_attachment("example");
+        /// ```
         pub fn set_http_service_attachment<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -348,6 +502,12 @@ pub mod instance {
         }
 
         /// Sets the value of [ssh_service_attachment][crate::model::instance::PrivateConfig::ssh_service_attachment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+        /// let x = PrivateConfig::new().set_ssh_service_attachment("example");
+        /// ```
         pub fn set_ssh_service_attachment<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -357,6 +517,12 @@ pub mod instance {
         }
 
         /// Sets the value of [psc_allowed_projects][crate::model::instance::PrivateConfig::psc_allowed_projects].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+        /// let x = PrivateConfig::new().set_psc_allowed_projects(["a", "b", "c"]);
+        /// ```
         pub fn set_psc_allowed_projects<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -391,6 +557,12 @@ pub mod instance {
         }
 
         /// Sets the value of [enabled][crate::model::instance::WorkforceIdentityFederationConfig::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::instance::WorkforceIdentityFederationConfig;
+        /// let x = WorkforceIdentityFederationConfig::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -741,30 +913,61 @@ impl Repository {
     }
 
     /// Sets the value of [name][crate::model::Repository::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = Repository::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Repository::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = Repository::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::Repository::instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = Repository::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Repository::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = Repository::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Repository::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use wkt::Timestamp;
+    /// let x = Repository::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -774,6 +977,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Repository::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use wkt::Timestamp;
+    /// let x = Repository::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -783,6 +994,13 @@ impl Repository {
     }
 
     /// Sets the value of [update_time][crate::model::Repository::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use wkt::Timestamp;
+    /// let x = Repository::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -792,6 +1010,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Repository::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use wkt::Timestamp;
+    /// let x = Repository::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -801,12 +1027,25 @@ impl Repository {
     }
 
     /// Sets the value of [etag][crate::model::Repository::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = Repository::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [uris][crate::model::Repository::uris].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::model::repository::URIs;
+    /// let x = Repository::new().set_uris(URIs::default()/* use setters */);
+    /// ```
     pub fn set_uris<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::repository::URIs>,
@@ -816,6 +1055,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [uris][crate::model::Repository::uris].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::model::repository::URIs;
+    /// let x = Repository::new().set_or_clear_uris(Some(URIs::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_uris(None::<URIs>);
+    /// ```
     pub fn set_or_clear_uris<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::repository::URIs>,
@@ -825,6 +1072,13 @@ impl Repository {
     }
 
     /// Sets the value of [initial_config][crate::model::Repository::initial_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::model::repository::InitialConfig;
+    /// let x = Repository::new().set_initial_config(InitialConfig::default()/* use setters */);
+    /// ```
     pub fn set_initial_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::repository::InitialConfig>,
@@ -834,6 +1088,14 @@ impl Repository {
     }
 
     /// Sets or clears the value of [initial_config][crate::model::Repository::initial_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::model::repository::InitialConfig;
+    /// let x = Repository::new().set_or_clear_initial_config(Some(InitialConfig::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_initial_config(None::<InitialConfig>);
+    /// ```
     pub fn set_or_clear_initial_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::repository::InitialConfig>,
@@ -877,18 +1139,36 @@ pub mod repository {
         }
 
         /// Sets the value of [html][crate::model::repository::URIs::html].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::repository::URIs;
+        /// let x = URIs::new().set_html("example");
+        /// ```
         pub fn set_html<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.html = v.into();
             self
         }
 
         /// Sets the value of [git_https][crate::model::repository::URIs::git_https].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::repository::URIs;
+        /// let x = URIs::new().set_git_https("example");
+        /// ```
         pub fn set_git_https<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.git_https = v.into();
             self
         }
 
         /// Sets the value of [api][crate::model::repository::URIs::api].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::repository::URIs;
+        /// let x = URIs::new().set_api("example");
+        /// ```
         pub fn set_api<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.api = v.into();
             self
@@ -1050,6 +1330,12 @@ pub mod repository {
         }
 
         /// Sets the value of [default_branch][crate::model::repository::InitialConfig::default_branch].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::repository::InitialConfig;
+        /// let x = InitialConfig::new().set_default_branch("example");
+        /// ```
         pub fn set_default_branch<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1059,6 +1345,12 @@ pub mod repository {
         }
 
         /// Sets the value of [gitignores][crate::model::repository::InitialConfig::gitignores].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::repository::InitialConfig;
+        /// let x = InitialConfig::new().set_gitignores(["a", "b", "c"]);
+        /// ```
         pub fn set_gitignores<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1070,12 +1362,24 @@ pub mod repository {
         }
 
         /// Sets the value of [license][crate::model::repository::InitialConfig::license].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::repository::InitialConfig;
+        /// let x = InitialConfig::new().set_license("example");
+        /// ```
         pub fn set_license<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.license = v.into();
             self
         }
 
         /// Sets the value of [readme][crate::model::repository::InitialConfig::readme].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::repository::InitialConfig;
+        /// let x = InitialConfig::new().set_readme("example");
+        /// ```
         pub fn set_readme<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.readme = v.into();
             self
@@ -1132,24 +1436,52 @@ impl Hook {
     }
 
     /// Sets the value of [name][crate::model::Hook::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = Hook::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_uri][crate::model::Hook::target_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = Hook::new().set_target_uri("example");
+    /// ```
     pub fn set_target_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_uri = v.into();
         self
     }
 
     /// Sets the value of [disabled][crate::model::Hook::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = Hook::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [events][crate::model::Hook::events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use google_cloud_securesourcemanager_v1::model::hook::HookEventType;
+    /// let x = Hook::new().set_events([
+    ///     HookEventType::Push,
+    ///     HookEventType::PullRequest,
+    /// ]);
+    /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1161,6 +1493,13 @@ impl Hook {
     }
 
     /// Sets the value of [create_time][crate::model::Hook::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use wkt::Timestamp;
+    /// let x = Hook::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1170,6 +1509,14 @@ impl Hook {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Hook::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use wkt::Timestamp;
+    /// let x = Hook::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Hook::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1179,6 +1526,13 @@ impl Hook {
     }
 
     /// Sets the value of [update_time][crate::model::Hook::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use wkt::Timestamp;
+    /// let x = Hook::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1188,6 +1542,14 @@ impl Hook {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Hook::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use wkt::Timestamp;
+    /// let x = Hook::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Hook::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1197,12 +1559,25 @@ impl Hook {
     }
 
     /// Sets the value of [uid][crate::model::Hook::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = Hook::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [push_option][crate::model::Hook::push_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use google_cloud_securesourcemanager_v1::model::hook::PushOption;
+    /// let x = Hook::new().set_push_option(PushOption::default()/* use setters */);
+    /// ```
     pub fn set_push_option<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::hook::PushOption>,
@@ -1212,6 +1587,14 @@ impl Hook {
     }
 
     /// Sets or clears the value of [push_option][crate::model::Hook::push_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use google_cloud_securesourcemanager_v1::model::hook::PushOption;
+    /// let x = Hook::new().set_or_clear_push_option(Some(PushOption::default()/* use setters */));
+    /// let x = Hook::new().set_or_clear_push_option(None::<PushOption>);
+    /// ```
     pub fn set_or_clear_push_option<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::hook::PushOption>,
@@ -1221,6 +1604,12 @@ impl Hook {
     }
 
     /// Sets the value of [sensitive_query_string][crate::model::Hook::sensitive_query_string].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = Hook::new().set_sensitive_query_string("example");
+    /// ```
     pub fn set_sensitive_query_string<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1259,6 +1648,12 @@ pub mod hook {
         }
 
         /// Sets the value of [branch_filter][crate::model::hook::PushOption::branch_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::hook::PushOption;
+        /// let x = PushOption::new().set_branch_filter("example");
+        /// ```
         pub fn set_branch_filter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1480,18 +1875,37 @@ impl BranchRule {
     }
 
     /// Sets the value of [name][crate::model::BranchRule::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::BranchRule::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BranchRule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// use wkt::Timestamp;
+    /// let x = BranchRule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1501,6 +1915,14 @@ impl BranchRule {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BranchRule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// use wkt::Timestamp;
+    /// let x = BranchRule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BranchRule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1510,6 +1932,13 @@ impl BranchRule {
     }
 
     /// Sets the value of [update_time][crate::model::BranchRule::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// use wkt::Timestamp;
+    /// let x = BranchRule::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1519,6 +1948,14 @@ impl BranchRule {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BranchRule::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// use wkt::Timestamp;
+    /// let x = BranchRule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BranchRule::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1528,6 +1965,15 @@ impl BranchRule {
     }
 
     /// Sets the value of [annotations][crate::model::BranchRule::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1540,60 +1986,125 @@ impl BranchRule {
     }
 
     /// Sets the value of [etag][crate::model::BranchRule::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [include_pattern][crate::model::BranchRule::include_pattern].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_include_pattern("example");
+    /// ```
     pub fn set_include_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.include_pattern = v.into();
         self
     }
 
     /// Sets the value of [disabled][crate::model::BranchRule::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [require_pull_request][crate::model::BranchRule::require_pull_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_require_pull_request(true);
+    /// ```
     pub fn set_require_pull_request<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_pull_request = v.into();
         self
     }
 
     /// Sets the value of [minimum_reviews_count][crate::model::BranchRule::minimum_reviews_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_minimum_reviews_count(42);
+    /// ```
     pub fn set_minimum_reviews_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minimum_reviews_count = v.into();
         self
     }
 
     /// Sets the value of [minimum_approvals_count][crate::model::BranchRule::minimum_approvals_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_minimum_approvals_count(42);
+    /// ```
     pub fn set_minimum_approvals_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minimum_approvals_count = v.into();
         self
     }
 
     /// Sets the value of [require_comments_resolved][crate::model::BranchRule::require_comments_resolved].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_require_comments_resolved(true);
+    /// ```
     pub fn set_require_comments_resolved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_comments_resolved = v.into();
         self
     }
 
     /// Sets the value of [allow_stale_reviews][crate::model::BranchRule::allow_stale_reviews].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_allow_stale_reviews(true);
+    /// ```
     pub fn set_allow_stale_reviews<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_stale_reviews = v.into();
         self
     }
 
     /// Sets the value of [require_linear_history][crate::model::BranchRule::require_linear_history].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_require_linear_history(true);
+    /// ```
     pub fn set_require_linear_history<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_linear_history = v.into();
         self
     }
 
     /// Sets the value of [required_status_checks][crate::model::BranchRule::required_status_checks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// use google_cloud_securesourcemanager_v1::model::branch_rule::Check;
+    /// let x = BranchRule::new()
+    ///     .set_required_status_checks([
+    ///         Check::default()/* use setters */,
+    ///         Check::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_required_status_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1632,6 +2143,12 @@ pub mod branch_rule {
         }
 
         /// Sets the value of [context][crate::model::branch_rule::Check::context].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::branch_rule::Check;
+        /// let x = Check::new().set_context("example");
+        /// ```
         pub fn set_context<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.context = v.into();
             self
@@ -1690,24 +2207,49 @@ impl PullRequest {
     }
 
     /// Sets the value of [name][crate::model::PullRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = PullRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::PullRequest::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = PullRequest::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::PullRequest::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = PullRequest::new().set_body("example");
+    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
     /// Sets the value of [base][crate::model::PullRequest::base].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request::Branch;
+    /// let x = PullRequest::new().set_base(Branch::default()/* use setters */);
+    /// ```
     pub fn set_base<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::pull_request::Branch>,
@@ -1717,6 +2259,14 @@ impl PullRequest {
     }
 
     /// Sets or clears the value of [base][crate::model::PullRequest::base].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request::Branch;
+    /// let x = PullRequest::new().set_or_clear_base(Some(Branch::default()/* use setters */));
+    /// let x = PullRequest::new().set_or_clear_base(None::<Branch>);
+    /// ```
     pub fn set_or_clear_base<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::pull_request::Branch>,
@@ -1726,6 +2276,13 @@ impl PullRequest {
     }
 
     /// Sets the value of [head][crate::model::PullRequest::head].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request::Branch;
+    /// let x = PullRequest::new().set_head(Branch::default()/* use setters */);
+    /// ```
     pub fn set_head<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::pull_request::Branch>,
@@ -1735,6 +2292,14 @@ impl PullRequest {
     }
 
     /// Sets or clears the value of [head][crate::model::PullRequest::head].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request::Branch;
+    /// let x = PullRequest::new().set_or_clear_head(Some(Branch::default()/* use setters */));
+    /// let x = PullRequest::new().set_or_clear_head(None::<Branch>);
+    /// ```
     pub fn set_or_clear_head<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::pull_request::Branch>,
@@ -1744,6 +2309,15 @@ impl PullRequest {
     }
 
     /// Sets the value of [state][crate::model::PullRequest::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request::State;
+    /// let x0 = PullRequest::new().set_state(State::Open);
+    /// let x1 = PullRequest::new().set_state(State::Closed);
+    /// let x2 = PullRequest::new().set_state(State::Merged);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::pull_request::State>>(
         mut self,
         v: T,
@@ -1753,6 +2327,13 @@ impl PullRequest {
     }
 
     /// Sets the value of [create_time][crate::model::PullRequest::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use wkt::Timestamp;
+    /// let x = PullRequest::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1762,6 +2343,14 @@ impl PullRequest {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PullRequest::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use wkt::Timestamp;
+    /// let x = PullRequest::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PullRequest::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1771,6 +2360,13 @@ impl PullRequest {
     }
 
     /// Sets the value of [update_time][crate::model::PullRequest::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use wkt::Timestamp;
+    /// let x = PullRequest::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1780,6 +2376,14 @@ impl PullRequest {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PullRequest::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use wkt::Timestamp;
+    /// let x = PullRequest::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PullRequest::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1789,6 +2393,13 @@ impl PullRequest {
     }
 
     /// Sets the value of [close_time][crate::model::PullRequest::close_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use wkt::Timestamp;
+    /// let x = PullRequest::new().set_close_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_close_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1798,6 +2409,14 @@ impl PullRequest {
     }
 
     /// Sets or clears the value of [close_time][crate::model::PullRequest::close_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use wkt::Timestamp;
+    /// let x = PullRequest::new().set_or_clear_close_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PullRequest::new().set_or_clear_close_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_close_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1837,12 +2456,24 @@ pub mod pull_request {
         }
 
         /// Sets the value of [r#ref][crate::model::pull_request::Branch::ref].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request::Branch;
+        /// let x = Branch::new().set_ref("example");
+        /// ```
         pub fn set_ref<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#ref = v.into();
             self
         }
 
         /// Sets the value of [sha][crate::model::pull_request::Branch::sha].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request::Branch;
+        /// let x = Branch::new().set_sha("example");
+        /// ```
         pub fn set_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.sha = v.into();
             self
@@ -2021,12 +2652,27 @@ impl FileDiff {
     }
 
     /// Sets the value of [name][crate::model::FileDiff::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FileDiff;
+    /// let x = FileDiff::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [action][crate::model::FileDiff::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FileDiff;
+    /// use google_cloud_securesourcemanager_v1::model::file_diff::Action;
+    /// let x0 = FileDiff::new().set_action(Action::Added);
+    /// let x1 = FileDiff::new().set_action(Action::Modified);
+    /// let x2 = FileDiff::new().set_action(Action::Deleted);
+    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::file_diff::Action>>(
         mut self,
         v: T,
@@ -2036,12 +2682,24 @@ impl FileDiff {
     }
 
     /// Sets the value of [sha][crate::model::FileDiff::sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FileDiff;
+    /// let x = FileDiff::new().set_sha("example");
+    /// ```
     pub fn set_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha = v.into();
         self
     }
 
     /// Sets the value of [patch][crate::model::FileDiff::patch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FileDiff;
+    /// let x = FileDiff::new().set_patch("example");
+    /// ```
     pub fn set_patch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.patch = v.into();
         self
@@ -2240,30 +2898,63 @@ impl Issue {
     }
 
     /// Sets the value of [name][crate::model::Issue::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = Issue::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::Issue::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = Issue::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::Issue::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = Issue::new().set_body("example");
+    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Issue::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use google_cloud_securesourcemanager_v1::model::issue::State;
+    /// let x0 = Issue::new().set_state(State::Open);
+    /// let x1 = Issue::new().set_state(State::Closed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::issue::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Issue::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2273,6 +2964,14 @@ impl Issue {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Issue::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Issue::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2282,6 +2981,13 @@ impl Issue {
     }
 
     /// Sets the value of [update_time][crate::model::Issue::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2291,6 +2997,14 @@ impl Issue {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Issue::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Issue::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2300,6 +3014,13 @@ impl Issue {
     }
 
     /// Sets the value of [close_time][crate::model::Issue::close_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_close_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_close_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2309,6 +3030,14 @@ impl Issue {
     }
 
     /// Sets or clears the value of [close_time][crate::model::Issue::close_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_or_clear_close_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Issue::new().set_or_clear_close_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_close_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2318,6 +3047,12 @@ impl Issue {
     }
 
     /// Sets the value of [etag][crate::model::Issue::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = Issue::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2495,18 +3230,37 @@ impl IssueComment {
     }
 
     /// Sets the value of [name][crate::model::IssueComment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// let x = IssueComment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::IssueComment::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// let x = IssueComment::new().set_body("example");
+    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::IssueComment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// use wkt::Timestamp;
+    /// let x = IssueComment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2516,6 +3270,14 @@ impl IssueComment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::IssueComment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// use wkt::Timestamp;
+    /// let x = IssueComment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IssueComment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2525,6 +3287,13 @@ impl IssueComment {
     }
 
     /// Sets the value of [update_time][crate::model::IssueComment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// use wkt::Timestamp;
+    /// let x = IssueComment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2534,6 +3303,14 @@ impl IssueComment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::IssueComment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// use wkt::Timestamp;
+    /// let x = IssueComment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IssueComment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2577,12 +3354,25 @@ impl PullRequestComment {
     }
 
     /// Sets the value of [name][crate::model::PullRequestComment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = PullRequestComment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PullRequestComment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use wkt::Timestamp;
+    /// let x = PullRequestComment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2592,6 +3382,14 @@ impl PullRequestComment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PullRequestComment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use wkt::Timestamp;
+    /// let x = PullRequestComment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PullRequestComment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2601,6 +3399,13 @@ impl PullRequestComment {
     }
 
     /// Sets the value of [update_time][crate::model::PullRequestComment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use wkt::Timestamp;
+    /// let x = PullRequestComment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2610,6 +3415,14 @@ impl PullRequestComment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PullRequestComment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use wkt::Timestamp;
+    /// let x = PullRequestComment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PullRequestComment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2622,6 +3435,14 @@ impl PullRequestComment {
     ///
     /// Note that all the setters affecting `comment_detail` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request_comment::Review;
+    /// let x = PullRequestComment::new().set_comment_detail(Some(
+    ///     google_cloud_securesourcemanager_v1::model::pull_request_comment::CommentDetail::Review(Review::default().into())));
+    /// ```
     pub fn set_comment_detail<
         T: std::convert::Into<std::option::Option<crate::model::pull_request_comment::CommentDetail>>,
     >(
@@ -2652,6 +3473,16 @@ impl PullRequestComment {
     ///
     /// Note that all the setters affecting `comment_detail` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request_comment::Review;
+    /// let x = PullRequestComment::new().set_review(Review::default()/* use setters */);
+    /// assert!(x.review().is_some());
+    /// assert!(x.comment().is_none());
+    /// assert!(x.code().is_none());
+    /// ```
     pub fn set_review<
         T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Review>>,
     >(
@@ -2684,6 +3515,16 @@ impl PullRequestComment {
     ///
     /// Note that all the setters affecting `comment_detail` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request_comment::Comment;
+    /// let x = PullRequestComment::new().set_comment(Comment::default()/* use setters */);
+    /// assert!(x.comment().is_some());
+    /// assert!(x.review().is_none());
+    /// assert!(x.code().is_none());
+    /// ```
     pub fn set_comment<
         T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Comment>>,
     >(
@@ -2716,6 +3557,16 @@ impl PullRequestComment {
     ///
     /// Note that all the setters affecting `comment_detail` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+    /// let x = PullRequestComment::new().set_code(Code::default()/* use setters */);
+    /// assert!(x.code().is_some());
+    /// assert!(x.review().is_none());
+    /// assert!(x.comment().is_none());
+    /// ```
     pub fn set_code<
         T: std::convert::Into<std::boxed::Box<crate::model::pull_request_comment::Code>>,
     >(
@@ -2762,6 +3613,15 @@ pub mod pull_request_comment {
         }
 
         /// Sets the value of [action_type][crate::model::pull_request_comment::Review::action_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Review;
+        /// use google_cloud_securesourcemanager_v1::model::pull_request_comment::review::ActionType;
+        /// let x0 = Review::new().set_action_type(ActionType::Comment);
+        /// let x1 = Review::new().set_action_type(ActionType::ChangeRequested);
+        /// let x2 = Review::new().set_action_type(ActionType::Approved);
+        /// ```
         pub fn set_action_type<
             T: std::convert::Into<crate::model::pull_request_comment::review::ActionType>,
         >(
@@ -2773,12 +3633,24 @@ pub mod pull_request_comment {
         }
 
         /// Sets the value of [body][crate::model::pull_request_comment::Review::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Review;
+        /// let x = Review::new().set_body("example");
+        /// ```
         pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.body = v.into();
             self
         }
 
         /// Sets the value of [effective_commit_sha][crate::model::pull_request_comment::Review::effective_commit_sha].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Review;
+        /// let x = Review::new().set_effective_commit_sha("example");
+        /// ```
         pub fn set_effective_commit_sha<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2958,6 +3830,12 @@ pub mod pull_request_comment {
         }
 
         /// Sets the value of [body][crate::model::pull_request_comment::Comment::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Comment;
+        /// let x = Comment::new().set_body("example");
+        /// ```
         pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.body = v.into();
             self
@@ -3003,18 +3881,37 @@ pub mod pull_request_comment {
         }
 
         /// Sets the value of [body][crate::model::pull_request_comment::Code::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+        /// let x = Code::new().set_body("example");
+        /// ```
         pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.body = v.into();
             self
         }
 
         /// Sets the value of [reply][crate::model::pull_request_comment::Code::reply].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+        /// let x = Code::new().set_reply("example");
+        /// ```
         pub fn set_reply<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.reply = v.into();
             self
         }
 
         /// Sets the value of [position][crate::model::pull_request_comment::Code::position].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+        /// use google_cloud_securesourcemanager_v1::model::pull_request_comment::Position;
+        /// let x = Code::new().set_position(Position::default()/* use setters */);
+        /// ```
         pub fn set_position<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::pull_request_comment::Position>,
@@ -3024,6 +3921,14 @@ pub mod pull_request_comment {
         }
 
         /// Sets or clears the value of [position][crate::model::pull_request_comment::Code::position].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+        /// use google_cloud_securesourcemanager_v1::model::pull_request_comment::Position;
+        /// let x = Code::new().set_or_clear_position(Some(Position::default()/* use setters */));
+        /// let x = Code::new().set_or_clear_position(None::<Position>);
+        /// ```
         pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::pull_request_comment::Position>,
@@ -3033,6 +3938,12 @@ pub mod pull_request_comment {
         }
 
         /// Sets the value of [effective_root_comment][crate::model::pull_request_comment::Code::effective_root_comment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+        /// let x = Code::new().set_effective_root_comment("example");
+        /// ```
         pub fn set_effective_root_comment<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3042,12 +3953,24 @@ pub mod pull_request_comment {
         }
 
         /// Sets the value of [resolved][crate::model::pull_request_comment::Code::resolved].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+        /// let x = Code::new().set_resolved(true);
+        /// ```
         pub fn set_resolved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.resolved = v.into();
             self
         }
 
         /// Sets the value of [effective_commit_sha][crate::model::pull_request_comment::Code::effective_commit_sha].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Code;
+        /// let x = Code::new().set_effective_commit_sha("example");
+        /// ```
         pub fn set_effective_commit_sha<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3083,12 +4006,24 @@ pub mod pull_request_comment {
         }
 
         /// Sets the value of [path][crate::model::pull_request_comment::Position::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Position;
+        /// let x = Position::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [line][crate::model::pull_request_comment::Position::line].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securesourcemanager_v1::model::pull_request_comment::Position;
+        /// let x = Position::new().set_line(42);
+        /// ```
         pub fn set_line<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.line = v.into();
             self
@@ -3144,30 +4079,60 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3201,6 +4166,17 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesResponse;
+    /// use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = ListInstancesResponse::new()
+    ///     .set_instances([
+    ///         Instance::default()/* use setters */,
+    ///         Instance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3212,12 +4188,24 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3265,6 +4253,12 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3314,18 +4308,37 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_instance_id("example");
+    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateInstanceRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3335,6 +4348,14 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateInstanceRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3344,6 +4365,12 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3387,12 +4414,24 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3446,6 +4485,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3455,6 +4501,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3464,6 +4518,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3473,6 +4534,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3482,30 +4551,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -3552,30 +4651,60 @@ impl ListRepositoriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRepositoriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRepositoriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRepositoriesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::ListRepositoriesRequest::instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesRequest;
+    /// let x = ListRepositoriesRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
@@ -3606,6 +4735,17 @@ impl ListRepositoriesResponse {
     }
 
     /// Sets the value of [repositories][crate::model::ListRepositoriesResponse::repositories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesResponse;
+    /// use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = ListRepositoriesResponse::new()
+    ///     .set_repositories([
+    ///         Repository::default()/* use setters */,
+    ///         Repository::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3617,6 +4757,12 @@ impl ListRepositoriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListRepositoriesResponse;
+    /// let x = ListRepositoriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3661,6 +4807,12 @@ impl GetRepositoryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetRepositoryRequest;
+    /// let x = GetRepositoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3698,12 +4850,25 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateRepositoryRequest;
+    /// let x = CreateRepositoryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateRepositoryRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = CreateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
+    /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -3713,6 +4878,14 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateRepositoryRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = CreateRepositoryRequest::new().set_or_clear_repository(Some(Repository::default()/* use setters */));
+    /// let x = CreateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
+    /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -3722,6 +4895,12 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets the value of [repository_id][crate::model::CreateRepositoryRequest::repository_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateRepositoryRequest;
+    /// let x = CreateRepositoryRequest::new().set_repository_id("example");
+    /// ```
     pub fn set_repository_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository_id = v.into();
         self
@@ -3761,6 +4940,13 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateRepositoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRepositoryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3770,6 +4956,14 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateRepositoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3779,6 +4973,13 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateRepositoryRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = UpdateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
+    /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -3788,6 +4989,14 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets or clears the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateRepositoryRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(Some(Repository::default()/* use setters */));
+    /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
+    /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -3797,6 +5006,12 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateRepositoryRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateRepositoryRequest;
+    /// let x = UpdateRepositoryRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3831,12 +5046,24 @@ impl DeleteRepositoryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteRepositoryRequest;
+    /// let x = DeleteRepositoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteRepositoryRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteRepositoryRequest;
+    /// let x = DeleteRepositoryRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -3872,18 +5099,36 @@ impl ListHooksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListHooksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListHooksRequest;
+    /// let x = ListHooksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListHooksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListHooksRequest;
+    /// let x = ListHooksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListHooksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListHooksRequest;
+    /// let x = ListHooksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3915,6 +5160,17 @@ impl ListHooksResponse {
     }
 
     /// Sets the value of [hooks][crate::model::ListHooksResponse::hooks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListHooksResponse;
+    /// use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = ListHooksResponse::new()
+    ///     .set_hooks([
+    ///         Hook::default()/* use setters */,
+    ///         Hook::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_hooks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3926,6 +5182,12 @@ impl ListHooksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListHooksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListHooksResponse;
+    /// let x = ListHooksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3970,6 +5232,12 @@ impl GetHookRequest {
     }
 
     /// Sets the value of [name][crate::model::GetHookRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetHookRequest;
+    /// let x = GetHookRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4009,12 +5277,25 @@ impl CreateHookRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateHookRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateHookRequest;
+    /// let x = CreateHookRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [hook][crate::model::CreateHookRequest::hook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateHookRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = CreateHookRequest::new().set_hook(Hook::default()/* use setters */);
+    /// ```
     pub fn set_hook<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Hook>,
@@ -4024,6 +5305,14 @@ impl CreateHookRequest {
     }
 
     /// Sets or clears the value of [hook][crate::model::CreateHookRequest::hook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateHookRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = CreateHookRequest::new().set_or_clear_hook(Some(Hook::default()/* use setters */));
+    /// let x = CreateHookRequest::new().set_or_clear_hook(None::<Hook>);
+    /// ```
     pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Hook>,
@@ -4033,6 +5322,12 @@ impl CreateHookRequest {
     }
 
     /// Sets the value of [hook_id][crate::model::CreateHookRequest::hook_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateHookRequest;
+    /// let x = CreateHookRequest::new().set_hook_id("example");
+    /// ```
     pub fn set_hook_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hook_id = v.into();
         self
@@ -4068,6 +5363,13 @@ impl UpdateHookRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateHookRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateHookRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateHookRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4077,6 +5379,14 @@ impl UpdateHookRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateHookRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateHookRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateHookRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateHookRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4086,6 +5396,13 @@ impl UpdateHookRequest {
     }
 
     /// Sets the value of [hook][crate::model::UpdateHookRequest::hook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateHookRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = UpdateHookRequest::new().set_hook(Hook::default()/* use setters */);
+    /// ```
     pub fn set_hook<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Hook>,
@@ -4095,6 +5412,14 @@ impl UpdateHookRequest {
     }
 
     /// Sets or clears the value of [hook][crate::model::UpdateHookRequest::hook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateHookRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Hook;
+    /// let x = UpdateHookRequest::new().set_or_clear_hook(Some(Hook::default()/* use setters */));
+    /// let x = UpdateHookRequest::new().set_or_clear_hook(None::<Hook>);
+    /// ```
     pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Hook>,
@@ -4128,6 +5453,12 @@ impl DeleteHookRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteHookRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteHookRequest;
+    /// let x = DeleteHookRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4158,6 +5489,12 @@ impl GetBranchRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBranchRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetBranchRuleRequest;
+    /// let x = GetBranchRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4189,12 +5526,25 @@ impl CreateBranchRuleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBranchRuleRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateBranchRuleRequest;
+    /// let x = CreateBranchRuleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateBranchRuleRequest;
+    /// use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = CreateBranchRuleRequest::new().set_branch_rule(BranchRule::default()/* use setters */);
+    /// ```
     pub fn set_branch_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BranchRule>,
@@ -4204,6 +5554,14 @@ impl CreateBranchRuleRequest {
     }
 
     /// Sets or clears the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateBranchRuleRequest;
+    /// use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = CreateBranchRuleRequest::new().set_or_clear_branch_rule(Some(BranchRule::default()/* use setters */));
+    /// let x = CreateBranchRuleRequest::new().set_or_clear_branch_rule(None::<BranchRule>);
+    /// ```
     pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BranchRule>,
@@ -4213,6 +5571,12 @@ impl CreateBranchRuleRequest {
     }
 
     /// Sets the value of [branch_rule_id][crate::model::CreateBranchRuleRequest::branch_rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateBranchRuleRequest;
+    /// let x = CreateBranchRuleRequest::new().set_branch_rule_id("example");
+    /// ```
     pub fn set_branch_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.branch_rule_id = v.into();
         self
@@ -4244,18 +5608,36 @@ impl ListBranchRulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBranchRulesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListBranchRulesRequest;
+    /// let x = ListBranchRulesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBranchRulesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListBranchRulesRequest;
+    /// let x = ListBranchRulesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBranchRulesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListBranchRulesRequest;
+    /// let x = ListBranchRulesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4287,12 +5669,24 @@ impl DeleteBranchRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBranchRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteBranchRuleRequest;
+    /// let x = DeleteBranchRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteBranchRuleRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteBranchRuleRequest;
+    /// let x = DeleteBranchRuleRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -4331,6 +5725,13 @@ impl UpdateBranchRuleRequest {
     }
 
     /// Sets the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateBranchRuleRequest;
+    /// use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = UpdateBranchRuleRequest::new().set_branch_rule(BranchRule::default()/* use setters */);
+    /// ```
     pub fn set_branch_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BranchRule>,
@@ -4340,6 +5741,14 @@ impl UpdateBranchRuleRequest {
     }
 
     /// Sets or clears the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateBranchRuleRequest;
+    /// use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = UpdateBranchRuleRequest::new().set_or_clear_branch_rule(Some(BranchRule::default()/* use setters */));
+    /// let x = UpdateBranchRuleRequest::new().set_or_clear_branch_rule(None::<BranchRule>);
+    /// ```
     pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BranchRule>,
@@ -4349,12 +5758,25 @@ impl UpdateBranchRuleRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateBranchRuleRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateBranchRuleRequest;
+    /// let x = UpdateBranchRuleRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateBranchRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBranchRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4364,6 +5786,14 @@ impl UpdateBranchRuleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateBranchRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBranchRuleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBranchRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4398,6 +5828,17 @@ impl ListBranchRulesResponse {
     }
 
     /// Sets the value of [branch_rules][crate::model::ListBranchRulesResponse::branch_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListBranchRulesResponse;
+    /// use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = ListBranchRulesResponse::new()
+    ///     .set_branch_rules([
+    ///         BranchRule::default()/* use setters */,
+    ///         BranchRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_branch_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4409,6 +5850,12 @@ impl ListBranchRulesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBranchRulesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListBranchRulesResponse;
+    /// let x = ListBranchRulesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4455,12 +5902,25 @@ impl CreatePullRequestRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePullRequestRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestRequest;
+    /// let x = CreatePullRequestRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [pull_request][crate::model::CreatePullRequestRequest::pull_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = CreatePullRequestRequest::new().set_pull_request(PullRequest::default()/* use setters */);
+    /// ```
     pub fn set_pull_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PullRequest>,
@@ -4470,6 +5930,14 @@ impl CreatePullRequestRequest {
     }
 
     /// Sets or clears the value of [pull_request][crate::model::CreatePullRequestRequest::pull_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = CreatePullRequestRequest::new().set_or_clear_pull_request(Some(PullRequest::default()/* use setters */));
+    /// let x = CreatePullRequestRequest::new().set_or_clear_pull_request(None::<PullRequest>);
+    /// ```
     pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PullRequest>,
@@ -4503,6 +5971,12 @@ impl GetPullRequestRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPullRequestRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetPullRequestRequest;
+    /// let x = GetPullRequestRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4539,18 +6013,36 @@ impl ListPullRequestsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPullRequestsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestsRequest;
+    /// let x = ListPullRequestsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPullRequestsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestsRequest;
+    /// let x = ListPullRequestsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPullRequestsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestsRequest;
+    /// let x = ListPullRequestsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4582,6 +6074,17 @@ impl ListPullRequestsResponse {
     }
 
     /// Sets the value of [pull_requests][crate::model::ListPullRequestsResponse::pull_requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = ListPullRequestsResponse::new()
+    ///     .set_pull_requests([
+    ///         PullRequest::default()/* use setters */,
+    ///         PullRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pull_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4593,6 +6096,12 @@ impl ListPullRequestsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPullRequestsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestsResponse;
+    /// let x = ListPullRequestsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4642,6 +6151,13 @@ impl UpdatePullRequestRequest {
     }
 
     /// Sets the value of [pull_request][crate::model::UpdatePullRequestRequest::pull_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = UpdatePullRequestRequest::new().set_pull_request(PullRequest::default()/* use setters */);
+    /// ```
     pub fn set_pull_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PullRequest>,
@@ -4651,6 +6167,14 @@ impl UpdatePullRequestRequest {
     }
 
     /// Sets or clears the value of [pull_request][crate::model::UpdatePullRequestRequest::pull_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// let x = UpdatePullRequestRequest::new().set_or_clear_pull_request(Some(PullRequest::default()/* use setters */));
+    /// let x = UpdatePullRequestRequest::new().set_or_clear_pull_request(None::<PullRequest>);
+    /// ```
     pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PullRequest>,
@@ -4660,6 +6184,13 @@ impl UpdatePullRequestRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePullRequestRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePullRequestRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4669,6 +6200,14 @@ impl UpdatePullRequestRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePullRequestRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePullRequestRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePullRequestRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4702,6 +6241,12 @@ impl MergePullRequestRequest {
     }
 
     /// Sets the value of [name][crate::model::MergePullRequestRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::MergePullRequestRequest;
+    /// let x = MergePullRequestRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4732,6 +6277,12 @@ impl OpenPullRequestRequest {
     }
 
     /// Sets the value of [name][crate::model::OpenPullRequestRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OpenPullRequestRequest;
+    /// let x = OpenPullRequestRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4762,6 +6313,12 @@ impl ClosePullRequestRequest {
     }
 
     /// Sets the value of [name][crate::model::ClosePullRequestRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ClosePullRequestRequest;
+    /// let x = ClosePullRequestRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4800,18 +6357,36 @@ impl ListPullRequestFileDiffsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListPullRequestFileDiffsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestFileDiffsRequest;
+    /// let x = ListPullRequestFileDiffsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPullRequestFileDiffsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestFileDiffsRequest;
+    /// let x = ListPullRequestFileDiffsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPullRequestFileDiffsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestFileDiffsRequest;
+    /// let x = ListPullRequestFileDiffsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4844,6 +6419,17 @@ impl ListPullRequestFileDiffsResponse {
     }
 
     /// Sets the value of [file_diffs][crate::model::ListPullRequestFileDiffsResponse::file_diffs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestFileDiffsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::FileDiff;
+    /// let x = ListPullRequestFileDiffsResponse::new()
+    ///     .set_file_diffs([
+    ///         FileDiff::default()/* use setters */,
+    ///         FileDiff::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_diffs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4855,6 +6441,12 @@ impl ListPullRequestFileDiffsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPullRequestFileDiffsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestFileDiffsResponse;
+    /// let x = ListPullRequestFileDiffsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4901,12 +6493,25 @@ impl CreateIssueRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIssueRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateIssueRequest;
+    /// let x = CreateIssueRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [issue][crate::model::CreateIssueRequest::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateIssueRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = CreateIssueRequest::new().set_issue(Issue::default()/* use setters */);
+    /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -4916,6 +6521,14 @@ impl CreateIssueRequest {
     }
 
     /// Sets or clears the value of [issue][crate::model::CreateIssueRequest::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateIssueRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = CreateIssueRequest::new().set_or_clear_issue(Some(Issue::default()/* use setters */));
+    /// let x = CreateIssueRequest::new().set_or_clear_issue(None::<Issue>);
+    /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -4949,6 +6562,12 @@ impl GetIssueRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIssueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetIssueRequest;
+    /// let x = GetIssueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4988,24 +6607,48 @@ impl ListIssuesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIssuesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssuesRequest;
+    /// let x = ListIssuesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIssuesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssuesRequest;
+    /// let x = ListIssuesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIssuesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssuesRequest;
+    /// let x = ListIssuesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListIssuesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssuesRequest;
+    /// let x = ListIssuesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -5037,6 +6680,17 @@ impl ListIssuesResponse {
     }
 
     /// Sets the value of [issues][crate::model::ListIssuesResponse::issues].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssuesResponse;
+    /// use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = ListIssuesResponse::new()
+    ///     .set_issues([
+    ///         Issue::default()/* use setters */,
+    ///         Issue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5048,6 +6702,12 @@ impl ListIssuesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIssuesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssuesResponse;
+    /// let x = ListIssuesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5097,6 +6757,13 @@ impl UpdateIssueRequest {
     }
 
     /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = UpdateIssueRequest::new().set_issue(Issue::default()/* use setters */);
+    /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -5106,6 +6773,14 @@ impl UpdateIssueRequest {
     }
 
     /// Sets or clears the value of [issue][crate::model::UpdateIssueRequest::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueRequest;
+    /// use google_cloud_securesourcemanager_v1::model::Issue;
+    /// let x = UpdateIssueRequest::new().set_or_clear_issue(Some(Issue::default()/* use setters */));
+    /// let x = UpdateIssueRequest::new().set_or_clear_issue(None::<Issue>);
+    /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -5115,6 +6790,13 @@ impl UpdateIssueRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5124,6 +6806,14 @@ impl UpdateIssueRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateIssueRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5162,12 +6852,24 @@ impl DeleteIssueRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteIssueRequest;
+    /// let x = DeleteIssueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteIssueRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteIssueRequest;
+    /// let x = DeleteIssueRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5203,12 +6905,24 @@ impl CloseIssueRequest {
     }
 
     /// Sets the value of [name][crate::model::CloseIssueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CloseIssueRequest;
+    /// let x = CloseIssueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::CloseIssueRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CloseIssueRequest;
+    /// let x = CloseIssueRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5244,12 +6958,24 @@ impl OpenIssueRequest {
     }
 
     /// Sets the value of [name][crate::model::OpenIssueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OpenIssueRequest;
+    /// let x = OpenIssueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::OpenIssueRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::OpenIssueRequest;
+    /// let x = OpenIssueRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5292,6 +7018,15 @@ impl TreeEntry {
     }
 
     /// Sets the value of [r#type][crate::model::TreeEntry::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::TreeEntry;
+    /// use google_cloud_securesourcemanager_v1::model::tree_entry::ObjectType;
+    /// let x0 = TreeEntry::new().set_type(ObjectType::Tree);
+    /// let x1 = TreeEntry::new().set_type(ObjectType::Blob);
+    /// let x2 = TreeEntry::new().set_type(ObjectType::Commit);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::tree_entry::ObjectType>>(
         mut self,
         v: T,
@@ -5301,24 +7036,48 @@ impl TreeEntry {
     }
 
     /// Sets the value of [sha][crate::model::TreeEntry::sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::TreeEntry;
+    /// let x = TreeEntry::new().set_sha("example");
+    /// ```
     pub fn set_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::TreeEntry::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::TreeEntry;
+    /// let x = TreeEntry::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::TreeEntry::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::TreeEntry;
+    /// let x = TreeEntry::new().set_mode("example");
+    /// ```
     pub fn set_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
 
     /// Sets the value of [size][crate::model::TreeEntry::size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::TreeEntry;
+    /// let x = TreeEntry::new().set_size(42);
+    /// ```
     pub fn set_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size = v.into();
         self
@@ -5509,30 +7268,60 @@ impl FetchTreeRequest {
     }
 
     /// Sets the value of [repository][crate::model::FetchTreeRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchTreeRequest;
+    /// let x = FetchTreeRequest::new().set_repository("example");
+    /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
     /// Sets the value of [r#ref][crate::model::FetchTreeRequest::ref].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchTreeRequest;
+    /// let x = FetchTreeRequest::new().set_ref("example");
+    /// ```
     pub fn set_ref<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#ref = v.into();
         self
     }
 
     /// Sets the value of [recursive][crate::model::FetchTreeRequest::recursive].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchTreeRequest;
+    /// let x = FetchTreeRequest::new().set_recursive(true);
+    /// ```
     pub fn set_recursive<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.recursive = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchTreeRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchTreeRequest;
+    /// let x = FetchTreeRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchTreeRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchTreeRequest;
+    /// let x = FetchTreeRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5564,6 +7353,17 @@ impl FetchTreeResponse {
     }
 
     /// Sets the value of [tree_entries][crate::model::FetchTreeResponse::tree_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchTreeResponse;
+    /// use google_cloud_securesourcemanager_v1::model::TreeEntry;
+    /// let x = FetchTreeResponse::new()
+    ///     .set_tree_entries([
+    ///         TreeEntry::default()/* use setters */,
+    ///         TreeEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tree_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5575,6 +7375,12 @@ impl FetchTreeResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchTreeResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchTreeResponse;
+    /// let x = FetchTreeResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5622,12 +7428,24 @@ impl FetchBlobRequest {
     }
 
     /// Sets the value of [repository][crate::model::FetchBlobRequest::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchBlobRequest;
+    /// let x = FetchBlobRequest::new().set_repository("example");
+    /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
     /// Sets the value of [sha][crate::model::FetchBlobRequest::sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchBlobRequest;
+    /// let x = FetchBlobRequest::new().set_sha("example");
+    /// ```
     pub fn set_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha = v.into();
         self
@@ -5659,12 +7477,24 @@ impl FetchBlobResponse {
     }
 
     /// Sets the value of [sha][crate::model::FetchBlobResponse::sha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchBlobResponse;
+    /// let x = FetchBlobResponse::new().set_sha("example");
+    /// ```
     pub fn set_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::FetchBlobResponse::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::FetchBlobResponse;
+    /// let x = FetchBlobResponse::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
@@ -5702,18 +7532,36 @@ impl ListPullRequestCommentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPullRequestCommentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestCommentsRequest;
+    /// let x = ListPullRequestCommentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPullRequestCommentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestCommentsRequest;
+    /// let x = ListPullRequestCommentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPullRequestCommentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestCommentsRequest;
+    /// let x = ListPullRequestCommentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5746,6 +7594,17 @@ impl ListPullRequestCommentsResponse {
     }
 
     /// Sets the value of [pull_request_comments][crate::model::ListPullRequestCommentsResponse::pull_request_comments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestCommentsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = ListPullRequestCommentsResponse::new()
+    ///     .set_pull_request_comments([
+    ///         PullRequestComment::default()/* use setters */,
+    ///         PullRequestComment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5757,6 +7616,12 @@ impl ListPullRequestCommentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPullRequestCommentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListPullRequestCommentsResponse;
+    /// let x = ListPullRequestCommentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5804,12 +7669,25 @@ impl CreatePullRequestCommentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePullRequestCommentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestCommentRequest;
+    /// let x = CreatePullRequestCommentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [pull_request_comment][crate::model::CreatePullRequestCommentRequest::pull_request_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = CreatePullRequestCommentRequest::new().set_pull_request_comment(PullRequestComment::default()/* use setters */);
+    /// ```
     pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PullRequestComment>,
@@ -5819,6 +7697,14 @@ impl CreatePullRequestCommentRequest {
     }
 
     /// Sets or clears the value of [pull_request_comment][crate::model::CreatePullRequestCommentRequest::pull_request_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreatePullRequestCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = CreatePullRequestCommentRequest::new().set_or_clear_pull_request_comment(Some(PullRequestComment::default()/* use setters */));
+    /// let x = CreatePullRequestCommentRequest::new().set_or_clear_pull_request_comment(None::<PullRequestComment>);
+    /// ```
     pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PullRequestComment>,
@@ -5858,12 +7744,29 @@ impl BatchCreatePullRequestCommentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchCreatePullRequestCommentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BatchCreatePullRequestCommentsRequest;
+    /// let x = BatchCreatePullRequestCommentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [requests][crate::model::BatchCreatePullRequestCommentsRequest::requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BatchCreatePullRequestCommentsRequest;
+    /// use google_cloud_securesourcemanager_v1::model::CreatePullRequestCommentRequest;
+    /// let x = BatchCreatePullRequestCommentsRequest::new()
+    ///     .set_requests([
+    ///         CreatePullRequestCommentRequest::default()/* use setters */,
+    ///         CreatePullRequestCommentRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5897,6 +7800,17 @@ impl BatchCreatePullRequestCommentsResponse {
     }
 
     /// Sets the value of [pull_request_comments][crate::model::BatchCreatePullRequestCommentsResponse::pull_request_comments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::BatchCreatePullRequestCommentsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = BatchCreatePullRequestCommentsResponse::new()
+    ///     .set_pull_request_comments([
+    ///         PullRequestComment::default()/* use setters */,
+    ///         PullRequestComment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5935,6 +7849,13 @@ impl UpdatePullRequestCommentRequest {
     }
 
     /// Sets the value of [pull_request_comment][crate::model::UpdatePullRequestCommentRequest::pull_request_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = UpdatePullRequestCommentRequest::new().set_pull_request_comment(PullRequestComment::default()/* use setters */);
+    /// ```
     pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PullRequestComment>,
@@ -5944,6 +7865,14 @@ impl UpdatePullRequestCommentRequest {
     }
 
     /// Sets or clears the value of [pull_request_comment][crate::model::UpdatePullRequestCommentRequest::pull_request_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = UpdatePullRequestCommentRequest::new().set_or_clear_pull_request_comment(Some(PullRequestComment::default()/* use setters */));
+    /// let x = UpdatePullRequestCommentRequest::new().set_or_clear_pull_request_comment(None::<PullRequestComment>);
+    /// ```
     pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PullRequestComment>,
@@ -5953,6 +7882,13 @@ impl UpdatePullRequestCommentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePullRequestCommentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestCommentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePullRequestCommentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5962,6 +7898,14 @@ impl UpdatePullRequestCommentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePullRequestCommentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdatePullRequestCommentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePullRequestCommentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePullRequestCommentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5996,6 +7940,12 @@ impl DeletePullRequestCommentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePullRequestCommentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeletePullRequestCommentRequest;
+    /// let x = DeletePullRequestCommentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6026,6 +7976,12 @@ impl GetPullRequestCommentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPullRequestCommentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetPullRequestCommentRequest;
+    /// let x = GetPullRequestCommentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6066,12 +8022,24 @@ impl ResolvePullRequestCommentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ResolvePullRequestCommentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ResolvePullRequestCommentsRequest;
+    /// let x = ResolvePullRequestCommentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::ResolvePullRequestCommentsRequest::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ResolvePullRequestCommentsRequest;
+    /// let x = ResolvePullRequestCommentsRequest::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6083,6 +8051,12 @@ impl ResolvePullRequestCommentsRequest {
     }
 
     /// Sets the value of [auto_fill][crate::model::ResolvePullRequestCommentsRequest::auto_fill].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ResolvePullRequestCommentsRequest;
+    /// let x = ResolvePullRequestCommentsRequest::new().set_auto_fill(true);
+    /// ```
     pub fn set_auto_fill<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_fill = v.into();
         self
@@ -6111,6 +8085,17 @@ impl ResolvePullRequestCommentsResponse {
     }
 
     /// Sets the value of [pull_request_comments][crate::model::ResolvePullRequestCommentsResponse::pull_request_comments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ResolvePullRequestCommentsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = ResolvePullRequestCommentsResponse::new()
+    ///     .set_pull_request_comments([
+    ///         PullRequestComment::default()/* use setters */,
+    ///         PullRequestComment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6156,12 +8141,24 @@ impl UnresolvePullRequestCommentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::UnresolvePullRequestCommentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UnresolvePullRequestCommentsRequest;
+    /// let x = UnresolvePullRequestCommentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::UnresolvePullRequestCommentsRequest::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UnresolvePullRequestCommentsRequest;
+    /// let x = UnresolvePullRequestCommentsRequest::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6173,6 +8170,12 @@ impl UnresolvePullRequestCommentsRequest {
     }
 
     /// Sets the value of [auto_fill][crate::model::UnresolvePullRequestCommentsRequest::auto_fill].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UnresolvePullRequestCommentsRequest;
+    /// let x = UnresolvePullRequestCommentsRequest::new().set_auto_fill(true);
+    /// ```
     pub fn set_auto_fill<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_fill = v.into();
         self
@@ -6201,6 +8204,17 @@ impl UnresolvePullRequestCommentsResponse {
     }
 
     /// Sets the value of [pull_request_comments][crate::model::UnresolvePullRequestCommentsResponse::pull_request_comments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UnresolvePullRequestCommentsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// let x = UnresolvePullRequestCommentsResponse::new()
+    ///     .set_pull_request_comments([
+    ///         PullRequestComment::default()/* use setters */,
+    ///         PullRequestComment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pull_request_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6238,12 +8252,25 @@ impl CreateIssueCommentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIssueCommentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateIssueCommentRequest;
+    /// let x = CreateIssueCommentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [issue_comment][crate::model::CreateIssueCommentRequest::issue_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateIssueCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// let x = CreateIssueCommentRequest::new().set_issue_comment(IssueComment::default()/* use setters */);
+    /// ```
     pub fn set_issue_comment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IssueComment>,
@@ -6253,6 +8280,14 @@ impl CreateIssueCommentRequest {
     }
 
     /// Sets or clears the value of [issue_comment][crate::model::CreateIssueCommentRequest::issue_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::CreateIssueCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// let x = CreateIssueCommentRequest::new().set_or_clear_issue_comment(Some(IssueComment::default()/* use setters */));
+    /// let x = CreateIssueCommentRequest::new().set_or_clear_issue_comment(None::<IssueComment>);
+    /// ```
     pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IssueComment>,
@@ -6286,6 +8321,12 @@ impl GetIssueCommentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIssueCommentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::GetIssueCommentRequest;
+    /// let x = GetIssueCommentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6322,18 +8363,36 @@ impl ListIssueCommentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIssueCommentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssueCommentsRequest;
+    /// let x = ListIssueCommentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIssueCommentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssueCommentsRequest;
+    /// let x = ListIssueCommentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIssueCommentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssueCommentsRequest;
+    /// let x = ListIssueCommentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6365,6 +8424,17 @@ impl ListIssueCommentsResponse {
     }
 
     /// Sets the value of [issue_comments][crate::model::ListIssueCommentsResponse::issue_comments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssueCommentsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// let x = ListIssueCommentsResponse::new()
+    ///     .set_issue_comments([
+    ///         IssueComment::default()/* use setters */,
+    ///         IssueComment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_issue_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6376,6 +8446,12 @@ impl ListIssueCommentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIssueCommentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::ListIssueCommentsResponse;
+    /// let x = ListIssueCommentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6425,6 +8501,13 @@ impl UpdateIssueCommentRequest {
     }
 
     /// Sets the value of [issue_comment][crate::model::UpdateIssueCommentRequest::issue_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// let x = UpdateIssueCommentRequest::new().set_issue_comment(IssueComment::default()/* use setters */);
+    /// ```
     pub fn set_issue_comment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IssueComment>,
@@ -6434,6 +8517,14 @@ impl UpdateIssueCommentRequest {
     }
 
     /// Sets or clears the value of [issue_comment][crate::model::UpdateIssueCommentRequest::issue_comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueCommentRequest;
+    /// use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// let x = UpdateIssueCommentRequest::new().set_or_clear_issue_comment(Some(IssueComment::default()/* use setters */));
+    /// let x = UpdateIssueCommentRequest::new().set_or_clear_issue_comment(None::<IssueComment>);
+    /// ```
     pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IssueComment>,
@@ -6443,6 +8534,13 @@ impl UpdateIssueCommentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIssueCommentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueCommentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueCommentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6452,6 +8550,14 @@ impl UpdateIssueCommentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateIssueCommentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::UpdateIssueCommentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueCommentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateIssueCommentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6485,6 +8591,12 @@ impl DeleteIssueCommentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIssueCommentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteIssueCommentRequest;
+    /// let x = DeleteIssueCommentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

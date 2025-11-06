@@ -53,6 +53,17 @@ impl ListLocationsResponse {
     }
 
     /// Sets the value of [locations][crate::model::ListLocationsResponse::locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListLocationsResponse;
+    /// use secretmanager_openapi_v1::model::Location;
+    /// let x = ListLocationsResponse::new()
+    ///     .set_locations([
+    ///         Location::default()/* use setters */,
+    ///         Location::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -64,6 +75,12 @@ impl ListLocationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListLocationsResponse;
+    /// let x = ListLocationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -73,6 +90,13 @@ impl ListLocationsResponse {
     }
 
     /// Sets or clears the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListLocationsResponse;
+    /// let x = ListLocationsResponse::new().set_or_clear_next_page_token(Some("example"));
+    /// let x = ListLocationsResponse::new().set_or_clear_next_page_token(None::<String>);
+    /// ```
     pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -137,6 +161,12 @@ impl Location {
     }
 
     /// Sets the value of [name][crate::model::Location::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// let x = Location::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -146,6 +176,13 @@ impl Location {
     }
 
     /// Sets or clears the value of [name][crate::model::Location::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// let x = Location::new().set_or_clear_name(Some("example"));
+    /// let x = Location::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -155,6 +192,12 @@ impl Location {
     }
 
     /// Sets the value of [location_id][crate::model::Location::location_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// let x = Location::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -164,6 +207,13 @@ impl Location {
     }
 
     /// Sets or clears the value of [location_id][crate::model::Location::location_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// let x = Location::new().set_or_clear_location_id(Some("example"));
+    /// let x = Location::new().set_or_clear_location_id(None::<String>);
+    /// ```
     pub fn set_or_clear_location_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -173,6 +223,12 @@ impl Location {
     }
 
     /// Sets the value of [display_name][crate::model::Location::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// let x = Location::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -182,6 +238,13 @@ impl Location {
     }
 
     /// Sets or clears the value of [display_name][crate::model::Location::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// let x = Location::new().set_or_clear_display_name(Some("example"));
+    /// let x = Location::new().set_or_clear_display_name(None::<String>);
+    /// ```
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -191,6 +254,15 @@ impl Location {
     }
 
     /// Sets the value of [labels][crate::model::Location::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// let x = Location::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -203,6 +275,13 @@ impl Location {
     }
 
     /// Sets the value of [metadata][crate::model::Location::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// use wkt::Any;
+    /// let x = Location::new().set_metadata(Any::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -212,6 +291,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [metadata][crate::model::Location::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Location;
+    /// use wkt::Any;
+    /// let x = Location::new().set_or_clear_metadata(Some(Any::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_metadata(None::<Any>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -252,6 +339,17 @@ impl ListSecretsResponse {
     }
 
     /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretsResponse;
+    /// use secretmanager_openapi_v1::model::Secret;
+    /// let x = ListSecretsResponse::new()
+    ///     .set_secrets([
+    ///         Secret::default()/* use setters */,
+    ///         Secret::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_secrets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -263,6 +361,12 @@ impl ListSecretsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -272,6 +376,13 @@ impl ListSecretsResponse {
     }
 
     /// Sets or clears the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_or_clear_next_page_token(Some("example"));
+    /// let x = ListSecretsResponse::new().set_or_clear_next_page_token(None::<String>);
+    /// ```
     pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -281,6 +392,12 @@ impl ListSecretsResponse {
     }
 
     /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -290,6 +407,13 @@ impl ListSecretsResponse {
     }
 
     /// Sets or clears the value of [total_size][crate::model::ListSecretsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_or_clear_total_size(Some(42));
+    /// let x = ListSecretsResponse::new().set_or_clear_total_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_total_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -421,6 +545,12 @@ impl Secret {
     }
 
     /// Sets the value of [name][crate::model::Secret::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// let x = Secret::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -430,6 +560,13 @@ impl Secret {
     }
 
     /// Sets or clears the value of [name][crate::model::Secret::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// let x = Secret::new().set_or_clear_name(Some("example"));
+    /// let x = Secret::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -439,6 +576,13 @@ impl Secret {
     }
 
     /// Sets the value of [replication][crate::model::Secret::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use secretmanager_openapi_v1::model::Replication;
+    /// let x = Secret::new().set_replication(Replication::default()/* use setters */);
+    /// ```
     pub fn set_replication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -448,6 +592,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [replication][crate::model::Secret::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use secretmanager_openapi_v1::model::Replication;
+    /// let x = Secret::new().set_or_clear_replication(Some(Replication::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_replication(None::<Replication>);
+    /// ```
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -457,6 +609,13 @@ impl Secret {
     }
 
     /// Sets the value of [create_time][crate::model::Secret::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -466,6 +625,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Secret::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -475,6 +642,15 @@ impl Secret {
     }
 
     /// Sets the value of [labels][crate::model::Secret::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// let x = Secret::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -487,6 +663,17 @@ impl Secret {
     }
 
     /// Sets the value of [topics][crate::model::Secret::topics].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use secretmanager_openapi_v1::model::Topic;
+    /// let x = Secret::new()
+    ///     .set_topics([
+    ///         Topic::default()/* use setters */,
+    ///         Topic::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_topics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -498,6 +685,13 @@ impl Secret {
     }
 
     /// Sets the value of [expire_time][crate::model::Secret::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -507,6 +701,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Secret::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -516,6 +718,13 @@ impl Secret {
     }
 
     /// Sets the value of [ttl][crate::model::Secret::ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -525,6 +734,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [ttl][crate::model::Secret::ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -534,6 +751,12 @@ impl Secret {
     }
 
     /// Sets the value of [etag][crate::model::Secret::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// let x = Secret::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -543,6 +766,13 @@ impl Secret {
     }
 
     /// Sets or clears the value of [etag][crate::model::Secret::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// let x = Secret::new().set_or_clear_etag(Some("example"));
+    /// let x = Secret::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -552,6 +782,13 @@ impl Secret {
     }
 
     /// Sets the value of [rotation][crate::model::Secret::rotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use secretmanager_openapi_v1::model::Rotation;
+    /// let x = Secret::new().set_rotation(Rotation::default()/* use setters */);
+    /// ```
     pub fn set_rotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rotation>,
@@ -561,6 +798,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [rotation][crate::model::Secret::rotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use secretmanager_openapi_v1::model::Rotation;
+    /// let x = Secret::new().set_or_clear_rotation(Some(Rotation::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_rotation(None::<Rotation>);
+    /// ```
     pub fn set_or_clear_rotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rotation>,
@@ -570,6 +815,15 @@ impl Secret {
     }
 
     /// Sets the value of [version_aliases][crate::model::Secret::version_aliases].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// let x = Secret::new().set_version_aliases([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_version_aliases<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -582,6 +836,15 @@ impl Secret {
     }
 
     /// Sets the value of [annotations][crate::model::Secret::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// let x = Secret::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -594,6 +857,13 @@ impl Secret {
     }
 
     /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_version_destroy_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_version_destroy_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -603,6 +873,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_or_clear_version_destroy_ttl(Some(Duration::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_version_destroy_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_version_destroy_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -612,6 +890,13 @@ impl Secret {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryption;
+    /// let x = Secret::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -621,6 +906,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Secret;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryption;
+    /// let x = Secret::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -655,6 +948,13 @@ impl Replication {
     }
 
     /// Sets the value of [automatic][crate::model::Replication::automatic].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replication;
+    /// use secretmanager_openapi_v1::model::Automatic;
+    /// let x = Replication::new().set_automatic(Automatic::default()/* use setters */);
+    /// ```
     pub fn set_automatic<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Automatic>,
@@ -664,6 +964,14 @@ impl Replication {
     }
 
     /// Sets or clears the value of [automatic][crate::model::Replication::automatic].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replication;
+    /// use secretmanager_openapi_v1::model::Automatic;
+    /// let x = Replication::new().set_or_clear_automatic(Some(Automatic::default()/* use setters */));
+    /// let x = Replication::new().set_or_clear_automatic(None::<Automatic>);
+    /// ```
     pub fn set_or_clear_automatic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Automatic>,
@@ -673,6 +981,13 @@ impl Replication {
     }
 
     /// Sets the value of [user_managed][crate::model::Replication::user_managed].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replication;
+    /// use secretmanager_openapi_v1::model::UserManaged;
+    /// let x = Replication::new().set_user_managed(UserManaged::default()/* use setters */);
+    /// ```
     pub fn set_user_managed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserManaged>,
@@ -682,6 +997,14 @@ impl Replication {
     }
 
     /// Sets or clears the value of [user_managed][crate::model::Replication::user_managed].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replication;
+    /// use secretmanager_openapi_v1::model::UserManaged;
+    /// let x = Replication::new().set_or_clear_user_managed(Some(UserManaged::default()/* use setters */));
+    /// let x = Replication::new().set_or_clear_user_managed(None::<UserManaged>);
+    /// ```
     pub fn set_or_clear_user_managed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserManaged>,
@@ -719,6 +1042,13 @@ impl Automatic {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::Automatic::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Automatic;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryption;
+    /// let x = Automatic::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -728,6 +1058,14 @@ impl Automatic {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::Automatic::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Automatic;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryption;
+    /// let x = Automatic::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+    /// let x = Automatic::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -770,6 +1108,12 @@ impl CustomerManagedEncryption {
     }
 
     /// Sets the value of [kms_key_name][crate::model::CustomerManagedEncryption::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::CustomerManagedEncryption;
+    /// let x = CustomerManagedEncryption::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
@@ -801,6 +1145,17 @@ impl UserManaged {
     }
 
     /// Sets the value of [replicas][crate::model::UserManaged::replicas].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::UserManaged;
+    /// use secretmanager_openapi_v1::model::Replica;
+    /// let x = UserManaged::new()
+    ///     .set_replicas([
+    ///         Replica::default()/* use setters */,
+    ///         Replica::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -844,6 +1199,12 @@ impl Replica {
     }
 
     /// Sets the value of [location][crate::model::Replica::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replica;
+    /// let x = Replica::new().set_location("example");
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -853,6 +1214,13 @@ impl Replica {
     }
 
     /// Sets or clears the value of [location][crate::model::Replica::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replica;
+    /// let x = Replica::new().set_or_clear_location(Some("example"));
+    /// let x = Replica::new().set_or_clear_location(None::<String>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -862,6 +1230,13 @@ impl Replica {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::Replica::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replica;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryption;
+    /// let x = Replica::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -871,6 +1246,14 @@ impl Replica {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::Replica::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Replica;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryption;
+    /// let x = Replica::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+    /// let x = Replica::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -907,6 +1290,12 @@ impl Topic {
     }
 
     /// Sets the value of [name][crate::model::Topic::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Topic;
+    /// let x = Topic::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -949,6 +1338,13 @@ impl Rotation {
     }
 
     /// Sets the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Rotation;
+    /// use wkt::Timestamp;
+    /// let x = Rotation::new().set_next_rotation_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -958,6 +1354,14 @@ impl Rotation {
     }
 
     /// Sets or clears the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Rotation;
+    /// use wkt::Timestamp;
+    /// let x = Rotation::new().set_or_clear_next_rotation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rotation::new().set_or_clear_next_rotation_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -967,6 +1371,13 @@ impl Rotation {
     }
 
     /// Sets the value of [rotation_period][crate::model::Rotation::rotation_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Rotation;
+    /// use wkt::Duration;
+    /// let x = Rotation::new().set_rotation_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_rotation_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -976,6 +1387,14 @@ impl Rotation {
     }
 
     /// Sets or clears the value of [rotation_period][crate::model::Rotation::rotation_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Rotation;
+    /// use wkt::Duration;
+    /// let x = Rotation::new().set_or_clear_rotation_period(Some(Duration::default()/* use setters */));
+    /// let x = Rotation::new().set_or_clear_rotation_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_rotation_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1007,6 +1426,13 @@ impl AddSecretVersionRequest {
     }
 
     /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AddSecretVersionRequest;
+    /// use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = AddSecretVersionRequest::new().set_payload(SecretPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -1016,6 +1442,14 @@ impl AddSecretVersionRequest {
     }
 
     /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AddSecretVersionRequest;
+    /// use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = AddSecretVersionRequest::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
+    /// let x = AddSecretVersionRequest::new().set_or_clear_payload(None::<SecretPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -1060,6 +1494,12 @@ impl SecretPayload {
     }
 
     /// Sets the value of [data][crate::model::SecretPayload::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<::bytes::Bytes>,
@@ -1069,6 +1509,13 @@ impl SecretPayload {
     }
 
     /// Sets or clears the value of [data][crate::model::SecretPayload::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_or_clear_data(Some(bytes::Bytes::from_static(b"example")));
+    /// let x = SecretPayload::new().set_or_clear_data(None::<bytes::Bytes>);
+    /// ```
     pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<::bytes::Bytes>,
@@ -1078,6 +1525,12 @@ impl SecretPayload {
     }
 
     /// Sets the value of [data_crc_32_c][crate::model::SecretPayload::data_crc_32_c].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_data_crc_32_c(42);
+    /// ```
     pub fn set_data_crc_32_c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1087,6 +1540,13 @@ impl SecretPayload {
     }
 
     /// Sets or clears the value of [data_crc_32_c][crate::model::SecretPayload::data_crc_32_c].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_or_clear_data_crc_32_c(Some(42));
+    /// let x = SecretPayload::new().set_or_clear_data_crc_32_c(None::<i32>);
+    /// ```
     pub fn set_or_clear_data_crc_32_c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1157,6 +1617,12 @@ impl SecretVersion {
     }
 
     /// Sets the value of [name][crate::model::SecretVersion::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1166,6 +1632,13 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [name][crate::model::SecretVersion::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_or_clear_name(Some("example"));
+    /// let x = SecretVersion::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1175,6 +1648,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [create_time][crate::model::SecretVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1184,6 +1664,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::SecretVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1193,6 +1681,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [destroy_time][crate::model::SecretVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_destroy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_destroy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1202,6 +1697,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [destroy_time][crate::model::SecretVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_destroy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_destroy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1211,6 +1714,12 @@ impl SecretVersion {
     }
 
     /// Sets the value of [state][crate::model::SecretVersion::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_state("example");
+    /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1220,6 +1729,13 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [state][crate::model::SecretVersion::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_or_clear_state(Some("example"));
+    /// let x = SecretVersion::new().set_or_clear_state(None::<String>);
+    /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1229,6 +1745,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [replication_status][crate::model::SecretVersion::replication_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use secretmanager_openapi_v1::model::ReplicationStatus;
+    /// let x = SecretVersion::new().set_replication_status(ReplicationStatus::default()/* use setters */);
+    /// ```
     pub fn set_replication_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationStatus>,
@@ -1238,6 +1761,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [replication_status][crate::model::SecretVersion::replication_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use secretmanager_openapi_v1::model::ReplicationStatus;
+    /// let x = SecretVersion::new().set_or_clear_replication_status(Some(ReplicationStatus::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_replication_status(None::<ReplicationStatus>);
+    /// ```
     pub fn set_or_clear_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationStatus>,
@@ -1247,6 +1778,12 @@ impl SecretVersion {
     }
 
     /// Sets the value of [etag][crate::model::SecretVersion::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1256,6 +1793,13 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [etag][crate::model::SecretVersion::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_or_clear_etag(Some("example"));
+    /// let x = SecretVersion::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1265,6 +1809,12 @@ impl SecretVersion {
     }
 
     /// Sets the value of [client_specified_payload_checksum][crate::model::SecretVersion::client_specified_payload_checksum].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_client_specified_payload_checksum(true);
+    /// ```
     pub fn set_client_specified_payload_checksum<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1274,6 +1824,13 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [client_specified_payload_checksum][crate::model::SecretVersion::client_specified_payload_checksum].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_or_clear_client_specified_payload_checksum(Some(false));
+    /// let x = SecretVersion::new().set_or_clear_client_specified_payload_checksum(None::<bool>);
+    /// ```
     pub fn set_or_clear_client_specified_payload_checksum<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1286,6 +1843,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_scheduled_destroy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_scheduled_destroy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1295,6 +1859,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_scheduled_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1304,6 +1876,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = SecretVersion::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1313,6 +1892,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SecretVersion;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1355,6 +1942,13 @@ impl ReplicationStatus {
     }
 
     /// Sets the value of [automatic][crate::model::ReplicationStatus::automatic].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicationStatus;
+    /// use secretmanager_openapi_v1::model::AutomaticStatus;
+    /// let x = ReplicationStatus::new().set_automatic(AutomaticStatus::default()/* use setters */);
+    /// ```
     pub fn set_automatic<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomaticStatus>,
@@ -1364,6 +1958,14 @@ impl ReplicationStatus {
     }
 
     /// Sets or clears the value of [automatic][crate::model::ReplicationStatus::automatic].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicationStatus;
+    /// use secretmanager_openapi_v1::model::AutomaticStatus;
+    /// let x = ReplicationStatus::new().set_or_clear_automatic(Some(AutomaticStatus::default()/* use setters */));
+    /// let x = ReplicationStatus::new().set_or_clear_automatic(None::<AutomaticStatus>);
+    /// ```
     pub fn set_or_clear_automatic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomaticStatus>,
@@ -1373,6 +1975,13 @@ impl ReplicationStatus {
     }
 
     /// Sets the value of [user_managed][crate::model::ReplicationStatus::user_managed].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicationStatus;
+    /// use secretmanager_openapi_v1::model::UserManagedStatus;
+    /// let x = ReplicationStatus::new().set_user_managed(UserManagedStatus::default()/* use setters */);
+    /// ```
     pub fn set_user_managed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedStatus>,
@@ -1382,6 +1991,14 @@ impl ReplicationStatus {
     }
 
     /// Sets or clears the value of [user_managed][crate::model::ReplicationStatus::user_managed].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicationStatus;
+    /// use secretmanager_openapi_v1::model::UserManagedStatus;
+    /// let x = ReplicationStatus::new().set_or_clear_user_managed(Some(UserManagedStatus::default()/* use setters */));
+    /// let x = ReplicationStatus::new().set_or_clear_user_managed(None::<UserManagedStatus>);
+    /// ```
     pub fn set_or_clear_user_managed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedStatus>,
@@ -1418,6 +2035,13 @@ impl AutomaticStatus {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::AutomaticStatus::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AutomaticStatus;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = AutomaticStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1427,6 +2051,14 @@ impl AutomaticStatus {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::AutomaticStatus::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AutomaticStatus;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+    /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1460,6 +2092,12 @@ impl CustomerManagedEncryptionStatus {
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::CustomerManagedEncryptionStatus::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = CustomerManagedEncryptionStatus::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1495,6 +2133,17 @@ impl UserManagedStatus {
     }
 
     /// Sets the value of [replicas][crate::model::UserManagedStatus::replicas].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::UserManagedStatus;
+    /// use secretmanager_openapi_v1::model::ReplicaStatus;
+    /// let x = UserManagedStatus::new()
+    ///     .set_replicas([
+    ///         ReplicaStatus::default()/* use setters */,
+    ///         ReplicaStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1534,6 +2183,12 @@ impl ReplicaStatus {
     }
 
     /// Sets the value of [location][crate::model::ReplicaStatus::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicaStatus;
+    /// let x = ReplicaStatus::new().set_location("example");
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1543,6 +2198,13 @@ impl ReplicaStatus {
     }
 
     /// Sets or clears the value of [location][crate::model::ReplicaStatus::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicaStatus;
+    /// let x = ReplicaStatus::new().set_or_clear_location(Some("example"));
+    /// let x = ReplicaStatus::new().set_or_clear_location(None::<String>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1552,6 +2214,13 @@ impl ReplicaStatus {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::ReplicaStatus::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicaStatus;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = ReplicaStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1561,6 +2230,14 @@ impl ReplicaStatus {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::ReplicaStatus::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ReplicaStatus;
+    /// use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+    /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1628,6 +2305,17 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretVersionsResponse;
+    /// use secretmanager_openapi_v1::model::SecretVersion;
+    /// let x = ListSecretVersionsResponse::new()
+    ///     .set_versions([
+    ///         SecretVersion::default()/* use setters */,
+    ///         SecretVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1639,6 +2327,12 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1648,6 +2342,13 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets or clears the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_or_clear_next_page_token(Some("example"));
+    /// let x = ListSecretVersionsResponse::new().set_or_clear_next_page_token(None::<String>);
+    /// ```
     pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1657,6 +2358,12 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1666,6 +2373,13 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets or clears the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_or_clear_total_size(Some(42));
+    /// let x = ListSecretVersionsResponse::new().set_or_clear_total_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_total_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1716,6 +2430,12 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets the value of [name][crate::model::AccessSecretVersionResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AccessSecretVersionResponse;
+    /// let x = AccessSecretVersionResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1725,6 +2445,13 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets or clears the value of [name][crate::model::AccessSecretVersionResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AccessSecretVersionResponse;
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_name(Some("example"));
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1734,6 +2461,13 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets the value of [payload][crate::model::AccessSecretVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AccessSecretVersionResponse;
+    /// use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = AccessSecretVersionResponse::new().set_payload(SecretPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -1743,6 +2477,14 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets or clears the value of [payload][crate::model::AccessSecretVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AccessSecretVersionResponse;
+    /// use secretmanager_openapi_v1::model::SecretPayload;
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(None::<SecretPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -1776,6 +2518,12 @@ impl DisableSecretVersionRequest {
     }
 
     /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::DisableSecretVersionRequest;
+    /// let x = DisableSecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1785,6 +2533,13 @@ impl DisableSecretVersionRequest {
     }
 
     /// Sets or clears the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::DisableSecretVersionRequest;
+    /// let x = DisableSecretVersionRequest::new().set_or_clear_etag(Some("example"));
+    /// let x = DisableSecretVersionRequest::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1818,6 +2573,12 @@ impl EnableSecretVersionRequest {
     }
 
     /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::EnableSecretVersionRequest;
+    /// let x = EnableSecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1827,6 +2588,13 @@ impl EnableSecretVersionRequest {
     }
 
     /// Sets or clears the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::EnableSecretVersionRequest;
+    /// let x = EnableSecretVersionRequest::new().set_or_clear_etag(Some("example"));
+    /// let x = EnableSecretVersionRequest::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1860,6 +2628,12 @@ impl DestroySecretVersionRequest {
     }
 
     /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::DestroySecretVersionRequest;
+    /// let x = DestroySecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1869,6 +2643,13 @@ impl DestroySecretVersionRequest {
     }
 
     /// Sets or clears the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::DestroySecretVersionRequest;
+    /// let x = DestroySecretVersionRequest::new().set_or_clear_etag(Some("example"));
+    /// let x = DestroySecretVersionRequest::new().set_or_clear_etag(None::<String>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1910,6 +2691,13 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+    /// use secretmanager_openapi_v1::model::Policy;
+    /// let x = SetIamPolicyRequest::new().set_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -1919,6 +2707,14 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+    /// use secretmanager_openapi_v1::model::Policy;
+    /// let x = SetIamPolicyRequest::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+    /// let x = SetIamPolicyRequest::new().set_or_clear_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -1928,6 +2724,13 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetIamPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1937,6 +2740,14 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetIamPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = SetIamPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2089,6 +2900,12 @@ impl Policy {
     }
 
     /// Sets the value of [version][crate::model::Policy::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Policy;
+    /// let x = Policy::new().set_version(42);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -2098,6 +2915,13 @@ impl Policy {
     }
 
     /// Sets or clears the value of [version][crate::model::Policy::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Policy;
+    /// let x = Policy::new().set_or_clear_version(Some(42));
+    /// let x = Policy::new().set_or_clear_version(None::<i32>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -2107,6 +2931,17 @@ impl Policy {
     }
 
     /// Sets the value of [bindings][crate::model::Policy::bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Policy;
+    /// use secretmanager_openapi_v1::model::Binding;
+    /// let x = Policy::new()
+    ///     .set_bindings([
+    ///         Binding::default()/* use setters */,
+    ///         Binding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2118,6 +2953,17 @@ impl Policy {
     }
 
     /// Sets the value of [audit_configs][crate::model::Policy::audit_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Policy;
+    /// use secretmanager_openapi_v1::model::AuditConfig;
+    /// let x = Policy::new()
+    ///     .set_audit_configs([
+    ///         AuditConfig::default()/* use setters */,
+    ///         AuditConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_audit_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2129,6 +2975,12 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Policy;
+    /// let x = Policy::new().set_etag(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<::bytes::Bytes>,
@@ -2138,6 +2990,13 @@ impl Policy {
     }
 
     /// Sets or clears the value of [etag][crate::model::Policy::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Policy;
+    /// let x = Policy::new().set_or_clear_etag(Some(bytes::Bytes::from_static(b"example")));
+    /// let x = Policy::new().set_or_clear_etag(None::<bytes::Bytes>);
+    /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<::bytes::Bytes>,
@@ -2269,6 +3128,12 @@ impl Binding {
     }
 
     /// Sets the value of [role][crate::model::Binding::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Binding;
+    /// let x = Binding::new().set_role("example");
+    /// ```
     pub fn set_role<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2278,6 +3143,13 @@ impl Binding {
     }
 
     /// Sets or clears the value of [role][crate::model::Binding::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Binding;
+    /// let x = Binding::new().set_or_clear_role(Some("example"));
+    /// let x = Binding::new().set_or_clear_role(None::<String>);
+    /// ```
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2287,6 +3159,12 @@ impl Binding {
     }
 
     /// Sets the value of [members][crate::model::Binding::members].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Binding;
+    /// let x = Binding::new().set_members(["a", "b", "c"]);
+    /// ```
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2298,6 +3176,13 @@ impl Binding {
     }
 
     /// Sets the value of [condition][crate::model::Binding::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Binding;
+    /// use secretmanager_openapi_v1::model::Expr;
+    /// let x = Binding::new().set_condition(Expr::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Expr>,
@@ -2307,6 +3192,14 @@ impl Binding {
     }
 
     /// Sets or clears the value of [condition][crate::model::Binding::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Binding;
+    /// use secretmanager_openapi_v1::model::Expr;
+    /// let x = Binding::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+    /// let x = Binding::new().set_or_clear_condition(None::<Expr>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Expr>,
@@ -2390,6 +3283,12 @@ impl Expr {
     }
 
     /// Sets the value of [expression][crate::model::Expr::expression].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_expression("example");
+    /// ```
     pub fn set_expression<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2399,6 +3298,13 @@ impl Expr {
     }
 
     /// Sets or clears the value of [expression][crate::model::Expr::expression].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_or_clear_expression(Some("example"));
+    /// let x = Expr::new().set_or_clear_expression(None::<String>);
+    /// ```
     pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2408,6 +3314,12 @@ impl Expr {
     }
 
     /// Sets the value of [title][crate::model::Expr::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_title("example");
+    /// ```
     pub fn set_title<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2417,6 +3329,13 @@ impl Expr {
     }
 
     /// Sets or clears the value of [title][crate::model::Expr::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_or_clear_title(Some("example"));
+    /// let x = Expr::new().set_or_clear_title(None::<String>);
+    /// ```
     pub fn set_or_clear_title<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2426,6 +3345,12 @@ impl Expr {
     }
 
     /// Sets the value of [description][crate::model::Expr::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_description("example");
+    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2435,6 +3360,13 @@ impl Expr {
     }
 
     /// Sets or clears the value of [description][crate::model::Expr::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_or_clear_description(Some("example"));
+    /// let x = Expr::new().set_or_clear_description(None::<String>);
+    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2444,6 +3376,12 @@ impl Expr {
     }
 
     /// Sets the value of [location][crate::model::Expr::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_location("example");
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2453,6 +3391,13 @@ impl Expr {
     }
 
     /// Sets or clears the value of [location][crate::model::Expr::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::Expr;
+    /// let x = Expr::new().set_or_clear_location(Some("example"));
+    /// let x = Expr::new().set_or_clear_location(None::<String>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2541,6 +3486,12 @@ impl AuditConfig {
     }
 
     /// Sets the value of [service][crate::model::AuditConfig::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AuditConfig;
+    /// let x = AuditConfig::new().set_service("example");
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2550,6 +3501,13 @@ impl AuditConfig {
     }
 
     /// Sets or clears the value of [service][crate::model::AuditConfig::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AuditConfig;
+    /// let x = AuditConfig::new().set_or_clear_service(Some("example"));
+    /// let x = AuditConfig::new().set_or_clear_service(None::<String>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2559,6 +3517,17 @@ impl AuditConfig {
     }
 
     /// Sets the value of [audit_log_configs][crate::model::AuditConfig::audit_log_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AuditConfig;
+    /// use secretmanager_openapi_v1::model::AuditLogConfig;
+    /// let x = AuditConfig::new()
+    ///     .set_audit_log_configs([
+    ///         AuditLogConfig::default()/* use setters */,
+    ///         AuditLogConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_audit_log_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2617,6 +3586,12 @@ impl AuditLogConfig {
     }
 
     /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AuditLogConfig;
+    /// let x = AuditLogConfig::new().set_log_type("example");
+    /// ```
     pub fn set_log_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2626,6 +3601,13 @@ impl AuditLogConfig {
     }
 
     /// Sets or clears the value of [log_type][crate::model::AuditLogConfig::log_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AuditLogConfig;
+    /// let x = AuditLogConfig::new().set_or_clear_log_type(Some("example"));
+    /// let x = AuditLogConfig::new().set_or_clear_log_type(None::<String>);
+    /// ```
     pub fn set_or_clear_log_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2635,6 +3617,12 @@ impl AuditLogConfig {
     }
 
     /// Sets the value of [exempted_members][crate::model::AuditLogConfig::exempted_members].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::AuditLogConfig;
+    /// let x = AuditLogConfig::new().set_exempted_members(["a", "b", "c"]);
+    /// ```
     pub fn set_exempted_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2671,6 +3659,12 @@ impl TestIamPermissionsRequest {
     }
 
     /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::TestIamPermissionsRequest;
+    /// let x = TestIamPermissionsRequest::new().set_permissions(["a", "b", "c"]);
+    /// ```
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2705,6 +3699,12 @@ impl TestIamPermissionsResponse {
     }
 
     /// Sets the value of [permissions][crate::model::TestIamPermissionsResponse::permissions].
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::model::TestIamPermissionsResponse;
+    /// let x = TestIamPermissionsResponse::new().set_permissions(["a", "b", "c"]);
+    /// ```
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2762,12 +3762,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::ListLocationsRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListLocationsRequest;
+        /// let x = ListLocationsRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [filter][crate::model::secret_manager_service::ListLocationsRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListLocationsRequest;
+        /// let x = ListLocationsRequest::new().set_filter("example");
+        /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2777,6 +3789,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListLocationsRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListLocationsRequest;
+        /// let x = ListLocationsRequest::new().set_or_clear_filter(Some("example"));
+        /// let x = ListLocationsRequest::new().set_or_clear_filter(None::<String>);
+        /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2786,6 +3805,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_size][crate::model::secret_manager_service::ListLocationsRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListLocationsRequest;
+        /// let x = ListLocationsRequest::new().set_page_size(42);
+        /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2795,6 +3820,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListLocationsRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListLocationsRequest;
+        /// let x = ListLocationsRequest::new().set_or_clear_page_size(Some(42));
+        /// let x = ListLocationsRequest::new().set_or_clear_page_size(None::<i32>);
+        /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2804,6 +3836,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_token][crate::model::secret_manager_service::ListLocationsRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListLocationsRequest;
+        /// let x = ListLocationsRequest::new().set_page_token("example");
+        /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2813,6 +3851,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListLocationsRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListLocationsRequest;
+        /// let x = ListLocationsRequest::new().set_or_clear_page_token(Some("example"));
+        /// let x = ListLocationsRequest::new().set_or_clear_page_token(None::<String>);
+        /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2847,12 +3892,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::GetLocationRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetLocationRequest;
+        /// let x = GetLocationRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::GetLocationRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetLocationRequest;
+        /// let x = GetLocationRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
@@ -2895,12 +3952,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::ListSecretsRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsRequest;
+        /// let x = ListSecretsRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretsRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsRequest;
+        /// let x = ListSecretsRequest::new().set_page_size(42);
+        /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2910,6 +3979,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretsRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsRequest;
+        /// let x = ListSecretsRequest::new().set_or_clear_page_size(Some(42));
+        /// let x = ListSecretsRequest::new().set_or_clear_page_size(None::<i32>);
+        /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2919,6 +3995,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretsRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsRequest;
+        /// let x = ListSecretsRequest::new().set_page_token("example");
+        /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2928,6 +4010,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretsRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsRequest;
+        /// let x = ListSecretsRequest::new().set_or_clear_page_token(Some("example"));
+        /// let x = ListSecretsRequest::new().set_or_clear_page_token(None::<String>);
+        /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2937,6 +4026,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretsRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsRequest;
+        /// let x = ListSecretsRequest::new().set_filter("example");
+        /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2946,6 +4041,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretsRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsRequest;
+        /// let x = ListSecretsRequest::new().set_or_clear_filter(Some("example"));
+        /// let x = ListSecretsRequest::new().set_or_clear_filter(None::<String>);
+        /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2985,18 +4087,37 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::CreateSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretRequest;
+        /// let x = CreateSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret_id][crate::model::secret_manager_service::CreateSecretRequest::secret_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretRequest;
+        /// let x = CreateSecretRequest::new().set_secret_id("example");
+        /// ```
         pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret_id = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::CreateSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = CreateSecretRequest::new().set_body(Secret::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3006,6 +4127,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::CreateSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = CreateSecretRequest::new().set_or_clear_body(Some(Secret::default()/* use setters */));
+        /// let x = CreateSecretRequest::new().set_or_clear_body(None::<Secret>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3056,18 +4185,36 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_page_size(42);
+        /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3077,6 +4224,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_page_size(Some(42));
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_page_size(None::<i32>);
+        /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3086,6 +4240,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_page_token("example");
+        /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3095,6 +4255,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_page_token(Some("example"));
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_page_token(None::<String>);
+        /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3104,6 +4271,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_filter("example");
+        /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3113,6 +4286,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretsByProjectAndLocationRequest;
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_filter(Some("example"));
+        /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_filter(None::<String>);
+        /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3157,24 +4337,49 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretByProjectAndLocationRequest;
+        /// let x = CreateSecretByProjectAndLocationRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretByProjectAndLocationRequest;
+        /// let x = CreateSecretByProjectAndLocationRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret_id][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::secret_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretByProjectAndLocationRequest;
+        /// let x = CreateSecretByProjectAndLocationRequest::new().set_secret_id("example");
+        /// ```
         pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret_id = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretByProjectAndLocationRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = CreateSecretByProjectAndLocationRequest::new().set_body(Secret::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3184,6 +4389,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::CreateSecretByProjectAndLocationRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = CreateSecretByProjectAndLocationRequest::new().set_or_clear_body(Some(Secret::default()/* use setters */));
+        /// let x = CreateSecretByProjectAndLocationRequest::new().set_or_clear_body(None::<Secret>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3221,18 +4434,37 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::AddSecretVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionRequest;
+        /// let x = AddSecretVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::AddSecretVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionRequest;
+        /// let x = AddSecretVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::AddSecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::AddSecretVersionRequest;
+        /// let x = AddSecretVersionRequest::new().set_body(AddSecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AddSecretVersionRequest>,
@@ -3242,6 +4474,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::AddSecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::AddSecretVersionRequest;
+        /// let x = AddSecretVersionRequest::new().set_or_clear_body(Some(AddSecretVersionRequest::default()/* use setters */));
+        /// let x = AddSecretVersionRequest::new().set_or_clear_body(None::<AddSecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AddSecretVersionRequest>,
@@ -3284,24 +4524,49 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest;
+        /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest;
+        /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest;
+        /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::AddSecretVersionRequest;
+        /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_body(AddSecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AddSecretVersionRequest>,
@@ -3311,6 +4576,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::AddSecretVersionRequest;
+        /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_or_clear_body(Some(AddSecretVersionRequest::default()/* use setters */));
+        /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<AddSecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AddSecretVersionRequest>,
@@ -3345,12 +4618,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::GetSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretRequest;
+        /// let x = GetSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretRequest;
+        /// let x = GetSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
@@ -3387,18 +4672,36 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::DeleteSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretRequest;
+        /// let x = DeleteSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::DeleteSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretRequest;
+        /// let x = DeleteSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [etag][crate::model::secret_manager_service::DeleteSecretRequest::etag].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretRequest;
+        /// let x = DeleteSecretRequest::new().set_etag("example");
+        /// ```
         pub fn set_etag<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3408,6 +4711,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [etag][crate::model::secret_manager_service::DeleteSecretRequest::etag].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretRequest;
+        /// let x = DeleteSecretRequest::new().set_or_clear_etag(Some("example"));
+        /// let x = DeleteSecretRequest::new().set_or_clear_etag(None::<String>);
+        /// ```
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3448,24 +4758,50 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::UpdateSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretRequest;
+        /// let x = UpdateSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::UpdateSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretRequest;
+        /// let x = UpdateSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::secret_manager_service::UpdateSecretRequest::update_mask].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretRequest;
+        /// use wkt::FieldMask;
+        /// let x = UpdateSecretRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+        /// ```
         pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
             self.update_mask = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::UpdateSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = UpdateSecretRequest::new().set_body(Secret::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3475,6 +4811,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::UpdateSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = UpdateSecretRequest::new().set_or_clear_body(Some(Secret::default()/* use setters */));
+        /// let x = UpdateSecretRequest::new().set_or_clear_body(None::<Secret>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3514,18 +4858,36 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest;
+        /// let x = GetSecretByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest;
+        /// let x = GetSecretByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest;
+        /// let x = GetSecretByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
@@ -3567,24 +4929,48 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest;
+        /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest;
+        /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest;
+        /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [etag][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest;
+        /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_etag("example");
+        /// ```
         pub fn set_etag<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3594,6 +4980,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [etag][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest;
+        /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_or_clear_etag(Some("example"));
+        /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_or_clear_etag(None::<String>);
+        /// ```
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3639,30 +5032,62 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest;
+        /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest;
+        /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest;
+        /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::update_mask].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest;
+        /// use wkt::FieldMask;
+        /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+        /// ```
         pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
             self.update_mask = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_body(Secret::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3672,6 +5097,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::Secret;
+        /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_or_clear_body(Some(Secret::default()/* use setters */));
+        /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<Secret>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -3722,18 +5155,36 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::ListSecretVersionsRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::ListSecretVersionsRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_page_size(42);
+        /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3743,6 +5194,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_or_clear_page_size(Some(42));
+        /// let x = ListSecretVersionsRequest::new().set_or_clear_page_size(None::<i32>);
+        /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3752,6 +5210,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_page_token("example");
+        /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3761,6 +5225,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_or_clear_page_token(Some("example"));
+        /// let x = ListSecretVersionsRequest::new().set_or_clear_page_token(None::<String>);
+        /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3770,6 +5241,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretVersionsRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_filter("example");
+        /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3779,6 +5256,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretVersionsRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsRequest;
+        /// let x = ListSecretVersionsRequest::new().set_or_clear_filter(Some("example"));
+        /// let x = ListSecretVersionsRequest::new().set_or_clear_filter(None::<String>);
+        /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3834,24 +5318,48 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_page_size(42);
+        /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3861,6 +5369,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_page_size(Some(42));
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_page_size(None::<i32>);
+        /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3870,6 +5385,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_page_token("example");
+        /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3879,6 +5400,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_page_token(Some("example"));
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_page_token(None::<String>);
+        /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3888,6 +5416,12 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_filter("example");
+        /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3897,6 +5431,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest;
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_filter(Some("example"));
+        /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_filter(None::<String>);
+        /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -3936,18 +5477,36 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::GetSecretVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretVersionRequest;
+        /// let x = GetSecretVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretVersionRequest;
+        /// let x = GetSecretVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::GetSecretVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretVersionRequest;
+        /// let x = GetSecretVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -3989,24 +5548,48 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -4043,18 +5626,36 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::AccessSecretVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AccessSecretVersionRequest;
+        /// let x = AccessSecretVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::AccessSecretVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AccessSecretVersionRequest;
+        /// let x = AccessSecretVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::AccessSecretVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AccessSecretVersionRequest;
+        /// let x = AccessSecretVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -4096,24 +5697,48 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -4153,24 +5778,49 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::DisableSecretVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionRequest;
+        /// let x = DisableSecretVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::DisableSecretVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionRequest;
+        /// let x = DisableSecretVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::DisableSecretVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionRequest;
+        /// let x = DisableSecretVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::DisableSecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::DisableSecretVersionRequest;
+        /// let x = DisableSecretVersionRequest::new().set_body(DisableSecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
@@ -4180,6 +5830,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::DisableSecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::DisableSecretVersionRequest;
+        /// let x = DisableSecretVersionRequest::new().set_or_clear_body(Some(DisableSecretVersionRequest::default()/* use setters */));
+        /// let x = DisableSecretVersionRequest::new().set_or_clear_body(None::<DisableSecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
@@ -4227,30 +5885,61 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// use secretmanager_openapi_v1::model::DisableSecretVersionRequest;
+        /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_body(DisableSecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
@@ -4260,6 +5949,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// use secretmanager_openapi_v1::model::DisableSecretVersionRequest;
+        /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(Some(DisableSecretVersionRequest::default()/* use setters */));
+        /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(None::<DisableSecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
@@ -4302,24 +5999,49 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::EnableSecretVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionRequest;
+        /// let x = EnableSecretVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::EnableSecretVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionRequest;
+        /// let x = EnableSecretVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::EnableSecretVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionRequest;
+        /// let x = EnableSecretVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::EnableSecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::EnableSecretVersionRequest;
+        /// let x = EnableSecretVersionRequest::new().set_body(EnableSecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
@@ -4329,6 +6051,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::EnableSecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::EnableSecretVersionRequest;
+        /// let x = EnableSecretVersionRequest::new().set_or_clear_body(Some(EnableSecretVersionRequest::default()/* use setters */));
+        /// let x = EnableSecretVersionRequest::new().set_or_clear_body(None::<EnableSecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
@@ -4376,30 +6106,61 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// use secretmanager_openapi_v1::model::EnableSecretVersionRequest;
+        /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_body(EnableSecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
@@ -4409,6 +6170,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// use secretmanager_openapi_v1::model::EnableSecretVersionRequest;
+        /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(Some(EnableSecretVersionRequest::default()/* use setters */));
+        /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(None::<EnableSecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
@@ -4451,24 +6220,49 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::DestroySecretVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionRequest;
+        /// let x = DestroySecretVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::DestroySecretVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionRequest;
+        /// let x = DestroySecretVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::DestroySecretVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionRequest;
+        /// let x = DestroySecretVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::DestroySecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::DestroySecretVersionRequest;
+        /// let x = DestroySecretVersionRequest::new().set_body(DestroySecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
@@ -4478,6 +6272,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::DestroySecretVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionRequest;
+        /// use secretmanager_openapi_v1::model::DestroySecretVersionRequest;
+        /// let x = DestroySecretVersionRequest::new().set_or_clear_body(Some(DestroySecretVersionRequest::default()/* use setters */));
+        /// let x = DestroySecretVersionRequest::new().set_or_clear_body(None::<DestroySecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
@@ -4525,30 +6327,61 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// use secretmanager_openapi_v1::model::DestroySecretVersionRequest;
+        /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_body(DestroySecretVersionRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
@@ -4558,6 +6391,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest;
+        /// use secretmanager_openapi_v1::model::DestroySecretVersionRequest;
+        /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(Some(DestroySecretVersionRequest::default()/* use setters */));
+        /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(None::<DestroySecretVersionRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
@@ -4595,18 +6436,37 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::SetIamPolicyRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::SetIamPolicyRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::SetIamPolicyRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyRequest;
+        /// use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_body(SetIamPolicyRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::SetIamPolicyRequest>,
@@ -4616,6 +6476,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::SetIamPolicyRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyRequest;
+        /// use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_or_clear_body(Some(SetIamPolicyRequest::default()/* use setters */));
+        /// let x = SetIamPolicyRequest::new().set_or_clear_body(None::<SetIamPolicyRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SetIamPolicyRequest>,
@@ -4658,24 +6526,49 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+        /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_body(SetIamPolicyRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::SetIamPolicyRequest>,
@@ -4685,6 +6578,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::SetIamPolicyRequest;
+        /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_or_clear_body(Some(SetIamPolicyRequest::default()/* use setters */));
+        /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<SetIamPolicyRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SetIamPolicyRequest>,
@@ -4739,18 +6640,36 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::GetIamPolicyRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::GetIamPolicyRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_options_requested_policy_version(42);
+        /// ```
         pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -4760,6 +6679,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(Some(42));
+        /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(None::<i32>);
+        /// ```
         pub fn set_or_clear_options_requested_policy_version<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4822,24 +6748,48 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_options_requested_policy_version(42);
+        /// ```
         pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -4849,6 +6799,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest;
+        /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_or_clear_options_requested_policy_version(Some(42));
+        /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_or_clear_options_requested_policy_version(None::<i32>);
+        /// ```
         pub fn set_or_clear_options_requested_policy_version<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4889,18 +6846,37 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::TestIamPermissionsRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::TestIamPermissionsRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::TestIamPermissionsRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsRequest;
+        /// use secretmanager_openapi_v1::model::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_body(TestIamPermissionsRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
@@ -4910,6 +6886,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::TestIamPermissionsRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsRequest;
+        /// use secretmanager_openapi_v1::model::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_or_clear_body(Some(TestIamPermissionsRequest::default()/* use setters */));
+        /// let x = TestIamPermissionsRequest::new().set_or_clear_body(None::<TestIamPermissionsRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
@@ -4952,24 +6936,49 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest;
+        /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest;
+        /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest;
+        /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_secret("example");
+        /// ```
         pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.secret = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_body(TestIamPermissionsRequest::default()/* use setters */);
+        /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
@@ -4979,6 +6988,14 @@ pub mod secret_manager_service {
         }
 
         /// Sets or clears the value of [body][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::body].
+        ///
+        /// # Example
+        /// ```
+        /// # use secretmanager_openapi_v1::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest;
+        /// use secretmanager_openapi_v1::model::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_or_clear_body(Some(TestIamPermissionsRequest::default()/* use setters */));
+        /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<TestIamPermissionsRequest>);
+        /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TestIamPermissionsRequest>,

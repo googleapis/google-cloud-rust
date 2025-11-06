@@ -55,12 +55,25 @@ impl CreateAssessmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAssessmentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateAssessmentRequest;
+    /// let x = CreateAssessmentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// let x = CreateAssessmentRequest::new().set_assessment(Assessment::default()/* use setters */);
+    /// ```
     pub fn set_assessment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Assessment>,
@@ -70,6 +83,14 @@ impl CreateAssessmentRequest {
     }
 
     /// Sets or clears the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// let x = CreateAssessmentRequest::new().set_or_clear_assessment(Some(Assessment::default()/* use setters */));
+    /// let x = CreateAssessmentRequest::new().set_or_clear_assessment(None::<Assessment>);
+    /// ```
     pub fn set_or_clear_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Assessment>,
@@ -115,6 +136,15 @@ impl TransactionEvent {
     }
 
     /// Sets the value of [event_type][crate::model::TransactionEvent::event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionEvent;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_event::TransactionEventType;
+    /// let x0 = TransactionEvent::new().set_event_type(TransactionEventType::MerchantApprove);
+    /// let x1 = TransactionEvent::new().set_event_type(TransactionEventType::MerchantDeny);
+    /// let x2 = TransactionEvent::new().set_event_type(TransactionEventType::ManualReview);
+    /// ```
     pub fn set_event_type<
         T: std::convert::Into<crate::model::transaction_event::TransactionEventType>,
     >(
@@ -126,18 +156,37 @@ impl TransactionEvent {
     }
 
     /// Sets the value of [reason][crate::model::TransactionEvent::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionEvent;
+    /// let x = TransactionEvent::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::TransactionEvent::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionEvent;
+    /// let x = TransactionEvent::new().set_value(42.0);
+    /// ```
     pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [event_time][crate::model::TransactionEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionEvent;
+    /// use wkt::Timestamp;
+    /// let x = TransactionEvent::new().set_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -147,6 +196,14 @@ impl TransactionEvent {
     }
 
     /// Sets or clears the value of [event_time][crate::model::TransactionEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionEvent;
+    /// use wkt::Timestamp;
+    /// let x = TransactionEvent::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TransactionEvent::new().set_or_clear_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -494,12 +551,26 @@ impl AnnotateAssessmentRequest {
     }
 
     /// Sets the value of [name][crate::model::AnnotateAssessmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// let x = AnnotateAssessmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [annotation][crate::model::AnnotateAssessmentRequest::annotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::annotate_assessment_request::Annotation;
+    /// let x0 = AnnotateAssessmentRequest::new().set_annotation(Annotation::Legitimate);
+    /// let x1 = AnnotateAssessmentRequest::new().set_annotation(Annotation::Fraudulent);
+    /// ```
     pub fn set_annotation<
         T: std::convert::Into<crate::model::annotate_assessment_request::Annotation>,
     >(
@@ -511,6 +582,17 @@ impl AnnotateAssessmentRequest {
     }
 
     /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::annotate_assessment_request::Reason;
+    /// let x = AnnotateAssessmentRequest::new().set_reasons([
+    ///     Reason::Chargeback,
+    ///     Reason::ChargebackFraud,
+    ///     Reason::ChargebackDispute,
+    /// ]);
+    /// ```
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -522,18 +604,37 @@ impl AnnotateAssessmentRequest {
     }
 
     /// Sets the value of [account_id][crate::model::AnnotateAssessmentRequest::account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// let x = AnnotateAssessmentRequest::new().set_account_id("example");
+    /// ```
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
         self
     }
 
     /// Sets the value of [hashed_account_id][crate::model::AnnotateAssessmentRequest::hashed_account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// let x = AnnotateAssessmentRequest::new().set_hashed_account_id(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
 
     /// Sets the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::TransactionEvent;
+    /// let x = AnnotateAssessmentRequest::new().set_transaction_event(TransactionEvent::default()/* use setters */);
+    /// ```
     pub fn set_transaction_event<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransactionEvent>,
@@ -543,6 +644,14 @@ impl AnnotateAssessmentRequest {
     }
 
     /// Sets or clears the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AnnotateAssessmentRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::TransactionEvent;
+    /// let x = AnnotateAssessmentRequest::new().set_or_clear_transaction_event(Some(TransactionEvent::default()/* use setters */));
+    /// let x = AnnotateAssessmentRequest::new().set_or_clear_transaction_event(None::<TransactionEvent>);
+    /// ```
     pub fn set_or_clear_transaction_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransactionEvent>,
@@ -991,12 +1100,25 @@ impl EndpointVerificationInfo {
     }
 
     /// Sets the value of [request_token][crate::model::EndpointVerificationInfo::request_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::EndpointVerificationInfo;
+    /// let x = EndpointVerificationInfo::new().set_request_token("example");
+    /// ```
     pub fn set_request_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_token = v.into();
         self
     }
 
     /// Sets the value of [last_verification_time][crate::model::EndpointVerificationInfo::last_verification_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::EndpointVerificationInfo;
+    /// use wkt::Timestamp;
+    /// let x = EndpointVerificationInfo::new().set_last_verification_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_verification_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1006,6 +1128,14 @@ impl EndpointVerificationInfo {
     }
 
     /// Sets or clears the value of [last_verification_time][crate::model::EndpointVerificationInfo::last_verification_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::EndpointVerificationInfo;
+    /// use wkt::Timestamp;
+    /// let x = EndpointVerificationInfo::new().set_or_clear_last_verification_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EndpointVerificationInfo::new().set_or_clear_last_verification_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_verification_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1018,6 +1148,13 @@ impl EndpointVerificationInfo {
     ///
     /// Note that all the setters affecting `endpoint` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::EndpointVerificationInfo;
+    /// use google_cloud_recaptchaenterprise_v1::model::endpoint_verification_info::Endpoint;
+    /// let x = EndpointVerificationInfo::new().set_endpoint(Some(Endpoint::EmailAddress("example".to_string())));
+    /// ```
     pub fn set_endpoint<
         T: std::convert::Into<std::option::Option<crate::model::endpoint_verification_info::Endpoint>>,
     >(
@@ -1046,6 +1183,14 @@ impl EndpointVerificationInfo {
     ///
     /// Note that all the setters affecting `endpoint` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::EndpointVerificationInfo;
+    /// let x = EndpointVerificationInfo::new().set_email_address("example");
+    /// assert!(x.email_address().is_some());
+    /// assert!(x.phone_number().is_none());
+    /// ```
     pub fn set_email_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = std::option::Option::Some(
             crate::model::endpoint_verification_info::Endpoint::EmailAddress(v.into()),
@@ -1071,6 +1216,14 @@ impl EndpointVerificationInfo {
     ///
     /// Note that all the setters affecting `endpoint` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::EndpointVerificationInfo;
+    /// let x = EndpointVerificationInfo::new().set_phone_number("example");
+    /// assert!(x.phone_number().is_some());
+    /// assert!(x.email_address().is_none());
+    /// ```
     pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = std::option::Option::Some(
             crate::model::endpoint_verification_info::Endpoint::PhoneNumber(v.into()),
@@ -1129,6 +1282,17 @@ impl AccountVerificationInfo {
     }
 
     /// Sets the value of [endpoints][crate::model::AccountVerificationInfo::endpoints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AccountVerificationInfo;
+    /// use google_cloud_recaptchaenterprise_v1::model::EndpointVerificationInfo;
+    /// let x = AccountVerificationInfo::new()
+    ///     .set_endpoints([
+    ///         EndpointVerificationInfo::default()/* use setters */,
+    ///         EndpointVerificationInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1140,12 +1304,27 @@ impl AccountVerificationInfo {
     }
 
     /// Sets the value of [language_code][crate::model::AccountVerificationInfo::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AccountVerificationInfo;
+    /// let x = AccountVerificationInfo::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [latest_verification_result][crate::model::AccountVerificationInfo::latest_verification_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AccountVerificationInfo;
+    /// use google_cloud_recaptchaenterprise_v1::model::account_verification_info::Result;
+    /// let x0 = AccountVerificationInfo::new().set_latest_verification_result(Result::SuccessUserVerified);
+    /// let x1 = AccountVerificationInfo::new().set_latest_verification_result(Result::ErrorUserNotVerified);
+    /// let x2 = AccountVerificationInfo::new().set_latest_verification_result(Result::ErrorSiteOnboardingIncomplete);
+    /// ```
     pub fn set_latest_verification_result<
         T: std::convert::Into<crate::model::account_verification_info::Result>,
     >(
@@ -1157,6 +1336,12 @@ impl AccountVerificationInfo {
     }
 
     /// Sets the value of [username][crate::model::AccountVerificationInfo::username].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AccountVerificationInfo;
+    /// let x = AccountVerificationInfo::new().set_username("example");
+    /// ```
     #[deprecated]
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
@@ -1410,12 +1595,24 @@ impl PrivatePasswordLeakVerification {
     }
 
     /// Sets the value of [lookup_hash_prefix][crate::model::PrivatePasswordLeakVerification::lookup_hash_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
+    /// let x = PrivatePasswordLeakVerification::new().set_lookup_hash_prefix(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_lookup_hash_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.lookup_hash_prefix = v.into();
         self
     }
 
     /// Sets the value of [encrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::encrypted_user_credentials_hash].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
+    /// let x = PrivatePasswordLeakVerification::new().set_encrypted_user_credentials_hash(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_encrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -1425,6 +1622,14 @@ impl PrivatePasswordLeakVerification {
     }
 
     /// Sets the value of [encrypted_leak_match_prefixes][crate::model::PrivatePasswordLeakVerification::encrypted_leak_match_prefixes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = PrivatePasswordLeakVerification::new().set_encrypted_leak_match_prefixes([b1, b2]);
+    /// ```
     pub fn set_encrypted_leak_match_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1436,6 +1641,12 @@ impl PrivatePasswordLeakVerification {
     }
 
     /// Sets the value of [reencrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::reencrypted_user_credentials_hash].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
+    /// let x = PrivatePasswordLeakVerification::new().set_reencrypted_user_credentials_hash(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -1513,12 +1724,25 @@ impl Assessment {
     }
 
     /// Sets the value of [name][crate::model::Assessment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// let x = Assessment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [event][crate::model::Assessment::event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Assessment::new().set_event(Event::default()/* use setters */);
+    /// ```
     pub fn set_event<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Event>,
@@ -1528,6 +1752,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [event][crate::model::Assessment::event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Assessment::new().set_or_clear_event(Some(Event::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_event(None::<Event>);
+    /// ```
     pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Event>,
@@ -1537,6 +1769,13 @@ impl Assessment {
     }
 
     /// Sets the value of [risk_analysis][crate::model::Assessment::risk_analysis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::RiskAnalysis;
+    /// let x = Assessment::new().set_risk_analysis(RiskAnalysis::default()/* use setters */);
+    /// ```
     pub fn set_risk_analysis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RiskAnalysis>,
@@ -1546,6 +1785,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [risk_analysis][crate::model::Assessment::risk_analysis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::RiskAnalysis;
+    /// let x = Assessment::new().set_or_clear_risk_analysis(Some(RiskAnalysis::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_risk_analysis(None::<RiskAnalysis>);
+    /// ```
     pub fn set_or_clear_risk_analysis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RiskAnalysis>,
@@ -1555,6 +1802,13 @@ impl Assessment {
     }
 
     /// Sets the value of [token_properties][crate::model::Assessment::token_properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// let x = Assessment::new().set_token_properties(TokenProperties::default()/* use setters */);
+    /// ```
     pub fn set_token_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TokenProperties>,
@@ -1564,6 +1818,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [token_properties][crate::model::Assessment::token_properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// let x = Assessment::new().set_or_clear_token_properties(Some(TokenProperties::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_token_properties(None::<TokenProperties>);
+    /// ```
     pub fn set_or_clear_token_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TokenProperties>,
@@ -1573,6 +1835,13 @@ impl Assessment {
     }
 
     /// Sets the value of [account_verification][crate::model::Assessment::account_verification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::AccountVerificationInfo;
+    /// let x = Assessment::new().set_account_verification(AccountVerificationInfo::default()/* use setters */);
+    /// ```
     pub fn set_account_verification<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccountVerificationInfo>,
@@ -1582,6 +1851,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [account_verification][crate::model::Assessment::account_verification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::AccountVerificationInfo;
+    /// let x = Assessment::new().set_or_clear_account_verification(Some(AccountVerificationInfo::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_account_verification(None::<AccountVerificationInfo>);
+    /// ```
     pub fn set_or_clear_account_verification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccountVerificationInfo>,
@@ -1591,6 +1868,13 @@ impl Assessment {
     }
 
     /// Sets the value of [account_defender_assessment][crate::model::Assessment::account_defender_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::AccountDefenderAssessment;
+    /// let x = Assessment::new().set_account_defender_assessment(AccountDefenderAssessment::default()/* use setters */);
+    /// ```
     pub fn set_account_defender_assessment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccountDefenderAssessment>,
@@ -1600,6 +1884,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [account_defender_assessment][crate::model::Assessment::account_defender_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::AccountDefenderAssessment;
+    /// let x = Assessment::new().set_or_clear_account_defender_assessment(Some(AccountDefenderAssessment::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_account_defender_assessment(None::<AccountDefenderAssessment>);
+    /// ```
     pub fn set_or_clear_account_defender_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccountDefenderAssessment>,
@@ -1609,6 +1901,13 @@ impl Assessment {
     }
 
     /// Sets the value of [private_password_leak_verification][crate::model::Assessment::private_password_leak_verification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
+    /// let x = Assessment::new().set_private_password_leak_verification(PrivatePasswordLeakVerification::default()/* use setters */);
+    /// ```
     pub fn set_private_password_leak_verification<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivatePasswordLeakVerification>,
@@ -1618,6 +1917,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [private_password_leak_verification][crate::model::Assessment::private_password_leak_verification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::PrivatePasswordLeakVerification;
+    /// let x = Assessment::new().set_or_clear_private_password_leak_verification(Some(PrivatePasswordLeakVerification::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_private_password_leak_verification(None::<PrivatePasswordLeakVerification>);
+    /// ```
     pub fn set_or_clear_private_password_leak_verification<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1630,6 +1937,13 @@ impl Assessment {
     }
 
     /// Sets the value of [firewall_policy_assessment][crate::model::Assessment::firewall_policy_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
+    /// let x = Assessment::new().set_firewall_policy_assessment(FirewallPolicyAssessment::default()/* use setters */);
+    /// ```
     pub fn set_firewall_policy_assessment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicyAssessment>,
@@ -1639,6 +1953,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [firewall_policy_assessment][crate::model::Assessment::firewall_policy_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
+    /// let x = Assessment::new().set_or_clear_firewall_policy_assessment(Some(FirewallPolicyAssessment::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_firewall_policy_assessment(None::<FirewallPolicyAssessment>);
+    /// ```
     pub fn set_or_clear_firewall_policy_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicyAssessment>,
@@ -1648,6 +1970,13 @@ impl Assessment {
     }
 
     /// Sets the value of [fraud_prevention_assessment][crate::model::Assessment::fraud_prevention_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// let x = Assessment::new().set_fraud_prevention_assessment(FraudPreventionAssessment::default()/* use setters */);
+    /// ```
     pub fn set_fraud_prevention_assessment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FraudPreventionAssessment>,
@@ -1657,6 +1986,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [fraud_prevention_assessment][crate::model::Assessment::fraud_prevention_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// let x = Assessment::new().set_or_clear_fraud_prevention_assessment(Some(FraudPreventionAssessment::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_fraud_prevention_assessment(None::<FraudPreventionAssessment>);
+    /// ```
     pub fn set_or_clear_fraud_prevention_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FraudPreventionAssessment>,
@@ -1666,6 +2003,13 @@ impl Assessment {
     }
 
     /// Sets the value of [fraud_signals][crate::model::Assessment::fraud_signals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FraudSignals;
+    /// let x = Assessment::new().set_fraud_signals(FraudSignals::default()/* use setters */);
+    /// ```
     pub fn set_fraud_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FraudSignals>,
@@ -1675,6 +2019,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [fraud_signals][crate::model::Assessment::fraud_signals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FraudSignals;
+    /// let x = Assessment::new().set_or_clear_fraud_signals(Some(FraudSignals::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_fraud_signals(None::<FraudSignals>);
+    /// ```
     pub fn set_or_clear_fraud_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FraudSignals>,
@@ -1684,6 +2036,13 @@ impl Assessment {
     }
 
     /// Sets the value of [phone_fraud_assessment][crate::model::Assessment::phone_fraud_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::PhoneFraudAssessment;
+    /// let x = Assessment::new().set_phone_fraud_assessment(PhoneFraudAssessment::default()/* use setters */);
+    /// ```
     pub fn set_phone_fraud_assessment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PhoneFraudAssessment>,
@@ -1693,6 +2052,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [phone_fraud_assessment][crate::model::Assessment::phone_fraud_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::PhoneFraudAssessment;
+    /// let x = Assessment::new().set_or_clear_phone_fraud_assessment(Some(PhoneFraudAssessment::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_phone_fraud_assessment(None::<PhoneFraudAssessment>);
+    /// ```
     pub fn set_or_clear_phone_fraud_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhoneFraudAssessment>,
@@ -1702,6 +2069,13 @@ impl Assessment {
     }
 
     /// Sets the value of [assessment_environment][crate::model::Assessment::assessment_environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::AssessmentEnvironment;
+    /// let x = Assessment::new().set_assessment_environment(AssessmentEnvironment::default()/* use setters */);
+    /// ```
     pub fn set_assessment_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AssessmentEnvironment>,
@@ -1711,6 +2085,14 @@ impl Assessment {
     }
 
     /// Sets or clears the value of [assessment_environment][crate::model::Assessment::assessment_environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Assessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::AssessmentEnvironment;
+    /// let x = Assessment::new().set_or_clear_assessment_environment(Some(AssessmentEnvironment::default()/* use setters */));
+    /// let x = Assessment::new().set_or_clear_assessment_environment(None::<AssessmentEnvironment>);
+    /// ```
     pub fn set_or_clear_assessment_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AssessmentEnvironment>,
@@ -1808,36 +2190,72 @@ impl Event {
     }
 
     /// Sets the value of [token][crate::model::Event::token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_token("example");
+    /// ```
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
         self
     }
 
     /// Sets the value of [site_key][crate::model::Event::site_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_site_key("example");
+    /// ```
     pub fn set_site_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.site_key = v.into();
         self
     }
 
     /// Sets the value of [user_agent][crate::model::Event::user_agent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_user_agent("example");
+    /// ```
     pub fn set_user_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_agent = v.into();
         self
     }
 
     /// Sets the value of [user_ip_address][crate::model::Event::user_ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_user_ip_address("example");
+    /// ```
     pub fn set_user_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_ip_address = v.into();
         self
     }
 
     /// Sets the value of [expected_action][crate::model::Event::expected_action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_expected_action("example");
+    /// ```
     pub fn set_expected_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expected_action = v.into();
         self
     }
 
     /// Sets the value of [hashed_account_id][crate::model::Event::hashed_account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_hashed_account_id(bytes::Bytes::from_static(b"example"));
+    /// ```
     #[deprecated]
     pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
@@ -1845,36 +2263,72 @@ impl Event {
     }
 
     /// Sets the value of [express][crate::model::Event::express].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_express(true);
+    /// ```
     pub fn set_express<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.express = v.into();
         self
     }
 
     /// Sets the value of [requested_uri][crate::model::Event::requested_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_requested_uri("example");
+    /// ```
     pub fn set_requested_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.requested_uri = v.into();
         self
     }
 
     /// Sets the value of [waf_token_assessment][crate::model::Event::waf_token_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_waf_token_assessment(true);
+    /// ```
     pub fn set_waf_token_assessment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.waf_token_assessment = v.into();
         self
     }
 
     /// Sets the value of [ja3][crate::model::Event::ja3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_ja3("example");
+    /// ```
     pub fn set_ja3<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ja3 = v.into();
         self
     }
 
     /// Sets the value of [ja4][crate::model::Event::ja4].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_ja4("example");
+    /// ```
     pub fn set_ja4<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ja4 = v.into();
         self
     }
 
     /// Sets the value of [headers][crate::model::Event::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_headers(["a", "b", "c"]);
+    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1886,12 +2340,25 @@ impl Event {
     }
 
     /// Sets the value of [firewall_policy_evaluation][crate::model::Event::firewall_policy_evaluation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// let x = Event::new().set_firewall_policy_evaluation(true);
+    /// ```
     pub fn set_firewall_policy_evaluation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.firewall_policy_evaluation = v.into();
         self
     }
 
     /// Sets the value of [transaction_data][crate::model::Event::transaction_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = Event::new().set_transaction_data(TransactionData::default()/* use setters */);
+    /// ```
     pub fn set_transaction_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransactionData>,
@@ -1901,6 +2368,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [transaction_data][crate::model::Event::transaction_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = Event::new().set_or_clear_transaction_data(Some(TransactionData::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_transaction_data(None::<TransactionData>);
+    /// ```
     pub fn set_or_clear_transaction_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransactionData>,
@@ -1910,6 +2385,13 @@ impl Event {
     }
 
     /// Sets the value of [user_info][crate::model::Event::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// use google_cloud_recaptchaenterprise_v1::model::UserInfo;
+    /// let x = Event::new().set_user_info(UserInfo::default()/* use setters */);
+    /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -1919,6 +2401,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [user_info][crate::model::Event::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// use google_cloud_recaptchaenterprise_v1::model::UserInfo;
+    /// let x = Event::new().set_or_clear_user_info(Some(UserInfo::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_user_info(None::<UserInfo>);
+    /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -1928,6 +2418,14 @@ impl Event {
     }
 
     /// Sets the value of [fraud_prevention][crate::model::Event::fraud_prevention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Event;
+    /// use google_cloud_recaptchaenterprise_v1::model::event::FraudPrevention;
+    /// let x0 = Event::new().set_fraud_prevention(FraudPrevention::Enabled);
+    /// let x1 = Event::new().set_fraud_prevention(FraudPrevention::Disabled);
+    /// ```
     pub fn set_fraud_prevention<T: std::convert::Into<crate::model::event::FraudPrevention>>(
         mut self,
         v: T,
@@ -2152,6 +2650,12 @@ impl TransactionData {
     }
 
     /// Sets the value of [transaction_id][crate::model::TransactionData::transaction_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_transaction_id("example");
+    /// ```
     pub fn set_transaction_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2161,6 +2665,13 @@ impl TransactionData {
     }
 
     /// Sets or clears the value of [transaction_id][crate::model::TransactionData::transaction_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_or_clear_transaction_id(Some("example"));
+    /// let x = TransactionData::new().set_or_clear_transaction_id(None::<String>);
+    /// ```
     pub fn set_or_clear_transaction_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2170,42 +2681,85 @@ impl TransactionData {
     }
 
     /// Sets the value of [payment_method][crate::model::TransactionData::payment_method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_payment_method("example");
+    /// ```
     pub fn set_payment_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payment_method = v.into();
         self
     }
 
     /// Sets the value of [card_bin][crate::model::TransactionData::card_bin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_card_bin("example");
+    /// ```
     pub fn set_card_bin<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.card_bin = v.into();
         self
     }
 
     /// Sets the value of [card_last_four][crate::model::TransactionData::card_last_four].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_card_last_four("example");
+    /// ```
     pub fn set_card_last_four<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.card_last_four = v.into();
         self
     }
 
     /// Sets the value of [currency_code][crate::model::TransactionData::currency_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_currency_code("example");
+    /// ```
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::TransactionData::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_value(42.0);
+    /// ```
     pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [shipping_value][crate::model::TransactionData::shipping_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// let x = TransactionData::new().set_shipping_value(42.0);
+    /// ```
     pub fn set_shipping_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.shipping_value = v.into();
         self
     }
 
     /// Sets the value of [shipping_address][crate::model::TransactionData::shipping_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+    /// let x = TransactionData::new().set_shipping_address(Address::default()/* use setters */);
+    /// ```
     pub fn set_shipping_address<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::Address>,
@@ -2215,6 +2769,14 @@ impl TransactionData {
     }
 
     /// Sets or clears the value of [shipping_address][crate::model::TransactionData::shipping_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+    /// let x = TransactionData::new().set_or_clear_shipping_address(Some(Address::default()/* use setters */));
+    /// let x = TransactionData::new().set_or_clear_shipping_address(None::<Address>);
+    /// ```
     pub fn set_or_clear_shipping_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::Address>,
@@ -2224,6 +2786,13 @@ impl TransactionData {
     }
 
     /// Sets the value of [billing_address][crate::model::TransactionData::billing_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+    /// let x = TransactionData::new().set_billing_address(Address::default()/* use setters */);
+    /// ```
     pub fn set_billing_address<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::Address>,
@@ -2233,6 +2802,14 @@ impl TransactionData {
     }
 
     /// Sets or clears the value of [billing_address][crate::model::TransactionData::billing_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+    /// let x = TransactionData::new().set_or_clear_billing_address(Some(Address::default()/* use setters */));
+    /// let x = TransactionData::new().set_or_clear_billing_address(None::<Address>);
+    /// ```
     pub fn set_or_clear_billing_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::Address>,
@@ -2242,6 +2819,13 @@ impl TransactionData {
     }
 
     /// Sets the value of [user][crate::model::TransactionData::user].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+    /// let x = TransactionData::new().set_user(User::default()/* use setters */);
+    /// ```
     pub fn set_user<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::User>,
@@ -2251,6 +2835,14 @@ impl TransactionData {
     }
 
     /// Sets or clears the value of [user][crate::model::TransactionData::user].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+    /// let x = TransactionData::new().set_or_clear_user(Some(User::default()/* use setters */));
+    /// let x = TransactionData::new().set_or_clear_user(None::<User>);
+    /// ```
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::User>,
@@ -2260,6 +2852,17 @@ impl TransactionData {
     }
 
     /// Sets the value of [merchants][crate::model::TransactionData::merchants].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+    /// let x = TransactionData::new()
+    ///     .set_merchants([
+    ///         User::default()/* use setters */,
+    ///         User::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_merchants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2271,6 +2874,17 @@ impl TransactionData {
     }
 
     /// Sets the value of [items][crate::model::TransactionData::items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::Item;
+    /// let x = TransactionData::new()
+    ///     .set_items([
+    ///         Item::default()/* use setters */,
+    ///         Item::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2282,6 +2896,13 @@ impl TransactionData {
     }
 
     /// Sets the value of [gateway_info][crate::model::TransactionData::gateway_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
+    /// let x = TransactionData::new().set_gateway_info(GatewayInfo::default()/* use setters */);
+    /// ```
     pub fn set_gateway_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::GatewayInfo>,
@@ -2291,6 +2912,14 @@ impl TransactionData {
     }
 
     /// Sets or clears the value of [gateway_info][crate::model::TransactionData::gateway_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TransactionData;
+    /// use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
+    /// let x = TransactionData::new().set_or_clear_gateway_info(Some(GatewayInfo::default()/* use setters */));
+    /// let x = TransactionData::new().set_or_clear_gateway_info(None::<GatewayInfo>);
+    /// ```
     pub fn set_or_clear_gateway_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::GatewayInfo>,
@@ -2346,12 +2975,24 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [recipient][crate::model::transaction_data::Address::recipient].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+        /// let x = Address::new().set_recipient("example");
+        /// ```
         pub fn set_recipient<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.recipient = v.into();
             self
         }
 
         /// Sets the value of [address][crate::model::transaction_data::Address::address].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+        /// let x = Address::new().set_address(["a", "b", "c"]);
+        /// ```
         pub fn set_address<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2363,12 +3004,24 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [locality][crate::model::transaction_data::Address::locality].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+        /// let x = Address::new().set_locality("example");
+        /// ```
         pub fn set_locality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.locality = v.into();
             self
         }
 
         /// Sets the value of [administrative_area][crate::model::transaction_data::Address::administrative_area].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+        /// let x = Address::new().set_administrative_area("example");
+        /// ```
         pub fn set_administrative_area<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2378,12 +3031,24 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [region_code][crate::model::transaction_data::Address::region_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+        /// let x = Address::new().set_region_code("example");
+        /// ```
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
             self
         }
 
         /// Sets the value of [postal_code][crate::model::transaction_data::Address::postal_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Address;
+        /// let x = Address::new().set_postal_code("example");
+        /// ```
         pub fn set_postal_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.postal_code = v.into();
             self
@@ -2431,30 +3096,60 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [account_id][crate::model::transaction_data::User::account_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+        /// let x = User::new().set_account_id("example");
+        /// ```
         pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.account_id = v.into();
             self
         }
 
         /// Sets the value of [creation_ms][crate::model::transaction_data::User::creation_ms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+        /// let x = User::new().set_creation_ms(42);
+        /// ```
         pub fn set_creation_ms<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.creation_ms = v.into();
             self
         }
 
         /// Sets the value of [email][crate::model::transaction_data::User::email].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+        /// let x = User::new().set_email("example");
+        /// ```
         pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.email = v.into();
             self
         }
 
         /// Sets the value of [email_verified][crate::model::transaction_data::User::email_verified].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+        /// let x = User::new().set_email_verified(true);
+        /// ```
         pub fn set_email_verified<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.email_verified = v.into();
             self
         }
 
         /// Sets the value of [phone_number][crate::model::transaction_data::User::phone_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+        /// let x = User::new().set_phone_number("example");
+        /// ```
         pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2464,6 +3159,12 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [phone_verified][crate::model::transaction_data::User::phone_verified].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::User;
+        /// let x = User::new().set_phone_verified(true);
+        /// ```
         pub fn set_phone_verified<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.phone_verified = v.into();
             self
@@ -2503,24 +3204,48 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [name][crate::model::transaction_data::Item::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Item;
+        /// let x = Item::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::transaction_data::Item::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Item;
+        /// let x = Item::new().set_value(42.0);
+        /// ```
         pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
         }
 
         /// Sets the value of [quantity][crate::model::transaction_data::Item::quantity].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Item;
+        /// let x = Item::new().set_quantity(42);
+        /// ```
         pub fn set_quantity<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.quantity = v.into();
             self
         }
 
         /// Sets the value of [merchant_account_id][crate::model::transaction_data::Item::merchant_account_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::Item;
+        /// let x = Item::new().set_merchant_account_id("example");
+        /// ```
         pub fn set_merchant_account_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2564,12 +3289,24 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [name][crate::model::transaction_data::GatewayInfo::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
+        /// let x = GatewayInfo::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [gateway_response_code][crate::model::transaction_data::GatewayInfo::gateway_response_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
+        /// let x = GatewayInfo::new().set_gateway_response_code("example");
+        /// ```
         pub fn set_gateway_response_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2579,6 +3316,12 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [avs_response_code][crate::model::transaction_data::GatewayInfo::avs_response_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
+        /// let x = GatewayInfo::new().set_avs_response_code("example");
+        /// ```
         pub fn set_avs_response_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2588,6 +3331,12 @@ pub mod transaction_data {
         }
 
         /// Sets the value of [cvv_response_code][crate::model::transaction_data::GatewayInfo::cvv_response_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::transaction_data::GatewayInfo;
+        /// let x = GatewayInfo::new().set_cvv_response_code("example");
+        /// ```
         pub fn set_cvv_response_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2632,6 +3381,13 @@ impl UserInfo {
     }
 
     /// Sets the value of [create_account_time][crate::model::UserInfo::create_account_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserInfo;
+    /// use wkt::Timestamp;
+    /// let x = UserInfo::new().set_create_account_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_account_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2641,6 +3397,14 @@ impl UserInfo {
     }
 
     /// Sets or clears the value of [create_account_time][crate::model::UserInfo::create_account_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserInfo;
+    /// use wkt::Timestamp;
+    /// let x = UserInfo::new().set_or_clear_create_account_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UserInfo::new().set_or_clear_create_account_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_account_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2650,12 +3414,29 @@ impl UserInfo {
     }
 
     /// Sets the value of [account_id][crate::model::UserInfo::account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserInfo;
+    /// let x = UserInfo::new().set_account_id("example");
+    /// ```
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
         self
     }
 
     /// Sets the value of [user_ids][crate::model::UserInfo::user_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserInfo;
+    /// use google_cloud_recaptchaenterprise_v1::model::UserId;
+    /// let x = UserInfo::new()
+    ///     .set_user_ids([
+    ///         UserId::default()/* use setters */,
+    ///         UserId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_user_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2691,6 +3472,13 @@ impl UserId {
     ///
     /// Note that all the setters affecting `id_oneof` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserId;
+    /// use google_cloud_recaptchaenterprise_v1::model::user_id::IdOneof;
+    /// let x = UserId::new().set_id_oneof(Some(IdOneof::Email("example".to_string())));
+    /// ```
     pub fn set_id_oneof<
         T: std::convert::Into<std::option::Option<crate::model::user_id::IdOneof>>,
     >(
@@ -2717,6 +3505,15 @@ impl UserId {
     ///
     /// Note that all the setters affecting `id_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserId;
+    /// let x = UserId::new().set_email("example");
+    /// assert!(x.email().is_some());
+    /// assert!(x.phone_number().is_none());
+    /// assert!(x.username().is_none());
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id_oneof = std::option::Option::Some(crate::model::user_id::IdOneof::Email(v.into()));
         self
@@ -2738,6 +3535,15 @@ impl UserId {
     ///
     /// Note that all the setters affecting `id_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserId;
+    /// let x = UserId::new().set_phone_number("example");
+    /// assert!(x.phone_number().is_some());
+    /// assert!(x.email().is_none());
+    /// assert!(x.username().is_none());
+    /// ```
     pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id_oneof =
             std::option::Option::Some(crate::model::user_id::IdOneof::PhoneNumber(v.into()));
@@ -2760,6 +3566,15 @@ impl UserId {
     ///
     /// Note that all the setters affecting `id_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UserId;
+    /// let x = UserId::new().set_username("example");
+    /// assert!(x.username().is_some());
+    /// assert!(x.email().is_none());
+    /// assert!(x.phone_number().is_none());
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id_oneof =
             std::option::Option::Some(crate::model::user_id::IdOneof::Username(v.into()));
@@ -2821,12 +3636,29 @@ impl RiskAnalysis {
     }
 
     /// Sets the value of [score][crate::model::RiskAnalysis::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RiskAnalysis;
+    /// let x = RiskAnalysis::new().set_score(42.0);
+    /// ```
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
     }
 
     /// Sets the value of [reasons][crate::model::RiskAnalysis::reasons].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RiskAnalysis;
+    /// use google_cloud_recaptchaenterprise_v1::model::risk_analysis::ClassificationReason;
+    /// let x = RiskAnalysis::new().set_reasons([
+    ///     ClassificationReason::Automation,
+    ///     ClassificationReason::UnexpectedEnvironment,
+    ///     ClassificationReason::TooMuchTraffic,
+    /// ]);
+    /// ```
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2838,6 +3670,12 @@ impl RiskAnalysis {
     }
 
     /// Sets the value of [extended_verdict_reasons][crate::model::RiskAnalysis::extended_verdict_reasons].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RiskAnalysis;
+    /// let x = RiskAnalysis::new().set_extended_verdict_reasons(["a", "b", "c"]);
+    /// ```
     pub fn set_extended_verdict_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2849,6 +3687,15 @@ impl RiskAnalysis {
     }
 
     /// Sets the value of [challenge][crate::model::RiskAnalysis::challenge].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RiskAnalysis;
+    /// use google_cloud_recaptchaenterprise_v1::model::risk_analysis::Challenge;
+    /// let x0 = RiskAnalysis::new().set_challenge(Challenge::Nocaptcha);
+    /// let x1 = RiskAnalysis::new().set_challenge(Challenge::Passed);
+    /// let x2 = RiskAnalysis::new().set_challenge(Challenge::Failed);
+    /// ```
     pub fn set_challenge<T: std::convert::Into<crate::model::risk_analysis::Challenge>>(
         mut self,
         v: T,
@@ -3222,12 +4069,27 @@ impl TokenProperties {
     }
 
     /// Sets the value of [valid][crate::model::TokenProperties::valid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// let x = TokenProperties::new().set_valid(true);
+    /// ```
     pub fn set_valid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.valid = v.into();
         self
     }
 
     /// Sets the value of [invalid_reason][crate::model::TokenProperties::invalid_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// use google_cloud_recaptchaenterprise_v1::model::token_properties::InvalidReason;
+    /// let x0 = TokenProperties::new().set_invalid_reason(InvalidReason::UnknownInvalidReason);
+    /// let x1 = TokenProperties::new().set_invalid_reason(InvalidReason::Malformed);
+    /// let x2 = TokenProperties::new().set_invalid_reason(InvalidReason::Expired);
+    /// ```
     pub fn set_invalid_reason<
         T: std::convert::Into<crate::model::token_properties::InvalidReason>,
     >(
@@ -3239,6 +4101,13 @@ impl TokenProperties {
     }
 
     /// Sets the value of [create_time][crate::model::TokenProperties::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// use wkt::Timestamp;
+    /// let x = TokenProperties::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3248,6 +4117,14 @@ impl TokenProperties {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TokenProperties::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// use wkt::Timestamp;
+    /// let x = TokenProperties::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TokenProperties::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3257,12 +4134,24 @@ impl TokenProperties {
     }
 
     /// Sets the value of [hostname][crate::model::TokenProperties::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// let x = TokenProperties::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [android_package_name][crate::model::TokenProperties::android_package_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// let x = TokenProperties::new().set_android_package_name("example");
+    /// ```
     pub fn set_android_package_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3272,12 +4161,24 @@ impl TokenProperties {
     }
 
     /// Sets the value of [ios_bundle_id][crate::model::TokenProperties::ios_bundle_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// let x = TokenProperties::new().set_ios_bundle_id("example");
+    /// ```
     pub fn set_ios_bundle_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ios_bundle_id = v.into();
         self
     }
 
     /// Sets the value of [action][crate::model::TokenProperties::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TokenProperties;
+    /// let x = TokenProperties::new().set_action("example");
+    /// ```
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
@@ -3489,12 +4390,25 @@ impl FraudPreventionAssessment {
     }
 
     /// Sets the value of [transaction_risk][crate::model::FraudPreventionAssessment::transaction_risk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// let x = FraudPreventionAssessment::new().set_transaction_risk(42.0);
+    /// ```
     pub fn set_transaction_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.transaction_risk = v.into();
         self
     }
 
     /// Sets the value of [stolen_instrument_verdict][crate::model::FraudPreventionAssessment::stolen_instrument_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::StolenInstrumentVerdict;
+    /// let x = FraudPreventionAssessment::new().set_stolen_instrument_verdict(StolenInstrumentVerdict::default()/* use setters */);
+    /// ```
     pub fn set_stolen_instrument_verdict<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
@@ -3504,6 +4418,14 @@ impl FraudPreventionAssessment {
     }
 
     /// Sets or clears the value of [stolen_instrument_verdict][crate::model::FraudPreventionAssessment::stolen_instrument_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::StolenInstrumentVerdict;
+    /// let x = FraudPreventionAssessment::new().set_or_clear_stolen_instrument_verdict(Some(StolenInstrumentVerdict::default()/* use setters */));
+    /// let x = FraudPreventionAssessment::new().set_or_clear_stolen_instrument_verdict(None::<StolenInstrumentVerdict>);
+    /// ```
     pub fn set_or_clear_stolen_instrument_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
@@ -3513,6 +4435,13 @@ impl FraudPreventionAssessment {
     }
 
     /// Sets the value of [card_testing_verdict][crate::model::FraudPreventionAssessment::card_testing_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::CardTestingVerdict;
+    /// let x = FraudPreventionAssessment::new().set_card_testing_verdict(CardTestingVerdict::default()/* use setters */);
+    /// ```
     pub fn set_card_testing_verdict<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
@@ -3522,6 +4451,14 @@ impl FraudPreventionAssessment {
     }
 
     /// Sets or clears the value of [card_testing_verdict][crate::model::FraudPreventionAssessment::card_testing_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::CardTestingVerdict;
+    /// let x = FraudPreventionAssessment::new().set_or_clear_card_testing_verdict(Some(CardTestingVerdict::default()/* use setters */));
+    /// let x = FraudPreventionAssessment::new().set_or_clear_card_testing_verdict(None::<CardTestingVerdict>);
+    /// ```
     pub fn set_or_clear_card_testing_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
@@ -3531,6 +4468,13 @@ impl FraudPreventionAssessment {
     }
 
     /// Sets the value of [behavioral_trust_verdict][crate::model::FraudPreventionAssessment::behavioral_trust_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::BehavioralTrustVerdict;
+    /// let x = FraudPreventionAssessment::new().set_behavioral_trust_verdict(BehavioralTrustVerdict::default()/* use setters */);
+    /// ```
     pub fn set_behavioral_trust_verdict<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
@@ -3540,6 +4484,14 @@ impl FraudPreventionAssessment {
     }
 
     /// Sets or clears the value of [behavioral_trust_verdict][crate::model::FraudPreventionAssessment::behavioral_trust_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudPreventionAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::BehavioralTrustVerdict;
+    /// let x = FraudPreventionAssessment::new().set_or_clear_behavioral_trust_verdict(Some(BehavioralTrustVerdict::default()/* use setters */));
+    /// let x = FraudPreventionAssessment::new().set_or_clear_behavioral_trust_verdict(None::<BehavioralTrustVerdict>);
+    /// ```
     pub fn set_or_clear_behavioral_trust_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
@@ -3578,6 +4530,12 @@ pub mod fraud_prevention_assessment {
         }
 
         /// Sets the value of [risk][crate::model::fraud_prevention_assessment::StolenInstrumentVerdict::risk].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::StolenInstrumentVerdict;
+        /// let x = StolenInstrumentVerdict::new().set_risk(42.0);
+        /// ```
         pub fn set_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.risk = v.into();
             self
@@ -3608,6 +4566,12 @@ pub mod fraud_prevention_assessment {
         }
 
         /// Sets the value of [risk][crate::model::fraud_prevention_assessment::CardTestingVerdict::risk].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::CardTestingVerdict;
+        /// let x = CardTestingVerdict::new().set_risk(42.0);
+        /// ```
         pub fn set_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.risk = v.into();
             self
@@ -3638,6 +4602,12 @@ pub mod fraud_prevention_assessment {
         }
 
         /// Sets the value of [trust][crate::model::fraud_prevention_assessment::BehavioralTrustVerdict::trust].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::fraud_prevention_assessment::BehavioralTrustVerdict;
+        /// let x = BehavioralTrustVerdict::new().set_trust(42.0);
+        /// ```
         pub fn set_trust<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.trust = v.into();
             self
@@ -3671,6 +4641,13 @@ impl FraudSignals {
     }
 
     /// Sets the value of [user_signals][crate::model::FraudSignals::user_signals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudSignals;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_signals::UserSignals;
+    /// let x = FraudSignals::new().set_user_signals(UserSignals::default()/* use setters */);
+    /// ```
     pub fn set_user_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::fraud_signals::UserSignals>,
@@ -3680,6 +4657,14 @@ impl FraudSignals {
     }
 
     /// Sets or clears the value of [user_signals][crate::model::FraudSignals::user_signals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudSignals;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_signals::UserSignals;
+    /// let x = FraudSignals::new().set_or_clear_user_signals(Some(UserSignals::default()/* use setters */));
+    /// let x = FraudSignals::new().set_or_clear_user_signals(None::<UserSignals>);
+    /// ```
     pub fn set_or_clear_user_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_signals::UserSignals>,
@@ -3689,6 +4674,13 @@ impl FraudSignals {
     }
 
     /// Sets the value of [card_signals][crate::model::FraudSignals::card_signals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudSignals;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_signals::CardSignals;
+    /// let x = FraudSignals::new().set_card_signals(CardSignals::default()/* use setters */);
+    /// ```
     pub fn set_card_signals<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::fraud_signals::CardSignals>,
@@ -3698,6 +4690,14 @@ impl FraudSignals {
     }
 
     /// Sets or clears the value of [card_signals][crate::model::FraudSignals::card_signals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FraudSignals;
+    /// use google_cloud_recaptchaenterprise_v1::model::fraud_signals::CardSignals;
+    /// let x = FraudSignals::new().set_or_clear_card_signals(Some(CardSignals::default()/* use setters */));
+    /// let x = FraudSignals::new().set_or_clear_card_signals(None::<CardSignals>);
+    /// ```
     pub fn set_or_clear_card_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_signals::CardSignals>,
@@ -3740,12 +4740,24 @@ pub mod fraud_signals {
         }
 
         /// Sets the value of [active_days_lower_bound][crate::model::fraud_signals::UserSignals::active_days_lower_bound].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::fraud_signals::UserSignals;
+        /// let x = UserSignals::new().set_active_days_lower_bound(42);
+        /// ```
         pub fn set_active_days_lower_bound<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.active_days_lower_bound = v.into();
             self
         }
 
         /// Sets the value of [synthetic_risk][crate::model::fraud_signals::UserSignals::synthetic_risk].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::fraud_signals::UserSignals;
+        /// let x = UserSignals::new().set_synthetic_risk(42.0);
+        /// ```
         pub fn set_synthetic_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.synthetic_risk = v.into();
             self
@@ -3774,6 +4786,17 @@ pub mod fraud_signals {
         }
 
         /// Sets the value of [card_labels][crate::model::fraud_signals::CardSignals::card_labels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::fraud_signals::CardSignals;
+        /// use google_cloud_recaptchaenterprise_v1::model::fraud_signals::card_signals::CardLabel;
+        /// let x = CardSignals::new().set_card_labels([
+        ///     CardLabel::Prepaid,
+        ///     CardLabel::Virtual,
+        ///     CardLabel::UnexpectedLocation,
+        /// ]);
+        /// ```
         pub fn set_card_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3963,12 +4986,27 @@ impl SmsTollFraudVerdict {
     }
 
     /// Sets the value of [risk][crate::model::SmsTollFraudVerdict::risk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SmsTollFraudVerdict;
+    /// let x = SmsTollFraudVerdict::new().set_risk(42.0);
+    /// ```
     pub fn set_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.risk = v.into();
         self
     }
 
     /// Sets the value of [reasons][crate::model::SmsTollFraudVerdict::reasons].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SmsTollFraudVerdict;
+    /// use google_cloud_recaptchaenterprise_v1::model::sms_toll_fraud_verdict::SmsTollFraudReason;
+    /// let x = SmsTollFraudVerdict::new().set_reasons([
+    ///     SmsTollFraudReason::InvalidPhoneNumber,
+    /// ]);
+    /// ```
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4133,6 +5171,13 @@ impl PhoneFraudAssessment {
     }
 
     /// Sets the value of [sms_toll_fraud_verdict][crate::model::PhoneFraudAssessment::sms_toll_fraud_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::PhoneFraudAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::SmsTollFraudVerdict;
+    /// let x = PhoneFraudAssessment::new().set_sms_toll_fraud_verdict(SmsTollFraudVerdict::default()/* use setters */);
+    /// ```
     pub fn set_sms_toll_fraud_verdict<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SmsTollFraudVerdict>,
@@ -4142,6 +5187,14 @@ impl PhoneFraudAssessment {
     }
 
     /// Sets or clears the value of [sms_toll_fraud_verdict][crate::model::PhoneFraudAssessment::sms_toll_fraud_verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::PhoneFraudAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::SmsTollFraudVerdict;
+    /// let x = PhoneFraudAssessment::new().set_or_clear_sms_toll_fraud_verdict(Some(SmsTollFraudVerdict::default()/* use setters */));
+    /// let x = PhoneFraudAssessment::new().set_or_clear_sms_toll_fraud_verdict(None::<SmsTollFraudVerdict>);
+    /// ```
     pub fn set_or_clear_sms_toll_fraud_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SmsTollFraudVerdict>,
@@ -4173,6 +5226,17 @@ impl AccountDefenderAssessment {
     }
 
     /// Sets the value of [labels][crate::model::AccountDefenderAssessment::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AccountDefenderAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::account_defender_assessment::AccountDefenderLabel;
+    /// let x = AccountDefenderAssessment::new().set_labels([
+    ///     AccountDefenderLabel::ProfileMatch,
+    ///     AccountDefenderLabel::SuspiciousLoginActivity,
+    ///     AccountDefenderLabel::SuspiciousAccountCreation,
+    /// ]);
+    /// ```
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4373,12 +5437,25 @@ impl CreateKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateKeyRequest;
+    /// let x = CreateKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::CreateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateKeyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = CreateKeyRequest::new().set_key(Key::default()/* use setters */);
+    /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -4388,6 +5465,14 @@ impl CreateKeyRequest {
     }
 
     /// Sets or clears the value of [key][crate::model::CreateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateKeyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = CreateKeyRequest::new().set_or_clear_key(Some(Key::default()/* use setters */));
+    /// let x = CreateKeyRequest::new().set_or_clear_key(None::<Key>);
+    /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -4428,18 +5513,36 @@ impl ListKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListKeysRequest;
+    /// let x = ListKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListKeysRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListKeysRequest;
+    /// let x = ListKeysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListKeysRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListKeysRequest;
+    /// let x = ListKeysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4472,6 +5575,17 @@ impl ListKeysResponse {
     }
 
     /// Sets the value of [keys][crate::model::ListKeysResponse::keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListKeysResponse;
+    /// use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = ListKeysResponse::new()
+    ///     .set_keys([
+    ///         Key::default()/* use setters */,
+    ///         Key::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4483,6 +5597,12 @@ impl ListKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListKeysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListKeysResponse;
+    /// let x = ListKeysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4526,6 +5646,12 @@ impl RetrieveLegacySecretKeyRequest {
     }
 
     /// Sets the value of [key][crate::model::RetrieveLegacySecretKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RetrieveLegacySecretKeyRequest;
+    /// let x = RetrieveLegacySecretKeyRequest::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -4555,6 +5681,12 @@ impl GetKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::GetKeyRequest;
+    /// let x = GetKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4587,6 +5719,13 @@ impl UpdateKeyRequest {
     }
 
     /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateKeyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = UpdateKeyRequest::new().set_key(Key::default()/* use setters */);
+    /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -4596,6 +5735,14 @@ impl UpdateKeyRequest {
     }
 
     /// Sets or clears the value of [key][crate::model::UpdateKeyRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateKeyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = UpdateKeyRequest::new().set_or_clear_key(Some(Key::default()/* use setters */));
+    /// let x = UpdateKeyRequest::new().set_or_clear_key(None::<Key>);
+    /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -4605,6 +5752,13 @@ impl UpdateKeyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4614,6 +5768,14 @@ impl UpdateKeyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateKeyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4646,6 +5808,12 @@ impl DeleteKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::DeleteKeyRequest;
+    /// let x = DeleteKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4678,12 +5846,25 @@ impl CreateFirewallPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFirewallPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateFirewallPolicyRequest;
+    /// let x = CreateFirewallPolicyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateFirewallPolicyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = CreateFirewallPolicyRequest::new().set_firewall_policy(FirewallPolicy::default()/* use setters */);
+    /// ```
     pub fn set_firewall_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -4693,6 +5874,14 @@ impl CreateFirewallPolicyRequest {
     }
 
     /// Sets or clears the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::CreateFirewallPolicyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = CreateFirewallPolicyRequest::new().set_or_clear_firewall_policy(Some(FirewallPolicy::default()/* use setters */));
+    /// let x = CreateFirewallPolicyRequest::new().set_or_clear_firewall_policy(None::<FirewallPolicy>);
+    /// ```
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -4733,18 +5922,36 @@ impl ListFirewallPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFirewallPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListFirewallPoliciesRequest;
+    /// let x = ListFirewallPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFirewallPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListFirewallPoliciesRequest;
+    /// let x = ListFirewallPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFirewallPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListFirewallPoliciesRequest;
+    /// let x = ListFirewallPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4777,6 +5984,17 @@ impl ListFirewallPoliciesResponse {
     }
 
     /// Sets the value of [firewall_policies][crate::model::ListFirewallPoliciesResponse::firewall_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListFirewallPoliciesResponse;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = ListFirewallPoliciesResponse::new()
+    ///     .set_firewall_policies([
+    ///         FirewallPolicy::default()/* use setters */,
+    ///         FirewallPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_firewall_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4788,6 +6006,12 @@ impl ListFirewallPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFirewallPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListFirewallPoliciesResponse;
+    /// let x = ListFirewallPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4831,6 +6055,12 @@ impl GetFirewallPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFirewallPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::GetFirewallPolicyRequest;
+    /// let x = GetFirewallPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4863,6 +6093,13 @@ impl UpdateFirewallPolicyRequest {
     }
 
     /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateFirewallPolicyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = UpdateFirewallPolicyRequest::new().set_firewall_policy(FirewallPolicy::default()/* use setters */);
+    /// ```
     pub fn set_firewall_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -4872,6 +6109,14 @@ impl UpdateFirewallPolicyRequest {
     }
 
     /// Sets or clears the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateFirewallPolicyRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = UpdateFirewallPolicyRequest::new().set_or_clear_firewall_policy(Some(FirewallPolicy::default()/* use setters */));
+    /// let x = UpdateFirewallPolicyRequest::new().set_or_clear_firewall_policy(None::<FirewallPolicy>);
+    /// ```
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -4881,6 +6126,13 @@ impl UpdateFirewallPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateFirewallPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFirewallPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4890,6 +6142,14 @@ impl UpdateFirewallPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::UpdateFirewallPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFirewallPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFirewallPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4922,6 +6182,12 @@ impl DeleteFirewallPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFirewallPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::DeleteFirewallPolicyRequest;
+    /// let x = DeleteFirewallPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4955,12 +6221,24 @@ impl ReorderFirewallPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ReorderFirewallPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ReorderFirewallPoliciesRequest;
+    /// let x = ReorderFirewallPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::ReorderFirewallPoliciesRequest::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ReorderFirewallPoliciesRequest;
+    /// let x = ReorderFirewallPoliciesRequest::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5024,12 +6302,24 @@ impl MigrateKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::MigrateKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::MigrateKeyRequest;
+    /// let x = MigrateKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [skip_billing_check][crate::model::MigrateKeyRequest::skip_billing_check].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::MigrateKeyRequest;
+    /// let x = MigrateKeyRequest::new().set_skip_billing_check(true);
+    /// ```
     pub fn set_skip_billing_check<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_billing_check = v.into();
         self
@@ -5059,6 +6349,12 @@ impl GetMetricsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMetricsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::GetMetricsRequest;
+    /// let x = GetMetricsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5101,12 +6397,25 @@ impl Metrics {
     }
 
     /// Sets the value of [name][crate::model::Metrics::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Metrics;
+    /// let x = Metrics::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::Metrics::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Metrics;
+    /// use wkt::Timestamp;
+    /// let x = Metrics::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5116,6 +6425,14 @@ impl Metrics {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Metrics::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Metrics;
+    /// use wkt::Timestamp;
+    /// let x = Metrics::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Metrics::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5125,6 +6442,17 @@ impl Metrics {
     }
 
     /// Sets the value of [score_metrics][crate::model::Metrics::score_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Metrics;
+    /// use google_cloud_recaptchaenterprise_v1::model::ScoreMetrics;
+    /// let x = Metrics::new()
+    ///     .set_score_metrics([
+    ///         ScoreMetrics::default()/* use setters */,
+    ///         ScoreMetrics::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_score_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5136,6 +6464,17 @@ impl Metrics {
     }
 
     /// Sets the value of [challenge_metrics][crate::model::Metrics::challenge_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Metrics;
+    /// use google_cloud_recaptchaenterprise_v1::model::ChallengeMetrics;
+    /// let x = Metrics::new()
+    ///     .set_challenge_metrics([
+    ///         ChallengeMetrics::default()/* use setters */,
+    ///         ChallengeMetrics::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_challenge_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5173,6 +6512,12 @@ impl RetrieveLegacySecretKeyResponse {
     }
 
     /// Sets the value of [legacy_secret_key][crate::model::RetrieveLegacySecretKeyResponse::legacy_secret_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RetrieveLegacySecretKeyResponse;
+    /// let x = RetrieveLegacySecretKeyResponse::new().set_legacy_secret_key("example");
+    /// ```
     pub fn set_legacy_secret_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5226,18 +6571,39 @@ impl Key {
     }
 
     /// Sets the value of [name][crate::model::Key::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = Key::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Key::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = Key::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Key::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// let x = Key::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5250,6 +6616,13 @@ impl Key {
     }
 
     /// Sets the value of [create_time][crate::model::Key::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5259,6 +6632,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Key::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use wkt::Timestamp;
+    /// let x = Key::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5268,6 +6649,13 @@ impl Key {
     }
 
     /// Sets the value of [testing_options][crate::model::Key::testing_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::TestingOptions;
+    /// let x = Key::new().set_testing_options(TestingOptions::default()/* use setters */);
+    /// ```
     pub fn set_testing_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TestingOptions>,
@@ -5277,6 +6665,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [testing_options][crate::model::Key::testing_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::TestingOptions;
+    /// let x = Key::new().set_or_clear_testing_options(Some(TestingOptions::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_testing_options(None::<TestingOptions>);
+    /// ```
     pub fn set_or_clear_testing_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestingOptions>,
@@ -5286,6 +6682,13 @@ impl Key {
     }
 
     /// Sets the value of [waf_settings][crate::model::Key::waf_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::WafSettings;
+    /// let x = Key::new().set_waf_settings(WafSettings::default()/* use setters */);
+    /// ```
     pub fn set_waf_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WafSettings>,
@@ -5295,6 +6698,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [waf_settings][crate::model::Key::waf_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::WafSettings;
+    /// let x = Key::new().set_or_clear_waf_settings(Some(WafSettings::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_waf_settings(None::<WafSettings>);
+    /// ```
     pub fn set_or_clear_waf_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WafSettings>,
@@ -5307,6 +6718,14 @@ impl Key {
     ///
     /// Note that all the setters affecting `platform_settings` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// let x = Key::new().set_platform_settings(Some(
+    ///     google_cloud_recaptchaenterprise_v1::model::key::PlatformSettings::WebSettings(WebKeySettings::default().into())));
+    /// ```
     pub fn set_platform_settings<
         T: std::convert::Into<std::option::Option<crate::model::key::PlatformSettings>>,
     >(
@@ -5335,6 +6754,17 @@ impl Key {
     ///
     /// Note that all the setters affecting `platform_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// let x = Key::new().set_web_settings(WebKeySettings::default()/* use setters */);
+    /// assert!(x.web_settings().is_some());
+    /// assert!(x.android_settings().is_none());
+    /// assert!(x.ios_settings().is_none());
+    /// assert!(x.express_settings().is_none());
+    /// ```
     pub fn set_web_settings<
         T: std::convert::Into<std::boxed::Box<crate::model::WebKeySettings>>,
     >(
@@ -5364,6 +6794,17 @@ impl Key {
     ///
     /// Note that all the setters affecting `platform_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::AndroidKeySettings;
+    /// let x = Key::new().set_android_settings(AndroidKeySettings::default()/* use setters */);
+    /// assert!(x.android_settings().is_some());
+    /// assert!(x.web_settings().is_none());
+    /// assert!(x.ios_settings().is_none());
+    /// assert!(x.express_settings().is_none());
+    /// ```
     pub fn set_android_settings<
         T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeySettings>>,
     >(
@@ -5394,6 +6835,17 @@ impl Key {
     ///
     /// Note that all the setters affecting `platform_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::IOSKeySettings;
+    /// let x = Key::new().set_ios_settings(IOSKeySettings::default()/* use setters */);
+    /// assert!(x.ios_settings().is_some());
+    /// assert!(x.web_settings().is_none());
+    /// assert!(x.android_settings().is_none());
+    /// assert!(x.express_settings().is_none());
+    /// ```
     pub fn set_ios_settings<
         T: std::convert::Into<std::boxed::Box<crate::model::IOSKeySettings>>,
     >(
@@ -5423,6 +6875,17 @@ impl Key {
     ///
     /// Note that all the setters affecting `platform_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::Key;
+    /// use google_cloud_recaptchaenterprise_v1::model::ExpressKeySettings;
+    /// let x = Key::new().set_express_settings(ExpressKeySettings::default()/* use setters */);
+    /// assert!(x.express_settings().is_some());
+    /// assert!(x.web_settings().is_none());
+    /// assert!(x.android_settings().is_none());
+    /// assert!(x.ios_settings().is_none());
+    /// ```
     pub fn set_express_settings<
         T: std::convert::Into<std::boxed::Box<crate::model::ExpressKeySettings>>,
     >(
@@ -5485,12 +6948,26 @@ impl TestingOptions {
     }
 
     /// Sets the value of [testing_score][crate::model::TestingOptions::testing_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TestingOptions;
+    /// let x = TestingOptions::new().set_testing_score(42.0);
+    /// ```
     pub fn set_testing_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.testing_score = v.into();
         self
     }
 
     /// Sets the value of [testing_challenge][crate::model::TestingOptions::testing_challenge].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::TestingOptions;
+    /// use google_cloud_recaptchaenterprise_v1::model::testing_options::TestingChallenge;
+    /// let x0 = TestingOptions::new().set_testing_challenge(TestingChallenge::Nocaptcha);
+    /// let x1 = TestingOptions::new().set_testing_challenge(TestingChallenge::UnsolvableChallenge);
+    /// ```
     pub fn set_testing_challenge<
         T: std::convert::Into<crate::model::testing_options::TestingChallenge>,
     >(
@@ -5684,12 +7161,24 @@ impl WebKeySettings {
     }
 
     /// Sets the value of [allow_all_domains][crate::model::WebKeySettings::allow_all_domains].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// let x = WebKeySettings::new().set_allow_all_domains(true);
+    /// ```
     pub fn set_allow_all_domains<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all_domains = v.into();
         self
     }
 
     /// Sets the value of [allowed_domains][crate::model::WebKeySettings::allowed_domains].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// let x = WebKeySettings::new().set_allowed_domains(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5701,12 +7190,27 @@ impl WebKeySettings {
     }
 
     /// Sets the value of [allow_amp_traffic][crate::model::WebKeySettings::allow_amp_traffic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// let x = WebKeySettings::new().set_allow_amp_traffic(true);
+    /// ```
     pub fn set_allow_amp_traffic<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_amp_traffic = v.into();
         self
     }
 
     /// Sets the value of [integration_type][crate::model::WebKeySettings::integration_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::web_key_settings::IntegrationType;
+    /// let x0 = WebKeySettings::new().set_integration_type(IntegrationType::Score);
+    /// let x1 = WebKeySettings::new().set_integration_type(IntegrationType::Checkbox);
+    /// let x2 = WebKeySettings::new().set_integration_type(IntegrationType::Invisible);
+    /// ```
     pub fn set_integration_type<
         T: std::convert::Into<crate::model::web_key_settings::IntegrationType>,
     >(
@@ -5718,6 +7222,15 @@ impl WebKeySettings {
     }
 
     /// Sets the value of [challenge_security_preference][crate::model::WebKeySettings::challenge_security_preference].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::WebKeySettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::web_key_settings::ChallengeSecurityPreference;
+    /// let x0 = WebKeySettings::new().set_challenge_security_preference(ChallengeSecurityPreference::Usability);
+    /// let x1 = WebKeySettings::new().set_challenge_security_preference(ChallengeSecurityPreference::Balance);
+    /// let x2 = WebKeySettings::new().set_challenge_security_preference(ChallengeSecurityPreference::Security);
+    /// ```
     pub fn set_challenge_security_preference<
         T: std::convert::Into<crate::model::web_key_settings::ChallengeSecurityPreference>,
     >(
@@ -6051,12 +7564,24 @@ impl AndroidKeySettings {
     }
 
     /// Sets the value of [allow_all_package_names][crate::model::AndroidKeySettings::allow_all_package_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AndroidKeySettings;
+    /// let x = AndroidKeySettings::new().set_allow_all_package_names(true);
+    /// ```
     pub fn set_allow_all_package_names<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all_package_names = v.into();
         self
     }
 
     /// Sets the value of [allowed_package_names][crate::model::AndroidKeySettings::allowed_package_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AndroidKeySettings;
+    /// let x = AndroidKeySettings::new().set_allowed_package_names(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_package_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6068,6 +7593,12 @@ impl AndroidKeySettings {
     }
 
     /// Sets the value of [support_non_google_app_store_distribution][crate::model::AndroidKeySettings::support_non_google_app_store_distribution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AndroidKeySettings;
+    /// let x = AndroidKeySettings::new().set_support_non_google_app_store_distribution(true);
+    /// ```
     pub fn set_support_non_google_app_store_distribution<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6110,12 +7641,24 @@ impl IOSKeySettings {
     }
 
     /// Sets the value of [allow_all_bundle_ids][crate::model::IOSKeySettings::allow_all_bundle_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::IOSKeySettings;
+    /// let x = IOSKeySettings::new().set_allow_all_bundle_ids(true);
+    /// ```
     pub fn set_allow_all_bundle_ids<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all_bundle_ids = v.into();
         self
     }
 
     /// Sets the value of [allowed_bundle_ids][crate::model::IOSKeySettings::allowed_bundle_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::IOSKeySettings;
+    /// let x = IOSKeySettings::new().set_allowed_bundle_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_bundle_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6127,6 +7670,13 @@ impl IOSKeySettings {
     }
 
     /// Sets the value of [apple_developer_id][crate::model::IOSKeySettings::apple_developer_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::IOSKeySettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::AppleDeveloperId;
+    /// let x = IOSKeySettings::new().set_apple_developer_id(AppleDeveloperId::default()/* use setters */);
+    /// ```
     pub fn set_apple_developer_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppleDeveloperId>,
@@ -6136,6 +7686,14 @@ impl IOSKeySettings {
     }
 
     /// Sets or clears the value of [apple_developer_id][crate::model::IOSKeySettings::apple_developer_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::IOSKeySettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::AppleDeveloperId;
+    /// let x = IOSKeySettings::new().set_or_clear_apple_developer_id(Some(AppleDeveloperId::default()/* use setters */));
+    /// let x = IOSKeySettings::new().set_or_clear_apple_developer_id(None::<AppleDeveloperId>);
+    /// ```
     pub fn set_or_clear_apple_developer_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppleDeveloperId>,
@@ -6195,18 +7753,36 @@ impl AppleDeveloperId {
     }
 
     /// Sets the value of [private_key][crate::model::AppleDeveloperId::private_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AppleDeveloperId;
+    /// let x = AppleDeveloperId::new().set_private_key("example");
+    /// ```
     pub fn set_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_key = v.into();
         self
     }
 
     /// Sets the value of [key_id][crate::model::AppleDeveloperId::key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AppleDeveloperId;
+    /// let x = AppleDeveloperId::new().set_key_id("example");
+    /// ```
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
     /// Sets the value of [team_id][crate::model::AppleDeveloperId::team_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AppleDeveloperId;
+    /// let x = AppleDeveloperId::new().set_team_id("example");
+    /// ```
     pub fn set_team_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.team_id = v.into();
         self
@@ -6237,6 +7813,15 @@ impl ScoreDistribution {
     }
 
     /// Sets the value of [score_buckets][crate::model::ScoreDistribution::score_buckets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ScoreDistribution;
+    /// let x = ScoreDistribution::new().set_score_buckets([
+    ///     (0, 123),
+    ///     (1, 456),
+    /// ]);
+    /// ```
     pub fn set_score_buckets<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6276,6 +7861,13 @@ impl ScoreMetrics {
     }
 
     /// Sets the value of [overall_metrics][crate::model::ScoreMetrics::overall_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ScoreMetrics;
+    /// use google_cloud_recaptchaenterprise_v1::model::ScoreDistribution;
+    /// let x = ScoreMetrics::new().set_overall_metrics(ScoreDistribution::default()/* use setters */);
+    /// ```
     pub fn set_overall_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScoreDistribution>,
@@ -6285,6 +7877,14 @@ impl ScoreMetrics {
     }
 
     /// Sets or clears the value of [overall_metrics][crate::model::ScoreMetrics::overall_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ScoreMetrics;
+    /// use google_cloud_recaptchaenterprise_v1::model::ScoreDistribution;
+    /// let x = ScoreMetrics::new().set_or_clear_overall_metrics(Some(ScoreDistribution::default()/* use setters */));
+    /// let x = ScoreMetrics::new().set_or_clear_overall_metrics(None::<ScoreDistribution>);
+    /// ```
     pub fn set_or_clear_overall_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScoreDistribution>,
@@ -6294,6 +7894,16 @@ impl ScoreMetrics {
     }
 
     /// Sets the value of [action_metrics][crate::model::ScoreMetrics::action_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ScoreMetrics;
+    /// use google_cloud_recaptchaenterprise_v1::model::ScoreDistribution;
+    /// let x = ScoreMetrics::new().set_action_metrics([
+    ///     ("key0", ScoreDistribution::default()/* use setters */),
+    ///     ("key1", ScoreDistribution::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_action_metrics<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6341,24 +7951,48 @@ impl ChallengeMetrics {
     }
 
     /// Sets the value of [pageload_count][crate::model::ChallengeMetrics::pageload_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ChallengeMetrics;
+    /// let x = ChallengeMetrics::new().set_pageload_count(42);
+    /// ```
     pub fn set_pageload_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.pageload_count = v.into();
         self
     }
 
     /// Sets the value of [nocaptcha_count][crate::model::ChallengeMetrics::nocaptcha_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ChallengeMetrics;
+    /// let x = ChallengeMetrics::new().set_nocaptcha_count(42);
+    /// ```
     pub fn set_nocaptcha_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.nocaptcha_count = v.into();
         self
     }
 
     /// Sets the value of [failed_count][crate::model::ChallengeMetrics::failed_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ChallengeMetrics;
+    /// let x = ChallengeMetrics::new().set_failed_count(42);
+    /// ```
     pub fn set_failed_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_count = v.into();
         self
     }
 
     /// Sets the value of [passed_count][crate::model::ChallengeMetrics::passed_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ChallengeMetrics;
+    /// let x = ChallengeMetrics::new().set_passed_count(42);
+    /// ```
     pub fn set_passed_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.passed_count = v.into();
         self
@@ -6393,6 +8027,13 @@ impl FirewallPolicyAssessment {
     }
 
     /// Sets the value of [error][crate::model::FirewallPolicyAssessment::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
+    /// use rpc::model::Status;
+    /// let x = FirewallPolicyAssessment::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6402,6 +8043,14 @@ impl FirewallPolicyAssessment {
     }
 
     /// Sets or clears the value of [error][crate::model::FirewallPolicyAssessment::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
+    /// use rpc::model::Status;
+    /// let x = FirewallPolicyAssessment::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = FirewallPolicyAssessment::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6411,6 +8060,13 @@ impl FirewallPolicyAssessment {
     }
 
     /// Sets the value of [firewall_policy][crate::model::FirewallPolicyAssessment::firewall_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = FirewallPolicyAssessment::new().set_firewall_policy(FirewallPolicy::default()/* use setters */);
+    /// ```
     pub fn set_firewall_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -6420,6 +8076,14 @@ impl FirewallPolicyAssessment {
     }
 
     /// Sets or clears the value of [firewall_policy][crate::model::FirewallPolicyAssessment::firewall_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicyAssessment;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = FirewallPolicyAssessment::new().set_or_clear_firewall_policy(Some(FirewallPolicy::default()/* use setters */));
+    /// let x = FirewallPolicyAssessment::new().set_or_clear_firewall_policy(None::<FirewallPolicy>);
+    /// ```
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -6455,6 +8119,14 @@ impl FirewallAction {
     ///
     /// Note that all the setters affecting `firewall_action_oneof` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// use google_cloud_recaptchaenterprise_v1::model::firewall_action::AllowAction;
+    /// let x = FirewallAction::new().set_firewall_action_oneof(Some(
+    ///     google_cloud_recaptchaenterprise_v1::model::firewall_action::FirewallActionOneof::Allow(AllowAction::default().into())));
+    /// ```
     pub fn set_firewall_action_oneof<
         T: std::convert::Into<std::option::Option<crate::model::firewall_action::FirewallActionOneof>>,
     >(
@@ -6485,6 +8157,19 @@ impl FirewallAction {
     ///
     /// Note that all the setters affecting `firewall_action_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// use google_cloud_recaptchaenterprise_v1::model::firewall_action::AllowAction;
+    /// let x = FirewallAction::new().set_allow(AllowAction::default()/* use setters */);
+    /// assert!(x.allow().is_some());
+    /// assert!(x.block().is_none());
+    /// assert!(x.include_recaptcha_script().is_none());
+    /// assert!(x.redirect().is_none());
+    /// assert!(x.substitute().is_none());
+    /// assert!(x.set_header().is_none());
+    /// ```
     pub fn set_allow<
         T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::AllowAction>>,
     >(
@@ -6517,6 +8202,19 @@ impl FirewallAction {
     ///
     /// Note that all the setters affecting `firewall_action_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// use google_cloud_recaptchaenterprise_v1::model::firewall_action::BlockAction;
+    /// let x = FirewallAction::new().set_block(BlockAction::default()/* use setters */);
+    /// assert!(x.block().is_some());
+    /// assert!(x.allow().is_none());
+    /// assert!(x.include_recaptcha_script().is_none());
+    /// assert!(x.redirect().is_none());
+    /// assert!(x.substitute().is_none());
+    /// assert!(x.set_header().is_none());
+    /// ```
     pub fn set_block<
         T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::BlockAction>>,
     >(
@@ -6551,6 +8249,19 @@ impl FirewallAction {
     ///
     /// Note that all the setters affecting `firewall_action_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// use google_cloud_recaptchaenterprise_v1::model::firewall_action::IncludeRecaptchaScriptAction;
+    /// let x = FirewallAction::new().set_include_recaptcha_script(IncludeRecaptchaScriptAction::default()/* use setters */);
+    /// assert!(x.include_recaptcha_script().is_some());
+    /// assert!(x.allow().is_none());
+    /// assert!(x.block().is_none());
+    /// assert!(x.redirect().is_none());
+    /// assert!(x.substitute().is_none());
+    /// assert!(x.set_header().is_none());
+    /// ```
     pub fn set_include_recaptcha_script<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
@@ -6585,6 +8296,19 @@ impl FirewallAction {
     ///
     /// Note that all the setters affecting `firewall_action_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// use google_cloud_recaptchaenterprise_v1::model::firewall_action::RedirectAction;
+    /// let x = FirewallAction::new().set_redirect(RedirectAction::default()/* use setters */);
+    /// assert!(x.redirect().is_some());
+    /// assert!(x.allow().is_none());
+    /// assert!(x.block().is_none());
+    /// assert!(x.include_recaptcha_script().is_none());
+    /// assert!(x.substitute().is_none());
+    /// assert!(x.set_header().is_none());
+    /// ```
     pub fn set_redirect<
         T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::RedirectAction>>,
     >(
@@ -6618,6 +8342,19 @@ impl FirewallAction {
     ///
     /// Note that all the setters affecting `firewall_action_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// use google_cloud_recaptchaenterprise_v1::model::firewall_action::SubstituteAction;
+    /// let x = FirewallAction::new().set_substitute(SubstituteAction::default()/* use setters */);
+    /// assert!(x.substitute().is_some());
+    /// assert!(x.allow().is_none());
+    /// assert!(x.block().is_none());
+    /// assert!(x.include_recaptcha_script().is_none());
+    /// assert!(x.redirect().is_none());
+    /// assert!(x.set_header().is_none());
+    /// ```
     pub fn set_substitute<
         T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SubstituteAction>>,
     >(
@@ -6650,6 +8387,19 @@ impl FirewallAction {
     ///
     /// Note that all the setters affecting `firewall_action_oneof` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// use google_cloud_recaptchaenterprise_v1::model::firewall_action::SetHeaderAction;
+    /// let x = FirewallAction::new().set_set_header(SetHeaderAction::default()/* use setters */);
+    /// assert!(x.set_header().is_some());
+    /// assert!(x.allow().is_none());
+    /// assert!(x.block().is_none());
+    /// assert!(x.include_recaptcha_script().is_none());
+    /// assert!(x.redirect().is_none());
+    /// assert!(x.substitute().is_none());
+    /// ```
     pub fn set_set_header<
         T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SetHeaderAction>>,
     >(
@@ -6774,6 +8524,12 @@ pub mod firewall_action {
         }
 
         /// Sets the value of [path][crate::model::firewall_action::SubstituteAction::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::firewall_action::SubstituteAction;
+        /// let x = SubstituteAction::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
@@ -6807,12 +8563,24 @@ pub mod firewall_action {
         }
 
         /// Sets the value of [key][crate::model::firewall_action::SetHeaderAction::key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::firewall_action::SetHeaderAction;
+        /// let x = SetHeaderAction::new().set_key("example");
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::firewall_action::SetHeaderAction::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_recaptchaenterprise_v1::model::firewall_action::SetHeaderAction;
+        /// let x = SetHeaderAction::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -6899,30 +8667,65 @@ impl FirewallPolicy {
     }
 
     /// Sets the value of [name][crate::model::FirewallPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = FirewallPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::FirewallPolicy::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = FirewallPolicy::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::FirewallPolicy::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = FirewallPolicy::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::FirewallPolicy::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// let x = FirewallPolicy::new().set_condition("example");
+    /// ```
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
         self
     }
 
     /// Sets the value of [actions][crate::model::FirewallPolicy::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::FirewallPolicy;
+    /// use google_cloud_recaptchaenterprise_v1::model::FirewallAction;
+    /// let x = FirewallPolicy::new()
+    ///     .set_actions([
+    ///         FirewallAction::default()/* use setters */,
+    ///         FirewallAction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6970,18 +8773,36 @@ impl ListRelatedAccountGroupMembershipsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRelatedAccountGroupMembershipsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupMembershipsRequest;
+    /// let x = ListRelatedAccountGroupMembershipsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRelatedAccountGroupMembershipsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupMembershipsRequest;
+    /// let x = ListRelatedAccountGroupMembershipsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRelatedAccountGroupMembershipsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupMembershipsRequest;
+    /// let x = ListRelatedAccountGroupMembershipsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7015,6 +8836,17 @@ impl ListRelatedAccountGroupMembershipsResponse {
     }
 
     /// Sets the value of [related_account_group_memberships][crate::model::ListRelatedAccountGroupMembershipsResponse::related_account_group_memberships].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupMembershipsResponse;
+    /// use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroupMembership;
+    /// let x = ListRelatedAccountGroupMembershipsResponse::new()
+    ///     .set_related_account_group_memberships([
+    ///         RelatedAccountGroupMembership::default()/* use setters */,
+    ///         RelatedAccountGroupMembership::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_account_group_memberships<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7026,6 +8858,12 @@ impl ListRelatedAccountGroupMembershipsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupMembershipsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupMembershipsResponse;
+    /// let x = ListRelatedAccountGroupMembershipsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7082,18 +8920,36 @@ impl ListRelatedAccountGroupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRelatedAccountGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupsRequest;
+    /// let x = ListRelatedAccountGroupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRelatedAccountGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupsRequest;
+    /// let x = ListRelatedAccountGroupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRelatedAccountGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupsRequest;
+    /// let x = ListRelatedAccountGroupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7126,6 +8982,17 @@ impl ListRelatedAccountGroupsResponse {
     }
 
     /// Sets the value of [related_account_groups][crate::model::ListRelatedAccountGroupsResponse::related_account_groups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupsResponse;
+    /// use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroup;
+    /// let x = ListRelatedAccountGroupsResponse::new()
+    ///     .set_related_account_groups([
+    ///         RelatedAccountGroup::default()/* use setters */,
+    ///         RelatedAccountGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_account_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7137,6 +9004,12 @@ impl ListRelatedAccountGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListRelatedAccountGroupsResponse;
+    /// let x = ListRelatedAccountGroupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7209,18 +9082,36 @@ impl SearchRelatedAccountGroupMembershipsRequest {
     }
 
     /// Sets the value of [project][crate::model::SearchRelatedAccountGroupMembershipsRequest::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SearchRelatedAccountGroupMembershipsRequest;
+    /// let x = SearchRelatedAccountGroupMembershipsRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [account_id][crate::model::SearchRelatedAccountGroupMembershipsRequest::account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SearchRelatedAccountGroupMembershipsRequest;
+    /// let x = SearchRelatedAccountGroupMembershipsRequest::new().set_account_id("example");
+    /// ```
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
         self
     }
 
     /// Sets the value of [hashed_account_id][crate::model::SearchRelatedAccountGroupMembershipsRequest::hashed_account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SearchRelatedAccountGroupMembershipsRequest;
+    /// let x = SearchRelatedAccountGroupMembershipsRequest::new().set_hashed_account_id(bytes::Bytes::from_static(b"example"));
+    /// ```
     #[deprecated]
     pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
@@ -7228,12 +9119,24 @@ impl SearchRelatedAccountGroupMembershipsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::SearchRelatedAccountGroupMembershipsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SearchRelatedAccountGroupMembershipsRequest;
+    /// let x = SearchRelatedAccountGroupMembershipsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchRelatedAccountGroupMembershipsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SearchRelatedAccountGroupMembershipsRequest;
+    /// let x = SearchRelatedAccountGroupMembershipsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7267,6 +9170,17 @@ impl SearchRelatedAccountGroupMembershipsResponse {
     }
 
     /// Sets the value of [related_account_group_memberships][crate::model::SearchRelatedAccountGroupMembershipsResponse::related_account_group_memberships].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SearchRelatedAccountGroupMembershipsResponse;
+    /// use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroupMembership;
+    /// let x = SearchRelatedAccountGroupMembershipsResponse::new()
+    ///     .set_related_account_group_memberships([
+    ///         RelatedAccountGroupMembership::default()/* use setters */,
+    ///         RelatedAccountGroupMembership::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_account_group_memberships<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7278,6 +9192,12 @@ impl SearchRelatedAccountGroupMembershipsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchRelatedAccountGroupMembershipsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::SearchRelatedAccountGroupMembershipsResponse;
+    /// let x = SearchRelatedAccountGroupMembershipsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7324,12 +9244,25 @@ impl AddIpOverrideRequest {
     }
 
     /// Sets the value of [name][crate::model::AddIpOverrideRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AddIpOverrideRequest;
+    /// let x = AddIpOverrideRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AddIpOverrideRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::IpOverrideData;
+    /// let x = AddIpOverrideRequest::new().set_ip_override_data(IpOverrideData::default()/* use setters */);
+    /// ```
     pub fn set_ip_override_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IpOverrideData>,
@@ -7339,6 +9272,14 @@ impl AddIpOverrideRequest {
     }
 
     /// Sets or clears the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AddIpOverrideRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::IpOverrideData;
+    /// let x = AddIpOverrideRequest::new().set_or_clear_ip_override_data(Some(IpOverrideData::default()/* use setters */));
+    /// let x = AddIpOverrideRequest::new().set_or_clear_ip_override_data(None::<IpOverrideData>);
+    /// ```
     pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IpOverrideData>,
@@ -7393,12 +9334,25 @@ impl RemoveIpOverrideRequest {
     }
 
     /// Sets the value of [name][crate::model::RemoveIpOverrideRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RemoveIpOverrideRequest;
+    /// let x = RemoveIpOverrideRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RemoveIpOverrideRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::IpOverrideData;
+    /// let x = RemoveIpOverrideRequest::new().set_ip_override_data(IpOverrideData::default()/* use setters */);
+    /// ```
     pub fn set_ip_override_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IpOverrideData>,
@@ -7408,6 +9362,14 @@ impl RemoveIpOverrideRequest {
     }
 
     /// Sets or clears the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RemoveIpOverrideRequest;
+    /// use google_cloud_recaptchaenterprise_v1::model::IpOverrideData;
+    /// let x = RemoveIpOverrideRequest::new().set_or_clear_ip_override_data(Some(IpOverrideData::default()/* use setters */));
+    /// let x = RemoveIpOverrideRequest::new().set_or_clear_ip_override_data(None::<IpOverrideData>);
+    /// ```
     pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IpOverrideData>,
@@ -7469,18 +9431,36 @@ impl ListIpOverridesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIpOverridesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListIpOverridesRequest;
+    /// let x = ListIpOverridesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIpOverridesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListIpOverridesRequest;
+    /// let x = ListIpOverridesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIpOverridesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListIpOverridesRequest;
+    /// let x = ListIpOverridesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7513,6 +9493,17 @@ impl ListIpOverridesResponse {
     }
 
     /// Sets the value of [ip_overrides][crate::model::ListIpOverridesResponse::ip_overrides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListIpOverridesResponse;
+    /// use google_cloud_recaptchaenterprise_v1::model::IpOverrideData;
+    /// let x = ListIpOverridesResponse::new()
+    ///     .set_ip_overrides([
+    ///         IpOverrideData::default()/* use setters */,
+    ///         IpOverrideData::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ip_overrides<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7524,6 +9515,12 @@ impl ListIpOverridesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIpOverridesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::ListIpOverridesResponse;
+    /// let x = ListIpOverridesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7579,18 +9576,36 @@ impl RelatedAccountGroupMembership {
     }
 
     /// Sets the value of [name][crate::model::RelatedAccountGroupMembership::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroupMembership;
+    /// let x = RelatedAccountGroupMembership::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [account_id][crate::model::RelatedAccountGroupMembership::account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroupMembership;
+    /// let x = RelatedAccountGroupMembership::new().set_account_id("example");
+    /// ```
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
         self
     }
 
     /// Sets the value of [hashed_account_id][crate::model::RelatedAccountGroupMembership::hashed_account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroupMembership;
+    /// let x = RelatedAccountGroupMembership::new().set_hashed_account_id(bytes::Bytes::from_static(b"example"));
+    /// ```
     #[deprecated]
     pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
@@ -7622,6 +9637,12 @@ impl RelatedAccountGroup {
     }
 
     /// Sets the value of [name][crate::model::RelatedAccountGroup::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::RelatedAccountGroup;
+    /// let x = RelatedAccountGroup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7654,6 +9675,15 @@ impl WafSettings {
     }
 
     /// Sets the value of [waf_service][crate::model::WafSettings::waf_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::WafSettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::waf_settings::WafService;
+    /// let x0 = WafSettings::new().set_waf_service(WafService::Ca);
+    /// let x1 = WafSettings::new().set_waf_service(WafService::Fastly);
+    /// let x2 = WafSettings::new().set_waf_service(WafService::Cloudflare);
+    /// ```
     pub fn set_waf_service<T: std::convert::Into<crate::model::waf_settings::WafService>>(
         mut self,
         v: T,
@@ -7663,6 +9693,15 @@ impl WafSettings {
     }
 
     /// Sets the value of [waf_feature][crate::model::WafSettings::waf_feature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::WafSettings;
+    /// use google_cloud_recaptchaenterprise_v1::model::waf_settings::WafFeature;
+    /// let x0 = WafSettings::new().set_waf_feature(WafFeature::ChallengePage);
+    /// let x1 = WafSettings::new().set_waf_feature(WafFeature::SessionToken);
+    /// let x2 = WafSettings::new().set_waf_feature(WafFeature::ActionToken);
+    /// ```
     pub fn set_waf_feature<T: std::convert::Into<crate::model::waf_settings::WafFeature>>(
         mut self,
         v: T,
@@ -8006,12 +10045,24 @@ impl AssessmentEnvironment {
     }
 
     /// Sets the value of [client][crate::model::AssessmentEnvironment::client].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AssessmentEnvironment;
+    /// let x = AssessmentEnvironment::new().set_client("example");
+    /// ```
     pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::AssessmentEnvironment::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::AssessmentEnvironment;
+    /// let x = AssessmentEnvironment::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -8049,12 +10100,25 @@ impl IpOverrideData {
     }
 
     /// Sets the value of [ip][crate::model::IpOverrideData::ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::IpOverrideData;
+    /// let x = IpOverrideData::new().set_ip("example");
+    /// ```
     pub fn set_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip = v.into();
         self
     }
 
     /// Sets the value of [override_type][crate::model::IpOverrideData::override_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::model::IpOverrideData;
+    /// use google_cloud_recaptchaenterprise_v1::model::ip_override_data::OverrideType;
+    /// let x0 = IpOverrideData::new().set_override_type(OverrideType::Allow);
+    /// ```
     pub fn set_override_type<
         T: std::convert::Into<crate::model::ip_override_data::OverrideType>,
     >(

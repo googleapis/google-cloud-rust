@@ -56,6 +56,12 @@ impl AlertChart {
     }
 
     /// Sets the value of [name][crate::model::AlertChart::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::AlertChart;
+    /// let x = AlertChart::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -85,6 +91,12 @@ impl CollapsibleGroup {
     }
 
     /// Sets the value of [collapsed][crate::model::CollapsibleGroup::collapsed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::CollapsibleGroup;
+    /// let x = CollapsibleGroup::new().set_collapsed(true);
+    /// ```
     pub fn set_collapsed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.collapsed = v.into();
         self
@@ -199,6 +211,13 @@ impl Aggregation {
     }
 
     /// Sets the value of [alignment_period][crate::model::Aggregation::alignment_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// use wkt::Duration;
+    /// let x = Aggregation::new().set_alignment_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_alignment_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -208,6 +227,14 @@ impl Aggregation {
     }
 
     /// Sets or clears the value of [alignment_period][crate::model::Aggregation::alignment_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// use wkt::Duration;
+    /// let x = Aggregation::new().set_or_clear_alignment_period(Some(Duration::default()/* use setters */));
+    /// let x = Aggregation::new().set_or_clear_alignment_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -217,6 +244,15 @@ impl Aggregation {
     }
 
     /// Sets the value of [per_series_aligner][crate::model::Aggregation::per_series_aligner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// use google_cloud_monitoring_dashboard_v1::model::aggregation::Aligner;
+    /// let x0 = Aggregation::new().set_per_series_aligner(Aligner::AlignDelta);
+    /// let x1 = Aggregation::new().set_per_series_aligner(Aligner::AlignRate);
+    /// let x2 = Aggregation::new().set_per_series_aligner(Aligner::AlignInterpolate);
+    /// ```
     pub fn set_per_series_aligner<T: std::convert::Into<crate::model::aggregation::Aligner>>(
         mut self,
         v: T,
@@ -226,6 +262,15 @@ impl Aggregation {
     }
 
     /// Sets the value of [cross_series_reducer][crate::model::Aggregation::cross_series_reducer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// use google_cloud_monitoring_dashboard_v1::model::aggregation::Reducer;
+    /// let x0 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMean);
+    /// let x1 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMin);
+    /// let x2 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMax);
+    /// ```
     pub fn set_cross_series_reducer<T: std::convert::Into<crate::model::aggregation::Reducer>>(
         mut self,
         v: T,
@@ -235,6 +280,12 @@ impl Aggregation {
     }
 
     /// Sets the value of [group_by_fields][crate::model::Aggregation::group_by_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// let x = Aggregation::new().set_group_by_fields(["a", "b", "c"]);
+    /// ```
     pub fn set_group_by_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -893,6 +944,15 @@ impl PickTimeSeriesFilter {
     }
 
     /// Sets the value of [ranking_method][crate::model::PickTimeSeriesFilter::ranking_method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::pick_time_series_filter::Method;
+    /// let x0 = PickTimeSeriesFilter::new().set_ranking_method(Method::Mean);
+    /// let x1 = PickTimeSeriesFilter::new().set_ranking_method(Method::Max);
+    /// let x2 = PickTimeSeriesFilter::new().set_ranking_method(Method::Min);
+    /// ```
     pub fn set_ranking_method<
         T: std::convert::Into<crate::model::pick_time_series_filter::Method>,
     >(
@@ -904,12 +964,26 @@ impl PickTimeSeriesFilter {
     }
 
     /// Sets the value of [num_time_series][crate::model::PickTimeSeriesFilter::num_time_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// let x = PickTimeSeriesFilter::new().set_num_time_series(42);
+    /// ```
     pub fn set_num_time_series<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.num_time_series = v.into();
         self
     }
 
     /// Sets the value of [direction][crate::model::PickTimeSeriesFilter::direction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::pick_time_series_filter::Direction;
+    /// let x0 = PickTimeSeriesFilter::new().set_direction(Direction::Top);
+    /// let x1 = PickTimeSeriesFilter::new().set_direction(Direction::Bottom);
+    /// ```
     pub fn set_direction<
         T: std::convert::Into<crate::model::pick_time_series_filter::Direction>,
     >(
@@ -921,6 +995,13 @@ impl PickTimeSeriesFilter {
     }
 
     /// Sets the value of [interval][crate::model::PickTimeSeriesFilter::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// use gtype::model::Interval;
+    /// let x = PickTimeSeriesFilter::new().set_interval(Interval::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -930,6 +1011,14 @@ impl PickTimeSeriesFilter {
     }
 
     /// Sets or clears the value of [interval][crate::model::PickTimeSeriesFilter::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// use gtype::model::Interval;
+    /// let x = PickTimeSeriesFilter::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
+    /// let x = PickTimeSeriesFilter::new().set_or_clear_interval(None::<Interval>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -1263,6 +1352,13 @@ impl StatisticalTimeSeriesFilter {
     }
 
     /// Sets the value of [ranking_method][crate::model::StatisticalTimeSeriesFilter::ranking_method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::StatisticalTimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::statistical_time_series_filter::Method;
+    /// let x0 = StatisticalTimeSeriesFilter::new().set_ranking_method(Method::ClusterOutlier);
+    /// ```
     pub fn set_ranking_method<
         T: std::convert::Into<crate::model::statistical_time_series_filter::Method>,
     >(
@@ -1274,6 +1370,12 @@ impl StatisticalTimeSeriesFilter {
     }
 
     /// Sets the value of [num_time_series][crate::model::StatisticalTimeSeriesFilter::num_time_series].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::StatisticalTimeSeriesFilter;
+    /// let x = StatisticalTimeSeriesFilter::new().set_num_time_series(42);
+    /// ```
     pub fn set_num_time_series<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.num_time_series = v.into();
         self
@@ -1455,24 +1557,53 @@ impl Dashboard {
     }
 
     /// Sets the value of [name][crate::model::Dashboard::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = Dashboard::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Dashboard::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = Dashboard::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Dashboard::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = Dashboard::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [dashboard_filters][crate::model::Dashboard::dashboard_filters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::model::DashboardFilter;
+    /// let x = Dashboard::new()
+    ///     .set_dashboard_filters([
+    ///         DashboardFilter::default()/* use setters */,
+    ///         DashboardFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dashboard_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1484,6 +1615,15 @@ impl Dashboard {
     }
 
     /// Sets the value of [labels][crate::model::Dashboard::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = Dashboard::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1499,6 +1639,14 @@ impl Dashboard {
     ///
     /// Note that all the setters affecting `layout` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::model::GridLayout;
+    /// let x = Dashboard::new().set_layout(Some(
+    ///     google_cloud_monitoring_dashboard_v1::model::dashboard::Layout::GridLayout(GridLayout::default().into())));
+    /// ```
     pub fn set_layout<
         T: std::convert::Into<std::option::Option<crate::model::dashboard::Layout>>,
     >(
@@ -1525,6 +1673,17 @@ impl Dashboard {
     ///
     /// Note that all the setters affecting `layout` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::model::GridLayout;
+    /// let x = Dashboard::new().set_grid_layout(GridLayout::default()/* use setters */);
+    /// assert!(x.grid_layout().is_some());
+    /// assert!(x.mosaic_layout().is_none());
+    /// assert!(x.row_layout().is_none());
+    /// assert!(x.column_layout().is_none());
+    /// ```
     pub fn set_grid_layout<T: std::convert::Into<std::boxed::Box<crate::model::GridLayout>>>(
         mut self,
         v: T,
@@ -1552,6 +1711,17 @@ impl Dashboard {
     ///
     /// Note that all the setters affecting `layout` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::model::MosaicLayout;
+    /// let x = Dashboard::new().set_mosaic_layout(MosaicLayout::default()/* use setters */);
+    /// assert!(x.mosaic_layout().is_some());
+    /// assert!(x.grid_layout().is_none());
+    /// assert!(x.row_layout().is_none());
+    /// assert!(x.column_layout().is_none());
+    /// ```
     pub fn set_mosaic_layout<T: std::convert::Into<std::boxed::Box<crate::model::MosaicLayout>>>(
         mut self,
         v: T,
@@ -1577,6 +1747,17 @@ impl Dashboard {
     ///
     /// Note that all the setters affecting `layout` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::model::RowLayout;
+    /// let x = Dashboard::new().set_row_layout(RowLayout::default()/* use setters */);
+    /// assert!(x.row_layout().is_some());
+    /// assert!(x.grid_layout().is_none());
+    /// assert!(x.mosaic_layout().is_none());
+    /// assert!(x.column_layout().is_none());
+    /// ```
     pub fn set_row_layout<T: std::convert::Into<std::boxed::Box<crate::model::RowLayout>>>(
         mut self,
         v: T,
@@ -1604,6 +1785,17 @@ impl Dashboard {
     ///
     /// Note that all the setters affecting `layout` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::model::ColumnLayout;
+    /// let x = Dashboard::new().set_column_layout(ColumnLayout::default()/* use setters */);
+    /// assert!(x.column_layout().is_some());
+    /// assert!(x.grid_layout().is_none());
+    /// assert!(x.mosaic_layout().is_none());
+    /// assert!(x.row_layout().is_none());
+    /// ```
     pub fn set_column_layout<T: std::convert::Into<std::boxed::Box<crate::model::ColumnLayout>>>(
         mut self,
         v: T,
@@ -1671,12 +1863,24 @@ impl DashboardFilter {
     }
 
     /// Sets the value of [label_key][crate::model::DashboardFilter::label_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_label_key("example");
+    /// ```
     pub fn set_label_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label_key = v.into();
         self
     }
 
     /// Sets the value of [template_variable][crate::model::DashboardFilter::template_variable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_template_variable("example");
+    /// ```
     pub fn set_template_variable<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1686,6 +1890,15 @@ impl DashboardFilter {
     }
 
     /// Sets the value of [filter_type][crate::model::DashboardFilter::filter_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::DashboardFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::dashboard_filter::FilterType;
+    /// let x0 = DashboardFilter::new().set_filter_type(FilterType::ResourceLabel);
+    /// let x1 = DashboardFilter::new().set_filter_type(FilterType::MetricLabel);
+    /// let x2 = DashboardFilter::new().set_filter_type(FilterType::UserMetadataLabel);
+    /// ```
     pub fn set_filter_type<T: std::convert::Into<crate::model::dashboard_filter::FilterType>>(
         mut self,
         v: T,
@@ -1698,6 +1911,13 @@ impl DashboardFilter {
     ///
     /// Note that all the setters affecting `default_value` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::DashboardFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::dashboard_filter::DefaultValue;
+    /// let x = DashboardFilter::new().set_default_value(Some(DefaultValue::StringValue("example".to_string())));
+    /// ```
     pub fn set_default_value<
         T: std::convert::Into<std::option::Option<crate::model::dashboard_filter::DefaultValue>>,
     >(
@@ -1726,6 +1946,13 @@ impl DashboardFilter {
     ///
     /// Note that all the setters affecting `default_value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::DashboardFilter;
+    /// let x = DashboardFilter::new().set_string_value("example");
+    /// assert!(x.string_value().is_some());
+    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_value = std::option::Option::Some(
             crate::model::dashboard_filter::DefaultValue::StringValue(v.into()),
@@ -1936,12 +2163,25 @@ impl CreateDashboardRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDashboardRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::CreateDashboardRequest;
+    /// let x = CreateDashboardRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::CreateDashboardRequest;
+    /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = CreateDashboardRequest::new().set_dashboard(Dashboard::default()/* use setters */);
+    /// ```
     pub fn set_dashboard<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
@@ -1951,6 +2191,14 @@ impl CreateDashboardRequest {
     }
 
     /// Sets or clears the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::CreateDashboardRequest;
+    /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = CreateDashboardRequest::new().set_or_clear_dashboard(Some(Dashboard::default()/* use setters */));
+    /// let x = CreateDashboardRequest::new().set_or_clear_dashboard(None::<Dashboard>);
+    /// ```
     pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
@@ -1960,6 +2208,12 @@ impl CreateDashboardRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateDashboardRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::CreateDashboardRequest;
+    /// let x = CreateDashboardRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2002,18 +2256,36 @@ impl ListDashboardsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDashboardsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ListDashboardsRequest;
+    /// let x = ListDashboardsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDashboardsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ListDashboardsRequest;
+    /// let x = ListDashboardsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDashboardsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ListDashboardsRequest;
+    /// let x = ListDashboardsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2047,6 +2319,17 @@ impl ListDashboardsResponse {
     }
 
     /// Sets the value of [dashboards][crate::model::ListDashboardsResponse::dashboards].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ListDashboardsResponse;
+    /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = ListDashboardsResponse::new()
+    ///     .set_dashboards([
+    ///         Dashboard::default()/* use setters */,
+    ///         Dashboard::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dashboards<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2058,6 +2341,12 @@ impl ListDashboardsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDashboardsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ListDashboardsResponse;
+    /// let x = ListDashboardsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2104,6 +2393,12 @@ impl GetDashboardRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDashboardRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::GetDashboardRequest;
+    /// let x = GetDashboardRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2136,6 +2431,12 @@ impl DeleteDashboardRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDashboardRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::DeleteDashboardRequest;
+    /// let x = DeleteDashboardRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2168,6 +2469,13 @@ impl UpdateDashboardRequest {
     }
 
     /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::UpdateDashboardRequest;
+    /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = UpdateDashboardRequest::new().set_dashboard(Dashboard::default()/* use setters */);
+    /// ```
     pub fn set_dashboard<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
@@ -2177,6 +2485,14 @@ impl UpdateDashboardRequest {
     }
 
     /// Sets or clears the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::UpdateDashboardRequest;
+    /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// let x = UpdateDashboardRequest::new().set_or_clear_dashboard(Some(Dashboard::default()/* use setters */));
+    /// let x = UpdateDashboardRequest::new().set_or_clear_dashboard(None::<Dashboard>);
+    /// ```
     pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
@@ -2186,6 +2502,12 @@ impl UpdateDashboardRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateDashboardRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::UpdateDashboardRequest;
+    /// let x = UpdateDashboardRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2234,6 +2556,12 @@ impl ErrorReportingPanel {
     }
 
     /// Sets the value of [project_names][crate::model::ErrorReportingPanel::project_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ErrorReportingPanel;
+    /// let x = ErrorReportingPanel::new().set_project_names(["a", "b", "c"]);
+    /// ```
     pub fn set_project_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2245,6 +2573,12 @@ impl ErrorReportingPanel {
     }
 
     /// Sets the value of [services][crate::model::ErrorReportingPanel::services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ErrorReportingPanel;
+    /// let x = ErrorReportingPanel::new().set_services(["a", "b", "c"]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2256,6 +2590,12 @@ impl ErrorReportingPanel {
     }
 
     /// Sets the value of [versions][crate::model::ErrorReportingPanel::versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ErrorReportingPanel;
+    /// let x = ErrorReportingPanel::new().set_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2297,6 +2637,17 @@ impl IncidentList {
     }
 
     /// Sets the value of [monitored_resources][crate::model::IncidentList::monitored_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::IncidentList;
+    /// use api::model::MonitoredResource;
+    /// let x = IncidentList::new()
+    ///     .set_monitored_resources([
+    ///         MonitoredResource::default()/* use setters */,
+    ///         MonitoredResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2308,6 +2659,12 @@ impl IncidentList {
     }
 
     /// Sets the value of [policy_names][crate::model::IncidentList::policy_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::IncidentList;
+    /// let x = IncidentList::new().set_policy_names(["a", "b", "c"]);
+    /// ```
     pub fn set_policy_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2346,12 +2703,29 @@ impl GridLayout {
     }
 
     /// Sets the value of [columns][crate::model::GridLayout::columns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::GridLayout;
+    /// let x = GridLayout::new().set_columns(42);
+    /// ```
     pub fn set_columns<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.columns = v.into();
         self
     }
 
     /// Sets the value of [widgets][crate::model::GridLayout::widgets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::GridLayout;
+    /// use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// let x = GridLayout::new()
+    ///     .set_widgets([
+    ///         Widget::default()/* use setters */,
+    ///         Widget::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_widgets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2391,12 +2765,29 @@ impl MosaicLayout {
     }
 
     /// Sets the value of [columns][crate::model::MosaicLayout::columns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::MosaicLayout;
+    /// let x = MosaicLayout::new().set_columns(42);
+    /// ```
     pub fn set_columns<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.columns = v.into();
         self
     }
 
     /// Sets the value of [tiles][crate::model::MosaicLayout::tiles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::MosaicLayout;
+    /// use google_cloud_monitoring_dashboard_v1::model::mosaic_layout::Tile;
+    /// let x = MosaicLayout::new()
+    ///     .set_tiles([
+    ///         Tile::default()/* use setters */,
+    ///         Tile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2453,30 +2844,61 @@ pub mod mosaic_layout {
         }
 
         /// Sets the value of [x_pos][crate::model::mosaic_layout::Tile::x_pos].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::mosaic_layout::Tile;
+        /// let x = Tile::new().set_x_pos(42);
+        /// ```
         pub fn set_x_pos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.x_pos = v.into();
             self
         }
 
         /// Sets the value of [y_pos][crate::model::mosaic_layout::Tile::y_pos].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::mosaic_layout::Tile;
+        /// let x = Tile::new().set_y_pos(42);
+        /// ```
         pub fn set_y_pos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.y_pos = v.into();
             self
         }
 
         /// Sets the value of [width][crate::model::mosaic_layout::Tile::width].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::mosaic_layout::Tile;
+        /// let x = Tile::new().set_width(42);
+        /// ```
         pub fn set_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.width = v.into();
             self
         }
 
         /// Sets the value of [height][crate::model::mosaic_layout::Tile::height].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::mosaic_layout::Tile;
+        /// let x = Tile::new().set_height(42);
+        /// ```
         pub fn set_height<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.height = v.into();
             self
         }
 
         /// Sets the value of [widget][crate::model::mosaic_layout::Tile::widget].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::mosaic_layout::Tile;
+        /// use google_cloud_monitoring_dashboard_v1::model::Widget;
+        /// let x = Tile::new().set_widget(Widget::default()/* use setters */);
+        /// ```
         pub fn set_widget<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Widget>,
@@ -2486,6 +2908,14 @@ pub mod mosaic_layout {
         }
 
         /// Sets or clears the value of [widget][crate::model::mosaic_layout::Tile::widget].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::mosaic_layout::Tile;
+        /// use google_cloud_monitoring_dashboard_v1::model::Widget;
+        /// let x = Tile::new().set_or_clear_widget(Some(Widget::default()/* use setters */));
+        /// let x = Tile::new().set_or_clear_widget(None::<Widget>);
+        /// ```
         pub fn set_or_clear_widget<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Widget>,
@@ -2519,6 +2949,17 @@ impl RowLayout {
     }
 
     /// Sets the value of [rows][crate::model::RowLayout::rows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::RowLayout;
+    /// use google_cloud_monitoring_dashboard_v1::model::row_layout::Row;
+    /// let x = RowLayout::new()
+    ///     .set_rows([
+    ///         Row::default()/* use setters */,
+    ///         Row::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2563,12 +3004,29 @@ pub mod row_layout {
         }
 
         /// Sets the value of [weight][crate::model::row_layout::Row::weight].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::row_layout::Row;
+        /// let x = Row::new().set_weight(42);
+        /// ```
         pub fn set_weight<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.weight = v.into();
             self
         }
 
         /// Sets the value of [widgets][crate::model::row_layout::Row::widgets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::row_layout::Row;
+        /// use google_cloud_monitoring_dashboard_v1::model::Widget;
+        /// let x = Row::new()
+        ///     .set_widgets([
+        ///         Widget::default()/* use setters */,
+        ///         Widget::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_widgets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2604,6 +3062,17 @@ impl ColumnLayout {
     }
 
     /// Sets the value of [columns][crate::model::ColumnLayout::columns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ColumnLayout;
+    /// use google_cloud_monitoring_dashboard_v1::model::column_layout::Column;
+    /// let x = ColumnLayout::new()
+    ///     .set_columns([
+    ///         Column::default()/* use setters */,
+    ///         Column::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2648,12 +3117,29 @@ pub mod column_layout {
         }
 
         /// Sets the value of [weight][crate::model::column_layout::Column::weight].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::column_layout::Column;
+        /// let x = Column::new().set_weight(42);
+        /// ```
         pub fn set_weight<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.weight = v.into();
             self
         }
 
         /// Sets the value of [widgets][crate::model::column_layout::Column::widgets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::column_layout::Column;
+        /// use google_cloud_monitoring_dashboard_v1::model::Widget;
+        /// let x = Column::new()
+        ///     .set_widgets([
+        ///         Widget::default()/* use setters */,
+        ///         Widget::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_widgets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2695,12 +3181,24 @@ impl LogsPanel {
     }
 
     /// Sets the value of [filter][crate::model::LogsPanel::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::LogsPanel;
+    /// let x = LogsPanel::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [resource_names][crate::model::LogsPanel::resource_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::LogsPanel;
+    /// let x = LogsPanel::new().set_resource_names(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2752,12 +3250,24 @@ impl TimeSeriesQuery {
     }
 
     /// Sets the value of [unit_override][crate::model::TimeSeriesQuery::unit_override].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// let x = TimeSeriesQuery::new().set_unit_override("example");
+    /// ```
     pub fn set_unit_override<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit_override = v.into();
         self
     }
 
     /// Sets the value of [output_full_duration][crate::model::TimeSeriesQuery::output_full_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// let x = TimeSeriesQuery::new().set_output_full_duration(true);
+    /// ```
     pub fn set_output_full_duration<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.output_full_duration = v.into();
         self
@@ -2767,6 +3277,13 @@ impl TimeSeriesQuery {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_query::Source;
+    /// let x = TimeSeriesQuery::new().set_source(Some(Source::TimeSeriesQueryLanguage("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::time_series_query::Source>>,
     >(
@@ -2797,6 +3314,17 @@ impl TimeSeriesQuery {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// let x = TimeSeriesQuery::new().set_time_series_filter(TimeSeriesFilter::default()/* use setters */);
+    /// assert!(x.time_series_filter().is_some());
+    /// assert!(x.time_series_filter_ratio().is_none());
+    /// assert!(x.time_series_query_language().is_none());
+    /// assert!(x.prometheus_query().is_none());
+    /// ```
     pub fn set_time_series_filter<
         T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesFilter>>,
     >(
@@ -2829,6 +3357,17 @@ impl TimeSeriesQuery {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// let x = TimeSeriesQuery::new().set_time_series_filter_ratio(TimeSeriesFilterRatio::default()/* use setters */);
+    /// assert!(x.time_series_filter_ratio().is_some());
+    /// assert!(x.time_series_filter().is_none());
+    /// assert!(x.time_series_query_language().is_none());
+    /// assert!(x.prometheus_query().is_none());
+    /// ```
     pub fn set_time_series_filter_ratio<
         T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesFilterRatio>>,
     >(
@@ -2859,6 +3398,16 @@ impl TimeSeriesQuery {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// let x = TimeSeriesQuery::new().set_time_series_query_language("example");
+    /// assert!(x.time_series_query_language().is_some());
+    /// assert!(x.time_series_filter().is_none());
+    /// assert!(x.time_series_filter_ratio().is_none());
+    /// assert!(x.prometheus_query().is_none());
+    /// ```
     pub fn set_time_series_query_language<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2887,6 +3436,16 @@ impl TimeSeriesQuery {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// let x = TimeSeriesQuery::new().set_prometheus_query("example");
+    /// assert!(x.prometheus_query().is_some());
+    /// assert!(x.time_series_filter().is_none());
+    /// assert!(x.time_series_filter_ratio().is_none());
+    /// assert!(x.time_series_query_language().is_none());
+    /// ```
     pub fn set_prometheus_query<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2956,12 +3515,25 @@ impl TimeSeriesFilter {
     }
 
     /// Sets the value of [filter][crate::model::TimeSeriesFilter::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// let x = TimeSeriesFilter::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [aggregation][crate::model::TimeSeriesFilter::aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// let x = TimeSeriesFilter::new().set_aggregation(Aggregation::default()/* use setters */);
+    /// ```
     pub fn set_aggregation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -2971,6 +3543,14 @@ impl TimeSeriesFilter {
     }
 
     /// Sets or clears the value of [aggregation][crate::model::TimeSeriesFilter::aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// let x = TimeSeriesFilter::new().set_or_clear_aggregation(Some(Aggregation::default()/* use setters */));
+    /// let x = TimeSeriesFilter::new().set_or_clear_aggregation(None::<Aggregation>);
+    /// ```
     pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -2980,6 +3560,13 @@ impl TimeSeriesFilter {
     }
 
     /// Sets the value of [secondary_aggregation][crate::model::TimeSeriesFilter::secondary_aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// let x = TimeSeriesFilter::new().set_secondary_aggregation(Aggregation::default()/* use setters */);
+    /// ```
     pub fn set_secondary_aggregation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -2989,6 +3576,14 @@ impl TimeSeriesFilter {
     }
 
     /// Sets or clears the value of [secondary_aggregation][crate::model::TimeSeriesFilter::secondary_aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// let x = TimeSeriesFilter::new().set_or_clear_secondary_aggregation(Some(Aggregation::default()/* use setters */));
+    /// let x = TimeSeriesFilter::new().set_or_clear_secondary_aggregation(None::<Aggregation>);
+    /// ```
     pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -3001,6 +3596,14 @@ impl TimeSeriesFilter {
     ///
     /// Note that all the setters affecting `output_filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// let x = TimeSeriesFilter::new().set_output_filter(Some(
+    ///     google_cloud_monitoring_dashboard_v1::model::time_series_filter::OutputFilter::PickTimeSeriesFilter(PickTimeSeriesFilter::default().into())));
+    /// ```
     pub fn set_output_filter<
         T: std::convert::Into<std::option::Option<crate::model::time_series_filter::OutputFilter>>,
     >(
@@ -3031,6 +3634,15 @@ impl TimeSeriesFilter {
     ///
     /// Note that all the setters affecting `output_filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// let x = TimeSeriesFilter::new().set_pick_time_series_filter(PickTimeSeriesFilter::default()/* use setters */);
+    /// assert!(x.pick_time_series_filter().is_some());
+    /// assert!(x.statistical_time_series_filter().is_none());
+    /// ```
     pub fn set_pick_time_series_filter<
         T: std::convert::Into<std::boxed::Box<crate::model::PickTimeSeriesFilter>>,
     >(
@@ -3064,6 +3676,15 @@ impl TimeSeriesFilter {
     ///
     /// Note that all the setters affecting `output_filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilter;
+    /// use google_cloud_monitoring_dashboard_v1::model::StatisticalTimeSeriesFilter;
+    /// let x = TimeSeriesFilter::new().set_statistical_time_series_filter(StatisticalTimeSeriesFilter::default()/* use setters */);
+    /// assert!(x.statistical_time_series_filter().is_some());
+    /// assert!(x.pick_time_series_filter().is_none());
+    /// ```
     #[deprecated]
     pub fn set_statistical_time_series_filter<
         T: std::convert::Into<std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>>,
@@ -3130,6 +3751,13 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::RatioPart;
+    /// let x = TimeSeriesFilterRatio::new().set_numerator(RatioPart::default()/* use setters */);
+    /// ```
     pub fn set_numerator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
@@ -3139,6 +3767,14 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets or clears the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::RatioPart;
+    /// let x = TimeSeriesFilterRatio::new().set_or_clear_numerator(Some(RatioPart::default()/* use setters */));
+    /// let x = TimeSeriesFilterRatio::new().set_or_clear_numerator(None::<RatioPart>);
+    /// ```
     pub fn set_or_clear_numerator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
@@ -3148,6 +3784,13 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets the value of [denominator][crate::model::TimeSeriesFilterRatio::denominator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::RatioPart;
+    /// let x = TimeSeriesFilterRatio::new().set_denominator(RatioPart::default()/* use setters */);
+    /// ```
     pub fn set_denominator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
@@ -3157,6 +3800,14 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets or clears the value of [denominator][crate::model::TimeSeriesFilterRatio::denominator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::RatioPart;
+    /// let x = TimeSeriesFilterRatio::new().set_or_clear_denominator(Some(RatioPart::default()/* use setters */));
+    /// let x = TimeSeriesFilterRatio::new().set_or_clear_denominator(None::<RatioPart>);
+    /// ```
     pub fn set_or_clear_denominator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
@@ -3166,6 +3817,13 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets the value of [secondary_aggregation][crate::model::TimeSeriesFilterRatio::secondary_aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// let x = TimeSeriesFilterRatio::new().set_secondary_aggregation(Aggregation::default()/* use setters */);
+    /// ```
     pub fn set_secondary_aggregation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -3175,6 +3833,14 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets or clears the value of [secondary_aggregation][crate::model::TimeSeriesFilterRatio::secondary_aggregation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+    /// let x = TimeSeriesFilterRatio::new().set_or_clear_secondary_aggregation(Some(Aggregation::default()/* use setters */));
+    /// let x = TimeSeriesFilterRatio::new().set_or_clear_secondary_aggregation(None::<Aggregation>);
+    /// ```
     pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -3187,6 +3853,14 @@ impl TimeSeriesFilterRatio {
     ///
     /// Note that all the setters affecting `output_filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// let x = TimeSeriesFilterRatio::new().set_output_filter(Some(
+    ///     google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::OutputFilter::PickTimeSeriesFilter(PickTimeSeriesFilter::default().into())));
+    /// ```
     pub fn set_output_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::time_series_filter_ratio::OutputFilter>,
@@ -3219,6 +3893,15 @@ impl TimeSeriesFilterRatio {
     ///
     /// Note that all the setters affecting `output_filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::PickTimeSeriesFilter;
+    /// let x = TimeSeriesFilterRatio::new().set_pick_time_series_filter(PickTimeSeriesFilter::default()/* use setters */);
+    /// assert!(x.pick_time_series_filter().is_some());
+    /// assert!(x.statistical_time_series_filter().is_none());
+    /// ```
     pub fn set_pick_time_series_filter<
         T: std::convert::Into<std::boxed::Box<crate::model::PickTimeSeriesFilter>>,
     >(
@@ -3252,6 +3935,15 @@ impl TimeSeriesFilterRatio {
     ///
     /// Note that all the setters affecting `output_filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesFilterRatio;
+    /// use google_cloud_monitoring_dashboard_v1::model::StatisticalTimeSeriesFilter;
+    /// let x = TimeSeriesFilterRatio::new().set_statistical_time_series_filter(StatisticalTimeSeriesFilter::default()/* use setters */);
+    /// assert!(x.statistical_time_series_filter().is_some());
+    /// assert!(x.pick_time_series_filter().is_none());
+    /// ```
     #[deprecated]
     pub fn set_statistical_time_series_filter<
         T: std::convert::Into<std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>>,
@@ -3303,12 +3995,25 @@ pub mod time_series_filter_ratio {
         }
 
         /// Sets the value of [filter][crate::model::time_series_filter_ratio::RatioPart::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::RatioPart;
+        /// let x = RatioPart::new().set_filter("example");
+        /// ```
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
             self
         }
 
         /// Sets the value of [aggregation][crate::model::time_series_filter_ratio::RatioPart::aggregation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::RatioPart;
+        /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+        /// let x = RatioPart::new().set_aggregation(Aggregation::default()/* use setters */);
+        /// ```
         pub fn set_aggregation<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Aggregation>,
@@ -3318,6 +4023,14 @@ pub mod time_series_filter_ratio {
         }
 
         /// Sets or clears the value of [aggregation][crate::model::time_series_filter_ratio::RatioPart::aggregation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_filter_ratio::RatioPart;
+        /// use google_cloud_monitoring_dashboard_v1::model::Aggregation;
+        /// let x = RatioPart::new().set_or_clear_aggregation(Some(Aggregation::default()/* use setters */));
+        /// let x = RatioPart::new().set_or_clear_aggregation(None::<Aggregation>);
+        /// ```
         pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Aggregation>,
@@ -3378,18 +4091,38 @@ impl Threshold {
     }
 
     /// Sets the value of [label][crate::model::Threshold::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Threshold;
+    /// let x = Threshold::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::Threshold::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Threshold;
+    /// let x = Threshold::new().set_value(42.0);
+    /// ```
     pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [color][crate::model::Threshold::color].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Threshold;
+    /// use google_cloud_monitoring_dashboard_v1::model::threshold::Color;
+    /// let x0 = Threshold::new().set_color(Color::Yellow);
+    /// let x1 = Threshold::new().set_color(Color::Red);
+    /// ```
     pub fn set_color<T: std::convert::Into<crate::model::threshold::Color>>(
         mut self,
         v: T,
@@ -3399,6 +4132,14 @@ impl Threshold {
     }
 
     /// Sets the value of [direction][crate::model::Threshold::direction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Threshold;
+    /// use google_cloud_monitoring_dashboard_v1::model::threshold::Direction;
+    /// let x0 = Threshold::new().set_direction(Direction::Above);
+    /// let x1 = Threshold::new().set_direction(Direction::Below);
+    /// ```
     pub fn set_direction<T: std::convert::Into<crate::model::threshold::Direction>>(
         mut self,
         v: T,
@@ -3408,6 +4149,14 @@ impl Threshold {
     }
 
     /// Sets the value of [target_axis][crate::model::Threshold::target_axis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Threshold;
+    /// use google_cloud_monitoring_dashboard_v1::model::threshold::TargetAxis;
+    /// let x0 = Threshold::new().set_target_axis(TargetAxis::Y1);
+    /// let x1 = Threshold::new().set_target_axis(TargetAxis::Y2);
+    /// ```
     pub fn set_target_axis<T: std::convert::Into<crate::model::threshold::TargetAxis>>(
         mut self,
         v: T,
@@ -3852,6 +4601,17 @@ impl PieChart {
     }
 
     /// Sets the value of [data_sets][crate::model::PieChart::data_sets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PieChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::pie_chart::PieChartDataSet;
+    /// let x = PieChart::new()
+    ///     .set_data_sets([
+    ///         PieChartDataSet::default()/* use setters */,
+    ///         PieChartDataSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3863,6 +4623,14 @@ impl PieChart {
     }
 
     /// Sets the value of [chart_type][crate::model::PieChart::chart_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PieChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::pie_chart::PieChartType;
+    /// let x0 = PieChart::new().set_chart_type(PieChartType::Pie);
+    /// let x1 = PieChart::new().set_chart_type(PieChartType::Donut);
+    /// ```
     pub fn set_chart_type<T: std::convert::Into<crate::model::pie_chart::PieChartType>>(
         mut self,
         v: T,
@@ -3872,6 +4640,12 @@ impl PieChart {
     }
 
     /// Sets the value of [show_labels][crate::model::PieChart::show_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::PieChart;
+    /// let x = PieChart::new().set_show_labels(true);
+    /// ```
     pub fn set_show_labels<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_labels = v.into();
         self
@@ -3921,6 +4695,13 @@ pub mod pie_chart {
         }
 
         /// Sets the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::pie_chart::PieChartDataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+        /// let x = PieChartDataSet::new().set_time_series_query(TimeSeriesQuery::default()/* use setters */);
+        /// ```
         pub fn set_time_series_query<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -3930,6 +4711,14 @@ pub mod pie_chart {
         }
 
         /// Sets or clears the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::pie_chart::PieChartDataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+        /// let x = PieChartDataSet::new().set_or_clear_time_series_query(Some(TimeSeriesQuery::default()/* use setters */));
+        /// let x = PieChartDataSet::new().set_or_clear_time_series_query(None::<TimeSeriesQuery>);
+        /// ```
         pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -3939,6 +4728,12 @@ pub mod pie_chart {
         }
 
         /// Sets the value of [slice_name_template][crate::model::pie_chart::PieChartDataSet::slice_name_template].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::pie_chart::PieChartDataSet;
+        /// let x = PieChartDataSet::new().set_slice_name_template("example");
+        /// ```
         pub fn set_slice_name_template<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3948,6 +4743,13 @@ pub mod pie_chart {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::pie_chart::PieChartDataSet::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::pie_chart::PieChartDataSet;
+        /// use wkt::Duration;
+        /// let x = PieChartDataSet::new().set_min_alignment_period(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3957,6 +4759,14 @@ pub mod pie_chart {
         }
 
         /// Sets or clears the value of [min_alignment_period][crate::model::pie_chart::PieChartDataSet::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::pie_chart::PieChartDataSet;
+        /// use wkt::Duration;
+        /// let x = PieChartDataSet::new().set_or_clear_min_alignment_period(Some(Duration::default()/* use setters */));
+        /// let x = PieChartDataSet::new().set_or_clear_min_alignment_period(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4167,6 +4977,13 @@ impl Scorecard {
     }
 
     /// Sets the value of [time_series_query][crate::model::Scorecard::time_series_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// let x = Scorecard::new().set_time_series_query(TimeSeriesQuery::default()/* use setters */);
+    /// ```
     pub fn set_time_series_query<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -4176,6 +4993,14 @@ impl Scorecard {
     }
 
     /// Sets or clears the value of [time_series_query][crate::model::Scorecard::time_series_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+    /// let x = Scorecard::new().set_or_clear_time_series_query(Some(TimeSeriesQuery::default()/* use setters */));
+    /// let x = Scorecard::new().set_or_clear_time_series_query(None::<TimeSeriesQuery>);
+    /// ```
     pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -4185,6 +5010,17 @@ impl Scorecard {
     }
 
     /// Sets the value of [thresholds][crate::model::Scorecard::thresholds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// use google_cloud_monitoring_dashboard_v1::model::Threshold;
+    /// let x = Scorecard::new()
+    ///     .set_thresholds([
+    ///         Threshold::default()/* use setters */,
+    ///         Threshold::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_thresholds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4199,6 +5035,14 @@ impl Scorecard {
     ///
     /// Note that all the setters affecting `data_view` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// use google_cloud_monitoring_dashboard_v1::model::scorecard::GaugeView;
+    /// let x = Scorecard::new().set_data_view(Some(
+    ///     google_cloud_monitoring_dashboard_v1::model::scorecard::DataView::GaugeView(GaugeView::default().into())));
+    /// ```
     pub fn set_data_view<
         T: std::convert::Into<std::option::Option<crate::model::scorecard::DataView>>,
     >(
@@ -4227,6 +5071,16 @@ impl Scorecard {
     ///
     /// Note that all the setters affecting `data_view` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// use google_cloud_monitoring_dashboard_v1::model::scorecard::GaugeView;
+    /// let x = Scorecard::new().set_gauge_view(GaugeView::default()/* use setters */);
+    /// assert!(x.gauge_view().is_some());
+    /// assert!(x.spark_chart_view().is_none());
+    /// assert!(x.blank_view().is_none());
+    /// ```
     pub fn set_gauge_view<
         T: std::convert::Into<std::boxed::Box<crate::model::scorecard::GaugeView>>,
     >(
@@ -4256,6 +5110,16 @@ impl Scorecard {
     ///
     /// Note that all the setters affecting `data_view` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// use google_cloud_monitoring_dashboard_v1::model::scorecard::SparkChartView;
+    /// let x = Scorecard::new().set_spark_chart_view(SparkChartView::default()/* use setters */);
+    /// assert!(x.spark_chart_view().is_some());
+    /// assert!(x.gauge_view().is_none());
+    /// assert!(x.blank_view().is_none());
+    /// ```
     pub fn set_spark_chart_view<
         T: std::convert::Into<std::boxed::Box<crate::model::scorecard::SparkChartView>>,
     >(
@@ -4283,6 +5147,16 @@ impl Scorecard {
     ///
     /// Note that all the setters affecting `data_view` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// use wkt::Empty;
+    /// let x = Scorecard::new().set_blank_view(Empty::default()/* use setters */);
+    /// assert!(x.blank_view().is_some());
+    /// assert!(x.gauge_view().is_none());
+    /// assert!(x.spark_chart_view().is_none());
+    /// ```
     pub fn set_blank_view<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
         mut self,
         v: T,
@@ -4327,12 +5201,24 @@ pub mod scorecard {
         }
 
         /// Sets the value of [lower_bound][crate::model::scorecard::GaugeView::lower_bound].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::scorecard::GaugeView;
+        /// let x = GaugeView::new().set_lower_bound(42.0);
+        /// ```
         pub fn set_lower_bound<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.lower_bound = v.into();
             self
         }
 
         /// Sets the value of [upper_bound][crate::model::scorecard::GaugeView::upper_bound].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::scorecard::GaugeView;
+        /// let x = GaugeView::new().set_upper_bound(42.0);
+        /// ```
         pub fn set_upper_bound<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.upper_bound = v.into();
             self
@@ -4371,6 +5257,14 @@ pub mod scorecard {
         }
 
         /// Sets the value of [spark_chart_type][crate::model::scorecard::SparkChartView::spark_chart_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::scorecard::SparkChartView;
+        /// use google_cloud_monitoring_dashboard_v1::model::SparkChartType;
+        /// let x0 = SparkChartView::new().set_spark_chart_type(SparkChartType::SparkLine);
+        /// let x1 = SparkChartView::new().set_spark_chart_type(SparkChartType::SparkBar);
+        /// ```
         pub fn set_spark_chart_type<T: std::convert::Into<crate::model::SparkChartType>>(
             mut self,
             v: T,
@@ -4380,6 +5274,13 @@ pub mod scorecard {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::scorecard::SparkChartView::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::scorecard::SparkChartView;
+        /// use wkt::Duration;
+        /// let x = SparkChartView::new().set_min_alignment_period(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4389,6 +5290,14 @@ pub mod scorecard {
         }
 
         /// Sets or clears the value of [min_alignment_period][crate::model::scorecard::SparkChartView::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::scorecard::SparkChartView;
+        /// use wkt::Duration;
+        /// let x = SparkChartView::new().set_or_clear_min_alignment_period(Some(Duration::default()/* use setters */));
+        /// let x = SparkChartView::new().set_or_clear_min_alignment_period(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4439,12 +5348,24 @@ impl SectionHeader {
     }
 
     /// Sets the value of [subtitle][crate::model::SectionHeader::subtitle].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::SectionHeader;
+    /// let x = SectionHeader::new().set_subtitle("example");
+    /// ```
     pub fn set_subtitle<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subtitle = v.into();
         self
     }
 
     /// Sets the value of [divider_below][crate::model::SectionHeader::divider_below].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::SectionHeader;
+    /// let x = SectionHeader::new().set_divider_below(true);
+    /// ```
     pub fn set_divider_below<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.divider_below = v.into();
         self
@@ -4500,6 +5421,17 @@ impl TimeSeriesTable {
     }
 
     /// Sets the value of [data_sets][crate::model::TimeSeriesTable::data_sets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesTable;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+    /// let x = TimeSeriesTable::new()
+    ///     .set_data_sets([
+    ///         TableDataSet::default()/* use setters */,
+    ///         TableDataSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4511,6 +5443,14 @@ impl TimeSeriesTable {
     }
 
     /// Sets the value of [metric_visualization][crate::model::TimeSeriesTable::metric_visualization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesTable;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_table::MetricVisualization;
+    /// let x0 = TimeSeriesTable::new().set_metric_visualization(MetricVisualization::Number);
+    /// let x1 = TimeSeriesTable::new().set_metric_visualization(MetricVisualization::Bar);
+    /// ```
     pub fn set_metric_visualization<
         T: std::convert::Into<crate::model::time_series_table::MetricVisualization>,
     >(
@@ -4522,6 +5462,17 @@ impl TimeSeriesTable {
     }
 
     /// Sets the value of [column_settings][crate::model::TimeSeriesTable::column_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TimeSeriesTable;
+    /// use google_cloud_monitoring_dashboard_v1::model::time_series_table::ColumnSettings;
+    /// let x = TimeSeriesTable::new()
+    ///     .set_column_settings([
+    ///         ColumnSettings::default()/* use setters */,
+    ///         ColumnSettings::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_column_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4578,6 +5529,13 @@ pub mod time_series_table {
         }
 
         /// Sets the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+        /// let x = TableDataSet::new().set_time_series_query(TimeSeriesQuery::default()/* use setters */);
+        /// ```
         pub fn set_time_series_query<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -4587,6 +5545,14 @@ pub mod time_series_table {
         }
 
         /// Sets or clears the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+        /// let x = TableDataSet::new().set_or_clear_time_series_query(Some(TimeSeriesQuery::default()/* use setters */));
+        /// let x = TableDataSet::new().set_or_clear_time_series_query(None::<TimeSeriesQuery>);
+        /// ```
         pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -4596,6 +5562,12 @@ pub mod time_series_table {
         }
 
         /// Sets the value of [table_template][crate::model::time_series_table::TableDataSet::table_template].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+        /// let x = TableDataSet::new().set_table_template("example");
+        /// ```
         pub fn set_table_template<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4605,6 +5577,13 @@ pub mod time_series_table {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::time_series_table::TableDataSet::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+        /// use wkt::Duration;
+        /// let x = TableDataSet::new().set_min_alignment_period(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4614,6 +5593,14 @@ pub mod time_series_table {
         }
 
         /// Sets or clears the value of [min_alignment_period][crate::model::time_series_table::TableDataSet::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+        /// use wkt::Duration;
+        /// let x = TableDataSet::new().set_or_clear_min_alignment_period(Some(Duration::default()/* use setters */));
+        /// let x = TableDataSet::new().set_or_clear_min_alignment_period(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4623,6 +5610,13 @@ pub mod time_series_table {
         }
 
         /// Sets the value of [table_display_options][crate::model::time_series_table::TableDataSet::table_display_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TableDisplayOptions;
+        /// let x = TableDataSet::new().set_table_display_options(TableDisplayOptions::default()/* use setters */);
+        /// ```
         pub fn set_table_display_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TableDisplayOptions>,
@@ -4632,6 +5626,14 @@ pub mod time_series_table {
         }
 
         /// Sets or clears the value of [table_display_options][crate::model::time_series_table::TableDataSet::table_display_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::TableDataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TableDisplayOptions;
+        /// let x = TableDataSet::new().set_or_clear_table_display_options(Some(TableDisplayOptions::default()/* use setters */));
+        /// let x = TableDataSet::new().set_or_clear_table_display_options(None::<TableDisplayOptions>);
+        /// ```
         pub fn set_or_clear_table_display_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TableDisplayOptions>,
@@ -4666,12 +5668,24 @@ pub mod time_series_table {
         }
 
         /// Sets the value of [column][crate::model::time_series_table::ColumnSettings::column].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::ColumnSettings;
+        /// let x = ColumnSettings::new().set_column("example");
+        /// ```
         pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.column = v.into();
             self
         }
 
         /// Sets the value of [visible][crate::model::time_series_table::ColumnSettings::visible].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::time_series_table::ColumnSettings;
+        /// let x = ColumnSettings::new().set_visible(true);
+        /// ```
         pub fn set_visible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.visible = v.into();
             self
@@ -4835,6 +5849,12 @@ impl TableDisplayOptions {
     }
 
     /// Sets the value of [shown_columns][crate::model::TableDisplayOptions::shown_columns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::TableDisplayOptions;
+    /// let x = TableDisplayOptions::new().set_shown_columns(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_shown_columns<T, V>(mut self, v: T) -> Self
     where
@@ -4875,18 +5895,39 @@ impl Text {
     }
 
     /// Sets the value of [content][crate::model::Text::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Text;
+    /// let x = Text::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [format][crate::model::Text::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Text;
+    /// use google_cloud_monitoring_dashboard_v1::model::text::Format;
+    /// let x0 = Text::new().set_format(Format::Markdown);
+    /// let x1 = Text::new().set_format(Format::Raw);
+    /// ```
     pub fn set_format<T: std::convert::Into<crate::model::text::Format>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
 
     /// Sets the value of [style][crate::model::Text::style].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Text;
+    /// use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+    /// let x = Text::new().set_style(TextStyle::default()/* use setters */);
+    /// ```
     pub fn set_style<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::text::TextStyle>,
@@ -4896,6 +5937,14 @@ impl Text {
     }
 
     /// Sets or clears the value of [style][crate::model::Text::style].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Text;
+    /// use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+    /// let x = Text::new().set_or_clear_style(Some(TextStyle::default()/* use setters */));
+    /// let x = Text::new().set_or_clear_style(None::<TextStyle>);
+    /// ```
     pub fn set_or_clear_style<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text::TextStyle>,
@@ -4951,6 +6000,12 @@ pub mod text {
         }
 
         /// Sets the value of [background_color][crate::model::text::TextStyle::background_color].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+        /// let x = TextStyle::new().set_background_color("example");
+        /// ```
         pub fn set_background_color<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4960,12 +6015,27 @@ pub mod text {
         }
 
         /// Sets the value of [text_color][crate::model::text::TextStyle::text_color].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+        /// let x = TextStyle::new().set_text_color("example");
+        /// ```
         pub fn set_text_color<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text_color = v.into();
             self
         }
 
         /// Sets the value of [horizontal_alignment][crate::model::text::TextStyle::horizontal_alignment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+        /// use google_cloud_monitoring_dashboard_v1::model::text::text_style::HorizontalAlignment;
+        /// let x0 = TextStyle::new().set_horizontal_alignment(HorizontalAlignment::HLeft);
+        /// let x1 = TextStyle::new().set_horizontal_alignment(HorizontalAlignment::HCenter);
+        /// let x2 = TextStyle::new().set_horizontal_alignment(HorizontalAlignment::HRight);
+        /// ```
         pub fn set_horizontal_alignment<
             T: std::convert::Into<crate::model::text::text_style::HorizontalAlignment>,
         >(
@@ -4977,6 +6047,15 @@ pub mod text {
         }
 
         /// Sets the value of [vertical_alignment][crate::model::text::TextStyle::vertical_alignment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+        /// use google_cloud_monitoring_dashboard_v1::model::text::text_style::VerticalAlignment;
+        /// let x0 = TextStyle::new().set_vertical_alignment(VerticalAlignment::VTop);
+        /// let x1 = TextStyle::new().set_vertical_alignment(VerticalAlignment::VCenter);
+        /// let x2 = TextStyle::new().set_vertical_alignment(VerticalAlignment::VBottom);
+        /// ```
         pub fn set_vertical_alignment<
             T: std::convert::Into<crate::model::text::text_style::VerticalAlignment>,
         >(
@@ -4988,6 +6067,15 @@ pub mod text {
         }
 
         /// Sets the value of [padding][crate::model::text::TextStyle::padding].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+        /// use google_cloud_monitoring_dashboard_v1::model::text::text_style::PaddingSize;
+        /// let x0 = TextStyle::new().set_padding(PaddingSize::PExtraSmall);
+        /// let x1 = TextStyle::new().set_padding(PaddingSize::PSmall);
+        /// let x2 = TextStyle::new().set_padding(PaddingSize::PMedium);
+        /// ```
         pub fn set_padding<T: std::convert::Into<crate::model::text::text_style::PaddingSize>>(
             mut self,
             v: T,
@@ -4997,6 +6085,15 @@ pub mod text {
         }
 
         /// Sets the value of [font_size][crate::model::text::TextStyle::font_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+        /// use google_cloud_monitoring_dashboard_v1::model::text::text_style::FontSize;
+        /// let x0 = TextStyle::new().set_font_size(FontSize::FsExtraSmall);
+        /// let x1 = TextStyle::new().set_font_size(FontSize::FsSmall);
+        /// let x2 = TextStyle::new().set_font_size(FontSize::FsMedium);
+        /// ```
         pub fn set_font_size<T: std::convert::Into<crate::model::text::text_style::FontSize>>(
             mut self,
             v: T,
@@ -5006,6 +6103,15 @@ pub mod text {
         }
 
         /// Sets the value of [pointer_location][crate::model::text::TextStyle::pointer_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::text::TextStyle;
+        /// use google_cloud_monitoring_dashboard_v1::model::text::text_style::PointerLocation;
+        /// let x0 = TextStyle::new().set_pointer_location(PointerLocation::PlTop);
+        /// let x1 = TextStyle::new().set_pointer_location(PointerLocation::PlRight);
+        /// let x2 = TextStyle::new().set_pointer_location(PointerLocation::PlBottom);
+        /// ```
         pub fn set_pointer_location<
             T: std::convert::Into<crate::model::text::text_style::PointerLocation>,
         >(
@@ -5994,12 +7100,24 @@ impl Widget {
     }
 
     /// Sets the value of [title][crate::model::Widget::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// let x = Widget::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Widget::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// let x = Widget::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -6009,6 +7127,14 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// let x = Widget::new().set_content(Some(
+    ///     google_cloud_monitoring_dashboard_v1::model::widget::Content::XyChart(XyChart::default().into())));
+    /// ```
     pub fn set_content<
         T: std::convert::Into<std::option::Option<crate::model::widget::Content>>,
     >(
@@ -6035,6 +7161,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// let x = Widget::new().set_xy_chart(XyChart::default()/* use setters */);
+    /// assert!(x.xy_chart().is_some());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_xy_chart<T: std::convert::Into<std::boxed::Box<crate::model::XyChart>>>(
         mut self,
         v: T,
@@ -6059,6 +7205,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::Scorecard;
+    /// let x = Widget::new().set_scorecard(Scorecard::default()/* use setters */);
+    /// assert!(x.scorecard().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_scorecard<T: std::convert::Into<std::boxed::Box<crate::model::Scorecard>>>(
         mut self,
         v: T,
@@ -6084,6 +7250,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::Text;
+    /// let x = Widget::new().set_text(Text::default()/* use setters */);
+    /// assert!(x.text().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_text<T: std::convert::Into<std::boxed::Box<crate::model::Text>>>(
         mut self,
         v: T,
@@ -6108,6 +7294,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use wkt::Empty;
+    /// let x = Widget::new().set_blank(Empty::default()/* use setters */);
+    /// assert!(x.blank().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_blank<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
         self.content = std::option::Option::Some(crate::model::widget::Content::Blank(v.into()));
         self
@@ -6129,6 +7335,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::AlertChart;
+    /// let x = Widget::new().set_alert_chart(AlertChart::default()/* use setters */);
+    /// assert!(x.alert_chart().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_alert_chart<T: std::convert::Into<std::boxed::Box<crate::model::AlertChart>>>(
         mut self,
         v: T,
@@ -6156,6 +7382,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesTable;
+    /// let x = Widget::new().set_time_series_table(TimeSeriesTable::default()/* use setters */);
+    /// assert!(x.time_series_table().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_time_series_table<
         T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesTable>>,
     >(
@@ -6185,6 +7431,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::CollapsibleGroup;
+    /// let x = Widget::new().set_collapsible_group(CollapsibleGroup::default()/* use setters */);
+    /// assert!(x.collapsible_group().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_collapsible_group<
         T: std::convert::Into<std::boxed::Box<crate::model::CollapsibleGroup>>,
     >(
@@ -6212,6 +7478,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::LogsPanel;
+    /// let x = Widget::new().set_logs_panel(LogsPanel::default()/* use setters */);
+    /// assert!(x.logs_panel().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_logs_panel<T: std::convert::Into<std::boxed::Box<crate::model::LogsPanel>>>(
         mut self,
         v: T,
@@ -6239,6 +7525,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::IncidentList;
+    /// let x = Widget::new().set_incident_list(IncidentList::default()/* use setters */);
+    /// assert!(x.incident_list().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_incident_list<T: std::convert::Into<std::boxed::Box<crate::model::IncidentList>>>(
         mut self,
         v: T,
@@ -6264,6 +7570,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::PieChart;
+    /// let x = Widget::new().set_pie_chart(PieChart::default()/* use setters */);
+    /// assert!(x.pie_chart().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_pie_chart<T: std::convert::Into<std::boxed::Box<crate::model::PieChart>>>(
         mut self,
         v: T,
@@ -6290,6 +7616,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::ErrorReportingPanel;
+    /// let x = Widget::new().set_error_reporting_panel(ErrorReportingPanel::default()/* use setters */);
+    /// assert!(x.error_reporting_panel().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.section_header().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_error_reporting_panel<
         T: std::convert::Into<std::boxed::Box<crate::model::ErrorReportingPanel>>,
     >(
@@ -6319,6 +7665,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::SectionHeader;
+    /// let x = Widget::new().set_section_header(SectionHeader::default()/* use setters */);
+    /// assert!(x.section_header().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.single_view_group().is_none());
+    /// ```
     pub fn set_section_header<
         T: std::convert::Into<std::boxed::Box<crate::model::SectionHeader>>,
     >(
@@ -6348,6 +7714,26 @@ impl Widget {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::Widget;
+    /// use google_cloud_monitoring_dashboard_v1::model::SingleViewGroup;
+    /// let x = Widget::new().set_single_view_group(SingleViewGroup::default()/* use setters */);
+    /// assert!(x.single_view_group().is_some());
+    /// assert!(x.xy_chart().is_none());
+    /// assert!(x.scorecard().is_none());
+    /// assert!(x.text().is_none());
+    /// assert!(x.blank().is_none());
+    /// assert!(x.alert_chart().is_none());
+    /// assert!(x.time_series_table().is_none());
+    /// assert!(x.collapsible_group().is_none());
+    /// assert!(x.logs_panel().is_none());
+    /// assert!(x.incident_list().is_none());
+    /// assert!(x.pie_chart().is_none());
+    /// assert!(x.error_reporting_panel().is_none());
+    /// assert!(x.section_header().is_none());
+    /// ```
     pub fn set_single_view_group<
         T: std::convert::Into<std::boxed::Box<crate::model::SingleViewGroup>>,
     >(
@@ -6444,6 +7830,17 @@ impl XyChart {
     }
 
     /// Sets the value of [data_sets][crate::model::XyChart::data_sets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+    /// let x = XyChart::new()
+    ///     .set_data_sets([
+    ///         DataSet::default()/* use setters */,
+    ///         DataSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6455,6 +7852,13 @@ impl XyChart {
     }
 
     /// Sets the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use wkt::Duration;
+    /// let x = XyChart::new().set_timeshift_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeshift_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6464,6 +7868,14 @@ impl XyChart {
     }
 
     /// Sets or clears the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use wkt::Duration;
+    /// let x = XyChart::new().set_or_clear_timeshift_duration(Some(Duration::default()/* use setters */));
+    /// let x = XyChart::new().set_or_clear_timeshift_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeshift_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6473,6 +7885,17 @@ impl XyChart {
     }
 
     /// Sets the value of [thresholds][crate::model::XyChart::thresholds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::Threshold;
+    /// let x = XyChart::new()
+    ///     .set_thresholds([
+    ///         Threshold::default()/* use setters */,
+    ///         Threshold::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_thresholds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6484,6 +7907,13 @@ impl XyChart {
     }
 
     /// Sets the value of [x_axis][crate::model::XyChart::x_axis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+    /// let x = XyChart::new().set_x_axis(Axis::default()/* use setters */);
+    /// ```
     pub fn set_x_axis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6493,6 +7923,14 @@ impl XyChart {
     }
 
     /// Sets or clears the value of [x_axis][crate::model::XyChart::x_axis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+    /// let x = XyChart::new().set_or_clear_x_axis(Some(Axis::default()/* use setters */));
+    /// let x = XyChart::new().set_or_clear_x_axis(None::<Axis>);
+    /// ```
     pub fn set_or_clear_x_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6502,6 +7940,13 @@ impl XyChart {
     }
 
     /// Sets the value of [y_axis][crate::model::XyChart::y_axis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+    /// let x = XyChart::new().set_y_axis(Axis::default()/* use setters */);
+    /// ```
     pub fn set_y_axis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6511,6 +7956,14 @@ impl XyChart {
     }
 
     /// Sets or clears the value of [y_axis][crate::model::XyChart::y_axis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+    /// let x = XyChart::new().set_or_clear_y_axis(Some(Axis::default()/* use setters */));
+    /// let x = XyChart::new().set_or_clear_y_axis(None::<Axis>);
+    /// ```
     pub fn set_or_clear_y_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6520,6 +7973,13 @@ impl XyChart {
     }
 
     /// Sets the value of [y2_axis][crate::model::XyChart::y2_axis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+    /// let x = XyChart::new().set_y2_axis(Axis::default()/* use setters */);
+    /// ```
     pub fn set_y2_axis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6529,6 +7989,14 @@ impl XyChart {
     }
 
     /// Sets or clears the value of [y2_axis][crate::model::XyChart::y2_axis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+    /// let x = XyChart::new().set_or_clear_y2_axis(Some(Axis::default()/* use setters */));
+    /// let x = XyChart::new().set_or_clear_y2_axis(None::<Axis>);
+    /// ```
     pub fn set_or_clear_y2_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6538,6 +8006,13 @@ impl XyChart {
     }
 
     /// Sets the value of [chart_options][crate::model::XyChart::chart_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::ChartOptions;
+    /// let x = XyChart::new().set_chart_options(ChartOptions::default()/* use setters */);
+    /// ```
     pub fn set_chart_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ChartOptions>,
@@ -6547,6 +8022,14 @@ impl XyChart {
     }
 
     /// Sets or clears the value of [chart_options][crate::model::XyChart::chart_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::XyChart;
+    /// use google_cloud_monitoring_dashboard_v1::model::ChartOptions;
+    /// let x = XyChart::new().set_or_clear_chart_options(Some(ChartOptions::default()/* use setters */));
+    /// let x = XyChart::new().set_or_clear_chart_options(None::<ChartOptions>);
+    /// ```
     pub fn set_or_clear_chart_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ChartOptions>,
@@ -6602,6 +8085,13 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+        /// let x = DataSet::new().set_time_series_query(TimeSeriesQuery::default()/* use setters */);
+        /// ```
         pub fn set_time_series_query<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -6611,6 +8101,14 @@ pub mod xy_chart {
         }
 
         /// Sets or clears the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::TimeSeriesQuery;
+        /// let x = DataSet::new().set_or_clear_time_series_query(Some(TimeSeriesQuery::default()/* use setters */));
+        /// let x = DataSet::new().set_or_clear_time_series_query(None::<TimeSeriesQuery>);
+        /// ```
         pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -6620,6 +8118,15 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [plot_type][crate::model::xy_chart::DataSet::plot_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::data_set::PlotType;
+        /// let x0 = DataSet::new().set_plot_type(PlotType::Line);
+        /// let x1 = DataSet::new().set_plot_type(PlotType::StackedArea);
+        /// let x2 = DataSet::new().set_plot_type(PlotType::StackedBar);
+        /// ```
         pub fn set_plot_type<T: std::convert::Into<crate::model::xy_chart::data_set::PlotType>>(
             mut self,
             v: T,
@@ -6629,6 +8136,12 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [legend_template][crate::model::xy_chart::DataSet::legend_template].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+        /// let x = DataSet::new().set_legend_template("example");
+        /// ```
         pub fn set_legend_template<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6638,6 +8151,13 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::xy_chart::DataSet::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+        /// use wkt::Duration;
+        /// let x = DataSet::new().set_min_alignment_period(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6647,6 +8167,14 @@ pub mod xy_chart {
         }
 
         /// Sets or clears the value of [min_alignment_period][crate::model::xy_chart::DataSet::min_alignment_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+        /// use wkt::Duration;
+        /// let x = DataSet::new().set_or_clear_min_alignment_period(Some(Duration::default()/* use setters */));
+        /// let x = DataSet::new().set_or_clear_min_alignment_period(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6656,6 +8184,14 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [target_axis][crate::model::xy_chart::DataSet::target_axis].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::DataSet;
+        /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::data_set::TargetAxis;
+        /// let x0 = DataSet::new().set_target_axis(TargetAxis::Y1);
+        /// let x1 = DataSet::new().set_target_axis(TargetAxis::Y2);
+        /// ```
         pub fn set_target_axis<
             T: std::convert::Into<crate::model::xy_chart::data_set::TargetAxis>,
         >(
@@ -6991,12 +8527,26 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [label][crate::model::xy_chart::Axis::label].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+        /// let x = Axis::new().set_label("example");
+        /// ```
         pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.label = v.into();
             self
         }
 
         /// Sets the value of [scale][crate::model::xy_chart::Axis::scale].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_monitoring_dashboard_v1::model::xy_chart::Axis;
+        /// use google_cloud_monitoring_dashboard_v1::model::xy_chart::axis::Scale;
+        /// let x0 = Axis::new().set_scale(Scale::Linear);
+        /// let x1 = Axis::new().set_scale(Scale::Log10);
+        /// ```
         pub fn set_scale<T: std::convert::Into<crate::model::xy_chart::axis::Scale>>(
             mut self,
             v: T,
@@ -7170,6 +8720,15 @@ impl ChartOptions {
     }
 
     /// Sets the value of [mode][crate::model::ChartOptions::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::model::ChartOptions;
+    /// use google_cloud_monitoring_dashboard_v1::model::chart_options::Mode;
+    /// let x0 = ChartOptions::new().set_mode(Mode::Color);
+    /// let x1 = ChartOptions::new().set_mode(Mode::XRay);
+    /// let x2 = ChartOptions::new().set_mode(Mode::Stats);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::chart_options::Mode>>(
         mut self,
         v: T,

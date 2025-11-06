@@ -66,6 +66,13 @@ impl CommonMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CommonMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -75,6 +82,14 @@ impl CommonMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CommonMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CommonMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -84,6 +99,13 @@ impl CommonMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CommonMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -93,6 +115,14 @@ impl CommonMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CommonMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CommonMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -102,6 +132,15 @@ impl CommonMetadata {
     }
 
     /// Sets the value of [operation_type][crate::model::CommonMetadata::operation_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// use google_cloud_datastore_admin_v1::model::OperationType;
+    /// let x0 = CommonMetadata::new().set_operation_type(OperationType::ExportEntities);
+    /// let x1 = CommonMetadata::new().set_operation_type(OperationType::ImportEntities);
+    /// let x2 = CommonMetadata::new().set_operation_type(OperationType::CreateIndex);
+    /// ```
     pub fn set_operation_type<T: std::convert::Into<crate::model::OperationType>>(
         mut self,
         v: T,
@@ -111,6 +150,15 @@ impl CommonMetadata {
     }
 
     /// Sets the value of [labels][crate::model::CommonMetadata::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// let x = CommonMetadata::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -123,6 +171,15 @@ impl CommonMetadata {
     }
 
     /// Sets the value of [state][crate::model::CommonMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// use google_cloud_datastore_admin_v1::model::common_metadata::State;
+    /// let x0 = CommonMetadata::new().set_state(State::Initializing);
+    /// let x1 = CommonMetadata::new().set_state(State::Processing);
+    /// let x2 = CommonMetadata::new().set_state(State::Cancelling);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::common_metadata::State>>(
         mut self,
         v: T,
@@ -334,12 +391,24 @@ impl Progress {
     }
 
     /// Sets the value of [work_completed][crate::model::Progress::work_completed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = Progress::new().set_work_completed(42);
+    /// ```
     pub fn set_work_completed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.work_completed = v.into();
         self
     }
 
     /// Sets the value of [work_estimated][crate::model::Progress::work_estimated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = Progress::new().set_work_estimated(42);
+    /// ```
     pub fn set_work_estimated<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.work_estimated = v.into();
         self
@@ -399,12 +468,27 @@ impl ExportEntitiesRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ExportEntitiesRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesRequest;
+    /// let x = ExportEntitiesRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesRequest;
+    /// let x = ExportEntitiesRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -417,6 +501,13 @@ impl ExportEntitiesRequest {
     }
 
     /// Sets the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesRequest;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ExportEntitiesRequest::new().set_entity_filter(EntityFilter::default()/* use setters */);
+    /// ```
     pub fn set_entity_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -426,6 +517,14 @@ impl ExportEntitiesRequest {
     }
 
     /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesRequest;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ExportEntitiesRequest::new().set_or_clear_entity_filter(Some(EntityFilter::default()/* use setters */));
+    /// let x = ExportEntitiesRequest::new().set_or_clear_entity_filter(None::<EntityFilter>);
+    /// ```
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -435,6 +534,12 @@ impl ExportEntitiesRequest {
     }
 
     /// Sets the value of [output_url_prefix][crate::model::ExportEntitiesRequest::output_url_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesRequest;
+    /// let x = ExportEntitiesRequest::new().set_output_url_prefix("example");
+    /// ```
     pub fn set_output_url_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -496,12 +601,27 @@ impl ImportEntitiesRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesRequest;
+    /// let x = ImportEntitiesRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ImportEntitiesRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesRequest;
+    /// let x = ImportEntitiesRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -514,12 +634,25 @@ impl ImportEntitiesRequest {
     }
 
     /// Sets the value of [input_url][crate::model::ImportEntitiesRequest::input_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesRequest;
+    /// let x = ImportEntitiesRequest::new().set_input_url("example");
+    /// ```
     pub fn set_input_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_url = v.into();
         self
     }
 
     /// Sets the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesRequest;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ImportEntitiesRequest::new().set_entity_filter(EntityFilter::default()/* use setters */);
+    /// ```
     pub fn set_entity_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -529,6 +662,14 @@ impl ImportEntitiesRequest {
     }
 
     /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesRequest;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ImportEntitiesRequest::new().set_or_clear_entity_filter(Some(EntityFilter::default()/* use setters */));
+    /// let x = ImportEntitiesRequest::new().set_or_clear_entity_filter(None::<EntityFilter>);
+    /// ```
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -568,6 +709,12 @@ impl ExportEntitiesResponse {
     }
 
     /// Sets the value of [output_url][crate::model::ExportEntitiesResponse::output_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesResponse;
+    /// let x = ExportEntitiesResponse::new().set_output_url("example");
+    /// ```
     pub fn set_output_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_url = v.into();
         self
@@ -615,6 +762,13 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets the value of [common][crate::model::ExportEntitiesMetadata::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// let x = ExportEntitiesMetadata::new().set_common(CommonMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -624,6 +778,14 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [common][crate::model::ExportEntitiesMetadata::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_common(Some(CommonMetadata::default()/* use setters */));
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_common(None::<CommonMetadata>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -633,6 +795,13 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets the value of [progress_entities][crate::model::ExportEntitiesMetadata::progress_entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ExportEntitiesMetadata::new().set_progress_entities(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_entities<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -642,6 +811,14 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [progress_entities][crate::model::ExportEntitiesMetadata::progress_entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_progress_entities(Some(Progress::default()/* use setters */));
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_progress_entities(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -651,6 +828,13 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets the value of [progress_bytes][crate::model::ExportEntitiesMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ExportEntitiesMetadata::new().set_progress_bytes(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -660,6 +844,14 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [progress_bytes][crate::model::ExportEntitiesMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_progress_bytes(Some(Progress::default()/* use setters */));
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_progress_bytes(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -669,6 +861,13 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets the value of [entity_filter][crate::model::ExportEntitiesMetadata::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ExportEntitiesMetadata::new().set_entity_filter(EntityFilter::default()/* use setters */);
+    /// ```
     pub fn set_entity_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -678,6 +877,14 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesMetadata::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_entity_filter(Some(EntityFilter::default()/* use setters */));
+    /// let x = ExportEntitiesMetadata::new().set_or_clear_entity_filter(None::<EntityFilter>);
+    /// ```
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -687,6 +894,12 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets the value of [output_url_prefix][crate::model::ExportEntitiesMetadata::output_url_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ExportEntitiesMetadata;
+    /// let x = ExportEntitiesMetadata::new().set_output_url_prefix("example");
+    /// ```
     pub fn set_output_url_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -735,6 +948,13 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets the value of [common][crate::model::ImportEntitiesMetadata::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// let x = ImportEntitiesMetadata::new().set_common(CommonMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -744,6 +964,14 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [common][crate::model::ImportEntitiesMetadata::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_common(Some(CommonMetadata::default()/* use setters */));
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_common(None::<CommonMetadata>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -753,6 +981,13 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets the value of [progress_entities][crate::model::ImportEntitiesMetadata::progress_entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ImportEntitiesMetadata::new().set_progress_entities(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_entities<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -762,6 +997,14 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [progress_entities][crate::model::ImportEntitiesMetadata::progress_entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_progress_entities(Some(Progress::default()/* use setters */));
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_progress_entities(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -771,6 +1014,13 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets the value of [progress_bytes][crate::model::ImportEntitiesMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ImportEntitiesMetadata::new().set_progress_bytes(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -780,6 +1030,14 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [progress_bytes][crate::model::ImportEntitiesMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_progress_bytes(Some(Progress::default()/* use setters */));
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_progress_bytes(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -789,6 +1047,13 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets the value of [entity_filter][crate::model::ImportEntitiesMetadata::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ImportEntitiesMetadata::new().set_entity_filter(EntityFilter::default()/* use setters */);
+    /// ```
     pub fn set_entity_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -798,6 +1063,14 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesMetadata::entity_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_entity_filter(Some(EntityFilter::default()/* use setters */));
+    /// let x = ImportEntitiesMetadata::new().set_or_clear_entity_filter(None::<EntityFilter>);
+    /// ```
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -807,6 +1080,12 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets the value of [input_url][crate::model::ImportEntitiesMetadata::input_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ImportEntitiesMetadata;
+    /// let x = ImportEntitiesMetadata::new().set_input_url("example");
+    /// ```
     pub fn set_input_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_url = v.into();
         self
@@ -862,6 +1141,12 @@ impl EntityFilter {
     }
 
     /// Sets the value of [kinds][crate::model::EntityFilter::kinds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = EntityFilter::new().set_kinds(["a", "b", "c"]);
+    /// ```
     pub fn set_kinds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -873,6 +1158,12 @@ impl EntityFilter {
     }
 
     /// Sets the value of [namespace_ids][crate::model::EntityFilter::namespace_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::EntityFilter;
+    /// let x = EntityFilter::new().set_namespace_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -913,12 +1204,25 @@ impl CreateIndexRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CreateIndexRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CreateIndexRequest;
+    /// let x = CreateIndexRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [index][crate::model::CreateIndexRequest::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CreateIndexRequest;
+    /// use google_cloud_datastore_admin_v1::model::Index;
+    /// let x = CreateIndexRequest::new().set_index(Index::default()/* use setters */);
+    /// ```
     pub fn set_index<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Index>,
@@ -928,6 +1232,14 @@ impl CreateIndexRequest {
     }
 
     /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::CreateIndexRequest;
+    /// use google_cloud_datastore_admin_v1::model::Index;
+    /// let x = CreateIndexRequest::new().set_or_clear_index(Some(Index::default()/* use setters */));
+    /// let x = CreateIndexRequest::new().set_or_clear_index(None::<Index>);
+    /// ```
     pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Index>,
@@ -965,12 +1277,24 @@ impl DeleteIndexRequest {
     }
 
     /// Sets the value of [project_id][crate::model::DeleteIndexRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::DeleteIndexRequest;
+    /// let x = DeleteIndexRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [index_id][crate::model::DeleteIndexRequest::index_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::DeleteIndexRequest;
+    /// let x = DeleteIndexRequest::new().set_index_id("example");
+    /// ```
     pub fn set_index_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_id = v.into();
         self
@@ -1005,12 +1329,24 @@ impl GetIndexRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetIndexRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::GetIndexRequest;
+    /// let x = GetIndexRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [index_id][crate::model::GetIndexRequest::index_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::GetIndexRequest;
+    /// let x = GetIndexRequest::new().set_index_id("example");
+    /// ```
     pub fn set_index_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_id = v.into();
         self
@@ -1051,24 +1387,48 @@ impl ListIndexesRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListIndexesRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListIndexesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIndexesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIndexesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1103,6 +1463,17 @@ impl ListIndexesResponse {
     }
 
     /// Sets the value of [indexes][crate::model::ListIndexesResponse::indexes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ListIndexesResponse;
+    /// use google_cloud_datastore_admin_v1::model::Index;
+    /// let x = ListIndexesResponse::new()
+    ///     .set_indexes([
+    ///         Index::default()/* use setters */,
+    ///         Index::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_indexes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1114,6 +1485,12 @@ impl ListIndexesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIndexesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::ListIndexesResponse;
+    /// let x = ListIndexesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1162,6 +1539,13 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [common][crate::model::IndexOperationMetadata::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// let x = IndexOperationMetadata::new().set_common(CommonMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -1171,6 +1555,14 @@ impl IndexOperationMetadata {
     }
 
     /// Sets or clears the value of [common][crate::model::IndexOperationMetadata::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_datastore_admin_v1::model::CommonMetadata;
+    /// let x = IndexOperationMetadata::new().set_or_clear_common(Some(CommonMetadata::default()/* use setters */));
+    /// let x = IndexOperationMetadata::new().set_or_clear_common(None::<CommonMetadata>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -1180,6 +1572,13 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [progress_entities][crate::model::IndexOperationMetadata::progress_entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = IndexOperationMetadata::new().set_progress_entities(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_entities<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -1189,6 +1588,14 @@ impl IndexOperationMetadata {
     }
 
     /// Sets or clears the value of [progress_entities][crate::model::IndexOperationMetadata::progress_entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_datastore_admin_v1::model::Progress;
+    /// let x = IndexOperationMetadata::new().set_or_clear_progress_entities(Some(Progress::default()/* use setters */));
+    /// let x = IndexOperationMetadata::new().set_or_clear_progress_entities(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -1198,6 +1605,12 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [index_id][crate::model::IndexOperationMetadata::index_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::IndexOperationMetadata;
+    /// let x = IndexOperationMetadata::new().set_index_id("example");
+    /// ```
     pub fn set_index_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_id = v.into();
         self
@@ -1238,6 +1651,15 @@ impl DatastoreFirestoreMigrationMetadata {
     }
 
     /// Sets the value of [migration_state][crate::model::DatastoreFirestoreMigrationMetadata::migration_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::DatastoreFirestoreMigrationMetadata;
+    /// use google_cloud_datastore_admin_v1::model::MigrationState;
+    /// let x0 = DatastoreFirestoreMigrationMetadata::new().set_migration_state(MigrationState::Running);
+    /// let x1 = DatastoreFirestoreMigrationMetadata::new().set_migration_state(MigrationState::Paused);
+    /// let x2 = DatastoreFirestoreMigrationMetadata::new().set_migration_state(MigrationState::Complete);
+    /// ```
     pub fn set_migration_state<T: std::convert::Into<crate::model::MigrationState>>(
         mut self,
         v: T,
@@ -1247,6 +1669,15 @@ impl DatastoreFirestoreMigrationMetadata {
     }
 
     /// Sets the value of [migration_step][crate::model::DatastoreFirestoreMigrationMetadata::migration_step].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::DatastoreFirestoreMigrationMetadata;
+    /// use google_cloud_datastore_admin_v1::model::MigrationStep;
+    /// let x0 = DatastoreFirestoreMigrationMetadata::new().set_migration_step(MigrationStep::Prepare);
+    /// let x1 = DatastoreFirestoreMigrationMetadata::new().set_migration_step(MigrationStep::Start);
+    /// let x2 = DatastoreFirestoreMigrationMetadata::new().set_migration_step(MigrationStep::ApplyWritesSynchronously);
+    /// ```
     pub fn set_migration_step<T: std::convert::Into<crate::model::MigrationStep>>(
         mut self,
         v: T,
@@ -1298,24 +1729,50 @@ impl Index {
     }
 
     /// Sets the value of [project_id][crate::model::Index::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Index;
+    /// let x = Index::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [index_id][crate::model::Index::index_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Index;
+    /// let x = Index::new().set_index_id("example");
+    /// ```
     pub fn set_index_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index_id = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::Index::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Index;
+    /// let x = Index::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [ancestor][crate::model::Index::ancestor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Index;
+    /// use google_cloud_datastore_admin_v1::model::index::AncestorMode;
+    /// let x0 = Index::new().set_ancestor(AncestorMode::None);
+    /// let x1 = Index::new().set_ancestor(AncestorMode::AllAncestors);
+    /// ```
     pub fn set_ancestor<T: std::convert::Into<crate::model::index::AncestorMode>>(
         mut self,
         v: T,
@@ -1325,6 +1782,17 @@ impl Index {
     }
 
     /// Sets the value of [properties][crate::model::Index::properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Index;
+    /// use google_cloud_datastore_admin_v1::model::index::IndexedProperty;
+    /// let x = Index::new()
+    ///     .set_properties([
+    ///         IndexedProperty::default()/* use setters */,
+    ///         IndexedProperty::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1336,6 +1804,15 @@ impl Index {
     }
 
     /// Sets the value of [state][crate::model::Index::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::Index;
+    /// use google_cloud_datastore_admin_v1::model::index::State;
+    /// let x0 = Index::new().set_state(State::Creating);
+    /// let x1 = Index::new().set_state(State::Ready);
+    /// let x2 = Index::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::index::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -1373,12 +1850,26 @@ pub mod index {
         }
 
         /// Sets the value of [name][crate::model::index::IndexedProperty::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_datastore_admin_v1::model::index::IndexedProperty;
+        /// let x = IndexedProperty::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [direction][crate::model::index::IndexedProperty::direction].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_datastore_admin_v1::model::index::IndexedProperty;
+        /// use google_cloud_datastore_admin_v1::model::index::Direction;
+        /// let x0 = IndexedProperty::new().set_direction(Direction::Ascending);
+        /// let x1 = IndexedProperty::new().set_direction(Direction::Descending);
+        /// ```
         pub fn set_direction<T: std::convert::Into<crate::model::index::Direction>>(
             mut self,
             v: T,
@@ -1839,6 +2330,15 @@ impl MigrationStateEvent {
     }
 
     /// Sets the value of [state][crate::model::MigrationStateEvent::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::MigrationStateEvent;
+    /// use google_cloud_datastore_admin_v1::model::MigrationState;
+    /// let x0 = MigrationStateEvent::new().set_state(MigrationState::Running);
+    /// let x1 = MigrationStateEvent::new().set_state(MigrationState::Paused);
+    /// let x2 = MigrationStateEvent::new().set_state(MigrationState::Complete);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::MigrationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -1875,6 +2375,15 @@ impl MigrationProgressEvent {
     }
 
     /// Sets the value of [step][crate::model::MigrationProgressEvent::step].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::MigrationProgressEvent;
+    /// use google_cloud_datastore_admin_v1::model::MigrationStep;
+    /// let x0 = MigrationProgressEvent::new().set_step(MigrationStep::Prepare);
+    /// let x1 = MigrationProgressEvent::new().set_step(MigrationStep::Start);
+    /// let x2 = MigrationProgressEvent::new().set_step(MigrationStep::ApplyWritesSynchronously);
+    /// ```
     pub fn set_step<T: std::convert::Into<crate::model::MigrationStep>>(mut self, v: T) -> Self {
         self.step = v.into();
         self
@@ -1884,6 +2393,14 @@ impl MigrationProgressEvent {
     ///
     /// Note that all the setters affecting `step_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::MigrationProgressEvent;
+    /// use google_cloud_datastore_admin_v1::model::migration_progress_event::PrepareStepDetails;
+    /// let x = MigrationProgressEvent::new().set_step_details(Some(
+    ///     google_cloud_datastore_admin_v1::model::migration_progress_event::StepDetails::PrepareStepDetails(PrepareStepDetails::default().into())));
+    /// ```
     pub fn set_step_details<
         T: std::convert::Into<
                 std::option::Option<crate::model::migration_progress_event::StepDetails>,
@@ -1918,6 +2435,15 @@ impl MigrationProgressEvent {
     ///
     /// Note that all the setters affecting `step_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::MigrationProgressEvent;
+    /// use google_cloud_datastore_admin_v1::model::migration_progress_event::PrepareStepDetails;
+    /// let x = MigrationProgressEvent::new().set_prepare_step_details(PrepareStepDetails::default()/* use setters */);
+    /// assert!(x.prepare_step_details().is_some());
+    /// assert!(x.redirect_writes_step_details().is_none());
+    /// ```
     pub fn set_prepare_step_details<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::migration_progress_event::PrepareStepDetails>,
@@ -1954,6 +2480,15 @@ impl MigrationProgressEvent {
     ///
     /// Note that all the setters affecting `step_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::model::MigrationProgressEvent;
+    /// use google_cloud_datastore_admin_v1::model::migration_progress_event::RedirectWritesStepDetails;
+    /// let x = MigrationProgressEvent::new().set_redirect_writes_step_details(RedirectWritesStepDetails::default()/* use setters */);
+    /// assert!(x.redirect_writes_step_details().is_some());
+    /// assert!(x.prepare_step_details().is_none());
+    /// ```
     pub fn set_redirect_writes_step_details<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::migration_progress_event::RedirectWritesStepDetails>,
@@ -1999,6 +2534,15 @@ pub mod migration_progress_event {
         }
 
         /// Sets the value of [concurrency_mode][crate::model::migration_progress_event::PrepareStepDetails::concurrency_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_datastore_admin_v1::model::migration_progress_event::PrepareStepDetails;
+        /// use google_cloud_datastore_admin_v1::model::migration_progress_event::ConcurrencyMode;
+        /// let x0 = PrepareStepDetails::new().set_concurrency_mode(ConcurrencyMode::Pessimistic);
+        /// let x1 = PrepareStepDetails::new().set_concurrency_mode(ConcurrencyMode::Optimistic);
+        /// let x2 = PrepareStepDetails::new().set_concurrency_mode(ConcurrencyMode::OptimisticWithEntityGroups);
+        /// ```
         pub fn set_concurrency_mode<
             T: std::convert::Into<crate::model::migration_progress_event::ConcurrencyMode>,
         >(
@@ -2032,6 +2576,15 @@ pub mod migration_progress_event {
         }
 
         /// Sets the value of [concurrency_mode][crate::model::migration_progress_event::RedirectWritesStepDetails::concurrency_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_datastore_admin_v1::model::migration_progress_event::RedirectWritesStepDetails;
+        /// use google_cloud_datastore_admin_v1::model::migration_progress_event::ConcurrencyMode;
+        /// let x0 = RedirectWritesStepDetails::new().set_concurrency_mode(ConcurrencyMode::Pessimistic);
+        /// let x1 = RedirectWritesStepDetails::new().set_concurrency_mode(ConcurrencyMode::Optimistic);
+        /// let x2 = RedirectWritesStepDetails::new().set_concurrency_mode(ConcurrencyMode::OptimisticWithEntityGroups);
+        /// ```
         pub fn set_concurrency_mode<
             T: std::convert::Into<crate::model::migration_progress_event::ConcurrencyMode>,
         >(

@@ -55,6 +55,12 @@ impl GetSchemaRegistryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSchemaRegistryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaRegistryRequest;
+    /// let x = GetSchemaRegistryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -84,6 +90,12 @@ impl ListSchemaRegistriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSchemaRegistriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaRegistriesRequest;
+    /// let x = ListSchemaRegistriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -112,6 +124,17 @@ impl ListSchemaRegistriesResponse {
     }
 
     /// Sets the value of [schema_registries][crate::model::ListSchemaRegistriesResponse::schema_registries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaRegistriesResponse;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::SchemaRegistry;
+    /// let x = ListSchemaRegistriesResponse::new()
+    ///     .set_schema_registries([
+    ///         SchemaRegistry::default()/* use setters */,
+    ///         SchemaRegistry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_schema_registries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -156,12 +179,24 @@ impl CreateSchemaRegistryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSchemaRegistryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateSchemaRegistryRequest;
+    /// let x = CreateSchemaRegistryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [schema_registry_id][crate::model::CreateSchemaRegistryRequest::schema_registry_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateSchemaRegistryRequest;
+    /// let x = CreateSchemaRegistryRequest::new().set_schema_registry_id("example");
+    /// ```
     pub fn set_schema_registry_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -171,6 +206,13 @@ impl CreateSchemaRegistryRequest {
     }
 
     /// Sets the value of [schema_registry][crate::model::CreateSchemaRegistryRequest::schema_registry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateSchemaRegistryRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::SchemaRegistry;
+    /// let x = CreateSchemaRegistryRequest::new().set_schema_registry(SchemaRegistry::default()/* use setters */);
+    /// ```
     pub fn set_schema_registry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchemaRegistry>,
@@ -180,6 +222,14 @@ impl CreateSchemaRegistryRequest {
     }
 
     /// Sets or clears the value of [schema_registry][crate::model::CreateSchemaRegistryRequest::schema_registry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateSchemaRegistryRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::SchemaRegistry;
+    /// let x = CreateSchemaRegistryRequest::new().set_or_clear_schema_registry(Some(SchemaRegistry::default()/* use setters */));
+    /// let x = CreateSchemaRegistryRequest::new().set_or_clear_schema_registry(None::<SchemaRegistry>);
+    /// ```
     pub fn set_or_clear_schema_registry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchemaRegistry>,
@@ -213,6 +263,12 @@ impl DeleteSchemaRegistryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSchemaRegistryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSchemaRegistryRequest;
+    /// let x = DeleteSchemaRegistryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -242,6 +298,12 @@ impl GetContextRequest {
     }
 
     /// Sets the value of [name][crate::model::GetContextRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetContextRequest;
+    /// let x = GetContextRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -271,6 +333,12 @@ impl ListContextsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListContextsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListContextsRequest;
+    /// let x = ListContextsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -305,12 +373,24 @@ impl GetSchemaRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSchemaRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaRequest;
+    /// let x = GetSchemaRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::GetSchemaRequest::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaRequest;
+    /// let x = GetSchemaRequest::new().set_subject("example");
+    /// ```
     pub fn set_subject<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -320,6 +400,13 @@ impl GetSchemaRequest {
     }
 
     /// Sets or clears the value of [subject][crate::model::GetSchemaRequest::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaRequest;
+    /// let x = GetSchemaRequest::new().set_or_clear_subject(Some("example"));
+    /// let x = GetSchemaRequest::new().set_or_clear_subject(None::<String>);
+    /// ```
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -353,6 +440,12 @@ impl ListSchemaTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSchemaTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaTypesRequest;
+    /// let x = ListSchemaTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -392,12 +485,24 @@ impl ListSchemaVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSchemaVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaVersionsRequest;
+    /// let x = ListSchemaVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::ListSchemaVersionsRequest::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaVersionsRequest;
+    /// let x = ListSchemaVersionsRequest::new().set_subject("example");
+    /// ```
     pub fn set_subject<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -407,6 +512,13 @@ impl ListSchemaVersionsRequest {
     }
 
     /// Sets or clears the value of [subject][crate::model::ListSchemaVersionsRequest::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaVersionsRequest;
+    /// let x = ListSchemaVersionsRequest::new().set_or_clear_subject(Some("example"));
+    /// let x = ListSchemaVersionsRequest::new().set_or_clear_subject(None::<String>);
+    /// ```
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -416,6 +528,12 @@ impl ListSchemaVersionsRequest {
     }
 
     /// Sets the value of [deleted][crate::model::ListSchemaVersionsRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaVersionsRequest;
+    /// let x = ListSchemaVersionsRequest::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -425,6 +543,13 @@ impl ListSchemaVersionsRequest {
     }
 
     /// Sets or clears the value of [deleted][crate::model::ListSchemaVersionsRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSchemaVersionsRequest;
+    /// let x = ListSchemaVersionsRequest::new().set_or_clear_deleted(Some(false));
+    /// let x = ListSchemaVersionsRequest::new().set_or_clear_deleted(None::<bool>);
+    /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -471,12 +596,24 @@ impl ListSubjectsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSubjectsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsRequest;
+    /// let x = ListSubjectsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [subject_prefix][crate::model::ListSubjectsRequest::subject_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsRequest;
+    /// let x = ListSubjectsRequest::new().set_subject_prefix("example");
+    /// ```
     pub fn set_subject_prefix<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -486,6 +623,13 @@ impl ListSubjectsRequest {
     }
 
     /// Sets or clears the value of [subject_prefix][crate::model::ListSubjectsRequest::subject_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsRequest;
+    /// let x = ListSubjectsRequest::new().set_or_clear_subject_prefix(Some("example"));
+    /// let x = ListSubjectsRequest::new().set_or_clear_subject_prefix(None::<String>);
+    /// ```
     pub fn set_or_clear_subject_prefix<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -495,6 +639,12 @@ impl ListSubjectsRequest {
     }
 
     /// Sets the value of [deleted][crate::model::ListSubjectsRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsRequest;
+    /// let x = ListSubjectsRequest::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -504,6 +654,13 @@ impl ListSubjectsRequest {
     }
 
     /// Sets or clears the value of [deleted][crate::model::ListSubjectsRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsRequest;
+    /// let x = ListSubjectsRequest::new().set_or_clear_deleted(Some(false));
+    /// let x = ListSubjectsRequest::new().set_or_clear_deleted(None::<bool>);
+    /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -546,12 +703,24 @@ impl ListSubjectsBySchemaIdRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSubjectsBySchemaIdRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsBySchemaIdRequest;
+    /// let x = ListSubjectsBySchemaIdRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::ListSubjectsBySchemaIdRequest::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsBySchemaIdRequest;
+    /// let x = ListSubjectsBySchemaIdRequest::new().set_subject("example");
+    /// ```
     pub fn set_subject<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -561,6 +730,13 @@ impl ListSubjectsBySchemaIdRequest {
     }
 
     /// Sets or clears the value of [subject][crate::model::ListSubjectsBySchemaIdRequest::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsBySchemaIdRequest;
+    /// let x = ListSubjectsBySchemaIdRequest::new().set_or_clear_subject(Some("example"));
+    /// let x = ListSubjectsBySchemaIdRequest::new().set_or_clear_subject(None::<String>);
+    /// ```
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -570,6 +746,12 @@ impl ListSubjectsBySchemaIdRequest {
     }
 
     /// Sets the value of [deleted][crate::model::ListSubjectsBySchemaIdRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsBySchemaIdRequest;
+    /// let x = ListSubjectsBySchemaIdRequest::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -579,6 +761,13 @@ impl ListSubjectsBySchemaIdRequest {
     }
 
     /// Sets or clears the value of [deleted][crate::model::ListSubjectsBySchemaIdRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListSubjectsBySchemaIdRequest;
+    /// let x = ListSubjectsBySchemaIdRequest::new().set_or_clear_deleted(Some(false));
+    /// let x = ListSubjectsBySchemaIdRequest::new().set_or_clear_deleted(None::<bool>);
+    /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -617,12 +806,24 @@ impl ListVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListVersionsRequest;
+    /// let x = ListVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [deleted][crate::model::ListVersionsRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListVersionsRequest;
+    /// let x = ListVersionsRequest::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -632,6 +833,13 @@ impl ListVersionsRequest {
     }
 
     /// Sets or clears the value of [deleted][crate::model::ListVersionsRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListVersionsRequest;
+    /// let x = ListVersionsRequest::new().set_or_clear_deleted(Some(false));
+    /// let x = ListVersionsRequest::new().set_or_clear_deleted(None::<bool>);
+    /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -673,12 +881,24 @@ impl DeleteSubjectRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSubjectRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSubjectRequest;
+    /// let x = DeleteSubjectRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [permanent][crate::model::DeleteSubjectRequest::permanent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSubjectRequest;
+    /// let x = DeleteSubjectRequest::new().set_permanent(true);
+    /// ```
     pub fn set_permanent<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -688,6 +908,13 @@ impl DeleteSubjectRequest {
     }
 
     /// Sets or clears the value of [permanent][crate::model::DeleteSubjectRequest::permanent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSubjectRequest;
+    /// let x = DeleteSubjectRequest::new().set_or_clear_permanent(Some(false));
+    /// let x = DeleteSubjectRequest::new().set_or_clear_permanent(None::<bool>);
+    /// ```
     pub fn set_or_clear_permanent<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -727,12 +954,24 @@ impl GetVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetVersionRequest;
+    /// let x = GetVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [deleted][crate::model::GetVersionRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetVersionRequest;
+    /// let x = GetVersionRequest::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -742,6 +981,13 @@ impl GetVersionRequest {
     }
 
     /// Sets or clears the value of [deleted][crate::model::GetVersionRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetVersionRequest;
+    /// let x = GetVersionRequest::new().set_or_clear_deleted(Some(false));
+    /// let x = GetVersionRequest::new().set_or_clear_deleted(None::<bool>);
+    /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -801,12 +1047,24 @@ impl CreateVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::CreateVersionRequest::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_version(42);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -816,6 +1074,13 @@ impl CreateVersionRequest {
     }
 
     /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_or_clear_version(Some(42));
+    /// let x = CreateVersionRequest::new().set_or_clear_version(None::<i32>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -825,6 +1090,12 @@ impl CreateVersionRequest {
     }
 
     /// Sets the value of [id][crate::model::CreateVersionRequest::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_id(42);
+    /// ```
     pub fn set_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -834,6 +1105,13 @@ impl CreateVersionRequest {
     }
 
     /// Sets or clears the value of [id][crate::model::CreateVersionRequest::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_or_clear_id(Some(42));
+    /// let x = CreateVersionRequest::new().set_or_clear_id(None::<i32>);
+    /// ```
     pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -843,6 +1121,15 @@ impl CreateVersionRequest {
     }
 
     /// Sets the value of [schema_type][crate::model::CreateVersionRequest::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = CreateVersionRequest::new().set_schema_type(SchemaType::Avro);
+    /// let x1 = CreateVersionRequest::new().set_schema_type(SchemaType::Json);
+    /// let x2 = CreateVersionRequest::new().set_schema_type(SchemaType::Protobuf);
+    /// ```
     pub fn set_schema_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::schema::SchemaType>,
@@ -852,6 +1139,16 @@ impl CreateVersionRequest {
     }
 
     /// Sets or clears the value of [schema_type][crate::model::CreateVersionRequest::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = CreateVersionRequest::new().set_or_clear_schema_type(Some(SchemaType::Avro));
+    /// let x1 = CreateVersionRequest::new().set_or_clear_schema_type(Some(SchemaType::Json));
+    /// let x2 = CreateVersionRequest::new().set_or_clear_schema_type(Some(SchemaType::Protobuf));
+    /// let x_none = CreateVersionRequest::new().set_or_clear_schema_type(None::<SchemaType>);
+    /// ```
     pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::schema::SchemaType>,
@@ -861,12 +1158,29 @@ impl CreateVersionRequest {
     }
 
     /// Sets the value of [schema][crate::model::CreateVersionRequest::schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_schema("example");
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [references][crate::model::CreateVersionRequest::references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+    /// let x = CreateVersionRequest::new()
+    ///     .set_references([
+    ///         SchemaReference::default()/* use setters */,
+    ///         SchemaReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -878,6 +1192,12 @@ impl CreateVersionRequest {
     }
 
     /// Sets the value of [normalize][crate::model::CreateVersionRequest::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_normalize(true);
+    /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -887,6 +1207,13 @@ impl CreateVersionRequest {
     }
 
     /// Sets or clears the value of [normalize][crate::model::CreateVersionRequest::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionRequest;
+    /// let x = CreateVersionRequest::new().set_or_clear_normalize(Some(false));
+    /// let x = CreateVersionRequest::new().set_or_clear_normalize(None::<bool>);
+    /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -918,6 +1245,12 @@ impl CreateVersionResponse {
     }
 
     /// Sets the value of [id][crate::model::CreateVersionResponse::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateVersionResponse;
+    /// let x = CreateVersionResponse::new().set_id(42);
+    /// ```
     pub fn set_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -967,12 +1300,27 @@ impl LookupVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::LookupVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// let x = LookupVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [schema_type][crate::model::LookupVersionRequest::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = LookupVersionRequest::new().set_schema_type(SchemaType::Avro);
+    /// let x1 = LookupVersionRequest::new().set_schema_type(SchemaType::Json);
+    /// let x2 = LookupVersionRequest::new().set_schema_type(SchemaType::Protobuf);
+    /// ```
     pub fn set_schema_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::schema::SchemaType>,
@@ -982,6 +1330,16 @@ impl LookupVersionRequest {
     }
 
     /// Sets or clears the value of [schema_type][crate::model::LookupVersionRequest::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = LookupVersionRequest::new().set_or_clear_schema_type(Some(SchemaType::Avro));
+    /// let x1 = LookupVersionRequest::new().set_or_clear_schema_type(Some(SchemaType::Json));
+    /// let x2 = LookupVersionRequest::new().set_or_clear_schema_type(Some(SchemaType::Protobuf));
+    /// let x_none = LookupVersionRequest::new().set_or_clear_schema_type(None::<SchemaType>);
+    /// ```
     pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::schema::SchemaType>,
@@ -991,12 +1349,29 @@ impl LookupVersionRequest {
     }
 
     /// Sets the value of [schema][crate::model::LookupVersionRequest::schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// let x = LookupVersionRequest::new().set_schema("example");
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [references][crate::model::LookupVersionRequest::references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+    /// let x = LookupVersionRequest::new()
+    ///     .set_references([
+    ///         SchemaReference::default()/* use setters */,
+    ///         SchemaReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1008,6 +1383,12 @@ impl LookupVersionRequest {
     }
 
     /// Sets the value of [normalize][crate::model::LookupVersionRequest::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// let x = LookupVersionRequest::new().set_normalize(true);
+    /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1017,6 +1398,13 @@ impl LookupVersionRequest {
     }
 
     /// Sets or clears the value of [normalize][crate::model::LookupVersionRequest::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// let x = LookupVersionRequest::new().set_or_clear_normalize(Some(false));
+    /// let x = LookupVersionRequest::new().set_or_clear_normalize(None::<bool>);
+    /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1026,6 +1414,12 @@ impl LookupVersionRequest {
     }
 
     /// Sets the value of [deleted][crate::model::LookupVersionRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// let x = LookupVersionRequest::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1035,6 +1429,13 @@ impl LookupVersionRequest {
     }
 
     /// Sets or clears the value of [deleted][crate::model::LookupVersionRequest::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::LookupVersionRequest;
+    /// let x = LookupVersionRequest::new().set_or_clear_deleted(Some(false));
+    /// let x = LookupVersionRequest::new().set_or_clear_deleted(None::<bool>);
+    /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1076,12 +1477,24 @@ impl DeleteVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteVersionRequest;
+    /// let x = DeleteVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [permanent][crate::model::DeleteVersionRequest::permanent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteVersionRequest;
+    /// let x = DeleteVersionRequest::new().set_permanent(true);
+    /// ```
     pub fn set_permanent<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1091,6 +1504,13 @@ impl DeleteVersionRequest {
     }
 
     /// Sets or clears the value of [permanent][crate::model::DeleteVersionRequest::permanent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteVersionRequest;
+    /// let x = DeleteVersionRequest::new().set_or_clear_permanent(Some(false));
+    /// let x = DeleteVersionRequest::new().set_or_clear_permanent(None::<bool>);
+    /// ```
     pub fn set_or_clear_permanent<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1125,6 +1545,12 @@ impl ListReferencedSchemasRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReferencedSchemasRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::ListReferencedSchemasRequest;
+    /// let x = ListReferencedSchemasRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -1172,12 +1598,27 @@ impl CheckCompatibilityRequest {
     }
 
     /// Sets the value of [name][crate::model::CheckCompatibilityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityRequest;
+    /// let x = CheckCompatibilityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [schema_type][crate::model::CheckCompatibilityRequest::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = CheckCompatibilityRequest::new().set_schema_type(SchemaType::Avro);
+    /// let x1 = CheckCompatibilityRequest::new().set_schema_type(SchemaType::Json);
+    /// let x2 = CheckCompatibilityRequest::new().set_schema_type(SchemaType::Protobuf);
+    /// ```
     pub fn set_schema_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::schema::SchemaType>,
@@ -1187,6 +1628,16 @@ impl CheckCompatibilityRequest {
     }
 
     /// Sets or clears the value of [schema_type][crate::model::CheckCompatibilityRequest::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = CheckCompatibilityRequest::new().set_or_clear_schema_type(Some(SchemaType::Avro));
+    /// let x1 = CheckCompatibilityRequest::new().set_or_clear_schema_type(Some(SchemaType::Json));
+    /// let x2 = CheckCompatibilityRequest::new().set_or_clear_schema_type(Some(SchemaType::Protobuf));
+    /// let x_none = CheckCompatibilityRequest::new().set_or_clear_schema_type(None::<SchemaType>);
+    /// ```
     pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::schema::SchemaType>,
@@ -1196,12 +1647,29 @@ impl CheckCompatibilityRequest {
     }
 
     /// Sets the value of [schema][crate::model::CheckCompatibilityRequest::schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityRequest;
+    /// let x = CheckCompatibilityRequest::new().set_schema("example");
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [references][crate::model::CheckCompatibilityRequest::references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+    /// let x = CheckCompatibilityRequest::new()
+    ///     .set_references([
+    ///         SchemaReference::default()/* use setters */,
+    ///         SchemaReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1213,6 +1681,12 @@ impl CheckCompatibilityRequest {
     }
 
     /// Sets the value of [verbose][crate::model::CheckCompatibilityRequest::verbose].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityRequest;
+    /// let x = CheckCompatibilityRequest::new().set_verbose(true);
+    /// ```
     pub fn set_verbose<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1222,6 +1696,13 @@ impl CheckCompatibilityRequest {
     }
 
     /// Sets or clears the value of [verbose][crate::model::CheckCompatibilityRequest::verbose].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityRequest;
+    /// let x = CheckCompatibilityRequest::new().set_or_clear_verbose(Some(false));
+    /// let x = CheckCompatibilityRequest::new().set_or_clear_verbose(None::<bool>);
+    /// ```
     pub fn set_or_clear_verbose<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1257,12 +1738,24 @@ impl CheckCompatibilityResponse {
     }
 
     /// Sets the value of [is_compatible][crate::model::CheckCompatibilityResponse::is_compatible].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityResponse;
+    /// let x = CheckCompatibilityResponse::new().set_is_compatible(true);
+    /// ```
     pub fn set_is_compatible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_compatible = v.into();
         self
     }
 
     /// Sets the value of [messages][crate::model::CheckCompatibilityResponse::messages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::CheckCompatibilityResponse;
+    /// let x = CheckCompatibilityResponse::new().set_messages(["a", "b", "c"]);
+    /// ```
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1304,12 +1797,24 @@ impl GetSchemaConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSchemaConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaConfigRequest;
+    /// let x = GetSchemaConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [default_to_global][crate::model::GetSchemaConfigRequest::default_to_global].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaConfigRequest;
+    /// let x = GetSchemaConfigRequest::new().set_default_to_global(true);
+    /// ```
     pub fn set_default_to_global<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1319,6 +1824,13 @@ impl GetSchemaConfigRequest {
     }
 
     /// Sets or clears the value of [default_to_global][crate::model::GetSchemaConfigRequest::default_to_global].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaConfigRequest;
+    /// let x = GetSchemaConfigRequest::new().set_or_clear_default_to_global(Some(false));
+    /// let x = GetSchemaConfigRequest::new().set_or_clear_default_to_global(None::<bool>);
+    /// ```
     pub fn set_or_clear_default_to_global<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1368,12 +1880,27 @@ impl UpdateSchemaConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateSchemaConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaConfigRequest;
+    /// let x = UpdateSchemaConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [compatibility][crate::model::UpdateSchemaConfigRequest::compatibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaConfigRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema_config::CompatibilityType;
+    /// let x0 = UpdateSchemaConfigRequest::new().set_compatibility(CompatibilityType::Backward);
+    /// let x1 = UpdateSchemaConfigRequest::new().set_compatibility(CompatibilityType::BackwardTransitive);
+    /// let x2 = UpdateSchemaConfigRequest::new().set_compatibility(CompatibilityType::Forward);
+    /// ```
     pub fn set_compatibility<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
@@ -1383,6 +1910,16 @@ impl UpdateSchemaConfigRequest {
     }
 
     /// Sets or clears the value of [compatibility][crate::model::UpdateSchemaConfigRequest::compatibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaConfigRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema_config::CompatibilityType;
+    /// let x0 = UpdateSchemaConfigRequest::new().set_or_clear_compatibility(Some(CompatibilityType::Backward));
+    /// let x1 = UpdateSchemaConfigRequest::new().set_or_clear_compatibility(Some(CompatibilityType::BackwardTransitive));
+    /// let x2 = UpdateSchemaConfigRequest::new().set_or_clear_compatibility(Some(CompatibilityType::Forward));
+    /// let x_none = UpdateSchemaConfigRequest::new().set_or_clear_compatibility(None::<CompatibilityType>);
+    /// ```
     pub fn set_or_clear_compatibility<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
@@ -1392,6 +1929,12 @@ impl UpdateSchemaConfigRequest {
     }
 
     /// Sets the value of [normalize][crate::model::UpdateSchemaConfigRequest::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaConfigRequest;
+    /// let x = UpdateSchemaConfigRequest::new().set_normalize(true);
+    /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1401,6 +1944,13 @@ impl UpdateSchemaConfigRequest {
     }
 
     /// Sets or clears the value of [normalize][crate::model::UpdateSchemaConfigRequest::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaConfigRequest;
+    /// let x = UpdateSchemaConfigRequest::new().set_or_clear_normalize(Some(false));
+    /// let x = UpdateSchemaConfigRequest::new().set_or_clear_normalize(None::<bool>);
+    /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1435,6 +1985,12 @@ impl DeleteSchemaConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSchemaConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSchemaConfigRequest;
+    /// let x = DeleteSchemaConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1466,6 +2022,12 @@ impl GetSchemaModeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSchemaModeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::GetSchemaModeRequest;
+    /// let x = GetSchemaModeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1500,12 +2062,27 @@ impl UpdateSchemaModeRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateSchemaModeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaModeRequest;
+    /// let x = UpdateSchemaModeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::UpdateSchemaModeRequest::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::UpdateSchemaModeRequest;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema_mode::ModeType;
+    /// let x0 = UpdateSchemaModeRequest::new().set_mode(ModeType::Readonly);
+    /// let x1 = UpdateSchemaModeRequest::new().set_mode(ModeType::Readwrite);
+    /// let x2 = UpdateSchemaModeRequest::new().set_mode(ModeType::Import);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::schema_mode::ModeType>>(
         mut self,
         v: T,
@@ -1541,6 +2118,12 @@ impl DeleteSchemaModeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSchemaModeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::DeleteSchemaModeRequest;
+    /// let x = DeleteSchemaModeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1577,12 +2160,24 @@ impl SchemaRegistry {
     }
 
     /// Sets the value of [name][crate::model::SchemaRegistry::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaRegistry;
+    /// let x = SchemaRegistry::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [contexts][crate::model::SchemaRegistry::contexts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaRegistry;
+    /// let x = SchemaRegistry::new().set_contexts(["a", "b", "c"]);
+    /// ```
     pub fn set_contexts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1626,12 +2221,24 @@ impl Context {
     }
 
     /// Sets the value of [name][crate::model::Context::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::Context;
+    /// let x = Context::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [subjects][crate::model::Context::subjects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::Context;
+    /// let x = Context::new().set_subjects(["a", "b", "c"]);
+    /// ```
     pub fn set_subjects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1671,6 +2278,15 @@ impl Schema {
     }
 
     /// Sets the value of [schema_type][crate::model::Schema::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::Schema;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = Schema::new().set_schema_type(SchemaType::Avro);
+    /// let x1 = Schema::new().set_schema_type(SchemaType::Json);
+    /// let x2 = Schema::new().set_schema_type(SchemaType::Protobuf);
+    /// ```
     pub fn set_schema_type<T: std::convert::Into<crate::model::schema::SchemaType>>(
         mut self,
         v: T,
@@ -1680,12 +2296,29 @@ impl Schema {
     }
 
     /// Sets the value of [schema_payload][crate::model::Schema::schema_payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::Schema;
+    /// let x = Schema::new().set_schema_payload("example");
+    /// ```
     pub fn set_schema_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema_payload = v.into();
         self
     }
 
     /// Sets the value of [references][crate::model::Schema::references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::Schema;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+    /// let x = Schema::new()
+    ///     .set_references([
+    ///         SchemaReference::default()/* use setters */,
+    ///         SchemaReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1730,18 +2363,36 @@ pub mod schema {
         }
 
         /// Sets the value of [name][crate::model::schema::SchemaReference::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+        /// let x = SchemaReference::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [subject][crate::model::schema::SchemaReference::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+        /// let x = SchemaReference::new().set_subject("example");
+        /// ```
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::schema::SchemaReference::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+        /// let x = SchemaReference::new().set_version(42);
+        /// ```
         pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -1923,12 +2574,24 @@ impl SchemaSubject {
     }
 
     /// Sets the value of [name][crate::model::SchemaSubject::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaSubject;
+    /// let x = SchemaSubject::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [versions][crate::model::SchemaSubject::versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaSubject;
+    /// let x = SchemaSubject::new().set_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1977,24 +2640,51 @@ impl SchemaVersion {
     }
 
     /// Sets the value of [subject][crate::model::SchemaVersion::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaVersion;
+    /// let x = SchemaVersion::new().set_subject("example");
+    /// ```
     pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subject = v.into();
         self
     }
 
     /// Sets the value of [version_id][crate::model::SchemaVersion::version_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaVersion;
+    /// let x = SchemaVersion::new().set_version_id(42);
+    /// ```
     pub fn set_version_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.version_id = v.into();
         self
     }
 
     /// Sets the value of [schema_id][crate::model::SchemaVersion::schema_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaVersion;
+    /// let x = SchemaVersion::new().set_schema_id(42);
+    /// ```
     pub fn set_schema_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.schema_id = v.into();
         self
     }
 
     /// Sets the value of [schema_type][crate::model::SchemaVersion::schema_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaVersion;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaType;
+    /// let x0 = SchemaVersion::new().set_schema_type(SchemaType::Avro);
+    /// let x1 = SchemaVersion::new().set_schema_type(SchemaType::Json);
+    /// let x2 = SchemaVersion::new().set_schema_type(SchemaType::Protobuf);
+    /// ```
     pub fn set_schema_type<T: std::convert::Into<crate::model::schema::SchemaType>>(
         mut self,
         v: T,
@@ -2004,12 +2694,29 @@ impl SchemaVersion {
     }
 
     /// Sets the value of [schema_payload][crate::model::SchemaVersion::schema_payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaVersion;
+    /// let x = SchemaVersion::new().set_schema_payload("example");
+    /// ```
     pub fn set_schema_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema_payload = v.into();
         self
     }
 
     /// Sets the value of [references][crate::model::SchemaVersion::references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaVersion;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema::SchemaReference;
+    /// let x = SchemaVersion::new()
+    ///     .set_references([
+    ///         SchemaReference::default()/* use setters */,
+    ///         SchemaReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2058,6 +2765,15 @@ impl SchemaConfig {
     }
 
     /// Sets the value of [compatibility][crate::model::SchemaConfig::compatibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaConfig;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema_config::CompatibilityType;
+    /// let x0 = SchemaConfig::new().set_compatibility(CompatibilityType::Backward);
+    /// let x1 = SchemaConfig::new().set_compatibility(CompatibilityType::BackwardTransitive);
+    /// let x2 = SchemaConfig::new().set_compatibility(CompatibilityType::Forward);
+    /// ```
     pub fn set_compatibility<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
@@ -2067,6 +2783,16 @@ impl SchemaConfig {
     }
 
     /// Sets or clears the value of [compatibility][crate::model::SchemaConfig::compatibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaConfig;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema_config::CompatibilityType;
+    /// let x0 = SchemaConfig::new().set_or_clear_compatibility(Some(CompatibilityType::Backward));
+    /// let x1 = SchemaConfig::new().set_or_clear_compatibility(Some(CompatibilityType::BackwardTransitive));
+    /// let x2 = SchemaConfig::new().set_or_clear_compatibility(Some(CompatibilityType::Forward));
+    /// let x_none = SchemaConfig::new().set_or_clear_compatibility(None::<CompatibilityType>);
+    /// ```
     pub fn set_or_clear_compatibility<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
@@ -2076,6 +2802,12 @@ impl SchemaConfig {
     }
 
     /// Sets the value of [normalize][crate::model::SchemaConfig::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaConfig;
+    /// let x = SchemaConfig::new().set_normalize(true);
+    /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2085,6 +2817,13 @@ impl SchemaConfig {
     }
 
     /// Sets or clears the value of [normalize][crate::model::SchemaConfig::normalize].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaConfig;
+    /// let x = SchemaConfig::new().set_or_clear_normalize(Some(false));
+    /// let x = SchemaConfig::new().set_or_clear_normalize(None::<bool>);
+    /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2094,6 +2833,12 @@ impl SchemaConfig {
     }
 
     /// Sets the value of [alias][crate::model::SchemaConfig::alias].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaConfig;
+    /// let x = SchemaConfig::new().set_alias("example");
+    /// ```
     pub fn set_alias<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.alias = v.into();
         self
@@ -2299,6 +3044,15 @@ impl SchemaMode {
     }
 
     /// Sets the value of [mode][crate::model::SchemaMode::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::model::SchemaMode;
+    /// use google_cloud_managedkafka_schemaregistry_v1::model::schema_mode::ModeType;
+    /// let x0 = SchemaMode::new().set_mode(ModeType::Readonly);
+    /// let x1 = SchemaMode::new().set_mode(ModeType::Readwrite);
+    /// let x2 = SchemaMode::new().set_mode(ModeType::Import);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::schema_mode::ModeType>>(
         mut self,
         v: T,

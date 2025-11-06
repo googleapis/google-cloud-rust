@@ -94,18 +94,36 @@ impl Barcode {
     }
 
     /// Sets the value of [format][crate::model::Barcode::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Barcode;
+    /// let x = Barcode::new().set_format("example");
+    /// ```
     pub fn set_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
 
     /// Sets the value of [value_format][crate::model::Barcode::value_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Barcode;
+    /// let x = Barcode::new().set_value_format("example");
+    /// ```
     pub fn set_value_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_format = v.into();
         self
     }
 
     /// Sets the value of [raw_value][crate::model::Barcode::raw_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Barcode;
+    /// let x = Barcode::new().set_raw_value("example");
+    /// ```
     pub fn set_raw_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.raw_value = v.into();
         self
@@ -212,24 +230,53 @@ impl Document {
     }
 
     /// Sets the value of [docid][crate::model::Document::docid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// let x = Document::new().set_docid("example");
+    /// ```
     pub fn set_docid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.docid = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::Document::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// let x = Document::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [text][crate::model::Document::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// let x = Document::new().set_text("example");
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of [text_styles][crate::model::Document::text_styles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::Style;
+    /// let x = Document::new()
+    ///     .set_text_styles([
+    ///         Style::default()/* use setters */,
+    ///         Style::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_text_styles<T, V>(mut self, v: T) -> Self
     where
@@ -242,6 +289,17 @@ impl Document {
     }
 
     /// Sets the value of [pages][crate::model::Document::pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::Page;
+    /// let x = Document::new()
+    ///     .set_pages([
+    ///         Page::default()/* use setters */,
+    ///         Page::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -253,6 +311,17 @@ impl Document {
     }
 
     /// Sets the value of [entities][crate::model::Document::entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::Entity;
+    /// let x = Document::new()
+    ///     .set_entities([
+    ///         Entity::default()/* use setters */,
+    ///         Entity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -264,6 +333,17 @@ impl Document {
     }
 
     /// Sets the value of [entity_relations][crate::model::Document::entity_relations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::EntityRelation;
+    /// let x = Document::new()
+    ///     .set_entity_relations([
+    ///         EntityRelation::default()/* use setters */,
+    ///         EntityRelation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entity_relations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -275,6 +355,17 @@ impl Document {
     }
 
     /// Sets the value of [text_changes][crate::model::Document::text_changes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::TextChange;
+    /// let x = Document::new()
+    ///     .set_text_changes([
+    ///         TextChange::default()/* use setters */,
+    ///         TextChange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_text_changes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -286,6 +377,13 @@ impl Document {
     }
 
     /// Sets the value of [shard_info][crate::model::Document::shard_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::ShardInfo;
+    /// let x = Document::new().set_shard_info(ShardInfo::default()/* use setters */);
+    /// ```
     pub fn set_shard_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::document::ShardInfo>,
@@ -295,6 +393,14 @@ impl Document {
     }
 
     /// Sets or clears the value of [shard_info][crate::model::Document::shard_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::ShardInfo;
+    /// let x = Document::new().set_or_clear_shard_info(Some(ShardInfo::default()/* use setters */));
+    /// let x = Document::new().set_or_clear_shard_info(None::<ShardInfo>);
+    /// ```
     pub fn set_or_clear_shard_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document::ShardInfo>,
@@ -304,6 +410,13 @@ impl Document {
     }
 
     /// Sets the value of [error][crate::model::Document::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use rpc::model::Status;
+    /// let x = Document::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -313,6 +426,14 @@ impl Document {
     }
 
     /// Sets or clears the value of [error][crate::model::Document::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use rpc::model::Status;
+    /// let x = Document::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = Document::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -322,6 +443,17 @@ impl Document {
     }
 
     /// Sets the value of [revisions][crate::model::Document::revisions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::Revision;
+    /// let x = Document::new()
+    ///     .set_revisions([
+    ///         Revision::default()/* use setters */,
+    ///         Revision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -333,6 +465,13 @@ impl Document {
     }
 
     /// Sets the value of [document_layout][crate::model::Document::document_layout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::DocumentLayout;
+    /// let x = Document::new().set_document_layout(DocumentLayout::default()/* use setters */);
+    /// ```
     pub fn set_document_layout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::document::DocumentLayout>,
@@ -342,6 +481,14 @@ impl Document {
     }
 
     /// Sets or clears the value of [document_layout][crate::model::Document::document_layout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::DocumentLayout;
+    /// let x = Document::new().set_or_clear_document_layout(Some(DocumentLayout::default()/* use setters */));
+    /// let x = Document::new().set_or_clear_document_layout(None::<DocumentLayout>);
+    /// ```
     pub fn set_or_clear_document_layout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document::DocumentLayout>,
@@ -351,6 +498,13 @@ impl Document {
     }
 
     /// Sets the value of [chunked_document][crate::model::Document::chunked_document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::ChunkedDocument;
+    /// let x = Document::new().set_chunked_document(ChunkedDocument::default()/* use setters */);
+    /// ```
     pub fn set_chunked_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::document::ChunkedDocument>,
@@ -360,6 +514,14 @@ impl Document {
     }
 
     /// Sets or clears the value of [chunked_document][crate::model::Document::chunked_document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::ChunkedDocument;
+    /// let x = Document::new().set_or_clear_chunked_document(Some(ChunkedDocument::default()/* use setters */));
+    /// let x = Document::new().set_or_clear_chunked_document(None::<ChunkedDocument>);
+    /// ```
     pub fn set_or_clear_chunked_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document::ChunkedDocument>,
@@ -369,6 +531,13 @@ impl Document {
     }
 
     /// Sets the value of [entity_validation_output][crate::model::Document::entity_validation_output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::EntityValidationOutput;
+    /// let x = Document::new().set_entity_validation_output(EntityValidationOutput::default()/* use setters */);
+    /// ```
     pub fn set_entity_validation_output<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::document::EntityValidationOutput>,
@@ -378,6 +547,14 @@ impl Document {
     }
 
     /// Sets or clears the value of [entity_validation_output][crate::model::Document::entity_validation_output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::EntityValidationOutput;
+    /// let x = Document::new().set_or_clear_entity_validation_output(Some(EntityValidationOutput::default()/* use setters */));
+    /// let x = Document::new().set_or_clear_entity_validation_output(None::<EntityValidationOutput>);
+    /// ```
     pub fn set_or_clear_entity_validation_output<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document::EntityValidationOutput>,
@@ -387,6 +564,17 @@ impl Document {
     }
 
     /// Sets the value of [entities_revisions][crate::model::Document::entities_revisions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::EntitiesRevision;
+    /// let x = Document::new()
+    ///     .set_entities_revisions([
+    ///         EntitiesRevision::default()/* use setters */,
+    ///         EntitiesRevision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entities_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -398,6 +586,12 @@ impl Document {
     }
 
     /// Sets the value of [entities_revision_id][crate::model::Document::entities_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// let x = Document::new().set_entities_revision_id("example");
+    /// ```
     pub fn set_entities_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -410,6 +604,13 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::Source;
+    /// let x = Document::new().set_source(Some(Source::Uri("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
     >(
@@ -436,6 +637,14 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// let x = Document::new().set_uri("example");
+    /// assert!(x.uri().is_some());
+    /// assert!(x.content().is_none());
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(crate::model::document::Source::Uri(v.into()));
         self
@@ -457,6 +666,14 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// let x = Document::new().set_content(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.content().is_some());
+    /// assert!(x.uri().is_none());
+    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
         self
@@ -502,18 +719,36 @@ pub mod document {
         }
 
         /// Sets the value of [shard_index][crate::model::document::ShardInfo::shard_index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::ShardInfo;
+        /// let x = ShardInfo::new().set_shard_index(42);
+        /// ```
         pub fn set_shard_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.shard_index = v.into();
             self
         }
 
         /// Sets the value of [shard_count][crate::model::document::ShardInfo::shard_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::ShardInfo;
+        /// let x = ShardInfo::new().set_shard_count(42);
+        /// ```
         pub fn set_shard_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.shard_count = v.into();
             self
         }
 
         /// Sets the value of [text_offset][crate::model::document::ShardInfo::text_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::ShardInfo;
+        /// let x = ShardInfo::new().set_text_offset(42);
+        /// ```
         pub fn set_text_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.text_offset = v.into();
             self
@@ -573,6 +808,13 @@ pub mod document {
         }
 
         /// Sets the value of [text_anchor][crate::model::document::Style::text_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// let x = Style::new().set_text_anchor(TextAnchor::default()/* use setters */);
+        /// ```
         pub fn set_text_anchor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -582,6 +824,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [text_anchor][crate::model::document::Style::text_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// let x = Style::new().set_or_clear_text_anchor(Some(TextAnchor::default()/* use setters */));
+        /// let x = Style::new().set_or_clear_text_anchor(None::<TextAnchor>);
+        /// ```
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -591,6 +841,13 @@ pub mod document {
         }
 
         /// Sets the value of [color][crate::model::document::Style::color].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use gtype::model::Color;
+        /// let x = Style::new().set_color(Color::default()/* use setters */);
+        /// ```
         pub fn set_color<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Color>,
@@ -600,6 +857,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [color][crate::model::document::Style::color].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use gtype::model::Color;
+        /// let x = Style::new().set_or_clear_color(Some(Color::default()/* use setters */));
+        /// let x = Style::new().set_or_clear_color(None::<Color>);
+        /// ```
         pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Color>,
@@ -609,6 +874,13 @@ pub mod document {
         }
 
         /// Sets the value of [background_color][crate::model::document::Style::background_color].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use gtype::model::Color;
+        /// let x = Style::new().set_background_color(Color::default()/* use setters */);
+        /// ```
         pub fn set_background_color<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Color>,
@@ -618,6 +890,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [background_color][crate::model::document::Style::background_color].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use gtype::model::Color;
+        /// let x = Style::new().set_or_clear_background_color(Some(Color::default()/* use setters */));
+        /// let x = Style::new().set_or_clear_background_color(None::<Color>);
+        /// ```
         pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Color>,
@@ -627,18 +907,36 @@ pub mod document {
         }
 
         /// Sets the value of [font_weight][crate::model::document::Style::font_weight].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// let x = Style::new().set_font_weight("example");
+        /// ```
         pub fn set_font_weight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.font_weight = v.into();
             self
         }
 
         /// Sets the value of [text_style][crate::model::document::Style::text_style].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// let x = Style::new().set_text_style("example");
+        /// ```
         pub fn set_text_style<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text_style = v.into();
             self
         }
 
         /// Sets the value of [text_decoration][crate::model::document::Style::text_decoration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// let x = Style::new().set_text_decoration("example");
+        /// ```
         pub fn set_text_decoration<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -648,6 +946,13 @@ pub mod document {
         }
 
         /// Sets the value of [font_size][crate::model::document::Style::font_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use google_cloud_documentai_v1::model::document::style::FontSize;
+        /// let x = Style::new().set_font_size(FontSize::default()/* use setters */);
+        /// ```
         pub fn set_font_size<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::style::FontSize>,
@@ -657,6 +962,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [font_size][crate::model::document::Style::font_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// use google_cloud_documentai_v1::model::document::style::FontSize;
+        /// let x = Style::new().set_or_clear_font_size(Some(FontSize::default()/* use setters */));
+        /// let x = Style::new().set_or_clear_font_size(None::<FontSize>);
+        /// ```
         pub fn set_or_clear_font_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::style::FontSize>,
@@ -666,6 +979,12 @@ pub mod document {
         }
 
         /// Sets the value of [font_family][crate::model::document::Style::font_family].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Style;
+        /// let x = Style::new().set_font_family("example");
+        /// ```
         pub fn set_font_family<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.font_family = v.into();
             self
@@ -703,12 +1022,24 @@ pub mod document {
             }
 
             /// Sets the value of [size][crate::model::document::style::FontSize::size].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::style::FontSize;
+            /// let x = FontSize::new().set_size(42.0);
+            /// ```
             pub fn set_size<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.size = v.into();
                 self
             }
 
             /// Sets the value of [unit][crate::model::document::style::FontSize::unit].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::style::FontSize;
+            /// let x = FontSize::new().set_unit("example");
+            /// ```
             pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.unit = v.into();
                 self
@@ -809,12 +1140,25 @@ pub mod document {
         }
 
         /// Sets the value of [page_number][crate::model::document::Page::page_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// let x = Page::new().set_page_number(42);
+        /// ```
         pub fn set_page_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.page_number = v.into();
             self
         }
 
         /// Sets the value of [image][crate::model::document::Page::image].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Image;
+        /// let x = Page::new().set_image(Image::default()/* use setters */);
+        /// ```
         pub fn set_image<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Image>,
@@ -824,6 +1168,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [image][crate::model::document::Page::image].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Image;
+        /// let x = Page::new().set_or_clear_image(Some(Image::default()/* use setters */));
+        /// let x = Page::new().set_or_clear_image(None::<Image>);
+        /// ```
         pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Image>,
@@ -833,6 +1185,17 @@ pub mod document {
         }
 
         /// Sets the value of [transforms][crate::model::document::Page::transforms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Matrix;
+        /// let x = Page::new()
+        ///     .set_transforms([
+        ///         Matrix::default()/* use setters */,
+        ///         Matrix::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_transforms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -844,6 +1207,13 @@ pub mod document {
         }
 
         /// Sets the value of [dimension][crate::model::document::Page::dimension].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Dimension;
+        /// let x = Page::new().set_dimension(Dimension::default()/* use setters */);
+        /// ```
         pub fn set_dimension<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Dimension>,
@@ -853,6 +1223,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [dimension][crate::model::document::Page::dimension].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Dimension;
+        /// let x = Page::new().set_or_clear_dimension(Some(Dimension::default()/* use setters */));
+        /// let x = Page::new().set_or_clear_dimension(None::<Dimension>);
+        /// ```
         pub fn set_or_clear_dimension<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Dimension>,
@@ -862,6 +1240,13 @@ pub mod document {
         }
 
         /// Sets the value of [layout][crate::model::document::Page::layout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Layout;
+        /// let x = Page::new().set_layout(Layout::default()/* use setters */);
+        /// ```
         pub fn set_layout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Layout>,
@@ -871,6 +1256,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [layout][crate::model::document::Page::layout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Layout;
+        /// let x = Page::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+        /// let x = Page::new().set_or_clear_layout(None::<Layout>);
+        /// ```
         pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Layout>,
@@ -880,6 +1273,17 @@ pub mod document {
         }
 
         /// Sets the value of [detected_languages][crate::model::document::Page::detected_languages].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+        /// let x = Page::new()
+        ///     .set_detected_languages([
+        ///         DetectedLanguage::default()/* use setters */,
+        ///         DetectedLanguage::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -891,6 +1295,17 @@ pub mod document {
         }
 
         /// Sets the value of [blocks][crate::model::document::Page::blocks].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Block;
+        /// let x = Page::new()
+        ///     .set_blocks([
+        ///         Block::default()/* use setters */,
+        ///         Block::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_blocks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -902,6 +1317,17 @@ pub mod document {
         }
 
         /// Sets the value of [paragraphs][crate::model::document::Page::paragraphs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Paragraph;
+        /// let x = Page::new()
+        ///     .set_paragraphs([
+        ///         Paragraph::default()/* use setters */,
+        ///         Paragraph::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_paragraphs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -913,6 +1339,17 @@ pub mod document {
         }
 
         /// Sets the value of [lines][crate::model::document::Page::lines].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Line;
+        /// let x = Page::new()
+        ///     .set_lines([
+        ///         Line::default()/* use setters */,
+        ///         Line::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_lines<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -924,6 +1361,17 @@ pub mod document {
         }
 
         /// Sets the value of [tokens][crate::model::document::Page::tokens].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Token;
+        /// let x = Page::new()
+        ///     .set_tokens([
+        ///         Token::default()/* use setters */,
+        ///         Token::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_tokens<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -935,6 +1383,17 @@ pub mod document {
         }
 
         /// Sets the value of [visual_elements][crate::model::document::Page::visual_elements].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::VisualElement;
+        /// let x = Page::new()
+        ///     .set_visual_elements([
+        ///         VisualElement::default()/* use setters */,
+        ///         VisualElement::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_visual_elements<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -946,6 +1405,17 @@ pub mod document {
         }
 
         /// Sets the value of [tables][crate::model::document::Page::tables].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Table;
+        /// let x = Page::new()
+        ///     .set_tables([
+        ///         Table::default()/* use setters */,
+        ///         Table::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_tables<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -957,6 +1427,17 @@ pub mod document {
         }
 
         /// Sets the value of [form_fields][crate::model::document::Page::form_fields].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::FormField;
+        /// let x = Page::new()
+        ///     .set_form_fields([
+        ///         FormField::default()/* use setters */,
+        ///         FormField::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_form_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -968,6 +1449,17 @@ pub mod document {
         }
 
         /// Sets the value of [symbols][crate::model::document::Page::symbols].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::Symbol;
+        /// let x = Page::new()
+        ///     .set_symbols([
+        ///         Symbol::default()/* use setters */,
+        ///         Symbol::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_symbols<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -979,6 +1471,17 @@ pub mod document {
         }
 
         /// Sets the value of [detected_barcodes][crate::model::document::Page::detected_barcodes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::DetectedBarcode;
+        /// let x = Page::new()
+        ///     .set_detected_barcodes([
+        ///         DetectedBarcode::default()/* use setters */,
+        ///         DetectedBarcode::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_detected_barcodes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -990,6 +1493,13 @@ pub mod document {
         }
 
         /// Sets the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::ImageQualityScores;
+        /// let x = Page::new().set_image_quality_scores(ImageQualityScores::default()/* use setters */);
+        /// ```
         pub fn set_image_quality_scores<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::page::ImageQualityScores>,
@@ -999,6 +1509,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::page::ImageQualityScores;
+        /// let x = Page::new().set_or_clear_image_quality_scores(Some(ImageQualityScores::default()/* use setters */));
+        /// let x = Page::new().set_or_clear_image_quality_scores(None::<ImageQualityScores>);
+        /// ```
         pub fn set_or_clear_image_quality_scores<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::ImageQualityScores>,
@@ -1008,6 +1526,13 @@ pub mod document {
         }
 
         /// Sets the value of [provenance][crate::model::document::Page::provenance].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::Provenance;
+        /// let x = Page::new().set_provenance(Provenance::default()/* use setters */);
+        /// ```
         #[deprecated]
         pub fn set_provenance<T>(mut self, v: T) -> Self
         where
@@ -1018,6 +1543,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [provenance][crate::model::document::Page::provenance].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Page;
+        /// use google_cloud_documentai_v1::model::document::Provenance;
+        /// let x = Page::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+        /// let x = Page::new().set_or_clear_provenance(None::<Provenance>);
+        /// ```
         #[deprecated]
         pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
         where
@@ -1061,18 +1594,36 @@ pub mod document {
             }
 
             /// Sets the value of [width][crate::model::document::page::Dimension::width].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Dimension;
+            /// let x = Dimension::new().set_width(42.0);
+            /// ```
             pub fn set_width<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.width = v.into();
                 self
             }
 
             /// Sets the value of [height][crate::model::document::page::Dimension::height].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Dimension;
+            /// let x = Dimension::new().set_height(42.0);
+            /// ```
             pub fn set_height<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.height = v.into();
                 self
             }
 
             /// Sets the value of [unit][crate::model::document::page::Dimension::unit].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Dimension;
+            /// let x = Dimension::new().set_unit("example");
+            /// ```
             pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.unit = v.into();
                 self
@@ -1112,12 +1663,24 @@ pub mod document {
             }
 
             /// Sets the value of [content][crate::model::document::page::Image::content].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Image;
+            /// let x = Image::new().set_content(bytes::Bytes::from_static(b"example"));
+            /// ```
             pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.content = v.into();
                 self
             }
 
             /// Sets the value of [mime_type][crate::model::document::page::Image::mime_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Image;
+            /// let x = Image::new().set_mime_type("example");
+            /// ```
             pub fn set_mime_type<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1127,12 +1690,24 @@ pub mod document {
             }
 
             /// Sets the value of [width][crate::model::document::page::Image::width].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Image;
+            /// let x = Image::new().set_width(42);
+            /// ```
             pub fn set_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.width = v.into();
                 self
             }
 
             /// Sets the value of [height][crate::model::document::page::Image::height].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Image;
+            /// let x = Image::new().set_height(42);
+            /// ```
             pub fn set_height<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.height = v.into();
                 self
@@ -1174,24 +1749,48 @@ pub mod document {
             }
 
             /// Sets the value of [rows][crate::model::document::page::Matrix::rows].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Matrix;
+            /// let x = Matrix::new().set_rows(42);
+            /// ```
             pub fn set_rows<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.rows = v.into();
                 self
             }
 
             /// Sets the value of [cols][crate::model::document::page::Matrix::cols].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Matrix;
+            /// let x = Matrix::new().set_cols(42);
+            /// ```
             pub fn set_cols<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.cols = v.into();
                 self
             }
 
             /// Sets the value of [r#type][crate::model::document::page::Matrix::type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Matrix;
+            /// let x = Matrix::new().set_type(42);
+            /// ```
             pub fn set_type<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.r#type = v.into();
                 self
             }
 
             /// Sets the value of [data][crate::model::document::page::Matrix::data].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Matrix;
+            /// let x = Matrix::new().set_data(bytes::Bytes::from_static(b"example"));
+            /// ```
             pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.data = v.into();
                 self
@@ -1244,6 +1843,13 @@ pub mod document {
             }
 
             /// Sets the value of [text_anchor][crate::model::document::page::Layout::text_anchor].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Layout;
+            /// use google_cloud_documentai_v1::model::document::TextAnchor;
+            /// let x = Layout::new().set_text_anchor(TextAnchor::default()/* use setters */);
+            /// ```
             pub fn set_text_anchor<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -1253,6 +1859,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [text_anchor][crate::model::document::page::Layout::text_anchor].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Layout;
+            /// use google_cloud_documentai_v1::model::document::TextAnchor;
+            /// let x = Layout::new().set_or_clear_text_anchor(Some(TextAnchor::default()/* use setters */));
+            /// let x = Layout::new().set_or_clear_text_anchor(None::<TextAnchor>);
+            /// ```
             pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -1262,12 +1876,25 @@ pub mod document {
             }
 
             /// Sets the value of [confidence][crate::model::document::page::Layout::confidence].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Layout::new().set_confidence(42.0);
+            /// ```
             pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.confidence = v.into();
                 self
             }
 
             /// Sets the value of [bounding_poly][crate::model::document::page::Layout::bounding_poly].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Layout;
+            /// use google_cloud_documentai_v1::model::BoundingPoly;
+            /// let x = Layout::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
+            /// ```
             pub fn set_bounding_poly<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -1277,6 +1904,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [bounding_poly][crate::model::document::page::Layout::bounding_poly].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Layout;
+            /// use google_cloud_documentai_v1::model::BoundingPoly;
+            /// let x = Layout::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
+            /// let x = Layout::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
+            /// ```
             pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -1286,6 +1921,15 @@ pub mod document {
             }
 
             /// Sets the value of [orientation][crate::model::document::page::Layout::orientation].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Layout;
+            /// use google_cloud_documentai_v1::model::document::page::layout::Orientation;
+            /// let x0 = Layout::new().set_orientation(Orientation::PageUp);
+            /// let x1 = Layout::new().set_orientation(Orientation::PageRight);
+            /// let x2 = Layout::new().set_orientation(Orientation::PageDown);
+            /// ```
             pub fn set_orientation<
                 T: std::convert::Into<crate::model::document::page::layout::Orientation>,
             >(
@@ -1489,6 +2133,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Block::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Block;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Block::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1498,6 +2149,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::Block::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Block;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Block::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = Block::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1507,6 +2166,17 @@ pub mod document {
             }
 
             /// Sets the value of [detected_languages][crate::model::document::page::Block::detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Block;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = Block::new()
+            ///     .set_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1518,6 +2188,13 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Block::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Block;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Block::new().set_provenance(Provenance::default()/* use setters */);
+            /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
             where
@@ -1528,6 +2205,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [provenance][crate::model::document::page::Block::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Block;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Block::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+            /// let x = Block::new().set_or_clear_provenance(None::<Provenance>);
+            /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1571,6 +2256,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Paragraph::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Paragraph;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Paragraph::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1580,6 +2272,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::Paragraph::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Paragraph;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Paragraph::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = Paragraph::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1589,6 +2289,17 @@ pub mod document {
             }
 
             /// Sets the value of [detected_languages][crate::model::document::page::Paragraph::detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Paragraph;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = Paragraph::new()
+            ///     .set_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1600,6 +2311,13 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Paragraph::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Paragraph;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Paragraph::new().set_provenance(Provenance::default()/* use setters */);
+            /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
             where
@@ -1610,6 +2328,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [provenance][crate::model::document::page::Paragraph::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Paragraph;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Paragraph::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+            /// let x = Paragraph::new().set_or_clear_provenance(None::<Provenance>);
+            /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1654,6 +2380,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Line::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Line;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Line::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1663,6 +2396,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::Line::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Line;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Line::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = Line::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1672,6 +2413,17 @@ pub mod document {
             }
 
             /// Sets the value of [detected_languages][crate::model::document::page::Line::detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Line;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = Line::new()
+            ///     .set_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1683,6 +2435,13 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Line::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Line;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Line::new().set_provenance(Provenance::default()/* use setters */);
+            /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
             where
@@ -1693,6 +2452,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [provenance][crate::model::document::page::Line::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Line;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Line::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+            /// let x = Line::new().set_or_clear_provenance(None::<Provenance>);
+            /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1746,6 +2513,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Token::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Token::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1755,6 +2529,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::Token::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Token::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = Token::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1764,6 +2546,13 @@ pub mod document {
             }
 
             /// Sets the value of [detected_break][crate::model::document::page::Token::detected_break].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::page::token::DetectedBreak;
+            /// let x = Token::new().set_detected_break(DetectedBreak::default()/* use setters */);
+            /// ```
             pub fn set_detected_break<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::token::DetectedBreak>,
@@ -1773,6 +2562,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [detected_break][crate::model::document::page::Token::detected_break].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::page::token::DetectedBreak;
+            /// let x = Token::new().set_or_clear_detected_break(Some(DetectedBreak::default()/* use setters */));
+            /// let x = Token::new().set_or_clear_detected_break(None::<DetectedBreak>);
+            /// ```
             pub fn set_or_clear_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::token::DetectedBreak>,
@@ -1782,6 +2579,17 @@ pub mod document {
             }
 
             /// Sets the value of [detected_languages][crate::model::document::page::Token::detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = Token::new()
+            ///     .set_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1793,6 +2601,13 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Token::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Token::new().set_provenance(Provenance::default()/* use setters */);
+            /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
             where
@@ -1803,6 +2618,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [provenance][crate::model::document::page::Token::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Token::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+            /// let x = Token::new().set_or_clear_provenance(None::<Provenance>);
+            /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1813,6 +2636,13 @@ pub mod document {
             }
 
             /// Sets the value of [style_info][crate::model::document::page::Token::style_info].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+            /// let x = Token::new().set_style_info(StyleInfo::default()/* use setters */);
+            /// ```
             pub fn set_style_info<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::token::StyleInfo>,
@@ -1822,6 +2652,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [style_info][crate::model::document::page::Token::style_info].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Token;
+            /// use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+            /// let x = Token::new().set_or_clear_style_info(Some(StyleInfo::default()/* use setters */));
+            /// let x = Token::new().set_or_clear_style_info(None::<StyleInfo>);
+            /// ```
             pub fn set_or_clear_style_info<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::token::StyleInfo>,
@@ -1861,6 +2699,15 @@ pub mod document {
                 }
 
                 /// Sets the value of [r#type][crate::model::document::page::token::DetectedBreak::type].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::DetectedBreak;
+                /// use google_cloud_documentai_v1::model::document::page::token::detected_break::Type;
+                /// let x0 = DetectedBreak::new().set_type(Type::Space);
+                /// let x1 = DetectedBreak::new().set_type(Type::WideSpace);
+                /// let x2 = DetectedBreak::new().set_type(Type::Hyphen);
+                /// ```
                 pub fn set_type<
                     T: std::convert::Into<crate::model::document::page::token::detected_break::Type>,
                 >(
@@ -2094,24 +2941,48 @@ pub mod document {
                 }
 
                 /// Sets the value of [font_size][crate::model::document::page::token::StyleInfo::font_size].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_font_size(42);
+                /// ```
                 pub fn set_font_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.font_size = v.into();
                     self
                 }
 
                 /// Sets the value of [pixel_font_size][crate::model::document::page::token::StyleInfo::pixel_font_size].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_pixel_font_size(42.0);
+                /// ```
                 pub fn set_pixel_font_size<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                     self.pixel_font_size = v.into();
                     self
                 }
 
                 /// Sets the value of [letter_spacing][crate::model::document::page::token::StyleInfo::letter_spacing].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_letter_spacing(42.0);
+                /// ```
                 pub fn set_letter_spacing<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                     self.letter_spacing = v.into();
                     self
                 }
 
                 /// Sets the value of [font_type][crate::model::document::page::token::StyleInfo::font_type].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_font_type("example");
+                /// ```
                 pub fn set_font_type<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2121,60 +2992,121 @@ pub mod document {
                 }
 
                 /// Sets the value of [bold][crate::model::document::page::token::StyleInfo::bold].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_bold(true);
+                /// ```
                 pub fn set_bold<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.bold = v.into();
                     self
                 }
 
                 /// Sets the value of [italic][crate::model::document::page::token::StyleInfo::italic].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_italic(true);
+                /// ```
                 pub fn set_italic<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.italic = v.into();
                     self
                 }
 
                 /// Sets the value of [underlined][crate::model::document::page::token::StyleInfo::underlined].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_underlined(true);
+                /// ```
                 pub fn set_underlined<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.underlined = v.into();
                     self
                 }
 
                 /// Sets the value of [strikeout][crate::model::document::page::token::StyleInfo::strikeout].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_strikeout(true);
+                /// ```
                 pub fn set_strikeout<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.strikeout = v.into();
                     self
                 }
 
                 /// Sets the value of [subscript][crate::model::document::page::token::StyleInfo::subscript].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_subscript(true);
+                /// ```
                 pub fn set_subscript<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.subscript = v.into();
                     self
                 }
 
                 /// Sets the value of [superscript][crate::model::document::page::token::StyleInfo::superscript].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_superscript(true);
+                /// ```
                 pub fn set_superscript<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.superscript = v.into();
                     self
                 }
 
                 /// Sets the value of [smallcaps][crate::model::document::page::token::StyleInfo::smallcaps].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_smallcaps(true);
+                /// ```
                 pub fn set_smallcaps<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.smallcaps = v.into();
                     self
                 }
 
                 /// Sets the value of [font_weight][crate::model::document::page::token::StyleInfo::font_weight].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_font_weight(42);
+                /// ```
                 pub fn set_font_weight<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.font_weight = v.into();
                     self
                 }
 
                 /// Sets the value of [handwritten][crate::model::document::page::token::StyleInfo::handwritten].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// let x = StyleInfo::new().set_handwritten(true);
+                /// ```
                 pub fn set_handwritten<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.handwritten = v.into();
                     self
                 }
 
                 /// Sets the value of [text_color][crate::model::document::page::token::StyleInfo::text_color].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// use gtype::model::Color;
+                /// let x = StyleInfo::new().set_text_color(Color::default()/* use setters */);
+                /// ```
                 pub fn set_text_color<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<gtype::model::Color>,
@@ -2184,6 +3116,14 @@ pub mod document {
                 }
 
                 /// Sets or clears the value of [text_color][crate::model::document::page::token::StyleInfo::text_color].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// use gtype::model::Color;
+                /// let x = StyleInfo::new().set_or_clear_text_color(Some(Color::default()/* use setters */));
+                /// let x = StyleInfo::new().set_or_clear_text_color(None::<Color>);
+                /// ```
                 pub fn set_or_clear_text_color<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<gtype::model::Color>,
@@ -2193,6 +3133,13 @@ pub mod document {
                 }
 
                 /// Sets the value of [background_color][crate::model::document::page::token::StyleInfo::background_color].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// use gtype::model::Color;
+                /// let x = StyleInfo::new().set_background_color(Color::default()/* use setters */);
+                /// ```
                 pub fn set_background_color<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<gtype::model::Color>,
@@ -2202,6 +3149,14 @@ pub mod document {
                 }
 
                 /// Sets or clears the value of [background_color][crate::model::document::page::token::StyleInfo::background_color].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
+                /// use gtype::model::Color;
+                /// let x = StyleInfo::new().set_or_clear_background_color(Some(Color::default()/* use setters */));
+                /// let x = StyleInfo::new().set_or_clear_background_color(None::<Color>);
+                /// ```
                 pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<gtype::model::Color>,
@@ -2241,6 +3196,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Symbol::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Symbol;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Symbol::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2250,6 +3212,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::Symbol::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Symbol;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Symbol::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = Symbol::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2259,6 +3229,17 @@ pub mod document {
             }
 
             /// Sets the value of [detected_languages][crate::model::document::page::Symbol::detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Symbol;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = Symbol::new()
+            ///     .set_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2306,6 +3287,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::VisualElement::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::VisualElement;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = VisualElement::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2315,6 +3303,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::VisualElement::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::VisualElement;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = VisualElement::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = VisualElement::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2324,12 +3320,29 @@ pub mod document {
             }
 
             /// Sets the value of [r#type][crate::model::document::page::VisualElement::type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::VisualElement;
+            /// let x = VisualElement::new().set_type("example");
+            /// ```
             pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.r#type = v.into();
                 self
             }
 
             /// Sets the value of [detected_languages][crate::model::document::page::VisualElement::detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::VisualElement;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = VisualElement::new()
+            ///     .set_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2380,6 +3393,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Table::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Table;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Table::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2389,6 +3409,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::Table::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Table;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = Table::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = Table::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2398,6 +3426,17 @@ pub mod document {
             }
 
             /// Sets the value of [header_rows][crate::model::document::page::Table::header_rows].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Table;
+            /// use google_cloud_documentai_v1::model::document::page::table::TableRow;
+            /// let x = Table::new()
+            ///     .set_header_rows([
+            ///         TableRow::default()/* use setters */,
+            ///         TableRow::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_header_rows<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2409,6 +3448,17 @@ pub mod document {
             }
 
             /// Sets the value of [body_rows][crate::model::document::page::Table::body_rows].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Table;
+            /// use google_cloud_documentai_v1::model::document::page::table::TableRow;
+            /// let x = Table::new()
+            ///     .set_body_rows([
+            ///         TableRow::default()/* use setters */,
+            ///         TableRow::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_body_rows<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2420,6 +3470,17 @@ pub mod document {
             }
 
             /// Sets the value of [detected_languages][crate::model::document::page::Table::detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Table;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = Table::new()
+            ///     .set_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2431,6 +3492,13 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Table::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Table;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Table::new().set_provenance(Provenance::default()/* use setters */);
+            /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
             where
@@ -2441,6 +3509,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [provenance][crate::model::document::page::Table::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::Table;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = Table::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+            /// let x = Table::new().set_or_clear_provenance(None::<Provenance>);
+            /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -2478,6 +3554,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [cells][crate::model::document::page::table::TableRow::cells].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::table::TableRow;
+                /// use google_cloud_documentai_v1::model::document::page::table::TableCell;
+                /// let x = TableRow::new()
+                ///     .set_cells([
+                ///         TableCell::default()/* use setters */,
+                ///         TableCell::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_cells<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -2525,6 +3612,13 @@ pub mod document {
                 }
 
                 /// Sets the value of [layout][crate::model::document::page::table::TableCell::layout].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::table::TableCell;
+                /// use google_cloud_documentai_v1::model::document::page::Layout;
+                /// let x = TableCell::new().set_layout(Layout::default()/* use setters */);
+                /// ```
                 pub fn set_layout<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2534,6 +3628,14 @@ pub mod document {
                 }
 
                 /// Sets or clears the value of [layout][crate::model::document::page::table::TableCell::layout].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::table::TableCell;
+                /// use google_cloud_documentai_v1::model::document::page::Layout;
+                /// let x = TableCell::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+                /// let x = TableCell::new().set_or_clear_layout(None::<Layout>);
+                /// ```
                 pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2543,18 +3645,41 @@ pub mod document {
                 }
 
                 /// Sets the value of [row_span][crate::model::document::page::table::TableCell::row_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::table::TableCell;
+                /// let x = TableCell::new().set_row_span(42);
+                /// ```
                 pub fn set_row_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.row_span = v.into();
                     self
                 }
 
                 /// Sets the value of [col_span][crate::model::document::page::table::TableCell::col_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::table::TableCell;
+                /// let x = TableCell::new().set_col_span(42);
+                /// ```
                 pub fn set_col_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.col_span = v.into();
                     self
                 }
 
                 /// Sets the value of [detected_languages][crate::model::document::page::table::TableCell::detected_languages].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::table::TableCell;
+                /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+                /// let x = TableCell::new()
+                ///     .set_detected_languages([
+                ///         DetectedLanguage::default()/* use setters */,
+                ///         DetectedLanguage::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -2630,6 +3755,13 @@ pub mod document {
             }
 
             /// Sets the value of [field_name][crate::model::document::page::FormField::field_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = FormField::new().set_field_name(Layout::default()/* use setters */);
+            /// ```
             pub fn set_field_name<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2639,6 +3771,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [field_name][crate::model::document::page::FormField::field_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = FormField::new().set_or_clear_field_name(Some(Layout::default()/* use setters */));
+            /// let x = FormField::new().set_or_clear_field_name(None::<Layout>);
+            /// ```
             pub fn set_or_clear_field_name<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2648,6 +3788,13 @@ pub mod document {
             }
 
             /// Sets the value of [field_value][crate::model::document::page::FormField::field_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = FormField::new().set_field_value(Layout::default()/* use setters */);
+            /// ```
             pub fn set_field_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2657,6 +3804,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [field_value][crate::model::document::page::FormField::field_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = FormField::new().set_or_clear_field_value(Some(Layout::default()/* use setters */));
+            /// let x = FormField::new().set_or_clear_field_value(None::<Layout>);
+            /// ```
             pub fn set_or_clear_field_value<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2666,6 +3821,17 @@ pub mod document {
             }
 
             /// Sets the value of [name_detected_languages][crate::model::document::page::FormField::name_detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = FormField::new()
+            ///     .set_name_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_name_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2677,6 +3843,17 @@ pub mod document {
             }
 
             /// Sets the value of [value_detected_languages][crate::model::document::page::FormField::value_detected_languages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = FormField::new()
+            ///     .set_value_detected_languages([
+            ///         DetectedLanguage::default()/* use setters */,
+            ///         DetectedLanguage::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_value_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2688,6 +3865,12 @@ pub mod document {
             }
 
             /// Sets the value of [value_type][crate::model::document::page::FormField::value_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// let x = FormField::new().set_value_type("example");
+            /// ```
             pub fn set_value_type<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2697,6 +3880,12 @@ pub mod document {
             }
 
             /// Sets the value of [corrected_key_text][crate::model::document::page::FormField::corrected_key_text].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// let x = FormField::new().set_corrected_key_text("example");
+            /// ```
             pub fn set_corrected_key_text<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2706,6 +3895,12 @@ pub mod document {
             }
 
             /// Sets the value of [corrected_value_text][crate::model::document::page::FormField::corrected_value_text].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// let x = FormField::new().set_corrected_value_text("example");
+            /// ```
             pub fn set_corrected_value_text<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2715,6 +3910,13 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::FormField::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = FormField::new().set_provenance(Provenance::default()/* use setters */);
+            /// ```
             pub fn set_provenance<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::Provenance>,
@@ -2724,6 +3926,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [provenance][crate::model::document::page::FormField::provenance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::FormField;
+            /// use google_cloud_documentai_v1::model::document::Provenance;
+            /// let x = FormField::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+            /// let x = FormField::new().set_or_clear_provenance(None::<Provenance>);
+            /// ```
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::Provenance>,
@@ -2765,6 +3975,13 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::DetectedBarcode::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::DetectedBarcode;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = DetectedBarcode::new().set_layout(Layout::default()/* use setters */);
+            /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2774,6 +3991,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [layout][crate::model::document::page::DetectedBarcode::layout].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::DetectedBarcode;
+            /// use google_cloud_documentai_v1::model::document::page::Layout;
+            /// let x = DetectedBarcode::new().set_or_clear_layout(Some(Layout::default()/* use setters */));
+            /// let x = DetectedBarcode::new().set_or_clear_layout(None::<Layout>);
+            /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2783,6 +4008,13 @@ pub mod document {
             }
 
             /// Sets the value of [barcode][crate::model::document::page::DetectedBarcode::barcode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::DetectedBarcode;
+            /// use google_cloud_documentai_v1::model::Barcode;
+            /// let x = DetectedBarcode::new().set_barcode(Barcode::default()/* use setters */);
+            /// ```
             pub fn set_barcode<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::Barcode>,
@@ -2792,6 +4024,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [barcode][crate::model::document::page::DetectedBarcode::barcode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::DetectedBarcode;
+            /// use google_cloud_documentai_v1::model::Barcode;
+            /// let x = DetectedBarcode::new().set_or_clear_barcode(Some(Barcode::default()/* use setters */));
+            /// let x = DetectedBarcode::new().set_or_clear_barcode(None::<Barcode>);
+            /// ```
             pub fn set_or_clear_barcode<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::Barcode>,
@@ -2828,6 +4068,12 @@ pub mod document {
             }
 
             /// Sets the value of [language_code][crate::model::document::page::DetectedLanguage::language_code].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = DetectedLanguage::new().set_language_code("example");
+            /// ```
             pub fn set_language_code<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2837,6 +4083,12 @@ pub mod document {
             }
 
             /// Sets the value of [confidence][crate::model::document::page::DetectedLanguage::confidence].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
+            /// let x = DetectedLanguage::new().set_confidence(42.0);
+            /// ```
             pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.confidence = v.into();
                 self
@@ -2869,12 +4121,29 @@ pub mod document {
             }
 
             /// Sets the value of [quality_score][crate::model::document::page::ImageQualityScores::quality_score].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::ImageQualityScores;
+            /// let x = ImageQualityScores::new().set_quality_score(42.0);
+            /// ```
             pub fn set_quality_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.quality_score = v.into();
                 self
             }
 
             /// Sets the value of [detected_defects][crate::model::document::page::ImageQualityScores::detected_defects].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page::ImageQualityScores;
+            /// use google_cloud_documentai_v1::model::document::page::image_quality_scores::DetectedDefect;
+            /// let x = ImageQualityScores::new()
+            ///     .set_detected_defects([
+            ///         DetectedDefect::default()/* use setters */,
+            ///         DetectedDefect::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_detected_defects<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2928,6 +4197,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [r#type][crate::model::document::page::image_quality_scores::DetectedDefect::type].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::image_quality_scores::DetectedDefect;
+                /// let x = DetectedDefect::new().set_type("example");
+                /// ```
                 pub fn set_type<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -2937,6 +4212,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [confidence][crate::model::document::page::image_quality_scores::DetectedDefect::confidence].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::page::image_quality_scores::DetectedDefect;
+                /// let x = DetectedDefect::new().set_confidence(42.0);
+                /// ```
                 pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                     self.confidence = v.into();
                     self
@@ -3013,6 +4294,13 @@ pub mod document {
         }
 
         /// Sets the value of [text_anchor][crate::model::document::Entity::text_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// let x = Entity::new().set_text_anchor(TextAnchor::default()/* use setters */);
+        /// ```
         pub fn set_text_anchor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -3022,6 +4310,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [text_anchor][crate::model::document::Entity::text_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// let x = Entity::new().set_or_clear_text_anchor(Some(TextAnchor::default()/* use setters */));
+        /// let x = Entity::new().set_or_clear_text_anchor(None::<TextAnchor>);
+        /// ```
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -3031,12 +4327,24 @@ pub mod document {
         }
 
         /// Sets the value of [r#type][crate::model::document::Entity::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = Entity::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [mention_text][crate::model::document::Entity::mention_text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = Entity::new().set_mention_text("example");
+        /// ```
         pub fn set_mention_text<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3046,18 +4354,37 @@ pub mod document {
         }
 
         /// Sets the value of [mention_id][crate::model::document::Entity::mention_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = Entity::new().set_mention_id("example");
+        /// ```
         pub fn set_mention_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mention_id = v.into();
             self
         }
 
         /// Sets the value of [confidence][crate::model::document::Entity::confidence].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = Entity::new().set_confidence(42.0);
+        /// ```
         pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.confidence = v.into();
             self
         }
 
         /// Sets the value of [page_anchor][crate::model::document::Entity::page_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::PageAnchor;
+        /// let x = Entity::new().set_page_anchor(PageAnchor::default()/* use setters */);
+        /// ```
         pub fn set_page_anchor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::PageAnchor>,
@@ -3067,6 +4394,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [page_anchor][crate::model::document::Entity::page_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::PageAnchor;
+        /// let x = Entity::new().set_or_clear_page_anchor(Some(PageAnchor::default()/* use setters */));
+        /// let x = Entity::new().set_or_clear_page_anchor(None::<PageAnchor>);
+        /// ```
         pub fn set_or_clear_page_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::PageAnchor>,
@@ -3076,12 +4411,25 @@ pub mod document {
         }
 
         /// Sets the value of [id][crate::model::document::Entity::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = Entity::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [normalized_value][crate::model::document::Entity::normalized_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+        /// let x = Entity::new().set_normalized_value(NormalizedValue::default()/* use setters */);
+        /// ```
         pub fn set_normalized_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::entity::NormalizedValue>,
@@ -3091,6 +4439,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [normalized_value][crate::model::document::Entity::normalized_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+        /// let x = Entity::new().set_or_clear_normalized_value(Some(NormalizedValue::default()/* use setters */));
+        /// let x = Entity::new().set_or_clear_normalized_value(None::<NormalizedValue>);
+        /// ```
         pub fn set_or_clear_normalized_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::entity::NormalizedValue>,
@@ -3100,6 +4456,17 @@ pub mod document {
         }
 
         /// Sets the value of [properties][crate::model::document::Entity::properties].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = Entity::new()
+        ///     .set_properties([
+        ///         Entity::default()/* use setters */,
+        ///         Entity::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_properties<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3111,6 +4478,13 @@ pub mod document {
         }
 
         /// Sets the value of [provenance][crate::model::document::Entity::provenance].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::Provenance;
+        /// let x = Entity::new().set_provenance(Provenance::default()/* use setters */);
+        /// ```
         pub fn set_provenance<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::Provenance>,
@@ -3120,6 +4494,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [provenance][crate::model::document::Entity::provenance].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::Provenance;
+        /// let x = Entity::new().set_or_clear_provenance(Some(Provenance::default()/* use setters */));
+        /// let x = Entity::new().set_or_clear_provenance(None::<Provenance>);
+        /// ```
         pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::Provenance>,
@@ -3129,12 +4511,26 @@ pub mod document {
         }
 
         /// Sets the value of [redacted][crate::model::document::Entity::redacted].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = Entity::new().set_redacted(true);
+        /// ```
         pub fn set_redacted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.redacted = v.into();
             self
         }
 
         /// Sets the value of [method][crate::model::document::Entity::method].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Entity;
+        /// use google_cloud_documentai_v1::model::document::entity::Method;
+        /// let x0 = Entity::new().set_method(Method::Extract);
+        /// let x1 = Entity::new().set_method(Method::Derive);
+        /// ```
         pub fn set_method<T: std::convert::Into<crate::model::document::entity::Method>>(
             mut self,
             v: T,
@@ -3189,6 +4585,12 @@ pub mod document {
             }
 
             /// Sets the value of [text][crate::model::document::entity::NormalizedValue::text].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// let x = NormalizedValue::new().set_text("example");
+            /// ```
             pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.text = v.into();
                 self
@@ -3198,6 +4600,13 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// use google_cloud_documentai_v1::model::document::entity::normalized_value::StructuredValue;
+            /// let x = NormalizedValue::new().set_structured_value(Some(StructuredValue::BooleanValue(true)));
+            /// ```
             pub fn set_structured_value<
                 T: std::convert::Into<
                         std::option::Option<
@@ -3230,6 +4639,21 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// use gtype::model::Money;
+            /// let x = NormalizedValue::new().set_money_value(Money::default()/* use setters */);
+            /// assert!(x.money_value().is_some());
+            /// assert!(x.date_value().is_none());
+            /// assert!(x.datetime_value().is_none());
+            /// assert!(x.address_value().is_none());
+            /// assert!(x.boolean_value().is_none());
+            /// assert!(x.integer_value().is_none());
+            /// assert!(x.float_value().is_none());
+            /// assert!(x.signature_value().is_none());
+            /// ```
             pub fn set_money_value<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
                 mut self,
                 v: T,
@@ -3258,6 +4682,21 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// use gtype::model::Date;
+            /// let x = NormalizedValue::new().set_date_value(Date::default()/* use setters */);
+            /// assert!(x.date_value().is_some());
+            /// assert!(x.money_value().is_none());
+            /// assert!(x.datetime_value().is_none());
+            /// assert!(x.address_value().is_none());
+            /// assert!(x.boolean_value().is_none());
+            /// assert!(x.integer_value().is_none());
+            /// assert!(x.float_value().is_none());
+            /// assert!(x.signature_value().is_none());
+            /// ```
             pub fn set_date_value<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
                 mut self,
                 v: T,
@@ -3288,6 +4727,21 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// use gtype::model::DateTime;
+            /// let x = NormalizedValue::new().set_datetime_value(DateTime::default()/* use setters */);
+            /// assert!(x.datetime_value().is_some());
+            /// assert!(x.money_value().is_none());
+            /// assert!(x.date_value().is_none());
+            /// assert!(x.address_value().is_none());
+            /// assert!(x.boolean_value().is_none());
+            /// assert!(x.integer_value().is_none());
+            /// assert!(x.float_value().is_none());
+            /// assert!(x.signature_value().is_none());
+            /// ```
             pub fn set_datetime_value<
                 T: std::convert::Into<std::boxed::Box<gtype::model::DateTime>>,
             >(
@@ -3320,6 +4774,21 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// use gtype::model::PostalAddress;
+            /// let x = NormalizedValue::new().set_address_value(PostalAddress::default()/* use setters */);
+            /// assert!(x.address_value().is_some());
+            /// assert!(x.money_value().is_none());
+            /// assert!(x.date_value().is_none());
+            /// assert!(x.datetime_value().is_none());
+            /// assert!(x.boolean_value().is_none());
+            /// assert!(x.integer_value().is_none());
+            /// assert!(x.float_value().is_none());
+            /// assert!(x.signature_value().is_none());
+            /// ```
             pub fn set_address_value<
                 T: std::convert::Into<std::boxed::Box<gtype::model::PostalAddress>>,
             >(
@@ -3350,6 +4819,20 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// let x = NormalizedValue::new().set_boolean_value(true);
+            /// assert!(x.boolean_value().is_some());
+            /// assert!(x.money_value().is_none());
+            /// assert!(x.date_value().is_none());
+            /// assert!(x.datetime_value().is_none());
+            /// assert!(x.address_value().is_none());
+            /// assert!(x.integer_value().is_none());
+            /// assert!(x.float_value().is_none());
+            /// assert!(x.signature_value().is_none());
+            /// ```
             pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::BooleanValue(
@@ -3375,6 +4858,20 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// let x = NormalizedValue::new().set_integer_value(42);
+            /// assert!(x.integer_value().is_some());
+            /// assert!(x.money_value().is_none());
+            /// assert!(x.date_value().is_none());
+            /// assert!(x.datetime_value().is_none());
+            /// assert!(x.address_value().is_none());
+            /// assert!(x.boolean_value().is_none());
+            /// assert!(x.float_value().is_none());
+            /// assert!(x.signature_value().is_none());
+            /// ```
             pub fn set_integer_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::IntegerValue(
@@ -3400,6 +4897,20 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// let x = NormalizedValue::new().set_float_value(42.0);
+            /// assert!(x.float_value().is_some());
+            /// assert!(x.money_value().is_none());
+            /// assert!(x.date_value().is_none());
+            /// assert!(x.datetime_value().is_none());
+            /// assert!(x.address_value().is_none());
+            /// assert!(x.boolean_value().is_none());
+            /// assert!(x.integer_value().is_none());
+            /// assert!(x.signature_value().is_none());
+            /// ```
             pub fn set_float_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::FloatValue(
@@ -3425,6 +4936,20 @@ pub mod document {
             ///
             /// Note that all the setters affecting `structured_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity::NormalizedValue;
+            /// let x = NormalizedValue::new().set_signature_value(true);
+            /// assert!(x.signature_value().is_some());
+            /// assert!(x.money_value().is_none());
+            /// assert!(x.date_value().is_none());
+            /// assert!(x.datetime_value().is_none());
+            /// assert!(x.address_value().is_none());
+            /// assert!(x.boolean_value().is_none());
+            /// assert!(x.integer_value().is_none());
+            /// assert!(x.float_value().is_none());
+            /// ```
             pub fn set_signature_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::SignatureValue(
@@ -3639,18 +5164,36 @@ pub mod document {
         }
 
         /// Sets the value of [subject_id][crate::model::document::EntityRelation::subject_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntityRelation;
+        /// let x = EntityRelation::new().set_subject_id("example");
+        /// ```
         pub fn set_subject_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject_id = v.into();
             self
         }
 
         /// Sets the value of [object_id][crate::model::document::EntityRelation::object_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntityRelation;
+        /// let x = EntityRelation::new().set_object_id("example");
+        /// ```
         pub fn set_object_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.object_id = v.into();
             self
         }
 
         /// Sets the value of [relation][crate::model::document::EntityRelation::relation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntityRelation;
+        /// let x = EntityRelation::new().set_relation("example");
+        /// ```
         pub fn set_relation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.relation = v.into();
             self
@@ -3690,6 +5233,17 @@ pub mod document {
         }
 
         /// Sets the value of [text_segments][crate::model::document::TextAnchor::text_segments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// use google_cloud_documentai_v1::model::document::text_anchor::TextSegment;
+        /// let x = TextAnchor::new()
+        ///     .set_text_segments([
+        ///         TextSegment::default()/* use setters */,
+        ///         TextSegment::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_text_segments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3701,6 +5255,12 @@ pub mod document {
         }
 
         /// Sets the value of [content][crate::model::document::TextAnchor::content].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// let x = TextAnchor::new().set_content("example");
+        /// ```
         pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.content = v.into();
             self
@@ -3754,12 +5314,24 @@ pub mod document {
             }
 
             /// Sets the value of [start_index][crate::model::document::text_anchor::TextSegment::start_index].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::text_anchor::TextSegment;
+            /// let x = TextSegment::new().set_start_index(42);
+            /// ```
             pub fn set_start_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.start_index = v.into();
                 self
             }
 
             /// Sets the value of [end_index][crate::model::document::text_anchor::TextSegment::end_index].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::text_anchor::TextSegment;
+            /// let x = TextSegment::new().set_end_index(42);
+            /// ```
             pub fn set_end_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.end_index = v.into();
                 self
@@ -3794,6 +5366,17 @@ pub mod document {
         }
 
         /// Sets the value of [page_refs][crate::model::document::PageAnchor::page_refs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::PageAnchor;
+        /// use google_cloud_documentai_v1::model::document::page_anchor::PageRef;
+        /// let x = PageAnchor::new()
+        ///     .set_page_refs([
+        ///         PageRef::default()/* use setters */,
+        ///         PageRef::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_page_refs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3860,12 +5443,27 @@ pub mod document {
             }
 
             /// Sets the value of [page][crate::model::document::page_anchor::PageRef::page].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page_anchor::PageRef;
+            /// let x = PageRef::new().set_page(42);
+            /// ```
             pub fn set_page<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.page = v.into();
                 self
             }
 
             /// Sets the value of [layout_type][crate::model::document::page_anchor::PageRef::layout_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page_anchor::PageRef;
+            /// use google_cloud_documentai_v1::model::document::page_anchor::page_ref::LayoutType;
+            /// let x0 = PageRef::new().set_layout_type(LayoutType::Block);
+            /// let x1 = PageRef::new().set_layout_type(LayoutType::Paragraph);
+            /// let x2 = PageRef::new().set_layout_type(LayoutType::Line);
+            /// ```
             pub fn set_layout_type<
                 T: std::convert::Into<crate::model::document::page_anchor::page_ref::LayoutType>,
             >(
@@ -3877,6 +5475,12 @@ pub mod document {
             }
 
             /// Sets the value of [layout_id][crate::model::document::page_anchor::PageRef::layout_id].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page_anchor::PageRef;
+            /// let x = PageRef::new().set_layout_id("example");
+            /// ```
             #[deprecated]
             pub fn set_layout_id<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -3887,6 +5491,13 @@ pub mod document {
             }
 
             /// Sets the value of [bounding_poly][crate::model::document::page_anchor::PageRef::bounding_poly].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page_anchor::PageRef;
+            /// use google_cloud_documentai_v1::model::BoundingPoly;
+            /// let x = PageRef::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
+            /// ```
             pub fn set_bounding_poly<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -3896,6 +5507,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [bounding_poly][crate::model::document::page_anchor::PageRef::bounding_poly].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page_anchor::PageRef;
+            /// use google_cloud_documentai_v1::model::BoundingPoly;
+            /// let x = PageRef::new().set_or_clear_bounding_poly(Some(BoundingPoly::default()/* use setters */));
+            /// let x = PageRef::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
+            /// ```
             pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -3905,6 +5524,12 @@ pub mod document {
             }
 
             /// Sets the value of [confidence][crate::model::document::page_anchor::PageRef::confidence].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::page_anchor::PageRef;
+            /// let x = PageRef::new().set_confidence(42.0);
+            /// ```
             pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.confidence = v.into();
                 self
@@ -4150,6 +5775,12 @@ pub mod document {
         }
 
         /// Sets the value of [revision][crate::model::document::Provenance::revision].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Provenance;
+        /// let x = Provenance::new().set_revision(42);
+        /// ```
         #[deprecated]
         pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.revision = v.into();
@@ -4157,6 +5788,12 @@ pub mod document {
         }
 
         /// Sets the value of [id][crate::model::document::Provenance::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Provenance;
+        /// let x = Provenance::new().set_id(42);
+        /// ```
         #[deprecated]
         pub fn set_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.id = v.into();
@@ -4164,6 +5801,17 @@ pub mod document {
         }
 
         /// Sets the value of [parents][crate::model::document::Provenance::parents].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Provenance;
+        /// use google_cloud_documentai_v1::model::document::provenance::Parent;
+        /// let x = Provenance::new()
+        ///     .set_parents([
+        ///         Parent::default()/* use setters */,
+        ///         Parent::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_parents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4175,6 +5823,15 @@ pub mod document {
         }
 
         /// Sets the value of [r#type][crate::model::document::Provenance::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Provenance;
+        /// use google_cloud_documentai_v1::model::document::provenance::OperationType;
+        /// let x0 = Provenance::new().set_type(OperationType::Add);
+        /// let x1 = Provenance::new().set_type(OperationType::Remove);
+        /// let x2 = Provenance::new().set_type(OperationType::Update);
+        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::document::provenance::OperationType>,
         >(
@@ -4222,18 +5879,36 @@ pub mod document {
             }
 
             /// Sets the value of [revision][crate::model::document::provenance::Parent::revision].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::provenance::Parent;
+            /// let x = Parent::new().set_revision(42);
+            /// ```
             pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.revision = v.into();
                 self
             }
 
             /// Sets the value of [index][crate::model::document::provenance::Parent::index].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::provenance::Parent;
+            /// let x = Parent::new().set_index(42);
+            /// ```
             pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.index = v.into();
                 self
             }
 
             /// Sets the value of [id][crate::model::document::provenance::Parent::id].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::provenance::Parent;
+            /// let x = Parent::new().set_id(42);
+            /// ```
             #[deprecated]
             pub fn set_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.id = v.into();
@@ -4465,12 +6140,24 @@ pub mod document {
         }
 
         /// Sets the value of [id][crate::model::document::Revision::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// let x = Revision::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [parent][crate::model::document::Revision::parent].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// let x = Revision::new().set_parent([1, 2, 3]);
+        /// ```
         #[deprecated]
         pub fn set_parent<T, V>(mut self, v: T) -> Self
         where
@@ -4483,6 +6170,12 @@ pub mod document {
         }
 
         /// Sets the value of [parent_ids][crate::model::document::Revision::parent_ids].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// let x = Revision::new().set_parent_ids(["a", "b", "c"]);
+        /// ```
         pub fn set_parent_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4494,6 +6187,13 @@ pub mod document {
         }
 
         /// Sets the value of [create_time][crate::model::document::Revision::create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// use wkt::Timestamp;
+        /// let x = Revision::new().set_create_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4503,6 +6203,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [create_time][crate::model::document::Revision::create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// use wkt::Timestamp;
+        /// let x = Revision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Revision::new().set_or_clear_create_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4512,6 +6220,13 @@ pub mod document {
         }
 
         /// Sets the value of [human_review][crate::model::document::Revision::human_review].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// use google_cloud_documentai_v1::model::document::revision::HumanReview;
+        /// let x = Revision::new().set_human_review(HumanReview::default()/* use setters */);
+        /// ```
         pub fn set_human_review<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::revision::HumanReview>,
@@ -4521,6 +6236,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [human_review][crate::model::document::Revision::human_review].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// use google_cloud_documentai_v1::model::document::revision::HumanReview;
+        /// let x = Revision::new().set_or_clear_human_review(Some(HumanReview::default()/* use setters */));
+        /// let x = Revision::new().set_or_clear_human_review(None::<HumanReview>);
+        /// ```
         pub fn set_or_clear_human_review<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::revision::HumanReview>,
@@ -4533,6 +6256,13 @@ pub mod document {
         ///
         /// Note that all the setters affecting `source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// use google_cloud_documentai_v1::model::document::revision::Source;
+        /// let x = Revision::new().set_source(Some(Source::Agent("example".to_string())));
+        /// ```
         pub fn set_source<
             T: std::convert::Into<std::option::Option<crate::model::document::revision::Source>>,
         >(
@@ -4559,6 +6289,14 @@ pub mod document {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// let x = Revision::new().set_agent("example");
+        /// assert!(x.agent().is_some());
+        /// assert!(x.processor().is_none());
+        /// ```
         pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::document::revision::Source::Agent(v.into()),
@@ -4584,6 +6322,14 @@ pub mod document {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::Revision;
+        /// let x = Revision::new().set_processor("example");
+        /// assert!(x.processor().is_some());
+        /// assert!(x.agent().is_none());
+        /// ```
         pub fn set_processor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::document::revision::Source::Processor(v.into()),
@@ -4623,12 +6369,24 @@ pub mod document {
             }
 
             /// Sets the value of [state][crate::model::document::revision::HumanReview::state].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::revision::HumanReview;
+            /// let x = HumanReview::new().set_state("example");
+            /// ```
             pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.state = v.into();
                 self
             }
 
             /// Sets the value of [state_message][crate::model::document::revision::HumanReview::state_message].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::revision::HumanReview;
+            /// let x = HumanReview::new().set_state_message("example");
+            /// ```
             pub fn set_state_message<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -4687,6 +6445,13 @@ pub mod document {
         }
 
         /// Sets the value of [text_anchor][crate::model::document::TextChange::text_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::TextChange;
+        /// use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// let x = TextChange::new().set_text_anchor(TextAnchor::default()/* use setters */);
+        /// ```
         pub fn set_text_anchor<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -4696,6 +6461,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [text_anchor][crate::model::document::TextChange::text_anchor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::TextChange;
+        /// use google_cloud_documentai_v1::model::document::TextAnchor;
+        /// let x = TextChange::new().set_or_clear_text_anchor(Some(TextAnchor::default()/* use setters */));
+        /// let x = TextChange::new().set_or_clear_text_anchor(None::<TextAnchor>);
+        /// ```
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -4705,6 +6478,12 @@ pub mod document {
         }
 
         /// Sets the value of [changed_text][crate::model::document::TextChange::changed_text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::TextChange;
+        /// let x = TextChange::new().set_changed_text("example");
+        /// ```
         pub fn set_changed_text<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4714,6 +6493,17 @@ pub mod document {
         }
 
         /// Sets the value of [provenance][crate::model::document::TextChange::provenance].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::TextChange;
+        /// use google_cloud_documentai_v1::model::document::Provenance;
+        /// let x = TextChange::new()
+        ///     .set_provenance([
+        ///         Provenance::default()/* use setters */,
+        ///         Provenance::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         #[deprecated]
         pub fn set_provenance<T, V>(mut self, v: T) -> Self
         where
@@ -4749,6 +6539,17 @@ pub mod document {
         }
 
         /// Sets the value of [blocks][crate::model::document::DocumentLayout::blocks].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::DocumentLayout;
+        /// use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+        /// let x = DocumentLayout::new()
+        ///     .set_blocks([
+        ///         DocumentLayoutBlock::default()/* use setters */,
+        ///         DocumentLayoutBlock::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_blocks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4800,6 +6601,12 @@ pub mod document {
             }
 
             /// Sets the value of [block_id][crate::model::document::document_layout::DocumentLayoutBlock::block_id].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// let x = DocumentLayoutBlock::new().set_block_id("example");
+            /// ```
             pub fn set_block_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -4809,6 +6616,13 @@ pub mod document {
             }
 
             /// Sets the value of [page_span][crate::model::document::document_layout::DocumentLayoutBlock::page_span].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutPageSpan;
+            /// let x = DocumentLayoutBlock::new().set_page_span(LayoutPageSpan::default()/* use setters */);
+            /// ```
             pub fn set_page_span<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>
             {
@@ -4817,6 +6631,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [page_span][crate::model::document::document_layout::DocumentLayoutBlock::page_span].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutPageSpan;
+            /// let x = DocumentLayoutBlock::new().set_or_clear_page_span(Some(LayoutPageSpan::default()/* use setters */));
+            /// let x = DocumentLayoutBlock::new().set_or_clear_page_span(None::<LayoutPageSpan>);
+            /// ```
             pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>
             {
@@ -4825,6 +6647,13 @@ pub mod document {
             }
 
             /// Sets the value of [bounding_box][crate::model::document::document_layout::DocumentLayoutBlock::bounding_box].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::BoundingPoly;
+            /// let x = DocumentLayoutBlock::new().set_bounding_box(BoundingPoly::default()/* use setters */);
+            /// ```
             pub fn set_bounding_box<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -4834,6 +6663,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [bounding_box][crate::model::document::document_layout::DocumentLayoutBlock::bounding_box].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::BoundingPoly;
+            /// let x = DocumentLayoutBlock::new().set_or_clear_bounding_box(Some(BoundingPoly::default()/* use setters */));
+            /// let x = DocumentLayoutBlock::new().set_or_clear_bounding_box(None::<BoundingPoly>);
+            /// ```
             pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -4846,6 +6683,14 @@ pub mod document {
             ///
             /// Note that all the setters affecting `block` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
+            /// let x = DocumentLayoutBlock::new().set_block(Some(
+            ///     google_cloud_documentai_v1::model::document::document_layout::document_layout_block::Block::TextBlock(LayoutTextBlock::default().into())));
+            /// ```
             pub fn set_block<
                 T: std::convert::Into<
                         std::option::Option<
@@ -4882,6 +6727,16 @@ pub mod document {
             ///
             /// Note that all the setters affecting `block` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
+            /// let x = DocumentLayoutBlock::new().set_text_block(LayoutTextBlock::default()/* use setters */);
+            /// assert!(x.text_block().is_some());
+            /// assert!(x.table_block().is_none());
+            /// assert!(x.list_block().is_none());
+            /// ```
             pub fn set_text_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
                     crate::model::document::document_layout::document_layout_block::Block::TextBlock(
@@ -4907,6 +6762,16 @@ pub mod document {
             ///
             /// Note that all the setters affecting `block` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableBlock;
+            /// let x = DocumentLayoutBlock::new().set_table_block(LayoutTableBlock::default()/* use setters */);
+            /// assert!(x.table_block().is_some());
+            /// assert!(x.text_block().is_none());
+            /// assert!(x.list_block().is_none());
+            /// ```
             pub fn set_table_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
                     crate::model::document::document_layout::document_layout_block::Block::TableBlock(
@@ -4938,6 +6803,16 @@ pub mod document {
             ///
             /// Note that all the setters affecting `block` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutListBlock;
+            /// let x = DocumentLayoutBlock::new().set_list_block(LayoutListBlock::default()/* use setters */);
+            /// assert!(x.list_block().is_some());
+            /// assert!(x.text_block().is_none());
+            /// assert!(x.table_block().is_none());
+            /// ```
             pub fn set_list_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
                     crate::model::document::document_layout::document_layout_block::Block::ListBlock(
@@ -4978,12 +6853,24 @@ pub mod document {
                 }
 
                 /// Sets the value of [page_start][crate::model::document::document_layout::document_layout_block::LayoutPageSpan::page_start].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutPageSpan;
+                /// let x = LayoutPageSpan::new().set_page_start(42);
+                /// ```
                 pub fn set_page_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.page_start = v.into();
                     self
                 }
 
                 /// Sets the value of [page_end][crate::model::document::document_layout::document_layout_block::LayoutPageSpan::page_end].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutPageSpan;
+                /// let x = LayoutPageSpan::new().set_page_end(42);
+                /// ```
                 pub fn set_page_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.page_end = v.into();
                     self
@@ -5022,6 +6909,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [text][crate::model::document::document_layout::document_layout_block::LayoutTextBlock::text].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
+                /// let x = LayoutTextBlock::new().set_text("example");
+                /// ```
                 pub fn set_text<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5031,6 +6924,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [r#type][crate::model::document::document_layout::document_layout_block::LayoutTextBlock::type].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
+                /// let x = LayoutTextBlock::new().set_type("example");
+                /// ```
                 pub fn set_type<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5040,6 +6939,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [blocks][crate::model::document::document_layout::document_layout_block::LayoutTextBlock::blocks].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
+                /// use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+                /// let x = LayoutTextBlock::new()
+                ///     .set_blocks([
+                ///         DocumentLayoutBlock::default()/* use setters */,
+                ///         DocumentLayoutBlock::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_blocks<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5085,6 +6995,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [header_rows][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::header_rows].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableBlock;
+                /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableRow;
+                /// let x = LayoutTableBlock::new()
+                ///     .set_header_rows([
+                ///         LayoutTableRow::default()/* use setters */,
+                ///         LayoutTableRow::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_header_rows<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5096,6 +7017,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [body_rows][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::body_rows].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableBlock;
+                /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableRow;
+                /// let x = LayoutTableBlock::new()
+                ///     .set_body_rows([
+                ///         LayoutTableRow::default()/* use setters */,
+                ///         LayoutTableRow::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_body_rows<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5107,6 +7039,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [caption][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::caption].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableBlock;
+                /// let x = LayoutTableBlock::new().set_caption("example");
+                /// ```
                 pub fn set_caption<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5140,6 +7078,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [cells][crate::model::document::document_layout::document_layout_block::LayoutTableRow::cells].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableRow;
+                /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableCell;
+                /// let x = LayoutTableRow::new()
+                ///     .set_cells([
+                ///         LayoutTableCell::default()/* use setters */,
+                ///         LayoutTableCell::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_cells<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5181,6 +7130,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [blocks][crate::model::document::document_layout::document_layout_block::LayoutTableCell::blocks].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableCell;
+                /// use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+                /// let x = LayoutTableCell::new()
+                ///     .set_blocks([
+                ///         DocumentLayoutBlock::default()/* use setters */,
+                ///         DocumentLayoutBlock::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_blocks<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5194,12 +7154,24 @@ pub mod document {
                 }
 
                 /// Sets the value of [row_span][crate::model::document::document_layout::document_layout_block::LayoutTableCell::row_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableCell;
+                /// let x = LayoutTableCell::new().set_row_span(42);
+                /// ```
                 pub fn set_row_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.row_span = v.into();
                     self
                 }
 
                 /// Sets the value of [col_span][crate::model::document::document_layout::document_layout_block::LayoutTableCell::col_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableCell;
+                /// let x = LayoutTableCell::new().set_col_span(42);
+                /// ```
                 pub fn set_col_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.col_span = v.into();
                     self
@@ -5234,6 +7206,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [list_entries][crate::model::document::document_layout::document_layout_block::LayoutListBlock::list_entries].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutListBlock;
+                /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutListEntry;
+                /// let x = LayoutListBlock::new()
+                ///     .set_list_entries([
+                ///         LayoutListEntry::default()/* use setters */,
+                ///         LayoutListEntry::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_list_entries<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5245,6 +7228,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [r#type][crate::model::document::document_layout::document_layout_block::LayoutListBlock::type].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutListBlock;
+                /// let x = LayoutListBlock::new().set_type("example");
+                /// ```
                 pub fn set_type<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5278,6 +7267,17 @@ pub mod document {
                 }
 
                 /// Sets the value of [blocks][crate::model::document::document_layout::document_layout_block::LayoutListEntry::blocks].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutListEntry;
+                /// use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+                /// let x = LayoutListEntry::new()
+                ///     .set_blocks([
+                ///         DocumentLayoutBlock::default()/* use setters */,
+                ///         DocumentLayoutBlock::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_blocks<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5326,6 +7326,17 @@ pub mod document {
         }
 
         /// Sets the value of [chunks][crate::model::document::ChunkedDocument::chunks].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::ChunkedDocument;
+        /// use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+        /// let x = ChunkedDocument::new()
+        ///     .set_chunks([
+        ///         Chunk::default()/* use setters */,
+        ///         Chunk::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_chunks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5382,6 +7393,12 @@ pub mod document {
             }
 
             /// Sets the value of [chunk_id][crate::model::document::chunked_document::Chunk::chunk_id].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// let x = Chunk::new().set_chunk_id("example");
+            /// ```
             pub fn set_chunk_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5391,6 +7408,12 @@ pub mod document {
             }
 
             /// Sets the value of [source_block_ids][crate::model::document::chunked_document::Chunk::source_block_ids].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// let x = Chunk::new().set_source_block_ids(["a", "b", "c"]);
+            /// ```
             pub fn set_source_block_ids<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -5402,12 +7425,25 @@ pub mod document {
             }
 
             /// Sets the value of [content][crate::model::document::chunked_document::Chunk::content].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// let x = Chunk::new().set_content("example");
+            /// ```
             pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.content = v.into();
                 self
             }
 
             /// Sets the value of [page_span][crate::model::document::chunked_document::Chunk::page_span].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+            /// let x = Chunk::new().set_page_span(ChunkPageSpan::default()/* use setters */);
+            /// ```
             pub fn set_page_span<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -5419,6 +7455,14 @@ pub mod document {
             }
 
             /// Sets or clears the value of [page_span][crate::model::document::chunked_document::Chunk::page_span].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+            /// let x = Chunk::new().set_or_clear_page_span(Some(ChunkPageSpan::default()/* use setters */));
+            /// let x = Chunk::new().set_or_clear_page_span(None::<ChunkPageSpan>);
+            /// ```
             pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -5430,6 +7474,17 @@ pub mod document {
             }
 
             /// Sets the value of [page_headers][crate::model::document::chunked_document::Chunk::page_headers].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageHeader;
+            /// let x = Chunk::new()
+            ///     .set_page_headers([
+            ///         ChunkPageHeader::default()/* use setters */,
+            ///         ChunkPageHeader::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_page_headers<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -5443,6 +7498,17 @@ pub mod document {
             }
 
             /// Sets the value of [page_footers][crate::model::document::chunked_document::Chunk::page_footers].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageFooter;
+            /// let x = Chunk::new()
+            ///     .set_page_footers([
+            ///         ChunkPageFooter::default()/* use setters */,
+            ///         ChunkPageFooter::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_page_footers<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -5486,12 +7552,24 @@ pub mod document {
                 }
 
                 /// Sets the value of [page_start][crate::model::document::chunked_document::chunk::ChunkPageSpan::page_start].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+                /// let x = ChunkPageSpan::new().set_page_start(42);
+                /// ```
                 pub fn set_page_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.page_start = v.into();
                     self
                 }
 
                 /// Sets the value of [page_end][crate::model::document::chunked_document::chunk::ChunkPageSpan::page_end].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+                /// let x = ChunkPageSpan::new().set_page_end(42);
+                /// ```
                 pub fn set_page_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.page_end = v.into();
                     self
@@ -5525,6 +7603,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [text][crate::model::document::chunked_document::chunk::ChunkPageHeader::text].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageHeader;
+                /// let x = ChunkPageHeader::new().set_text("example");
+                /// ```
                 pub fn set_text<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5534,6 +7618,13 @@ pub mod document {
                 }
 
                 /// Sets the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageHeader::page_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageHeader;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+                /// let x = ChunkPageHeader::new().set_page_span(ChunkPageSpan::default()/* use setters */);
+                /// ```
                 pub fn set_page_span<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<
@@ -5545,6 +7636,14 @@ pub mod document {
                 }
 
                 /// Sets or clears the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageHeader::page_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageHeader;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+                /// let x = ChunkPageHeader::new().set_or_clear_page_span(Some(ChunkPageSpan::default()/* use setters */));
+                /// let x = ChunkPageHeader::new().set_or_clear_page_span(None::<ChunkPageSpan>);
+                /// ```
                 pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<
@@ -5583,6 +7682,12 @@ pub mod document {
                 }
 
                 /// Sets the value of [text][crate::model::document::chunked_document::chunk::ChunkPageFooter::text].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageFooter;
+                /// let x = ChunkPageFooter::new().set_text("example");
+                /// ```
                 pub fn set_text<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5592,6 +7697,13 @@ pub mod document {
                 }
 
                 /// Sets the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageFooter::page_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageFooter;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+                /// let x = ChunkPageFooter::new().set_page_span(ChunkPageSpan::default()/* use setters */);
+                /// ```
                 pub fn set_page_span<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<
@@ -5603,6 +7715,14 @@ pub mod document {
                 }
 
                 /// Sets or clears the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageFooter::page_span].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageFooter;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageSpan;
+                /// let x = ChunkPageFooter::new().set_or_clear_page_span(Some(ChunkPageSpan::default()/* use setters */));
+                /// let x = ChunkPageFooter::new().set_or_clear_page_span(None::<ChunkPageSpan>);
+                /// ```
                 pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<
@@ -5643,6 +7763,17 @@ pub mod document {
         }
 
         /// Sets the value of [validation_results][crate::model::document::EntityValidationOutput::validation_results].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntityValidationOutput;
+        /// use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
+        /// let x = EntityValidationOutput::new()
+        ///     .set_validation_results([
+        ///         ValidationResult::default()/* use setters */,
+        ///         ValidationResult::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_validation_results<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5656,6 +7787,12 @@ pub mod document {
         }
 
         /// Sets the value of [pass_all_rules][crate::model::document::EntityValidationOutput::pass_all_rules].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntityValidationOutput;
+        /// let x = EntityValidationOutput::new().set_pass_all_rules(true);
+        /// ```
         pub fn set_pass_all_rules<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.pass_all_rules = v.into();
             self
@@ -5677,20 +7814,20 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ValidationResult {
-
+        
             /// The name of the validation rule.
             pub rule_name: std::string::String,
-
+        
             /// The description of the validation rule.
             pub rule_description: std::string::String,
-
+        
             /// The result of the validation rule.
             pub validation_result_type: crate::model::document::entity_validation_output::validation_result::ValidationResultType,
-
+        
             /// The detailed information of the running the validation process using
             /// the entity from the document based on the validation rule.
             pub validation_details: std::string::String,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -5700,6 +7837,12 @@ pub mod document {
             }
 
             /// Sets the value of [rule_name][crate::model::document::entity_validation_output::ValidationResult::rule_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
+            /// let x = ValidationResult::new().set_rule_name("example");
+            /// ```
             pub fn set_rule_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5709,6 +7852,12 @@ pub mod document {
             }
 
             /// Sets the value of [rule_description][crate::model::document::entity_validation_output::ValidationResult::rule_description].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
+            /// let x = ValidationResult::new().set_rule_description("example");
+            /// ```
             pub fn set_rule_description<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5718,12 +7867,27 @@ pub mod document {
             }
 
             /// Sets the value of [validation_result_type][crate::model::document::entity_validation_output::ValidationResult::validation_result_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
+            /// use google_cloud_documentai_v1::model::document::entity_validation_output::validation_result::ValidationResultType;
+            /// let x0 = ValidationResult::new().set_validation_result_type(ValidationResultType::Valid);
+            /// let x1 = ValidationResult::new().set_validation_result_type(ValidationResultType::Invalid);
+            /// let x2 = ValidationResult::new().set_validation_result_type(ValidationResultType::Skipped);
+            /// ```
             pub fn set_validation_result_type<T: std::convert::Into<crate::model::document::entity_validation_output::validation_result::ValidationResultType>>(mut self, v: T) -> Self{
                 self.validation_result_type = v.into();
                 self
             }
 
             /// Sets the value of [validation_details][crate::model::document::entity_validation_output::ValidationResult::validation_details].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
+            /// let x = ValidationResult::new().set_validation_details("example");
+            /// ```
             pub fn set_validation_details<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5925,12 +8089,29 @@ pub mod document {
         }
 
         /// Sets the value of [revision_id][crate::model::document::EntitiesRevision::revision_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntitiesRevision;
+        /// let x = EntitiesRevision::new().set_revision_id("example");
+        /// ```
         pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.revision_id = v.into();
             self
         }
 
         /// Sets the value of [entities][crate::model::document::EntitiesRevision::entities].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntitiesRevision;
+        /// use google_cloud_documentai_v1::model::document::Entity;
+        /// let x = EntitiesRevision::new()
+        ///     .set_entities([
+        ///         Entity::default()/* use setters */,
+        ///         Entity::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_entities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5942,6 +8123,13 @@ pub mod document {
         }
 
         /// Sets the value of [entity_validation_output][crate::model::document::EntitiesRevision::entity_validation_output].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntitiesRevision;
+        /// use google_cloud_documentai_v1::model::document::EntityValidationOutput;
+        /// let x = EntitiesRevision::new().set_entity_validation_output(EntityValidationOutput::default()/* use setters */);
+        /// ```
         pub fn set_entity_validation_output<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::document::EntityValidationOutput>,
@@ -5951,6 +8139,14 @@ pub mod document {
         }
 
         /// Sets or clears the value of [entity_validation_output][crate::model::document::EntitiesRevision::entity_validation_output].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document::EntitiesRevision;
+        /// use google_cloud_documentai_v1::model::document::EntityValidationOutput;
+        /// let x = EntitiesRevision::new().set_or_clear_entity_validation_output(Some(EntityValidationOutput::default()/* use setters */));
+        /// let x = EntitiesRevision::new().set_or_clear_entity_validation_output(None::<EntityValidationOutput>);
+        /// ```
         pub fn set_or_clear_entity_validation_output<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::EntityValidationOutput>,
@@ -6011,18 +8207,36 @@ impl RawDocument {
     }
 
     /// Sets the value of [content][crate::model::RawDocument::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::RawDocument;
+    /// let x = RawDocument::new().set_content(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::RawDocument::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::RawDocument;
+    /// let x = RawDocument::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::RawDocument::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::RawDocument;
+    /// let x = RawDocument::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -6054,12 +8268,24 @@ impl GcsDocument {
     }
 
     /// Sets the value of [gcs_uri][crate::model::GcsDocument::gcs_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GcsDocument;
+    /// let x = GcsDocument::new().set_gcs_uri("example");
+    /// ```
     pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_uri = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::GcsDocument::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GcsDocument;
+    /// let x = GcsDocument::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -6088,6 +8314,17 @@ impl GcsDocuments {
     }
 
     /// Sets the value of [documents][crate::model::GcsDocuments::documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GcsDocuments;
+    /// use google_cloud_documentai_v1::model::GcsDocument;
+    /// let x = GcsDocuments::new()
+    ///     .set_documents([
+    ///         GcsDocument::default()/* use setters */,
+    ///         GcsDocument::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6121,6 +8358,12 @@ impl GcsPrefix {
     }
 
     /// Sets the value of [gcs_uri_prefix][crate::model::GcsPrefix::gcs_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GcsPrefix;
+    /// let x = GcsPrefix::new().set_gcs_uri_prefix("example");
+    /// ```
     pub fn set_gcs_uri_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_uri_prefix = v.into();
         self
@@ -6153,6 +8396,14 @@ impl BatchDocumentsInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+    /// use google_cloud_documentai_v1::model::GcsPrefix;
+    /// let x = BatchDocumentsInputConfig::new().set_source(Some(
+    ///     google_cloud_documentai_v1::model::batch_documents_input_config::Source::GcsPrefix(GcsPrefix::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::batch_documents_input_config::Source>>,
     >(
@@ -6181,6 +8432,15 @@ impl BatchDocumentsInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+    /// use google_cloud_documentai_v1::model::GcsPrefix;
+    /// let x = BatchDocumentsInputConfig::new().set_gcs_prefix(GcsPrefix::default()/* use setters */);
+    /// assert!(x.gcs_prefix().is_some());
+    /// assert!(x.gcs_documents().is_none());
+    /// ```
     pub fn set_gcs_prefix<T: std::convert::Into<std::boxed::Box<crate::model::GcsPrefix>>>(
         mut self,
         v: T,
@@ -6211,6 +8471,15 @@ impl BatchDocumentsInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+    /// use google_cloud_documentai_v1::model::GcsDocuments;
+    /// let x = BatchDocumentsInputConfig::new().set_gcs_documents(GcsDocuments::default()/* use setters */);
+    /// assert!(x.gcs_documents().is_some());
+    /// assert!(x.gcs_prefix().is_none());
+    /// ```
     pub fn set_gcs_documents<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocuments>>>(
         mut self,
         v: T,
@@ -6265,6 +8534,14 @@ impl DocumentOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DocumentOutputConfig;
+    /// use google_cloud_documentai_v1::model::document_output_config::GcsOutputConfig;
+    /// let x = DocumentOutputConfig::new().set_destination(Some(
+    ///     google_cloud_documentai_v1::model::document_output_config::Destination::GcsOutputConfig(GcsOutputConfig::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>,
     >(
@@ -6296,6 +8573,14 @@ impl DocumentOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DocumentOutputConfig;
+    /// use google_cloud_documentai_v1::model::document_output_config::GcsOutputConfig;
+    /// let x = DocumentOutputConfig::new().set_gcs_output_config(GcsOutputConfig::default()/* use setters */);
+    /// assert!(x.gcs_output_config().is_some());
+    /// ```
     pub fn set_gcs_output_config<
         T: std::convert::Into<std::boxed::Box<crate::model::document_output_config::GcsOutputConfig>>,
     >(
@@ -6346,12 +8631,25 @@ pub mod document_output_config {
         }
 
         /// Sets the value of [gcs_uri][crate::model::document_output_config::GcsOutputConfig::gcs_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_output_config::GcsOutputConfig;
+        /// let x = GcsOutputConfig::new().set_gcs_uri("example");
+        /// ```
         pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gcs_uri = v.into();
             self
         }
 
         /// Sets the value of [field_mask][crate::model::document_output_config::GcsOutputConfig::field_mask].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_output_config::GcsOutputConfig;
+        /// use wkt::FieldMask;
+        /// let x = GcsOutputConfig::new().set_field_mask(FieldMask::default()/* use setters */);
+        /// ```
         pub fn set_field_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -6361,6 +8659,14 @@ pub mod document_output_config {
         }
 
         /// Sets or clears the value of [field_mask][crate::model::document_output_config::GcsOutputConfig::field_mask].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_output_config::GcsOutputConfig;
+        /// use wkt::FieldMask;
+        /// let x = GcsOutputConfig::new().set_or_clear_field_mask(Some(FieldMask::default()/* use setters */));
+        /// let x = GcsOutputConfig::new().set_or_clear_field_mask(None::<FieldMask>);
+        /// ```
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -6370,6 +8676,13 @@ pub mod document_output_config {
         }
 
         /// Sets the value of [sharding_config][crate::model::document_output_config::GcsOutputConfig::sharding_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_output_config::GcsOutputConfig;
+        /// use google_cloud_documentai_v1::model::document_output_config::gcs_output_config::ShardingConfig;
+        /// let x = GcsOutputConfig::new().set_sharding_config(ShardingConfig::default()/* use setters */);
+        /// ```
         pub fn set_sharding_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -6381,6 +8694,14 @@ pub mod document_output_config {
         }
 
         /// Sets or clears the value of [sharding_config][crate::model::document_output_config::GcsOutputConfig::sharding_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_output_config::GcsOutputConfig;
+        /// use google_cloud_documentai_v1::model::document_output_config::gcs_output_config::ShardingConfig;
+        /// let x = GcsOutputConfig::new().set_or_clear_sharding_config(Some(ShardingConfig::default()/* use setters */));
+        /// let x = GcsOutputConfig::new().set_or_clear_sharding_config(None::<ShardingConfig>);
+        /// ```
         pub fn set_or_clear_sharding_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -6422,12 +8743,24 @@ pub mod document_output_config {
             }
 
             /// Sets the value of [pages_per_shard][crate::model::document_output_config::gcs_output_config::ShardingConfig::pages_per_shard].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_output_config::gcs_output_config::ShardingConfig;
+            /// let x = ShardingConfig::new().set_pages_per_shard(42);
+            /// ```
             pub fn set_pages_per_shard<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.pages_per_shard = v.into();
                 self
             }
 
             /// Sets the value of [pages_overlap][crate::model::document_output_config::gcs_output_config::ShardingConfig::pages_overlap].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_output_config::gcs_output_config::ShardingConfig;
+            /// let x = ShardingConfig::new().set_pages_overlap(42);
+            /// ```
             pub fn set_pages_overlap<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.pages_overlap = v.into();
                 self
@@ -6503,6 +8836,13 @@ impl OcrConfig {
     }
 
     /// Sets the value of [hints][crate::model::OcrConfig::hints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// use google_cloud_documentai_v1::model::ocr_config::Hints;
+    /// let x = OcrConfig::new().set_hints(Hints::default()/* use setters */);
+    /// ```
     pub fn set_hints<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ocr_config::Hints>,
@@ -6512,6 +8852,14 @@ impl OcrConfig {
     }
 
     /// Sets or clears the value of [hints][crate::model::OcrConfig::hints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// use google_cloud_documentai_v1::model::ocr_config::Hints;
+    /// let x = OcrConfig::new().set_or_clear_hints(Some(Hints::default()/* use setters */));
+    /// let x = OcrConfig::new().set_or_clear_hints(None::<Hints>);
+    /// ```
     pub fn set_or_clear_hints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ocr_config::Hints>,
@@ -6521,18 +8869,36 @@ impl OcrConfig {
     }
 
     /// Sets the value of [enable_native_pdf_parsing][crate::model::OcrConfig::enable_native_pdf_parsing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = OcrConfig::new().set_enable_native_pdf_parsing(true);
+    /// ```
     pub fn set_enable_native_pdf_parsing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_native_pdf_parsing = v.into();
         self
     }
 
     /// Sets the value of [enable_image_quality_scores][crate::model::OcrConfig::enable_image_quality_scores].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = OcrConfig::new().set_enable_image_quality_scores(true);
+    /// ```
     pub fn set_enable_image_quality_scores<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_image_quality_scores = v.into();
         self
     }
 
     /// Sets the value of [advanced_ocr_options][crate::model::OcrConfig::advanced_ocr_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = OcrConfig::new().set_advanced_ocr_options(["a", "b", "c"]);
+    /// ```
     pub fn set_advanced_ocr_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6544,12 +8910,24 @@ impl OcrConfig {
     }
 
     /// Sets the value of [enable_symbol][crate::model::OcrConfig::enable_symbol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = OcrConfig::new().set_enable_symbol(true);
+    /// ```
     pub fn set_enable_symbol<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_symbol = v.into();
         self
     }
 
     /// Sets the value of [compute_style_info][crate::model::OcrConfig::compute_style_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = OcrConfig::new().set_compute_style_info(true);
+    /// ```
     #[deprecated]
     pub fn set_compute_style_info<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.compute_style_info = v.into();
@@ -6557,6 +8935,12 @@ impl OcrConfig {
     }
 
     /// Sets the value of [disable_character_boxes_detection][crate::model::OcrConfig::disable_character_boxes_detection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = OcrConfig::new().set_disable_character_boxes_detection(true);
+    /// ```
     pub fn set_disable_character_boxes_detection<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6566,6 +8950,13 @@ impl OcrConfig {
     }
 
     /// Sets the value of [premium_features][crate::model::OcrConfig::premium_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// use google_cloud_documentai_v1::model::ocr_config::PremiumFeatures;
+    /// let x = OcrConfig::new().set_premium_features(PremiumFeatures::default()/* use setters */);
+    /// ```
     pub fn set_premium_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>,
@@ -6575,6 +8966,14 @@ impl OcrConfig {
     }
 
     /// Sets or clears the value of [premium_features][crate::model::OcrConfig::premium_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::OcrConfig;
+    /// use google_cloud_documentai_v1::model::ocr_config::PremiumFeatures;
+    /// let x = OcrConfig::new().set_or_clear_premium_features(Some(PremiumFeatures::default()/* use setters */));
+    /// let x = OcrConfig::new().set_or_clear_premium_features(None::<PremiumFeatures>);
+    /// ```
     pub fn set_or_clear_premium_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>,
@@ -6616,6 +9015,12 @@ pub mod ocr_config {
         }
 
         /// Sets the value of [language_hints][crate::model::ocr_config::Hints::language_hints].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::ocr_config::Hints;
+        /// let x = Hints::new().set_language_hints(["a", "b", "c"]);
+        /// ```
         pub fn set_language_hints<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6656,6 +9061,12 @@ pub mod ocr_config {
         }
 
         /// Sets the value of [enable_selection_mark_detection][crate::model::ocr_config::PremiumFeatures::enable_selection_mark_detection].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::ocr_config::PremiumFeatures;
+        /// let x = PremiumFeatures::new().set_enable_selection_mark_detection(true);
+        /// ```
         pub fn set_enable_selection_mark_detection<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -6665,12 +9076,24 @@ pub mod ocr_config {
         }
 
         /// Sets the value of [compute_style_info][crate::model::ocr_config::PremiumFeatures::compute_style_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::ocr_config::PremiumFeatures;
+        /// let x = PremiumFeatures::new().set_compute_style_info(true);
+        /// ```
         pub fn set_compute_style_info<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.compute_style_info = v.into();
             self
         }
 
         /// Sets the value of [enable_math_ocr][crate::model::ocr_config::PremiumFeatures::enable_math_ocr].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::ocr_config::PremiumFeatures;
+        /// let x = PremiumFeatures::new().set_enable_math_ocr(true);
+        /// ```
         pub fn set_enable_math_ocr<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_math_ocr = v.into();
             self
@@ -6726,6 +9149,13 @@ impl ProcessOptions {
     }
 
     /// Sets the value of [ocr_config][crate::model::ProcessOptions::ocr_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = ProcessOptions::new().set_ocr_config(OcrConfig::default()/* use setters */);
+    /// ```
     pub fn set_ocr_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OcrConfig>,
@@ -6735,6 +9165,14 @@ impl ProcessOptions {
     }
 
     /// Sets or clears the value of [ocr_config][crate::model::ProcessOptions::ocr_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::OcrConfig;
+    /// let x = ProcessOptions::new().set_or_clear_ocr_config(Some(OcrConfig::default()/* use setters */));
+    /// let x = ProcessOptions::new().set_or_clear_ocr_config(None::<OcrConfig>);
+    /// ```
     pub fn set_or_clear_ocr_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OcrConfig>,
@@ -6744,6 +9182,13 @@ impl ProcessOptions {
     }
 
     /// Sets the value of [layout_config][crate::model::ProcessOptions::layout_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+    /// let x = ProcessOptions::new().set_layout_config(LayoutConfig::default()/* use setters */);
+    /// ```
     pub fn set_layout_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::process_options::LayoutConfig>,
@@ -6753,6 +9198,14 @@ impl ProcessOptions {
     }
 
     /// Sets or clears the value of [layout_config][crate::model::ProcessOptions::layout_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+    /// let x = ProcessOptions::new().set_or_clear_layout_config(Some(LayoutConfig::default()/* use setters */));
+    /// let x = ProcessOptions::new().set_or_clear_layout_config(None::<LayoutConfig>);
+    /// ```
     pub fn set_or_clear_layout_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::process_options::LayoutConfig>,
@@ -6762,6 +9215,13 @@ impl ProcessOptions {
     }
 
     /// Sets the value of [schema_override][crate::model::ProcessOptions::schema_override].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = ProcessOptions::new().set_schema_override(DocumentSchema::default()/* use setters */);
+    /// ```
     pub fn set_schema_override<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -6771,6 +9231,14 @@ impl ProcessOptions {
     }
 
     /// Sets or clears the value of [schema_override][crate::model::ProcessOptions::schema_override].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = ProcessOptions::new().set_or_clear_schema_override(Some(DocumentSchema::default()/* use setters */));
+    /// let x = ProcessOptions::new().set_or_clear_schema_override(None::<DocumentSchema>);
+    /// ```
     pub fn set_or_clear_schema_override<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -6783,6 +9251,13 @@ impl ProcessOptions {
     ///
     /// Note that all the setters affecting `page_range` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::process_options::PageRange;
+    /// let x = ProcessOptions::new().set_page_range(Some(PageRange::FromStart(42)));
+    /// ```
     pub fn set_page_range<
         T: std::convert::Into<std::option::Option<crate::model::process_options::PageRange>>,
     >(
@@ -6814,6 +9289,16 @@ impl ProcessOptions {
     ///
     /// Note that all the setters affecting `page_range` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// use google_cloud_documentai_v1::model::process_options::IndividualPageSelector;
+    /// let x = ProcessOptions::new().set_individual_page_selector(IndividualPageSelector::default()/* use setters */);
+    /// assert!(x.individual_page_selector().is_some());
+    /// assert!(x.from_start().is_none());
+    /// assert!(x.from_end().is_none());
+    /// ```
     pub fn set_individual_page_selector<
         T: std::convert::Into<std::boxed::Box<crate::model::process_options::IndividualPageSelector>>,
     >(
@@ -6842,6 +9327,15 @@ impl ProcessOptions {
     ///
     /// Note that all the setters affecting `page_range` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// let x = ProcessOptions::new().set_from_start(42);
+    /// assert!(x.from_start().is_some());
+    /// assert!(x.individual_page_selector().is_none());
+    /// assert!(x.from_end().is_none());
+    /// ```
     pub fn set_from_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_range = std::option::Option::Some(
             crate::model::process_options::PageRange::FromStart(v.into()),
@@ -6865,6 +9359,15 @@ impl ProcessOptions {
     ///
     /// Note that all the setters affecting `page_range` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessOptions;
+    /// let x = ProcessOptions::new().set_from_end(42);
+    /// assert!(x.from_end().is_some());
+    /// assert!(x.individual_page_selector().is_none());
+    /// assert!(x.from_start().is_none());
+    /// ```
     pub fn set_from_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_range =
             std::option::Option::Some(crate::model::process_options::PageRange::FromEnd(v.into()));
@@ -6907,6 +9410,13 @@ pub mod process_options {
         }
 
         /// Sets the value of [chunking_config][crate::model::process_options::LayoutConfig::chunking_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+        /// use google_cloud_documentai_v1::model::process_options::layout_config::ChunkingConfig;
+        /// let x = LayoutConfig::new().set_chunking_config(ChunkingConfig::default()/* use setters */);
+        /// ```
         pub fn set_chunking_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>,
@@ -6916,6 +9426,14 @@ pub mod process_options {
         }
 
         /// Sets or clears the value of [chunking_config][crate::model::process_options::LayoutConfig::chunking_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+        /// use google_cloud_documentai_v1::model::process_options::layout_config::ChunkingConfig;
+        /// let x = LayoutConfig::new().set_or_clear_chunking_config(Some(ChunkingConfig::default()/* use setters */));
+        /// let x = LayoutConfig::new().set_or_clear_chunking_config(None::<ChunkingConfig>);
+        /// ```
         pub fn set_or_clear_chunking_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>,
@@ -6925,12 +9443,24 @@ pub mod process_options {
         }
 
         /// Sets the value of [return_images][crate::model::process_options::LayoutConfig::return_images].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+        /// let x = LayoutConfig::new().set_return_images(true);
+        /// ```
         pub fn set_return_images<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.return_images = v.into();
             self
         }
 
         /// Sets the value of [return_bounding_boxes][crate::model::process_options::LayoutConfig::return_bounding_boxes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+        /// let x = LayoutConfig::new().set_return_bounding_boxes(true);
+        /// ```
         pub fn set_return_bounding_boxes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.return_bounding_boxes = v.into();
             self
@@ -6968,12 +9498,24 @@ pub mod process_options {
             }
 
             /// Sets the value of [chunk_size][crate::model::process_options::layout_config::ChunkingConfig::chunk_size].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::process_options::layout_config::ChunkingConfig;
+            /// let x = ChunkingConfig::new().set_chunk_size(42);
+            /// ```
             pub fn set_chunk_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.chunk_size = v.into();
                 self
             }
 
             /// Sets the value of [include_ancestor_headings][crate::model::process_options::layout_config::ChunkingConfig::include_ancestor_headings].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::process_options::layout_config::ChunkingConfig;
+            /// let x = ChunkingConfig::new().set_include_ancestor_headings(true);
+            /// ```
             pub fn set_include_ancestor_headings<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -7006,6 +9548,12 @@ pub mod process_options {
         }
 
         /// Sets the value of [pages][crate::model::process_options::IndividualPageSelector::pages].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::process_options::IndividualPageSelector;
+        /// let x = IndividualPageSelector::new().set_pages([1, 2, 3]);
+        /// ```
         pub fn set_pages<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7110,18 +9658,37 @@ impl ProcessRequest {
     }
 
     /// Sets the value of [name][crate::model::ProcessRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// let x = ProcessRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [skip_human_review][crate::model::ProcessRequest::skip_human_review].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// let x = ProcessRequest::new().set_skip_human_review(true);
+    /// ```
     pub fn set_skip_human_review<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_human_review = v.into();
         self
     }
 
     /// Sets the value of [field_mask][crate::model::ProcessRequest::field_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use wkt::FieldMask;
+    /// let x = ProcessRequest::new().set_field_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_field_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7131,6 +9698,14 @@ impl ProcessRequest {
     }
 
     /// Sets or clears the value of [field_mask][crate::model::ProcessRequest::field_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use wkt::FieldMask;
+    /// let x = ProcessRequest::new().set_or_clear_field_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ProcessRequest::new().set_or_clear_field_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7140,6 +9715,13 @@ impl ProcessRequest {
     }
 
     /// Sets the value of [process_options][crate::model::ProcessRequest::process_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use google_cloud_documentai_v1::model::ProcessOptions;
+    /// let x = ProcessRequest::new().set_process_options(ProcessOptions::default()/* use setters */);
+    /// ```
     pub fn set_process_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProcessOptions>,
@@ -7149,6 +9731,14 @@ impl ProcessRequest {
     }
 
     /// Sets or clears the value of [process_options][crate::model::ProcessRequest::process_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use google_cloud_documentai_v1::model::ProcessOptions;
+    /// let x = ProcessRequest::new().set_or_clear_process_options(Some(ProcessOptions::default()/* use setters */));
+    /// let x = ProcessRequest::new().set_or_clear_process_options(None::<ProcessOptions>);
+    /// ```
     pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProcessOptions>,
@@ -7158,6 +9748,15 @@ impl ProcessRequest {
     }
 
     /// Sets the value of [labels][crate::model::ProcessRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// let x = ProcessRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7170,6 +9769,12 @@ impl ProcessRequest {
     }
 
     /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// let x = ProcessRequest::new().set_imageless_mode(true);
+    /// ```
     pub fn set_imageless_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.imageless_mode = v.into();
         self
@@ -7179,6 +9784,14 @@ impl ProcessRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use google_cloud_documentai_v1::model::Document;
+    /// let x = ProcessRequest::new().set_source(Some(
+    ///     google_cloud_documentai_v1::model::process_request::Source::InlineDocument(Document::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::process_request::Source>>,
     >(
@@ -7207,6 +9820,16 @@ impl ProcessRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use google_cloud_documentai_v1::model::Document;
+    /// let x = ProcessRequest::new().set_inline_document(Document::default()/* use setters */);
+    /// assert!(x.inline_document().is_some());
+    /// assert!(x.raw_document().is_none());
+    /// assert!(x.gcs_document().is_none());
+    /// ```
     pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
         mut self,
         v: T,
@@ -7233,6 +9856,16 @@ impl ProcessRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use google_cloud_documentai_v1::model::RawDocument;
+    /// let x = ProcessRequest::new().set_raw_document(RawDocument::default()/* use setters */);
+    /// assert!(x.raw_document().is_some());
+    /// assert!(x.inline_document().is_none());
+    /// assert!(x.gcs_document().is_none());
+    /// ```
     pub fn set_raw_document<T: std::convert::Into<std::boxed::Box<crate::model::RawDocument>>>(
         mut self,
         v: T,
@@ -7258,6 +9891,16 @@ impl ProcessRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessRequest;
+    /// use google_cloud_documentai_v1::model::GcsDocument;
+    /// let x = ProcessRequest::new().set_gcs_document(GcsDocument::default()/* use setters */);
+    /// assert!(x.gcs_document().is_some());
+    /// assert!(x.inline_document().is_none());
+    /// assert!(x.raw_document().is_none());
+    /// ```
     pub fn set_gcs_document<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocument>>>(
         mut self,
         v: T,
@@ -7322,6 +9965,15 @@ impl HumanReviewStatus {
     }
 
     /// Sets the value of [state][crate::model::HumanReviewStatus::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::HumanReviewStatus;
+    /// use google_cloud_documentai_v1::model::human_review_status::State;
+    /// let x0 = HumanReviewStatus::new().set_state(State::Skipped);
+    /// let x1 = HumanReviewStatus::new().set_state(State::ValidationPassed);
+    /// let x2 = HumanReviewStatus::new().set_state(State::InProgress);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::human_review_status::State>>(
         mut self,
         v: T,
@@ -7331,12 +9983,24 @@ impl HumanReviewStatus {
     }
 
     /// Sets the value of [state_message][crate::model::HumanReviewStatus::state_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::HumanReviewStatus;
+    /// let x = HumanReviewStatus::new().set_state_message("example");
+    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [human_review_operation][crate::model::HumanReviewStatus::human_review_operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::HumanReviewStatus;
+    /// let x = HumanReviewStatus::new().set_human_review_operation("example");
+    /// ```
     pub fn set_human_review_operation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7534,6 +10198,13 @@ impl ProcessResponse {
     }
 
     /// Sets the value of [document][crate::model::ProcessResponse::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessResponse;
+    /// use google_cloud_documentai_v1::model::Document;
+    /// let x = ProcessResponse::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -7543,6 +10214,14 @@ impl ProcessResponse {
     }
 
     /// Sets or clears the value of [document][crate::model::ProcessResponse::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessResponse;
+    /// use google_cloud_documentai_v1::model::Document;
+    /// let x = ProcessResponse::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = ProcessResponse::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -7552,6 +10231,13 @@ impl ProcessResponse {
     }
 
     /// Sets the value of [human_review_status][crate::model::ProcessResponse::human_review_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessResponse;
+    /// use google_cloud_documentai_v1::model::HumanReviewStatus;
+    /// let x = ProcessResponse::new().set_human_review_status(HumanReviewStatus::default()/* use setters */);
+    /// ```
     pub fn set_human_review_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HumanReviewStatus>,
@@ -7561,6 +10247,14 @@ impl ProcessResponse {
     }
 
     /// Sets or clears the value of [human_review_status][crate::model::ProcessResponse::human_review_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessResponse;
+    /// use google_cloud_documentai_v1::model::HumanReviewStatus;
+    /// let x = ProcessResponse::new().set_or_clear_human_review_status(Some(HumanReviewStatus::default()/* use setters */));
+    /// let x = ProcessResponse::new().set_or_clear_human_review_status(None::<HumanReviewStatus>);
+    /// ```
     pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HumanReviewStatus>,
@@ -7632,12 +10326,25 @@ impl BatchProcessRequest {
     }
 
     /// Sets the value of [name][crate::model::BatchProcessRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// let x = BatchProcessRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+    /// let x = BatchProcessRequest::new().set_input_documents(BatchDocumentsInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_documents<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -7647,6 +10354,14 @@ impl BatchProcessRequest {
     }
 
     /// Sets or clears the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+    /// let x = BatchProcessRequest::new().set_or_clear_input_documents(Some(BatchDocumentsInputConfig::default()/* use setters */));
+    /// let x = BatchProcessRequest::new().set_or_clear_input_documents(None::<BatchDocumentsInputConfig>);
+    /// ```
     pub fn set_or_clear_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -7656,6 +10371,13 @@ impl BatchProcessRequest {
     }
 
     /// Sets the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// use google_cloud_documentai_v1::model::DocumentOutputConfig;
+    /// let x = BatchProcessRequest::new().set_document_output_config(DocumentOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_document_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentOutputConfig>,
@@ -7665,6 +10387,14 @@ impl BatchProcessRequest {
     }
 
     /// Sets or clears the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// use google_cloud_documentai_v1::model::DocumentOutputConfig;
+    /// let x = BatchProcessRequest::new().set_or_clear_document_output_config(Some(DocumentOutputConfig::default()/* use setters */));
+    /// let x = BatchProcessRequest::new().set_or_clear_document_output_config(None::<DocumentOutputConfig>);
+    /// ```
     pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentOutputConfig>,
@@ -7674,12 +10404,25 @@ impl BatchProcessRequest {
     }
 
     /// Sets the value of [skip_human_review][crate::model::BatchProcessRequest::skip_human_review].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// let x = BatchProcessRequest::new().set_skip_human_review(true);
+    /// ```
     pub fn set_skip_human_review<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_human_review = v.into();
         self
     }
 
     /// Sets the value of [process_options][crate::model::BatchProcessRequest::process_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// use google_cloud_documentai_v1::model::ProcessOptions;
+    /// let x = BatchProcessRequest::new().set_process_options(ProcessOptions::default()/* use setters */);
+    /// ```
     pub fn set_process_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProcessOptions>,
@@ -7689,6 +10432,14 @@ impl BatchProcessRequest {
     }
 
     /// Sets or clears the value of [process_options][crate::model::BatchProcessRequest::process_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// use google_cloud_documentai_v1::model::ProcessOptions;
+    /// let x = BatchProcessRequest::new().set_or_clear_process_options(Some(ProcessOptions::default()/* use setters */));
+    /// let x = BatchProcessRequest::new().set_or_clear_process_options(None::<ProcessOptions>);
+    /// ```
     pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProcessOptions>,
@@ -7698,6 +10449,15 @@ impl BatchProcessRequest {
     }
 
     /// Sets the value of [labels][crate::model::BatchProcessRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessRequest;
+    /// let x = BatchProcessRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7771,6 +10531,15 @@ impl BatchProcessMetadata {
     }
 
     /// Sets the value of [state][crate::model::BatchProcessMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessMetadata;
+    /// use google_cloud_documentai_v1::model::batch_process_metadata::State;
+    /// let x0 = BatchProcessMetadata::new().set_state(State::Waiting);
+    /// let x1 = BatchProcessMetadata::new().set_state(State::Running);
+    /// let x2 = BatchProcessMetadata::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::batch_process_metadata::State>>(
         mut self,
         v: T,
@@ -7780,12 +10549,25 @@ impl BatchProcessMetadata {
     }
 
     /// Sets the value of [state_message][crate::model::BatchProcessMetadata::state_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessMetadata;
+    /// let x = BatchProcessMetadata::new().set_state_message("example");
+    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BatchProcessMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchProcessMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7795,6 +10577,14 @@ impl BatchProcessMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BatchProcessMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchProcessMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchProcessMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7804,6 +10594,13 @@ impl BatchProcessMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::BatchProcessMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchProcessMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7813,6 +10610,14 @@ impl BatchProcessMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BatchProcessMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchProcessMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchProcessMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7822,6 +10627,17 @@ impl BatchProcessMetadata {
     }
 
     /// Sets the value of [individual_process_statuses][crate::model::BatchProcessMetadata::individual_process_statuses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BatchProcessMetadata;
+    /// use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
+    /// let x = BatchProcessMetadata::new()
+    ///     .set_individual_process_statuses([
+    ///         IndividualProcessStatus::default()/* use setters */,
+    ///         IndividualProcessStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_individual_process_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7877,6 +10693,12 @@ pub mod batch_process_metadata {
         }
 
         /// Sets the value of [input_gcs_source][crate::model::batch_process_metadata::IndividualProcessStatus::input_gcs_source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
+        /// let x = IndividualProcessStatus::new().set_input_gcs_source("example");
+        /// ```
         pub fn set_input_gcs_source<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7886,6 +10708,13 @@ pub mod batch_process_metadata {
         }
 
         /// Sets the value of [status][crate::model::batch_process_metadata::IndividualProcessStatus::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
+        /// use rpc::model::Status;
+        /// let x = IndividualProcessStatus::new().set_status(Status::default()/* use setters */);
+        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -7895,6 +10724,14 @@ pub mod batch_process_metadata {
         }
 
         /// Sets or clears the value of [status][crate::model::batch_process_metadata::IndividualProcessStatus::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
+        /// use rpc::model::Status;
+        /// let x = IndividualProcessStatus::new().set_or_clear_status(Some(Status::default()/* use setters */));
+        /// let x = IndividualProcessStatus::new().set_or_clear_status(None::<Status>);
+        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -7904,6 +10741,12 @@ pub mod batch_process_metadata {
         }
 
         /// Sets the value of [output_gcs_destination][crate::model::batch_process_metadata::IndividualProcessStatus::output_gcs_destination].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
+        /// let x = IndividualProcessStatus::new().set_output_gcs_destination("example");
+        /// ```
         pub fn set_output_gcs_destination<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7913,6 +10756,13 @@ pub mod batch_process_metadata {
         }
 
         /// Sets the value of [human_review_status][crate::model::batch_process_metadata::IndividualProcessStatus::human_review_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
+        /// use google_cloud_documentai_v1::model::HumanReviewStatus;
+        /// let x = IndividualProcessStatus::new().set_human_review_status(HumanReviewStatus::default()/* use setters */);
+        /// ```
         pub fn set_human_review_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::HumanReviewStatus>,
@@ -7922,6 +10772,14 @@ pub mod batch_process_metadata {
         }
 
         /// Sets or clears the value of [human_review_status][crate::model::batch_process_metadata::IndividualProcessStatus::human_review_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
+        /// use google_cloud_documentai_v1::model::HumanReviewStatus;
+        /// let x = IndividualProcessStatus::new().set_or_clear_human_review_status(Some(HumanReviewStatus::default()/* use setters */));
+        /// let x = IndividualProcessStatus::new().set_or_clear_human_review_status(None::<HumanReviewStatus>);
+        /// ```
         pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::HumanReviewStatus>,
@@ -8120,6 +10978,12 @@ impl FetchProcessorTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::FetchProcessorTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::FetchProcessorTypesRequest;
+    /// let x = FetchProcessorTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -8152,6 +11016,17 @@ impl FetchProcessorTypesResponse {
     }
 
     /// Sets the value of [processor_types][crate::model::FetchProcessorTypesResponse::processor_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::FetchProcessorTypesResponse;
+    /// use google_cloud_documentai_v1::model::ProcessorType;
+    /// let x = FetchProcessorTypesResponse::new()
+    ///     .set_processor_types([
+    ///         ProcessorType::default()/* use setters */,
+    ///         ProcessorType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_processor_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8199,18 +11074,36 @@ impl ListProcessorTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProcessorTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorTypesRequest;
+    /// let x = ListProcessorTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProcessorTypesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorTypesRequest;
+    /// let x = ListProcessorTypesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProcessorTypesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorTypesRequest;
+    /// let x = ListProcessorTypesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8246,6 +11139,17 @@ impl ListProcessorTypesResponse {
     }
 
     /// Sets the value of [processor_types][crate::model::ListProcessorTypesResponse::processor_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorTypesResponse;
+    /// use google_cloud_documentai_v1::model::ProcessorType;
+    /// let x = ListProcessorTypesResponse::new()
+    ///     .set_processor_types([
+    ///         ProcessorType::default()/* use setters */,
+    ///         ProcessorType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_processor_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8257,6 +11161,12 @@ impl ListProcessorTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProcessorTypesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorTypesResponse;
+    /// let x = ListProcessorTypesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8309,18 +11219,36 @@ impl ListProcessorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProcessorsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorsRequest;
+    /// let x = ListProcessorsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProcessorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorsRequest;
+    /// let x = ListProcessorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProcessorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorsRequest;
+    /// let x = ListProcessorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8356,6 +11284,17 @@ impl ListProcessorsResponse {
     }
 
     /// Sets the value of [processors][crate::model::ListProcessorsResponse::processors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorsResponse;
+    /// use google_cloud_documentai_v1::model::Processor;
+    /// let x = ListProcessorsResponse::new()
+    ///     .set_processors([
+    ///         Processor::default()/* use setters */,
+    ///         Processor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_processors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8367,6 +11306,12 @@ impl ListProcessorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProcessorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorsResponse;
+    /// let x = ListProcessorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8413,6 +11358,12 @@ impl GetProcessorTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProcessorTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GetProcessorTypeRequest;
+    /// let x = GetProcessorTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8445,6 +11396,12 @@ impl GetProcessorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProcessorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GetProcessorRequest;
+    /// let x = GetProcessorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8477,6 +11434,12 @@ impl GetProcessorVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProcessorVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GetProcessorVersionRequest;
+    /// let x = GetProcessorVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8516,18 +11479,36 @@ impl ListProcessorVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProcessorVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorVersionsRequest;
+    /// let x = ListProcessorVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProcessorVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorVersionsRequest;
+    /// let x = ListProcessorVersionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProcessorVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorVersionsRequest;
+    /// let x = ListProcessorVersionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8563,6 +11544,17 @@ impl ListProcessorVersionsResponse {
     }
 
     /// Sets the value of [processor_versions][crate::model::ListProcessorVersionsResponse::processor_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorVersionsResponse;
+    /// use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ListProcessorVersionsResponse::new()
+    ///     .set_processor_versions([
+    ///         ProcessorVersion::default()/* use setters */,
+    ///         ProcessorVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_processor_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8574,6 +11566,12 @@ impl ListProcessorVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProcessorVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListProcessorVersionsResponse;
+    /// let x = ListProcessorVersionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8620,6 +11618,12 @@ impl DeleteProcessorVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteProcessorVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeleteProcessorVersionRequest;
+    /// let x = DeleteProcessorVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8652,6 +11656,13 @@ impl DeleteProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DeleteProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeleteProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DeleteProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8661,6 +11672,14 @@ impl DeleteProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::DeleteProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeleteProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DeleteProcessorVersionMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = DeleteProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8696,6 +11715,12 @@ impl DeployProcessorVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeployProcessorVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeployProcessorVersionRequest;
+    /// let x = DeployProcessorVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8751,6 +11776,13 @@ impl DeployProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DeployProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeployProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DeployProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8760,6 +11792,14 @@ impl DeployProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::DeployProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeployProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DeployProcessorVersionMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = DeployProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8795,6 +11835,12 @@ impl UndeployProcessorVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeployProcessorVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::UndeployProcessorVersionRequest;
+    /// let x = UndeployProcessorVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8850,6 +11896,13 @@ impl UndeployProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::UndeployProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::UndeployProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = UndeployProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8859,6 +11912,14 @@ impl UndeployProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::UndeployProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::UndeployProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = UndeployProcessorVersionMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = UndeployProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8910,12 +11971,25 @@ impl CreateProcessorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateProcessorRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CreateProcessorRequest;
+    /// let x = CreateProcessorRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [processor][crate::model::CreateProcessorRequest::processor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CreateProcessorRequest;
+    /// use google_cloud_documentai_v1::model::Processor;
+    /// let x = CreateProcessorRequest::new().set_processor(Processor::default()/* use setters */);
+    /// ```
     pub fn set_processor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Processor>,
@@ -8925,6 +11999,14 @@ impl CreateProcessorRequest {
     }
 
     /// Sets or clears the value of [processor][crate::model::CreateProcessorRequest::processor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CreateProcessorRequest;
+    /// use google_cloud_documentai_v1::model::Processor;
+    /// let x = CreateProcessorRequest::new().set_or_clear_processor(Some(Processor::default()/* use setters */));
+    /// let x = CreateProcessorRequest::new().set_or_clear_processor(None::<Processor>);
+    /// ```
     pub fn set_or_clear_processor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Processor>,
@@ -8960,6 +12042,12 @@ impl DeleteProcessorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteProcessorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeleteProcessorRequest;
+    /// let x = DeleteProcessorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8992,6 +12080,13 @@ impl DeleteProcessorMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DeleteProcessorMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeleteProcessorMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DeleteProcessorMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9001,6 +12096,14 @@ impl DeleteProcessorMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::DeleteProcessorMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DeleteProcessorMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DeleteProcessorMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = DeleteProcessorMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9036,6 +12139,12 @@ impl EnableProcessorRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableProcessorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EnableProcessorRequest;
+    /// let x = EnableProcessorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9091,6 +12200,13 @@ impl EnableProcessorMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::EnableProcessorMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EnableProcessorMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = EnableProcessorMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9100,6 +12216,14 @@ impl EnableProcessorMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::EnableProcessorMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EnableProcessorMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = EnableProcessorMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = EnableProcessorMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9135,6 +12259,12 @@ impl DisableProcessorRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableProcessorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DisableProcessorRequest;
+    /// let x = DisableProcessorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9190,6 +12320,13 @@ impl DisableProcessorMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DisableProcessorMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DisableProcessorMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DisableProcessorMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9199,6 +12336,14 @@ impl DisableProcessorMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::DisableProcessorMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DisableProcessorMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = DisableProcessorMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = DisableProcessorMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9246,12 +12391,24 @@ impl SetDefaultProcessorVersionRequest {
     }
 
     /// Sets the value of [processor][crate::model::SetDefaultProcessorVersionRequest::processor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::SetDefaultProcessorVersionRequest;
+    /// let x = SetDefaultProcessorVersionRequest::new().set_processor("example");
+    /// ```
     pub fn set_processor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.processor = v.into();
         self
     }
 
     /// Sets the value of [default_processor_version][crate::model::SetDefaultProcessorVersionRequest::default_processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::SetDefaultProcessorVersionRequest;
+    /// let x = SetDefaultProcessorVersionRequest::new().set_default_processor_version("example");
+    /// ```
     pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9310,6 +12467,13 @@ impl SetDefaultProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::SetDefaultProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::SetDefaultProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = SetDefaultProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9319,6 +12483,14 @@ impl SetDefaultProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::SetDefaultProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::SetDefaultProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = SetDefaultProcessorVersionMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = SetDefaultProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9376,12 +12548,25 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::TrainProcessorVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// let x = TrainProcessorVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = TrainProcessorVersionRequest::new().set_processor_version(ProcessorVersion::default()/* use setters */);
+    /// ```
     pub fn set_processor_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProcessorVersion>,
@@ -9391,6 +12576,14 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets or clears the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = TrainProcessorVersionRequest::new().set_or_clear_processor_version(Some(ProcessorVersion::default()/* use setters */));
+    /// let x = TrainProcessorVersionRequest::new().set_or_clear_processor_version(None::<ProcessorVersion>);
+    /// ```
     pub fn set_or_clear_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProcessorVersion>,
@@ -9400,6 +12593,13 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = TrainProcessorVersionRequest::new().set_document_schema(DocumentSchema::default()/* use setters */);
+    /// ```
     pub fn set_document_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -9409,6 +12609,14 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets or clears the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = TrainProcessorVersionRequest::new().set_or_clear_document_schema(Some(DocumentSchema::default()/* use setters */));
+    /// let x = TrainProcessorVersionRequest::new().set_or_clear_document_schema(None::<DocumentSchema>);
+    /// ```
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -9418,6 +12626,13 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::train_processor_version_request::InputData;
+    /// let x = TrainProcessorVersionRequest::new().set_input_data(InputData::default()/* use setters */);
+    /// ```
     pub fn set_input_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
@@ -9427,6 +12642,14 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets or clears the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::train_processor_version_request::InputData;
+    /// let x = TrainProcessorVersionRequest::new().set_or_clear_input_data(Some(InputData::default()/* use setters */));
+    /// let x = TrainProcessorVersionRequest::new().set_or_clear_input_data(None::<InputData>);
+    /// ```
     pub fn set_or_clear_input_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
@@ -9436,6 +12659,12 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets the value of [base_processor_version][crate::model::TrainProcessorVersionRequest::base_processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// let x = TrainProcessorVersionRequest::new().set_base_processor_version("example");
+    /// ```
     pub fn set_base_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9448,6 +12677,14 @@ impl TrainProcessorVersionRequest {
     ///
     /// Note that all the setters affecting `processor_flags` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::train_processor_version_request::CustomDocumentExtractionOptions;
+    /// let x = TrainProcessorVersionRequest::new().set_processor_flags(Some(
+    ///     google_cloud_documentai_v1::model::train_processor_version_request::ProcessorFlags::CustomDocumentExtractionOptions(CustomDocumentExtractionOptions::default().into())));
+    /// ```
     pub fn set_processor_flags<
         T: std::convert::Into<
                 std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
@@ -9482,6 +12719,15 @@ impl TrainProcessorVersionRequest {
     ///
     /// Note that all the setters affecting `processor_flags` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::train_processor_version_request::CustomDocumentExtractionOptions;
+    /// let x = TrainProcessorVersionRequest::new().set_custom_document_extraction_options(CustomDocumentExtractionOptions::default()/* use setters */);
+    /// assert!(x.custom_document_extraction_options().is_some());
+    /// assert!(x.foundation_model_tuning_options().is_none());
+    /// ```
     pub fn set_custom_document_extraction_options<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -9522,6 +12768,15 @@ impl TrainProcessorVersionRequest {
     ///
     /// Note that all the setters affecting `processor_flags` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::train_processor_version_request::FoundationModelTuningOptions;
+    /// let x = TrainProcessorVersionRequest::new().set_foundation_model_tuning_options(FoundationModelTuningOptions::default()/* use setters */);
+    /// assert!(x.foundation_model_tuning_options().is_some());
+    /// assert!(x.custom_document_extraction_options().is_none());
+    /// ```
     pub fn set_foundation_model_tuning_options<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -9574,6 +12829,13 @@ pub mod train_processor_version_request {
         }
 
         /// Sets the value of [training_documents][crate::model::train_processor_version_request::InputData::training_documents].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_request::InputData;
+        /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+        /// let x = InputData::new().set_training_documents(BatchDocumentsInputConfig::default()/* use setters */);
+        /// ```
         pub fn set_training_documents<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -9583,6 +12845,14 @@ pub mod train_processor_version_request {
         }
 
         /// Sets or clears the value of [training_documents][crate::model::train_processor_version_request::InputData::training_documents].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_request::InputData;
+        /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+        /// let x = InputData::new().set_or_clear_training_documents(Some(BatchDocumentsInputConfig::default()/* use setters */));
+        /// let x = InputData::new().set_or_clear_training_documents(None::<BatchDocumentsInputConfig>);
+        /// ```
         pub fn set_or_clear_training_documents<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -9592,6 +12862,13 @@ pub mod train_processor_version_request {
         }
 
         /// Sets the value of [test_documents][crate::model::train_processor_version_request::InputData::test_documents].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_request::InputData;
+        /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+        /// let x = InputData::new().set_test_documents(BatchDocumentsInputConfig::default()/* use setters */);
+        /// ```
         pub fn set_test_documents<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -9601,6 +12878,14 @@ pub mod train_processor_version_request {
         }
 
         /// Sets or clears the value of [test_documents][crate::model::train_processor_version_request::InputData::test_documents].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_request::InputData;
+        /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+        /// let x = InputData::new().set_or_clear_test_documents(Some(BatchDocumentsInputConfig::default()/* use setters */));
+        /// let x = InputData::new().set_or_clear_test_documents(None::<BatchDocumentsInputConfig>);
+        /// ```
         pub fn set_or_clear_test_documents<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -9621,10 +12906,10 @@ pub mod train_processor_version_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomDocumentExtractionOptions {
-
+    
         /// Optional. Training method to use for CDE training.
         pub training_method: crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -9634,6 +12919,14 @@ pub mod train_processor_version_request {
         }
 
         /// Sets the value of [training_method][crate::model::train_processor_version_request::CustomDocumentExtractionOptions::training_method].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_request::CustomDocumentExtractionOptions;
+        /// use google_cloud_documentai_v1::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod;
+        /// let x0 = CustomDocumentExtractionOptions::new().set_training_method(TrainingMethod::ModelBased);
+        /// let x1 = CustomDocumentExtractionOptions::new().set_training_method(TrainingMethod::TemplateBased);
+        /// ```
         pub fn set_training_method<T: std::convert::Into<crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod>>(mut self, v: T) -> Self{
             self.training_method = v.into();
             self
@@ -9806,12 +13099,24 @@ pub mod train_processor_version_request {
         }
 
         /// Sets the value of [train_steps][crate::model::train_processor_version_request::FoundationModelTuningOptions::train_steps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_request::FoundationModelTuningOptions;
+        /// let x = FoundationModelTuningOptions::new().set_train_steps(42);
+        /// ```
         pub fn set_train_steps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.train_steps = v.into();
             self
         }
 
         /// Sets the value of [learning_rate_multiplier][crate::model::train_processor_version_request::FoundationModelTuningOptions::learning_rate_multiplier].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_request::FoundationModelTuningOptions;
+        /// let x = FoundationModelTuningOptions::new().set_learning_rate_multiplier(42.0);
+        /// ```
         pub fn set_learning_rate_multiplier<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.learning_rate_multiplier = v.into();
             self
@@ -9861,6 +13166,12 @@ impl TrainProcessorVersionResponse {
     }
 
     /// Sets the value of [processor_version][crate::model::TrainProcessorVersionResponse::processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionResponse;
+    /// let x = TrainProcessorVersionResponse::new().set_processor_version("example");
+    /// ```
     pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9900,6 +13211,13 @@ impl TrainProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::TrainProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = TrainProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9909,6 +13227,14 @@ impl TrainProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::TrainProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = TrainProcessorVersionMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = TrainProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9918,6 +13244,13 @@ impl TrainProcessorVersionMetadata {
     }
 
     /// Sets the value of [training_dataset_validation][crate::model::TrainProcessorVersionMetadata::training_dataset_validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+    /// let x = TrainProcessorVersionMetadata::new().set_training_dataset_validation(DatasetValidation::default()/* use setters */);
+    /// ```
     pub fn set_training_dataset_validation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
@@ -9927,6 +13260,14 @@ impl TrainProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [training_dataset_validation][crate::model::TrainProcessorVersionMetadata::training_dataset_validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+    /// let x = TrainProcessorVersionMetadata::new().set_or_clear_training_dataset_validation(Some(DatasetValidation::default()/* use setters */));
+    /// let x = TrainProcessorVersionMetadata::new().set_or_clear_training_dataset_validation(None::<DatasetValidation>);
+    /// ```
     pub fn set_or_clear_training_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
@@ -9936,6 +13277,13 @@ impl TrainProcessorVersionMetadata {
     }
 
     /// Sets the value of [test_dataset_validation][crate::model::TrainProcessorVersionMetadata::test_dataset_validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+    /// let x = TrainProcessorVersionMetadata::new().set_test_dataset_validation(DatasetValidation::default()/* use setters */);
+    /// ```
     pub fn set_test_dataset_validation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
@@ -9945,6 +13293,14 @@ impl TrainProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [test_dataset_validation][crate::model::TrainProcessorVersionMetadata::test_dataset_validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::TrainProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+    /// let x = TrainProcessorVersionMetadata::new().set_or_clear_test_dataset_validation(Some(DatasetValidation::default()/* use setters */));
+    /// let x = TrainProcessorVersionMetadata::new().set_or_clear_test_dataset_validation(None::<DatasetValidation>);
+    /// ```
     pub fn set_or_clear_test_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
@@ -9995,18 +13351,41 @@ pub mod train_processor_version_metadata {
         }
 
         /// Sets the value of [document_error_count][crate::model::train_processor_version_metadata::DatasetValidation::document_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+        /// let x = DatasetValidation::new().set_document_error_count(42);
+        /// ```
         pub fn set_document_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.document_error_count = v.into();
             self
         }
 
         /// Sets the value of [dataset_error_count][crate::model::train_processor_version_metadata::DatasetValidation::dataset_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+        /// let x = DatasetValidation::new().set_dataset_error_count(42);
+        /// ```
         pub fn set_dataset_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dataset_error_count = v.into();
             self
         }
 
         /// Sets the value of [document_errors][crate::model::train_processor_version_metadata::DatasetValidation::document_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+        /// use rpc::model::Status;
+        /// let x = DatasetValidation::new()
+        ///     .set_document_errors([
+        ///         Status::default()/* use setters */,
+        ///         Status::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_document_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10018,6 +13397,17 @@ pub mod train_processor_version_metadata {
         }
 
         /// Sets the value of [dataset_errors][crate::model::train_processor_version_metadata::DatasetValidation::dataset_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::train_processor_version_metadata::DatasetValidation;
+        /// use rpc::model::Status;
+        /// let x = DatasetValidation::new()
+        ///     .set_dataset_errors([
+        ///         Status::default()/* use setters */,
+        ///         Status::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dataset_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10070,6 +13460,12 @@ impl ReviewDocumentRequest {
     }
 
     /// Sets the value of [human_review_config][crate::model::ReviewDocumentRequest::human_review_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
+    /// let x = ReviewDocumentRequest::new().set_human_review_config("example");
+    /// ```
     pub fn set_human_review_config<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10079,12 +13475,25 @@ impl ReviewDocumentRequest {
     }
 
     /// Sets the value of [enable_schema_validation][crate::model::ReviewDocumentRequest::enable_schema_validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
+    /// let x = ReviewDocumentRequest::new().set_enable_schema_validation(true);
+    /// ```
     pub fn set_enable_schema_validation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_schema_validation = v.into();
         self
     }
 
     /// Sets the value of [priority][crate::model::ReviewDocumentRequest::priority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
+    /// use google_cloud_documentai_v1::model::review_document_request::Priority;
+    /// let x0 = ReviewDocumentRequest::new().set_priority(Priority::Urgent);
+    /// ```
     pub fn set_priority<T: std::convert::Into<crate::model::review_document_request::Priority>>(
         mut self,
         v: T,
@@ -10094,6 +13503,13 @@ impl ReviewDocumentRequest {
     }
 
     /// Sets the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = ReviewDocumentRequest::new().set_document_schema(DocumentSchema::default()/* use setters */);
+    /// ```
     pub fn set_document_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -10103,6 +13519,14 @@ impl ReviewDocumentRequest {
     }
 
     /// Sets or clears the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = ReviewDocumentRequest::new().set_or_clear_document_schema(Some(DocumentSchema::default()/* use setters */));
+    /// let x = ReviewDocumentRequest::new().set_or_clear_document_schema(None::<DocumentSchema>);
+    /// ```
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -10115,6 +13539,14 @@ impl ReviewDocumentRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
+    /// use google_cloud_documentai_v1::model::Document;
+    /// let x = ReviewDocumentRequest::new().set_source(Some(
+    ///     google_cloud_documentai_v1::model::review_document_request::Source::InlineDocument(Document::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::review_document_request::Source>>,
     >(
@@ -10143,6 +13575,14 @@ impl ReviewDocumentRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
+    /// use google_cloud_documentai_v1::model::Document;
+    /// let x = ReviewDocumentRequest::new().set_inline_document(Document::default()/* use setters */);
+    /// assert!(x.inline_document().is_some());
+    /// ```
     pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
         mut self,
         v: T,
@@ -10327,12 +13767,26 @@ impl ReviewDocumentResponse {
     }
 
     /// Sets the value of [gcs_destination][crate::model::ReviewDocumentResponse::gcs_destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentResponse;
+    /// let x = ReviewDocumentResponse::new().set_gcs_destination("example");
+    /// ```
     pub fn set_gcs_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_destination = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::ReviewDocumentResponse::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentResponse;
+    /// use google_cloud_documentai_v1::model::review_document_response::State;
+    /// let x0 = ReviewDocumentResponse::new().set_state(State::Rejected);
+    /// let x1 = ReviewDocumentResponse::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::review_document_response::State>>(
         mut self,
         v: T,
@@ -10342,6 +13796,12 @@ impl ReviewDocumentResponse {
     }
 
     /// Sets the value of [rejection_reason][crate::model::ReviewDocumentResponse::rejection_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentResponse;
+    /// let x = ReviewDocumentResponse::new().set_rejection_reason("example");
+    /// ```
     pub fn set_rejection_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10518,6 +13978,13 @@ impl ReviewDocumentOperationMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::ReviewDocumentOperationMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentOperationMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = ReviewDocumentOperationMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -10527,6 +13994,14 @@ impl ReviewDocumentOperationMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::ReviewDocumentOperationMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentOperationMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = ReviewDocumentOperationMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = ReviewDocumentOperationMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -10536,6 +14011,12 @@ impl ReviewDocumentOperationMetadata {
     }
 
     /// Sets the value of [question_id][crate::model::ReviewDocumentOperationMetadata::question_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ReviewDocumentOperationMetadata;
+    /// let x = ReviewDocumentOperationMetadata::new().set_question_id("example");
+    /// ```
     pub fn set_question_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.question_id = v.into();
         self
@@ -10577,6 +14058,12 @@ impl EvaluateProcessorVersionRequest {
     }
 
     /// Sets the value of [processor_version][crate::model::EvaluateProcessorVersionRequest::processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionRequest;
+    /// let x = EvaluateProcessorVersionRequest::new().set_processor_version("example");
+    /// ```
     pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10586,6 +14073,13 @@ impl EvaluateProcessorVersionRequest {
     }
 
     /// Sets the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+    /// let x = EvaluateProcessorVersionRequest::new().set_evaluation_documents(BatchDocumentsInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_evaluation_documents<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -10595,6 +14089,14 @@ impl EvaluateProcessorVersionRequest {
     }
 
     /// Sets or clears the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionRequest;
+    /// use google_cloud_documentai_v1::model::BatchDocumentsInputConfig;
+    /// let x = EvaluateProcessorVersionRequest::new().set_or_clear_evaluation_documents(Some(BatchDocumentsInputConfig::default()/* use setters */));
+    /// let x = EvaluateProcessorVersionRequest::new().set_or_clear_evaluation_documents(None::<BatchDocumentsInputConfig>);
+    /// ```
     pub fn set_or_clear_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -10630,6 +14132,13 @@ impl EvaluateProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::EvaluateProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = EvaluateProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -10639,6 +14148,14 @@ impl EvaluateProcessorVersionMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::EvaluateProcessorVersionMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionMetadata;
+    /// use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = EvaluateProcessorVersionMetadata::new().set_or_clear_common_metadata(Some(CommonOperationMetadata::default()/* use setters */));
+    /// let x = EvaluateProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
+    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -10674,6 +14191,12 @@ impl EvaluateProcessorVersionResponse {
     }
 
     /// Sets the value of [evaluation][crate::model::EvaluateProcessorVersionResponse::evaluation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionResponse;
+    /// let x = EvaluateProcessorVersionResponse::new().set_evaluation("example");
+    /// ```
     pub fn set_evaluation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.evaluation = v.into();
         self
@@ -10706,6 +14229,12 @@ impl GetEvaluationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEvaluationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::GetEvaluationRequest;
+    /// let x = GetEvaluationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10751,18 +14280,36 @@ impl ListEvaluationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEvaluationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListEvaluationsRequest;
+    /// let x = ListEvaluationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEvaluationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListEvaluationsRequest;
+    /// let x = ListEvaluationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEvaluationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListEvaluationsRequest;
+    /// let x = ListEvaluationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -10795,6 +14342,17 @@ impl ListEvaluationsResponse {
     }
 
     /// Sets the value of [evaluations][crate::model::ListEvaluationsResponse::evaluations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListEvaluationsResponse;
+    /// use google_cloud_documentai_v1::model::Evaluation;
+    /// let x = ListEvaluationsResponse::new()
+    ///     .set_evaluations([
+    ///         Evaluation::default()/* use setters */,
+    ///         Evaluation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_evaluations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10806,6 +14364,12 @@ impl ListEvaluationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEvaluationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ListEvaluationsResponse;
+    /// let x = ListEvaluationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -10857,18 +14421,41 @@ impl DocumentSchema {
     }
 
     /// Sets the value of [display_name][crate::model::DocumentSchema::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = DocumentSchema::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DocumentSchema::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = DocumentSchema::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [entity_types][crate::model::DocumentSchema::entity_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DocumentSchema;
+    /// use google_cloud_documentai_v1::model::document_schema::EntityType;
+    /// let x = DocumentSchema::new()
+    ///     .set_entity_types([
+    ///         EntityType::default()/* use setters */,
+    ///         EntityType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entity_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10880,6 +14467,13 @@ impl DocumentSchema {
     }
 
     /// Sets the value of [metadata][crate::model::DocumentSchema::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DocumentSchema;
+    /// use google_cloud_documentai_v1::model::document_schema::Metadata;
+    /// let x = DocumentSchema::new().set_metadata(Metadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::document_schema::Metadata>,
@@ -10889,6 +14483,14 @@ impl DocumentSchema {
     }
 
     /// Sets or clears the value of [metadata][crate::model::DocumentSchema::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::DocumentSchema;
+    /// use google_cloud_documentai_v1::model::document_schema::Metadata;
+    /// let x = DocumentSchema::new().set_or_clear_metadata(Some(Metadata::default()/* use setters */));
+    /// let x = DocumentSchema::new().set_or_clear_metadata(None::<Metadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document_schema::Metadata>,
@@ -10952,6 +14554,12 @@ pub mod document_schema {
         }
 
         /// Sets the value of [display_name][crate::model::document_schema::EntityType::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::EntityType;
+        /// let x = EntityType::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10961,12 +14569,24 @@ pub mod document_schema {
         }
 
         /// Sets the value of [name][crate::model::document_schema::EntityType::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::EntityType;
+        /// let x = EntityType::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [base_types][crate::model::document_schema::EntityType::base_types].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::EntityType;
+        /// let x = EntityType::new().set_base_types(["a", "b", "c"]);
+        /// ```
         pub fn set_base_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10978,6 +14598,17 @@ pub mod document_schema {
         }
 
         /// Sets the value of [properties][crate::model::document_schema::EntityType::properties].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::EntityType;
+        /// use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
+        /// let x = EntityType::new()
+        ///     .set_properties([
+        ///         Property::default()/* use setters */,
+        ///         Property::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_properties<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10992,6 +14623,14 @@ pub mod document_schema {
         ///
         /// Note that all the setters affecting `value_source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::EntityType;
+        /// use google_cloud_documentai_v1::model::document_schema::entity_type::EnumValues;
+        /// let x = EntityType::new().set_value_source(Some(
+        ///     google_cloud_documentai_v1::model::document_schema::entity_type::ValueSource::EnumValues(EnumValues::default().into())));
+        /// ```
         pub fn set_value_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
@@ -11026,6 +14665,14 @@ pub mod document_schema {
         ///
         /// Note that all the setters affecting `value_source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::EntityType;
+        /// use google_cloud_documentai_v1::model::document_schema::entity_type::EnumValues;
+        /// let x = EntityType::new().set_enum_values(EnumValues::default()/* use setters */);
+        /// assert!(x.enum_values().is_some());
+        /// ```
         pub fn set_enum_values<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>,
@@ -11068,6 +14715,12 @@ pub mod document_schema {
             }
 
             /// Sets the value of [values][crate::model::document_schema::entity_type::EnumValues::values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_schema::entity_type::EnumValues;
+            /// let x = EnumValues::new().set_values(["a", "b", "c"]);
+            /// ```
             pub fn set_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -11117,12 +14770,24 @@ pub mod document_schema {
             }
 
             /// Sets the value of [name][crate::model::document_schema::entity_type::Property::name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
+            /// let x = Property::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
             }
 
             /// Sets the value of [display_name][crate::model::document_schema::entity_type::Property::display_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
+            /// let x = Property::new().set_display_name("example");
+            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -11132,6 +14797,12 @@ pub mod document_schema {
             }
 
             /// Sets the value of [value_type][crate::model::document_schema::entity_type::Property::value_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
+            /// let x = Property::new().set_value_type("example");
+            /// ```
             pub fn set_value_type<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -11141,6 +14812,15 @@ pub mod document_schema {
             }
 
             /// Sets the value of [occurrence_type][crate::model::document_schema::entity_type::Property::occurrence_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
+            /// use google_cloud_documentai_v1::model::document_schema::entity_type::property::OccurrenceType;
+            /// let x0 = Property::new().set_occurrence_type(OccurrenceType::OptionalOnce);
+            /// let x1 = Property::new().set_occurrence_type(OccurrenceType::OptionalMultiple);
+            /// let x2 = Property::new().set_occurrence_type(OccurrenceType::RequiredOnce);
+            /// ```
             pub fn set_occurrence_type<
                 T: std::convert::Into<
                         crate::model::document_schema::entity_type::property::OccurrenceType,
@@ -11154,6 +14834,14 @@ pub mod document_schema {
             }
 
             /// Sets the value of [method][crate::model::document_schema::entity_type::Property::method].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
+            /// use google_cloud_documentai_v1::model::document_schema::entity_type::property::Method;
+            /// let x0 = Property::new().set_method(Method::Extract);
+            /// let x1 = Property::new().set_method(Method::Derive);
+            /// ```
             pub fn set_method<
                 T: std::convert::Into<crate::model::document_schema::entity_type::property::Method>,
             >(
@@ -11516,12 +15204,24 @@ pub mod document_schema {
         }
 
         /// Sets the value of [document_splitter][crate::model::document_schema::Metadata::document_splitter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::Metadata;
+        /// let x = Metadata::new().set_document_splitter(true);
+        /// ```
         pub fn set_document_splitter<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.document_splitter = v.into();
             self
         }
 
         /// Sets the value of [document_allow_multiple_labels][crate::model::document_schema::Metadata::document_allow_multiple_labels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::Metadata;
+        /// let x = Metadata::new().set_document_allow_multiple_labels(true);
+        /// ```
         pub fn set_document_allow_multiple_labels<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -11531,6 +15231,12 @@ pub mod document_schema {
         }
 
         /// Sets the value of [prefixed_naming_on_properties][crate::model::document_schema::Metadata::prefixed_naming_on_properties].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::Metadata;
+        /// let x = Metadata::new().set_prefixed_naming_on_properties(true);
+        /// ```
         pub fn set_prefixed_naming_on_properties<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -11540,6 +15246,12 @@ pub mod document_schema {
         }
 
         /// Sets the value of [skip_naming_validation][crate::model::document_schema::Metadata::skip_naming_validation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::document_schema::Metadata;
+        /// let x = Metadata::new().set_skip_naming_validation(true);
+        /// ```
         pub fn set_skip_naming_validation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.skip_naming_validation = v.into();
             self
@@ -11578,18 +15290,37 @@ impl EvaluationReference {
     }
 
     /// Sets the value of [operation][crate::model::EvaluationReference::operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluationReference;
+    /// let x = EvaluationReference::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
     }
 
     /// Sets the value of [evaluation][crate::model::EvaluationReference::evaluation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluationReference;
+    /// let x = EvaluationReference::new().set_evaluation("example");
+    /// ```
     pub fn set_evaluation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.evaluation = v.into();
         self
     }
 
     /// Sets the value of [aggregate_metrics][crate::model::EvaluationReference::aggregate_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluationReference;
+    /// use google_cloud_documentai_v1::model::evaluation::Metrics;
+    /// let x = EvaluationReference::new().set_aggregate_metrics(Metrics::default()/* use setters */);
+    /// ```
     pub fn set_aggregate_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -11599,6 +15330,14 @@ impl EvaluationReference {
     }
 
     /// Sets or clears the value of [aggregate_metrics][crate::model::EvaluationReference::aggregate_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluationReference;
+    /// use google_cloud_documentai_v1::model::evaluation::Metrics;
+    /// let x = EvaluationReference::new().set_or_clear_aggregate_metrics(Some(Metrics::default()/* use setters */));
+    /// let x = EvaluationReference::new().set_or_clear_aggregate_metrics(None::<Metrics>);
+    /// ```
     pub fn set_or_clear_aggregate_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -11608,6 +15347,13 @@ impl EvaluationReference {
     }
 
     /// Sets the value of [aggregate_metrics_exact][crate::model::EvaluationReference::aggregate_metrics_exact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluationReference;
+    /// use google_cloud_documentai_v1::model::evaluation::Metrics;
+    /// let x = EvaluationReference::new().set_aggregate_metrics_exact(Metrics::default()/* use setters */);
+    /// ```
     pub fn set_aggregate_metrics_exact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -11617,6 +15363,14 @@ impl EvaluationReference {
     }
 
     /// Sets or clears the value of [aggregate_metrics_exact][crate::model::EvaluationReference::aggregate_metrics_exact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::EvaluationReference;
+    /// use google_cloud_documentai_v1::model::evaluation::Metrics;
+    /// let x = EvaluationReference::new().set_or_clear_aggregate_metrics_exact(Some(Metrics::default()/* use setters */));
+    /// let x = EvaluationReference::new().set_or_clear_aggregate_metrics_exact(None::<Metrics>);
+    /// ```
     pub fn set_or_clear_aggregate_metrics_exact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -11671,12 +15425,25 @@ impl Evaluation {
     }
 
     /// Sets the value of [name][crate::model::Evaluation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// let x = Evaluation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Evaluation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// use wkt::Timestamp;
+    /// let x = Evaluation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11686,6 +15453,14 @@ impl Evaluation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Evaluation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// use wkt::Timestamp;
+    /// let x = Evaluation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Evaluation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11695,6 +15470,13 @@ impl Evaluation {
     }
 
     /// Sets the value of [document_counters][crate::model::Evaluation::document_counters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// use google_cloud_documentai_v1::model::evaluation::Counters;
+    /// let x = Evaluation::new().set_document_counters(Counters::default()/* use setters */);
+    /// ```
     pub fn set_document_counters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Counters>,
@@ -11704,6 +15486,14 @@ impl Evaluation {
     }
 
     /// Sets or clears the value of [document_counters][crate::model::Evaluation::document_counters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// use google_cloud_documentai_v1::model::evaluation::Counters;
+    /// let x = Evaluation::new().set_or_clear_document_counters(Some(Counters::default()/* use setters */));
+    /// let x = Evaluation::new().set_or_clear_document_counters(None::<Counters>);
+    /// ```
     pub fn set_or_clear_document_counters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Counters>,
@@ -11713,6 +15503,13 @@ impl Evaluation {
     }
 
     /// Sets the value of [all_entities_metrics][crate::model::Evaluation::all_entities_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+    /// let x = Evaluation::new().set_all_entities_metrics(MultiConfidenceMetrics::default()/* use setters */);
+    /// ```
     pub fn set_all_entities_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
@@ -11722,6 +15519,14 @@ impl Evaluation {
     }
 
     /// Sets or clears the value of [all_entities_metrics][crate::model::Evaluation::all_entities_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+    /// let x = Evaluation::new().set_or_clear_all_entities_metrics(Some(MultiConfidenceMetrics::default()/* use setters */));
+    /// let x = Evaluation::new().set_or_clear_all_entities_metrics(None::<MultiConfidenceMetrics>);
+    /// ```
     pub fn set_or_clear_all_entities_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
@@ -11731,6 +15536,16 @@ impl Evaluation {
     }
 
     /// Sets the value of [entity_metrics][crate::model::Evaluation::entity_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+    /// let x = Evaluation::new().set_entity_metrics([
+    ///     ("key0", MultiConfidenceMetrics::default()/* use setters */),
+    ///     ("key1", MultiConfidenceMetrics::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_entity_metrics<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11743,12 +15558,24 @@ impl Evaluation {
     }
 
     /// Sets the value of [kms_key_name][crate::model::Evaluation::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// let x = Evaluation::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::Evaluation::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Evaluation;
+    /// let x = Evaluation::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11796,24 +15623,48 @@ pub mod evaluation {
         }
 
         /// Sets the value of [input_documents_count][crate::model::evaluation::Counters::input_documents_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Counters;
+        /// let x = Counters::new().set_input_documents_count(42);
+        /// ```
         pub fn set_input_documents_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.input_documents_count = v.into();
             self
         }
 
         /// Sets the value of [invalid_documents_count][crate::model::evaluation::Counters::invalid_documents_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Counters;
+        /// let x = Counters::new().set_invalid_documents_count(42);
+        /// ```
         pub fn set_invalid_documents_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.invalid_documents_count = v.into();
             self
         }
 
         /// Sets the value of [failed_documents_count][crate::model::evaluation::Counters::failed_documents_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Counters;
+        /// let x = Counters::new().set_failed_documents_count(42);
+        /// ```
         pub fn set_failed_documents_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.failed_documents_count = v.into();
             self
         }
 
         /// Sets the value of [evaluated_documents_count][crate::model::evaluation::Counters::evaluated_documents_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Counters;
+        /// let x = Counters::new().set_evaluated_documents_count(42);
+        /// ```
         pub fn set_evaluated_documents_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.evaluated_documents_count = v.into();
             self
@@ -11872,30 +15723,60 @@ pub mod evaluation {
         }
 
         /// Sets the value of [precision][crate::model::evaluation::Metrics::precision].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_precision(42.0);
+        /// ```
         pub fn set_precision<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.precision = v.into();
             self
         }
 
         /// Sets the value of [recall][crate::model::evaluation::Metrics::recall].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_recall(42.0);
+        /// ```
         pub fn set_recall<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.recall = v.into();
             self
         }
 
         /// Sets the value of [f1_score][crate::model::evaluation::Metrics::f1_score].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_f1_score(42.0);
+        /// ```
         pub fn set_f1_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.f1_score = v.into();
             self
         }
 
         /// Sets the value of [predicted_occurrences_count][crate::model::evaluation::Metrics::predicted_occurrences_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_predicted_occurrences_count(42);
+        /// ```
         pub fn set_predicted_occurrences_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.predicted_occurrences_count = v.into();
             self
         }
 
         /// Sets the value of [ground_truth_occurrences_count][crate::model::evaluation::Metrics::ground_truth_occurrences_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_ground_truth_occurrences_count(42);
+        /// ```
         pub fn set_ground_truth_occurrences_count<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -11905,36 +15786,72 @@ pub mod evaluation {
         }
 
         /// Sets the value of [predicted_document_count][crate::model::evaluation::Metrics::predicted_document_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_predicted_document_count(42);
+        /// ```
         pub fn set_predicted_document_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.predicted_document_count = v.into();
             self
         }
 
         /// Sets the value of [ground_truth_document_count][crate::model::evaluation::Metrics::ground_truth_document_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_ground_truth_document_count(42);
+        /// ```
         pub fn set_ground_truth_document_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.ground_truth_document_count = v.into();
             self
         }
 
         /// Sets the value of [true_positives_count][crate::model::evaluation::Metrics::true_positives_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_true_positives_count(42);
+        /// ```
         pub fn set_true_positives_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.true_positives_count = v.into();
             self
         }
 
         /// Sets the value of [false_positives_count][crate::model::evaluation::Metrics::false_positives_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_false_positives_count(42);
+        /// ```
         pub fn set_false_positives_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.false_positives_count = v.into();
             self
         }
 
         /// Sets the value of [false_negatives_count][crate::model::evaluation::Metrics::false_negatives_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_false_negatives_count(42);
+        /// ```
         pub fn set_false_negatives_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.false_negatives_count = v.into();
             self
         }
 
         /// Sets the value of [total_documents_count][crate::model::evaluation::Metrics::total_documents_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = Metrics::new().set_total_documents_count(42);
+        /// ```
         pub fn set_total_documents_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.total_documents_count = v.into();
             self
@@ -11966,12 +15883,25 @@ pub mod evaluation {
         }
 
         /// Sets the value of [confidence_level][crate::model::evaluation::ConfidenceLevelMetrics::confidence_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::ConfidenceLevelMetrics;
+        /// let x = ConfidenceLevelMetrics::new().set_confidence_level(42.0);
+        /// ```
         pub fn set_confidence_level<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.confidence_level = v.into();
             self
         }
 
         /// Sets the value of [metrics][crate::model::evaluation::ConfidenceLevelMetrics::metrics].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::ConfidenceLevelMetrics;
+        /// use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = ConfidenceLevelMetrics::new().set_metrics(Metrics::default()/* use setters */);
+        /// ```
         pub fn set_metrics<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -11981,6 +15911,14 @@ pub mod evaluation {
         }
 
         /// Sets or clears the value of [metrics][crate::model::evaluation::ConfidenceLevelMetrics::metrics].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::ConfidenceLevelMetrics;
+        /// use google_cloud_documentai_v1::model::evaluation::Metrics;
+        /// let x = ConfidenceLevelMetrics::new().set_or_clear_metrics(Some(Metrics::default()/* use setters */));
+        /// let x = ConfidenceLevelMetrics::new().set_or_clear_metrics(None::<Metrics>);
+        /// ```
         pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -12036,6 +15974,17 @@ pub mod evaluation {
         }
 
         /// Sets the value of [confidence_level_metrics][crate::model::evaluation::MultiConfidenceMetrics::confidence_level_metrics].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+        /// use google_cloud_documentai_v1::model::evaluation::ConfidenceLevelMetrics;
+        /// let x = MultiConfidenceMetrics::new()
+        ///     .set_confidence_level_metrics([
+        ///         ConfidenceLevelMetrics::default()/* use setters */,
+        ///         ConfidenceLevelMetrics::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_confidence_level_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12047,6 +15996,17 @@ pub mod evaluation {
         }
 
         /// Sets the value of [confidence_level_metrics_exact][crate::model::evaluation::MultiConfidenceMetrics::confidence_level_metrics_exact].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+        /// use google_cloud_documentai_v1::model::evaluation::ConfidenceLevelMetrics;
+        /// let x = MultiConfidenceMetrics::new()
+        ///     .set_confidence_level_metrics_exact([
+        ///         ConfidenceLevelMetrics::default()/* use setters */,
+        ///         ConfidenceLevelMetrics::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_confidence_level_metrics_exact<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12058,24 +16018,48 @@ pub mod evaluation {
         }
 
         /// Sets the value of [auprc][crate::model::evaluation::MultiConfidenceMetrics::auprc].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+        /// let x = MultiConfidenceMetrics::new().set_auprc(42.0);
+        /// ```
         pub fn set_auprc<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.auprc = v.into();
             self
         }
 
         /// Sets the value of [estimated_calibration_error][crate::model::evaluation::MultiConfidenceMetrics::estimated_calibration_error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+        /// let x = MultiConfidenceMetrics::new().set_estimated_calibration_error(42.0);
+        /// ```
         pub fn set_estimated_calibration_error<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.estimated_calibration_error = v.into();
             self
         }
 
         /// Sets the value of [auprc_exact][crate::model::evaluation::MultiConfidenceMetrics::auprc_exact].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+        /// let x = MultiConfidenceMetrics::new().set_auprc_exact(42.0);
+        /// ```
         pub fn set_auprc_exact<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.auprc_exact = v.into();
             self
         }
 
         /// Sets the value of [estimated_calibration_error_exact][crate::model::evaluation::MultiConfidenceMetrics::estimated_calibration_error_exact].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+        /// let x = MultiConfidenceMetrics::new().set_estimated_calibration_error_exact(42.0);
+        /// ```
         pub fn set_estimated_calibration_error_exact<T: std::convert::Into<f32>>(
             mut self,
             v: T,
@@ -12085,6 +16069,13 @@ pub mod evaluation {
         }
 
         /// Sets the value of [metrics_type][crate::model::evaluation::MultiConfidenceMetrics::metrics_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
+        /// use google_cloud_documentai_v1::model::evaluation::multi_confidence_metrics::MetricsType;
+        /// let x0 = MultiConfidenceMetrics::new().set_metrics_type(MetricsType::Aggregate);
+        /// ```
         pub fn set_metrics_type<
             T: std::convert::Into<crate::model::evaluation::multi_confidence_metrics::MetricsType>,
         >(
@@ -12263,12 +16254,24 @@ impl Vertex {
     }
 
     /// Sets the value of [x][crate::model::Vertex::x].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Vertex;
+    /// let x = Vertex::new().set_x(42);
+    /// ```
     pub fn set_x<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::Vertex::y].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Vertex;
+    /// let x = Vertex::new().set_y(42);
+    /// ```
     pub fn set_y<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
@@ -12302,12 +16305,24 @@ impl NormalizedVertex {
     }
 
     /// Sets the value of [x][crate::model::NormalizedVertex::x].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::NormalizedVertex;
+    /// let x = NormalizedVertex::new().set_x(42.0);
+    /// ```
     pub fn set_x<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::NormalizedVertex::y].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::NormalizedVertex;
+    /// let x = NormalizedVertex::new().set_y(42.0);
+    /// ```
     pub fn set_y<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
@@ -12339,6 +16354,17 @@ impl BoundingPoly {
     }
 
     /// Sets the value of [vertices][crate::model::BoundingPoly::vertices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BoundingPoly;
+    /// use google_cloud_documentai_v1::model::Vertex;
+    /// let x = BoundingPoly::new()
+    ///     .set_vertices([
+    ///         Vertex::default()/* use setters */,
+    ///         Vertex::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12350,6 +16376,17 @@ impl BoundingPoly {
     }
 
     /// Sets the value of [normalized_vertices][crate::model::BoundingPoly::normalized_vertices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::BoundingPoly;
+    /// use google_cloud_documentai_v1::model::NormalizedVertex;
+    /// let x = BoundingPoly::new()
+    ///     .set_normalized_vertices([
+    ///         NormalizedVertex::default()/* use setters */,
+    ///         NormalizedVertex::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_normalized_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12395,6 +16432,15 @@ impl CommonOperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::CommonOperationMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// use google_cloud_documentai_v1::model::common_operation_metadata::State;
+    /// let x0 = CommonOperationMetadata::new().set_state(State::Running);
+    /// let x1 = CommonOperationMetadata::new().set_state(State::Cancelling);
+    /// let x2 = CommonOperationMetadata::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::common_operation_metadata::State>>(
         mut self,
         v: T,
@@ -12404,18 +16450,37 @@ impl CommonOperationMetadata {
     }
 
     /// Sets the value of [state_message][crate::model::CommonOperationMetadata::state_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = CommonOperationMetadata::new().set_state_message("example");
+    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::CommonOperationMetadata::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// let x = CommonOperationMetadata::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::CommonOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12425,6 +16490,14 @@ impl CommonOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CommonOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CommonOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12434,6 +16507,13 @@ impl CommonOperationMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::CommonOperationMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonOperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12443,6 +16523,14 @@ impl CommonOperationMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CommonOperationMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::CommonOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CommonOperationMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CommonOperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12680,18 +16768,37 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [name][crate::model::ProcessorVersion::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ProcessorVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ProcessorVersion::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ProcessorVersion::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [document_schema][crate::model::ProcessorVersion::document_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = ProcessorVersion::new().set_document_schema(DocumentSchema::default()/* use setters */);
+    /// ```
     pub fn set_document_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -12701,6 +16808,14 @@ impl ProcessorVersion {
     }
 
     /// Sets or clears the value of [document_schema][crate::model::ProcessorVersion::document_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::DocumentSchema;
+    /// let x = ProcessorVersion::new().set_or_clear_document_schema(Some(DocumentSchema::default()/* use setters */));
+    /// let x = ProcessorVersion::new().set_or_clear_document_schema(None::<DocumentSchema>);
+    /// ```
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -12710,6 +16825,15 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [state][crate::model::ProcessorVersion::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::processor_version::State;
+    /// let x0 = ProcessorVersion::new().set_state(State::Deployed);
+    /// let x1 = ProcessorVersion::new().set_state(State::Deploying);
+    /// let x2 = ProcessorVersion::new().set_state(State::Undeployed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::processor_version::State>>(
         mut self,
         v: T,
@@ -12719,6 +16843,13 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [create_time][crate::model::ProcessorVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use wkt::Timestamp;
+    /// let x = ProcessorVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12728,6 +16859,14 @@ impl ProcessorVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ProcessorVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use wkt::Timestamp;
+    /// let x = ProcessorVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ProcessorVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12737,6 +16876,13 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [latest_evaluation][crate::model::ProcessorVersion::latest_evaluation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::EvaluationReference;
+    /// let x = ProcessorVersion::new().set_latest_evaluation(EvaluationReference::default()/* use setters */);
+    /// ```
     pub fn set_latest_evaluation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EvaluationReference>,
@@ -12746,6 +16892,14 @@ impl ProcessorVersion {
     }
 
     /// Sets or clears the value of [latest_evaluation][crate::model::ProcessorVersion::latest_evaluation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::EvaluationReference;
+    /// let x = ProcessorVersion::new().set_or_clear_latest_evaluation(Some(EvaluationReference::default()/* use setters */));
+    /// let x = ProcessorVersion::new().set_or_clear_latest_evaluation(None::<EvaluationReference>);
+    /// ```
     pub fn set_or_clear_latest_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EvaluationReference>,
@@ -12755,12 +16909,24 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [kms_key_name][crate::model::ProcessorVersion::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ProcessorVersion::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::ProcessorVersion::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ProcessorVersion::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12770,12 +16936,25 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [google_managed][crate::model::ProcessorVersion::google_managed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ProcessorVersion::new().set_google_managed(true);
+    /// ```
     pub fn set_google_managed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.google_managed = v.into();
         self
     }
 
     /// Sets the value of [deprecation_info][crate::model::ProcessorVersion::deprecation_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::processor_version::DeprecationInfo;
+    /// let x = ProcessorVersion::new().set_deprecation_info(DeprecationInfo::default()/* use setters */);
+    /// ```
     pub fn set_deprecation_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::processor_version::DeprecationInfo>,
@@ -12785,6 +16964,14 @@ impl ProcessorVersion {
     }
 
     /// Sets or clears the value of [deprecation_info][crate::model::ProcessorVersion::deprecation_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::processor_version::DeprecationInfo;
+    /// let x = ProcessorVersion::new().set_or_clear_deprecation_info(Some(DeprecationInfo::default()/* use setters */));
+    /// let x = ProcessorVersion::new().set_or_clear_deprecation_info(None::<DeprecationInfo>);
+    /// ```
     pub fn set_or_clear_deprecation_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::processor_version::DeprecationInfo>,
@@ -12794,6 +16981,14 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [model_type][crate::model::ProcessorVersion::model_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::processor_version::ModelType;
+    /// let x0 = ProcessorVersion::new().set_model_type(ModelType::Generative);
+    /// let x1 = ProcessorVersion::new().set_model_type(ModelType::Custom);
+    /// ```
     pub fn set_model_type<T: std::convert::Into<crate::model::processor_version::ModelType>>(
         mut self,
         v: T,
@@ -12803,18 +16998,37 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::ProcessorVersion::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ProcessorVersion::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::ProcessorVersion::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// let x = ProcessorVersion::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
     }
 
     /// Sets the value of [gen_ai_model_info][crate::model::ProcessorVersion::gen_ai_model_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::processor_version::GenAiModelInfo;
+    /// let x = ProcessorVersion::new().set_gen_ai_model_info(GenAiModelInfo::default()/* use setters */);
+    /// ```
     pub fn set_gen_ai_model_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>,
@@ -12824,6 +17038,14 @@ impl ProcessorVersion {
     }
 
     /// Sets or clears the value of [gen_ai_model_info][crate::model::ProcessorVersion::gen_ai_model_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersion;
+    /// use google_cloud_documentai_v1::model::processor_version::GenAiModelInfo;
+    /// let x = ProcessorVersion::new().set_or_clear_gen_ai_model_info(Some(GenAiModelInfo::default()/* use setters */));
+    /// let x = ProcessorVersion::new().set_or_clear_gen_ai_model_info(None::<GenAiModelInfo>);
+    /// ```
     pub fn set_or_clear_gen_ai_model_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>,
@@ -12863,6 +17085,13 @@ pub mod processor_version {
         }
 
         /// Sets the value of [deprecation_time][crate::model::processor_version::DeprecationInfo::deprecation_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::processor_version::DeprecationInfo;
+        /// use wkt::Timestamp;
+        /// let x = DeprecationInfo::new().set_deprecation_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_deprecation_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -12872,6 +17101,14 @@ pub mod processor_version {
         }
 
         /// Sets or clears the value of [deprecation_time][crate::model::processor_version::DeprecationInfo::deprecation_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::processor_version::DeprecationInfo;
+        /// use wkt::Timestamp;
+        /// let x = DeprecationInfo::new().set_or_clear_deprecation_time(Some(Timestamp::default()/* use setters */));
+        /// let x = DeprecationInfo::new().set_or_clear_deprecation_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_deprecation_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -12881,6 +17118,12 @@ pub mod processor_version {
         }
 
         /// Sets the value of [replacement_processor_version][crate::model::processor_version::DeprecationInfo::replacement_processor_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::processor_version::DeprecationInfo;
+        /// let x = DeprecationInfo::new().set_replacement_processor_version("example");
+        /// ```
         pub fn set_replacement_processor_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12917,6 +17160,14 @@ pub mod processor_version {
         ///
         /// Note that all the setters affecting `model_info` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::processor_version::GenAiModelInfo;
+        /// use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo;
+        /// let x = GenAiModelInfo::new().set_model_info(Some(
+        ///     google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(FoundationGenAiModelInfo::default().into())));
+        /// ```
         pub fn set_model_info<
             T: std::convert::Into<
                     std::option::Option<
@@ -12953,6 +17204,15 @@ pub mod processor_version {
         ///
         /// Note that all the setters affecting `model_info` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::processor_version::GenAiModelInfo;
+        /// use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo;
+        /// let x = GenAiModelInfo::new().set_foundation_gen_ai_model_info(FoundationGenAiModelInfo::default()/* use setters */);
+        /// assert!(x.foundation_gen_ai_model_info().is_some());
+        /// assert!(x.custom_gen_ai_model_info().is_none());
+        /// ```
         pub fn set_foundation_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>>>(mut self, v: T) -> Self{
             self.model_info = std::option::Option::Some(
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(
@@ -12984,6 +17244,15 @@ pub mod processor_version {
         ///
         /// Note that all the setters affecting `model_info` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::processor_version::GenAiModelInfo;
+        /// use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo;
+        /// let x = GenAiModelInfo::new().set_custom_gen_ai_model_info(CustomGenAiModelInfo::default()/* use setters */);
+        /// assert!(x.custom_gen_ai_model_info().is_some());
+        /// assert!(x.foundation_gen_ai_model_info().is_none());
+        /// ```
         pub fn set_custom_gen_ai_model_info<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -13034,12 +17303,24 @@ pub mod processor_version {
             }
 
             /// Sets the value of [finetuning_allowed][crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo::finetuning_allowed].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo;
+            /// let x = FoundationGenAiModelInfo::new().set_finetuning_allowed(true);
+            /// ```
             pub fn set_finetuning_allowed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.finetuning_allowed = v.into();
                 self
             }
 
             /// Sets the value of [min_train_labeled_documents][crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo::min_train_labeled_documents].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo;
+            /// let x = FoundationGenAiModelInfo::new().set_min_train_labeled_documents(42);
+            /// ```
             pub fn set_min_train_labeled_documents<T: std::convert::Into<i32>>(
                 mut self,
                 v: T,
@@ -13061,13 +17342,13 @@ pub mod processor_version {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomGenAiModelInfo {
-
+        
             /// The type of custom model created by the user.
             pub custom_model_type: crate::model::processor_version::gen_ai_model_info::custom_gen_ai_model_info::CustomModelType,
-
+        
             /// The base processor version ID for the custom model.
             pub base_processor_version_id: std::string::String,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -13077,12 +17358,26 @@ pub mod processor_version {
             }
 
             /// Sets the value of [custom_model_type][crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo::custom_model_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo;
+            /// use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::custom_gen_ai_model_info::CustomModelType;
+            /// let x0 = CustomGenAiModelInfo::new().set_custom_model_type(CustomModelType::VersionedFoundation);
+            /// let x1 = CustomGenAiModelInfo::new().set_custom_model_type(CustomModelType::FineTuned);
+            /// ```
             pub fn set_custom_model_type<T: std::convert::Into<crate::model::processor_version::gen_ai_model_info::custom_gen_ai_model_info::CustomModelType>>(mut self, v: T) -> Self{
                 self.custom_model_type = v.into();
                 self
             }
 
             /// Sets the value of [base_processor_version_id][crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo::base_processor_version_id].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo;
+            /// let x = CustomGenAiModelInfo::new().set_base_processor_version_id("example");
+            /// ```
             pub fn set_base_processor_version_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -13588,12 +17883,24 @@ impl ProcessorVersionAlias {
     }
 
     /// Sets the value of [alias][crate::model::ProcessorVersionAlias::alias].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersionAlias;
+    /// let x = ProcessorVersionAlias::new().set_alias("example");
+    /// ```
     pub fn set_alias<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.alias = v.into();
         self
     }
 
     /// Sets the value of [processor_version][crate::model::ProcessorVersionAlias::processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorVersionAlias;
+    /// let x = ProcessorVersionAlias::new().set_processor_version("example");
+    /// ```
     pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13663,24 +17970,51 @@ impl Processor {
     }
 
     /// Sets the value of [name][crate::model::Processor::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Processor::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Processor::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Processor::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// use google_cloud_documentai_v1::model::processor::State;
+    /// let x0 = Processor::new().set_state(State::Enabled);
+    /// let x1 = Processor::new().set_state(State::Disabled);
+    /// let x2 = Processor::new().set_state(State::Enabling);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::processor::State>>(
         mut self,
         v: T,
@@ -13690,6 +18024,12 @@ impl Processor {
     }
 
     /// Sets the value of [default_processor_version][crate::model::Processor::default_processor_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_default_processor_version("example");
+    /// ```
     pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13699,6 +18039,17 @@ impl Processor {
     }
 
     /// Sets the value of [processor_version_aliases][crate::model::Processor::processor_version_aliases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// use google_cloud_documentai_v1::model::ProcessorVersionAlias;
+    /// let x = Processor::new()
+    ///     .set_processor_version_aliases([
+    ///         ProcessorVersionAlias::default()/* use setters */,
+    ///         ProcessorVersionAlias::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_processor_version_aliases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13710,6 +18061,12 @@ impl Processor {
     }
 
     /// Sets the value of [process_endpoint][crate::model::Processor::process_endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_process_endpoint("example");
+    /// ```
     pub fn set_process_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13719,6 +18076,13 @@ impl Processor {
     }
 
     /// Sets the value of [create_time][crate::model::Processor::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// use wkt::Timestamp;
+    /// let x = Processor::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13728,6 +18092,14 @@ impl Processor {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Processor::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// use wkt::Timestamp;
+    /// let x = Processor::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Processor::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13737,18 +18109,36 @@ impl Processor {
     }
 
     /// Sets the value of [kms_key_name][crate::model::Processor::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Processor::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Processor::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::Processor;
+    /// let x = Processor::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
@@ -13979,24 +18369,53 @@ impl ProcessorType {
     }
 
     /// Sets the value of [name][crate::model::ProcessorType::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorType;
+    /// let x = ProcessorType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::ProcessorType::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorType;
+    /// let x = ProcessorType::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::ProcessorType::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorType;
+    /// let x = ProcessorType::new().set_category("example");
+    /// ```
     pub fn set_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
 
     /// Sets the value of [available_locations][crate::model::ProcessorType::available_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorType;
+    /// use google_cloud_documentai_v1::model::processor_type::LocationInfo;
+    /// let x = ProcessorType::new()
+    ///     .set_available_locations([
+    ///         LocationInfo::default()/* use setters */,
+    ///         LocationInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_available_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14008,12 +18427,27 @@ impl ProcessorType {
     }
 
     /// Sets the value of [allow_creation][crate::model::ProcessorType::allow_creation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorType;
+    /// let x = ProcessorType::new().set_allow_creation(true);
+    /// ```
     pub fn set_allow_creation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_creation = v.into();
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::ProcessorType::launch_stage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorType;
+    /// use api::model::LaunchStage;
+    /// let x0 = ProcessorType::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = ProcessorType::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = ProcessorType::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
         mut self,
         v: T,
@@ -14023,6 +18457,12 @@ impl ProcessorType {
     }
 
     /// Sets the value of [sample_document_uris][crate::model::ProcessorType::sample_document_uris].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::model::ProcessorType;
+    /// let x = ProcessorType::new().set_sample_document_uris(["a", "b", "c"]);
+    /// ```
     pub fn set_sample_document_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14062,6 +18502,12 @@ pub mod processor_type {
         }
 
         /// Sets the value of [location_id][crate::model::processor_type::LocationInfo::location_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_documentai_v1::model::processor_type::LocationInfo;
+        /// let x = LocationInfo::new().set_location_id("example");
+        /// ```
         pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location_id = v.into();
             self

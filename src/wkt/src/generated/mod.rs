@@ -86,12 +86,29 @@ impl Api {
     }
 
     /// Sets the value of [name][crate::Api::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// let x = Api::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [methods][crate::Api::methods].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// use google_cloud_wkt::model::Method;
+    /// let x = Api::new()
+    ///     .set_methods([
+    ///         Method::default()/* use setters */,
+    ///         Method::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -103,6 +120,17 @@ impl Api {
     }
 
     /// Sets the value of [options][crate::Api::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// use google_cloud_wkt::model::Option;
+    /// let x = Api::new()
+    ///     .set_options([
+    ///         Option::default()/* use setters */,
+    ///         Option::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -114,12 +142,25 @@ impl Api {
     }
 
     /// Sets the value of [version][crate::Api::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// let x = Api::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [source_context][crate::Api::source_context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// use google_cloud_wkt::model::SourceContext;
+    /// let x = Api::new().set_source_context(SourceContext::default()/* use setters */);
+    /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -129,6 +170,14 @@ impl Api {
     }
 
     /// Sets or clears the value of [source_context][crate::Api::source_context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// use google_cloud_wkt::model::SourceContext;
+    /// let x = Api::new().set_or_clear_source_context(Some(SourceContext::default()/* use setters */));
+    /// let x = Api::new().set_or_clear_source_context(None::<SourceContext>);
+    /// ```
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -138,6 +187,17 @@ impl Api {
     }
 
     /// Sets the value of [mixins][crate::Api::mixins].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// use google_cloud_wkt::model::Mixin;
+    /// let x = Api::new()
+    ///     .set_mixins([
+    ///         Mixin::default()/* use setters */,
+    ///         Mixin::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mixins<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -149,6 +209,14 @@ impl Api {
     }
 
     /// Sets the value of [syntax][crate::Api::syntax].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Api;
+    /// use google_cloud_wkt::model::Syntax;
+    /// let x0 = Api::new().set_syntax(Syntax::Proto3);
+    /// let x1 = Api::new().set_syntax(Syntax::Editions);
+    /// ```
     pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
         self.syntax = v.into();
         self
@@ -195,12 +263,24 @@ impl Method {
     }
 
     /// Sets the value of [name][crate::Method::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Method;
+    /// let x = Method::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_type_url][crate::Method::request_type_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Method;
+    /// let x = Method::new().set_request_type_url("example");
+    /// ```
     pub fn set_request_type_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -210,12 +290,24 @@ impl Method {
     }
 
     /// Sets the value of [request_streaming][crate::Method::request_streaming].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Method;
+    /// let x = Method::new().set_request_streaming(true);
+    /// ```
     pub fn set_request_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.request_streaming = v.into();
         self
     }
 
     /// Sets the value of [response_type_url][crate::Method::response_type_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Method;
+    /// let x = Method::new().set_response_type_url("example");
+    /// ```
     pub fn set_response_type_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -225,12 +317,29 @@ impl Method {
     }
 
     /// Sets the value of [response_streaming][crate::Method::response_streaming].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Method;
+    /// let x = Method::new().set_response_streaming(true);
+    /// ```
     pub fn set_response_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.response_streaming = v.into();
         self
     }
 
     /// Sets the value of [options][crate::Method::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Method;
+    /// use google_cloud_wkt::model::Option;
+    /// let x = Method::new()
+    ///     .set_options([
+    ///         Option::default()/* use setters */,
+    ///         Option::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -242,6 +351,14 @@ impl Method {
     }
 
     /// Sets the value of [syntax][crate::Method::syntax].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Method;
+    /// use google_cloud_wkt::model::Syntax;
+    /// let x0 = Method::new().set_syntax(Syntax::Proto3);
+    /// let x1 = Method::new().set_syntax(Syntax::Editions);
+    /// ```
     pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
         self.syntax = v.into();
         self
@@ -364,12 +481,24 @@ impl Mixin {
     }
 
     /// Sets the value of [name][crate::Mixin::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Mixin;
+    /// let x = Mixin::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [root][crate::Mixin::root].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Mixin;
+    /// let x = Mixin::new().set_root("example");
+    /// ```
     pub fn set_root<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root = v.into();
         self
@@ -398,6 +527,17 @@ impl FileDescriptorSet {
     }
 
     /// Sets the value of [file][crate::FileDescriptorSet::file].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorSet;
+    /// use google_cloud_wkt::model::FileDescriptorProto;
+    /// let x = FileDescriptorSet::new()
+    ///     .set_file([
+    ///         FileDescriptorProto::default()/* use setters */,
+    ///         FileDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -468,18 +608,36 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [name][crate::FileDescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// let x = FileDescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [package][crate::FileDescriptorProto::package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// let x = FileDescriptorProto::new().set_package("example");
+    /// ```
     pub fn set_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package = v.into();
         self
     }
 
     /// Sets the value of [dependency][crate::FileDescriptorProto::dependency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// let x = FileDescriptorProto::new().set_dependency(["a", "b", "c"]);
+    /// ```
     pub fn set_dependency<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -491,6 +649,12 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [public_dependency][crate::FileDescriptorProto::public_dependency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// let x = FileDescriptorProto::new().set_public_dependency([1, 2, 3]);
+    /// ```
     pub fn set_public_dependency<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -502,6 +666,12 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [weak_dependency][crate::FileDescriptorProto::weak_dependency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// let x = FileDescriptorProto::new().set_weak_dependency([1, 2, 3]);
+    /// ```
     pub fn set_weak_dependency<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -513,6 +683,17 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [message_type][crate::FileDescriptorProto::message_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::DescriptorProto;
+    /// let x = FileDescriptorProto::new()
+    ///     .set_message_type([
+    ///         DescriptorProto::default()/* use setters */,
+    ///         DescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -524,6 +705,17 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [enum_type][crate::FileDescriptorProto::enum_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::EnumDescriptorProto;
+    /// let x = FileDescriptorProto::new()
+    ///     .set_enum_type([
+    ///         EnumDescriptorProto::default()/* use setters */,
+    ///         EnumDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_enum_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -535,6 +727,17 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [service][crate::FileDescriptorProto::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::ServiceDescriptorProto;
+    /// let x = FileDescriptorProto::new()
+    ///     .set_service([
+    ///         ServiceDescriptorProto::default()/* use setters */,
+    ///         ServiceDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -546,6 +749,17 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [extension][crate::FileDescriptorProto::extension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FileDescriptorProto::new()
+    ///     .set_extension([
+    ///         FieldDescriptorProto::default()/* use setters */,
+    ///         FieldDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_extension<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -557,6 +771,13 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [options][crate::FileDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::FileOptions;
+    /// let x = FileDescriptorProto::new().set_options(FileOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FileOptions>,
@@ -566,6 +787,14 @@ impl FileDescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::FileDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::FileOptions;
+    /// let x = FileDescriptorProto::new().set_or_clear_options(Some(FileOptions::default()/* use setters */));
+    /// let x = FileDescriptorProto::new().set_or_clear_options(None::<FileOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FileOptions>,
@@ -575,6 +804,13 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::SourceCodeInfo;
+    /// let x = FileDescriptorProto::new().set_source_code_info(SourceCodeInfo::default()/* use setters */);
+    /// ```
     pub fn set_source_code_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::SourceCodeInfo>,
@@ -584,6 +820,14 @@ impl FileDescriptorProto {
     }
 
     /// Sets or clears the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::SourceCodeInfo;
+    /// let x = FileDescriptorProto::new().set_or_clear_source_code_info(Some(SourceCodeInfo::default()/* use setters */));
+    /// let x = FileDescriptorProto::new().set_or_clear_source_code_info(None::<SourceCodeInfo>);
+    /// ```
     pub fn set_or_clear_source_code_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceCodeInfo>,
@@ -593,12 +837,27 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [syntax][crate::FileDescriptorProto::syntax].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// let x = FileDescriptorProto::new().set_syntax("example");
+    /// ```
     pub fn set_syntax<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.syntax = v.into();
         self
     }
 
     /// Sets the value of [edition][crate::FileDescriptorProto::edition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileDescriptorProto;
+    /// use google_cloud_wkt::model::Edition;
+    /// let x0 = FileDescriptorProto::new().set_edition(Edition::Legacy);
+    /// let x1 = FileDescriptorProto::new().set_edition(Edition::Proto2);
+    /// let x2 = FileDescriptorProto::new().set_edition(Edition::Proto3);
+    /// ```
     pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
         self.edition = v.into();
         self
@@ -646,12 +905,29 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [name][crate::DescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// let x = DescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [field][crate::DescriptorProto::field].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = DescriptorProto::new()
+    ///     .set_field([
+    ///         FieldDescriptorProto::default()/* use setters */,
+    ///         FieldDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_field<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -663,6 +939,17 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [extension][crate::DescriptorProto::extension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = DescriptorProto::new()
+    ///     .set_extension([
+    ///         FieldDescriptorProto::default()/* use setters */,
+    ///         FieldDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_extension<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -674,6 +961,17 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [nested_type][crate::DescriptorProto::nested_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::DescriptorProto;
+    /// let x = DescriptorProto::new()
+    ///     .set_nested_type([
+    ///         DescriptorProto::default()/* use setters */,
+    ///         DescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_nested_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -685,6 +983,17 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [enum_type][crate::DescriptorProto::enum_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::EnumDescriptorProto;
+    /// let x = DescriptorProto::new()
+    ///     .set_enum_type([
+    ///         EnumDescriptorProto::default()/* use setters */,
+    ///         EnumDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_enum_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -696,6 +1005,17 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [extension_range][crate::DescriptorProto::extension_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::descriptor_proto::ExtensionRange;
+    /// let x = DescriptorProto::new()
+    ///     .set_extension_range([
+    ///         ExtensionRange::default()/* use setters */,
+    ///         ExtensionRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_extension_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -707,6 +1027,17 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [oneof_decl][crate::DescriptorProto::oneof_decl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::OneofDescriptorProto;
+    /// let x = DescriptorProto::new()
+    ///     .set_oneof_decl([
+    ///         OneofDescriptorProto::default()/* use setters */,
+    ///         OneofDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_oneof_decl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -718,6 +1049,13 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [options][crate::DescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::MessageOptions;
+    /// let x = DescriptorProto::new().set_options(MessageOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::MessageOptions>,
@@ -727,6 +1065,14 @@ impl DescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::DescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::MessageOptions;
+    /// let x = DescriptorProto::new().set_or_clear_options(Some(MessageOptions::default()/* use setters */));
+    /// let x = DescriptorProto::new().set_or_clear_options(None::<MessageOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::MessageOptions>,
@@ -736,6 +1082,17 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [reserved_range][crate::DescriptorProto::reserved_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// use google_cloud_wkt::model::descriptor_proto::ReservedRange;
+    /// let x = DescriptorProto::new()
+    ///     .set_reserved_range([
+    ///         ReservedRange::default()/* use setters */,
+    ///         ReservedRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_reserved_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -747,6 +1104,12 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [reserved_name][crate::DescriptorProto::reserved_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::DescriptorProto;
+    /// let x = DescriptorProto::new().set_reserved_name(["a", "b", "c"]);
+    /// ```
     pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -787,18 +1150,37 @@ pub mod descriptor_proto {
         }
 
         /// Sets the value of [start][crate::descriptor_proto::ExtensionRange::start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::descriptor_proto::ExtensionRange;
+        /// let x = ExtensionRange::new().set_start(42);
+        /// ```
         pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.start = v.into();
             self
         }
 
         /// Sets the value of [end][crate::descriptor_proto::ExtensionRange::end].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::descriptor_proto::ExtensionRange;
+        /// let x = ExtensionRange::new().set_end(42);
+        /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.end = v.into();
             self
         }
 
         /// Sets the value of [options][crate::descriptor_proto::ExtensionRange::options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::descriptor_proto::ExtensionRange;
+        /// use google_cloud_wkt::model::ExtensionRangeOptions;
+        /// let x = ExtensionRange::new().set_options(ExtensionRangeOptions::default()/* use setters */);
+        /// ```
         pub fn set_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::ExtensionRangeOptions>,
@@ -808,6 +1190,14 @@ pub mod descriptor_proto {
         }
 
         /// Sets or clears the value of [options][crate::descriptor_proto::ExtensionRange::options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::descriptor_proto::ExtensionRange;
+        /// use google_cloud_wkt::model::ExtensionRangeOptions;
+        /// let x = ExtensionRange::new().set_or_clear_options(Some(ExtensionRangeOptions::default()/* use setters */));
+        /// let x = ExtensionRange::new().set_or_clear_options(None::<ExtensionRangeOptions>);
+        /// ```
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::ExtensionRangeOptions>,
@@ -842,12 +1232,24 @@ pub mod descriptor_proto {
         }
 
         /// Sets the value of [start][crate::descriptor_proto::ReservedRange::start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::descriptor_proto::ReservedRange;
+        /// let x = ReservedRange::new().set_start(42);
+        /// ```
         pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.start = v.into();
             self
         }
 
         /// Sets the value of [end][crate::descriptor_proto::ReservedRange::end].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::descriptor_proto::ReservedRange;
+        /// let x = ReservedRange::new().set_end(42);
+        /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.end = v.into();
             self
@@ -889,6 +1291,17 @@ impl ExtensionRangeOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::ExtensionRangeOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ExtensionRangeOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = ExtensionRangeOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -900,6 +1313,17 @@ impl ExtensionRangeOptions {
     }
 
     /// Sets the value of [declaration][crate::ExtensionRangeOptions::declaration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ExtensionRangeOptions;
+    /// use google_cloud_wkt::model::extension_range_options::Declaration;
+    /// let x = ExtensionRangeOptions::new()
+    ///     .set_declaration([
+    ///         Declaration::default()/* use setters */,
+    ///         Declaration::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_declaration<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -911,6 +1335,13 @@ impl ExtensionRangeOptions {
     }
 
     /// Sets the value of [features][crate::ExtensionRangeOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ExtensionRangeOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = ExtensionRangeOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -920,6 +1351,14 @@ impl ExtensionRangeOptions {
     }
 
     /// Sets or clears the value of [features][crate::ExtensionRangeOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ExtensionRangeOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = ExtensionRangeOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = ExtensionRangeOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -929,6 +1368,13 @@ impl ExtensionRangeOptions {
     }
 
     /// Sets the value of [verification][crate::ExtensionRangeOptions::verification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ExtensionRangeOptions;
+    /// use google_cloud_wkt::model::extension_range_options::VerificationState;
+    /// let x0 = ExtensionRangeOptions::new().set_verification(VerificationState::Unverified);
+    /// ```
     pub fn set_verification<
         T: std::convert::Into<crate::extension_range_options::VerificationState>,
     >(
@@ -984,30 +1430,60 @@ pub mod extension_range_options {
         }
 
         /// Sets the value of [number][crate::extension_range_options::Declaration::number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::extension_range_options::Declaration;
+        /// let x = Declaration::new().set_number(42);
+        /// ```
         pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.number = v.into();
             self
         }
 
         /// Sets the value of [full_name][crate::extension_range_options::Declaration::full_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::extension_range_options::Declaration;
+        /// let x = Declaration::new().set_full_name("example");
+        /// ```
         pub fn set_full_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.full_name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::extension_range_options::Declaration::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::extension_range_options::Declaration;
+        /// let x = Declaration::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [reserved][crate::extension_range_options::Declaration::reserved].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::extension_range_options::Declaration;
+        /// let x = Declaration::new().set_reserved(true);
+        /// ```
         pub fn set_reserved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.reserved = v.into();
             self
         }
 
         /// Sets the value of [repeated][crate::extension_range_options::Declaration::repeated].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::extension_range_options::Declaration;
+        /// let x = Declaration::new().set_repeated(true);
+        /// ```
         pub fn set_repeated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.repeated = v.into();
             self
@@ -1220,18 +1696,39 @@ impl FieldDescriptorProto {
     }
 
     /// Sets the value of [name][crate::FieldDescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [number][crate::FieldDescriptorProto::number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_number(42);
+    /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.number = v.into();
         self
     }
 
     /// Sets the value of [label][crate::FieldDescriptorProto::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// use google_cloud_wkt::model::field_descriptor_proto::Label;
+    /// let x0 = FieldDescriptorProto::new().set_label(Label::Optional);
+    /// let x1 = FieldDescriptorProto::new().set_label(Label::Repeated);
+    /// let x2 = FieldDescriptorProto::new().set_label(Label::Required);
+    /// ```
     pub fn set_label<T: std::convert::Into<crate::field_descriptor_proto::Label>>(
         mut self,
         v: T,
@@ -1241,6 +1738,15 @@ impl FieldDescriptorProto {
     }
 
     /// Sets the value of [r#type][crate::FieldDescriptorProto::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// use google_cloud_wkt::model::field_descriptor_proto::Type;
+    /// let x0 = FieldDescriptorProto::new().set_type(Type::Double);
+    /// let x1 = FieldDescriptorProto::new().set_type(Type::Float);
+    /// let x2 = FieldDescriptorProto::new().set_type(Type::Int64);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::field_descriptor_proto::Type>>(
         mut self,
         v: T,
@@ -1250,36 +1756,73 @@ impl FieldDescriptorProto {
     }
 
     /// Sets the value of [type_name][crate::FieldDescriptorProto::type_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_type_name("example");
+    /// ```
     pub fn set_type_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.type_name = v.into();
         self
     }
 
     /// Sets the value of [extendee][crate::FieldDescriptorProto::extendee].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_extendee("example");
+    /// ```
     pub fn set_extendee<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extendee = v.into();
         self
     }
 
     /// Sets the value of [default_value][crate::FieldDescriptorProto::default_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_default_value("example");
+    /// ```
     pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_value = v.into();
         self
     }
 
     /// Sets the value of [oneof_index][crate::FieldDescriptorProto::oneof_index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_oneof_index(42);
+    /// ```
     pub fn set_oneof_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.oneof_index = v.into();
         self
     }
 
     /// Sets the value of [json_name][crate::FieldDescriptorProto::json_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_json_name("example");
+    /// ```
     pub fn set_json_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.json_name = v.into();
         self
     }
 
     /// Sets the value of [options][crate::FieldDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldDescriptorProto::new().set_options(FieldOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FieldOptions>,
@@ -1289,6 +1832,14 @@ impl FieldDescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::FieldDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldDescriptorProto::new().set_or_clear_options(Some(FieldOptions::default()/* use setters */));
+    /// let x = FieldDescriptorProto::new().set_or_clear_options(None::<FieldOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FieldOptions>,
@@ -1298,6 +1849,12 @@ impl FieldDescriptorProto {
     }
 
     /// Sets the value of [proto3_optional][crate::FieldDescriptorProto::proto3_optional].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldDescriptorProto;
+    /// let x = FieldDescriptorProto::new().set_proto3_optional(true);
+    /// ```
     pub fn set_proto3_optional<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.proto3_optional = v.into();
         self
@@ -1695,12 +2252,25 @@ impl OneofDescriptorProto {
     }
 
     /// Sets the value of [name][crate::OneofDescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::OneofDescriptorProto;
+    /// let x = OneofDescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [options][crate::OneofDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::OneofDescriptorProto;
+    /// use google_cloud_wkt::model::OneofOptions;
+    /// let x = OneofDescriptorProto::new().set_options(OneofOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::OneofOptions>,
@@ -1710,6 +2280,14 @@ impl OneofDescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::OneofDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::OneofDescriptorProto;
+    /// use google_cloud_wkt::model::OneofOptions;
+    /// let x = OneofDescriptorProto::new().set_or_clear_options(Some(OneofOptions::default()/* use setters */));
+    /// let x = OneofDescriptorProto::new().set_or_clear_options(None::<OneofOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::OneofOptions>,
@@ -1753,12 +2331,29 @@ impl EnumDescriptorProto {
     }
 
     /// Sets the value of [name][crate::EnumDescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumDescriptorProto;
+    /// let x = EnumDescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::EnumDescriptorProto::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumDescriptorProto;
+    /// use google_cloud_wkt::model::EnumValueDescriptorProto;
+    /// let x = EnumDescriptorProto::new()
+    ///     .set_value([
+    ///         EnumValueDescriptorProto::default()/* use setters */,
+    ///         EnumValueDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_value<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1770,6 +2365,13 @@ impl EnumDescriptorProto {
     }
 
     /// Sets the value of [options][crate::EnumDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumDescriptorProto;
+    /// use google_cloud_wkt::model::EnumOptions;
+    /// let x = EnumDescriptorProto::new().set_options(EnumOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::EnumOptions>,
@@ -1779,6 +2381,14 @@ impl EnumDescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::EnumDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumDescriptorProto;
+    /// use google_cloud_wkt::model::EnumOptions;
+    /// let x = EnumDescriptorProto::new().set_or_clear_options(Some(EnumOptions::default()/* use setters */));
+    /// let x = EnumDescriptorProto::new().set_or_clear_options(None::<EnumOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::EnumOptions>,
@@ -1788,6 +2398,17 @@ impl EnumDescriptorProto {
     }
 
     /// Sets the value of [reserved_range][crate::EnumDescriptorProto::reserved_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumDescriptorProto;
+    /// use google_cloud_wkt::model::enum_descriptor_proto::EnumReservedRange;
+    /// let x = EnumDescriptorProto::new()
+    ///     .set_reserved_range([
+    ///         EnumReservedRange::default()/* use setters */,
+    ///         EnumReservedRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_reserved_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1799,6 +2420,12 @@ impl EnumDescriptorProto {
     }
 
     /// Sets the value of [reserved_name][crate::EnumDescriptorProto::reserved_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumDescriptorProto;
+    /// let x = EnumDescriptorProto::new().set_reserved_name(["a", "b", "c"]);
+    /// ```
     pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1843,12 +2470,24 @@ pub mod enum_descriptor_proto {
         }
 
         /// Sets the value of [start][crate::enum_descriptor_proto::EnumReservedRange::start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::enum_descriptor_proto::EnumReservedRange;
+        /// let x = EnumReservedRange::new().set_start(42);
+        /// ```
         pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.start = v.into();
             self
         }
 
         /// Sets the value of [end][crate::enum_descriptor_proto::EnumReservedRange::end].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::enum_descriptor_proto::EnumReservedRange;
+        /// let x = EnumReservedRange::new().set_end(42);
+        /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.end = v.into();
             self
@@ -1881,18 +2520,37 @@ impl EnumValueDescriptorProto {
     }
 
     /// Sets the value of [name][crate::EnumValueDescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueDescriptorProto;
+    /// let x = EnumValueDescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [number][crate::EnumValueDescriptorProto::number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueDescriptorProto;
+    /// let x = EnumValueDescriptorProto::new().set_number(42);
+    /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.number = v.into();
         self
     }
 
     /// Sets the value of [options][crate::EnumValueDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueDescriptorProto;
+    /// use google_cloud_wkt::model::EnumValueOptions;
+    /// let x = EnumValueDescriptorProto::new().set_options(EnumValueOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::EnumValueOptions>,
@@ -1902,6 +2560,14 @@ impl EnumValueDescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::EnumValueDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueDescriptorProto;
+    /// use google_cloud_wkt::model::EnumValueOptions;
+    /// let x = EnumValueDescriptorProto::new().set_or_clear_options(Some(EnumValueOptions::default()/* use setters */));
+    /// let x = EnumValueDescriptorProto::new().set_or_clear_options(None::<EnumValueOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::EnumValueOptions>,
@@ -1936,12 +2602,29 @@ impl ServiceDescriptorProto {
     }
 
     /// Sets the value of [name][crate::ServiceDescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceDescriptorProto;
+    /// let x = ServiceDescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [method][crate::ServiceDescriptorProto::method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceDescriptorProto;
+    /// use google_cloud_wkt::model::MethodDescriptorProto;
+    /// let x = ServiceDescriptorProto::new()
+    ///     .set_method([
+    ///         MethodDescriptorProto::default()/* use setters */,
+    ///         MethodDescriptorProto::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_method<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1953,6 +2636,13 @@ impl ServiceDescriptorProto {
     }
 
     /// Sets the value of [options][crate::ServiceDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceDescriptorProto;
+    /// use google_cloud_wkt::model::ServiceOptions;
+    /// let x = ServiceDescriptorProto::new().set_options(ServiceOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::ServiceOptions>,
@@ -1962,6 +2652,14 @@ impl ServiceDescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::ServiceDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceDescriptorProto;
+    /// use google_cloud_wkt::model::ServiceOptions;
+    /// let x = ServiceDescriptorProto::new().set_or_clear_options(Some(ServiceOptions::default()/* use setters */));
+    /// let x = ServiceDescriptorProto::new().set_or_clear_options(None::<ServiceOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::ServiceOptions>,
@@ -2006,24 +2704,49 @@ impl MethodDescriptorProto {
     }
 
     /// Sets the value of [name][crate::MethodDescriptorProto::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodDescriptorProto;
+    /// let x = MethodDescriptorProto::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [input_type][crate::MethodDescriptorProto::input_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodDescriptorProto;
+    /// let x = MethodDescriptorProto::new().set_input_type("example");
+    /// ```
     pub fn set_input_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_type = v.into();
         self
     }
 
     /// Sets the value of [output_type][crate::MethodDescriptorProto::output_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodDescriptorProto;
+    /// let x = MethodDescriptorProto::new().set_output_type("example");
+    /// ```
     pub fn set_output_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_type = v.into();
         self
     }
 
     /// Sets the value of [options][crate::MethodDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodDescriptorProto;
+    /// use google_cloud_wkt::model::MethodOptions;
+    /// let x = MethodDescriptorProto::new().set_options(MethodOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::MethodOptions>,
@@ -2033,6 +2756,14 @@ impl MethodDescriptorProto {
     }
 
     /// Sets or clears the value of [options][crate::MethodDescriptorProto::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodDescriptorProto;
+    /// use google_cloud_wkt::model::MethodOptions;
+    /// let x = MethodDescriptorProto::new().set_or_clear_options(Some(MethodOptions::default()/* use setters */));
+    /// let x = MethodDescriptorProto::new().set_or_clear_options(None::<MethodOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::MethodOptions>,
@@ -2042,12 +2773,24 @@ impl MethodDescriptorProto {
     }
 
     /// Sets the value of [client_streaming][crate::MethodDescriptorProto::client_streaming].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodDescriptorProto;
+    /// let x = MethodDescriptorProto::new().set_client_streaming(true);
+    /// ```
     pub fn set_client_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.client_streaming = v.into();
         self
     }
 
     /// Sets the value of [server_streaming][crate::MethodDescriptorProto::server_streaming].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodDescriptorProto;
+    /// let x = MethodDescriptorProto::new().set_server_streaming(true);
+    /// ```
     pub fn set_server_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.server_streaming = v.into();
         self
@@ -2184,12 +2927,24 @@ impl FileOptions {
     }
 
     /// Sets the value of [java_package][crate::FileOptions::java_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_java_package("example");
+    /// ```
     pub fn set_java_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.java_package = v.into();
         self
     }
 
     /// Sets the value of [java_outer_classname][crate::FileOptions::java_outer_classname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_java_outer_classname("example");
+    /// ```
     pub fn set_java_outer_classname<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2199,12 +2954,24 @@ impl FileOptions {
     }
 
     /// Sets the value of [java_multiple_files][crate::FileOptions::java_multiple_files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_java_multiple_files(true);
+    /// ```
     pub fn set_java_multiple_files<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.java_multiple_files = v.into();
         self
     }
 
     /// Sets the value of [java_generate_equals_and_hash][crate::FileOptions::java_generate_equals_and_hash].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_java_generate_equals_and_hash(true);
+    /// ```
     #[deprecated]
     pub fn set_java_generate_equals_and_hash<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.java_generate_equals_and_hash = v.into();
@@ -2212,12 +2979,27 @@ impl FileOptions {
     }
 
     /// Sets the value of [java_string_check_utf8][crate::FileOptions::java_string_check_utf8].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_java_string_check_utf8(true);
+    /// ```
     pub fn set_java_string_check_utf8<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.java_string_check_utf8 = v.into();
         self
     }
 
     /// Sets the value of [optimize_for][crate::FileOptions::optimize_for].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// use google_cloud_wkt::model::file_options::OptimizeMode;
+    /// let x0 = FileOptions::new().set_optimize_for(OptimizeMode::Speed);
+    /// let x1 = FileOptions::new().set_optimize_for(OptimizeMode::CodeSize);
+    /// let x2 = FileOptions::new().set_optimize_for(OptimizeMode::LiteRuntime);
+    /// ```
     pub fn set_optimize_for<T: std::convert::Into<crate::file_options::OptimizeMode>>(
         mut self,
         v: T,
@@ -2227,42 +3009,84 @@ impl FileOptions {
     }
 
     /// Sets the value of [go_package][crate::FileOptions::go_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_go_package("example");
+    /// ```
     pub fn set_go_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.go_package = v.into();
         self
     }
 
     /// Sets the value of [cc_generic_services][crate::FileOptions::cc_generic_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_cc_generic_services(true);
+    /// ```
     pub fn set_cc_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cc_generic_services = v.into();
         self
     }
 
     /// Sets the value of [java_generic_services][crate::FileOptions::java_generic_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_java_generic_services(true);
+    /// ```
     pub fn set_java_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.java_generic_services = v.into();
         self
     }
 
     /// Sets the value of [py_generic_services][crate::FileOptions::py_generic_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_py_generic_services(true);
+    /// ```
     pub fn set_py_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.py_generic_services = v.into();
         self
     }
 
     /// Sets the value of [deprecated][crate::FileOptions::deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_deprecated(true);
+    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
     }
 
     /// Sets the value of [cc_enable_arenas][crate::FileOptions::cc_enable_arenas].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_cc_enable_arenas(true);
+    /// ```
     pub fn set_cc_enable_arenas<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cc_enable_arenas = v.into();
         self
     }
 
     /// Sets the value of [objc_class_prefix][crate::FileOptions::objc_class_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_objc_class_prefix("example");
+    /// ```
     pub fn set_objc_class_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2272,6 +3096,12 @@ impl FileOptions {
     }
 
     /// Sets the value of [csharp_namespace][crate::FileOptions::csharp_namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_csharp_namespace("example");
+    /// ```
     pub fn set_csharp_namespace<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2281,12 +3111,24 @@ impl FileOptions {
     }
 
     /// Sets the value of [swift_prefix][crate::FileOptions::swift_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_swift_prefix("example");
+    /// ```
     pub fn set_swift_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.swift_prefix = v.into();
         self
     }
 
     /// Sets the value of [php_class_prefix][crate::FileOptions::php_class_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_php_class_prefix("example");
+    /// ```
     pub fn set_php_class_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2296,12 +3138,24 @@ impl FileOptions {
     }
 
     /// Sets the value of [php_namespace][crate::FileOptions::php_namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_php_namespace("example");
+    /// ```
     pub fn set_php_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.php_namespace = v.into();
         self
     }
 
     /// Sets the value of [php_metadata_namespace][crate::FileOptions::php_metadata_namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_php_metadata_namespace("example");
+    /// ```
     pub fn set_php_metadata_namespace<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2311,12 +3165,25 @@ impl FileOptions {
     }
 
     /// Sets the value of [ruby_package][crate::FileOptions::ruby_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// let x = FileOptions::new().set_ruby_package("example");
+    /// ```
     pub fn set_ruby_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ruby_package = v.into();
         self
     }
 
     /// Sets the value of [features][crate::FileOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = FileOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -2326,6 +3193,14 @@ impl FileOptions {
     }
 
     /// Sets or clears the value of [features][crate::FileOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = FileOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = FileOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -2335,6 +3210,17 @@ impl FileOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::FileOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FileOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = FileOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2573,12 +3459,24 @@ impl MessageOptions {
     }
 
     /// Sets the value of [message_set_wire_format][crate::MessageOptions::message_set_wire_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// let x = MessageOptions::new().set_message_set_wire_format(true);
+    /// ```
     pub fn set_message_set_wire_format<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.message_set_wire_format = v.into();
         self
     }
 
     /// Sets the value of [no_standard_descriptor_accessor][crate::MessageOptions::no_standard_descriptor_accessor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// let x = MessageOptions::new().set_no_standard_descriptor_accessor(true);
+    /// ```
     pub fn set_no_standard_descriptor_accessor<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2588,18 +3486,36 @@ impl MessageOptions {
     }
 
     /// Sets the value of [deprecated][crate::MessageOptions::deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// let x = MessageOptions::new().set_deprecated(true);
+    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
     }
 
     /// Sets the value of [map_entry][crate::MessageOptions::map_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// let x = MessageOptions::new().set_map_entry(true);
+    /// ```
     pub fn set_map_entry<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.map_entry = v.into();
         self
     }
 
     /// Sets the value of [deprecated_legacy_json_field_conflicts][crate::MessageOptions::deprecated_legacy_json_field_conflicts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// let x = MessageOptions::new().set_deprecated_legacy_json_field_conflicts(true);
+    /// ```
     #[deprecated]
     pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
         mut self,
@@ -2610,6 +3526,13 @@ impl MessageOptions {
     }
 
     /// Sets the value of [features][crate::MessageOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = MessageOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -2619,6 +3542,14 @@ impl MessageOptions {
     }
 
     /// Sets or clears the value of [features][crate::MessageOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = MessageOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = MessageOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -2628,6 +3559,17 @@ impl MessageOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::MessageOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MessageOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = MessageOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2744,54 +3686,114 @@ impl FieldOptions {
     }
 
     /// Sets the value of [ctype][crate::FieldOptions::ctype].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::field_options::CType;
+    /// let x0 = FieldOptions::new().set_ctype(CType::Cord);
+    /// let x1 = FieldOptions::new().set_ctype(CType::StringPiece);
+    /// ```
     pub fn set_ctype<T: std::convert::Into<crate::field_options::CType>>(mut self, v: T) -> Self {
         self.ctype = v.into();
         self
     }
 
     /// Sets the value of [packed][crate::FieldOptions::packed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldOptions::new().set_packed(true);
+    /// ```
     pub fn set_packed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.packed = v.into();
         self
     }
 
     /// Sets the value of [jstype][crate::FieldOptions::jstype].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::field_options::JSType;
+    /// let x0 = FieldOptions::new().set_jstype(JSType::JsString);
+    /// let x1 = FieldOptions::new().set_jstype(JSType::JsNumber);
+    /// ```
     pub fn set_jstype<T: std::convert::Into<crate::field_options::JSType>>(mut self, v: T) -> Self {
         self.jstype = v.into();
         self
     }
 
     /// Sets the value of [lazy][crate::FieldOptions::lazy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldOptions::new().set_lazy(true);
+    /// ```
     pub fn set_lazy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.lazy = v.into();
         self
     }
 
     /// Sets the value of [unverified_lazy][crate::FieldOptions::unverified_lazy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldOptions::new().set_unverified_lazy(true);
+    /// ```
     pub fn set_unverified_lazy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unverified_lazy = v.into();
         self
     }
 
     /// Sets the value of [deprecated][crate::FieldOptions::deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldOptions::new().set_deprecated(true);
+    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
     }
 
     /// Sets the value of [weak][crate::FieldOptions::weak].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldOptions::new().set_weak(true);
+    /// ```
     pub fn set_weak<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.weak = v.into();
         self
     }
 
     /// Sets the value of [debug_redact][crate::FieldOptions::debug_redact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// let x = FieldOptions::new().set_debug_redact(true);
+    /// ```
     pub fn set_debug_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.debug_redact = v.into();
         self
     }
 
     /// Sets the value of [retention][crate::FieldOptions::retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::field_options::OptionRetention;
+    /// let x0 = FieldOptions::new().set_retention(OptionRetention::RetentionRuntime);
+    /// let x1 = FieldOptions::new().set_retention(OptionRetention::RetentionSource);
+    /// ```
     pub fn set_retention<T: std::convert::Into<crate::field_options::OptionRetention>>(
         mut self,
         v: T,
@@ -2801,6 +3803,17 @@ impl FieldOptions {
     }
 
     /// Sets the value of [targets][crate::FieldOptions::targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::field_options::OptionTargetType;
+    /// let x = FieldOptions::new().set_targets([
+    ///     OptionTargetType::TargetTypeFile,
+    ///     OptionTargetType::TargetTypeExtensionRange,
+    ///     OptionTargetType::TargetTypeMessage,
+    /// ]);
+    /// ```
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2812,6 +3825,17 @@ impl FieldOptions {
     }
 
     /// Sets the value of [edition_defaults][crate::FieldOptions::edition_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::field_options::EditionDefault;
+    /// let x = FieldOptions::new()
+    ///     .set_edition_defaults([
+    ///         EditionDefault::default()/* use setters */,
+    ///         EditionDefault::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_edition_defaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2823,6 +3847,13 @@ impl FieldOptions {
     }
 
     /// Sets the value of [features][crate::FieldOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = FieldOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -2832,6 +3863,14 @@ impl FieldOptions {
     }
 
     /// Sets or clears the value of [features][crate::FieldOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = FieldOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = FieldOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -2841,6 +3880,13 @@ impl FieldOptions {
     }
 
     /// Sets the value of [feature_support][crate::FieldOptions::feature_support].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::field_options::FeatureSupport;
+    /// let x = FieldOptions::new().set_feature_support(FeatureSupport::default()/* use setters */);
+    /// ```
     pub fn set_feature_support<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::field_options::FeatureSupport>,
@@ -2850,6 +3896,14 @@ impl FieldOptions {
     }
 
     /// Sets or clears the value of [feature_support][crate::FieldOptions::feature_support].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::field_options::FeatureSupport;
+    /// let x = FieldOptions::new().set_or_clear_feature_support(Some(FeatureSupport::default()/* use setters */));
+    /// let x = FieldOptions::new().set_or_clear_feature_support(None::<FeatureSupport>);
+    /// ```
     pub fn set_or_clear_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::field_options::FeatureSupport>,
@@ -2859,6 +3913,17 @@ impl FieldOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::FieldOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FieldOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = FieldOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2897,12 +3962,27 @@ pub mod field_options {
         }
 
         /// Sets the value of [edition][crate::field_options::EditionDefault::edition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::field_options::EditionDefault;
+        /// use google_cloud_wkt::model::Edition;
+        /// let x0 = EditionDefault::new().set_edition(Edition::Legacy);
+        /// let x1 = EditionDefault::new().set_edition(Edition::Proto2);
+        /// let x2 = EditionDefault::new().set_edition(Edition::Proto3);
+        /// ```
         pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
             self.edition = v.into();
             self
         }
 
         /// Sets the value of [value][crate::field_options::EditionDefault::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::field_options::EditionDefault;
+        /// let x = EditionDefault::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -2946,6 +4026,15 @@ pub mod field_options {
         }
 
         /// Sets the value of [edition_introduced][crate::field_options::FeatureSupport::edition_introduced].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::field_options::FeatureSupport;
+        /// use google_cloud_wkt::model::Edition;
+        /// let x0 = FeatureSupport::new().set_edition_introduced(Edition::Legacy);
+        /// let x1 = FeatureSupport::new().set_edition_introduced(Edition::Proto2);
+        /// let x2 = FeatureSupport::new().set_edition_introduced(Edition::Proto3);
+        /// ```
         pub fn set_edition_introduced<T: std::convert::Into<crate::Edition>>(
             mut self,
             v: T,
@@ -2955,6 +4044,15 @@ pub mod field_options {
         }
 
         /// Sets the value of [edition_deprecated][crate::field_options::FeatureSupport::edition_deprecated].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::field_options::FeatureSupport;
+        /// use google_cloud_wkt::model::Edition;
+        /// let x0 = FeatureSupport::new().set_edition_deprecated(Edition::Legacy);
+        /// let x1 = FeatureSupport::new().set_edition_deprecated(Edition::Proto2);
+        /// let x2 = FeatureSupport::new().set_edition_deprecated(Edition::Proto3);
+        /// ```
         pub fn set_edition_deprecated<T: std::convert::Into<crate::Edition>>(
             mut self,
             v: T,
@@ -2964,6 +4062,12 @@ pub mod field_options {
         }
 
         /// Sets the value of [deprecation_warning][crate::field_options::FeatureSupport::deprecation_warning].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::field_options::FeatureSupport;
+        /// let x = FeatureSupport::new().set_deprecation_warning("example");
+        /// ```
         pub fn set_deprecation_warning<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2973,6 +4077,15 @@ pub mod field_options {
         }
 
         /// Sets the value of [edition_removed][crate::field_options::FeatureSupport::edition_removed].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::field_options::FeatureSupport;
+        /// use google_cloud_wkt::model::Edition;
+        /// let x0 = FeatureSupport::new().set_edition_removed(Edition::Legacy);
+        /// let x1 = FeatureSupport::new().set_edition_removed(Edition::Proto2);
+        /// let x2 = FeatureSupport::new().set_edition_removed(Edition::Proto3);
+        /// ```
         pub fn set_edition_removed<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
             self.edition_removed = v.into();
             self
@@ -3574,6 +4687,13 @@ impl OneofOptions {
     }
 
     /// Sets the value of [features][crate::OneofOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::OneofOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = OneofOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3583,6 +4703,14 @@ impl OneofOptions {
     }
 
     /// Sets or clears the value of [features][crate::OneofOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::OneofOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = OneofOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = OneofOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3592,6 +4720,17 @@ impl OneofOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::OneofOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::OneofOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = OneofOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3646,18 +4785,36 @@ impl EnumOptions {
     }
 
     /// Sets the value of [allow_alias][crate::EnumOptions::allow_alias].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumOptions;
+    /// let x = EnumOptions::new().set_allow_alias(true);
+    /// ```
     pub fn set_allow_alias<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_alias = v.into();
         self
     }
 
     /// Sets the value of [deprecated][crate::EnumOptions::deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumOptions;
+    /// let x = EnumOptions::new().set_deprecated(true);
+    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
     }
 
     /// Sets the value of [deprecated_legacy_json_field_conflicts][crate::EnumOptions::deprecated_legacy_json_field_conflicts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumOptions;
+    /// let x = EnumOptions::new().set_deprecated_legacy_json_field_conflicts(true);
+    /// ```
     #[deprecated]
     pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
         mut self,
@@ -3668,6 +4825,13 @@ impl EnumOptions {
     }
 
     /// Sets the value of [features][crate::EnumOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = EnumOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3677,6 +4841,14 @@ impl EnumOptions {
     }
 
     /// Sets or clears the value of [features][crate::EnumOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = EnumOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = EnumOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3686,6 +4858,17 @@ impl EnumOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::EnumOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = EnumOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3735,12 +4918,25 @@ impl EnumValueOptions {
     }
 
     /// Sets the value of [deprecated][crate::EnumValueOptions::deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueOptions;
+    /// let x = EnumValueOptions::new().set_deprecated(true);
+    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
     }
 
     /// Sets the value of [features][crate::EnumValueOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = EnumValueOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3750,6 +4946,14 @@ impl EnumValueOptions {
     }
 
     /// Sets or clears the value of [features][crate::EnumValueOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = EnumValueOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = EnumValueOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3759,12 +4963,25 @@ impl EnumValueOptions {
     }
 
     /// Sets the value of [debug_redact][crate::EnumValueOptions::debug_redact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueOptions;
+    /// let x = EnumValueOptions::new().set_debug_redact(true);
+    /// ```
     pub fn set_debug_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.debug_redact = v.into();
         self
     }
 
     /// Sets the value of [feature_support][crate::EnumValueOptions::feature_support].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueOptions;
+    /// use google_cloud_wkt::model::field_options::FeatureSupport;
+    /// let x = EnumValueOptions::new().set_feature_support(FeatureSupport::default()/* use setters */);
+    /// ```
     pub fn set_feature_support<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::field_options::FeatureSupport>,
@@ -3774,6 +4991,14 @@ impl EnumValueOptions {
     }
 
     /// Sets or clears the value of [feature_support][crate::EnumValueOptions::feature_support].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueOptions;
+    /// use google_cloud_wkt::model::field_options::FeatureSupport;
+    /// let x = EnumValueOptions::new().set_or_clear_feature_support(Some(FeatureSupport::default()/* use setters */));
+    /// let x = EnumValueOptions::new().set_or_clear_feature_support(None::<FeatureSupport>);
+    /// ```
     pub fn set_or_clear_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::field_options::FeatureSupport>,
@@ -3783,6 +5008,17 @@ impl EnumValueOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::EnumValueOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValueOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = EnumValueOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3824,6 +5060,13 @@ impl ServiceOptions {
     }
 
     /// Sets the value of [features][crate::ServiceOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = ServiceOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3833,6 +5076,14 @@ impl ServiceOptions {
     }
 
     /// Sets or clears the value of [features][crate::ServiceOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = ServiceOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = ServiceOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3842,12 +5093,29 @@ impl ServiceOptions {
     }
 
     /// Sets the value of [deprecated][crate::ServiceOptions::deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceOptions;
+    /// let x = ServiceOptions::new().set_deprecated(true);
+    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
     }
 
     /// Sets the value of [uninterpreted_option][crate::ServiceOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::ServiceOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = ServiceOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3891,12 +5159,26 @@ impl MethodOptions {
     }
 
     /// Sets the value of [deprecated][crate::MethodOptions::deprecated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodOptions;
+    /// let x = MethodOptions::new().set_deprecated(true);
+    /// ```
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
         self
     }
 
     /// Sets the value of [idempotency_level][crate::MethodOptions::idempotency_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodOptions;
+    /// use google_cloud_wkt::model::method_options::IdempotencyLevel;
+    /// let x0 = MethodOptions::new().set_idempotency_level(IdempotencyLevel::NoSideEffects);
+    /// let x1 = MethodOptions::new().set_idempotency_level(IdempotencyLevel::Idempotent);
+    /// ```
     pub fn set_idempotency_level<T: std::convert::Into<crate::method_options::IdempotencyLevel>>(
         mut self,
         v: T,
@@ -3906,6 +5188,13 @@ impl MethodOptions {
     }
 
     /// Sets the value of [features][crate::MethodOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = MethodOptions::new().set_features(FeatureSet::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3915,6 +5204,14 @@ impl MethodOptions {
     }
 
     /// Sets or clears the value of [features][crate::MethodOptions::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodOptions;
+    /// use google_cloud_wkt::model::FeatureSet;
+    /// let x = MethodOptions::new().set_or_clear_features(Some(FeatureSet::default()/* use setters */));
+    /// let x = MethodOptions::new().set_or_clear_features(None::<FeatureSet>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3924,6 +5221,17 @@ impl MethodOptions {
     }
 
     /// Sets the value of [uninterpreted_option][crate::MethodOptions::uninterpreted_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::MethodOptions;
+    /// use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = MethodOptions::new()
+    ///     .set_uninterpreted_option([
+    ///         UninterpretedOption::default()/* use setters */,
+    ///         UninterpretedOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4112,6 +5420,17 @@ impl UninterpretedOption {
     }
 
     /// Sets the value of [name][crate::UninterpretedOption::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::UninterpretedOption;
+    /// use google_cloud_wkt::model::uninterpreted_option::NamePart;
+    /// let x = UninterpretedOption::new()
+    ///     .set_name([
+    ///         NamePart::default()/* use setters */,
+    ///         NamePart::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_name<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4123,6 +5442,12 @@ impl UninterpretedOption {
     }
 
     /// Sets the value of [identifier_value][crate::UninterpretedOption::identifier_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = UninterpretedOption::new().set_identifier_value("example");
+    /// ```
     pub fn set_identifier_value<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4132,30 +5457,60 @@ impl UninterpretedOption {
     }
 
     /// Sets the value of [positive_int_value][crate::UninterpretedOption::positive_int_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = UninterpretedOption::new().set_positive_int_value(42u32);
+    /// ```
     pub fn set_positive_int_value<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.positive_int_value = v.into();
         self
     }
 
     /// Sets the value of [negative_int_value][crate::UninterpretedOption::negative_int_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = UninterpretedOption::new().set_negative_int_value(42);
+    /// ```
     pub fn set_negative_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.negative_int_value = v.into();
         self
     }
 
     /// Sets the value of [double_value][crate::UninterpretedOption::double_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = UninterpretedOption::new().set_double_value(42.0);
+    /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.double_value = v.into();
         self
     }
 
     /// Sets the value of [string_value][crate::UninterpretedOption::string_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = UninterpretedOption::new().set_string_value(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_string_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.string_value = v.into();
         self
     }
 
     /// Sets the value of [aggregate_value][crate::UninterpretedOption::aggregate_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::UninterpretedOption;
+    /// let x = UninterpretedOption::new().set_aggregate_value("example");
+    /// ```
     pub fn set_aggregate_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aggregate_value = v.into();
         self
@@ -4194,12 +5549,24 @@ pub mod uninterpreted_option {
         }
 
         /// Sets the value of [name_part][crate::uninterpreted_option::NamePart::name_part].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::uninterpreted_option::NamePart;
+        /// let x = NamePart::new().set_name_part("example");
+        /// ```
         pub fn set_name_part<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name_part = v.into();
             self
         }
 
         /// Sets the value of [is_extension][crate::uninterpreted_option::NamePart::is_extension].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::uninterpreted_option::NamePart;
+        /// let x = NamePart::new().set_is_extension(true);
+        /// ```
         pub fn set_is_extension<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_extension = v.into();
             self
@@ -4243,6 +5610,15 @@ impl FeatureSet {
     }
 
     /// Sets the value of [field_presence][crate::FeatureSet::field_presence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSet;
+    /// use google_cloud_wkt::model::feature_set::FieldPresence;
+    /// let x0 = FeatureSet::new().set_field_presence(FieldPresence::Explicit);
+    /// let x1 = FeatureSet::new().set_field_presence(FieldPresence::Implicit);
+    /// let x2 = FeatureSet::new().set_field_presence(FieldPresence::LegacyRequired);
+    /// ```
     pub fn set_field_presence<T: std::convert::Into<crate::feature_set::FieldPresence>>(
         mut self,
         v: T,
@@ -4252,6 +5628,14 @@ impl FeatureSet {
     }
 
     /// Sets the value of [enum_type][crate::FeatureSet::enum_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSet;
+    /// use google_cloud_wkt::model::feature_set::EnumType;
+    /// let x0 = FeatureSet::new().set_enum_type(EnumType::Open);
+    /// let x1 = FeatureSet::new().set_enum_type(EnumType::Closed);
+    /// ```
     pub fn set_enum_type<T: std::convert::Into<crate::feature_set::EnumType>>(
         mut self,
         v: T,
@@ -4261,6 +5645,14 @@ impl FeatureSet {
     }
 
     /// Sets the value of [repeated_field_encoding][crate::FeatureSet::repeated_field_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSet;
+    /// use google_cloud_wkt::model::feature_set::RepeatedFieldEncoding;
+    /// let x0 = FeatureSet::new().set_repeated_field_encoding(RepeatedFieldEncoding::Packed);
+    /// let x1 = FeatureSet::new().set_repeated_field_encoding(RepeatedFieldEncoding::Expanded);
+    /// ```
     pub fn set_repeated_field_encoding<
         T: std::convert::Into<crate::feature_set::RepeatedFieldEncoding>,
     >(
@@ -4272,6 +5664,14 @@ impl FeatureSet {
     }
 
     /// Sets the value of [utf8_validation][crate::FeatureSet::utf8_validation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSet;
+    /// use google_cloud_wkt::model::feature_set::Utf8Validation;
+    /// let x0 = FeatureSet::new().set_utf8_validation(Utf8Validation::Verify);
+    /// let x1 = FeatureSet::new().set_utf8_validation(Utf8Validation::None);
+    /// ```
     pub fn set_utf8_validation<T: std::convert::Into<crate::feature_set::Utf8Validation>>(
         mut self,
         v: T,
@@ -4281,6 +5681,14 @@ impl FeatureSet {
     }
 
     /// Sets the value of [message_encoding][crate::FeatureSet::message_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSet;
+    /// use google_cloud_wkt::model::feature_set::MessageEncoding;
+    /// let x0 = FeatureSet::new().set_message_encoding(MessageEncoding::LengthPrefixed);
+    /// let x1 = FeatureSet::new().set_message_encoding(MessageEncoding::Delimited);
+    /// ```
     pub fn set_message_encoding<T: std::convert::Into<crate::feature_set::MessageEncoding>>(
         mut self,
         v: T,
@@ -4290,6 +5698,14 @@ impl FeatureSet {
     }
 
     /// Sets the value of [json_format][crate::FeatureSet::json_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSet;
+    /// use google_cloud_wkt::model::feature_set::JsonFormat;
+    /// let x0 = FeatureSet::new().set_json_format(JsonFormat::Allow);
+    /// let x1 = FeatureSet::new().set_json_format(JsonFormat::LegacyBestEffort);
+    /// ```
     pub fn set_json_format<T: std::convert::Into<crate::feature_set::JsonFormat>>(
         mut self,
         v: T,
@@ -5111,6 +6527,17 @@ impl FeatureSetDefaults {
     }
 
     /// Sets the value of [defaults][crate::FeatureSetDefaults::defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSetDefaults;
+    /// use google_cloud_wkt::model::feature_set_defaults::FeatureSetEditionDefault;
+    /// let x = FeatureSetDefaults::new()
+    ///     .set_defaults([
+    ///         FeatureSetEditionDefault::default()/* use setters */,
+    ///         FeatureSetEditionDefault::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_defaults<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5122,12 +6549,30 @@ impl FeatureSetDefaults {
     }
 
     /// Sets the value of [minimum_edition][crate::FeatureSetDefaults::minimum_edition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSetDefaults;
+    /// use google_cloud_wkt::model::Edition;
+    /// let x0 = FeatureSetDefaults::new().set_minimum_edition(Edition::Legacy);
+    /// let x1 = FeatureSetDefaults::new().set_minimum_edition(Edition::Proto2);
+    /// let x2 = FeatureSetDefaults::new().set_minimum_edition(Edition::Proto3);
+    /// ```
     pub fn set_minimum_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
         self.minimum_edition = v.into();
         self
     }
 
     /// Sets the value of [maximum_edition][crate::FeatureSetDefaults::maximum_edition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::FeatureSetDefaults;
+    /// use google_cloud_wkt::model::Edition;
+    /// let x0 = FeatureSetDefaults::new().set_maximum_edition(Edition::Legacy);
+    /// let x1 = FeatureSetDefaults::new().set_maximum_edition(Edition::Proto2);
+    /// let x2 = FeatureSetDefaults::new().set_maximum_edition(Edition::Proto3);
+    /// ```
     pub fn set_maximum_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
         self.maximum_edition = v.into();
         self
@@ -5169,12 +6614,28 @@ pub mod feature_set_defaults {
         }
 
         /// Sets the value of [edition][crate::feature_set_defaults::FeatureSetEditionDefault::edition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::model::Edition;
+        /// let x0 = FeatureSetEditionDefault::new().set_edition(Edition::Legacy);
+        /// let x1 = FeatureSetEditionDefault::new().set_edition(Edition::Proto2);
+        /// let x2 = FeatureSetEditionDefault::new().set_edition(Edition::Proto3);
+        /// ```
         pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
             self.edition = v.into();
             self
         }
 
         /// Sets the value of [overridable_features][crate::feature_set_defaults::FeatureSetEditionDefault::overridable_features].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::model::FeatureSet;
+        /// let x = FeatureSetEditionDefault::new().set_overridable_features(FeatureSet::default()/* use setters */);
+        /// ```
         pub fn set_overridable_features<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::FeatureSet>,
@@ -5184,6 +6645,14 @@ pub mod feature_set_defaults {
         }
 
         /// Sets or clears the value of [overridable_features][crate::feature_set_defaults::FeatureSetEditionDefault::overridable_features].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::model::FeatureSet;
+        /// let x = FeatureSetEditionDefault::new().set_or_clear_overridable_features(Some(FeatureSet::default()/* use setters */));
+        /// let x = FeatureSetEditionDefault::new().set_or_clear_overridable_features(None::<FeatureSet>);
+        /// ```
         pub fn set_or_clear_overridable_features<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::FeatureSet>,
@@ -5193,6 +6662,13 @@ pub mod feature_set_defaults {
         }
 
         /// Sets the value of [fixed_features][crate::feature_set_defaults::FeatureSetEditionDefault::fixed_features].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::model::FeatureSet;
+        /// let x = FeatureSetEditionDefault::new().set_fixed_features(FeatureSet::default()/* use setters */);
+        /// ```
         pub fn set_fixed_features<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::FeatureSet>,
@@ -5202,6 +6678,14 @@ pub mod feature_set_defaults {
         }
 
         /// Sets or clears the value of [fixed_features][crate::feature_set_defaults::FeatureSetEditionDefault::fixed_features].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::feature_set_defaults::FeatureSetEditionDefault;
+        /// use google_cloud_wkt::model::FeatureSet;
+        /// let x = FeatureSetEditionDefault::new().set_or_clear_fixed_features(Some(FeatureSet::default()/* use setters */));
+        /// let x = FeatureSetEditionDefault::new().set_or_clear_fixed_features(None::<FeatureSet>);
+        /// ```
         pub fn set_or_clear_fixed_features<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::FeatureSet>,
@@ -5278,6 +6762,17 @@ impl SourceCodeInfo {
     }
 
     /// Sets the value of [location][crate::SourceCodeInfo::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::SourceCodeInfo;
+    /// use google_cloud_wkt::model::source_code_info::Location;
+    /// let x = SourceCodeInfo::new()
+    ///     .set_location([
+    ///         Location::default()/* use setters */,
+    ///         Location::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_location<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5398,6 +6893,12 @@ pub mod source_code_info {
         }
 
         /// Sets the value of [path][crate::source_code_info::Location::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::source_code_info::Location;
+        /// let x = Location::new().set_path([1, 2, 3]);
+        /// ```
         pub fn set_path<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5409,6 +6910,12 @@ pub mod source_code_info {
         }
 
         /// Sets the value of [span][crate::source_code_info::Location::span].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::source_code_info::Location;
+        /// let x = Location::new().set_span([1, 2, 3]);
+        /// ```
         pub fn set_span<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5420,6 +6927,12 @@ pub mod source_code_info {
         }
 
         /// Sets the value of [leading_comments][crate::source_code_info::Location::leading_comments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::source_code_info::Location;
+        /// let x = Location::new().set_leading_comments("example");
+        /// ```
         pub fn set_leading_comments<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5429,6 +6942,12 @@ pub mod source_code_info {
         }
 
         /// Sets the value of [trailing_comments][crate::source_code_info::Location::trailing_comments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::source_code_info::Location;
+        /// let x = Location::new().set_trailing_comments("example");
+        /// ```
         pub fn set_trailing_comments<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5438,6 +6957,12 @@ pub mod source_code_info {
         }
 
         /// Sets the value of [leading_detached_comments][crate::source_code_info::Location::leading_detached_comments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::source_code_info::Location;
+        /// let x = Location::new().set_leading_detached_comments(["a", "b", "c"]);
+        /// ```
         pub fn set_leading_detached_comments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5475,6 +7000,17 @@ impl GeneratedCodeInfo {
     }
 
     /// Sets the value of [annotation][crate::GeneratedCodeInfo::annotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::GeneratedCodeInfo;
+    /// use google_cloud_wkt::model::generated_code_info::Annotation;
+    /// let x = GeneratedCodeInfo::new()
+    ///     .set_annotation([
+    ///         Annotation::default()/* use setters */,
+    ///         Annotation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_annotation<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5527,6 +7063,12 @@ pub mod generated_code_info {
         }
 
         /// Sets the value of [path][crate::generated_code_info::Annotation::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::generated_code_info::Annotation;
+        /// let x = Annotation::new().set_path([1, 2, 3]);
+        /// ```
         pub fn set_path<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5538,24 +7080,50 @@ pub mod generated_code_info {
         }
 
         /// Sets the value of [source_file][crate::generated_code_info::Annotation::source_file].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::generated_code_info::Annotation;
+        /// let x = Annotation::new().set_source_file("example");
+        /// ```
         pub fn set_source_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source_file = v.into();
             self
         }
 
         /// Sets the value of [begin][crate::generated_code_info::Annotation::begin].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::generated_code_info::Annotation;
+        /// let x = Annotation::new().set_begin(42);
+        /// ```
         pub fn set_begin<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.begin = v.into();
             self
         }
 
         /// Sets the value of [end][crate::generated_code_info::Annotation::end].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::generated_code_info::Annotation;
+        /// let x = Annotation::new().set_end(42);
+        /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.end = v.into();
             self
         }
 
         /// Sets the value of [semantic][crate::generated_code_info::Annotation::semantic].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_wkt::model::generated_code_info::Annotation;
+        /// use google_cloud_wkt::model::generated_code_info::annotation::Semantic;
+        /// let x0 = Annotation::new().set_semantic(Semantic::Set);
+        /// let x1 = Annotation::new().set_semantic(Semantic::Alias);
+        /// ```
         pub fn set_semantic<
             T: std::convert::Into<crate::generated_code_info::annotation::Semantic>,
         >(
@@ -5734,6 +7302,12 @@ impl SourceContext {
     }
 
     /// Sets the value of [file_name][crate::SourceContext::file_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::SourceContext;
+    /// let x = SourceContext::new().set_file_name("example");
+    /// ```
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self
@@ -5780,12 +7354,29 @@ impl Type {
     }
 
     /// Sets the value of [name][crate::Type::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// let x = Type::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::Type::fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// use google_cloud_wkt::model::Field;
+    /// let x = Type::new()
+    ///     .set_fields([
+    ///         Field::default()/* use setters */,
+    ///         Field::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5797,6 +7388,12 @@ impl Type {
     }
 
     /// Sets the value of [oneofs][crate::Type::oneofs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// let x = Type::new().set_oneofs(["a", "b", "c"]);
+    /// ```
     pub fn set_oneofs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5808,6 +7405,17 @@ impl Type {
     }
 
     /// Sets the value of [options][crate::Type::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// use google_cloud_wkt::model::Option;
+    /// let x = Type::new()
+    ///     .set_options([
+    ///         Option::default()/* use setters */,
+    ///         Option::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5819,6 +7427,13 @@ impl Type {
     }
 
     /// Sets the value of [source_context][crate::Type::source_context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// use google_cloud_wkt::model::SourceContext;
+    /// let x = Type::new().set_source_context(SourceContext::default()/* use setters */);
+    /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -5828,6 +7443,14 @@ impl Type {
     }
 
     /// Sets or clears the value of [source_context][crate::Type::source_context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// use google_cloud_wkt::model::SourceContext;
+    /// let x = Type::new().set_or_clear_source_context(Some(SourceContext::default()/* use setters */));
+    /// let x = Type::new().set_or_clear_source_context(None::<SourceContext>);
+    /// ```
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -5837,12 +7460,26 @@ impl Type {
     }
 
     /// Sets the value of [syntax][crate::Type::syntax].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// use google_cloud_wkt::model::Syntax;
+    /// let x0 = Type::new().set_syntax(Syntax::Proto3);
+    /// let x1 = Type::new().set_syntax(Syntax::Editions);
+    /// ```
     pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
         self.syntax = v.into();
         self
     }
 
     /// Sets the value of [edition][crate::Type::edition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Type;
+    /// let x = Type::new().set_edition("example");
+    /// ```
     pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.edition = v.into();
         self
@@ -5900,12 +7537,30 @@ impl Field {
     }
 
     /// Sets the value of [kind][crate::Field::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// use google_cloud_wkt::model::field::Kind;
+    /// let x0 = Field::new().set_kind(Kind::TypeDouble);
+    /// let x1 = Field::new().set_kind(Kind::TypeFloat);
+    /// let x2 = Field::new().set_kind(Kind::TypeInt64);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::field::Kind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [cardinality][crate::Field::cardinality].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// use google_cloud_wkt::model::field::Cardinality;
+    /// let x0 = Field::new().set_cardinality(Cardinality::Optional);
+    /// let x1 = Field::new().set_cardinality(Cardinality::Required);
+    /// let x2 = Field::new().set_cardinality(Cardinality::Repeated);
+    /// ```
     pub fn set_cardinality<T: std::convert::Into<crate::field::Cardinality>>(
         mut self,
         v: T,
@@ -5915,36 +7570,77 @@ impl Field {
     }
 
     /// Sets the value of [number][crate::Field::number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// let x = Field::new().set_number(42);
+    /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.number = v.into();
         self
     }
 
     /// Sets the value of [name][crate::Field::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// let x = Field::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [type_url][crate::Field::type_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// let x = Field::new().set_type_url("example");
+    /// ```
     pub fn set_type_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.type_url = v.into();
         self
     }
 
     /// Sets the value of [oneof_index][crate::Field::oneof_index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// let x = Field::new().set_oneof_index(42);
+    /// ```
     pub fn set_oneof_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.oneof_index = v.into();
         self
     }
 
     /// Sets the value of [packed][crate::Field::packed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// let x = Field::new().set_packed(true);
+    /// ```
     pub fn set_packed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.packed = v.into();
         self
     }
 
     /// Sets the value of [options][crate::Field::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// use google_cloud_wkt::model::Option;
+    /// let x = Field::new()
+    ///     .set_options([
+    ///         Option::default()/* use setters */,
+    ///         Option::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5956,12 +7652,24 @@ impl Field {
     }
 
     /// Sets the value of [json_name][crate::Field::json_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// let x = Field::new().set_json_name("example");
+    /// ```
     pub fn set_json_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.json_name = v.into();
         self
     }
 
     /// Sets the value of [default_value][crate::Field::default_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Field;
+    /// let x = Field::new().set_default_value("example");
+    /// ```
     pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_value = v.into();
         self
@@ -6394,12 +8102,29 @@ impl Enum {
     }
 
     /// Sets the value of [name][crate::Enum::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Enum;
+    /// let x = Enum::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [enumvalue][crate::Enum::enumvalue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Enum;
+    /// use google_cloud_wkt::model::EnumValue;
+    /// let x = Enum::new()
+    ///     .set_enumvalue([
+    ///         EnumValue::default()/* use setters */,
+    ///         EnumValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_enumvalue<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6411,6 +8136,17 @@ impl Enum {
     }
 
     /// Sets the value of [options][crate::Enum::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Enum;
+    /// use google_cloud_wkt::model::Option;
+    /// let x = Enum::new()
+    ///     .set_options([
+    ///         Option::default()/* use setters */,
+    ///         Option::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6422,6 +8158,13 @@ impl Enum {
     }
 
     /// Sets the value of [source_context][crate::Enum::source_context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Enum;
+    /// use google_cloud_wkt::model::SourceContext;
+    /// let x = Enum::new().set_source_context(SourceContext::default()/* use setters */);
+    /// ```
     pub fn set_source_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -6431,6 +8174,14 @@ impl Enum {
     }
 
     /// Sets or clears the value of [source_context][crate::Enum::source_context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Enum;
+    /// use google_cloud_wkt::model::SourceContext;
+    /// let x = Enum::new().set_or_clear_source_context(Some(SourceContext::default()/* use setters */));
+    /// let x = Enum::new().set_or_clear_source_context(None::<SourceContext>);
+    /// ```
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -6440,12 +8191,26 @@ impl Enum {
     }
 
     /// Sets the value of [syntax][crate::Enum::syntax].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Enum;
+    /// use google_cloud_wkt::model::Syntax;
+    /// let x0 = Enum::new().set_syntax(Syntax::Proto3);
+    /// let x1 = Enum::new().set_syntax(Syntax::Editions);
+    /// ```
     pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
         self.syntax = v.into();
         self
     }
 
     /// Sets the value of [edition][crate::Enum::edition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Enum;
+    /// let x = Enum::new().set_edition("example");
+    /// ```
     pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.edition = v.into();
         self
@@ -6480,18 +8245,41 @@ impl EnumValue {
     }
 
     /// Sets the value of [name][crate::EnumValue::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValue;
+    /// let x = EnumValue::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [number][crate::EnumValue::number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValue;
+    /// let x = EnumValue::new().set_number(42);
+    /// ```
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.number = v.into();
         self
     }
 
     /// Sets the value of [options][crate::EnumValue::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::EnumValue;
+    /// use google_cloud_wkt::model::Option;
+    /// let x = EnumValue::new()
+    ///     .set_options([
+    ///         Option::default()/* use setters */,
+    ///         Option::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6535,12 +8323,25 @@ impl Option {
     }
 
     /// Sets the value of [name][crate::Option::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Option;
+    /// let x = Option::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::Option::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Option;
+    /// use google_cloud_wkt::model::Any;
+    /// let x = Option::new().set_value(Any::default()/* use setters */);
+    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::Any>,
@@ -6550,6 +8351,14 @@ impl Option {
     }
 
     /// Sets or clears the value of [value][crate::Option::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::model::Option;
+    /// use google_cloud_wkt::model::Any;
+    /// let x = Option::new().set_or_clear_value(Some(Any::default()/* use setters */));
+    /// let x = Option::new().set_or_clear_value(None::<Any>);
+    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::Any>,

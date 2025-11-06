@@ -65,12 +65,26 @@ impl Document {
     }
 
     /// Sets the value of [r#type][crate::model::Document::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Document;
+    /// use google_cloud_language_v2::model::document::Type;
+    /// let x0 = Document::new().set_type(Type::PlainText);
+    /// let x1 = Document::new().set_type(Type::Html);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::document::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::Document::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Document;
+    /// let x = Document::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -80,6 +94,13 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Document;
+    /// use google_cloud_language_v2::model::document::Source;
+    /// let x = Document::new().set_source(Some(Source::Content("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
     >(
@@ -106,6 +127,14 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Document;
+    /// let x = Document::new().set_content("example");
+    /// assert!(x.content().is_some());
+    /// assert!(x.gcs_content_uri().is_none());
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
         self
@@ -127,6 +156,14 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Document;
+    /// let x = Document::new().set_gcs_content_uri("example");
+    /// assert!(x.gcs_content_uri().is_some());
+    /// assert!(x.content().is_none());
+    /// ```
     pub fn set_gcs_content_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source =
             std::option::Option::Some(crate::model::document::Source::GcsContentUri(v.into()));
@@ -316,6 +353,13 @@ impl Sentence {
     }
 
     /// Sets the value of [text][crate::model::Sentence::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Sentence;
+    /// use google_cloud_language_v2::model::TextSpan;
+    /// let x = Sentence::new().set_text(TextSpan::default()/* use setters */);
+    /// ```
     pub fn set_text<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextSpan>,
@@ -325,6 +369,14 @@ impl Sentence {
     }
 
     /// Sets or clears the value of [text][crate::model::Sentence::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Sentence;
+    /// use google_cloud_language_v2::model::TextSpan;
+    /// let x = Sentence::new().set_or_clear_text(Some(TextSpan::default()/* use setters */));
+    /// let x = Sentence::new().set_or_clear_text(None::<TextSpan>);
+    /// ```
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextSpan>,
@@ -334,6 +386,13 @@ impl Sentence {
     }
 
     /// Sets the value of [sentiment][crate::model::Sentence::sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Sentence;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = Sentence::new().set_sentiment(Sentiment::default()/* use setters */);
+    /// ```
     pub fn set_sentiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -343,6 +402,14 @@ impl Sentence {
     }
 
     /// Sets or clears the value of [sentiment][crate::model::Sentence::sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Sentence;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = Sentence::new().set_or_clear_sentiment(Some(Sentiment::default()/* use setters */));
+    /// let x = Sentence::new().set_or_clear_sentiment(None::<Sentiment>);
+    /// ```
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -395,18 +462,42 @@ impl Entity {
     }
 
     /// Sets the value of [name][crate::model::Entity::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Entity;
+    /// let x = Entity::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Entity::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Entity;
+    /// use google_cloud_language_v2::model::entity::Type;
+    /// let x0 = Entity::new().set_type(Type::Person);
+    /// let x1 = Entity::new().set_type(Type::Location);
+    /// let x2 = Entity::new().set_type(Type::Organization);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::entity::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::Entity::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Entity;
+    /// let x = Entity::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -419,6 +510,17 @@ impl Entity {
     }
 
     /// Sets the value of [mentions][crate::model::Entity::mentions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Entity;
+    /// use google_cloud_language_v2::model::EntityMention;
+    /// let x = Entity::new()
+    ///     .set_mentions([
+    ///         EntityMention::default()/* use setters */,
+    ///         EntityMention::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mentions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -430,6 +532,13 @@ impl Entity {
     }
 
     /// Sets the value of [sentiment][crate::model::Entity::sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Entity;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = Entity::new().set_sentiment(Sentiment::default()/* use setters */);
+    /// ```
     pub fn set_sentiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -439,6 +548,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [sentiment][crate::model::Entity::sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Entity;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = Entity::new().set_or_clear_sentiment(Some(Sentiment::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_sentiment(None::<Sentiment>);
+    /// ```
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -721,12 +838,24 @@ impl Sentiment {
     }
 
     /// Sets the value of [magnitude][crate::model::Sentiment::magnitude].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Sentiment;
+    /// let x = Sentiment::new().set_magnitude(42.0);
+    /// ```
     pub fn set_magnitude<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.magnitude = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::Sentiment::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::Sentiment;
+    /// let x = Sentiment::new().set_score(42.0);
+    /// ```
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
@@ -771,6 +900,13 @@ impl EntityMention {
     }
 
     /// Sets the value of [text][crate::model::EntityMention::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::EntityMention;
+    /// use google_cloud_language_v2::model::TextSpan;
+    /// let x = EntityMention::new().set_text(TextSpan::default()/* use setters */);
+    /// ```
     pub fn set_text<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TextSpan>,
@@ -780,6 +916,14 @@ impl EntityMention {
     }
 
     /// Sets or clears the value of [text][crate::model::EntityMention::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::EntityMention;
+    /// use google_cloud_language_v2::model::TextSpan;
+    /// let x = EntityMention::new().set_or_clear_text(Some(TextSpan::default()/* use setters */));
+    /// let x = EntityMention::new().set_or_clear_text(None::<TextSpan>);
+    /// ```
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextSpan>,
@@ -789,6 +933,14 @@ impl EntityMention {
     }
 
     /// Sets the value of [r#type][crate::model::EntityMention::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::EntityMention;
+    /// use google_cloud_language_v2::model::entity_mention::Type;
+    /// let x0 = EntityMention::new().set_type(Type::Proper);
+    /// let x1 = EntityMention::new().set_type(Type::Common);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::entity_mention::Type>>(
         mut self,
         v: T,
@@ -798,6 +950,13 @@ impl EntityMention {
     }
 
     /// Sets the value of [sentiment][crate::model::EntityMention::sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::EntityMention;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = EntityMention::new().set_sentiment(Sentiment::default()/* use setters */);
+    /// ```
     pub fn set_sentiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -807,6 +966,14 @@ impl EntityMention {
     }
 
     /// Sets or clears the value of [sentiment][crate::model::EntityMention::sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::EntityMention;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = EntityMention::new().set_or_clear_sentiment(Some(Sentiment::default()/* use setters */));
+    /// let x = EntityMention::new().set_or_clear_sentiment(None::<Sentiment>);
+    /// ```
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -816,6 +983,12 @@ impl EntityMention {
     }
 
     /// Sets the value of [probability][crate::model::EntityMention::probability].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::EntityMention;
+    /// let x = EntityMention::new().set_probability(42.0);
+    /// ```
     pub fn set_probability<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.probability = v.into();
         self
@@ -990,12 +1163,24 @@ impl TextSpan {
     }
 
     /// Sets the value of [content][crate::model::TextSpan::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::TextSpan;
+    /// let x = TextSpan::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [begin_offset][crate::model::TextSpan::begin_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::TextSpan;
+    /// let x = TextSpan::new().set_begin_offset(42);
+    /// ```
     pub fn set_begin_offset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.begin_offset = v.into();
         self
@@ -1033,18 +1218,36 @@ impl ClassificationCategory {
     }
 
     /// Sets the value of [name][crate::model::ClassificationCategory::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassificationCategory;
+    /// let x = ClassificationCategory::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [confidence][crate::model::ClassificationCategory::confidence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassificationCategory;
+    /// let x = ClassificationCategory::new().set_confidence(42.0);
+    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::ClassificationCategory::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassificationCategory;
+    /// let x = ClassificationCategory::new().set_severity(42.0);
+    /// ```
     pub fn set_severity<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
@@ -1076,6 +1279,13 @@ impl AnalyzeSentimentRequest {
     }
 
     /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = AnalyzeSentimentRequest::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1085,6 +1295,14 @@ impl AnalyzeSentimentRequest {
     }
 
     /// Sets or clears the value of [document][crate::model::AnalyzeSentimentRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = AnalyzeSentimentRequest::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = AnalyzeSentimentRequest::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1094,6 +1312,15 @@ impl AnalyzeSentimentRequest {
     }
 
     /// Sets the value of [encoding_type][crate::model::AnalyzeSentimentRequest::encoding_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentRequest;
+    /// use google_cloud_language_v2::model::EncodingType;
+    /// let x0 = AnalyzeSentimentRequest::new().set_encoding_type(EncodingType::Utf8);
+    /// let x1 = AnalyzeSentimentRequest::new().set_encoding_type(EncodingType::Utf16);
+    /// let x2 = AnalyzeSentimentRequest::new().set_encoding_type(EncodingType::Utf32);
+    /// ```
     pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(
         mut self,
         v: T,
@@ -1138,6 +1365,13 @@ impl AnalyzeSentimentResponse {
     }
 
     /// Sets the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentResponse;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = AnalyzeSentimentResponse::new().set_document_sentiment(Sentiment::default()/* use setters */);
+    /// ```
     pub fn set_document_sentiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -1147,6 +1381,14 @@ impl AnalyzeSentimentResponse {
     }
 
     /// Sets or clears the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentResponse;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = AnalyzeSentimentResponse::new().set_or_clear_document_sentiment(Some(Sentiment::default()/* use setters */));
+    /// let x = AnalyzeSentimentResponse::new().set_or_clear_document_sentiment(None::<Sentiment>);
+    /// ```
     pub fn set_or_clear_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -1156,12 +1398,29 @@ impl AnalyzeSentimentResponse {
     }
 
     /// Sets the value of [language_code][crate::model::AnalyzeSentimentResponse::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentResponse;
+    /// let x = AnalyzeSentimentResponse::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [sentences][crate::model::AnalyzeSentimentResponse::sentences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentResponse;
+    /// use google_cloud_language_v2::model::Sentence;
+    /// let x = AnalyzeSentimentResponse::new()
+    ///     .set_sentences([
+    ///         Sentence::default()/* use setters */,
+    ///         Sentence::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sentences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1173,6 +1432,12 @@ impl AnalyzeSentimentResponse {
     }
 
     /// Sets the value of [language_supported][crate::model::AnalyzeSentimentResponse::language_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeSentimentResponse;
+    /// let x = AnalyzeSentimentResponse::new().set_language_supported(true);
+    /// ```
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
         self
@@ -1204,6 +1469,13 @@ impl AnalyzeEntitiesRequest {
     }
 
     /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeEntitiesRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = AnalyzeEntitiesRequest::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1213,6 +1485,14 @@ impl AnalyzeEntitiesRequest {
     }
 
     /// Sets or clears the value of [document][crate::model::AnalyzeEntitiesRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeEntitiesRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = AnalyzeEntitiesRequest::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = AnalyzeEntitiesRequest::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1222,6 +1502,15 @@ impl AnalyzeEntitiesRequest {
     }
 
     /// Sets the value of [encoding_type][crate::model::AnalyzeEntitiesRequest::encoding_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeEntitiesRequest;
+    /// use google_cloud_language_v2::model::EncodingType;
+    /// let x0 = AnalyzeEntitiesRequest::new().set_encoding_type(EncodingType::Utf8);
+    /// let x1 = AnalyzeEntitiesRequest::new().set_encoding_type(EncodingType::Utf16);
+    /// let x2 = AnalyzeEntitiesRequest::new().set_encoding_type(EncodingType::Utf32);
+    /// ```
     pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(
         mut self,
         v: T,
@@ -1263,6 +1552,17 @@ impl AnalyzeEntitiesResponse {
     }
 
     /// Sets the value of [entities][crate::model::AnalyzeEntitiesResponse::entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeEntitiesResponse;
+    /// use google_cloud_language_v2::model::Entity;
+    /// let x = AnalyzeEntitiesResponse::new()
+    ///     .set_entities([
+    ///         Entity::default()/* use setters */,
+    ///         Entity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1274,12 +1574,24 @@ impl AnalyzeEntitiesResponse {
     }
 
     /// Sets the value of [language_code][crate::model::AnalyzeEntitiesResponse::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeEntitiesResponse;
+    /// let x = AnalyzeEntitiesResponse::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [language_supported][crate::model::AnalyzeEntitiesResponse::language_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnalyzeEntitiesResponse;
+    /// let x = AnalyzeEntitiesResponse::new().set_language_supported(true);
+    /// ```
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
         self
@@ -1308,6 +1620,13 @@ impl ClassifyTextRequest {
     }
 
     /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassifyTextRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = ClassifyTextRequest::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1317,6 +1636,14 @@ impl ClassifyTextRequest {
     }
 
     /// Sets or clears the value of [document][crate::model::ClassifyTextRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassifyTextRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = ClassifyTextRequest::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = ClassifyTextRequest::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1358,6 +1685,17 @@ impl ClassifyTextResponse {
     }
 
     /// Sets the value of [categories][crate::model::ClassifyTextResponse::categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassifyTextResponse;
+    /// use google_cloud_language_v2::model::ClassificationCategory;
+    /// let x = ClassifyTextResponse::new()
+    ///     .set_categories([
+    ///         ClassificationCategory::default()/* use setters */,
+    ///         ClassificationCategory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1369,12 +1707,24 @@ impl ClassifyTextResponse {
     }
 
     /// Sets the value of [language_code][crate::model::ClassifyTextResponse::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassifyTextResponse;
+    /// let x = ClassifyTextResponse::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [language_supported][crate::model::ClassifyTextResponse::language_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ClassifyTextResponse;
+    /// let x = ClassifyTextResponse::new().set_language_supported(true);
+    /// ```
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
         self
@@ -1406,6 +1756,13 @@ impl ModerateTextRequest {
     }
 
     /// Sets the value of [document][crate::model::ModerateTextRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ModerateTextRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = ModerateTextRequest::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1415,6 +1772,14 @@ impl ModerateTextRequest {
     }
 
     /// Sets or clears the value of [document][crate::model::ModerateTextRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ModerateTextRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = ModerateTextRequest::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = ModerateTextRequest::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1424,6 +1789,14 @@ impl ModerateTextRequest {
     }
 
     /// Sets the value of [model_version][crate::model::ModerateTextRequest::model_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ModerateTextRequest;
+    /// use google_cloud_language_v2::model::moderate_text_request::ModelVersion;
+    /// let x0 = ModerateTextRequest::new().set_model_version(ModelVersion::ModelVersion1);
+    /// let x1 = ModerateTextRequest::new().set_model_version(ModelVersion::ModelVersion2);
+    /// ```
     pub fn set_model_version<
         T: std::convert::Into<crate::model::moderate_text_request::ModelVersion>,
     >(
@@ -1609,6 +1982,17 @@ impl ModerateTextResponse {
     }
 
     /// Sets the value of [moderation_categories][crate::model::ModerateTextResponse::moderation_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ModerateTextResponse;
+    /// use google_cloud_language_v2::model::ClassificationCategory;
+    /// let x = ModerateTextResponse::new()
+    ///     .set_moderation_categories([
+    ///         ClassificationCategory::default()/* use setters */,
+    ///         ClassificationCategory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_moderation_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1620,12 +2004,24 @@ impl ModerateTextResponse {
     }
 
     /// Sets the value of [language_code][crate::model::ModerateTextResponse::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ModerateTextResponse;
+    /// let x = ModerateTextResponse::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [language_supported][crate::model::ModerateTextResponse::language_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::ModerateTextResponse;
+    /// let x = ModerateTextResponse::new().set_language_supported(true);
+    /// ```
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
         self
@@ -1661,6 +2057,13 @@ impl AnnotateTextRequest {
     }
 
     /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = AnnotateTextRequest::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1670,6 +2073,14 @@ impl AnnotateTextRequest {
     }
 
     /// Sets or clears the value of [document][crate::model::AnnotateTextRequest::document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextRequest;
+    /// use google_cloud_language_v2::model::Document;
+    /// let x = AnnotateTextRequest::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = AnnotateTextRequest::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1679,6 +2090,13 @@ impl AnnotateTextRequest {
     }
 
     /// Sets the value of [features][crate::model::AnnotateTextRequest::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextRequest;
+    /// use google_cloud_language_v2::model::annotate_text_request::Features;
+    /// let x = AnnotateTextRequest::new().set_features(Features::default()/* use setters */);
+    /// ```
     pub fn set_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::annotate_text_request::Features>,
@@ -1688,6 +2106,14 @@ impl AnnotateTextRequest {
     }
 
     /// Sets or clears the value of [features][crate::model::AnnotateTextRequest::features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextRequest;
+    /// use google_cloud_language_v2::model::annotate_text_request::Features;
+    /// let x = AnnotateTextRequest::new().set_or_clear_features(Some(Features::default()/* use setters */));
+    /// let x = AnnotateTextRequest::new().set_or_clear_features(None::<Features>);
+    /// ```
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::annotate_text_request::Features>,
@@ -1697,6 +2123,15 @@ impl AnnotateTextRequest {
     }
 
     /// Sets the value of [encoding_type][crate::model::AnnotateTextRequest::encoding_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextRequest;
+    /// use google_cloud_language_v2::model::EncodingType;
+    /// let x0 = AnnotateTextRequest::new().set_encoding_type(EncodingType::Utf8);
+    /// let x1 = AnnotateTextRequest::new().set_encoding_type(EncodingType::Utf16);
+    /// let x2 = AnnotateTextRequest::new().set_encoding_type(EncodingType::Utf32);
+    /// ```
     pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(
         mut self,
         v: T,
@@ -1743,24 +2178,48 @@ pub mod annotate_text_request {
         }
 
         /// Sets the value of [extract_entities][crate::model::annotate_text_request::Features::extract_entities].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_language_v2::model::annotate_text_request::Features;
+        /// let x = Features::new().set_extract_entities(true);
+        /// ```
         pub fn set_extract_entities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.extract_entities = v.into();
             self
         }
 
         /// Sets the value of [extract_document_sentiment][crate::model::annotate_text_request::Features::extract_document_sentiment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_language_v2::model::annotate_text_request::Features;
+        /// let x = Features::new().set_extract_document_sentiment(true);
+        /// ```
         pub fn set_extract_document_sentiment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.extract_document_sentiment = v.into();
             self
         }
 
         /// Sets the value of [classify_text][crate::model::annotate_text_request::Features::classify_text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_language_v2::model::annotate_text_request::Features;
+        /// let x = Features::new().set_classify_text(true);
+        /// ```
         pub fn set_classify_text<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.classify_text = v.into();
             self
         }
 
         /// Sets the value of [moderate_text][crate::model::annotate_text_request::Features::moderate_text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_language_v2::model::annotate_text_request::Features;
+        /// let x = Features::new().set_moderate_text(true);
+        /// ```
         pub fn set_moderate_text<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.moderate_text = v.into();
             self
@@ -1824,6 +2283,17 @@ impl AnnotateTextResponse {
     }
 
     /// Sets the value of [sentences][crate::model::AnnotateTextResponse::sentences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// use google_cloud_language_v2::model::Sentence;
+    /// let x = AnnotateTextResponse::new()
+    ///     .set_sentences([
+    ///         Sentence::default()/* use setters */,
+    ///         Sentence::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sentences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1835,6 +2305,17 @@ impl AnnotateTextResponse {
     }
 
     /// Sets the value of [entities][crate::model::AnnotateTextResponse::entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// use google_cloud_language_v2::model::Entity;
+    /// let x = AnnotateTextResponse::new()
+    ///     .set_entities([
+    ///         Entity::default()/* use setters */,
+    ///         Entity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1846,6 +2327,13 @@ impl AnnotateTextResponse {
     }
 
     /// Sets the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = AnnotateTextResponse::new().set_document_sentiment(Sentiment::default()/* use setters */);
+    /// ```
     pub fn set_document_sentiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -1855,6 +2343,14 @@ impl AnnotateTextResponse {
     }
 
     /// Sets or clears the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// use google_cloud_language_v2::model::Sentiment;
+    /// let x = AnnotateTextResponse::new().set_or_clear_document_sentiment(Some(Sentiment::default()/* use setters */));
+    /// let x = AnnotateTextResponse::new().set_or_clear_document_sentiment(None::<Sentiment>);
+    /// ```
     pub fn set_or_clear_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -1864,12 +2360,29 @@ impl AnnotateTextResponse {
     }
 
     /// Sets the value of [language_code][crate::model::AnnotateTextResponse::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// let x = AnnotateTextResponse::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [categories][crate::model::AnnotateTextResponse::categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// use google_cloud_language_v2::model::ClassificationCategory;
+    /// let x = AnnotateTextResponse::new()
+    ///     .set_categories([
+    ///         ClassificationCategory::default()/* use setters */,
+    ///         ClassificationCategory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1881,6 +2394,17 @@ impl AnnotateTextResponse {
     }
 
     /// Sets the value of [moderation_categories][crate::model::AnnotateTextResponse::moderation_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// use google_cloud_language_v2::model::ClassificationCategory;
+    /// let x = AnnotateTextResponse::new()
+    ///     .set_moderation_categories([
+    ///         ClassificationCategory::default()/* use setters */,
+    ///         ClassificationCategory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_moderation_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1892,6 +2416,12 @@ impl AnnotateTextResponse {
     }
 
     /// Sets the value of [language_supported][crate::model::AnnotateTextResponse::language_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::model::AnnotateTextResponse;
+    /// let x = AnnotateTextResponse::new().set_language_supported(true);
+    /// ```
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
         self

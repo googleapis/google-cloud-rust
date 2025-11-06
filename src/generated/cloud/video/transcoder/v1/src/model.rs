@@ -120,24 +120,51 @@ impl Job {
     }
 
     /// Sets the value of [name][crate::model::Job::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [input_uri][crate::model::Job::input_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_input_uri("example");
+    /// ```
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
     }
 
     /// Sets the value of [output_uri][crate::model::Job::output_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_output_uri("example");
+    /// ```
     pub fn set_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_uri = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Job::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use google_cloud_video_transcoder_v1::model::job::ProcessingState;
+    /// let x0 = Job::new().set_state(ProcessingState::Pending);
+    /// let x1 = Job::new().set_state(ProcessingState::Running);
+    /// let x2 = Job::new().set_state(ProcessingState::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job::ProcessingState>>(
         mut self,
         v: T,
@@ -147,6 +174,13 @@ impl Job {
     }
 
     /// Sets the value of [create_time][crate::model::Job::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -156,6 +190,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Job::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -165,6 +207,13 @@ impl Job {
     }
 
     /// Sets the value of [start_time][crate::model::Job::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -174,6 +223,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Job::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -183,6 +240,13 @@ impl Job {
     }
 
     /// Sets the value of [end_time][crate::model::Job::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -192,6 +256,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Job::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -201,12 +273,27 @@ impl Job {
     }
 
     /// Sets the value of [ttl_after_completion_days][crate::model::Job::ttl_after_completion_days].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_ttl_after_completion_days(42);
+    /// ```
     pub fn set_ttl_after_completion_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ttl_after_completion_days = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Job::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -219,6 +306,13 @@ impl Job {
     }
 
     /// Sets the value of [error][crate::model::Job::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use rpc::model::Status;
+    /// let x = Job::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -228,6 +322,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [error][crate::model::Job::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use rpc::model::Status;
+    /// let x = Job::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -237,6 +339,14 @@ impl Job {
     }
 
     /// Sets the value of [mode][crate::model::Job::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use google_cloud_video_transcoder_v1::model::job::ProcessingMode;
+    /// let x0 = Job::new().set_mode(ProcessingMode::Interactive);
+    /// let x1 = Job::new().set_mode(ProcessingMode::Batch);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::job::ProcessingMode>>(
         mut self,
         v: T,
@@ -246,12 +356,26 @@ impl Job {
     }
 
     /// Sets the value of [batch_mode_priority][crate::model::Job::batch_mode_priority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_batch_mode_priority(42);
+    /// ```
     pub fn set_batch_mode_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.batch_mode_priority = v.into();
         self
     }
 
     /// Sets the value of [optimization][crate::model::Job::optimization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use google_cloud_video_transcoder_v1::model::job::OptimizationStrategy;
+    /// let x0 = Job::new().set_optimization(OptimizationStrategy::Autodetect);
+    /// let x1 = Job::new().set_optimization(OptimizationStrategy::Disabled);
+    /// ```
     pub fn set_optimization<T: std::convert::Into<crate::model::job::OptimizationStrategy>>(
         mut self,
         v: T,
@@ -261,6 +385,12 @@ impl Job {
     }
 
     /// Sets the value of [fill_content_gaps][crate::model::Job::fill_content_gaps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_fill_content_gaps(true);
+    /// ```
     pub fn set_fill_content_gaps<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fill_content_gaps = v.into();
         self
@@ -270,6 +400,13 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use google_cloud_video_transcoder_v1::model::job::JobConfig;
+    /// let x = Job::new().set_job_config(Some(JobConfig::TemplateId("example".to_string())));
+    /// ```
     pub fn set_job_config<
         T: std::convert::Into<std::option::Option<crate::model::job::JobConfig>>,
     >(
@@ -296,6 +433,14 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = Job::new().set_template_id("example");
+    /// assert!(x.template_id().is_some());
+    /// assert!(x.config().is_none());
+    /// ```
     pub fn set_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_config =
             std::option::Option::Some(crate::model::job::JobConfig::TemplateId(v.into()));
@@ -318,6 +463,15 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Job;
+    /// use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// let x = Job::new().set_config(JobConfig::default()/* use setters */);
+    /// assert!(x.config().is_some());
+    /// assert!(x.template_id().is_none());
+    /// ```
     pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::JobConfig>>>(
         mut self,
         v: T,
@@ -794,12 +948,25 @@ impl JobTemplate {
     }
 
     /// Sets the value of [name][crate::model::JobTemplate::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// let x = JobTemplate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::JobTemplate::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// let x = JobTemplate::new().set_config(JobConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::JobConfig>,
@@ -809,6 +976,14 @@ impl JobTemplate {
     }
 
     /// Sets or clears the value of [config][crate::model::JobTemplate::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// let x = JobTemplate::new().set_or_clear_config(Some(JobConfig::default()/* use setters */));
+    /// let x = JobTemplate::new().set_or_clear_config(None::<JobConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobConfig>,
@@ -818,6 +993,15 @@ impl JobTemplate {
     }
 
     /// Sets the value of [labels][crate::model::JobTemplate::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// let x = JobTemplate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -890,6 +1074,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [inputs][crate::model::JobConfig::inputs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::Input;
+    /// let x = JobConfig::new()
+    ///     .set_inputs([
+    ///         Input::default()/* use setters */,
+    ///         Input::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_inputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -901,6 +1096,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [edit_list][crate::model::JobConfig::edit_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::EditAtom;
+    /// let x = JobConfig::new()
+    ///     .set_edit_list([
+    ///         EditAtom::default()/* use setters */,
+    ///         EditAtom::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_edit_list<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -912,6 +1118,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [elementary_streams][crate::model::JobConfig::elementary_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::ElementaryStream;
+    /// let x = JobConfig::new()
+    ///     .set_elementary_streams([
+    ///         ElementaryStream::default()/* use setters */,
+    ///         ElementaryStream::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -923,6 +1140,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [mux_streams][crate::model::JobConfig::mux_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// let x = JobConfig::new()
+    ///     .set_mux_streams([
+    ///         MuxStream::default()/* use setters */,
+    ///         MuxStream::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -934,6 +1162,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [manifests][crate::model::JobConfig::manifests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::Manifest;
+    /// let x = JobConfig::new()
+    ///     .set_manifests([
+    ///         Manifest::default()/* use setters */,
+    ///         Manifest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -945,6 +1184,13 @@ impl JobConfig {
     }
 
     /// Sets the value of [output][crate::model::JobConfig::output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::Output;
+    /// let x = JobConfig::new().set_output(Output::default()/* use setters */);
+    /// ```
     pub fn set_output<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Output>,
@@ -954,6 +1200,14 @@ impl JobConfig {
     }
 
     /// Sets or clears the value of [output][crate::model::JobConfig::output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::Output;
+    /// let x = JobConfig::new().set_or_clear_output(Some(Output::default()/* use setters */));
+    /// let x = JobConfig::new().set_or_clear_output(None::<Output>);
+    /// ```
     pub fn set_or_clear_output<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Output>,
@@ -963,6 +1217,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [ad_breaks][crate::model::JobConfig::ad_breaks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::AdBreak;
+    /// let x = JobConfig::new()
+    ///     .set_ad_breaks([
+    ///         AdBreak::default()/* use setters */,
+    ///         AdBreak::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ad_breaks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -974,6 +1239,13 @@ impl JobConfig {
     }
 
     /// Sets the value of [pubsub_destination][crate::model::JobConfig::pubsub_destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::PubsubDestination;
+    /// let x = JobConfig::new().set_pubsub_destination(PubsubDestination::default()/* use setters */);
+    /// ```
     pub fn set_pubsub_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PubsubDestination>,
@@ -983,6 +1255,14 @@ impl JobConfig {
     }
 
     /// Sets or clears the value of [pubsub_destination][crate::model::JobConfig::pubsub_destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::PubsubDestination;
+    /// let x = JobConfig::new().set_or_clear_pubsub_destination(Some(PubsubDestination::default()/* use setters */));
+    /// let x = JobConfig::new().set_or_clear_pubsub_destination(None::<PubsubDestination>);
+    /// ```
     pub fn set_or_clear_pubsub_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PubsubDestination>,
@@ -992,6 +1272,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [sprite_sheets][crate::model::JobConfig::sprite_sheets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = JobConfig::new()
+    ///     .set_sprite_sheets([
+    ///         SpriteSheet::default()/* use setters */,
+    ///         SpriteSheet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sprite_sheets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1003,6 +1294,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [overlays][crate::model::JobConfig::overlays].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::Overlay;
+    /// let x = JobConfig::new()
+    ///     .set_overlays([
+    ///         Overlay::default()/* use setters */,
+    ///         Overlay::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_overlays<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1014,6 +1316,17 @@ impl JobConfig {
     }
 
     /// Sets the value of [encryptions][crate::model::JobConfig::encryptions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::JobConfig;
+    /// use google_cloud_video_transcoder_v1::model::Encryption;
+    /// let x = JobConfig::new()
+    ///     .set_encryptions([
+    ///         Encryption::default()/* use setters */,
+    ///         Encryption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_encryptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1064,18 +1377,37 @@ impl Input {
     }
 
     /// Sets the value of [key][crate::model::Input::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Input;
+    /// let x = Input::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::Input::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Input;
+    /// let x = Input::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [preprocessing_config][crate::model::Input::preprocessing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Input;
+    /// use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// let x = Input::new().set_preprocessing_config(PreprocessingConfig::default()/* use setters */);
+    /// ```
     pub fn set_preprocessing_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PreprocessingConfig>,
@@ -1085,6 +1417,14 @@ impl Input {
     }
 
     /// Sets or clears the value of [preprocessing_config][crate::model::Input::preprocessing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Input;
+    /// use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// let x = Input::new().set_or_clear_preprocessing_config(Some(PreprocessingConfig::default()/* use setters */));
+    /// let x = Input::new().set_or_clear_preprocessing_config(None::<PreprocessingConfig>);
+    /// ```
     pub fn set_or_clear_preprocessing_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PreprocessingConfig>,
@@ -1094,6 +1434,13 @@ impl Input {
     }
 
     /// Sets the value of [attributes][crate::model::Input::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Input;
+    /// use google_cloud_video_transcoder_v1::model::InputAttributes;
+    /// let x = Input::new().set_attributes(InputAttributes::default()/* use setters */);
+    /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputAttributes>,
@@ -1103,6 +1450,14 @@ impl Input {
     }
 
     /// Sets or clears the value of [attributes][crate::model::Input::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Input;
+    /// use google_cloud_video_transcoder_v1::model::InputAttributes;
+    /// let x = Input::new().set_or_clear_attributes(Some(InputAttributes::default()/* use setters */));
+    /// let x = Input::new().set_or_clear_attributes(None::<InputAttributes>);
+    /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputAttributes>,
@@ -1140,6 +1495,12 @@ impl Output {
     }
 
     /// Sets the value of [uri][crate::model::Output::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Output;
+    /// let x = Output::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -1185,12 +1546,24 @@ impl EditAtom {
     }
 
     /// Sets the value of [key][crate::model::EditAtom::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::EditAtom;
+    /// let x = EditAtom::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [inputs][crate::model::EditAtom::inputs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::EditAtom;
+    /// let x = EditAtom::new().set_inputs(["a", "b", "c"]);
+    /// ```
     pub fn set_inputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1202,6 +1575,13 @@ impl EditAtom {
     }
 
     /// Sets the value of [end_time_offset][crate::model::EditAtom::end_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::EditAtom;
+    /// use wkt::Duration;
+    /// let x = EditAtom::new().set_end_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1211,6 +1591,14 @@ impl EditAtom {
     }
 
     /// Sets or clears the value of [end_time_offset][crate::model::EditAtom::end_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::EditAtom;
+    /// use wkt::Duration;
+    /// let x = EditAtom::new().set_or_clear_end_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = EditAtom::new().set_or_clear_end_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1220,6 +1608,13 @@ impl EditAtom {
     }
 
     /// Sets the value of [start_time_offset][crate::model::EditAtom::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::EditAtom;
+    /// use wkt::Duration;
+    /// let x = EditAtom::new().set_start_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1229,6 +1624,14 @@ impl EditAtom {
     }
 
     /// Sets or clears the value of [start_time_offset][crate::model::EditAtom::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::EditAtom;
+    /// use wkt::Duration;
+    /// let x = EditAtom::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = EditAtom::new().set_or_clear_start_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1261,6 +1664,13 @@ impl AdBreak {
     }
 
     /// Sets the value of [start_time_offset][crate::model::AdBreak::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AdBreak;
+    /// use wkt::Duration;
+    /// let x = AdBreak::new().set_start_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1270,6 +1680,14 @@ impl AdBreak {
     }
 
     /// Sets or clears the value of [start_time_offset][crate::model::AdBreak::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AdBreak;
+    /// use wkt::Duration;
+    /// let x = AdBreak::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = AdBreak::new().set_or_clear_start_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1306,6 +1724,12 @@ impl ElementaryStream {
     }
 
     /// Sets the value of [key][crate::model::ElementaryStream::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ElementaryStream;
+    /// let x = ElementaryStream::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -1315,6 +1739,14 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ElementaryStream;
+    /// use google_cloud_video_transcoder_v1::model::VideoStream;
+    /// let x = ElementaryStream::new().set_elementary_stream(Some(
+    ///     google_cloud_video_transcoder_v1::model::elementary_stream::ElementaryStream::VideoStream(VideoStream::default().into())));
+    /// ```
     pub fn set_elementary_stream<
         T: std::convert::Into<std::option::Option<crate::model::elementary_stream::ElementaryStream>>,
     >(
@@ -1343,6 +1775,16 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ElementaryStream;
+    /// use google_cloud_video_transcoder_v1::model::VideoStream;
+    /// let x = ElementaryStream::new().set_video_stream(VideoStream::default()/* use setters */);
+    /// assert!(x.video_stream().is_some());
+    /// assert!(x.audio_stream().is_none());
+    /// assert!(x.text_stream().is_none());
+    /// ```
     pub fn set_video_stream<T: std::convert::Into<std::boxed::Box<crate::model::VideoStream>>>(
         mut self,
         v: T,
@@ -1371,6 +1813,16 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ElementaryStream;
+    /// use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = ElementaryStream::new().set_audio_stream(AudioStream::default()/* use setters */);
+    /// assert!(x.audio_stream().is_some());
+    /// assert!(x.video_stream().is_none());
+    /// assert!(x.text_stream().is_none());
+    /// ```
     pub fn set_audio_stream<T: std::convert::Into<std::boxed::Box<crate::model::AudioStream>>>(
         mut self,
         v: T,
@@ -1399,6 +1851,16 @@ impl ElementaryStream {
     ///
     /// Note that all the setters affecting `elementary_stream` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ElementaryStream;
+    /// use google_cloud_video_transcoder_v1::model::TextStream;
+    /// let x = ElementaryStream::new().set_text_stream(TextStream::default()/* use setters */);
+    /// assert!(x.text_stream().is_some());
+    /// assert!(x.video_stream().is_none());
+    /// assert!(x.audio_stream().is_none());
+    /// ```
     pub fn set_text_stream<T: std::convert::Into<std::boxed::Box<crate::model::TextStream>>>(
         mut self,
         v: T,
@@ -1498,24 +1960,48 @@ impl MuxStream {
     }
 
     /// Sets the value of [key][crate::model::MuxStream::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [file_name][crate::model::MuxStream::file_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_file_name("example");
+    /// ```
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self
     }
 
     /// Sets the value of [container][crate::model::MuxStream::container].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_container("example");
+    /// ```
     pub fn set_container<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container = v.into();
         self
     }
 
     /// Sets the value of [elementary_streams][crate::model::MuxStream::elementary_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_elementary_streams(["a", "b", "c"]);
+    /// ```
     pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1527,6 +2013,13 @@ impl MuxStream {
     }
 
     /// Sets the value of [segment_settings][crate::model::MuxStream::segment_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// use google_cloud_video_transcoder_v1::model::SegmentSettings;
+    /// let x = MuxStream::new().set_segment_settings(SegmentSettings::default()/* use setters */);
+    /// ```
     pub fn set_segment_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SegmentSettings>,
@@ -1536,6 +2029,14 @@ impl MuxStream {
     }
 
     /// Sets or clears the value of [segment_settings][crate::model::MuxStream::segment_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// use google_cloud_video_transcoder_v1::model::SegmentSettings;
+    /// let x = MuxStream::new().set_or_clear_segment_settings(Some(SegmentSettings::default()/* use setters */));
+    /// let x = MuxStream::new().set_or_clear_segment_settings(None::<SegmentSettings>);
+    /// ```
     pub fn set_or_clear_segment_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SegmentSettings>,
@@ -1545,6 +2046,12 @@ impl MuxStream {
     }
 
     /// Sets the value of [encryption_id][crate::model::MuxStream::encryption_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// let x = MuxStream::new().set_encryption_id("example");
+    /// ```
     pub fn set_encryption_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_id = v.into();
         self
@@ -1554,6 +2061,14 @@ impl MuxStream {
     ///
     /// Note that all the setters affecting `container_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// use google_cloud_video_transcoder_v1::model::mux_stream::Fmp4Config;
+    /// let x = MuxStream::new().set_container_config(Some(
+    ///     google_cloud_video_transcoder_v1::model::mux_stream::ContainerConfig::Fmp4(Fmp4Config::default().into())));
+    /// ```
     pub fn set_container_config<
         T: std::convert::Into<std::option::Option<crate::model::mux_stream::ContainerConfig>>,
     >(
@@ -1582,6 +2097,14 @@ impl MuxStream {
     ///
     /// Note that all the setters affecting `container_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::MuxStream;
+    /// use google_cloud_video_transcoder_v1::model::mux_stream::Fmp4Config;
+    /// let x = MuxStream::new().set_fmp4(Fmp4Config::default()/* use setters */);
+    /// assert!(x.fmp4().is_some());
+    /// ```
     pub fn set_fmp4<
         T: std::convert::Into<std::boxed::Box<crate::model::mux_stream::Fmp4Config>>,
     >(
@@ -1627,6 +2150,12 @@ pub mod mux_stream {
         }
 
         /// Sets the value of [codec_tag][crate::model::mux_stream::Fmp4Config::codec_tag].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::mux_stream::Fmp4Config;
+        /// let x = Fmp4Config::new().set_codec_tag("example");
+        /// ```
         pub fn set_codec_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.codec_tag = v.into();
             self
@@ -1687,12 +2216,26 @@ impl Manifest {
     }
 
     /// Sets the value of [file_name][crate::model::Manifest::file_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Manifest;
+    /// let x = Manifest::new().set_file_name("example");
+    /// ```
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Manifest::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Manifest;
+    /// use google_cloud_video_transcoder_v1::model::manifest::ManifestType;
+    /// let x0 = Manifest::new().set_type(ManifestType::Hls);
+    /// let x1 = Manifest::new().set_type(ManifestType::Dash);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::manifest::ManifestType>>(
         mut self,
         v: T,
@@ -1702,6 +2245,12 @@ impl Manifest {
     }
 
     /// Sets the value of [mux_streams][crate::model::Manifest::mux_streams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Manifest;
+    /// let x = Manifest::new().set_mux_streams(["a", "b", "c"]);
+    /// ```
     pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1716,6 +2265,14 @@ impl Manifest {
     ///
     /// Note that all the setters affecting `manifest_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Manifest;
+    /// use google_cloud_video_transcoder_v1::model::manifest::DashConfig;
+    /// let x = Manifest::new().set_manifest_config(Some(
+    ///     google_cloud_video_transcoder_v1::model::manifest::ManifestConfig::Dash(DashConfig::default().into())));
+    /// ```
     pub fn set_manifest_config<
         T: std::convert::Into<std::option::Option<crate::model::manifest::ManifestConfig>>,
     >(
@@ -1744,6 +2301,14 @@ impl Manifest {
     ///
     /// Note that all the setters affecting `manifest_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Manifest;
+    /// use google_cloud_video_transcoder_v1::model::manifest::DashConfig;
+    /// let x = Manifest::new().set_dash(DashConfig::default()/* use setters */);
+    /// assert!(x.dash().is_some());
+    /// ```
     pub fn set_dash<T: std::convert::Into<std::boxed::Box<crate::model::manifest::DashConfig>>>(
         mut self,
         v: T,
@@ -1782,6 +2347,14 @@ pub mod manifest {
         }
 
         /// Sets the value of [segment_reference_scheme][crate::model::manifest::DashConfig::segment_reference_scheme].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::manifest::DashConfig;
+        /// use google_cloud_video_transcoder_v1::model::manifest::dash_config::SegmentReferenceScheme;
+        /// let x0 = DashConfig::new().set_segment_reference_scheme(SegmentReferenceScheme::SegmentList);
+        /// let x1 = DashConfig::new().set_segment_reference_scheme(SegmentReferenceScheme::SegmentTemplateNumber);
+        /// ```
         pub fn set_segment_reference_scheme<
             T: std::convert::Into<crate::model::manifest::dash_config::SegmentReferenceScheme>,
         >(
@@ -2128,6 +2701,12 @@ impl PubsubDestination {
     }
 
     /// Sets the value of [topic][crate::model::PubsubDestination::topic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PubsubDestination;
+    /// let x = PubsubDestination::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
@@ -2227,42 +2806,85 @@ impl SpriteSheet {
     }
 
     /// Sets the value of [format][crate::model::SpriteSheet::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_format("example");
+    /// ```
     pub fn set_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
 
     /// Sets the value of [file_prefix][crate::model::SpriteSheet::file_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_file_prefix("example");
+    /// ```
     pub fn set_file_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_prefix = v.into();
         self
     }
 
     /// Sets the value of [sprite_width_pixels][crate::model::SpriteSheet::sprite_width_pixels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_sprite_width_pixels(42);
+    /// ```
     pub fn set_sprite_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sprite_width_pixels = v.into();
         self
     }
 
     /// Sets the value of [sprite_height_pixels][crate::model::SpriteSheet::sprite_height_pixels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_sprite_height_pixels(42);
+    /// ```
     pub fn set_sprite_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sprite_height_pixels = v.into();
         self
     }
 
     /// Sets the value of [column_count][crate::model::SpriteSheet::column_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_column_count(42);
+    /// ```
     pub fn set_column_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.column_count = v.into();
         self
     }
 
     /// Sets the value of [row_count][crate::model::SpriteSheet::row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
     /// Sets the value of [start_time_offset][crate::model::SpriteSheet::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// use wkt::Duration;
+    /// let x = SpriteSheet::new().set_start_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2272,6 +2894,14 @@ impl SpriteSheet {
     }
 
     /// Sets or clears the value of [start_time_offset][crate::model::SpriteSheet::start_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// use wkt::Duration;
+    /// let x = SpriteSheet::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = SpriteSheet::new().set_or_clear_start_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2281,6 +2911,13 @@ impl SpriteSheet {
     }
 
     /// Sets the value of [end_time_offset][crate::model::SpriteSheet::end_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// use wkt::Duration;
+    /// let x = SpriteSheet::new().set_end_time_offset(Duration::default()/* use setters */);
+    /// ```
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2290,6 +2927,14 @@ impl SpriteSheet {
     }
 
     /// Sets or clears the value of [end_time_offset][crate::model::SpriteSheet::end_time_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// use wkt::Duration;
+    /// let x = SpriteSheet::new().set_or_clear_end_time_offset(Some(Duration::default()/* use setters */));
+    /// let x = SpriteSheet::new().set_or_clear_end_time_offset(None::<Duration>);
+    /// ```
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2299,6 +2944,12 @@ impl SpriteSheet {
     }
 
     /// Sets the value of [quality][crate::model::SpriteSheet::quality].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_quality(42);
+    /// ```
     pub fn set_quality<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.quality = v.into();
         self
@@ -2308,6 +2959,13 @@ impl SpriteSheet {
     ///
     /// Note that all the setters affecting `extraction_strategy` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// use google_cloud_video_transcoder_v1::model::sprite_sheet::ExtractionStrategy;
+    /// let x = SpriteSheet::new().set_extraction_strategy(Some(ExtractionStrategy::TotalCount(42)));
+    /// ```
     pub fn set_extraction_strategy<
         T: std::convert::Into<std::option::Option<crate::model::sprite_sheet::ExtractionStrategy>>,
     >(
@@ -2336,6 +2994,14 @@ impl SpriteSheet {
     ///
     /// Note that all the setters affecting `extraction_strategy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// let x = SpriteSheet::new().set_total_count(42);
+    /// assert!(x.total_count().is_some());
+    /// assert!(x.interval().is_none());
+    /// ```
     pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.extraction_strategy = std::option::Option::Some(
             crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v.into()),
@@ -2361,6 +3027,15 @@ impl SpriteSheet {
     ///
     /// Note that all the setters affecting `extraction_strategy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SpriteSheet;
+    /// use wkt::Duration;
+    /// let x = SpriteSheet::new().set_interval(Duration::default()/* use setters */);
+    /// assert!(x.interval().is_some());
+    /// assert!(x.total_count().is_none());
+    /// ```
     pub fn set_interval<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -2417,6 +3092,13 @@ impl Overlay {
     }
 
     /// Sets the value of [image][crate::model::Overlay::image].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Overlay;
+    /// use google_cloud_video_transcoder_v1::model::overlay::Image;
+    /// let x = Overlay::new().set_image(Image::default()/* use setters */);
+    /// ```
     pub fn set_image<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::overlay::Image>,
@@ -2426,6 +3108,14 @@ impl Overlay {
     }
 
     /// Sets or clears the value of [image][crate::model::Overlay::image].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Overlay;
+    /// use google_cloud_video_transcoder_v1::model::overlay::Image;
+    /// let x = Overlay::new().set_or_clear_image(Some(Image::default()/* use setters */));
+    /// let x = Overlay::new().set_or_clear_image(None::<Image>);
+    /// ```
     pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::overlay::Image>,
@@ -2435,6 +3125,17 @@ impl Overlay {
     }
 
     /// Sets the value of [animations][crate::model::Overlay::animations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Overlay;
+    /// use google_cloud_video_transcoder_v1::model::overlay::Animation;
+    /// let x = Overlay::new()
+    ///     .set_animations([
+    ///         Animation::default()/* use setters */,
+    ///         Animation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_animations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2476,12 +3177,24 @@ pub mod overlay {
         }
 
         /// Sets the value of [x][crate::model::overlay::NormalizedCoordinate::x].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = NormalizedCoordinate::new().set_x(42.0);
+        /// ```
         pub fn set_x<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.x = v.into();
             self
         }
 
         /// Sets the value of [y][crate::model::overlay::NormalizedCoordinate::y].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = NormalizedCoordinate::new().set_y(42.0);
+        /// ```
         pub fn set_y<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.y = v.into();
             self
@@ -2521,12 +3234,25 @@ pub mod overlay {
         }
 
         /// Sets the value of [uri][crate::model::overlay::Image::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Image;
+        /// let x = Image::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [resolution][crate::model::overlay::Image::resolution].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Image;
+        /// use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = Image::new().set_resolution(NormalizedCoordinate::default()/* use setters */);
+        /// ```
         pub fn set_resolution<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2536,6 +3262,14 @@ pub mod overlay {
         }
 
         /// Sets or clears the value of [resolution][crate::model::overlay::Image::resolution].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Image;
+        /// use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = Image::new().set_or_clear_resolution(Some(NormalizedCoordinate::default()/* use setters */));
+        /// let x = Image::new().set_or_clear_resolution(None::<NormalizedCoordinate>);
+        /// ```
         pub fn set_or_clear_resolution<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2545,6 +3279,12 @@ pub mod overlay {
         }
 
         /// Sets the value of [alpha][crate::model::overlay::Image::alpha].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Image;
+        /// let x = Image::new().set_alpha(42.0);
+        /// ```
         pub fn set_alpha<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.alpha = v.into();
             self
@@ -2580,6 +3320,13 @@ pub mod overlay {
         }
 
         /// Sets the value of [xy][crate::model::overlay::AnimationStatic::xy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationStatic;
+        /// use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = AnimationStatic::new().set_xy(NormalizedCoordinate::default()/* use setters */);
+        /// ```
         pub fn set_xy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2589,6 +3336,14 @@ pub mod overlay {
         }
 
         /// Sets or clears the value of [xy][crate::model::overlay::AnimationStatic::xy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationStatic;
+        /// use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = AnimationStatic::new().set_or_clear_xy(Some(NormalizedCoordinate::default()/* use setters */));
+        /// let x = AnimationStatic::new().set_or_clear_xy(None::<NormalizedCoordinate>);
+        /// ```
         pub fn set_or_clear_xy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2598,6 +3353,13 @@ pub mod overlay {
         }
 
         /// Sets the value of [start_time_offset][crate::model::overlay::AnimationStatic::start_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationStatic;
+        /// use wkt::Duration;
+        /// let x = AnimationStatic::new().set_start_time_offset(Duration::default()/* use setters */);
+        /// ```
         pub fn set_start_time_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2607,6 +3369,14 @@ pub mod overlay {
         }
 
         /// Sets or clears the value of [start_time_offset][crate::model::overlay::AnimationStatic::start_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationStatic;
+        /// use wkt::Duration;
+        /// let x = AnimationStatic::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
+        /// let x = AnimationStatic::new().set_or_clear_start_time_offset(None::<Duration>);
+        /// ```
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2652,6 +3422,14 @@ pub mod overlay {
         }
 
         /// Sets the value of [fade_type][crate::model::overlay::AnimationFade::fade_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// use google_cloud_video_transcoder_v1::model::overlay::FadeType;
+        /// let x0 = AnimationFade::new().set_fade_type(FadeType::FadeIn);
+        /// let x1 = AnimationFade::new().set_fade_type(FadeType::FadeOut);
+        /// ```
         pub fn set_fade_type<T: std::convert::Into<crate::model::overlay::FadeType>>(
             mut self,
             v: T,
@@ -2661,6 +3439,13 @@ pub mod overlay {
         }
 
         /// Sets the value of [xy][crate::model::overlay::AnimationFade::xy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = AnimationFade::new().set_xy(NormalizedCoordinate::default()/* use setters */);
+        /// ```
         pub fn set_xy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2670,6 +3455,14 @@ pub mod overlay {
         }
 
         /// Sets or clears the value of [xy][crate::model::overlay::AnimationFade::xy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// use google_cloud_video_transcoder_v1::model::overlay::NormalizedCoordinate;
+        /// let x = AnimationFade::new().set_or_clear_xy(Some(NormalizedCoordinate::default()/* use setters */));
+        /// let x = AnimationFade::new().set_or_clear_xy(None::<NormalizedCoordinate>);
+        /// ```
         pub fn set_or_clear_xy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2679,6 +3472,13 @@ pub mod overlay {
         }
 
         /// Sets the value of [start_time_offset][crate::model::overlay::AnimationFade::start_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// use wkt::Duration;
+        /// let x = AnimationFade::new().set_start_time_offset(Duration::default()/* use setters */);
+        /// ```
         pub fn set_start_time_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2688,6 +3488,14 @@ pub mod overlay {
         }
 
         /// Sets or clears the value of [start_time_offset][crate::model::overlay::AnimationFade::start_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// use wkt::Duration;
+        /// let x = AnimationFade::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
+        /// let x = AnimationFade::new().set_or_clear_start_time_offset(None::<Duration>);
+        /// ```
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2697,6 +3505,13 @@ pub mod overlay {
         }
 
         /// Sets the value of [end_time_offset][crate::model::overlay::AnimationFade::end_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// use wkt::Duration;
+        /// let x = AnimationFade::new().set_end_time_offset(Duration::default()/* use setters */);
+        /// ```
         pub fn set_end_time_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2706,6 +3521,14 @@ pub mod overlay {
         }
 
         /// Sets or clears the value of [end_time_offset][crate::model::overlay::AnimationFade::end_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// use wkt::Duration;
+        /// let x = AnimationFade::new().set_or_clear_end_time_offset(Some(Duration::default()/* use setters */));
+        /// let x = AnimationFade::new().set_or_clear_end_time_offset(None::<Duration>);
+        /// ```
         pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2739,6 +3562,13 @@ pub mod overlay {
         }
 
         /// Sets the value of [start_time_offset][crate::model::overlay::AnimationEnd::start_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationEnd;
+        /// use wkt::Duration;
+        /// let x = AnimationEnd::new().set_start_time_offset(Duration::default()/* use setters */);
+        /// ```
         pub fn set_start_time_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2748,6 +3578,14 @@ pub mod overlay {
         }
 
         /// Sets or clears the value of [start_time_offset][crate::model::overlay::AnimationEnd::start_time_offset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::AnimationEnd;
+        /// use wkt::Duration;
+        /// let x = AnimationEnd::new().set_or_clear_start_time_offset(Some(Duration::default()/* use setters */));
+        /// let x = AnimationEnd::new().set_or_clear_start_time_offset(None::<Duration>);
+        /// ```
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2782,6 +3620,14 @@ pub mod overlay {
         ///
         /// Note that all the setters affecting `animation_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Animation;
+        /// use google_cloud_video_transcoder_v1::model::overlay::AnimationStatic;
+        /// let x = Animation::new().set_animation_type(Some(
+        ///     google_cloud_video_transcoder_v1::model::overlay::animation::AnimationType::AnimationStatic(AnimationStatic::default().into())));
+        /// ```
         pub fn set_animation_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::overlay::animation::AnimationType>,
@@ -2814,6 +3660,16 @@ pub mod overlay {
         ///
         /// Note that all the setters affecting `animation_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Animation;
+        /// use google_cloud_video_transcoder_v1::model::overlay::AnimationStatic;
+        /// let x = Animation::new().set_animation_static(AnimationStatic::default()/* use setters */);
+        /// assert!(x.animation_static().is_some());
+        /// assert!(x.animation_fade().is_none());
+        /// assert!(x.animation_end().is_none());
+        /// ```
         pub fn set_animation_static<
             T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationStatic>>,
         >(
@@ -2846,6 +3702,16 @@ pub mod overlay {
         ///
         /// Note that all the setters affecting `animation_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Animation;
+        /// use google_cloud_video_transcoder_v1::model::overlay::AnimationFade;
+        /// let x = Animation::new().set_animation_fade(AnimationFade::default()/* use setters */);
+        /// assert!(x.animation_fade().is_some());
+        /// assert!(x.animation_static().is_none());
+        /// assert!(x.animation_end().is_none());
+        /// ```
         pub fn set_animation_fade<
             T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationFade>>,
         >(
@@ -2878,6 +3744,16 @@ pub mod overlay {
         ///
         /// Note that all the setters affecting `animation_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::overlay::Animation;
+        /// use google_cloud_video_transcoder_v1::model::overlay::AnimationEnd;
+        /// let x = Animation::new().set_animation_end(AnimationEnd::default()/* use setters */);
+        /// assert!(x.animation_end().is_some());
+        /// assert!(x.animation_static().is_none());
+        /// assert!(x.animation_fade().is_none());
+        /// ```
         pub fn set_animation_end<
             T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationEnd>>,
         >(
@@ -3082,6 +3958,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [color][crate::model::PreprocessingConfig::color].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Color;
+    /// let x = PreprocessingConfig::new().set_color(Color::default()/* use setters */);
+    /// ```
     pub fn set_color<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Color>,
@@ -3091,6 +3974,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [color][crate::model::PreprocessingConfig::color].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Color;
+    /// let x = PreprocessingConfig::new().set_or_clear_color(Some(Color::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_color(None::<Color>);
+    /// ```
     pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Color>,
@@ -3100,6 +3991,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [denoise][crate::model::PreprocessingConfig::denoise].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Denoise;
+    /// let x = PreprocessingConfig::new().set_denoise(Denoise::default()/* use setters */);
+    /// ```
     pub fn set_denoise<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Denoise>,
@@ -3109,6 +4007,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [denoise][crate::model::PreprocessingConfig::denoise].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Denoise;
+    /// let x = PreprocessingConfig::new().set_or_clear_denoise(Some(Denoise::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_denoise(None::<Denoise>);
+    /// ```
     pub fn set_or_clear_denoise<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Denoise>,
@@ -3118,6 +4024,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [deblock][crate::model::PreprocessingConfig::deblock].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Deblock;
+    /// let x = PreprocessingConfig::new().set_deblock(Deblock::default()/* use setters */);
+    /// ```
     pub fn set_deblock<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Deblock>,
@@ -3127,6 +4040,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [deblock][crate::model::PreprocessingConfig::deblock].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Deblock;
+    /// let x = PreprocessingConfig::new().set_or_clear_deblock(Some(Deblock::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_deblock(None::<Deblock>);
+    /// ```
     pub fn set_or_clear_deblock<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Deblock>,
@@ -3136,6 +4057,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [audio][crate::model::PreprocessingConfig::audio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Audio;
+    /// let x = PreprocessingConfig::new().set_audio(Audio::default()/* use setters */);
+    /// ```
     pub fn set_audio<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Audio>,
@@ -3145,6 +4073,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [audio][crate::model::PreprocessingConfig::audio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Audio;
+    /// let x = PreprocessingConfig::new().set_or_clear_audio(Some(Audio::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_audio(None::<Audio>);
+    /// ```
     pub fn set_or_clear_audio<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Audio>,
@@ -3154,6 +4090,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [crop][crate::model::PreprocessingConfig::crop].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Crop;
+    /// let x = PreprocessingConfig::new().set_crop(Crop::default()/* use setters */);
+    /// ```
     pub fn set_crop<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Crop>,
@@ -3163,6 +4106,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [crop][crate::model::PreprocessingConfig::crop].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Crop;
+    /// let x = PreprocessingConfig::new().set_or_clear_crop(Some(Crop::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_crop(None::<Crop>);
+    /// ```
     pub fn set_or_clear_crop<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Crop>,
@@ -3172,6 +4123,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [pad][crate::model::PreprocessingConfig::pad].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Pad;
+    /// let x = PreprocessingConfig::new().set_pad(Pad::default()/* use setters */);
+    /// ```
     pub fn set_pad<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Pad>,
@@ -3181,6 +4139,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [pad][crate::model::PreprocessingConfig::pad].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Pad;
+    /// let x = PreprocessingConfig::new().set_or_clear_pad(Some(Pad::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_pad(None::<Pad>);
+    /// ```
     pub fn set_or_clear_pad<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Pad>,
@@ -3190,6 +4156,13 @@ impl PreprocessingConfig {
     }
 
     /// Sets the value of [deinterlace][crate::model::PreprocessingConfig::deinterlace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Deinterlace;
+    /// let x = PreprocessingConfig::new().set_deinterlace(Deinterlace::default()/* use setters */);
+    /// ```
     pub fn set_deinterlace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Deinterlace>,
@@ -3199,6 +4172,14 @@ impl PreprocessingConfig {
     }
 
     /// Sets or clears the value of [deinterlace][crate::model::PreprocessingConfig::deinterlace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::PreprocessingConfig;
+    /// use google_cloud_video_transcoder_v1::model::preprocessing_config::Deinterlace;
+    /// let x = PreprocessingConfig::new().set_or_clear_deinterlace(Some(Deinterlace::default()/* use setters */));
+    /// let x = PreprocessingConfig::new().set_or_clear_deinterlace(None::<Deinterlace>);
+    /// ```
     pub fn set_or_clear_deinterlace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Deinterlace>,
@@ -3249,18 +4230,36 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [saturation][crate::model::preprocessing_config::Color::saturation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Color;
+        /// let x = Color::new().set_saturation(42.0);
+        /// ```
         pub fn set_saturation<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.saturation = v.into();
             self
         }
 
         /// Sets the value of [contrast][crate::model::preprocessing_config::Color::contrast].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Color;
+        /// let x = Color::new().set_contrast(42.0);
+        /// ```
         pub fn set_contrast<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.contrast = v.into();
             self
         }
 
         /// Sets the value of [brightness][crate::model::preprocessing_config::Color::brightness].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Color;
+        /// let x = Color::new().set_brightness(42.0);
+        /// ```
         pub fn set_brightness<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.brightness = v.into();
             self
@@ -3300,12 +4299,24 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [strength][crate::model::preprocessing_config::Denoise::strength].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Denoise;
+        /// let x = Denoise::new().set_strength(42.0);
+        /// ```
         pub fn set_strength<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.strength = v.into();
             self
         }
 
         /// Sets the value of [tune][crate::model::preprocessing_config::Denoise::tune].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Denoise;
+        /// let x = Denoise::new().set_tune("example");
+        /// ```
         pub fn set_tune<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tune = v.into();
             self
@@ -3341,12 +4352,24 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [strength][crate::model::preprocessing_config::Deblock::strength].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Deblock;
+        /// let x = Deblock::new().set_strength(42.0);
+        /// ```
         pub fn set_strength<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.strength = v.into();
             self
         }
 
         /// Sets the value of [enabled][crate::model::preprocessing_config::Deblock::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Deblock;
+        /// let x = Deblock::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -3395,18 +4418,36 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [lufs][crate::model::preprocessing_config::Audio::lufs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Audio;
+        /// let x = Audio::new().set_lufs(42.0);
+        /// ```
         pub fn set_lufs<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.lufs = v.into();
             self
         }
 
         /// Sets the value of [high_boost][crate::model::preprocessing_config::Audio::high_boost].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Audio;
+        /// let x = Audio::new().set_high_boost(true);
+        /// ```
         pub fn set_high_boost<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.high_boost = v.into();
             self
         }
 
         /// Sets the value of [low_boost][crate::model::preprocessing_config::Audio::low_boost].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Audio;
+        /// let x = Audio::new().set_low_boost(true);
+        /// ```
         pub fn set_low_boost<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.low_boost = v.into();
             self
@@ -3445,24 +4486,48 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [top_pixels][crate::model::preprocessing_config::Crop::top_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_top_pixels(42);
+        /// ```
         pub fn set_top_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.top_pixels = v.into();
             self
         }
 
         /// Sets the value of [bottom_pixels][crate::model::preprocessing_config::Crop::bottom_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_bottom_pixels(42);
+        /// ```
         pub fn set_bottom_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bottom_pixels = v.into();
             self
         }
 
         /// Sets the value of [left_pixels][crate::model::preprocessing_config::Crop::left_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_left_pixels(42);
+        /// ```
         pub fn set_left_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.left_pixels = v.into();
             self
         }
 
         /// Sets the value of [right_pixels][crate::model::preprocessing_config::Crop::right_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Crop;
+        /// let x = Crop::new().set_right_pixels(42);
+        /// ```
         pub fn set_right_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.right_pixels = v.into();
             self
@@ -3501,24 +4566,48 @@ pub mod preprocessing_config {
         }
 
         /// Sets the value of [top_pixels][crate::model::preprocessing_config::Pad::top_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_top_pixels(42);
+        /// ```
         pub fn set_top_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.top_pixels = v.into();
             self
         }
 
         /// Sets the value of [bottom_pixels][crate::model::preprocessing_config::Pad::bottom_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_bottom_pixels(42);
+        /// ```
         pub fn set_bottom_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bottom_pixels = v.into();
             self
         }
 
         /// Sets the value of [left_pixels][crate::model::preprocessing_config::Pad::left_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_left_pixels(42);
+        /// ```
         pub fn set_left_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.left_pixels = v.into();
             self
         }
 
         /// Sets the value of [right_pixels][crate::model::preprocessing_config::Pad::right_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Pad;
+        /// let x = Pad::new().set_right_pixels(42);
+        /// ```
         pub fn set_right_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.right_pixels = v.into();
             self
@@ -3552,6 +4641,14 @@ pub mod preprocessing_config {
         ///
         /// Note that all the setters affecting `deinterlacing_filter` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Deinterlace;
+        /// use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::YadifConfig;
+        /// let x = Deinterlace::new().set_deinterlacing_filter(Some(
+        ///     google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::DeinterlacingFilter::Yadif(YadifConfig::default().into())));
+        /// ```
         pub fn set_deinterlacing_filter<
             T: std::convert::Into<
                     std::option::Option<
@@ -3588,6 +4685,15 @@ pub mod preprocessing_config {
         ///
         /// Note that all the setters affecting `deinterlacing_filter` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Deinterlace;
+        /// use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::YadifConfig;
+        /// let x = Deinterlace::new().set_yadif(YadifConfig::default()/* use setters */);
+        /// assert!(x.yadif().is_some());
+        /// assert!(x.bwdif().is_none());
+        /// ```
         pub fn set_yadif<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>,
@@ -3626,6 +4732,15 @@ pub mod preprocessing_config {
         ///
         /// Note that all the setters affecting `deinterlacing_filter` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::Deinterlace;
+        /// use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::BwdifConfig;
+        /// let x = Deinterlace::new().set_bwdif(BwdifConfig::default()/* use setters */);
+        /// assert!(x.bwdif().is_some());
+        /// assert!(x.yadif().is_none());
+        /// ```
         pub fn set_bwdif<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
@@ -3692,12 +4807,24 @@ pub mod preprocessing_config {
             }
 
             /// Sets the value of [mode][crate::model::preprocessing_config::deinterlace::YadifConfig::mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::YadifConfig;
+            /// let x = YadifConfig::new().set_mode("example");
+            /// ```
             pub fn set_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.mode = v.into();
                 self
             }
 
             /// Sets the value of [disable_spatial_interlacing][crate::model::preprocessing_config::deinterlace::YadifConfig::disable_spatial_interlacing].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::YadifConfig;
+            /// let x = YadifConfig::new().set_disable_spatial_interlacing(true);
+            /// ```
             pub fn set_disable_spatial_interlacing<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -3707,12 +4834,24 @@ pub mod preprocessing_config {
             }
 
             /// Sets the value of [parity][crate::model::preprocessing_config::deinterlace::YadifConfig::parity].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::YadifConfig;
+            /// let x = YadifConfig::new().set_parity("example");
+            /// ```
             pub fn set_parity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.parity = v.into();
                 self
             }
 
             /// Sets the value of [deinterlace_all_frames][crate::model::preprocessing_config::deinterlace::YadifConfig::deinterlace_all_frames].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::YadifConfig;
+            /// let x = YadifConfig::new().set_deinterlace_all_frames(true);
+            /// ```
             pub fn set_deinterlace_all_frames<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.deinterlace_all_frames = v.into();
                 self
@@ -3759,18 +4898,36 @@ pub mod preprocessing_config {
             }
 
             /// Sets the value of [mode][crate::model::preprocessing_config::deinterlace::BwdifConfig::mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::BwdifConfig;
+            /// let x = BwdifConfig::new().set_mode("example");
+            /// ```
             pub fn set_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.mode = v.into();
                 self
             }
 
             /// Sets the value of [parity][crate::model::preprocessing_config::deinterlace::BwdifConfig::parity].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::BwdifConfig;
+            /// let x = BwdifConfig::new().set_parity("example");
+            /// ```
             pub fn set_parity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.parity = v.into();
                 self
             }
 
             /// Sets the value of [deinterlace_all_frames][crate::model::preprocessing_config::deinterlace::BwdifConfig::deinterlace_all_frames].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::BwdifConfig;
+            /// let x = BwdifConfig::new().set_deinterlace_all_frames(true);
+            /// ```
             pub fn set_deinterlace_all_frames<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.deinterlace_all_frames = v.into();
                 self
@@ -3828,6 +4985,12 @@ impl TrackDefinition {
     }
 
     /// Sets the value of [input_track][crate::model::TrackDefinition::input_track].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TrackDefinition;
+    /// let x = TrackDefinition::new().set_input_track(42);
+    /// ```
     pub fn set_input_track<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -3837,6 +5000,13 @@ impl TrackDefinition {
     }
 
     /// Sets or clears the value of [input_track][crate::model::TrackDefinition::input_track].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TrackDefinition;
+    /// let x = TrackDefinition::new().set_or_clear_input_track(Some(42));
+    /// let x = TrackDefinition::new().set_or_clear_input_track(None::<i32>);
+    /// ```
     pub fn set_or_clear_input_track<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -3846,6 +5016,12 @@ impl TrackDefinition {
     }
 
     /// Sets the value of [languages][crate::model::TrackDefinition::languages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TrackDefinition;
+    /// let x = TrackDefinition::new().set_languages(["a", "b", "c"]);
+    /// ```
     pub fn set_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3857,12 +5033,24 @@ impl TrackDefinition {
     }
 
     /// Sets the value of [detect_languages][crate::model::TrackDefinition::detect_languages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TrackDefinition;
+    /// let x = TrackDefinition::new().set_detect_languages(true);
+    /// ```
     pub fn set_detect_languages<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.detect_languages = v.into();
         self
     }
 
     /// Sets the value of [detected_languages][crate::model::TrackDefinition::detected_languages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TrackDefinition;
+    /// let x = TrackDefinition::new().set_detected_languages(["a", "b", "c"]);
+    /// ```
     pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3896,6 +5084,17 @@ impl InputAttributes {
     }
 
     /// Sets the value of [track_definitions][crate::model::InputAttributes::track_definitions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::InputAttributes;
+    /// use google_cloud_video_transcoder_v1::model::TrackDefinition;
+    /// let x = InputAttributes::new()
+    ///     .set_track_definitions([
+    ///         TrackDefinition::default()/* use setters */,
+    ///         TrackDefinition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_track_definitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3932,6 +5131,14 @@ impl VideoStream {
     ///
     /// Note that all the setters affecting `codec_settings` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::VideoStream;
+    /// use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+    /// let x = VideoStream::new().set_codec_settings(Some(
+    ///     google_cloud_video_transcoder_v1::model::video_stream::CodecSettings::H264(H264CodecSettings::default().into())));
+    /// ```
     pub fn set_codec_settings<
         T: std::convert::Into<std::option::Option<crate::model::video_stream::CodecSettings>>,
     >(
@@ -3960,6 +5167,16 @@ impl VideoStream {
     ///
     /// Note that all the setters affecting `codec_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::VideoStream;
+    /// use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+    /// let x = VideoStream::new().set_h264(H264CodecSettings::default()/* use setters */);
+    /// assert!(x.h264().is_some());
+    /// assert!(x.h265().is_none());
+    /// assert!(x.vp9().is_none());
+    /// ```
     pub fn set_h264<
         T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264CodecSettings>>,
     >(
@@ -3989,6 +5206,16 @@ impl VideoStream {
     ///
     /// Note that all the setters affecting `codec_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::VideoStream;
+    /// use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+    /// let x = VideoStream::new().set_h265(H265CodecSettings::default()/* use setters */);
+    /// assert!(x.h265().is_some());
+    /// assert!(x.h264().is_none());
+    /// assert!(x.vp9().is_none());
+    /// ```
     pub fn set_h265<
         T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265CodecSettings>>,
     >(
@@ -4018,6 +5245,16 @@ impl VideoStream {
     ///
     /// Note that all the setters affecting `codec_settings` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::VideoStream;
+    /// use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+    /// let x = VideoStream::new().set_vp9(Vp9CodecSettings::default()/* use setters */);
+    /// assert!(x.vp9().is_some());
+    /// assert!(x.h264().is_none());
+    /// assert!(x.h265().is_none());
+    /// ```
     pub fn set_vp9<
         T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>>,
     >(
@@ -4238,24 +5475,50 @@ pub mod video_stream {
         }
 
         /// Sets the value of [width_pixels][crate::model::video_stream::H264CodecSettings::width_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_width_pixels(42);
+        /// ```
         pub fn set_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.width_pixels = v.into();
             self
         }
 
         /// Sets the value of [height_pixels][crate::model::video_stream::H264CodecSettings::height_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_height_pixels(42);
+        /// ```
         pub fn set_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.height_pixels = v.into();
             self
         }
 
         /// Sets the value of [frame_rate][crate::model::video_stream::H264CodecSettings::frame_rate].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_frame_rate(42.0);
+        /// ```
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
             self
         }
 
         /// Sets the value of [frame_rate_conversion_strategy][crate::model::video_stream::H264CodecSettings::frame_rate_conversion_strategy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::FrameRateConversionStrategy;
+        /// let x0 = H264CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::Downsample);
+        /// let x1 = H264CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::DropDuplicate);
+        /// ```
         pub fn set_frame_rate_conversion_strategy<
             T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
         >(
@@ -4267,12 +5530,24 @@ pub mod video_stream {
         }
 
         /// Sets the value of [bitrate_bps][crate::model::video_stream::H264CodecSettings::bitrate_bps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_bitrate_bps(42);
+        /// ```
         pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bitrate_bps = v.into();
             self
         }
 
         /// Sets the value of [pixel_format][crate::model::video_stream::H264CodecSettings::pixel_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_pixel_format("example");
+        /// ```
         pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4282,6 +5557,12 @@ pub mod video_stream {
         }
 
         /// Sets the value of [rate_control_mode][crate::model::video_stream::H264CodecSettings::rate_control_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_rate_control_mode("example");
+        /// ```
         pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4291,36 +5572,72 @@ pub mod video_stream {
         }
 
         /// Sets the value of [crf_level][crate::model::video_stream::H264CodecSettings::crf_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_crf_level(42);
+        /// ```
         pub fn set_crf_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.crf_level = v.into();
             self
         }
 
         /// Sets the value of [allow_open_gop][crate::model::video_stream::H264CodecSettings::allow_open_gop].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_allow_open_gop(true);
+        /// ```
         pub fn set_allow_open_gop<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_open_gop = v.into();
             self
         }
 
         /// Sets the value of [enable_two_pass][crate::model::video_stream::H264CodecSettings::enable_two_pass].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_enable_two_pass(true);
+        /// ```
         pub fn set_enable_two_pass<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_two_pass = v.into();
             self
         }
 
         /// Sets the value of [vbv_size_bits][crate::model::video_stream::H264CodecSettings::vbv_size_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_vbv_size_bits(42);
+        /// ```
         pub fn set_vbv_size_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_size_bits = v.into();
             self
         }
 
         /// Sets the value of [vbv_fullness_bits][crate::model::video_stream::H264CodecSettings::vbv_fullness_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_vbv_fullness_bits(42);
+        /// ```
         pub fn set_vbv_fullness_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_fullness_bits = v.into();
             self
         }
 
         /// Sets the value of [entropy_coder][crate::model::video_stream::H264CodecSettings::entropy_coder].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_entropy_coder("example");
+        /// ```
         pub fn set_entropy_coder<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4330,36 +5647,72 @@ pub mod video_stream {
         }
 
         /// Sets the value of [b_pyramid][crate::model::video_stream::H264CodecSettings::b_pyramid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_b_pyramid(true);
+        /// ```
         pub fn set_b_pyramid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.b_pyramid = v.into();
             self
         }
 
         /// Sets the value of [b_frame_count][crate::model::video_stream::H264CodecSettings::b_frame_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_b_frame_count(42);
+        /// ```
         pub fn set_b_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.b_frame_count = v.into();
             self
         }
 
         /// Sets the value of [aq_strength][crate::model::video_stream::H264CodecSettings::aq_strength].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_aq_strength(42.0);
+        /// ```
         pub fn set_aq_strength<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.aq_strength = v.into();
             self
         }
 
         /// Sets the value of [profile][crate::model::video_stream::H264CodecSettings::profile].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_profile("example");
+        /// ```
         pub fn set_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.profile = v.into();
             self
         }
 
         /// Sets the value of [tune][crate::model::video_stream::H264CodecSettings::tune].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_tune("example");
+        /// ```
         pub fn set_tune<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tune = v.into();
             self
         }
 
         /// Sets the value of [preset][crate::model::video_stream::H264CodecSettings::preset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_preset("example");
+        /// ```
         pub fn set_preset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.preset = v.into();
             self
@@ -4369,6 +5722,13 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::h_264_codec_settings::GopMode;
+        /// let x = H264CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
+        /// ```
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
@@ -4399,6 +5759,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// let x = H264CodecSettings::new().set_gop_frame_count(42);
+        /// assert!(x.gop_frame_count().is_some());
+        /// assert!(x.gop_duration().is_none());
+        /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
                 crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
@@ -4424,6 +5792,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// use wkt::Duration;
+        /// let x = H264CodecSettings::new().set_gop_duration(Duration::default()/* use setters */);
+        /// assert!(x.gop_duration().is_some());
+        /// assert!(x.gop_frame_count().is_none());
+        /// ```
         pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
             mut self,
             v: T,
@@ -4438,6 +5815,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::H264ColorFormatSDR;
+        /// let x = H264CodecSettings::new().set_color_format(Some(
+        ///     google_cloud_video_transcoder_v1::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(H264ColorFormatSDR::default().into())));
+        /// ```
         pub fn set_color_format<
             T: std::convert::Into<
                     std::option::Option<
@@ -4473,6 +5858,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::H264ColorFormatSDR;
+        /// let x = H264CodecSettings::new().set_sdr(H264ColorFormatSDR::default()/* use setters */);
+        /// assert!(x.sdr().is_some());
+        /// assert!(x.hlg().is_none());
+        /// ```
         pub fn set_sdr<
             T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>>,
         >(
@@ -4506,6 +5900,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::H264ColorFormatHLG;
+        /// let x = H264CodecSettings::new().set_hlg(H264ColorFormatHLG::default()/* use setters */);
+        /// assert!(x.hlg().is_some());
+        /// assert!(x.sdr().is_none());
+        /// ```
         pub fn set_hlg<
             T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>>,
         >(
@@ -4776,24 +6179,50 @@ pub mod video_stream {
         }
 
         /// Sets the value of [width_pixels][crate::model::video_stream::H265CodecSettings::width_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_width_pixels(42);
+        /// ```
         pub fn set_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.width_pixels = v.into();
             self
         }
 
         /// Sets the value of [height_pixels][crate::model::video_stream::H265CodecSettings::height_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_height_pixels(42);
+        /// ```
         pub fn set_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.height_pixels = v.into();
             self
         }
 
         /// Sets the value of [frame_rate][crate::model::video_stream::H265CodecSettings::frame_rate].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_frame_rate(42.0);
+        /// ```
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
             self
         }
 
         /// Sets the value of [frame_rate_conversion_strategy][crate::model::video_stream::H265CodecSettings::frame_rate_conversion_strategy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::FrameRateConversionStrategy;
+        /// let x0 = H265CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::Downsample);
+        /// let x1 = H265CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::DropDuplicate);
+        /// ```
         pub fn set_frame_rate_conversion_strategy<
             T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
         >(
@@ -4805,12 +6234,24 @@ pub mod video_stream {
         }
 
         /// Sets the value of [bitrate_bps][crate::model::video_stream::H265CodecSettings::bitrate_bps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_bitrate_bps(42);
+        /// ```
         pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bitrate_bps = v.into();
             self
         }
 
         /// Sets the value of [pixel_format][crate::model::video_stream::H265CodecSettings::pixel_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_pixel_format("example");
+        /// ```
         pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4820,6 +6261,12 @@ pub mod video_stream {
         }
 
         /// Sets the value of [rate_control_mode][crate::model::video_stream::H265CodecSettings::rate_control_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_rate_control_mode("example");
+        /// ```
         pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4829,66 +6276,132 @@ pub mod video_stream {
         }
 
         /// Sets the value of [crf_level][crate::model::video_stream::H265CodecSettings::crf_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_crf_level(42);
+        /// ```
         pub fn set_crf_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.crf_level = v.into();
             self
         }
 
         /// Sets the value of [allow_open_gop][crate::model::video_stream::H265CodecSettings::allow_open_gop].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_allow_open_gop(true);
+        /// ```
         pub fn set_allow_open_gop<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_open_gop = v.into();
             self
         }
 
         /// Sets the value of [enable_two_pass][crate::model::video_stream::H265CodecSettings::enable_two_pass].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_enable_two_pass(true);
+        /// ```
         pub fn set_enable_two_pass<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_two_pass = v.into();
             self
         }
 
         /// Sets the value of [vbv_size_bits][crate::model::video_stream::H265CodecSettings::vbv_size_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_vbv_size_bits(42);
+        /// ```
         pub fn set_vbv_size_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_size_bits = v.into();
             self
         }
 
         /// Sets the value of [vbv_fullness_bits][crate::model::video_stream::H265CodecSettings::vbv_fullness_bits].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_vbv_fullness_bits(42);
+        /// ```
         pub fn set_vbv_fullness_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.vbv_fullness_bits = v.into();
             self
         }
 
         /// Sets the value of [b_pyramid][crate::model::video_stream::H265CodecSettings::b_pyramid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_b_pyramid(true);
+        /// ```
         pub fn set_b_pyramid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.b_pyramid = v.into();
             self
         }
 
         /// Sets the value of [b_frame_count][crate::model::video_stream::H265CodecSettings::b_frame_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_b_frame_count(42);
+        /// ```
         pub fn set_b_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.b_frame_count = v.into();
             self
         }
 
         /// Sets the value of [aq_strength][crate::model::video_stream::H265CodecSettings::aq_strength].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_aq_strength(42.0);
+        /// ```
         pub fn set_aq_strength<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.aq_strength = v.into();
             self
         }
 
         /// Sets the value of [profile][crate::model::video_stream::H265CodecSettings::profile].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_profile("example");
+        /// ```
         pub fn set_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.profile = v.into();
             self
         }
 
         /// Sets the value of [tune][crate::model::video_stream::H265CodecSettings::tune].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_tune("example");
+        /// ```
         pub fn set_tune<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tune = v.into();
             self
         }
 
         /// Sets the value of [preset][crate::model::video_stream::H265CodecSettings::preset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_preset("example");
+        /// ```
         pub fn set_preset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.preset = v.into();
             self
@@ -4898,6 +6411,13 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::h_265_codec_settings::GopMode;
+        /// let x = H265CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
+        /// ```
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
@@ -4928,6 +6448,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// let x = H265CodecSettings::new().set_gop_frame_count(42);
+        /// assert!(x.gop_frame_count().is_some());
+        /// assert!(x.gop_duration().is_none());
+        /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
                 crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v.into()),
@@ -4953,6 +6481,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// use wkt::Duration;
+        /// let x = H265CodecSettings::new().set_gop_duration(Duration::default()/* use setters */);
+        /// assert!(x.gop_duration().is_some());
+        /// assert!(x.gop_frame_count().is_none());
+        /// ```
         pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
             mut self,
             v: T,
@@ -4967,6 +6504,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::H265ColorFormatSDR;
+        /// let x = H265CodecSettings::new().set_color_format(Some(
+        ///     google_cloud_video_transcoder_v1::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(H265ColorFormatSDR::default().into())));
+        /// ```
         pub fn set_color_format<
             T: std::convert::Into<
                     std::option::Option<
@@ -5002,6 +6547,16 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::H265ColorFormatSDR;
+        /// let x = H265CodecSettings::new().set_sdr(H265ColorFormatSDR::default()/* use setters */);
+        /// assert!(x.sdr().is_some());
+        /// assert!(x.hlg().is_none());
+        /// assert!(x.hdr10().is_none());
+        /// ```
         pub fn set_sdr<
             T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>>,
         >(
@@ -5035,6 +6590,16 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::H265ColorFormatHLG;
+        /// let x = H265CodecSettings::new().set_hlg(H265ColorFormatHLG::default()/* use setters */);
+        /// assert!(x.hlg().is_some());
+        /// assert!(x.sdr().is_none());
+        /// assert!(x.hdr10().is_none());
+        /// ```
         pub fn set_hlg<
             T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>>,
         >(
@@ -5068,6 +6633,16 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::H265ColorFormatHDR10;
+        /// let x = H265CodecSettings::new().set_hdr10(H265ColorFormatHDR10::default()/* use setters */);
+        /// assert!(x.hdr10().is_some());
+        /// assert!(x.sdr().is_none());
+        /// assert!(x.hlg().is_none());
+        /// ```
         pub fn set_hdr10<
             T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>>,
         >(
@@ -5253,24 +6828,50 @@ pub mod video_stream {
         }
 
         /// Sets the value of [width_pixels][crate::model::video_stream::Vp9CodecSettings::width_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_width_pixels(42);
+        /// ```
         pub fn set_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.width_pixels = v.into();
             self
         }
 
         /// Sets the value of [height_pixels][crate::model::video_stream::Vp9CodecSettings::height_pixels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_height_pixels(42);
+        /// ```
         pub fn set_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.height_pixels = v.into();
             self
         }
 
         /// Sets the value of [frame_rate][crate::model::video_stream::Vp9CodecSettings::frame_rate].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_frame_rate(42.0);
+        /// ```
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
             self
         }
 
         /// Sets the value of [frame_rate_conversion_strategy][crate::model::video_stream::Vp9CodecSettings::frame_rate_conversion_strategy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::FrameRateConversionStrategy;
+        /// let x0 = Vp9CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::Downsample);
+        /// let x1 = Vp9CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::DropDuplicate);
+        /// ```
         pub fn set_frame_rate_conversion_strategy<
             T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
         >(
@@ -5282,12 +6883,24 @@ pub mod video_stream {
         }
 
         /// Sets the value of [bitrate_bps][crate::model::video_stream::Vp9CodecSettings::bitrate_bps].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_bitrate_bps(42);
+        /// ```
         pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.bitrate_bps = v.into();
             self
         }
 
         /// Sets the value of [pixel_format][crate::model::video_stream::Vp9CodecSettings::pixel_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_pixel_format("example");
+        /// ```
         pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5297,6 +6910,12 @@ pub mod video_stream {
         }
 
         /// Sets the value of [rate_control_mode][crate::model::video_stream::Vp9CodecSettings::rate_control_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_rate_control_mode("example");
+        /// ```
         pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5306,12 +6925,24 @@ pub mod video_stream {
         }
 
         /// Sets the value of [crf_level][crate::model::video_stream::Vp9CodecSettings::crf_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_crf_level(42);
+        /// ```
         pub fn set_crf_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.crf_level = v.into();
             self
         }
 
         /// Sets the value of [profile][crate::model::video_stream::Vp9CodecSettings::profile].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_profile("example");
+        /// ```
         pub fn set_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.profile = v.into();
             self
@@ -5321,6 +6952,13 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::vp_9_codec_settings::GopMode;
+        /// let x = Vp9CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
+        /// ```
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
@@ -5351,6 +6989,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// let x = Vp9CodecSettings::new().set_gop_frame_count(42);
+        /// assert!(x.gop_frame_count().is_some());
+        /// assert!(x.gop_duration().is_none());
+        /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
                 crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v.into()),
@@ -5376,6 +7022,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `gop_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// use wkt::Duration;
+        /// let x = Vp9CodecSettings::new().set_gop_duration(Duration::default()/* use setters */);
+        /// assert!(x.gop_duration().is_some());
+        /// assert!(x.gop_frame_count().is_none());
+        /// ```
         pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
             mut self,
             v: T,
@@ -5390,6 +7045,14 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::Vp9ColorFormatSDR;
+        /// let x = Vp9CodecSettings::new().set_color_format(Some(
+        ///     google_cloud_video_transcoder_v1::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(Vp9ColorFormatSDR::default().into())));
+        /// ```
         pub fn set_color_format<
             T: std::convert::Into<
                     std::option::Option<
@@ -5425,6 +7088,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::Vp9ColorFormatSDR;
+        /// let x = Vp9CodecSettings::new().set_sdr(Vp9ColorFormatSDR::default()/* use setters */);
+        /// assert!(x.sdr().is_some());
+        /// assert!(x.hlg().is_none());
+        /// ```
         pub fn set_sdr<
             T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>>,
         >(
@@ -5458,6 +7130,15 @@ pub mod video_stream {
         ///
         /// Note that all the setters affecting `color_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
+        /// use google_cloud_video_transcoder_v1::model::video_stream::Vp9ColorFormatHLG;
+        /// let x = Vp9CodecSettings::new().set_hlg(Vp9ColorFormatHLG::default()/* use setters */);
+        /// assert!(x.hlg().is_some());
+        /// assert!(x.sdr().is_none());
+        /// ```
         pub fn set_hlg<
             T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>>,
         >(
@@ -5733,24 +7414,48 @@ impl AudioStream {
     }
 
     /// Sets the value of [codec][crate::model::AudioStream::codec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_codec("example");
+    /// ```
     pub fn set_codec<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.codec = v.into();
         self
     }
 
     /// Sets the value of [bitrate_bps][crate::model::AudioStream::bitrate_bps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_bitrate_bps(42);
+    /// ```
     pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.bitrate_bps = v.into();
         self
     }
 
     /// Sets the value of [channel_count][crate::model::AudioStream::channel_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_channel_count(42);
+    /// ```
     pub fn set_channel_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.channel_count = v.into();
         self
     }
 
     /// Sets the value of [channel_layout][crate::model::AudioStream::channel_layout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_channel_layout(["a", "b", "c"]);
+    /// ```
     pub fn set_channel_layout<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5762,6 +7467,17 @@ impl AudioStream {
     }
 
     /// Sets the value of [mapping][crate::model::AudioStream::mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// use google_cloud_video_transcoder_v1::model::audio_stream::AudioMapping;
+    /// let x = AudioStream::new()
+    ///     .set_mapping([
+    ///         AudioMapping::default()/* use setters */,
+    ///         AudioMapping::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mapping<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5773,18 +7489,36 @@ impl AudioStream {
     }
 
     /// Sets the value of [sample_rate_hertz][crate::model::AudioStream::sample_rate_hertz].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_sample_rate_hertz(42);
+    /// ```
     pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sample_rate_hertz = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::AudioStream::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::AudioStream::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::AudioStream;
+    /// let x = AudioStream::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -5849,36 +7583,72 @@ pub mod audio_stream {
         }
 
         /// Sets the value of [atom_key][crate::model::audio_stream::AudioMapping::atom_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_atom_key("example");
+        /// ```
         pub fn set_atom_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.atom_key = v.into();
             self
         }
 
         /// Sets the value of [input_key][crate::model::audio_stream::AudioMapping::input_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_input_key("example");
+        /// ```
         pub fn set_input_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.input_key = v.into();
             self
         }
 
         /// Sets the value of [input_track][crate::model::audio_stream::AudioMapping::input_track].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_input_track(42);
+        /// ```
         pub fn set_input_track<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.input_track = v.into();
             self
         }
 
         /// Sets the value of [input_channel][crate::model::audio_stream::AudioMapping::input_channel].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_input_channel(42);
+        /// ```
         pub fn set_input_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.input_channel = v.into();
             self
         }
 
         /// Sets the value of [output_channel][crate::model::audio_stream::AudioMapping::output_channel].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_output_channel(42);
+        /// ```
         pub fn set_output_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.output_channel = v.into();
             self
         }
 
         /// Sets the value of [gain_db][crate::model::audio_stream::AudioMapping::gain_db].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::audio_stream::AudioMapping;
+        /// let x = AudioMapping::new().set_gain_db(42.0);
+        /// ```
         pub fn set_gain_db<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.gain_db = v.into();
             self
@@ -5935,18 +7705,41 @@ impl TextStream {
     }
 
     /// Sets the value of [codec][crate::model::TextStream::codec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TextStream;
+    /// let x = TextStream::new().set_codec("example");
+    /// ```
     pub fn set_codec<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.codec = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::TextStream::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TextStream;
+    /// let x = TextStream::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [mapping][crate::model::TextStream::mapping].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TextStream;
+    /// use google_cloud_video_transcoder_v1::model::text_stream::TextMapping;
+    /// let x = TextStream::new()
+    ///     .set_mapping([
+    ///         TextMapping::default()/* use setters */,
+    ///         TextMapping::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mapping<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5958,6 +7751,12 @@ impl TextStream {
     }
 
     /// Sets the value of [display_name][crate::model::TextStream::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::TextStream;
+    /// let x = TextStream::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -6012,18 +7811,36 @@ pub mod text_stream {
         }
 
         /// Sets the value of [atom_key][crate::model::text_stream::TextMapping::atom_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::text_stream::TextMapping;
+        /// let x = TextMapping::new().set_atom_key("example");
+        /// ```
         pub fn set_atom_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.atom_key = v.into();
             self
         }
 
         /// Sets the value of [input_key][crate::model::text_stream::TextMapping::input_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::text_stream::TextMapping;
+        /// let x = TextMapping::new().set_input_key("example");
+        /// ```
         pub fn set_input_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.input_key = v.into();
             self
         }
 
         /// Sets the value of [input_track][crate::model::text_stream::TextMapping::input_track].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::text_stream::TextMapping;
+        /// let x = TextMapping::new().set_input_track(42);
+        /// ```
         pub fn set_input_track<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.input_track = v.into();
             self
@@ -6059,6 +7876,13 @@ impl SegmentSettings {
     }
 
     /// Sets the value of [segment_duration][crate::model::SegmentSettings::segment_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SegmentSettings;
+    /// use wkt::Duration;
+    /// let x = SegmentSettings::new().set_segment_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_segment_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6068,6 +7892,14 @@ impl SegmentSettings {
     }
 
     /// Sets or clears the value of [segment_duration][crate::model::SegmentSettings::segment_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SegmentSettings;
+    /// use wkt::Duration;
+    /// let x = SegmentSettings::new().set_or_clear_segment_duration(Some(Duration::default()/* use setters */));
+    /// let x = SegmentSettings::new().set_or_clear_segment_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_segment_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6077,6 +7909,12 @@ impl SegmentSettings {
     }
 
     /// Sets the value of [individual_segments][crate::model::SegmentSettings::individual_segments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::SegmentSettings;
+    /// let x = SegmentSettings::new().set_individual_segments(true);
+    /// ```
     pub fn set_individual_segments<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.individual_segments = v.into();
         self
@@ -6115,12 +7953,25 @@ impl Encryption {
     }
 
     /// Sets the value of [id][crate::model::Encryption::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// let x = Encryption::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [drm_systems][crate::model::Encryption::drm_systems].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+    /// let x = Encryption::new().set_drm_systems(DrmSystems::default()/* use setters */);
+    /// ```
     pub fn set_drm_systems<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::encryption::DrmSystems>,
@@ -6130,6 +7981,14 @@ impl Encryption {
     }
 
     /// Sets or clears the value of [drm_systems][crate::model::Encryption::drm_systems].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+    /// let x = Encryption::new().set_or_clear_drm_systems(Some(DrmSystems::default()/* use setters */));
+    /// let x = Encryption::new().set_or_clear_drm_systems(None::<DrmSystems>);
+    /// ```
     pub fn set_or_clear_drm_systems<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::encryption::DrmSystems>,
@@ -6142,6 +8001,14 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::Aes128Encryption;
+    /// let x = Encryption::new().set_encryption_mode(Some(
+    ///     google_cloud_video_transcoder_v1::model::encryption::EncryptionMode::Aes128(Aes128Encryption::default().into())));
+    /// ```
     pub fn set_encryption_mode<
         T: std::convert::Into<std::option::Option<crate::model::encryption::EncryptionMode>>,
     >(
@@ -6170,6 +8037,16 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::Aes128Encryption;
+    /// let x = Encryption::new().set_aes_128(Aes128Encryption::default()/* use setters */);
+    /// assert!(x.aes_128().is_some());
+    /// assert!(x.sample_aes().is_none());
+    /// assert!(x.mpeg_cenc().is_none());
+    /// ```
     pub fn set_aes_128<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::Aes128Encryption>>,
     >(
@@ -6199,6 +8076,16 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::SampleAesEncryption;
+    /// let x = Encryption::new().set_sample_aes(SampleAesEncryption::default()/* use setters */);
+    /// assert!(x.sample_aes().is_some());
+    /// assert!(x.aes_128().is_none());
+    /// assert!(x.mpeg_cenc().is_none());
+    /// ```
     pub fn set_sample_aes<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::SampleAesEncryption>>,
     >(
@@ -6229,6 +8116,16 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `encryption_mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::MpegCommonEncryption;
+    /// let x = Encryption::new().set_mpeg_cenc(MpegCommonEncryption::default()/* use setters */);
+    /// assert!(x.mpeg_cenc().is_some());
+    /// assert!(x.aes_128().is_none());
+    /// assert!(x.sample_aes().is_none());
+    /// ```
     pub fn set_mpeg_cenc<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::MpegCommonEncryption>>,
     >(
@@ -6244,6 +8141,14 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `secret_source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::SecretManagerSource;
+    /// let x = Encryption::new().set_secret_source(Some(
+    ///     google_cloud_video_transcoder_v1::model::encryption::SecretSource::SecretManagerKeySource(SecretManagerSource::default().into())));
+    /// ```
     pub fn set_secret_source<
         T: std::convert::Into<std::option::Option<crate::model::encryption::SecretSource>>,
     >(
@@ -6274,6 +8179,14 @@ impl Encryption {
     ///
     /// Note that all the setters affecting `secret_source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::Encryption;
+    /// use google_cloud_video_transcoder_v1::model::encryption::SecretManagerSource;
+    /// let x = Encryption::new().set_secret_manager_key_source(SecretManagerSource::default()/* use setters */);
+    /// assert!(x.secret_manager_key_source().is_some());
+    /// ```
     pub fn set_secret_manager_key_source<
         T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>,
     >(
@@ -6357,6 +8270,12 @@ pub mod encryption {
         }
 
         /// Sets the value of [scheme][crate::model::encryption::MpegCommonEncryption::scheme].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::MpegCommonEncryption;
+        /// let x = MpegCommonEncryption::new().set_scheme("example");
+        /// ```
         pub fn set_scheme<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.scheme = v.into();
             self
@@ -6390,6 +8309,12 @@ pub mod encryption {
         }
 
         /// Sets the value of [secret_version][crate::model::encryption::SecretManagerSource::secret_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::SecretManagerSource;
+        /// let x = SecretManagerSource::new().set_secret_version("example");
+        /// ```
         pub fn set_secret_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6506,6 +8431,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [widevine][crate::model::encryption::DrmSystems::widevine].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Widevine;
+        /// let x = DrmSystems::new().set_widevine(Widevine::default()/* use setters */);
+        /// ```
         pub fn set_widevine<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Widevine>,
@@ -6515,6 +8447,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [widevine][crate::model::encryption::DrmSystems::widevine].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Widevine;
+        /// let x = DrmSystems::new().set_or_clear_widevine(Some(Widevine::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_widevine(None::<Widevine>);
+        /// ```
         pub fn set_or_clear_widevine<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Widevine>,
@@ -6524,6 +8464,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [fairplay][crate::model::encryption::DrmSystems::fairplay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Fairplay;
+        /// let x = DrmSystems::new().set_fairplay(Fairplay::default()/* use setters */);
+        /// ```
         pub fn set_fairplay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Fairplay>,
@@ -6533,6 +8480,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [fairplay][crate::model::encryption::DrmSystems::fairplay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Fairplay;
+        /// let x = DrmSystems::new().set_or_clear_fairplay(Some(Fairplay::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_fairplay(None::<Fairplay>);
+        /// ```
         pub fn set_or_clear_fairplay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Fairplay>,
@@ -6542,6 +8497,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [playready][crate::model::encryption::DrmSystems::playready].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Playready;
+        /// let x = DrmSystems::new().set_playready(Playready::default()/* use setters */);
+        /// ```
         pub fn set_playready<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Playready>,
@@ -6551,6 +8513,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [playready][crate::model::encryption::DrmSystems::playready].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Playready;
+        /// let x = DrmSystems::new().set_or_clear_playready(Some(Playready::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_playready(None::<Playready>);
+        /// ```
         pub fn set_or_clear_playready<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Playready>,
@@ -6560,6 +8530,13 @@ pub mod encryption {
         }
 
         /// Sets the value of [clearkey][crate::model::encryption::DrmSystems::clearkey].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Clearkey;
+        /// let x = DrmSystems::new().set_clearkey(Clearkey::default()/* use setters */);
+        /// ```
         pub fn set_clearkey<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Clearkey>,
@@ -6569,6 +8546,14 @@ pub mod encryption {
         }
 
         /// Sets or clears the value of [clearkey][crate::model::encryption::DrmSystems::clearkey].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_video_transcoder_v1::model::encryption::DrmSystems;
+        /// use google_cloud_video_transcoder_v1::model::encryption::Clearkey;
+        /// let x = DrmSystems::new().set_or_clear_clearkey(Some(Clearkey::default()/* use setters */));
+        /// let x = DrmSystems::new().set_or_clear_clearkey(None::<Clearkey>);
+        /// ```
         pub fn set_or_clear_clearkey<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Clearkey>,
@@ -6625,12 +8610,25 @@ impl CreateJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::CreateJobRequest;
+    /// use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = CreateJobRequest::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -6640,6 +8638,14 @@ impl CreateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::CreateJobRequest;
+    /// use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = CreateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = CreateJobRequest::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -6687,30 +8693,60 @@ impl ListJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6740,6 +8776,12 @@ impl GetJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::GetJobRequest;
+    /// let x = GetJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6773,12 +8815,24 @@ impl DeleteJobRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteJobRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -6813,6 +8867,17 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsResponse;
+    /// use google_cloud_video_transcoder_v1::model::Job;
+    /// let x = ListJobsResponse::new()
+    ///     .set_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6824,12 +8889,24 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsResponse;
+    /// let x = ListJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListJobsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobsResponse;
+    /// let x = ListJobsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6888,12 +8965,25 @@ impl CreateJobTemplateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateJobTemplateRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::CreateJobTemplateRequest;
+    /// let x = CreateJobTemplateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::CreateJobTemplateRequest;
+    /// use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// let x = CreateJobTemplateRequest::new().set_job_template(JobTemplate::default()/* use setters */);
+    /// ```
     pub fn set_job_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::JobTemplate>,
@@ -6903,6 +8993,14 @@ impl CreateJobTemplateRequest {
     }
 
     /// Sets or clears the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::CreateJobTemplateRequest;
+    /// use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// let x = CreateJobTemplateRequest::new().set_or_clear_job_template(Some(JobTemplate::default()/* use setters */));
+    /// let x = CreateJobTemplateRequest::new().set_or_clear_job_template(None::<JobTemplate>);
+    /// ```
     pub fn set_or_clear_job_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobTemplate>,
@@ -6912,6 +9010,12 @@ impl CreateJobTemplateRequest {
     }
 
     /// Sets the value of [job_template_id][crate::model::CreateJobTemplateRequest::job_template_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::CreateJobTemplateRequest;
+    /// let x = CreateJobTemplateRequest::new().set_job_template_id("example");
+    /// ```
     pub fn set_job_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_template_id = v.into();
         self
@@ -6956,30 +9060,60 @@ impl ListJobTemplatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesRequest;
+    /// let x = ListJobTemplatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesRequest;
+    /// let x = ListJobTemplatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesRequest;
+    /// let x = ListJobTemplatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListJobTemplatesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesRequest;
+    /// let x = ListJobTemplatesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListJobTemplatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesRequest;
+    /// let x = ListJobTemplatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7010,6 +9144,12 @@ impl GetJobTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::GetJobTemplateRequest;
+    /// let x = GetJobTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7043,12 +9183,24 @@ impl DeleteJobTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteJobTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::DeleteJobTemplateRequest;
+    /// let x = DeleteJobTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteJobTemplateRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::DeleteJobTemplateRequest;
+    /// let x = DeleteJobTemplateRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -7083,6 +9235,17 @@ impl ListJobTemplatesResponse {
     }
 
     /// Sets the value of [job_templates][crate::model::ListJobTemplatesResponse::job_templates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesResponse;
+    /// use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// let x = ListJobTemplatesResponse::new()
+    ///     .set_job_templates([
+    ///         JobTemplate::default()/* use setters */,
+    ///         JobTemplate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_job_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7094,12 +9257,24 @@ impl ListJobTemplatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesResponse;
+    /// let x = ListJobTemplatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListJobTemplatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::model::ListJobTemplatesResponse;
+    /// let x = ListJobTemplatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

@@ -100,24 +100,49 @@ impl Event {
     }
 
     /// Sets the value of [name][crate::model::Event::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// let x = Event::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::Event::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// let x = Event::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Event::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// let x = Event::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::Event::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use google_cloud_servicehealth_v1::model::event::EventCategory;
+    /// let x0 = Event::new().set_category(EventCategory::Incident);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::event::EventCategory>>(
         mut self,
         v: T,
@@ -127,6 +152,14 @@ impl Event {
     }
 
     /// Sets the value of [detailed_category][crate::model::Event::detailed_category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use google_cloud_servicehealth_v1::model::event::DetailedCategory;
+    /// let x0 = Event::new().set_detailed_category(DetailedCategory::ConfirmedIncident);
+    /// let x1 = Event::new().set_detailed_category(DetailedCategory::EmergingIncident);
+    /// ```
     pub fn set_detailed_category<T: std::convert::Into<crate::model::event::DetailedCategory>>(
         mut self,
         v: T,
@@ -136,12 +169,29 @@ impl Event {
     }
 
     /// Sets the value of [state][crate::model::Event::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use google_cloud_servicehealth_v1::model::event::State;
+    /// let x0 = Event::new().set_state(State::Active);
+    /// let x1 = Event::new().set_state(State::Closed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::event::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [detailed_state][crate::model::Event::detailed_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use google_cloud_servicehealth_v1::model::event::DetailedState;
+    /// let x0 = Event::new().set_detailed_state(DetailedState::Emerging);
+    /// let x1 = Event::new().set_detailed_state(DetailedState::Confirmed);
+    /// let x2 = Event::new().set_detailed_state(DetailedState::Resolved);
+    /// ```
     pub fn set_detailed_state<T: std::convert::Into<crate::model::event::DetailedState>>(
         mut self,
         v: T,
@@ -151,6 +201,17 @@ impl Event {
     }
 
     /// Sets the value of [event_impacts][crate::model::Event::event_impacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use google_cloud_servicehealth_v1::model::EventImpact;
+    /// let x = Event::new()
+    ///     .set_event_impacts([
+    ///         EventImpact::default()/* use setters */,
+    ///         EventImpact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -162,6 +223,15 @@ impl Event {
     }
 
     /// Sets the value of [relevance][crate::model::Event::relevance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use google_cloud_servicehealth_v1::model::event::Relevance;
+    /// let x0 = Event::new().set_relevance(Relevance::Unknown);
+    /// let x1 = Event::new().set_relevance(Relevance::NotImpacted);
+    /// let x2 = Event::new().set_relevance(Relevance::PartiallyRelated);
+    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::event::Relevance>>(
         mut self,
         v: T,
@@ -171,6 +241,17 @@ impl Event {
     }
 
     /// Sets the value of [updates][crate::model::Event::updates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// let x = Event::new()
+    ///     .set_updates([
+    ///         EventUpdate::default()/* use setters */,
+    ///         EventUpdate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_updates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -182,12 +263,25 @@ impl Event {
     }
 
     /// Sets the value of [parent_event][crate::model::Event::parent_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// let x = Event::new().set_parent_event("example");
+    /// ```
     pub fn set_parent_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_event = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::Event::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -197,6 +291,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Event::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -206,6 +308,13 @@ impl Event {
     }
 
     /// Sets the value of [start_time][crate::model::Event::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -215,6 +324,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Event::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -224,6 +341,13 @@ impl Event {
     }
 
     /// Sets the value of [end_time][crate::model::Event::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -233,6 +357,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Event::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -242,6 +374,13 @@ impl Event {
     }
 
     /// Sets the value of [next_update_time][crate::model::Event::next_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_next_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_next_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -251,6 +390,14 @@ impl Event {
     }
 
     /// Sets or clears the value of [next_update_time][crate::model::Event::next_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Event;
+    /// use wkt::Timestamp;
+    /// let x = Event::new().set_or_clear_next_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_next_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1068,24 +1215,49 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [name][crate::model::OrganizationEvent::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// let x = OrganizationEvent::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::OrganizationEvent::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// let x = OrganizationEvent::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::OrganizationEvent::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// let x = OrganizationEvent::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::OrganizationEvent::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use google_cloud_servicehealth_v1::model::organization_event::EventCategory;
+    /// let x0 = OrganizationEvent::new().set_category(EventCategory::Incident);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::organization_event::EventCategory>>(
         mut self,
         v: T,
@@ -1095,6 +1267,14 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [detailed_category][crate::model::OrganizationEvent::detailed_category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use google_cloud_servicehealth_v1::model::organization_event::DetailedCategory;
+    /// let x0 = OrganizationEvent::new().set_detailed_category(DetailedCategory::ConfirmedIncident);
+    /// let x1 = OrganizationEvent::new().set_detailed_category(DetailedCategory::EmergingIncident);
+    /// ```
     pub fn set_detailed_category<
         T: std::convert::Into<crate::model::organization_event::DetailedCategory>,
     >(
@@ -1106,6 +1286,14 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [state][crate::model::OrganizationEvent::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use google_cloud_servicehealth_v1::model::organization_event::State;
+    /// let x0 = OrganizationEvent::new().set_state(State::Active);
+    /// let x1 = OrganizationEvent::new().set_state(State::Closed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::organization_event::State>>(
         mut self,
         v: T,
@@ -1115,6 +1303,15 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [detailed_state][crate::model::OrganizationEvent::detailed_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use google_cloud_servicehealth_v1::model::organization_event::DetailedState;
+    /// let x0 = OrganizationEvent::new().set_detailed_state(DetailedState::Emerging);
+    /// let x1 = OrganizationEvent::new().set_detailed_state(DetailedState::Confirmed);
+    /// let x2 = OrganizationEvent::new().set_detailed_state(DetailedState::Resolved);
+    /// ```
     pub fn set_detailed_state<
         T: std::convert::Into<crate::model::organization_event::DetailedState>,
     >(
@@ -1126,6 +1323,17 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [event_impacts][crate::model::OrganizationEvent::event_impacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use google_cloud_servicehealth_v1::model::EventImpact;
+    /// let x = OrganizationEvent::new()
+    ///     .set_event_impacts([
+    ///         EventImpact::default()/* use setters */,
+    ///         EventImpact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1137,6 +1345,17 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [updates][crate::model::OrganizationEvent::updates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// let x = OrganizationEvent::new()
+    ///     .set_updates([
+    ///         EventUpdate::default()/* use setters */,
+    ///         EventUpdate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_updates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1148,12 +1367,25 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [parent_event][crate::model::OrganizationEvent::parent_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// let x = OrganizationEvent::new().set_parent_event("example");
+    /// ```
     pub fn set_parent_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_event = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::OrganizationEvent::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1163,6 +1395,14 @@ impl OrganizationEvent {
     }
 
     /// Sets or clears the value of [update_time][crate::model::OrganizationEvent::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OrganizationEvent::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1172,6 +1412,13 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [start_time][crate::model::OrganizationEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1181,6 +1428,14 @@ impl OrganizationEvent {
     }
 
     /// Sets or clears the value of [start_time][crate::model::OrganizationEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OrganizationEvent::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1190,6 +1445,13 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [end_time][crate::model::OrganizationEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1199,6 +1461,14 @@ impl OrganizationEvent {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OrganizationEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OrganizationEvent::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1208,6 +1478,13 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [next_update_time][crate::model::OrganizationEvent::next_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_next_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_next_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1217,6 +1494,14 @@ impl OrganizationEvent {
     }
 
     /// Sets or clears the value of [next_update_time][crate::model::OrganizationEvent::next_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationEvent::new().set_or_clear_next_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OrganizationEvent::new().set_or_clear_next_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1836,6 +2121,13 @@ impl EventUpdate {
     }
 
     /// Sets the value of [update_time][crate::model::EventUpdate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// use wkt::Timestamp;
+    /// let x = EventUpdate::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1845,6 +2137,14 @@ impl EventUpdate {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EventUpdate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// use wkt::Timestamp;
+    /// let x = EventUpdate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EventUpdate::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1854,24 +2154,48 @@ impl EventUpdate {
     }
 
     /// Sets the value of [title][crate::model::EventUpdate::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// let x = EventUpdate::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::EventUpdate::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// let x = EventUpdate::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [symptom][crate::model::EventUpdate::symptom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// let x = EventUpdate::new().set_symptom("example");
+    /// ```
     pub fn set_symptom<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.symptom = v.into();
         self
     }
 
     /// Sets the value of [workaround][crate::model::EventUpdate::workaround].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventUpdate;
+    /// let x = EventUpdate::new().set_workaround("example");
+    /// ```
     pub fn set_workaround<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workaround = v.into();
         self
@@ -1900,6 +2224,12 @@ impl Location {
     }
 
     /// Sets the value of [location_name][crate::model::Location::location_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Location;
+    /// let x = Location::new().set_location_name("example");
+    /// ```
     pub fn set_location_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_name = v.into();
         self
@@ -1931,12 +2261,24 @@ impl Product {
     }
 
     /// Sets the value of [product_name][crate::model::Product::product_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Product;
+    /// let x = Product::new().set_product_name("example");
+    /// ```
     pub fn set_product_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Product::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Product;
+    /// let x = Product::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -1968,6 +2310,13 @@ impl EventImpact {
     }
 
     /// Sets the value of [product][crate::model::EventImpact::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventImpact;
+    /// use google_cloud_servicehealth_v1::model::Product;
+    /// let x = EventImpact::new().set_product(Product::default()/* use setters */);
+    /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -1977,6 +2326,14 @@ impl EventImpact {
     }
 
     /// Sets or clears the value of [product][crate::model::EventImpact::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventImpact;
+    /// use google_cloud_servicehealth_v1::model::Product;
+    /// let x = EventImpact::new().set_or_clear_product(Some(Product::default()/* use setters */));
+    /// let x = EventImpact::new().set_or_clear_product(None::<Product>);
+    /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -1986,6 +2343,13 @@ impl EventImpact {
     }
 
     /// Sets the value of [location][crate::model::EventImpact::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventImpact;
+    /// use google_cloud_servicehealth_v1::model::Location;
+    /// let x = EventImpact::new().set_location(Location::default()/* use setters */);
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Location>,
@@ -1995,6 +2359,14 @@ impl EventImpact {
     }
 
     /// Sets or clears the value of [location][crate::model::EventImpact::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::EventImpact;
+    /// use google_cloud_servicehealth_v1::model::Location;
+    /// let x = EventImpact::new().set_or_clear_location(Some(Location::default()/* use setters */));
+    /// let x = EventImpact::new().set_or_clear_location(None::<Location>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Location>,
@@ -2045,12 +2417,24 @@ impl OrganizationImpact {
     }
 
     /// Sets the value of [name][crate::model::OrganizationImpact::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationImpact;
+    /// let x = OrganizationImpact::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [events][crate::model::OrganizationImpact::events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationImpact;
+    /// let x = OrganizationImpact::new().set_events(["a", "b", "c"]);
+    /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2062,6 +2446,13 @@ impl OrganizationImpact {
     }
 
     /// Sets the value of [asset][crate::model::OrganizationImpact::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationImpact;
+    /// use google_cloud_servicehealth_v1::model::Asset;
+    /// let x = OrganizationImpact::new().set_asset(Asset::default()/* use setters */);
+    /// ```
     pub fn set_asset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -2071,6 +2462,14 @@ impl OrganizationImpact {
     }
 
     /// Sets or clears the value of [asset][crate::model::OrganizationImpact::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationImpact;
+    /// use google_cloud_servicehealth_v1::model::Asset;
+    /// let x = OrganizationImpact::new().set_or_clear_asset(Some(Asset::default()/* use setters */));
+    /// let x = OrganizationImpact::new().set_or_clear_asset(None::<Asset>);
+    /// ```
     pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -2080,6 +2479,13 @@ impl OrganizationImpact {
     }
 
     /// Sets the value of [update_time][crate::model::OrganizationImpact::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationImpact;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationImpact::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2089,6 +2495,14 @@ impl OrganizationImpact {
     }
 
     /// Sets or clears the value of [update_time][crate::model::OrganizationImpact::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::OrganizationImpact;
+    /// use wkt::Timestamp;
+    /// let x = OrganizationImpact::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OrganizationImpact::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2126,12 +2540,24 @@ impl Asset {
     }
 
     /// Sets the value of [asset_name][crate::model::Asset::asset_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Asset;
+    /// let x = Asset::new().set_asset_name("example");
+    /// ```
     pub fn set_asset_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_name = v.into();
         self
     }
 
     /// Sets the value of [asset_type][crate::model::Asset::asset_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::Asset;
+    /// let x = Asset::new().set_asset_type("example");
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
@@ -2202,30 +2628,62 @@ impl ListEventsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEventsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEventsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEventsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsRequest;
+    /// let x = ListEventsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListEventsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsRequest;
+    /// use google_cloud_servicehealth_v1::model::EventView;
+    /// let x0 = ListEventsRequest::new().set_view(EventView::Basic);
+    /// let x1 = ListEventsRequest::new().set_view(EventView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::EventView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -2264,6 +2722,17 @@ impl ListEventsResponse {
     }
 
     /// Sets the value of [events][crate::model::ListEventsResponse::events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsResponse;
+    /// use google_cloud_servicehealth_v1::model::Event;
+    /// let x = ListEventsResponse::new()
+    ///     .set_events([
+    ///         Event::default()/* use setters */,
+    ///         Event::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2275,12 +2744,24 @@ impl ListEventsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsResponse;
+    /// let x = ListEventsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEventsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListEventsResponse;
+    /// let x = ListEventsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2334,6 +2815,12 @@ impl GetEventRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEventRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::GetEventRequest;
+    /// let x = GetEventRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2408,30 +2895,62 @@ impl ListOrganizationEventsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOrganizationEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsRequest;
+    /// let x = ListOrganizationEventsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOrganizationEventsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsRequest;
+    /// let x = ListOrganizationEventsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOrganizationEventsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsRequest;
+    /// let x = ListOrganizationEventsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOrganizationEventsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsRequest;
+    /// let x = ListOrganizationEventsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListOrganizationEventsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsRequest;
+    /// use google_cloud_servicehealth_v1::model::OrganizationEventView;
+    /// let x0 = ListOrganizationEventsRequest::new().set_view(OrganizationEventView::Basic);
+    /// let x1 = ListOrganizationEventsRequest::new().set_view(OrganizationEventView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::OrganizationEventView>>(
         mut self,
         v: T,
@@ -2473,6 +2992,17 @@ impl ListOrganizationEventsResponse {
     }
 
     /// Sets the value of [organization_events][crate::model::ListOrganizationEventsResponse::organization_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsResponse;
+    /// use google_cloud_servicehealth_v1::model::OrganizationEvent;
+    /// let x = ListOrganizationEventsResponse::new()
+    ///     .set_organization_events([
+    ///         OrganizationEvent::default()/* use setters */,
+    ///         OrganizationEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_organization_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2484,12 +3014,24 @@ impl ListOrganizationEventsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOrganizationEventsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsResponse;
+    /// let x = ListOrganizationEventsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListOrganizationEventsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationEventsResponse;
+    /// let x = ListOrganizationEventsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2545,6 +3087,12 @@ impl GetOrganizationEventRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOrganizationEventRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::GetOrganizationEventRequest;
+    /// let x = GetOrganizationEventRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2616,24 +3164,48 @@ impl ListOrganizationImpactsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOrganizationImpactsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsRequest;
+    /// let x = ListOrganizationImpactsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOrganizationImpactsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsRequest;
+    /// let x = ListOrganizationImpactsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOrganizationImpactsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsRequest;
+    /// let x = ListOrganizationImpactsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOrganizationImpactsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsRequest;
+    /// let x = ListOrganizationImpactsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2675,6 +3247,17 @@ impl ListOrganizationImpactsResponse {
     }
 
     /// Sets the value of [organization_impacts][crate::model::ListOrganizationImpactsResponse::organization_impacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsResponse;
+    /// use google_cloud_servicehealth_v1::model::OrganizationImpact;
+    /// let x = ListOrganizationImpactsResponse::new()
+    ///     .set_organization_impacts([
+    ///         OrganizationImpact::default()/* use setters */,
+    ///         OrganizationImpact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_organization_impacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2686,12 +3269,24 @@ impl ListOrganizationImpactsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOrganizationImpactsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsResponse;
+    /// let x = ListOrganizationImpactsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListOrganizationImpactsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::ListOrganizationImpactsResponse;
+    /// let x = ListOrganizationImpactsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2747,6 +3342,12 @@ impl GetOrganizationImpactRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOrganizationImpactRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::model::GetOrganizationImpactRequest;
+    /// let x = GetOrganizationImpactRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

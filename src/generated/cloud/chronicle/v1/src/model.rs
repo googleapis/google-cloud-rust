@@ -63,12 +63,25 @@ impl CreateDataAccessLabelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataAccessLabelRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessLabelRequest;
+    /// let x = CreateDataAccessLabelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_access_label][crate::model::CreateDataAccessLabelRequest::data_access_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessLabelRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = CreateDataAccessLabelRequest::new().set_data_access_label(DataAccessLabel::default()/* use setters */);
+    /// ```
     pub fn set_data_access_label<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessLabel>,
@@ -78,6 +91,14 @@ impl CreateDataAccessLabelRequest {
     }
 
     /// Sets or clears the value of [data_access_label][crate::model::CreateDataAccessLabelRequest::data_access_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessLabelRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = CreateDataAccessLabelRequest::new().set_or_clear_data_access_label(Some(DataAccessLabel::default()/* use setters */));
+    /// let x = CreateDataAccessLabelRequest::new().set_or_clear_data_access_label(None::<DataAccessLabel>);
+    /// ```
     pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessLabel>,
@@ -87,6 +108,12 @@ impl CreateDataAccessLabelRequest {
     }
 
     /// Sets the value of [data_access_label_id][crate::model::CreateDataAccessLabelRequest::data_access_label_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessLabelRequest;
+    /// let x = CreateDataAccessLabelRequest::new().set_data_access_label_id("example");
+    /// ```
     pub fn set_data_access_label_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -120,6 +147,12 @@ impl GetDataAccessLabelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataAccessLabelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetDataAccessLabelRequest;
+    /// let x = GetDataAccessLabelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -166,24 +199,48 @@ impl ListDataAccessLabelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataAccessLabelsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessLabelsRequest;
+    /// let x = ListDataAccessLabelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataAccessLabelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessLabelsRequest;
+    /// let x = ListDataAccessLabelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataAccessLabelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessLabelsRequest;
+    /// let x = ListDataAccessLabelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataAccessLabelsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessLabelsRequest;
+    /// let x = ListDataAccessLabelsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -216,6 +273,17 @@ impl ListDataAccessLabelsResponse {
     }
 
     /// Sets the value of [data_access_labels][crate::model::ListDataAccessLabelsResponse::data_access_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessLabelsResponse;
+    /// use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = ListDataAccessLabelsResponse::new()
+    ///     .set_data_access_labels([
+    ///         DataAccessLabel::default()/* use setters */,
+    ///         DataAccessLabel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_access_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -227,6 +295,12 @@ impl ListDataAccessLabelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataAccessLabelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessLabelsResponse;
+    /// let x = ListDataAccessLabelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -279,6 +353,13 @@ impl UpdateDataAccessLabelRequest {
     }
 
     /// Sets the value of [data_access_label][crate::model::UpdateDataAccessLabelRequest::data_access_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessLabelRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = UpdateDataAccessLabelRequest::new().set_data_access_label(DataAccessLabel::default()/* use setters */);
+    /// ```
     pub fn set_data_access_label<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessLabel>,
@@ -288,6 +369,14 @@ impl UpdateDataAccessLabelRequest {
     }
 
     /// Sets or clears the value of [data_access_label][crate::model::UpdateDataAccessLabelRequest::data_access_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessLabelRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = UpdateDataAccessLabelRequest::new().set_or_clear_data_access_label(Some(DataAccessLabel::default()/* use setters */));
+    /// let x = UpdateDataAccessLabelRequest::new().set_or_clear_data_access_label(None::<DataAccessLabel>);
+    /// ```
     pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessLabel>,
@@ -297,6 +386,13 @@ impl UpdateDataAccessLabelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataAccessLabelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessLabelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAccessLabelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -306,6 +402,14 @@ impl UpdateDataAccessLabelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataAccessLabelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessLabelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAccessLabelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataAccessLabelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -339,6 +443,12 @@ impl DeleteDataAccessLabelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataAccessLabelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DeleteDataAccessLabelRequest;
+    /// let x = DeleteDataAccessLabelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -376,12 +486,25 @@ impl CreateDataAccessScopeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataAccessScopeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessScopeRequest;
+    /// let x = CreateDataAccessScopeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_access_scope][crate::model::CreateDataAccessScopeRequest::data_access_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessScopeRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = CreateDataAccessScopeRequest::new().set_data_access_scope(DataAccessScope::default()/* use setters */);
+    /// ```
     pub fn set_data_access_scope<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessScope>,
@@ -391,6 +514,14 @@ impl CreateDataAccessScopeRequest {
     }
 
     /// Sets or clears the value of [data_access_scope][crate::model::CreateDataAccessScopeRequest::data_access_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessScopeRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = CreateDataAccessScopeRequest::new().set_or_clear_data_access_scope(Some(DataAccessScope::default()/* use setters */));
+    /// let x = CreateDataAccessScopeRequest::new().set_or_clear_data_access_scope(None::<DataAccessScope>);
+    /// ```
     pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessScope>,
@@ -400,6 +531,12 @@ impl CreateDataAccessScopeRequest {
     }
 
     /// Sets the value of [data_access_scope_id][crate::model::CreateDataAccessScopeRequest::data_access_scope_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateDataAccessScopeRequest;
+    /// let x = CreateDataAccessScopeRequest::new().set_data_access_scope_id("example");
+    /// ```
     pub fn set_data_access_scope_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -433,6 +570,12 @@ impl GetDataAccessScopeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataAccessScopeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetDataAccessScopeRequest;
+    /// let x = GetDataAccessScopeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -479,24 +622,48 @@ impl ListDataAccessScopesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataAccessScopesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesRequest;
+    /// let x = ListDataAccessScopesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataAccessScopesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesRequest;
+    /// let x = ListDataAccessScopesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataAccessScopesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesRequest;
+    /// let x = ListDataAccessScopesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataAccessScopesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesRequest;
+    /// let x = ListDataAccessScopesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -532,6 +699,17 @@ impl ListDataAccessScopesResponse {
     }
 
     /// Sets the value of [data_access_scopes][crate::model::ListDataAccessScopesResponse::data_access_scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesResponse;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = ListDataAccessScopesResponse::new()
+    ///     .set_data_access_scopes([
+    ///         DataAccessScope::default()/* use setters */,
+    ///         DataAccessScope::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_access_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -543,6 +721,12 @@ impl ListDataAccessScopesResponse {
     }
 
     /// Sets the value of [global_data_access_scope_granted][crate::model::ListDataAccessScopesResponse::global_data_access_scope_granted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesResponse;
+    /// let x = ListDataAccessScopesResponse::new().set_global_data_access_scope_granted(true);
+    /// ```
     pub fn set_global_data_access_scope_granted<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -552,6 +736,13 @@ impl ListDataAccessScopesResponse {
     }
 
     /// Sets or clears the value of [global_data_access_scope_granted][crate::model::ListDataAccessScopesResponse::global_data_access_scope_granted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesResponse;
+    /// let x = ListDataAccessScopesResponse::new().set_or_clear_global_data_access_scope_granted(Some(false));
+    /// let x = ListDataAccessScopesResponse::new().set_or_clear_global_data_access_scope_granted(None::<bool>);
+    /// ```
     pub fn set_or_clear_global_data_access_scope_granted<T>(
         mut self,
         v: std::option::Option<T>,
@@ -564,6 +755,12 @@ impl ListDataAccessScopesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataAccessScopesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListDataAccessScopesResponse;
+    /// let x = ListDataAccessScopesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -617,6 +814,13 @@ impl UpdateDataAccessScopeRequest {
     }
 
     /// Sets the value of [data_access_scope][crate::model::UpdateDataAccessScopeRequest::data_access_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessScopeRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = UpdateDataAccessScopeRequest::new().set_data_access_scope(DataAccessScope::default()/* use setters */);
+    /// ```
     pub fn set_data_access_scope<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessScope>,
@@ -626,6 +830,14 @@ impl UpdateDataAccessScopeRequest {
     }
 
     /// Sets or clears the value of [data_access_scope][crate::model::UpdateDataAccessScopeRequest::data_access_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessScopeRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = UpdateDataAccessScopeRequest::new().set_or_clear_data_access_scope(Some(DataAccessScope::default()/* use setters */));
+    /// let x = UpdateDataAccessScopeRequest::new().set_or_clear_data_access_scope(None::<DataAccessScope>);
+    /// ```
     pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessScope>,
@@ -635,6 +847,13 @@ impl UpdateDataAccessScopeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataAccessScopeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessScopeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAccessScopeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -644,6 +863,14 @@ impl UpdateDataAccessScopeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataAccessScopeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateDataAccessScopeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAccessScopeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataAccessScopeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -677,6 +904,12 @@ impl DeleteDataAccessScopeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataAccessScopeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DeleteDataAccessScopeRequest;
+    /// let x = DeleteDataAccessScopeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -729,18 +962,37 @@ impl DataAccessLabel {
     }
 
     /// Sets the value of [name][crate::model::DataAccessLabel::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = DataAccessLabel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataAccessLabel::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = DataAccessLabel::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataAccessLabel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessLabel::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -750,6 +1002,14 @@ impl DataAccessLabel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataAccessLabel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessLabel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAccessLabel::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -759,6 +1019,13 @@ impl DataAccessLabel {
     }
 
     /// Sets the value of [update_time][crate::model::DataAccessLabel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessLabel::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -768,6 +1035,14 @@ impl DataAccessLabel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DataAccessLabel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessLabel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAccessLabel::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -777,18 +1052,36 @@ impl DataAccessLabel {
     }
 
     /// Sets the value of [author][crate::model::DataAccessLabel::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = DataAccessLabel::new().set_author("example");
+    /// ```
     pub fn set_author<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.author = v.into();
         self
     }
 
     /// Sets the value of [last_editor][crate::model::DataAccessLabel::last_editor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = DataAccessLabel::new().set_last_editor("example");
+    /// ```
     pub fn set_last_editor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_editor = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DataAccessLabel::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = DataAccessLabel::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -798,6 +1091,13 @@ impl DataAccessLabel {
     ///
     /// Note that all the setters affecting `definition` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// use google_cloud_chronicle_v1::model::data_access_label::Definition;
+    /// let x = DataAccessLabel::new().set_definition(Some(Definition::UdmQuery("example".to_string())));
+    /// ```
     pub fn set_definition<
         T: std::convert::Into<std::option::Option<crate::model::data_access_label::Definition>>,
     >(
@@ -826,6 +1126,13 @@ impl DataAccessLabel {
     ///
     /// Note that all the setters affecting `definition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabel;
+    /// let x = DataAccessLabel::new().set_udm_query("example");
+    /// assert!(x.udm_query().is_some());
+    /// ```
     pub fn set_udm_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.definition = std::option::Option::Some(
             crate::model::data_access_label::Definition::UdmQuery(v.into()),
@@ -919,12 +1226,29 @@ impl DataAccessScope {
     }
 
     /// Sets the value of [name][crate::model::DataAccessScope::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = DataAccessScope::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allowed_data_access_labels][crate::model::DataAccessScope::allowed_data_access_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// let x = DataAccessScope::new()
+    ///     .set_allowed_data_access_labels([
+    ///         DataAccessLabelReference::default()/* use setters */,
+    ///         DataAccessLabelReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_allowed_data_access_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -936,6 +1260,17 @@ impl DataAccessScope {
     }
 
     /// Sets the value of [denied_data_access_labels][crate::model::DataAccessScope::denied_data_access_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// let x = DataAccessScope::new()
+    ///     .set_denied_data_access_labels([
+    ///         DataAccessLabelReference::default()/* use setters */,
+    ///         DataAccessLabelReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_denied_data_access_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -947,12 +1282,25 @@ impl DataAccessScope {
     }
 
     /// Sets the value of [display_name][crate::model::DataAccessScope::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = DataAccessScope::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataAccessScope::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessScope::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -962,6 +1310,14 @@ impl DataAccessScope {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataAccessScope::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessScope::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAccessScope::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -971,6 +1327,13 @@ impl DataAccessScope {
     }
 
     /// Sets the value of [update_time][crate::model::DataAccessScope::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessScope::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -980,6 +1343,14 @@ impl DataAccessScope {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DataAccessScope::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// use wkt::Timestamp;
+    /// let x = DataAccessScope::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAccessScope::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -989,24 +1360,48 @@ impl DataAccessScope {
     }
 
     /// Sets the value of [author][crate::model::DataAccessScope::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = DataAccessScope::new().set_author("example");
+    /// ```
     pub fn set_author<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.author = v.into();
         self
     }
 
     /// Sets the value of [last_editor][crate::model::DataAccessScope::last_editor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = DataAccessScope::new().set_last_editor("example");
+    /// ```
     pub fn set_last_editor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_editor = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DataAccessScope::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = DataAccessScope::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [allow_all][crate::model::DataAccessScope::allow_all].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = DataAccessScope::new().set_allow_all(true);
+    /// ```
     pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all = v.into();
         self
@@ -1042,6 +1437,12 @@ impl DataAccessLabelReference {
     }
 
     /// Sets the value of [display_name][crate::model::DataAccessLabelReference::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// let x = DataAccessLabelReference::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -1051,6 +1452,13 @@ impl DataAccessLabelReference {
     ///
     /// Note that all the setters affecting `label` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// use google_cloud_chronicle_v1::model::data_access_label_reference::Label;
+    /// let x = DataAccessLabelReference::new().set_label(Some(Label::DataAccessLabel("example".to_string())));
+    /// ```
     pub fn set_label<
         T: std::convert::Into<std::option::Option<crate::model::data_access_label_reference::Label>>,
     >(
@@ -1079,6 +1487,16 @@ impl DataAccessLabelReference {
     ///
     /// Note that all the setters affecting `label` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// let x = DataAccessLabelReference::new().set_data_access_label("example");
+    /// assert!(x.data_access_label().is_some());
+    /// assert!(x.log_type().is_none());
+    /// assert!(x.asset_namespace().is_none());
+    /// assert!(x.ingestion_label().is_none());
+    /// ```
     pub fn set_data_access_label<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1107,6 +1525,16 @@ impl DataAccessLabelReference {
     ///
     /// Note that all the setters affecting `label` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// let x = DataAccessLabelReference::new().set_log_type("example");
+    /// assert!(x.log_type().is_some());
+    /// assert!(x.data_access_label().is_none());
+    /// assert!(x.asset_namespace().is_none());
+    /// assert!(x.ingestion_label().is_none());
+    /// ```
     pub fn set_log_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = std::option::Option::Some(
             crate::model::data_access_label_reference::Label::LogType(v.into()),
@@ -1132,6 +1560,16 @@ impl DataAccessLabelReference {
     ///
     /// Note that all the setters affecting `label` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// let x = DataAccessLabelReference::new().set_asset_namespace("example");
+    /// assert!(x.asset_namespace().is_some());
+    /// assert!(x.data_access_label().is_none());
+    /// assert!(x.log_type().is_none());
+    /// assert!(x.ingestion_label().is_none());
+    /// ```
     pub fn set_asset_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = std::option::Option::Some(
             crate::model::data_access_label_reference::Label::AssetNamespace(v.into()),
@@ -1159,6 +1597,17 @@ impl DataAccessLabelReference {
     ///
     /// Note that all the setters affecting `label` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DataAccessLabelReference;
+    /// use google_cloud_chronicle_v1::model::IngestionLabel;
+    /// let x = DataAccessLabelReference::new().set_ingestion_label(IngestionLabel::default()/* use setters */);
+    /// assert!(x.ingestion_label().is_some());
+    /// assert!(x.data_access_label().is_none());
+    /// assert!(x.log_type().is_none());
+    /// assert!(x.asset_namespace().is_none());
+    /// ```
     pub fn set_ingestion_label<
         T: std::convert::Into<std::boxed::Box<crate::model::IngestionLabel>>,
     >(
@@ -1220,6 +1669,12 @@ impl IngestionLabel {
     }
 
     /// Sets the value of [ingestion_label_key][crate::model::IngestionLabel::ingestion_label_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::IngestionLabel;
+    /// let x = IngestionLabel::new().set_ingestion_label_key("example");
+    /// ```
     pub fn set_ingestion_label_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1229,6 +1684,12 @@ impl IngestionLabel {
     }
 
     /// Sets the value of [ingestion_label_value][crate::model::IngestionLabel::ingestion_label_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::IngestionLabel;
+    /// let x = IngestionLabel::new().set_ingestion_label_value("example");
+    /// ```
     pub fn set_ingestion_label_value<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1292,30 +1753,61 @@ impl Watchlist {
     }
 
     /// Sets the value of [name][crate::model::Watchlist::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = Watchlist::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Watchlist::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = Watchlist::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Watchlist::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = Watchlist::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [multiplying_factor][crate::model::Watchlist::multiplying_factor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = Watchlist::new().set_multiplying_factor(42.0);
+    /// ```
     pub fn set_multiplying_factor<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.multiplying_factor = v.into();
         self
     }
 
     /// Sets the value of [entity_population_mechanism][crate::model::Watchlist::entity_population_mechanism].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use google_cloud_chronicle_v1::model::watchlist::EntityPopulationMechanism;
+    /// let x = Watchlist::new().set_entity_population_mechanism(EntityPopulationMechanism::default()/* use setters */);
+    /// ```
     pub fn set_entity_population_mechanism<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::watchlist::EntityPopulationMechanism>,
@@ -1325,6 +1817,14 @@ impl Watchlist {
     }
 
     /// Sets or clears the value of [entity_population_mechanism][crate::model::Watchlist::entity_population_mechanism].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use google_cloud_chronicle_v1::model::watchlist::EntityPopulationMechanism;
+    /// let x = Watchlist::new().set_or_clear_entity_population_mechanism(Some(EntityPopulationMechanism::default()/* use setters */));
+    /// let x = Watchlist::new().set_or_clear_entity_population_mechanism(None::<EntityPopulationMechanism>);
+    /// ```
     pub fn set_or_clear_entity_population_mechanism<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::watchlist::EntityPopulationMechanism>,
@@ -1334,6 +1834,13 @@ impl Watchlist {
     }
 
     /// Sets the value of [entity_count][crate::model::Watchlist::entity_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use google_cloud_chronicle_v1::model::watchlist::EntityCount;
+    /// let x = Watchlist::new().set_entity_count(EntityCount::default()/* use setters */);
+    /// ```
     pub fn set_entity_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::watchlist::EntityCount>,
@@ -1343,6 +1850,14 @@ impl Watchlist {
     }
 
     /// Sets or clears the value of [entity_count][crate::model::Watchlist::entity_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use google_cloud_chronicle_v1::model::watchlist::EntityCount;
+    /// let x = Watchlist::new().set_or_clear_entity_count(Some(EntityCount::default()/* use setters */));
+    /// let x = Watchlist::new().set_or_clear_entity_count(None::<EntityCount>);
+    /// ```
     pub fn set_or_clear_entity_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::watchlist::EntityCount>,
@@ -1352,6 +1867,13 @@ impl Watchlist {
     }
 
     /// Sets the value of [create_time][crate::model::Watchlist::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use wkt::Timestamp;
+    /// let x = Watchlist::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1361,6 +1883,14 @@ impl Watchlist {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Watchlist::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use wkt::Timestamp;
+    /// let x = Watchlist::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Watchlist::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1370,6 +1900,13 @@ impl Watchlist {
     }
 
     /// Sets the value of [update_time][crate::model::Watchlist::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use wkt::Timestamp;
+    /// let x = Watchlist::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1379,6 +1916,14 @@ impl Watchlist {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Watchlist::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use wkt::Timestamp;
+    /// let x = Watchlist::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Watchlist::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1388,6 +1933,13 @@ impl Watchlist {
     }
 
     /// Sets the value of [watchlist_user_preferences][crate::model::Watchlist::watchlist_user_preferences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use google_cloud_chronicle_v1::model::WatchlistUserPreferences;
+    /// let x = Watchlist::new().set_watchlist_user_preferences(WatchlistUserPreferences::default()/* use setters */);
+    /// ```
     pub fn set_watchlist_user_preferences<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WatchlistUserPreferences>,
@@ -1397,6 +1949,14 @@ impl Watchlist {
     }
 
     /// Sets or clears the value of [watchlist_user_preferences][crate::model::Watchlist::watchlist_user_preferences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Watchlist;
+    /// use google_cloud_chronicle_v1::model::WatchlistUserPreferences;
+    /// let x = Watchlist::new().set_or_clear_watchlist_user_preferences(Some(WatchlistUserPreferences::default()/* use setters */));
+    /// let x = Watchlist::new().set_or_clear_watchlist_user_preferences(None::<WatchlistUserPreferences>);
+    /// ```
     pub fn set_or_clear_watchlist_user_preferences<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WatchlistUserPreferences>,
@@ -1438,6 +1998,14 @@ pub mod watchlist {
         ///
         /// Note that all the setters affecting `mechanism` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_chronicle_v1::model::watchlist::EntityPopulationMechanism;
+        /// use google_cloud_chronicle_v1::model::watchlist::entity_population_mechanism::Manual;
+        /// let x = EntityPopulationMechanism::new().set_mechanism(Some(
+        ///     google_cloud_chronicle_v1::model::watchlist::entity_population_mechanism::Mechanism::Manual(Manual::default().into())));
+        /// ```
         pub fn set_mechanism<
             T: std::convert::Into<
                     std::option::Option<
@@ -1474,6 +2042,14 @@ pub mod watchlist {
         ///
         /// Note that all the setters affecting `mechanism` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_chronicle_v1::model::watchlist::EntityPopulationMechanism;
+        /// use google_cloud_chronicle_v1::model::watchlist::entity_population_mechanism::Manual;
+        /// let x = EntityPopulationMechanism::new().set_manual(Manual::default()/* use setters */);
+        /// assert!(x.manual().is_some());
+        /// ```
         pub fn set_manual<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::watchlist::entity_population_mechanism::Manual>,
@@ -1548,12 +2124,24 @@ pub mod watchlist {
         }
 
         /// Sets the value of [user][crate::model::watchlist::EntityCount::user].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_chronicle_v1::model::watchlist::EntityCount;
+        /// let x = EntityCount::new().set_user(42);
+        /// ```
         pub fn set_user<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.user = v.into();
             self
         }
 
         /// Sets the value of [asset][crate::model::watchlist::EntityCount::asset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_chronicle_v1::model::watchlist::EntityCount;
+        /// let x = EntityCount::new().set_asset(42);
+        /// ```
         pub fn set_asset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.asset = v.into();
             self
@@ -1583,6 +2171,12 @@ impl WatchlistUserPreferences {
     }
 
     /// Sets the value of [pinned][crate::model::WatchlistUserPreferences::pinned].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::WatchlistUserPreferences;
+    /// let x = WatchlistUserPreferences::new().set_pinned(true);
+    /// ```
     pub fn set_pinned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.pinned = v.into();
         self
@@ -1614,6 +2208,12 @@ impl GetWatchlistRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWatchlistRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetWatchlistRequest;
+    /// let x = GetWatchlistRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1665,24 +2265,48 @@ impl ListWatchlistsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWatchlistsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListWatchlistsRequest;
+    /// let x = ListWatchlistsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWatchlistsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListWatchlistsRequest;
+    /// let x = ListWatchlistsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWatchlistsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListWatchlistsRequest;
+    /// let x = ListWatchlistsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListWatchlistsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListWatchlistsRequest;
+    /// let x = ListWatchlistsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1715,6 +2339,17 @@ impl ListWatchlistsResponse {
     }
 
     /// Sets the value of [watchlists][crate::model::ListWatchlistsResponse::watchlists].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListWatchlistsResponse;
+    /// use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = ListWatchlistsResponse::new()
+    ///     .set_watchlists([
+    ///         Watchlist::default()/* use setters */,
+    ///         Watchlist::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_watchlists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1726,6 +2361,12 @@ impl ListWatchlistsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWatchlistsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListWatchlistsResponse;
+    /// let x = ListWatchlistsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1779,18 +2420,37 @@ impl CreateWatchlistRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWatchlistRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateWatchlistRequest;
+    /// let x = CreateWatchlistRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [watchlist_id][crate::model::CreateWatchlistRequest::watchlist_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateWatchlistRequest;
+    /// let x = CreateWatchlistRequest::new().set_watchlist_id("example");
+    /// ```
     pub fn set_watchlist_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.watchlist_id = v.into();
         self
     }
 
     /// Sets the value of [watchlist][crate::model::CreateWatchlistRequest::watchlist].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateWatchlistRequest;
+    /// use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = CreateWatchlistRequest::new().set_watchlist(Watchlist::default()/* use setters */);
+    /// ```
     pub fn set_watchlist<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Watchlist>,
@@ -1800,6 +2460,14 @@ impl CreateWatchlistRequest {
     }
 
     /// Sets or clears the value of [watchlist][crate::model::CreateWatchlistRequest::watchlist].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateWatchlistRequest;
+    /// use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = CreateWatchlistRequest::new().set_or_clear_watchlist(Some(Watchlist::default()/* use setters */));
+    /// let x = CreateWatchlistRequest::new().set_or_clear_watchlist(None::<Watchlist>);
+    /// ```
     pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Watchlist>,
@@ -1838,6 +2506,13 @@ impl UpdateWatchlistRequest {
     }
 
     /// Sets the value of [watchlist][crate::model::UpdateWatchlistRequest::watchlist].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateWatchlistRequest;
+    /// use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = UpdateWatchlistRequest::new().set_watchlist(Watchlist::default()/* use setters */);
+    /// ```
     pub fn set_watchlist<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Watchlist>,
@@ -1847,6 +2522,14 @@ impl UpdateWatchlistRequest {
     }
 
     /// Sets or clears the value of [watchlist][crate::model::UpdateWatchlistRequest::watchlist].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateWatchlistRequest;
+    /// use google_cloud_chronicle_v1::model::Watchlist;
+    /// let x = UpdateWatchlistRequest::new().set_or_clear_watchlist(Some(Watchlist::default()/* use setters */));
+    /// let x = UpdateWatchlistRequest::new().set_or_clear_watchlist(None::<Watchlist>);
+    /// ```
     pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Watchlist>,
@@ -1856,6 +2539,13 @@ impl UpdateWatchlistRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWatchlistRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateWatchlistRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWatchlistRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1865,6 +2555,14 @@ impl UpdateWatchlistRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWatchlistRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateWatchlistRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWatchlistRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateWatchlistRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1903,12 +2601,24 @@ impl DeleteWatchlistRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWatchlistRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DeleteWatchlistRequest;
+    /// let x = DeleteWatchlistRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteWatchlistRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DeleteWatchlistRequest;
+    /// let x = DeleteWatchlistRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -1938,6 +2648,12 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1968,6 +2684,12 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1997,6 +2719,13 @@ impl ScopeInfo {
     }
 
     /// Sets the value of [reference_list_scope][crate::model::ScopeInfo::reference_list_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ScopeInfo;
+    /// use google_cloud_chronicle_v1::model::ReferenceListScope;
+    /// let x = ScopeInfo::new().set_reference_list_scope(ReferenceListScope::default()/* use setters */);
+    /// ```
     pub fn set_reference_list_scope<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceListScope>,
@@ -2006,6 +2735,14 @@ impl ScopeInfo {
     }
 
     /// Sets or clears the value of [reference_list_scope][crate::model::ScopeInfo::reference_list_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ScopeInfo;
+    /// use google_cloud_chronicle_v1::model::ReferenceListScope;
+    /// let x = ScopeInfo::new().set_or_clear_reference_list_scope(Some(ReferenceListScope::default()/* use setters */));
+    /// let x = ScopeInfo::new().set_or_clear_reference_list_scope(None::<ReferenceListScope>);
+    /// ```
     pub fn set_or_clear_reference_list_scope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceListScope>,
@@ -2039,6 +2776,12 @@ impl ReferenceListScope {
     }
 
     /// Sets the value of [scope_names][crate::model::ReferenceListScope::scope_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceListScope;
+    /// let x = ReferenceListScope::new().set_scope_names(["a", "b", "c"]);
+    /// ```
     pub fn set_scope_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2078,12 +2821,26 @@ impl GetReferenceListRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReferenceListRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetReferenceListRequest;
+    /// let x = GetReferenceListRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetReferenceListRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetReferenceListRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceListView;
+    /// let x0 = GetReferenceListRequest::new().set_view(ReferenceListView::Basic);
+    /// let x1 = GetReferenceListRequest::new().set_view(ReferenceListView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ReferenceListView>>(
         mut self,
         v: T,
@@ -2133,24 +2890,50 @@ impl ListReferenceListsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReferenceListsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListReferenceListsRequest;
+    /// let x = ListReferenceListsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReferenceListsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListReferenceListsRequest;
+    /// let x = ListReferenceListsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReferenceListsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListReferenceListsRequest;
+    /// let x = ListReferenceListsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListReferenceListsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListReferenceListsRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceListView;
+    /// let x0 = ListReferenceListsRequest::new().set_view(ReferenceListView::Basic);
+    /// let x1 = ListReferenceListsRequest::new().set_view(ReferenceListView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ReferenceListView>>(
         mut self,
         v: T,
@@ -2187,6 +2970,17 @@ impl ListReferenceListsResponse {
     }
 
     /// Sets the value of [reference_lists][crate::model::ListReferenceListsResponse::reference_lists].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListReferenceListsResponse;
+    /// use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = ListReferenceListsResponse::new()
+    ///     .set_reference_lists([
+    ///         ReferenceList::default()/* use setters */,
+    ///         ReferenceList::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_reference_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2198,6 +2992,12 @@ impl ListReferenceListsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReferenceListsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListReferenceListsResponse;
+    /// let x = ListReferenceListsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2253,12 +3053,25 @@ impl CreateReferenceListRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReferenceListRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateReferenceListRequest;
+    /// let x = CreateReferenceListRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [reference_list][crate::model::CreateReferenceListRequest::reference_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateReferenceListRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = CreateReferenceListRequest::new().set_reference_list(ReferenceList::default()/* use setters */);
+    /// ```
     pub fn set_reference_list<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceList>,
@@ -2268,6 +3081,14 @@ impl CreateReferenceListRequest {
     }
 
     /// Sets or clears the value of [reference_list][crate::model::CreateReferenceListRequest::reference_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateReferenceListRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = CreateReferenceListRequest::new().set_or_clear_reference_list(Some(ReferenceList::default()/* use setters */));
+    /// let x = CreateReferenceListRequest::new().set_or_clear_reference_list(None::<ReferenceList>);
+    /// ```
     pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceList>,
@@ -2277,6 +3098,12 @@ impl CreateReferenceListRequest {
     }
 
     /// Sets the value of [reference_list_id][crate::model::CreateReferenceListRequest::reference_list_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateReferenceListRequest;
+    /// let x = CreateReferenceListRequest::new().set_reference_list_id("example");
+    /// ```
     pub fn set_reference_list_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2318,6 +3145,13 @@ impl UpdateReferenceListRequest {
     }
 
     /// Sets the value of [reference_list][crate::model::UpdateReferenceListRequest::reference_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateReferenceListRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = UpdateReferenceListRequest::new().set_reference_list(ReferenceList::default()/* use setters */);
+    /// ```
     pub fn set_reference_list<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceList>,
@@ -2327,6 +3161,14 @@ impl UpdateReferenceListRequest {
     }
 
     /// Sets or clears the value of [reference_list][crate::model::UpdateReferenceListRequest::reference_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateReferenceListRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = UpdateReferenceListRequest::new().set_or_clear_reference_list(Some(ReferenceList::default()/* use setters */));
+    /// let x = UpdateReferenceListRequest::new().set_or_clear_reference_list(None::<ReferenceList>);
+    /// ```
     pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceList>,
@@ -2336,6 +3178,13 @@ impl UpdateReferenceListRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateReferenceListRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateReferenceListRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReferenceListRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2345,6 +3194,14 @@ impl UpdateReferenceListRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReferenceListRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateReferenceListRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReferenceListRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateReferenceListRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2414,18 +3271,37 @@ impl ReferenceList {
     }
 
     /// Sets the value of [name][crate::model::ReferenceList::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = ReferenceList::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ReferenceList::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = ReferenceList::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [revision_create_time][crate::model::ReferenceList::revision_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// use wkt::Timestamp;
+    /// let x = ReferenceList::new().set_revision_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2435,6 +3311,14 @@ impl ReferenceList {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::ReferenceList::revision_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// use wkt::Timestamp;
+    /// let x = ReferenceList::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReferenceList::new().set_or_clear_revision_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2444,12 +3328,29 @@ impl ReferenceList {
     }
 
     /// Sets the value of [description][crate::model::ReferenceList::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = ReferenceList::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [entries][crate::model::ReferenceList::entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// use google_cloud_chronicle_v1::model::ReferenceListEntry;
+    /// let x = ReferenceList::new()
+    ///     .set_entries([
+    ///         ReferenceListEntry::default()/* use setters */,
+    ///         ReferenceListEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2461,6 +3362,12 @@ impl ReferenceList {
     }
 
     /// Sets the value of [rules][crate::model::ReferenceList::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = ReferenceList::new().set_rules(["a", "b", "c"]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2472,6 +3379,15 @@ impl ReferenceList {
     }
 
     /// Sets the value of [syntax_type][crate::model::ReferenceList::syntax_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// use google_cloud_chronicle_v1::model::ReferenceListSyntaxType;
+    /// let x0 = ReferenceList::new().set_syntax_type(ReferenceListSyntaxType::PlainTextString);
+    /// let x1 = ReferenceList::new().set_syntax_type(ReferenceListSyntaxType::Regex);
+    /// let x2 = ReferenceList::new().set_syntax_type(ReferenceListSyntaxType::Cidr);
+    /// ```
     pub fn set_syntax_type<T: std::convert::Into<crate::model::ReferenceListSyntaxType>>(
         mut self,
         v: T,
@@ -2481,12 +3397,25 @@ impl ReferenceList {
     }
 
     /// Sets the value of [rule_associations_count][crate::model::ReferenceList::rule_associations_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// let x = ReferenceList::new().set_rule_associations_count(42);
+    /// ```
     pub fn set_rule_associations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rule_associations_count = v.into();
         self
     }
 
     /// Sets the value of [scope_info][crate::model::ReferenceList::scope_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// use google_cloud_chronicle_v1::model::ScopeInfo;
+    /// let x = ReferenceList::new().set_scope_info(ScopeInfo::default()/* use setters */);
+    /// ```
     pub fn set_scope_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScopeInfo>,
@@ -2496,6 +3425,14 @@ impl ReferenceList {
     }
 
     /// Sets or clears the value of [scope_info][crate::model::ReferenceList::scope_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceList;
+    /// use google_cloud_chronicle_v1::model::ScopeInfo;
+    /// let x = ReferenceList::new().set_or_clear_scope_info(Some(ScopeInfo::default()/* use setters */));
+    /// let x = ReferenceList::new().set_or_clear_scope_info(None::<ScopeInfo>);
+    /// ```
     pub fn set_or_clear_scope_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScopeInfo>,
@@ -2527,6 +3464,12 @@ impl ReferenceListEntry {
     }
 
     /// Sets the value of [value][crate::model::ReferenceListEntry::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ReferenceListEntry;
+    /// let x = ReferenceListEntry::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -2638,36 +3581,73 @@ impl Rule {
     }
 
     /// Sets the value of [name][crate::model::Rule::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::Rule::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Rule::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [text][crate::model::Rule::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_text("example");
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of [author][crate::model::Rule::author].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_author("example");
+    /// ```
     pub fn set_author<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.author = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::Rule::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::Severity;
+    /// let x = Rule::new().set_severity(Severity::default()/* use setters */);
+    /// ```
     pub fn set_severity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Severity>,
@@ -2677,6 +3657,14 @@ impl Rule {
     }
 
     /// Sets or clears the value of [severity][crate::model::Rule::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::Severity;
+    /// let x = Rule::new().set_or_clear_severity(Some(Severity::default()/* use setters */));
+    /// let x = Rule::new().set_or_clear_severity(None::<Severity>);
+    /// ```
     pub fn set_or_clear_severity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Severity>,
@@ -2686,6 +3674,15 @@ impl Rule {
     }
 
     /// Sets the value of [metadata][crate::model::Rule::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2698,6 +3695,13 @@ impl Rule {
     }
 
     /// Sets the value of [create_time][crate::model::Rule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use wkt::Timestamp;
+    /// let x = Rule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2707,6 +3711,14 @@ impl Rule {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Rule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use wkt::Timestamp;
+    /// let x = Rule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2716,6 +3728,13 @@ impl Rule {
     }
 
     /// Sets the value of [revision_create_time][crate::model::Rule::revision_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use wkt::Timestamp;
+    /// let x = Rule::new().set_revision_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2725,6 +3744,14 @@ impl Rule {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::Rule::revision_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use wkt::Timestamp;
+    /// let x = Rule::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rule::new().set_or_clear_revision_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2734,6 +3761,14 @@ impl Rule {
     }
 
     /// Sets the value of [compilation_state][crate::model::Rule::compilation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::rule::CompilationState;
+    /// let x0 = Rule::new().set_compilation_state(CompilationState::Succeeded);
+    /// let x1 = Rule::new().set_compilation_state(CompilationState::Failed);
+    /// ```
     pub fn set_compilation_state<T: std::convert::Into<crate::model::rule::CompilationState>>(
         mut self,
         v: T,
@@ -2743,12 +3778,26 @@ impl Rule {
     }
 
     /// Sets the value of [r#type][crate::model::Rule::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::RuleType;
+    /// let x0 = Rule::new().set_type(RuleType::SingleEvent);
+    /// let x1 = Rule::new().set_type(RuleType::MultiEvent);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::RuleType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [reference_lists][crate::model::Rule::reference_lists].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_reference_lists(["a", "b", "c"]);
+    /// ```
     pub fn set_reference_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2760,6 +3809,17 @@ impl Rule {
     }
 
     /// Sets the value of [allowed_run_frequencies][crate::model::Rule::allowed_run_frequencies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::RunFrequency;
+    /// let x = Rule::new().set_allowed_run_frequencies([
+    ///     RunFrequency::Live,
+    ///     RunFrequency::Hourly,
+    ///     RunFrequency::Daily,
+    /// ]);
+    /// ```
     pub fn set_allowed_run_frequencies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2771,18 +3831,41 @@ impl Rule {
     }
 
     /// Sets the value of [etag][crate::model::Rule::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::Rule::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [compilation_diagnostics][crate::model::Rule::compilation_diagnostics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::CompilationDiagnostic;
+    /// let x = Rule::new()
+    ///     .set_compilation_diagnostics([
+    ///         CompilationDiagnostic::default()/* use setters */,
+    ///         CompilationDiagnostic::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_compilation_diagnostics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2794,6 +3877,12 @@ impl Rule {
     }
 
     /// Sets the value of [near_real_time_live_rule_eligible][crate::model::Rule::near_real_time_live_rule_eligible].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// let x = Rule::new().set_near_real_time_live_rule_eligible(true);
+    /// ```
     pub fn set_near_real_time_live_rule_eligible<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2803,6 +3892,13 @@ impl Rule {
     }
 
     /// Sets the value of [inputs_used][crate::model::Rule::inputs_used].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::InputsUsed;
+    /// let x = Rule::new().set_inputs_used(InputsUsed::default()/* use setters */);
+    /// ```
     pub fn set_inputs_used<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InputsUsed>,
@@ -2812,6 +3908,14 @@ impl Rule {
     }
 
     /// Sets or clears the value of [inputs_used][crate::model::Rule::inputs_used].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Rule;
+    /// use google_cloud_chronicle_v1::model::InputsUsed;
+    /// let x = Rule::new().set_or_clear_inputs_used(Some(InputsUsed::default()/* use setters */));
+    /// let x = Rule::new().set_or_clear_inputs_used(None::<InputsUsed>);
+    /// ```
     pub fn set_or_clear_inputs_used<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputsUsed>,
@@ -3031,30 +4135,61 @@ impl RuleDeployment {
     }
 
     /// Sets the value of [name][crate::model::RuleDeployment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = RuleDeployment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [enabled][crate::model::RuleDeployment::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = RuleDeployment::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [alerting][crate::model::RuleDeployment::alerting].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = RuleDeployment::new().set_alerting(true);
+    /// ```
     pub fn set_alerting<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.alerting = v.into();
         self
     }
 
     /// Sets the value of [archived][crate::model::RuleDeployment::archived].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = RuleDeployment::new().set_archived(true);
+    /// ```
     pub fn set_archived<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.archived = v.into();
         self
     }
 
     /// Sets the value of [archive_time][crate::model::RuleDeployment::archive_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// use wkt::Timestamp;
+    /// let x = RuleDeployment::new().set_archive_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_archive_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3064,6 +4199,14 @@ impl RuleDeployment {
     }
 
     /// Sets or clears the value of [archive_time][crate::model::RuleDeployment::archive_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// use wkt::Timestamp;
+    /// let x = RuleDeployment::new().set_or_clear_archive_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RuleDeployment::new().set_or_clear_archive_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_archive_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3073,6 +4216,15 @@ impl RuleDeployment {
     }
 
     /// Sets the value of [run_frequency][crate::model::RuleDeployment::run_frequency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// use google_cloud_chronicle_v1::model::RunFrequency;
+    /// let x0 = RuleDeployment::new().set_run_frequency(RunFrequency::Live);
+    /// let x1 = RuleDeployment::new().set_run_frequency(RunFrequency::Hourly);
+    /// let x2 = RuleDeployment::new().set_run_frequency(RunFrequency::Daily);
+    /// ```
     pub fn set_run_frequency<T: std::convert::Into<crate::model::RunFrequency>>(
         mut self,
         v: T,
@@ -3082,6 +4234,15 @@ impl RuleDeployment {
     }
 
     /// Sets the value of [execution_state][crate::model::RuleDeployment::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// use google_cloud_chronicle_v1::model::rule_deployment::ExecutionState;
+    /// let x0 = RuleDeployment::new().set_execution_state(ExecutionState::Default);
+    /// let x1 = RuleDeployment::new().set_execution_state(ExecutionState::Limited);
+    /// let x2 = RuleDeployment::new().set_execution_state(ExecutionState::Paused);
+    /// ```
     pub fn set_execution_state<
         T: std::convert::Into<crate::model::rule_deployment::ExecutionState>,
     >(
@@ -3093,6 +4254,12 @@ impl RuleDeployment {
     }
 
     /// Sets the value of [producer_rules][crate::model::RuleDeployment::producer_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = RuleDeployment::new().set_producer_rules(["a", "b", "c"]);
+    /// ```
     pub fn set_producer_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3104,6 +4271,12 @@ impl RuleDeployment {
     }
 
     /// Sets the value of [consumer_rules][crate::model::RuleDeployment::consumer_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = RuleDeployment::new().set_consumer_rules(["a", "b", "c"]);
+    /// ```
     pub fn set_consumer_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3115,6 +4288,13 @@ impl RuleDeployment {
     }
 
     /// Sets the value of [last_alert_status_change_time][crate::model::RuleDeployment::last_alert_status_change_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// use wkt::Timestamp;
+    /// let x = RuleDeployment::new().set_last_alert_status_change_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_alert_status_change_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3124,6 +4304,14 @@ impl RuleDeployment {
     }
 
     /// Sets or clears the value of [last_alert_status_change_time][crate::model::RuleDeployment::last_alert_status_change_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// use wkt::Timestamp;
+    /// let x = RuleDeployment::new().set_or_clear_last_alert_status_change_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RuleDeployment::new().set_or_clear_last_alert_status_change_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_alert_status_change_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3323,12 +4511,25 @@ impl Retrohunt {
     }
 
     /// Sets the value of [name][crate::model::Retrohunt::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Retrohunt;
+    /// let x = Retrohunt::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [process_interval][crate::model::Retrohunt::process_interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Retrohunt;
+    /// use gtype::model::Interval;
+    /// let x = Retrohunt::new().set_process_interval(Interval::default()/* use setters */);
+    /// ```
     pub fn set_process_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -3338,6 +4539,14 @@ impl Retrohunt {
     }
 
     /// Sets or clears the value of [process_interval][crate::model::Retrohunt::process_interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Retrohunt;
+    /// use gtype::model::Interval;
+    /// let x = Retrohunt::new().set_or_clear_process_interval(Some(Interval::default()/* use setters */));
+    /// let x = Retrohunt::new().set_or_clear_process_interval(None::<Interval>);
+    /// ```
     pub fn set_or_clear_process_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -3347,6 +4556,13 @@ impl Retrohunt {
     }
 
     /// Sets the value of [execution_interval][crate::model::Retrohunt::execution_interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Retrohunt;
+    /// use gtype::model::Interval;
+    /// let x = Retrohunt::new().set_execution_interval(Interval::default()/* use setters */);
+    /// ```
     pub fn set_execution_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -3356,6 +4572,14 @@ impl Retrohunt {
     }
 
     /// Sets or clears the value of [execution_interval][crate::model::Retrohunt::execution_interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Retrohunt;
+    /// use gtype::model::Interval;
+    /// let x = Retrohunt::new().set_or_clear_execution_interval(Some(Interval::default()/* use setters */));
+    /// let x = Retrohunt::new().set_or_clear_execution_interval(None::<Interval>);
+    /// ```
     pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -3365,6 +4589,15 @@ impl Retrohunt {
     }
 
     /// Sets the value of [state][crate::model::Retrohunt::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Retrohunt;
+    /// use google_cloud_chronicle_v1::model::retrohunt::State;
+    /// let x0 = Retrohunt::new().set_state(State::Running);
+    /// let x1 = Retrohunt::new().set_state(State::Done);
+    /// let x2 = Retrohunt::new().set_state(State::Cancelled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::retrohunt::State>>(
         mut self,
         v: T,
@@ -3374,6 +4607,12 @@ impl Retrohunt {
     }
 
     /// Sets the value of [progress_percentage][crate::model::Retrohunt::progress_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Retrohunt;
+    /// let x = Retrohunt::new().set_progress_percentage(42.0);
+    /// ```
     pub fn set_progress_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.progress_percentage = v.into();
         self
@@ -3558,12 +4797,25 @@ impl CreateRuleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRuleRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateRuleRequest;
+    /// let x = CreateRuleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [rule][crate::model::CreateRuleRequest::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateRuleRequest;
+    /// use google_cloud_chronicle_v1::model::Rule;
+    /// let x = CreateRuleRequest::new().set_rule(Rule::default()/* use setters */);
+    /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -3573,6 +4825,14 @@ impl CreateRuleRequest {
     }
 
     /// Sets or clears the value of [rule][crate::model::CreateRuleRequest::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateRuleRequest;
+    /// use google_cloud_chronicle_v1::model::Rule;
+    /// let x = CreateRuleRequest::new().set_or_clear_rule(Some(Rule::default()/* use setters */));
+    /// let x = CreateRuleRequest::new().set_or_clear_rule(None::<Rule>);
+    /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -3610,12 +4870,27 @@ impl GetRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetRuleRequest;
+    /// let x = GetRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetRuleRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetRuleRequest;
+    /// use google_cloud_chronicle_v1::model::RuleView;
+    /// let x0 = GetRuleRequest::new().set_view(RuleView::Basic);
+    /// let x1 = GetRuleRequest::new().set_view(RuleView::Full);
+    /// let x2 = GetRuleRequest::new().set_view(RuleView::RevisionMetadataOnly);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::RuleView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -3668,30 +4943,63 @@ impl ListRulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRulesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRulesRequest;
+    /// let x = ListRulesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRulesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRulesRequest;
+    /// let x = ListRulesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRulesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRulesRequest;
+    /// let x = ListRulesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListRulesRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRulesRequest;
+    /// use google_cloud_chronicle_v1::model::RuleView;
+    /// let x0 = ListRulesRequest::new().set_view(RuleView::Basic);
+    /// let x1 = ListRulesRequest::new().set_view(RuleView::Full);
+    /// let x2 = ListRulesRequest::new().set_view(RuleView::RevisionMetadataOnly);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::RuleView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRulesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRulesRequest;
+    /// let x = ListRulesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3724,6 +5032,17 @@ impl ListRulesResponse {
     }
 
     /// Sets the value of [rules][crate::model::ListRulesResponse::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRulesResponse;
+    /// use google_cloud_chronicle_v1::model::Rule;
+    /// let x = ListRulesResponse::new()
+    ///     .set_rules([
+    ///         Rule::default()/* use setters */,
+    ///         Rule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3735,6 +5054,12 @@ impl ListRulesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRulesResponse;
+    /// let x = ListRulesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3785,6 +5110,13 @@ impl UpdateRuleRequest {
     }
 
     /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleRequest;
+    /// use google_cloud_chronicle_v1::model::Rule;
+    /// let x = UpdateRuleRequest::new().set_rule(Rule::default()/* use setters */);
+    /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -3794,6 +5126,14 @@ impl UpdateRuleRequest {
     }
 
     /// Sets or clears the value of [rule][crate::model::UpdateRuleRequest::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleRequest;
+    /// use google_cloud_chronicle_v1::model::Rule;
+    /// let x = UpdateRuleRequest::new().set_or_clear_rule(Some(Rule::default()/* use setters */));
+    /// let x = UpdateRuleRequest::new().set_or_clear_rule(None::<Rule>);
+    /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -3803,6 +5143,13 @@ impl UpdateRuleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3812,6 +5159,14 @@ impl UpdateRuleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRuleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3854,12 +5209,24 @@ impl DeleteRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DeleteRuleRequest;
+    /// let x = DeleteRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteRuleRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::DeleteRuleRequest;
+    /// let x = DeleteRuleRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -3907,24 +5274,51 @@ impl ListRuleRevisionsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListRuleRevisionsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleRevisionsRequest;
+    /// let x = ListRuleRevisionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRuleRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleRevisionsRequest;
+    /// let x = ListRuleRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRuleRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleRevisionsRequest;
+    /// let x = ListRuleRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListRuleRevisionsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleRevisionsRequest;
+    /// use google_cloud_chronicle_v1::model::RuleView;
+    /// let x0 = ListRuleRevisionsRequest::new().set_view(RuleView::Basic);
+    /// let x1 = ListRuleRevisionsRequest::new().set_view(RuleView::Full);
+    /// let x2 = ListRuleRevisionsRequest::new().set_view(RuleView::RevisionMetadataOnly);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::RuleView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -3957,6 +5351,17 @@ impl ListRuleRevisionsResponse {
     }
 
     /// Sets the value of [rules][crate::model::ListRuleRevisionsResponse::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleRevisionsResponse;
+    /// use google_cloud_chronicle_v1::model::Rule;
+    /// let x = ListRuleRevisionsResponse::new()
+    ///     .set_rules([
+    ///         Rule::default()/* use setters */,
+    ///         Rule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3968,6 +5373,12 @@ impl ListRuleRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRuleRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleRevisionsResponse;
+    /// let x = ListRuleRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4015,12 +5426,25 @@ impl CreateRetrohuntRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRetrohuntRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateRetrohuntRequest;
+    /// let x = CreateRetrohuntRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [retrohunt][crate::model::CreateRetrohuntRequest::retrohunt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateRetrohuntRequest;
+    /// use google_cloud_chronicle_v1::model::Retrohunt;
+    /// let x = CreateRetrohuntRequest::new().set_retrohunt(Retrohunt::default()/* use setters */);
+    /// ```
     pub fn set_retrohunt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Retrohunt>,
@@ -4030,6 +5454,14 @@ impl CreateRetrohuntRequest {
     }
 
     /// Sets or clears the value of [retrohunt][crate::model::CreateRetrohuntRequest::retrohunt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CreateRetrohuntRequest;
+    /// use google_cloud_chronicle_v1::model::Retrohunt;
+    /// let x = CreateRetrohuntRequest::new().set_or_clear_retrohunt(Some(Retrohunt::default()/* use setters */));
+    /// let x = CreateRetrohuntRequest::new().set_or_clear_retrohunt(None::<Retrohunt>);
+    /// ```
     pub fn set_or_clear_retrohunt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Retrohunt>,
@@ -4063,6 +5495,12 @@ impl GetRetrohuntRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRetrohuntRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetRetrohuntRequest;
+    /// let x = GetRetrohuntRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4111,24 +5549,48 @@ impl ListRetrohuntsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRetrohuntsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRetrohuntsRequest;
+    /// let x = ListRetrohuntsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRetrohuntsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRetrohuntsRequest;
+    /// let x = ListRetrohuntsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRetrohuntsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRetrohuntsRequest;
+    /// let x = ListRetrohuntsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRetrohuntsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRetrohuntsRequest;
+    /// let x = ListRetrohuntsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4161,6 +5623,17 @@ impl ListRetrohuntsResponse {
     }
 
     /// Sets the value of [retrohunts][crate::model::ListRetrohuntsResponse::retrohunts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRetrohuntsResponse;
+    /// use google_cloud_chronicle_v1::model::Retrohunt;
+    /// let x = ListRetrohuntsResponse::new()
+    ///     .set_retrohunts([
+    ///         Retrohunt::default()/* use setters */,
+    ///         Retrohunt::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_retrohunts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4172,6 +5645,12 @@ impl ListRetrohuntsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRetrohuntsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRetrohuntsResponse;
+    /// let x = ListRetrohuntsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4216,6 +5695,12 @@ impl GetRuleDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRuleDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::GetRuleDeploymentRequest;
+    /// let x = GetRuleDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4265,24 +5750,48 @@ impl ListRuleDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRuleDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleDeploymentsRequest;
+    /// let x = ListRuleDeploymentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRuleDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleDeploymentsRequest;
+    /// let x = ListRuleDeploymentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRuleDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleDeploymentsRequest;
+    /// let x = ListRuleDeploymentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRuleDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleDeploymentsRequest;
+    /// let x = ListRuleDeploymentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4315,6 +5824,17 @@ impl ListRuleDeploymentsResponse {
     }
 
     /// Sets the value of [rule_deployments][crate::model::ListRuleDeploymentsResponse::rule_deployments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleDeploymentsResponse;
+    /// use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = ListRuleDeploymentsResponse::new()
+    ///     .set_rule_deployments([
+    ///         RuleDeployment::default()/* use setters */,
+    ///         RuleDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rule_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4326,6 +5846,12 @@ impl ListRuleDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRuleDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::ListRuleDeploymentsResponse;
+    /// let x = ListRuleDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4375,6 +5901,13 @@ impl UpdateRuleDeploymentRequest {
     }
 
     /// Sets the value of [rule_deployment][crate::model::UpdateRuleDeploymentRequest::rule_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleDeploymentRequest;
+    /// use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = UpdateRuleDeploymentRequest::new().set_rule_deployment(RuleDeployment::default()/* use setters */);
+    /// ```
     pub fn set_rule_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RuleDeployment>,
@@ -4384,6 +5917,14 @@ impl UpdateRuleDeploymentRequest {
     }
 
     /// Sets or clears the value of [rule_deployment][crate::model::UpdateRuleDeploymentRequest::rule_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleDeploymentRequest;
+    /// use google_cloud_chronicle_v1::model::RuleDeployment;
+    /// let x = UpdateRuleDeploymentRequest::new().set_or_clear_rule_deployment(Some(RuleDeployment::default()/* use setters */));
+    /// let x = UpdateRuleDeploymentRequest::new().set_or_clear_rule_deployment(None::<RuleDeployment>);
+    /// ```
     pub fn set_or_clear_rule_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RuleDeployment>,
@@ -4393,6 +5934,13 @@ impl UpdateRuleDeploymentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRuleDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRuleDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4402,6 +5950,14 @@ impl UpdateRuleDeploymentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRuleDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::UpdateRuleDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRuleDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRuleDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4443,24 +5999,48 @@ impl CompilationPosition {
     }
 
     /// Sets the value of [start_line][crate::model::CompilationPosition::start_line].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationPosition;
+    /// let x = CompilationPosition::new().set_start_line(42);
+    /// ```
     pub fn set_start_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.start_line = v.into();
         self
     }
 
     /// Sets the value of [start_column][crate::model::CompilationPosition::start_column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationPosition;
+    /// let x = CompilationPosition::new().set_start_column(42);
+    /// ```
     pub fn set_start_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.start_column = v.into();
         self
     }
 
     /// Sets the value of [end_line][crate::model::CompilationPosition::end_line].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationPosition;
+    /// let x = CompilationPosition::new().set_end_line(42);
+    /// ```
     pub fn set_end_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.end_line = v.into();
         self
     }
 
     /// Sets the value of [end_column][crate::model::CompilationPosition::end_column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationPosition;
+    /// let x = CompilationPosition::new().set_end_column(42);
+    /// ```
     pub fn set_end_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.end_column = v.into();
         self
@@ -4503,12 +6083,25 @@ impl CompilationDiagnostic {
     }
 
     /// Sets the value of [message][crate::model::CompilationDiagnostic::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationDiagnostic;
+    /// let x = CompilationDiagnostic::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [position][crate::model::CompilationDiagnostic::position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationDiagnostic;
+    /// use google_cloud_chronicle_v1::model::CompilationPosition;
+    /// let x = CompilationDiagnostic::new().set_position(CompilationPosition::default()/* use setters */);
+    /// ```
     pub fn set_position<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompilationPosition>,
@@ -4518,6 +6111,14 @@ impl CompilationDiagnostic {
     }
 
     /// Sets or clears the value of [position][crate::model::CompilationDiagnostic::position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationDiagnostic;
+    /// use google_cloud_chronicle_v1::model::CompilationPosition;
+    /// let x = CompilationDiagnostic::new().set_or_clear_position(Some(CompilationPosition::default()/* use setters */));
+    /// let x = CompilationDiagnostic::new().set_or_clear_position(None::<CompilationPosition>);
+    /// ```
     pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompilationPosition>,
@@ -4527,6 +6128,14 @@ impl CompilationDiagnostic {
     }
 
     /// Sets the value of [severity][crate::model::CompilationDiagnostic::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationDiagnostic;
+    /// use google_cloud_chronicle_v1::model::compilation_diagnostic::Severity;
+    /// let x0 = CompilationDiagnostic::new().set_severity(Severity::Warning);
+    /// let x1 = CompilationDiagnostic::new().set_severity(Severity::Error);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::compilation_diagnostic::Severity>>(
         mut self,
         v: T,
@@ -4536,6 +6145,12 @@ impl CompilationDiagnostic {
     }
 
     /// Sets the value of [uri][crate::model::CompilationDiagnostic::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::CompilationDiagnostic;
+    /// let x = CompilationDiagnostic::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -4703,6 +6318,12 @@ impl Severity {
     }
 
     /// Sets the value of [display_name][crate::model::Severity::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::Severity;
+    /// let x = Severity::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -4740,12 +6361,25 @@ impl RetrohuntMetadata {
     }
 
     /// Sets the value of [retrohunt][crate::model::RetrohuntMetadata::retrohunt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RetrohuntMetadata;
+    /// let x = RetrohuntMetadata::new().set_retrohunt("example");
+    /// ```
     pub fn set_retrohunt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.retrohunt = v.into();
         self
     }
 
     /// Sets the value of [execution_interval][crate::model::RetrohuntMetadata::execution_interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RetrohuntMetadata;
+    /// use gtype::model::Interval;
+    /// let x = RetrohuntMetadata::new().set_execution_interval(Interval::default()/* use setters */);
+    /// ```
     pub fn set_execution_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -4755,6 +6389,14 @@ impl RetrohuntMetadata {
     }
 
     /// Sets or clears the value of [execution_interval][crate::model::RetrohuntMetadata::execution_interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RetrohuntMetadata;
+    /// use gtype::model::Interval;
+    /// let x = RetrohuntMetadata::new().set_or_clear_execution_interval(Some(Interval::default()/* use setters */));
+    /// let x = RetrohuntMetadata::new().set_or_clear_execution_interval(None::<Interval>);
+    /// ```
     pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -4764,6 +6406,12 @@ impl RetrohuntMetadata {
     }
 
     /// Sets the value of [progress_percentage][crate::model::RetrohuntMetadata::progress_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::RetrohuntMetadata;
+    /// let x = RetrohuntMetadata::new().set_progress_percentage(42.0);
+    /// ```
     pub fn set_progress_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.progress_percentage = v.into();
         self
@@ -4800,18 +6448,36 @@ impl InputsUsed {
     }
 
     /// Sets the value of [uses_udm][crate::model::InputsUsed::uses_udm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::InputsUsed;
+    /// let x = InputsUsed::new().set_uses_udm(true);
+    /// ```
     pub fn set_uses_udm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.uses_udm = v.into();
         self
     }
 
     /// Sets the value of [uses_entity][crate::model::InputsUsed::uses_entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::InputsUsed;
+    /// let x = InputsUsed::new().set_uses_entity(true);
+    /// ```
     pub fn set_uses_entity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.uses_entity = v.into();
         self
     }
 
     /// Sets the value of [uses_detection][crate::model::InputsUsed::uses_detection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::model::InputsUsed;
+    /// let x = InputsUsed::new().set_uses_detection(true);
+    /// ```
     pub fn set_uses_detection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.uses_detection = v.into();
         self

@@ -92,24 +92,49 @@ impl Environment {
     }
 
     /// Sets the value of [name][crate::model::Environment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// let x = Environment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Environment::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// let x = Environment::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Environment::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// let x = Environment::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Environment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use wkt::Timestamp;
+    /// let x = Environment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -119,6 +144,14 @@ impl Environment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Environment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use wkt::Timestamp;
+    /// let x = Environment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Environment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -128,6 +161,13 @@ impl Environment {
     }
 
     /// Sets the value of [update_time][crate::model::Environment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use wkt::Timestamp;
+    /// let x = Environment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -137,6 +177,14 @@ impl Environment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Environment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use wkt::Timestamp;
+    /// let x = Environment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Environment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -146,6 +194,15 @@ impl Environment {
     }
 
     /// Sets the value of [labels][crate::model::Environment::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// let x = Environment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -158,18 +215,40 @@ impl Environment {
     }
 
     /// Sets the value of [description][crate::model::Environment::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// let x = Environment::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Environment::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::State;
+    /// let x0 = Environment::new().set_state(State::Active);
+    /// let x1 = Environment::new().set_state(State::Creating);
+    /// let x2 = Environment::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [infrastructure_spec][crate::model::Environment::infrastructure_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::InfrastructureSpec;
+    /// let x = Environment::new().set_infrastructure_spec(InfrastructureSpec::default()/* use setters */);
+    /// ```
     pub fn set_infrastructure_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::environment::InfrastructureSpec>,
@@ -179,6 +258,14 @@ impl Environment {
     }
 
     /// Sets or clears the value of [infrastructure_spec][crate::model::Environment::infrastructure_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::InfrastructureSpec;
+    /// let x = Environment::new().set_or_clear_infrastructure_spec(Some(InfrastructureSpec::default()/* use setters */));
+    /// let x = Environment::new().set_or_clear_infrastructure_spec(None::<InfrastructureSpec>);
+    /// ```
     pub fn set_or_clear_infrastructure_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::environment::InfrastructureSpec>,
@@ -188,6 +275,13 @@ impl Environment {
     }
 
     /// Sets the value of [session_spec][crate::model::Environment::session_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::SessionSpec;
+    /// let x = Environment::new().set_session_spec(SessionSpec::default()/* use setters */);
+    /// ```
     pub fn set_session_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::environment::SessionSpec>,
@@ -197,6 +291,14 @@ impl Environment {
     }
 
     /// Sets or clears the value of [session_spec][crate::model::Environment::session_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::SessionSpec;
+    /// let x = Environment::new().set_or_clear_session_spec(Some(SessionSpec::default()/* use setters */));
+    /// let x = Environment::new().set_or_clear_session_spec(None::<SessionSpec>);
+    /// ```
     pub fn set_or_clear_session_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::environment::SessionSpec>,
@@ -206,6 +308,13 @@ impl Environment {
     }
 
     /// Sets the value of [session_status][crate::model::Environment::session_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::SessionStatus;
+    /// let x = Environment::new().set_session_status(SessionStatus::default()/* use setters */);
+    /// ```
     pub fn set_session_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::environment::SessionStatus>,
@@ -215,6 +324,14 @@ impl Environment {
     }
 
     /// Sets or clears the value of [session_status][crate::model::Environment::session_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::SessionStatus;
+    /// let x = Environment::new().set_or_clear_session_status(Some(SessionStatus::default()/* use setters */));
+    /// let x = Environment::new().set_or_clear_session_status(None::<SessionStatus>);
+    /// ```
     pub fn set_or_clear_session_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::environment::SessionStatus>,
@@ -224,6 +341,13 @@ impl Environment {
     }
 
     /// Sets the value of [endpoints][crate::model::Environment::endpoints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::Endpoints;
+    /// let x = Environment::new().set_endpoints(Endpoints::default()/* use setters */);
+    /// ```
     pub fn set_endpoints<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::environment::Endpoints>,
@@ -233,6 +357,14 @@ impl Environment {
     }
 
     /// Sets or clears the value of [endpoints][crate::model::Environment::endpoints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Environment;
+    /// use google_cloud_dataplex_v1::model::environment::Endpoints;
+    /// let x = Environment::new().set_or_clear_endpoints(Some(Endpoints::default()/* use setters */));
+    /// let x = Environment::new().set_or_clear_endpoints(None::<Endpoints>);
+    /// ```
     pub fn set_or_clear_endpoints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::environment::Endpoints>,
@@ -276,6 +408,14 @@ pub mod environment {
         ///
         /// Note that all the setters affecting `resources` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::environment::infrastructure_spec::ComputeResources;
+        /// let x = InfrastructureSpec::new().set_resources(Some(
+        ///     google_cloud_dataplex_v1::model::environment::infrastructure_spec::Resources::Compute(ComputeResources::default().into())));
+        /// ```
         pub fn set_resources<
             T: std::convert::Into<
                     std::option::Option<crate::model::environment::infrastructure_spec::Resources>,
@@ -310,6 +450,14 @@ pub mod environment {
         ///
         /// Note that all the setters affecting `resources` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::environment::infrastructure_spec::ComputeResources;
+        /// let x = InfrastructureSpec::new().set_compute(ComputeResources::default()/* use setters */);
+        /// assert!(x.compute().is_some());
+        /// ```
         pub fn set_compute<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -330,6 +478,14 @@ pub mod environment {
         ///
         /// Note that all the setters affecting `runtime` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::environment::infrastructure_spec::OsImageRuntime;
+        /// let x = InfrastructureSpec::new().set_runtime(Some(
+        ///     google_cloud_dataplex_v1::model::environment::infrastructure_spec::Runtime::OsImage(OsImageRuntime::default().into())));
+        /// ```
         pub fn set_runtime<
             T: std::convert::Into<
                     std::option::Option<crate::model::environment::infrastructure_spec::Runtime>,
@@ -364,6 +520,14 @@ pub mod environment {
         ///
         /// Note that all the setters affecting `runtime` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::environment::infrastructure_spec::OsImageRuntime;
+        /// let x = InfrastructureSpec::new().set_os_image(OsImageRuntime::default()/* use setters */);
+        /// assert!(x.os_image().is_some());
+        /// ```
         pub fn set_os_image<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::environment::infrastructure_spec::OsImageRuntime>,
@@ -414,18 +578,36 @@ pub mod environment {
             }
 
             /// Sets the value of [disk_size_gb][crate::model::environment::infrastructure_spec::ComputeResources::disk_size_gb].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::environment::infrastructure_spec::ComputeResources;
+            /// let x = ComputeResources::new().set_disk_size_gb(42);
+            /// ```
             pub fn set_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.disk_size_gb = v.into();
                 self
             }
 
             /// Sets the value of [node_count][crate::model::environment::infrastructure_spec::ComputeResources::node_count].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::environment::infrastructure_spec::ComputeResources;
+            /// let x = ComputeResources::new().set_node_count(42);
+            /// ```
             pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.node_count = v.into();
                 self
             }
 
             /// Sets the value of [max_node_count][crate::model::environment::infrastructure_spec::ComputeResources::max_node_count].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::environment::infrastructure_spec::ComputeResources;
+            /// let x = ComputeResources::new().set_max_node_count(42);
+            /// ```
             pub fn set_max_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.max_node_count = v.into();
                 self
@@ -470,6 +652,12 @@ pub mod environment {
             }
 
             /// Sets the value of [image_version][crate::model::environment::infrastructure_spec::OsImageRuntime::image_version].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::environment::infrastructure_spec::OsImageRuntime;
+            /// let x = OsImageRuntime::new().set_image_version("example");
+            /// ```
             pub fn set_image_version<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -479,6 +667,12 @@ pub mod environment {
             }
 
             /// Sets the value of [java_libraries][crate::model::environment::infrastructure_spec::OsImageRuntime::java_libraries].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::environment::infrastructure_spec::OsImageRuntime;
+            /// let x = OsImageRuntime::new().set_java_libraries(["a", "b", "c"]);
+            /// ```
             pub fn set_java_libraries<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -490,6 +684,12 @@ pub mod environment {
             }
 
             /// Sets the value of [python_packages][crate::model::environment::infrastructure_spec::OsImageRuntime::python_packages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::environment::infrastructure_spec::OsImageRuntime;
+            /// let x = OsImageRuntime::new().set_python_packages(["a", "b", "c"]);
+            /// ```
             pub fn set_python_packages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -501,6 +701,15 @@ pub mod environment {
             }
 
             /// Sets the value of [properties][crate::model::environment::infrastructure_spec::OsImageRuntime::properties].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::environment::infrastructure_spec::OsImageRuntime;
+            /// let x = OsImageRuntime::new().set_properties([
+            ///     ("key0", "abc"),
+            ///     ("key1", "xyz"),
+            /// ]);
+            /// ```
             pub fn set_properties<T, K, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = (K, V)>,
@@ -565,6 +774,13 @@ pub mod environment {
         }
 
         /// Sets the value of [max_idle_duration][crate::model::environment::SessionSpec::max_idle_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::SessionSpec;
+        /// use wkt::Duration;
+        /// let x = SessionSpec::new().set_max_idle_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_max_idle_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -574,6 +790,14 @@ pub mod environment {
         }
 
         /// Sets or clears the value of [max_idle_duration][crate::model::environment::SessionSpec::max_idle_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::SessionSpec;
+        /// use wkt::Duration;
+        /// let x = SessionSpec::new().set_or_clear_max_idle_duration(Some(Duration::default()/* use setters */));
+        /// let x = SessionSpec::new().set_or_clear_max_idle_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_max_idle_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -583,6 +807,12 @@ pub mod environment {
         }
 
         /// Sets the value of [enable_fast_startup][crate::model::environment::SessionSpec::enable_fast_startup].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::SessionSpec;
+        /// let x = SessionSpec::new().set_enable_fast_startup(true);
+        /// ```
         pub fn set_enable_fast_startup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_fast_startup = v.into();
             self
@@ -612,6 +842,12 @@ pub mod environment {
         }
 
         /// Sets the value of [active][crate::model::environment::SessionStatus::active].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::SessionStatus;
+        /// let x = SessionStatus::new().set_active(true);
+        /// ```
         pub fn set_active<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.active = v.into();
             self
@@ -643,12 +879,24 @@ pub mod environment {
         }
 
         /// Sets the value of [notebooks][crate::model::environment::Endpoints::notebooks].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::Endpoints;
+        /// let x = Endpoints::new().set_notebooks("example");
+        /// ```
         pub fn set_notebooks<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.notebooks = v.into();
             self
         }
 
         /// Sets the value of [sql][crate::model::environment::Endpoints::sql].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::environment::Endpoints;
+        /// let x = Endpoints::new().set_sql("example");
+        /// ```
         pub fn set_sql<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.sql = v.into();
             self
@@ -707,24 +955,49 @@ impl Content {
     }
 
     /// Sets the value of [name][crate::model::Content::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// let x = Content::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Content::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// let x = Content::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::Content::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// let x = Content::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Content::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use wkt::Timestamp;
+    /// let x = Content::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -734,6 +1007,14 @@ impl Content {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Content::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use wkt::Timestamp;
+    /// let x = Content::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Content::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -743,6 +1024,13 @@ impl Content {
     }
 
     /// Sets the value of [update_time][crate::model::Content::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use wkt::Timestamp;
+    /// let x = Content::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -752,6 +1040,14 @@ impl Content {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Content::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use wkt::Timestamp;
+    /// let x = Content::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Content::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -761,6 +1057,15 @@ impl Content {
     }
 
     /// Sets the value of [labels][crate::model::Content::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// let x = Content::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -773,6 +1078,12 @@ impl Content {
     }
 
     /// Sets the value of [description][crate::model::Content::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// let x = Content::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -782,6 +1093,13 @@ impl Content {
     ///
     /// Note that all the setters affecting `data` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use google_cloud_dataplex_v1::model::content::Data;
+    /// let x = Content::new().set_data(Some(Data::DataText("example".to_string())));
+    /// ```
     pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::content::Data>>>(
         mut self,
         v: T,
@@ -806,6 +1124,13 @@ impl Content {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// let x = Content::new().set_data_text("example");
+    /// assert!(x.data_text().is_some());
+    /// ```
     pub fn set_data_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data = std::option::Option::Some(crate::model::content::Data::DataText(v.into()));
         self
@@ -815,6 +1140,14 @@ impl Content {
     ///
     /// Note that all the setters affecting `content` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use google_cloud_dataplex_v1::model::content::SqlScript;
+    /// let x = Content::new().set_content(Some(
+    ///     google_cloud_dataplex_v1::model::content::Content::SqlScript(SqlScript::default().into())));
+    /// ```
     pub fn set_content<
         T: std::convert::Into<std::option::Option<crate::model::content::Content>>,
     >(
@@ -843,6 +1176,15 @@ impl Content {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use google_cloud_dataplex_v1::model::content::SqlScript;
+    /// let x = Content::new().set_sql_script(SqlScript::default()/* use setters */);
+    /// assert!(x.sql_script().is_some());
+    /// assert!(x.notebook().is_none());
+    /// ```
     pub fn set_sql_script<
         T: std::convert::Into<std::boxed::Box<crate::model::content::SqlScript>>,
     >(
@@ -872,6 +1214,15 @@ impl Content {
     ///
     /// Note that all the setters affecting `content` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Content;
+    /// use google_cloud_dataplex_v1::model::content::Notebook;
+    /// let x = Content::new().set_notebook(Notebook::default()/* use setters */);
+    /// assert!(x.notebook().is_some());
+    /// assert!(x.sql_script().is_none());
+    /// ```
     pub fn set_notebook<T: std::convert::Into<std::boxed::Box<crate::model::content::Notebook>>>(
         mut self,
         v: T,
@@ -909,6 +1260,13 @@ pub mod content {
         }
 
         /// Sets the value of [engine][crate::model::content::SqlScript::engine].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::content::SqlScript;
+        /// use google_cloud_dataplex_v1::model::content::sql_script::QueryEngine;
+        /// let x0 = SqlScript::new().set_engine(QueryEngine::Spark);
+        /// ```
         pub fn set_engine<T: std::convert::Into<crate::model::content::sql_script::QueryEngine>>(
             mut self,
             v: T,
@@ -1074,6 +1432,13 @@ pub mod content {
         }
 
         /// Sets the value of [kernel_type][crate::model::content::Notebook::kernel_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::content::Notebook;
+        /// use google_cloud_dataplex_v1::model::content::notebook::KernelType;
+        /// let x0 = Notebook::new().set_kernel_type(KernelType::Python3);
+        /// ```
         pub fn set_kernel_type<
             T: std::convert::Into<crate::model::content::notebook::KernelType>,
         >(
@@ -1270,18 +1635,37 @@ impl Session {
     }
 
     /// Sets the value of [name][crate::model::Session::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Session;
+    /// let x = Session::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::Session::user_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Session;
+    /// let x = Session::new().set_user_id("example");
+    /// ```
     pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Session::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Session;
+    /// use wkt::Timestamp;
+    /// let x = Session::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1291,6 +1675,14 @@ impl Session {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Session::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Session;
+    /// use wkt::Timestamp;
+    /// let x = Session::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Session::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1300,6 +1692,15 @@ impl Session {
     }
 
     /// Sets the value of [state][crate::model::Session::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Session;
+    /// use google_cloud_dataplex_v1::model::State;
+    /// let x0 = Session::new().set_state(State::Active);
+    /// let x1 = Session::new().set_state(State::Creating);
+    /// let x2 = Session::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -1365,30 +1766,61 @@ impl Glossary {
     }
 
     /// Sets the value of [name][crate::model::Glossary::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Glossary::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Glossary::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Glossary::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Glossary::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1398,6 +1830,14 @@ impl Glossary {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Glossary::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Glossary::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1407,6 +1847,13 @@ impl Glossary {
     }
 
     /// Sets the value of [update_time][crate::model::Glossary::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1416,6 +1863,14 @@ impl Glossary {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Glossary::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// use wkt::Timestamp;
+    /// let x = Glossary::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Glossary::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1425,6 +1880,15 @@ impl Glossary {
     }
 
     /// Sets the value of [labels][crate::model::Glossary::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1437,18 +1901,36 @@ impl Glossary {
     }
 
     /// Sets the value of [term_count][crate::model::Glossary::term_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_term_count(42);
+    /// ```
     pub fn set_term_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.term_count = v.into();
         self
     }
 
     /// Sets the value of [category_count][crate::model::Glossary::category_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_category_count(42);
+    /// ```
     pub fn set_category_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.category_count = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Glossary::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = Glossary::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1510,30 +1992,61 @@ impl GlossaryCategory {
     }
 
     /// Sets the value of [name][crate::model::GlossaryCategory::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = GlossaryCategory::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::GlossaryCategory::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = GlossaryCategory::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::GlossaryCategory::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = GlossaryCategory::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::GlossaryCategory::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = GlossaryCategory::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::GlossaryCategory::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryCategory::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1543,6 +2056,14 @@ impl GlossaryCategory {
     }
 
     /// Sets or clears the value of [create_time][crate::model::GlossaryCategory::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryCategory::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GlossaryCategory::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1552,6 +2073,13 @@ impl GlossaryCategory {
     }
 
     /// Sets the value of [update_time][crate::model::GlossaryCategory::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryCategory::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1561,6 +2089,14 @@ impl GlossaryCategory {
     }
 
     /// Sets or clears the value of [update_time][crate::model::GlossaryCategory::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryCategory::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GlossaryCategory::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1570,6 +2106,15 @@ impl GlossaryCategory {
     }
 
     /// Sets the value of [labels][crate::model::GlossaryCategory::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = GlossaryCategory::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1582,6 +2127,12 @@ impl GlossaryCategory {
     }
 
     /// Sets the value of [parent][crate::model::GlossaryCategory::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = GlossaryCategory::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -1643,30 +2194,61 @@ impl GlossaryTerm {
     }
 
     /// Sets the value of [name][crate::model::GlossaryTerm::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::GlossaryTerm::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::GlossaryTerm::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::GlossaryTerm::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::GlossaryTerm::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryTerm::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1676,6 +2258,14 @@ impl GlossaryTerm {
     }
 
     /// Sets or clears the value of [create_time][crate::model::GlossaryTerm::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryTerm::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GlossaryTerm::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1685,6 +2275,13 @@ impl GlossaryTerm {
     }
 
     /// Sets the value of [update_time][crate::model::GlossaryTerm::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryTerm::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1694,6 +2291,14 @@ impl GlossaryTerm {
     }
 
     /// Sets or clears the value of [update_time][crate::model::GlossaryTerm::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// use wkt::Timestamp;
+    /// let x = GlossaryTerm::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GlossaryTerm::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1703,6 +2308,15 @@ impl GlossaryTerm {
     }
 
     /// Sets the value of [labels][crate::model::GlossaryTerm::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1715,6 +2329,12 @@ impl GlossaryTerm {
     }
 
     /// Sets the value of [parent][crate::model::GlossaryTerm::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = GlossaryTerm::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -1755,18 +2375,37 @@ impl CreateGlossaryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryRequest;
+    /// let x = CreateGlossaryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [glossary_id][crate::model::CreateGlossaryRequest::glossary_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryRequest;
+    /// let x = CreateGlossaryRequest::new().set_glossary_id("example");
+    /// ```
     pub fn set_glossary_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.glossary_id = v.into();
         self
     }
 
     /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryRequest;
+    /// use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = CreateGlossaryRequest::new().set_glossary(Glossary::default()/* use setters */);
+    /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -1776,6 +2415,14 @@ impl CreateGlossaryRequest {
     }
 
     /// Sets or clears the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryRequest;
+    /// use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = CreateGlossaryRequest::new().set_or_clear_glossary(Some(Glossary::default()/* use setters */));
+    /// let x = CreateGlossaryRequest::new().set_or_clear_glossary(None::<Glossary>);
+    /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -1785,6 +2432,12 @@ impl CreateGlossaryRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateGlossaryRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryRequest;
+    /// let x = CreateGlossaryRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1823,6 +2476,13 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryRequest;
+    /// use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = UpdateGlossaryRequest::new().set_glossary(Glossary::default()/* use setters */);
+    /// ```
     pub fn set_glossary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -1832,6 +2492,14 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets or clears the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryRequest;
+    /// use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_glossary(Some(Glossary::default()/* use setters */));
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_glossary(None::<Glossary>);
+    /// ```
     pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
@@ -1841,6 +2509,13 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1850,6 +2525,14 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGlossaryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1859,6 +2542,12 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateGlossaryRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryRequest;
+    /// let x = UpdateGlossaryRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1895,12 +2584,24 @@ impl DeleteGlossaryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteGlossaryRequest;
+    /// let x = DeleteGlossaryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteGlossaryRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteGlossaryRequest;
+    /// let x = DeleteGlossaryRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1931,6 +2632,12 @@ impl GetGlossaryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetGlossaryRequest;
+    /// let x = GetGlossaryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1987,30 +2694,60 @@ impl ListGlossariesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGlossariesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGlossariesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGlossariesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGlossariesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListGlossariesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesRequest;
+    /// let x = ListGlossariesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2046,6 +2783,17 @@ impl ListGlossariesResponse {
     }
 
     /// Sets the value of [glossaries][crate::model::ListGlossariesResponse::glossaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesResponse;
+    /// use google_cloud_dataplex_v1::model::Glossary;
+    /// let x = ListGlossariesResponse::new()
+    ///     .set_glossaries([
+    ///         Glossary::default()/* use setters */,
+    ///         Glossary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_glossaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2057,12 +2805,24 @@ impl ListGlossariesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGlossariesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesResponse;
+    /// let x = ListGlossariesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListGlossariesResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossariesResponse;
+    /// let x = ListGlossariesResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2119,18 +2879,37 @@ impl CreateGlossaryCategoryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGlossaryCategoryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryCategoryRequest;
+    /// let x = CreateGlossaryCategoryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [category_id][crate::model::CreateGlossaryCategoryRequest::category_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryCategoryRequest;
+    /// let x = CreateGlossaryCategoryRequest::new().set_category_id("example");
+    /// ```
     pub fn set_category_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.category_id = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::CreateGlossaryCategoryRequest::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryCategoryRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = CreateGlossaryCategoryRequest::new().set_category(GlossaryCategory::default()/* use setters */);
+    /// ```
     pub fn set_category<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryCategory>,
@@ -2140,6 +2919,14 @@ impl CreateGlossaryCategoryRequest {
     }
 
     /// Sets or clears the value of [category][crate::model::CreateGlossaryCategoryRequest::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryCategoryRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = CreateGlossaryCategoryRequest::new().set_or_clear_category(Some(GlossaryCategory::default()/* use setters */));
+    /// let x = CreateGlossaryCategoryRequest::new().set_or_clear_category(None::<GlossaryCategory>);
+    /// ```
     pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryCategory>,
@@ -2177,6 +2964,13 @@ impl UpdateGlossaryCategoryRequest {
     }
 
     /// Sets the value of [category][crate::model::UpdateGlossaryCategoryRequest::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryCategoryRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = UpdateGlossaryCategoryRequest::new().set_category(GlossaryCategory::default()/* use setters */);
+    /// ```
     pub fn set_category<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryCategory>,
@@ -2186,6 +2980,14 @@ impl UpdateGlossaryCategoryRequest {
     }
 
     /// Sets or clears the value of [category][crate::model::UpdateGlossaryCategoryRequest::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryCategoryRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = UpdateGlossaryCategoryRequest::new().set_or_clear_category(Some(GlossaryCategory::default()/* use setters */));
+    /// let x = UpdateGlossaryCategoryRequest::new().set_or_clear_category(None::<GlossaryCategory>);
+    /// ```
     pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryCategory>,
@@ -2195,6 +2997,13 @@ impl UpdateGlossaryCategoryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGlossaryCategoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryCategoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryCategoryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2204,6 +3013,14 @@ impl UpdateGlossaryCategoryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryCategoryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryCategoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryCategoryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGlossaryCategoryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2237,6 +3054,12 @@ impl DeleteGlossaryCategoryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGlossaryCategoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteGlossaryCategoryRequest;
+    /// let x = DeleteGlossaryCategoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2267,6 +3090,12 @@ impl GetGlossaryCategoryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGlossaryCategoryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetGlossaryCategoryRequest;
+    /// let x = GetGlossaryCategoryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2330,30 +3159,60 @@ impl ListGlossaryCategoriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGlossaryCategoriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesRequest;
+    /// let x = ListGlossaryCategoriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGlossaryCategoriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesRequest;
+    /// let x = ListGlossaryCategoriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGlossaryCategoriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesRequest;
+    /// let x = ListGlossaryCategoriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGlossaryCategoriesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesRequest;
+    /// let x = ListGlossaryCategoriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListGlossaryCategoriesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesRequest;
+    /// let x = ListGlossaryCategoriesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2389,6 +3248,17 @@ impl ListGlossaryCategoriesResponse {
     }
 
     /// Sets the value of [categories][crate::model::ListGlossaryCategoriesResponse::categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesResponse;
+    /// use google_cloud_dataplex_v1::model::GlossaryCategory;
+    /// let x = ListGlossaryCategoriesResponse::new()
+    ///     .set_categories([
+    ///         GlossaryCategory::default()/* use setters */,
+    ///         GlossaryCategory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2400,12 +3270,24 @@ impl ListGlossaryCategoriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGlossaryCategoriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesResponse;
+    /// let x = ListGlossaryCategoriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListGlossaryCategoriesResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryCategoriesResponse;
+    /// let x = ListGlossaryCategoriesResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2462,18 +3344,37 @@ impl CreateGlossaryTermRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGlossaryTermRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryTermRequest;
+    /// let x = CreateGlossaryTermRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [term_id][crate::model::CreateGlossaryTermRequest::term_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryTermRequest;
+    /// let x = CreateGlossaryTermRequest::new().set_term_id("example");
+    /// ```
     pub fn set_term_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.term_id = v.into();
         self
     }
 
     /// Sets the value of [term][crate::model::CreateGlossaryTermRequest::term].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryTermRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = CreateGlossaryTermRequest::new().set_term(GlossaryTerm::default()/* use setters */);
+    /// ```
     pub fn set_term<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -2483,6 +3384,14 @@ impl CreateGlossaryTermRequest {
     }
 
     /// Sets or clears the value of [term][crate::model::CreateGlossaryTermRequest::term].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateGlossaryTermRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = CreateGlossaryTermRequest::new().set_or_clear_term(Some(GlossaryTerm::default()/* use setters */));
+    /// let x = CreateGlossaryTermRequest::new().set_or_clear_term(None::<GlossaryTerm>);
+    /// ```
     pub fn set_or_clear_term<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -2520,6 +3429,13 @@ impl UpdateGlossaryTermRequest {
     }
 
     /// Sets the value of [term][crate::model::UpdateGlossaryTermRequest::term].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryTermRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = UpdateGlossaryTermRequest::new().set_term(GlossaryTerm::default()/* use setters */);
+    /// ```
     pub fn set_term<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -2529,6 +3445,14 @@ impl UpdateGlossaryTermRequest {
     }
 
     /// Sets or clears the value of [term][crate::model::UpdateGlossaryTermRequest::term].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryTermRequest;
+    /// use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = UpdateGlossaryTermRequest::new().set_or_clear_term(Some(GlossaryTerm::default()/* use setters */));
+    /// let x = UpdateGlossaryTermRequest::new().set_or_clear_term(None::<GlossaryTerm>);
+    /// ```
     pub fn set_or_clear_term<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryTerm>,
@@ -2538,6 +3462,13 @@ impl UpdateGlossaryTermRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGlossaryTermRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryTermRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryTermRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2547,6 +3478,14 @@ impl UpdateGlossaryTermRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryTermRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateGlossaryTermRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGlossaryTermRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGlossaryTermRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2580,6 +3519,12 @@ impl DeleteGlossaryTermRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGlossaryTermRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteGlossaryTermRequest;
+    /// let x = DeleteGlossaryTermRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2610,6 +3555,12 @@ impl GetGlossaryTermRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGlossaryTermRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetGlossaryTermRequest;
+    /// let x = GetGlossaryTermRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2673,30 +3624,60 @@ impl ListGlossaryTermsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGlossaryTermsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsRequest;
+    /// let x = ListGlossaryTermsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGlossaryTermsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsRequest;
+    /// let x = ListGlossaryTermsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGlossaryTermsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsRequest;
+    /// let x = ListGlossaryTermsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGlossaryTermsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsRequest;
+    /// let x = ListGlossaryTermsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListGlossaryTermsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsRequest;
+    /// let x = ListGlossaryTermsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2732,6 +3713,17 @@ impl ListGlossaryTermsResponse {
     }
 
     /// Sets the value of [terms][crate::model::ListGlossaryTermsResponse::terms].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsResponse;
+    /// use google_cloud_dataplex_v1::model::GlossaryTerm;
+    /// let x = ListGlossaryTermsResponse::new()
+    ///     .set_terms([
+    ///         GlossaryTerm::default()/* use setters */,
+    ///         GlossaryTerm::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_terms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2743,12 +3735,24 @@ impl ListGlossaryTermsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGlossaryTermsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsResponse;
+    /// let x = ListGlossaryTermsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListGlossaryTermsResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListGlossaryTermsResponse;
+    /// let x = ListGlossaryTermsResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2835,18 +3839,37 @@ impl AspectType {
     }
 
     /// Sets the value of [name][crate::model::AspectType::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = AspectType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::AspectType::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = AspectType::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AspectType::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use wkt::Timestamp;
+    /// let x = AspectType::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2856,6 +3879,14 @@ impl AspectType {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AspectType::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use wkt::Timestamp;
+    /// let x = AspectType::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AspectType::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2865,6 +3896,13 @@ impl AspectType {
     }
 
     /// Sets the value of [update_time][crate::model::AspectType::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use wkt::Timestamp;
+    /// let x = AspectType::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2874,6 +3912,14 @@ impl AspectType {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AspectType::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use wkt::Timestamp;
+    /// let x = AspectType::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AspectType::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2883,18 +3929,39 @@ impl AspectType {
     }
 
     /// Sets the value of [description][crate::model::AspectType::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = AspectType::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::AspectType::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = AspectType::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::AspectType::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = AspectType::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2907,12 +3974,25 @@ impl AspectType {
     }
 
     /// Sets the value of [etag][crate::model::AspectType::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = AspectType::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [data_classification][crate::model::AspectType::data_classification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use google_cloud_dataplex_v1::model::aspect_type::DataClassification;
+    /// let x0 = AspectType::new().set_data_classification(DataClassification::MetadataAndData);
+    /// ```
     pub fn set_data_classification<
         T: std::convert::Into<crate::model::aspect_type::DataClassification>,
     >(
@@ -2924,6 +4004,13 @@ impl AspectType {
     }
 
     /// Sets the value of [authorization][crate::model::AspectType::authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use google_cloud_dataplex_v1::model::aspect_type::Authorization;
+    /// let x = AspectType::new().set_authorization(Authorization::default()/* use setters */);
+    /// ```
     pub fn set_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::aspect_type::Authorization>,
@@ -2933,6 +4020,14 @@ impl AspectType {
     }
 
     /// Sets or clears the value of [authorization][crate::model::AspectType::authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use google_cloud_dataplex_v1::model::aspect_type::Authorization;
+    /// let x = AspectType::new().set_or_clear_authorization(Some(Authorization::default()/* use setters */));
+    /// let x = AspectType::new().set_or_clear_authorization(None::<Authorization>);
+    /// ```
     pub fn set_or_clear_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::aspect_type::Authorization>,
@@ -2942,6 +4037,13 @@ impl AspectType {
     }
 
     /// Sets the value of [metadata_template][crate::model::AspectType::metadata_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+    /// let x = AspectType::new().set_metadata_template(MetadataTemplate::default()/* use setters */);
+    /// ```
     pub fn set_metadata_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::aspect_type::MetadataTemplate>,
@@ -2951,6 +4053,14 @@ impl AspectType {
     }
 
     /// Sets or clears the value of [metadata_template][crate::model::AspectType::metadata_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+    /// let x = AspectType::new().set_or_clear_metadata_template(Some(MetadataTemplate::default()/* use setters */));
+    /// let x = AspectType::new().set_or_clear_metadata_template(None::<MetadataTemplate>);
+    /// ```
     pub fn set_or_clear_metadata_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::aspect_type::MetadataTemplate>,
@@ -2960,6 +4070,14 @@ impl AspectType {
     }
 
     /// Sets the value of [transfer_status][crate::model::AspectType::transfer_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectType;
+    /// use google_cloud_dataplex_v1::model::TransferStatus;
+    /// let x0 = AspectType::new().set_transfer_status(TransferStatus::Migrated);
+    /// let x1 = AspectType::new().set_transfer_status(TransferStatus::Transferred);
+    /// ```
     pub fn set_transfer_status<T: std::convert::Into<crate::model::TransferStatus>>(
         mut self,
         v: T,
@@ -2998,6 +4116,12 @@ pub mod aspect_type {
         }
 
         /// Sets the value of [alternate_use_permission][crate::model::aspect_type::Authorization::alternate_use_permission].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::Authorization;
+        /// let x = Authorization::new().set_alternate_use_permission("example");
+        /// ```
         pub fn set_alternate_use_permission<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3099,24 +4223,53 @@ pub mod aspect_type {
         }
 
         /// Sets the value of [index][crate::model::aspect_type::MetadataTemplate::index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_index(42);
+        /// ```
         pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.index = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::aspect_type::MetadataTemplate::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::aspect_type::MetadataTemplate::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [record_fields][crate::model::aspect_type::MetadataTemplate::record_fields].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new()
+        ///     .set_record_fields([
+        ///         MetadataTemplate::default()/* use setters */,
+        ///         MetadataTemplate::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_record_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3128,6 +4281,17 @@ pub mod aspect_type {
         }
 
         /// Sets the value of [enum_values][crate::model::aspect_type::MetadataTemplate::enum_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::metadata_template::EnumValue;
+        /// let x = MetadataTemplate::new()
+        ///     .set_enum_values([
+        ///         EnumValue::default()/* use setters */,
+        ///         EnumValue::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_enum_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3139,6 +4303,13 @@ pub mod aspect_type {
         }
 
         /// Sets the value of [map_items][crate::model::aspect_type::MetadataTemplate::map_items].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_map_items(MetadataTemplate::default()/* use setters */);
+        /// ```
         pub fn set_map_items<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::MetadataTemplate>,
@@ -3148,6 +4319,14 @@ pub mod aspect_type {
         }
 
         /// Sets or clears the value of [map_items][crate::model::aspect_type::MetadataTemplate::map_items].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_or_clear_map_items(Some(MetadataTemplate::default()/* use setters */));
+        /// let x = MetadataTemplate::new().set_or_clear_map_items(None::<MetadataTemplate>);
+        /// ```
         pub fn set_or_clear_map_items<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::MetadataTemplate>,
@@ -3157,6 +4336,13 @@ pub mod aspect_type {
         }
 
         /// Sets the value of [array_items][crate::model::aspect_type::MetadataTemplate::array_items].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_array_items(MetadataTemplate::default()/* use setters */);
+        /// ```
         pub fn set_array_items<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::MetadataTemplate>,
@@ -3166,6 +4352,14 @@ pub mod aspect_type {
         }
 
         /// Sets or clears the value of [array_items][crate::model::aspect_type::MetadataTemplate::array_items].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_or_clear_array_items(Some(MetadataTemplate::default()/* use setters */));
+        /// let x = MetadataTemplate::new().set_or_clear_array_items(None::<MetadataTemplate>);
+        /// ```
         pub fn set_or_clear_array_items<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::MetadataTemplate>,
@@ -3175,18 +4369,37 @@ pub mod aspect_type {
         }
 
         /// Sets the value of [type_id][crate::model::aspect_type::MetadataTemplate::type_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_type_id("example");
+        /// ```
         pub fn set_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.type_id = v.into();
             self
         }
 
         /// Sets the value of [type_ref][crate::model::aspect_type::MetadataTemplate::type_ref].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// let x = MetadataTemplate::new().set_type_ref("example");
+        /// ```
         pub fn set_type_ref<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.type_ref = v.into();
             self
         }
 
         /// Sets the value of [constraints][crate::model::aspect_type::MetadataTemplate::constraints].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Constraints;
+        /// let x = MetadataTemplate::new().set_constraints(Constraints::default()/* use setters */);
+        /// ```
         pub fn set_constraints<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::metadata_template::Constraints>,
@@ -3196,6 +4409,14 @@ pub mod aspect_type {
         }
 
         /// Sets or clears the value of [constraints][crate::model::aspect_type::MetadataTemplate::constraints].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Constraints;
+        /// let x = MetadataTemplate::new().set_or_clear_constraints(Some(Constraints::default()/* use setters */));
+        /// let x = MetadataTemplate::new().set_or_clear_constraints(None::<Constraints>);
+        /// ```
         pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::metadata_template::Constraints>,
@@ -3205,6 +4426,13 @@ pub mod aspect_type {
         }
 
         /// Sets the value of [annotations][crate::model::aspect_type::MetadataTemplate::annotations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+        /// let x = MetadataTemplate::new().set_annotations(Annotations::default()/* use setters */);
+        /// ```
         pub fn set_annotations<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::metadata_template::Annotations>,
@@ -3214,6 +4442,14 @@ pub mod aspect_type {
         }
 
         /// Sets or clears the value of [annotations][crate::model::aspect_type::MetadataTemplate::annotations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::aspect_type::MetadataTemplate;
+        /// use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+        /// let x = MetadataTemplate::new().set_or_clear_annotations(Some(Annotations::default()/* use setters */));
+        /// let x = MetadataTemplate::new().set_or_clear_annotations(None::<Annotations>);
+        /// ```
         pub fn set_or_clear_annotations<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::aspect_type::metadata_template::Annotations>,
@@ -3258,18 +4494,36 @@ pub mod aspect_type {
             }
 
             /// Sets the value of [index][crate::model::aspect_type::metadata_template::EnumValue::index].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::EnumValue;
+            /// let x = EnumValue::new().set_index(42);
+            /// ```
             pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.index = v.into();
                 self
             }
 
             /// Sets the value of [name][crate::model::aspect_type::metadata_template::EnumValue::name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::EnumValue;
+            /// let x = EnumValue::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
             }
 
             /// Sets the value of [deprecated][crate::model::aspect_type::metadata_template::EnumValue::deprecated].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::EnumValue;
+            /// let x = EnumValue::new().set_deprecated("example");
+            /// ```
             pub fn set_deprecated<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3301,6 +4555,12 @@ pub mod aspect_type {
             }
 
             /// Sets the value of [required][crate::model::aspect_type::metadata_template::Constraints::required].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Constraints;
+            /// let x = Constraints::new().set_required(true);
+            /// ```
             pub fn set_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.required = v.into();
                 self
@@ -3352,6 +4612,12 @@ pub mod aspect_type {
             }
 
             /// Sets the value of [deprecated][crate::model::aspect_type::metadata_template::Annotations::deprecated].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+            /// let x = Annotations::new().set_deprecated("example");
+            /// ```
             pub fn set_deprecated<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3361,6 +4627,12 @@ pub mod aspect_type {
             }
 
             /// Sets the value of [display_name][crate::model::aspect_type::metadata_template::Annotations::display_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+            /// let x = Annotations::new().set_display_name("example");
+            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3370,6 +4642,12 @@ pub mod aspect_type {
             }
 
             /// Sets the value of [description][crate::model::aspect_type::metadata_template::Annotations::description].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+            /// let x = Annotations::new().set_description("example");
+            /// ```
             pub fn set_description<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3379,12 +4657,24 @@ pub mod aspect_type {
             }
 
             /// Sets the value of [display_order][crate::model::aspect_type::metadata_template::Annotations::display_order].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+            /// let x = Annotations::new().set_display_order(42);
+            /// ```
             pub fn set_display_order<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.display_order = v.into();
                 self
             }
 
             /// Sets the value of [string_type][crate::model::aspect_type::metadata_template::Annotations::string_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+            /// let x = Annotations::new().set_string_type("example");
+            /// ```
             pub fn set_string_type<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3394,6 +4684,12 @@ pub mod aspect_type {
             }
 
             /// Sets the value of [string_values][crate::model::aspect_type::metadata_template::Annotations::string_values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::aspect_type::metadata_template::Annotations;
+            /// let x = Annotations::new().set_string_values(["a", "b", "c"]);
+            /// ```
             pub fn set_string_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -3584,18 +4880,37 @@ impl EntryGroup {
     }
 
     /// Sets the value of [name][crate::model::EntryGroup::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = EntryGroup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::EntryGroup::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = EntryGroup::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::EntryGroup::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// use wkt::Timestamp;
+    /// let x = EntryGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3605,6 +4920,14 @@ impl EntryGroup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EntryGroup::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// use wkt::Timestamp;
+    /// let x = EntryGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntryGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3614,6 +4937,13 @@ impl EntryGroup {
     }
 
     /// Sets the value of [update_time][crate::model::EntryGroup::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// use wkt::Timestamp;
+    /// let x = EntryGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3623,6 +4953,14 @@ impl EntryGroup {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EntryGroup::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// use wkt::Timestamp;
+    /// let x = EntryGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntryGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3632,18 +4970,39 @@ impl EntryGroup {
     }
 
     /// Sets the value of [description][crate::model::EntryGroup::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = EntryGroup::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::EntryGroup::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = EntryGroup::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::EntryGroup::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = EntryGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3656,12 +5015,26 @@ impl EntryGroup {
     }
 
     /// Sets the value of [etag][crate::model::EntryGroup::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = EntryGroup::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [transfer_status][crate::model::EntryGroup::transfer_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryGroup;
+    /// use google_cloud_dataplex_v1::model::TransferStatus;
+    /// let x0 = EntryGroup::new().set_transfer_status(TransferStatus::Migrated);
+    /// let x1 = EntryGroup::new().set_transfer_status(TransferStatus::Transferred);
+    /// ```
     pub fn set_transfer_status<T: std::convert::Into<crate::model::TransferStatus>>(
         mut self,
         v: T,
@@ -3736,18 +5109,37 @@ impl EntryType {
     }
 
     /// Sets the value of [name][crate::model::EntryType::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::EntryType::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::EntryType::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// use wkt::Timestamp;
+    /// let x = EntryType::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3757,6 +5149,14 @@ impl EntryType {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EntryType::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// use wkt::Timestamp;
+    /// let x = EntryType::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntryType::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3766,6 +5166,13 @@ impl EntryType {
     }
 
     /// Sets the value of [update_time][crate::model::EntryType::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// use wkt::Timestamp;
+    /// let x = EntryType::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3775,6 +5182,14 @@ impl EntryType {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EntryType::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// use wkt::Timestamp;
+    /// let x = EntryType::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntryType::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3784,18 +5199,39 @@ impl EntryType {
     }
 
     /// Sets the value of [description][crate::model::EntryType::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::EntryType::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::EntryType::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3808,12 +5244,24 @@ impl EntryType {
     }
 
     /// Sets the value of [etag][crate::model::EntryType::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [type_aliases][crate::model::EntryType::type_aliases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_type_aliases(["a", "b", "c"]);
+    /// ```
     pub fn set_type_aliases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3825,18 +5273,41 @@ impl EntryType {
     }
 
     /// Sets the value of [platform][crate::model::EntryType::platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_platform("example");
+    /// ```
     pub fn set_platform<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.platform = v.into();
         self
     }
 
     /// Sets the value of [system][crate::model::EntryType::system].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = EntryType::new().set_system("example");
+    /// ```
     pub fn set_system<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.system = v.into();
         self
     }
 
     /// Sets the value of [required_aspects][crate::model::EntryType::required_aspects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// use google_cloud_dataplex_v1::model::entry_type::AspectInfo;
+    /// let x = EntryType::new()
+    ///     .set_required_aspects([
+    ///         AspectInfo::default()/* use setters */,
+    ///         AspectInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_required_aspects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3848,6 +5319,13 @@ impl EntryType {
     }
 
     /// Sets the value of [authorization][crate::model::EntryType::authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// use google_cloud_dataplex_v1::model::entry_type::Authorization;
+    /// let x = EntryType::new().set_authorization(Authorization::default()/* use setters */);
+    /// ```
     pub fn set_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::entry_type::Authorization>,
@@ -3857,6 +5335,14 @@ impl EntryType {
     }
 
     /// Sets or clears the value of [authorization][crate::model::EntryType::authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryType;
+    /// use google_cloud_dataplex_v1::model::entry_type::Authorization;
+    /// let x = EntryType::new().set_or_clear_authorization(Some(Authorization::default()/* use setters */));
+    /// let x = EntryType::new().set_or_clear_authorization(None::<Authorization>);
+    /// ```
     pub fn set_or_clear_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::entry_type::Authorization>,
@@ -3892,6 +5378,12 @@ pub mod entry_type {
         }
 
         /// Sets the value of [r#type][crate::model::entry_type::AspectInfo::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entry_type::AspectInfo;
+        /// let x = AspectInfo::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
@@ -3922,6 +5414,12 @@ pub mod entry_type {
         }
 
         /// Sets the value of [alternate_use_permission][crate::model::entry_type::Authorization::alternate_use_permission].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entry_type::Authorization;
+        /// let x = Authorization::new().set_alternate_use_permission("example");
+        /// ```
         pub fn set_alternate_use_permission<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3970,18 +5468,37 @@ impl Aspect {
     }
 
     /// Sets the value of [aspect_type][crate::model::Aspect::aspect_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// let x = Aspect::new().set_aspect_type("example");
+    /// ```
     pub fn set_aspect_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aspect_type = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::Aspect::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// let x = Aspect::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Aspect::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use wkt::Timestamp;
+    /// let x = Aspect::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3991,6 +5508,14 @@ impl Aspect {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Aspect::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use wkt::Timestamp;
+    /// let x = Aspect::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Aspect::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4000,6 +5525,13 @@ impl Aspect {
     }
 
     /// Sets the value of [update_time][crate::model::Aspect::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use wkt::Timestamp;
+    /// let x = Aspect::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4009,6 +5541,14 @@ impl Aspect {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Aspect::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use wkt::Timestamp;
+    /// let x = Aspect::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Aspect::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4018,6 +5558,13 @@ impl Aspect {
     }
 
     /// Sets the value of [data][crate::model::Aspect::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use wkt::Struct;
+    /// let x = Aspect::new().set_data(Struct::default()/* use setters */);
+    /// ```
     pub fn set_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -4027,6 +5574,14 @@ impl Aspect {
     }
 
     /// Sets or clears the value of [data][crate::model::Aspect::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use wkt::Struct;
+    /// let x = Aspect::new().set_or_clear_data(Some(Struct::default()/* use setters */));
+    /// let x = Aspect::new().set_or_clear_data(None::<Struct>);
+    /// ```
     pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -4036,6 +5591,13 @@ impl Aspect {
     }
 
     /// Sets the value of [aspect_source][crate::model::Aspect::aspect_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use google_cloud_dataplex_v1::model::AspectSource;
+    /// let x = Aspect::new().set_aspect_source(AspectSource::default()/* use setters */);
+    /// ```
     pub fn set_aspect_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AspectSource>,
@@ -4045,6 +5607,14 @@ impl Aspect {
     }
 
     /// Sets or clears the value of [aspect_source][crate::model::Aspect::aspect_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Aspect;
+    /// use google_cloud_dataplex_v1::model::AspectSource;
+    /// let x = Aspect::new().set_or_clear_aspect_source(Some(AspectSource::default()/* use setters */));
+    /// let x = Aspect::new().set_or_clear_aspect_source(None::<AspectSource>);
+    /// ```
     pub fn set_or_clear_aspect_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AspectSource>,
@@ -4084,6 +5654,13 @@ impl AspectSource {
     }
 
     /// Sets the value of [create_time][crate::model::AspectSource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectSource;
+    /// use wkt::Timestamp;
+    /// let x = AspectSource::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4093,6 +5670,14 @@ impl AspectSource {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AspectSource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectSource;
+    /// use wkt::Timestamp;
+    /// let x = AspectSource::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AspectSource::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4102,6 +5687,13 @@ impl AspectSource {
     }
 
     /// Sets the value of [update_time][crate::model::AspectSource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectSource;
+    /// use wkt::Timestamp;
+    /// let x = AspectSource::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4111,6 +5703,14 @@ impl AspectSource {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AspectSource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectSource;
+    /// use wkt::Timestamp;
+    /// let x = AspectSource::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AspectSource::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4120,6 +5720,12 @@ impl AspectSource {
     }
 
     /// Sets the value of [data_version][crate::model::AspectSource::data_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AspectSource;
+    /// let x = AspectSource::new().set_data_version("example");
+    /// ```
     pub fn set_data_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_version = v.into();
         self
@@ -4187,18 +5793,37 @@ impl Entry {
     }
 
     /// Sets the value of [name][crate::model::Entry::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// let x = Entry::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [entry_type][crate::model::Entry::entry_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// let x = Entry::new().set_entry_type("example");
+    /// ```
     pub fn set_entry_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_type = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Entry::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// use wkt::Timestamp;
+    /// let x = Entry::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4208,6 +5833,14 @@ impl Entry {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Entry::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// use wkt::Timestamp;
+    /// let x = Entry::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Entry::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4217,6 +5850,13 @@ impl Entry {
     }
 
     /// Sets the value of [update_time][crate::model::Entry::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// use wkt::Timestamp;
+    /// let x = Entry::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4226,6 +5866,14 @@ impl Entry {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Entry::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// use wkt::Timestamp;
+    /// let x = Entry::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Entry::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4235,6 +5883,16 @@ impl Entry {
     }
 
     /// Sets the value of [aspects][crate::model::Entry::aspects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// use google_cloud_dataplex_v1::model::Aspect;
+    /// let x = Entry::new().set_aspects([
+    ///     ("key0", Aspect::default()/* use setters */),
+    ///     ("key1", Aspect::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_aspects<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4247,12 +5905,24 @@ impl Entry {
     }
 
     /// Sets the value of [parent_entry][crate::model::Entry::parent_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// let x = Entry::new().set_parent_entry("example");
+    /// ```
     pub fn set_parent_entry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_entry = v.into();
         self
     }
 
     /// Sets the value of [fully_qualified_name][crate::model::Entry::fully_qualified_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// let x = Entry::new().set_fully_qualified_name("example");
+    /// ```
     pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4262,6 +5932,13 @@ impl Entry {
     }
 
     /// Sets the value of [entry_source][crate::model::Entry::entry_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = Entry::new().set_entry_source(EntrySource::default()/* use setters */);
+    /// ```
     pub fn set_entry_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntrySource>,
@@ -4271,6 +5948,14 @@ impl Entry {
     }
 
     /// Sets or clears the value of [entry_source][crate::model::Entry::entry_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entry;
+    /// use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = Entry::new().set_or_clear_entry_source(Some(EntrySource::default()/* use setters */));
+    /// let x = Entry::new().set_or_clear_entry_source(None::<EntrySource>);
+    /// ```
     pub fn set_or_clear_entry_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntrySource>,
@@ -4343,36 +6028,75 @@ impl EntrySource {
     }
 
     /// Sets the value of [resource][crate::model::EntrySource::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = EntrySource::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [system][crate::model::EntrySource::system].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = EntrySource::new().set_system("example");
+    /// ```
     pub fn set_system<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.system = v.into();
         self
     }
 
     /// Sets the value of [platform][crate::model::EntrySource::platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = EntrySource::new().set_platform("example");
+    /// ```
     pub fn set_platform<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.platform = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::EntrySource::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = EntrySource::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::EntrySource::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = EntrySource::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::EntrySource::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = EntrySource::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4385,6 +6109,17 @@ impl EntrySource {
     }
 
     /// Sets the value of [ancestors][crate::model::EntrySource::ancestors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// use google_cloud_dataplex_v1::model::entry_source::Ancestor;
+    /// let x = EntrySource::new()
+    ///     .set_ancestors([
+    ///         Ancestor::default()/* use setters */,
+    ///         Ancestor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ancestors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4396,6 +6131,13 @@ impl EntrySource {
     }
 
     /// Sets the value of [create_time][crate::model::EntrySource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// use wkt::Timestamp;
+    /// let x = EntrySource::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4405,6 +6147,14 @@ impl EntrySource {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EntrySource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// use wkt::Timestamp;
+    /// let x = EntrySource::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntrySource::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4414,6 +6164,13 @@ impl EntrySource {
     }
 
     /// Sets the value of [update_time][crate::model::EntrySource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// use wkt::Timestamp;
+    /// let x = EntrySource::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4423,6 +6180,14 @@ impl EntrySource {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EntrySource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// use wkt::Timestamp;
+    /// let x = EntrySource::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntrySource::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4432,6 +6197,12 @@ impl EntrySource {
     }
 
     /// Sets the value of [location][crate::model::EntrySource::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntrySource;
+    /// let x = EntrySource::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -4469,12 +6240,24 @@ pub mod entry_source {
         }
 
         /// Sets the value of [name][crate::model::entry_source::Ancestor::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entry_source::Ancestor;
+        /// let x = Ancestor::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::entry_source::Ancestor::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entry_source::Ancestor;
+        /// let x = Ancestor::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
@@ -4516,18 +6299,37 @@ impl CreateEntryGroupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEntryGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryGroupRequest;
+    /// let x = CreateEntryGroupRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entry_group_id][crate::model::CreateEntryGroupRequest::entry_group_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryGroupRequest;
+    /// let x = CreateEntryGroupRequest::new().set_entry_group_id("example");
+    /// ```
     pub fn set_entry_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_group_id = v.into();
         self
     }
 
     /// Sets the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryGroupRequest;
+    /// use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = CreateEntryGroupRequest::new().set_entry_group(EntryGroup::default()/* use setters */);
+    /// ```
     pub fn set_entry_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntryGroup>,
@@ -4537,6 +6339,14 @@ impl CreateEntryGroupRequest {
     }
 
     /// Sets or clears the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryGroupRequest;
+    /// use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = CreateEntryGroupRequest::new().set_or_clear_entry_group(Some(EntryGroup::default()/* use setters */));
+    /// let x = CreateEntryGroupRequest::new().set_or_clear_entry_group(None::<EntryGroup>);
+    /// ```
     pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntryGroup>,
@@ -4546,6 +6356,12 @@ impl CreateEntryGroupRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateEntryGroupRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryGroupRequest;
+    /// let x = CreateEntryGroupRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4581,6 +6397,13 @@ impl UpdateEntryGroupRequest {
     }
 
     /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryGroupRequest;
+    /// use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = UpdateEntryGroupRequest::new().set_entry_group(EntryGroup::default()/* use setters */);
+    /// ```
     pub fn set_entry_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntryGroup>,
@@ -4590,6 +6413,14 @@ impl UpdateEntryGroupRequest {
     }
 
     /// Sets or clears the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryGroupRequest;
+    /// use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = UpdateEntryGroupRequest::new().set_or_clear_entry_group(Some(EntryGroup::default()/* use setters */));
+    /// let x = UpdateEntryGroupRequest::new().set_or_clear_entry_group(None::<EntryGroup>);
+    /// ```
     pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntryGroup>,
@@ -4599,6 +6430,13 @@ impl UpdateEntryGroupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntryGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4608,6 +6446,14 @@ impl UpdateEntryGroupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntryGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEntryGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4617,6 +6463,12 @@ impl UpdateEntryGroupRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateEntryGroupRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryGroupRequest;
+    /// let x = UpdateEntryGroupRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4651,12 +6503,24 @@ impl DeleteEntryGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEntryGroupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntryGroupRequest;
+    /// let x = DeleteEntryGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteEntryGroupRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntryGroupRequest;
+    /// let x = DeleteEntryGroupRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4705,30 +6569,60 @@ impl ListEntryGroupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEntryGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsRequest;
+    /// let x = ListEntryGroupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEntryGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsRequest;
+    /// let x = ListEntryGroupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEntryGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsRequest;
+    /// let x = ListEntryGroupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEntryGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsRequest;
+    /// let x = ListEntryGroupsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEntryGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsRequest;
+    /// let x = ListEntryGroupsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4764,6 +6658,17 @@ impl ListEntryGroupsResponse {
     }
 
     /// Sets the value of [entry_groups][crate::model::ListEntryGroupsResponse::entry_groups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsResponse;
+    /// use google_cloud_dataplex_v1::model::EntryGroup;
+    /// let x = ListEntryGroupsResponse::new()
+    ///     .set_entry_groups([
+    ///         EntryGroup::default()/* use setters */,
+    ///         EntryGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entry_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4775,12 +6680,24 @@ impl ListEntryGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEntryGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsResponse;
+    /// let x = ListEntryGroupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListEntryGroupsResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryGroupsResponse;
+    /// let x = ListEntryGroupsResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4829,6 +6746,12 @@ impl GetEntryGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEntryGroupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntryGroupRequest;
+    /// let x = GetEntryGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4869,18 +6792,37 @@ impl CreateEntryTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEntryTypeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryTypeRequest;
+    /// let x = CreateEntryTypeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entry_type_id][crate::model::CreateEntryTypeRequest::entry_type_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryTypeRequest;
+    /// let x = CreateEntryTypeRequest::new().set_entry_type_id("example");
+    /// ```
     pub fn set_entry_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_type_id = v.into();
         self
     }
 
     /// Sets the value of [entry_type][crate::model::CreateEntryTypeRequest::entry_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryTypeRequest;
+    /// use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = CreateEntryTypeRequest::new().set_entry_type(EntryType::default()/* use setters */);
+    /// ```
     pub fn set_entry_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntryType>,
@@ -4890,6 +6832,14 @@ impl CreateEntryTypeRequest {
     }
 
     /// Sets or clears the value of [entry_type][crate::model::CreateEntryTypeRequest::entry_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryTypeRequest;
+    /// use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = CreateEntryTypeRequest::new().set_or_clear_entry_type(Some(EntryType::default()/* use setters */));
+    /// let x = CreateEntryTypeRequest::new().set_or_clear_entry_type(None::<EntryType>);
+    /// ```
     pub fn set_or_clear_entry_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntryType>,
@@ -4899,6 +6849,12 @@ impl CreateEntryTypeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateEntryTypeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryTypeRequest;
+    /// let x = CreateEntryTypeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4934,6 +6890,13 @@ impl UpdateEntryTypeRequest {
     }
 
     /// Sets the value of [entry_type][crate::model::UpdateEntryTypeRequest::entry_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryTypeRequest;
+    /// use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = UpdateEntryTypeRequest::new().set_entry_type(EntryType::default()/* use setters */);
+    /// ```
     pub fn set_entry_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntryType>,
@@ -4943,6 +6906,14 @@ impl UpdateEntryTypeRequest {
     }
 
     /// Sets or clears the value of [entry_type][crate::model::UpdateEntryTypeRequest::entry_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryTypeRequest;
+    /// use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = UpdateEntryTypeRequest::new().set_or_clear_entry_type(Some(EntryType::default()/* use setters */));
+    /// let x = UpdateEntryTypeRequest::new().set_or_clear_entry_type(None::<EntryType>);
+    /// ```
     pub fn set_or_clear_entry_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntryType>,
@@ -4952,6 +6923,13 @@ impl UpdateEntryTypeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEntryTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntryTypeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4961,6 +6939,14 @@ impl UpdateEntryTypeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEntryTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntryTypeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEntryTypeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4970,6 +6956,12 @@ impl UpdateEntryTypeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateEntryTypeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryTypeRequest;
+    /// let x = UpdateEntryTypeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5003,12 +6995,24 @@ impl DeleteEntryTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEntryTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntryTypeRequest;
+    /// let x = DeleteEntryTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteEntryTypeRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntryTypeRequest;
+    /// let x = DeleteEntryTypeRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5065,30 +7069,60 @@ impl ListEntryTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEntryTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesRequest;
+    /// let x = ListEntryTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEntryTypesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesRequest;
+    /// let x = ListEntryTypesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEntryTypesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesRequest;
+    /// let x = ListEntryTypesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEntryTypesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesRequest;
+    /// let x = ListEntryTypesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEntryTypesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesRequest;
+    /// let x = ListEntryTypesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5124,6 +7158,17 @@ impl ListEntryTypesResponse {
     }
 
     /// Sets the value of [entry_types][crate::model::ListEntryTypesResponse::entry_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesResponse;
+    /// use google_cloud_dataplex_v1::model::EntryType;
+    /// let x = ListEntryTypesResponse::new()
+    ///     .set_entry_types([
+    ///         EntryType::default()/* use setters */,
+    ///         EntryType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entry_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5135,12 +7180,24 @@ impl ListEntryTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEntryTypesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesResponse;
+    /// let x = ListEntryTypesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListEntryTypesResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntryTypesResponse;
+    /// let x = ListEntryTypesResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5189,6 +7246,12 @@ impl GetEntryTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEntryTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntryTypeRequest;
+    /// let x = GetEntryTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5229,18 +7292,37 @@ impl CreateAspectTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAspectTypeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAspectTypeRequest;
+    /// let x = CreateAspectTypeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [aspect_type_id][crate::model::CreateAspectTypeRequest::aspect_type_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAspectTypeRequest;
+    /// let x = CreateAspectTypeRequest::new().set_aspect_type_id("example");
+    /// ```
     pub fn set_aspect_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aspect_type_id = v.into();
         self
     }
 
     /// Sets the value of [aspect_type][crate::model::CreateAspectTypeRequest::aspect_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAspectTypeRequest;
+    /// use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = CreateAspectTypeRequest::new().set_aspect_type(AspectType::default()/* use setters */);
+    /// ```
     pub fn set_aspect_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AspectType>,
@@ -5250,6 +7332,14 @@ impl CreateAspectTypeRequest {
     }
 
     /// Sets or clears the value of [aspect_type][crate::model::CreateAspectTypeRequest::aspect_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAspectTypeRequest;
+    /// use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = CreateAspectTypeRequest::new().set_or_clear_aspect_type(Some(AspectType::default()/* use setters */));
+    /// let x = CreateAspectTypeRequest::new().set_or_clear_aspect_type(None::<AspectType>);
+    /// ```
     pub fn set_or_clear_aspect_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AspectType>,
@@ -5259,6 +7349,12 @@ impl CreateAspectTypeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateAspectTypeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAspectTypeRequest;
+    /// let x = CreateAspectTypeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5294,6 +7390,13 @@ impl UpdateAspectTypeRequest {
     }
 
     /// Sets the value of [aspect_type][crate::model::UpdateAspectTypeRequest::aspect_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAspectTypeRequest;
+    /// use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = UpdateAspectTypeRequest::new().set_aspect_type(AspectType::default()/* use setters */);
+    /// ```
     pub fn set_aspect_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AspectType>,
@@ -5303,6 +7406,14 @@ impl UpdateAspectTypeRequest {
     }
 
     /// Sets or clears the value of [aspect_type][crate::model::UpdateAspectTypeRequest::aspect_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAspectTypeRequest;
+    /// use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = UpdateAspectTypeRequest::new().set_or_clear_aspect_type(Some(AspectType::default()/* use setters */));
+    /// let x = UpdateAspectTypeRequest::new().set_or_clear_aspect_type(None::<AspectType>);
+    /// ```
     pub fn set_or_clear_aspect_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AspectType>,
@@ -5312,6 +7423,13 @@ impl UpdateAspectTypeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAspectTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAspectTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAspectTypeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5321,6 +7439,14 @@ impl UpdateAspectTypeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAspectTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAspectTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAspectTypeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAspectTypeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5330,6 +7456,12 @@ impl UpdateAspectTypeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateAspectTypeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAspectTypeRequest;
+    /// let x = UpdateAspectTypeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5364,12 +7496,24 @@ impl DeleteAspectTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAspectTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteAspectTypeRequest;
+    /// let x = DeleteAspectTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteAspectTypeRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteAspectTypeRequest;
+    /// let x = DeleteAspectTypeRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5426,30 +7570,60 @@ impl ListAspectTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAspectTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesRequest;
+    /// let x = ListAspectTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAspectTypesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesRequest;
+    /// let x = ListAspectTypesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAspectTypesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesRequest;
+    /// let x = ListAspectTypesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAspectTypesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesRequest;
+    /// let x = ListAspectTypesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAspectTypesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesRequest;
+    /// let x = ListAspectTypesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5485,6 +7659,17 @@ impl ListAspectTypesResponse {
     }
 
     /// Sets the value of [aspect_types][crate::model::ListAspectTypesResponse::aspect_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesResponse;
+    /// use google_cloud_dataplex_v1::model::AspectType;
+    /// let x = ListAspectTypesResponse::new()
+    ///     .set_aspect_types([
+    ///         AspectType::default()/* use setters */,
+    ///         AspectType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_aspect_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5496,12 +7681,24 @@ impl ListAspectTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAspectTypesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesResponse;
+    /// let x = ListAspectTypesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListAspectTypesResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAspectTypesResponse;
+    /// let x = ListAspectTypesResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5550,6 +7747,12 @@ impl GetAspectTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAspectTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetAspectTypeRequest;
+    /// let x = GetAspectTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5604,18 +7807,37 @@ impl CreateEntryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEntryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryRequest;
+    /// let x = CreateEntryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entry_id][crate::model::CreateEntryRequest::entry_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryRequest;
+    /// let x = CreateEntryRequest::new().set_entry_id("example");
+    /// ```
     pub fn set_entry_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_id = v.into();
         self
     }
 
     /// Sets the value of [entry][crate::model::CreateEntryRequest::entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryRequest;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = CreateEntryRequest::new().set_entry(Entry::default()/* use setters */);
+    /// ```
     pub fn set_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -5625,6 +7847,14 @@ impl CreateEntryRequest {
     }
 
     /// Sets or clears the value of [entry][crate::model::CreateEntryRequest::entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryRequest;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = CreateEntryRequest::new().set_or_clear_entry(Some(Entry::default()/* use setters */));
+    /// let x = CreateEntryRequest::new().set_or_clear_entry(None::<Entry>);
+    /// ```
     pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -5692,6 +7922,13 @@ impl UpdateEntryRequest {
     }
 
     /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = UpdateEntryRequest::new().set_entry(Entry::default()/* use setters */);
+    /// ```
     pub fn set_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -5701,6 +7938,14 @@ impl UpdateEntryRequest {
     }
 
     /// Sets or clears the value of [entry][crate::model::UpdateEntryRequest::entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = UpdateEntryRequest::new().set_or_clear_entry(Some(Entry::default()/* use setters */));
+    /// let x = UpdateEntryRequest::new().set_or_clear_entry(None::<Entry>);
+    /// ```
     pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -5710,6 +7955,13 @@ impl UpdateEntryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5719,6 +7971,14 @@ impl UpdateEntryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEntryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEntryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5728,18 +7988,36 @@ impl UpdateEntryRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateEntryRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// let x = UpdateEntryRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [delete_missing_aspects][crate::model::UpdateEntryRequest::delete_missing_aspects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// let x = UpdateEntryRequest::new().set_delete_missing_aspects(true);
+    /// ```
     pub fn set_delete_missing_aspects<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.delete_missing_aspects = v.into();
         self
     }
 
     /// Sets the value of [aspect_keys][crate::model::UpdateEntryRequest::aspect_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntryRequest;
+    /// let x = UpdateEntryRequest::new().set_aspect_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_aspect_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5774,6 +8052,12 @@ impl DeleteEntryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEntryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntryRequest;
+    /// let x = DeleteEntryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5840,24 +8124,48 @@ impl ListEntriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEntriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntriesRequest;
+    /// let x = ListEntriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEntriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntriesRequest;
+    /// let x = ListEntriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEntriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntriesRequest;
+    /// let x = ListEntriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEntriesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntriesRequest;
+    /// let x = ListEntriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -5890,6 +8198,17 @@ impl ListEntriesResponse {
     }
 
     /// Sets the value of [entries][crate::model::ListEntriesResponse::entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntriesResponse;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = ListEntriesResponse::new()
+    ///     .set_entries([
+    ///         Entry::default()/* use setters */,
+    ///         Entry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5901,6 +8220,12 @@ impl ListEntriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEntriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntriesResponse;
+    /// let x = ListEntriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5956,18 +8281,39 @@ impl GetEntryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEntryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntryRequest;
+    /// let x = GetEntryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetEntryRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntryRequest;
+    /// use google_cloud_dataplex_v1::model::EntryView;
+    /// let x0 = GetEntryRequest::new().set_view(EntryView::Basic);
+    /// let x1 = GetEntryRequest::new().set_view(EntryView::Full);
+    /// let x2 = GetEntryRequest::new().set_view(EntryView::Custom);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::EntryView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [aspect_types][crate::model::GetEntryRequest::aspect_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntryRequest;
+    /// let x = GetEntryRequest::new().set_aspect_types(["a", "b", "c"]);
+    /// ```
     pub fn set_aspect_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5979,6 +8325,12 @@ impl GetEntryRequest {
     }
 
     /// Sets the value of [paths][crate::model::GetEntryRequest::paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntryRequest;
+    /// let x = GetEntryRequest::new().set_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6029,18 +8381,39 @@ impl LookupEntryRequest {
     }
 
     /// Sets the value of [name][crate::model::LookupEntryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::LookupEntryRequest;
+    /// let x = LookupEntryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::LookupEntryRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::LookupEntryRequest;
+    /// use google_cloud_dataplex_v1::model::EntryView;
+    /// let x0 = LookupEntryRequest::new().set_view(EntryView::Basic);
+    /// let x1 = LookupEntryRequest::new().set_view(EntryView::Full);
+    /// let x2 = LookupEntryRequest::new().set_view(EntryView::Custom);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::EntryView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [aspect_types][crate::model::LookupEntryRequest::aspect_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::LookupEntryRequest;
+    /// let x = LookupEntryRequest::new().set_aspect_types(["a", "b", "c"]);
+    /// ```
     pub fn set_aspect_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6052,6 +8425,12 @@ impl LookupEntryRequest {
     }
 
     /// Sets the value of [paths][crate::model::LookupEntryRequest::paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::LookupEntryRequest;
+    /// let x = LookupEntryRequest::new().set_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6063,6 +8442,12 @@ impl LookupEntryRequest {
     }
 
     /// Sets the value of [entry][crate::model::LookupEntryRequest::entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::LookupEntryRequest;
+    /// let x = LookupEntryRequest::new().set_entry("example");
+    /// ```
     pub fn set_entry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry = v.into();
         self
@@ -6123,42 +8508,84 @@ impl SearchEntriesRequest {
     }
 
     /// Sets the value of [name][crate::model::SearchEntriesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesRequest;
+    /// let x = SearchEntriesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchEntriesRequest::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesRequest;
+    /// let x = SearchEntriesRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchEntriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesRequest;
+    /// let x = SearchEntriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchEntriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesRequest;
+    /// let x = SearchEntriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::SearchEntriesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesRequest;
+    /// let x = SearchEntriesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::SearchEntriesRequest::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesRequest;
+    /// let x = SearchEntriesRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [semantic_search][crate::model::SearchEntriesRequest::semantic_search].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesRequest;
+    /// let x = SearchEntriesRequest::new().set_semantic_search(true);
+    /// ```
     pub fn set_semantic_search<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.semantic_search = v.into();
         self
@@ -6194,6 +8621,12 @@ impl SearchEntriesResult {
     }
 
     /// Sets the value of [linked_resource][crate::model::SearchEntriesResult::linked_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResult;
+    /// let x = SearchEntriesResult::new().set_linked_resource("example");
+    /// ```
     #[deprecated]
     pub fn set_linked_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.linked_resource = v.into();
@@ -6201,6 +8634,13 @@ impl SearchEntriesResult {
     }
 
     /// Sets the value of [dataplex_entry][crate::model::SearchEntriesResult::dataplex_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResult;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = SearchEntriesResult::new().set_dataplex_entry(Entry::default()/* use setters */);
+    /// ```
     pub fn set_dataplex_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -6210,6 +8650,14 @@ impl SearchEntriesResult {
     }
 
     /// Sets or clears the value of [dataplex_entry][crate::model::SearchEntriesResult::dataplex_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResult;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = SearchEntriesResult::new().set_or_clear_dataplex_entry(Some(Entry::default()/* use setters */));
+    /// let x = SearchEntriesResult::new().set_or_clear_dataplex_entry(None::<Entry>);
+    /// ```
     pub fn set_or_clear_dataplex_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -6219,6 +8667,13 @@ impl SearchEntriesResult {
     }
 
     /// Sets the value of [snippets][crate::model::SearchEntriesResult::snippets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResult;
+    /// use google_cloud_dataplex_v1::model::search_entries_result::Snippets;
+    /// let x = SearchEntriesResult::new().set_snippets(Snippets::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_snippets<T>(mut self, v: T) -> Self
     where
@@ -6229,6 +8684,14 @@ impl SearchEntriesResult {
     }
 
     /// Sets or clears the value of [snippets][crate::model::SearchEntriesResult::snippets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResult;
+    /// use google_cloud_dataplex_v1::model::search_entries_result::Snippets;
+    /// let x = SearchEntriesResult::new().set_or_clear_snippets(Some(Snippets::default()/* use setters */));
+    /// let x = SearchEntriesResult::new().set_or_clear_snippets(None::<Snippets>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_snippets<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6269,6 +8732,13 @@ pub mod search_entries_result {
         }
 
         /// Sets the value of [dataplex_entry][crate::model::search_entries_result::Snippets::dataplex_entry].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::search_entries_result::Snippets;
+        /// use google_cloud_dataplex_v1::model::Entry;
+        /// let x = Snippets::new().set_dataplex_entry(Entry::default()/* use setters */);
+        /// ```
         #[deprecated]
         pub fn set_dataplex_entry<T>(mut self, v: T) -> Self
         where
@@ -6279,6 +8749,14 @@ pub mod search_entries_result {
         }
 
         /// Sets or clears the value of [dataplex_entry][crate::model::search_entries_result::Snippets::dataplex_entry].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::search_entries_result::Snippets;
+        /// use google_cloud_dataplex_v1::model::Entry;
+        /// let x = Snippets::new().set_or_clear_dataplex_entry(Some(Entry::default()/* use setters */));
+        /// let x = Snippets::new().set_or_clear_dataplex_entry(None::<Entry>);
+        /// ```
         #[deprecated]
         pub fn set_or_clear_dataplex_entry<T>(mut self, v: std::option::Option<T>) -> Self
         where
@@ -6323,6 +8801,17 @@ impl SearchEntriesResponse {
     }
 
     /// Sets the value of [results][crate::model::SearchEntriesResponse::results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResponse;
+    /// use google_cloud_dataplex_v1::model::SearchEntriesResult;
+    /// let x = SearchEntriesResponse::new()
+    ///     .set_results([
+    ///         SearchEntriesResult::default()/* use setters */,
+    ///         SearchEntriesResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6334,18 +8823,36 @@ impl SearchEntriesResponse {
     }
 
     /// Sets the value of [total_size][crate::model::SearchEntriesResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResponse;
+    /// let x = SearchEntriesResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchEntriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResponse;
+    /// let x = SearchEntriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::SearchEntriesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SearchEntriesResponse;
+    /// let x = SearchEntriesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6449,6 +8956,13 @@ impl ImportItem {
     }
 
     /// Sets the value of [entry][crate::model::ImportItem::entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ImportItem;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = ImportItem::new().set_entry(Entry::default()/* use setters */);
+    /// ```
     pub fn set_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -6458,6 +8972,14 @@ impl ImportItem {
     }
 
     /// Sets or clears the value of [entry][crate::model::ImportItem::entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ImportItem;
+    /// use google_cloud_dataplex_v1::model::Entry;
+    /// let x = ImportItem::new().set_or_clear_entry(Some(Entry::default()/* use setters */));
+    /// let x = ImportItem::new().set_or_clear_entry(None::<Entry>);
+    /// ```
     pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entry>,
@@ -6467,6 +8989,13 @@ impl ImportItem {
     }
 
     /// Sets the value of [entry_link][crate::model::ImportItem::entry_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ImportItem;
+    /// use google_cloud_dataplex_v1::model::EntryLink;
+    /// let x = ImportItem::new().set_entry_link(EntryLink::default()/* use setters */);
+    /// ```
     pub fn set_entry_link<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntryLink>,
@@ -6476,6 +9005,14 @@ impl ImportItem {
     }
 
     /// Sets or clears the value of [entry_link][crate::model::ImportItem::entry_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ImportItem;
+    /// use google_cloud_dataplex_v1::model::EntryLink;
+    /// let x = ImportItem::new().set_or_clear_entry_link(Some(EntryLink::default()/* use setters */));
+    /// let x = ImportItem::new().set_or_clear_entry_link(None::<EntryLink>);
+    /// ```
     pub fn set_or_clear_entry_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntryLink>,
@@ -6485,6 +9022,13 @@ impl ImportItem {
     }
 
     /// Sets the value of [update_mask][crate::model::ImportItem::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ImportItem;
+    /// use wkt::FieldMask;
+    /// let x = ImportItem::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6494,6 +9038,14 @@ impl ImportItem {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::ImportItem::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ImportItem;
+    /// use wkt::FieldMask;
+    /// let x = ImportItem::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ImportItem::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6503,6 +9055,12 @@ impl ImportItem {
     }
 
     /// Sets the value of [aspect_keys][crate::model::ImportItem::aspect_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ImportItem;
+    /// let x = ImportItem::new().set_aspect_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_aspect_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6548,12 +9106,25 @@ impl CreateMetadataJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMetadataJobRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateMetadataJobRequest;
+    /// let x = CreateMetadataJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [metadata_job][crate::model::CreateMetadataJobRequest::metadata_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateMetadataJobRequest;
+    /// use google_cloud_dataplex_v1::model::MetadataJob;
+    /// let x = CreateMetadataJobRequest::new().set_metadata_job(MetadataJob::default()/* use setters */);
+    /// ```
     pub fn set_metadata_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MetadataJob>,
@@ -6563,6 +9134,14 @@ impl CreateMetadataJobRequest {
     }
 
     /// Sets or clears the value of [metadata_job][crate::model::CreateMetadataJobRequest::metadata_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateMetadataJobRequest;
+    /// use google_cloud_dataplex_v1::model::MetadataJob;
+    /// let x = CreateMetadataJobRequest::new().set_or_clear_metadata_job(Some(MetadataJob::default()/* use setters */));
+    /// let x = CreateMetadataJobRequest::new().set_or_clear_metadata_job(None::<MetadataJob>);
+    /// ```
     pub fn set_or_clear_metadata_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MetadataJob>,
@@ -6572,12 +9151,24 @@ impl CreateMetadataJobRequest {
     }
 
     /// Sets the value of [metadata_job_id][crate::model::CreateMetadataJobRequest::metadata_job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateMetadataJobRequest;
+    /// let x = CreateMetadataJobRequest::new().set_metadata_job_id("example");
+    /// ```
     pub fn set_metadata_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metadata_job_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateMetadataJobRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateMetadataJobRequest;
+    /// let x = CreateMetadataJobRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -6607,6 +9198,12 @@ impl GetMetadataJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMetadataJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetMetadataJobRequest;
+    /// let x = GetMetadataJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6662,30 +9259,60 @@ impl ListMetadataJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMetadataJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsRequest;
+    /// let x = ListMetadataJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMetadataJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsRequest;
+    /// let x = ListMetadataJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMetadataJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsRequest;
+    /// let x = ListMetadataJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMetadataJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsRequest;
+    /// let x = ListMetadataJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListMetadataJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsRequest;
+    /// let x = ListMetadataJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6721,6 +9348,17 @@ impl ListMetadataJobsResponse {
     }
 
     /// Sets the value of [metadata_jobs][crate::model::ListMetadataJobsResponse::metadata_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsResponse;
+    /// use google_cloud_dataplex_v1::model::MetadataJob;
+    /// let x = ListMetadataJobsResponse::new()
+    ///     .set_metadata_jobs([
+    ///         MetadataJob::default()/* use setters */,
+    ///         MetadataJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_metadata_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6732,12 +9370,24 @@ impl ListMetadataJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMetadataJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsResponse;
+    /// let x = ListMetadataJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListMetadataJobsResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListMetadataJobsResponse;
+    /// let x = ListMetadataJobsResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6786,6 +9436,12 @@ impl CancelMetadataJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelMetadataJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CancelMetadataJobRequest;
+    /// let x = CancelMetadataJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6840,18 +9496,37 @@ impl MetadataJob {
     }
 
     /// Sets the value of [name][crate::model::MetadataJob::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// let x = MetadataJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::MetadataJob::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// let x = MetadataJob::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MetadataJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use wkt::Timestamp;
+    /// let x = MetadataJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6861,6 +9536,14 @@ impl MetadataJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MetadataJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use wkt::Timestamp;
+    /// let x = MetadataJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MetadataJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6870,6 +9553,13 @@ impl MetadataJob {
     }
 
     /// Sets the value of [update_time][crate::model::MetadataJob::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use wkt::Timestamp;
+    /// let x = MetadataJob::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6879,6 +9569,14 @@ impl MetadataJob {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MetadataJob::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use wkt::Timestamp;
+    /// let x = MetadataJob::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MetadataJob::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6888,6 +9586,15 @@ impl MetadataJob {
     }
 
     /// Sets the value of [labels][crate::model::MetadataJob::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// let x = MetadataJob::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6900,6 +9607,14 @@ impl MetadataJob {
     }
 
     /// Sets the value of [r#type][crate::model::MetadataJob::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::Type;
+    /// let x0 = MetadataJob::new().set_type(Type::Import);
+    /// let x1 = MetadataJob::new().set_type(Type::Export);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::metadata_job::Type>>(
         mut self,
         v: T,
@@ -6909,6 +9624,13 @@ impl MetadataJob {
     }
 
     /// Sets the value of [status][crate::model::MetadataJob::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::Status;
+    /// let x = MetadataJob::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::metadata_job::Status>,
@@ -6918,6 +9640,14 @@ impl MetadataJob {
     }
 
     /// Sets or clears the value of [status][crate::model::MetadataJob::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::Status;
+    /// let x = MetadataJob::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = MetadataJob::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::metadata_job::Status>,
@@ -6930,6 +9660,14 @@ impl MetadataJob {
     ///
     /// Note that all the setters affecting `spec` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+    /// let x = MetadataJob::new().set_spec(Some(
+    ///     google_cloud_dataplex_v1::model::metadata_job::Spec::ImportSpec(ImportJobSpec::default().into())));
+    /// ```
     pub fn set_spec<
         T: std::convert::Into<std::option::Option<crate::model::metadata_job::Spec>>,
     >(
@@ -6958,6 +9696,15 @@ impl MetadataJob {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+    /// let x = MetadataJob::new().set_import_spec(ImportJobSpec::default()/* use setters */);
+    /// assert!(x.import_spec().is_some());
+    /// assert!(x.export_spec().is_none());
+    /// ```
     pub fn set_import_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::metadata_job::ImportJobSpec>>,
     >(
@@ -6987,6 +9734,15 @@ impl MetadataJob {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::ExportJobSpec;
+    /// let x = MetadataJob::new().set_export_spec(ExportJobSpec::default()/* use setters */);
+    /// assert!(x.export_spec().is_some());
+    /// assert!(x.import_spec().is_none());
+    /// ```
     pub fn set_export_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::metadata_job::ExportJobSpec>>,
     >(
@@ -7002,6 +9758,14 @@ impl MetadataJob {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+    /// let x = MetadataJob::new().set_result(Some(
+    ///     google_cloud_dataplex_v1::model::metadata_job::Result::ImportResult(ImportJobResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::metadata_job::Result>>,
     >(
@@ -7030,6 +9794,15 @@ impl MetadataJob {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+    /// let x = MetadataJob::new().set_import_result(ImportJobResult::default()/* use setters */);
+    /// assert!(x.import_result().is_some());
+    /// assert!(x.export_result().is_none());
+    /// ```
     pub fn set_import_result<
         T: std::convert::Into<std::boxed::Box<crate::model::metadata_job::ImportJobResult>>,
     >(
@@ -7059,6 +9832,15 @@ impl MetadataJob {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::MetadataJob;
+    /// use google_cloud_dataplex_v1::model::metadata_job::ExportJobResult;
+    /// let x = MetadataJob::new().set_export_result(ExportJobResult::default()/* use setters */);
+    /// assert!(x.export_result().is_some());
+    /// assert!(x.import_result().is_none());
+    /// ```
     pub fn set_export_result<
         T: std::convert::Into<std::boxed::Box<crate::model::metadata_job::ExportJobResult>>,
     >(
@@ -7124,36 +9906,73 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [deleted_entries][crate::model::metadata_job::ImportJobResult::deleted_entries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_deleted_entries(42);
+        /// ```
         pub fn set_deleted_entries<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.deleted_entries = v.into();
             self
         }
 
         /// Sets the value of [updated_entries][crate::model::metadata_job::ImportJobResult::updated_entries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_updated_entries(42);
+        /// ```
         pub fn set_updated_entries<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.updated_entries = v.into();
             self
         }
 
         /// Sets the value of [created_entries][crate::model::metadata_job::ImportJobResult::created_entries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_created_entries(42);
+        /// ```
         pub fn set_created_entries<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.created_entries = v.into();
             self
         }
 
         /// Sets the value of [unchanged_entries][crate::model::metadata_job::ImportJobResult::unchanged_entries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_unchanged_entries(42);
+        /// ```
         pub fn set_unchanged_entries<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.unchanged_entries = v.into();
             self
         }
 
         /// Sets the value of [recreated_entries][crate::model::metadata_job::ImportJobResult::recreated_entries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_recreated_entries(42);
+        /// ```
         pub fn set_recreated_entries<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.recreated_entries = v.into();
             self
         }
 
         /// Sets the value of [update_time][crate::model::metadata_job::ImportJobResult::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// use wkt::Timestamp;
+        /// let x = ImportJobResult::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7163,6 +9982,14 @@ pub mod metadata_job {
         }
 
         /// Sets or clears the value of [update_time][crate::model::metadata_job::ImportJobResult::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// use wkt::Timestamp;
+        /// let x = ImportJobResult::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ImportJobResult::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7172,18 +9999,36 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [deleted_entry_links][crate::model::metadata_job::ImportJobResult::deleted_entry_links].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_deleted_entry_links(42);
+        /// ```
         pub fn set_deleted_entry_links<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.deleted_entry_links = v.into();
             self
         }
 
         /// Sets the value of [created_entry_links][crate::model::metadata_job::ImportJobResult::created_entry_links].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_created_entry_links(42);
+        /// ```
         pub fn set_created_entry_links<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.created_entry_links = v.into();
             self
         }
 
         /// Sets the value of [unchanged_entry_links][crate::model::metadata_job::ImportJobResult::unchanged_entry_links].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobResult;
+        /// let x = ImportJobResult::new().set_unchanged_entry_links(42);
+        /// ```
         pub fn set_unchanged_entry_links<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.unchanged_entry_links = v.into();
             self
@@ -7217,12 +10062,24 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [exported_entries][crate::model::metadata_job::ExportJobResult::exported_entries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ExportJobResult;
+        /// let x = ExportJobResult::new().set_exported_entries(42);
+        /// ```
         pub fn set_exported_entries<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.exported_entries = v.into();
             self
         }
 
         /// Sets the value of [error_message][crate::model::metadata_job::ExportJobResult::error_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ExportJobResult;
+        /// let x = ExportJobResult::new().set_error_message("example");
+        /// ```
         pub fn set_error_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7305,6 +10162,12 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [source_storage_uri][crate::model::metadata_job::ImportJobSpec::source_storage_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// let x = ImportJobSpec::new().set_source_storage_uri("example");
+        /// ```
         pub fn set_source_storage_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7314,6 +10177,13 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [source_create_time][crate::model::metadata_job::ImportJobSpec::source_create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// use wkt::Timestamp;
+        /// let x = ImportJobSpec::new().set_source_create_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_source_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7323,6 +10193,14 @@ pub mod metadata_job {
         }
 
         /// Sets or clears the value of [source_create_time][crate::model::metadata_job::ImportJobSpec::source_create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// use wkt::Timestamp;
+        /// let x = ImportJobSpec::new().set_or_clear_source_create_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ImportJobSpec::new().set_or_clear_source_create_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_source_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7332,6 +10210,13 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [scope][crate::model::metadata_job::ImportJobSpec::scope].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+        /// let x = ImportJobSpec::new().set_scope(ImportJobScope::default()/* use setters */);
+        /// ```
         pub fn set_scope<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::metadata_job::import_job_spec::ImportJobScope>,
@@ -7341,6 +10226,14 @@ pub mod metadata_job {
         }
 
         /// Sets or clears the value of [scope][crate::model::metadata_job::ImportJobSpec::scope].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+        /// let x = ImportJobSpec::new().set_or_clear_scope(Some(ImportJobScope::default()/* use setters */));
+        /// let x = ImportJobSpec::new().set_or_clear_scope(None::<ImportJobScope>);
+        /// ```
         pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::metadata_job::import_job_spec::ImportJobScope>,
@@ -7350,6 +10243,15 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [entry_sync_mode][crate::model::metadata_job::ImportJobSpec::entry_sync_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::SyncMode;
+        /// let x0 = ImportJobSpec::new().set_entry_sync_mode(SyncMode::Full);
+        /// let x1 = ImportJobSpec::new().set_entry_sync_mode(SyncMode::Incremental);
+        /// let x2 = ImportJobSpec::new().set_entry_sync_mode(SyncMode::None);
+        /// ```
         pub fn set_entry_sync_mode<
             T: std::convert::Into<crate::model::metadata_job::import_job_spec::SyncMode>,
         >(
@@ -7361,6 +10263,15 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [aspect_sync_mode][crate::model::metadata_job::ImportJobSpec::aspect_sync_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::SyncMode;
+        /// let x0 = ImportJobSpec::new().set_aspect_sync_mode(SyncMode::Full);
+        /// let x1 = ImportJobSpec::new().set_aspect_sync_mode(SyncMode::Incremental);
+        /// let x2 = ImportJobSpec::new().set_aspect_sync_mode(SyncMode::None);
+        /// ```
         pub fn set_aspect_sync_mode<
             T: std::convert::Into<crate::model::metadata_job::import_job_spec::SyncMode>,
         >(
@@ -7372,6 +10283,14 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [log_level][crate::model::metadata_job::ImportJobSpec::log_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ImportJobSpec;
+        /// use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::LogLevel;
+        /// let x0 = ImportJobSpec::new().set_log_level(LogLevel::Debug);
+        /// let x1 = ImportJobSpec::new().set_log_level(LogLevel::Info);
+        /// ```
         pub fn set_log_level<
             T: std::convert::Into<crate::model::metadata_job::import_job_spec::LogLevel>,
         >(
@@ -7481,6 +10400,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [entry_groups][crate::model::metadata_job::import_job_spec::ImportJobScope::entry_groups].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+            /// let x = ImportJobScope::new().set_entry_groups(["a", "b", "c"]);
+            /// ```
             pub fn set_entry_groups<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7492,6 +10417,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [entry_types][crate::model::metadata_job::import_job_spec::ImportJobScope::entry_types].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+            /// let x = ImportJobScope::new().set_entry_types(["a", "b", "c"]);
+            /// ```
             pub fn set_entry_types<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7503,6 +10434,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [aspect_types][crate::model::metadata_job::import_job_spec::ImportJobScope::aspect_types].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+            /// let x = ImportJobScope::new().set_aspect_types(["a", "b", "c"]);
+            /// ```
             pub fn set_aspect_types<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7514,6 +10451,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [glossaries][crate::model::metadata_job::import_job_spec::ImportJobScope::glossaries].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+            /// let x = ImportJobScope::new().set_glossaries(["a", "b", "c"]);
+            /// ```
             pub fn set_glossaries<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7525,6 +10468,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [entry_link_types][crate::model::metadata_job::import_job_spec::ImportJobScope::entry_link_types].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+            /// let x = ImportJobScope::new().set_entry_link_types(["a", "b", "c"]);
+            /// ```
             pub fn set_entry_link_types<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7536,6 +10485,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [referenced_entry_scopes][crate::model::metadata_job::import_job_spec::ImportJobScope::referenced_entry_scopes].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::import_job_spec::ImportJobScope;
+            /// let x = ImportJobScope::new().set_referenced_entry_scopes(["a", "b", "c"]);
+            /// ```
             pub fn set_referenced_entry_scopes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7884,6 +10839,13 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [scope][crate::model::metadata_job::ExportJobSpec::scope].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ExportJobSpec;
+        /// use google_cloud_dataplex_v1::model::metadata_job::export_job_spec::ExportJobScope;
+        /// let x = ExportJobSpec::new().set_scope(ExportJobScope::default()/* use setters */);
+        /// ```
         pub fn set_scope<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::metadata_job::export_job_spec::ExportJobScope>,
@@ -7893,6 +10855,14 @@ pub mod metadata_job {
         }
 
         /// Sets or clears the value of [scope][crate::model::metadata_job::ExportJobSpec::scope].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ExportJobSpec;
+        /// use google_cloud_dataplex_v1::model::metadata_job::export_job_spec::ExportJobScope;
+        /// let x = ExportJobSpec::new().set_or_clear_scope(Some(ExportJobScope::default()/* use setters */));
+        /// let x = ExportJobSpec::new().set_or_clear_scope(None::<ExportJobScope>);
+        /// ```
         pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::metadata_job::export_job_spec::ExportJobScope>,
@@ -7902,6 +10872,12 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [output_path][crate::model::metadata_job::ExportJobSpec::output_path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::ExportJobSpec;
+        /// let x = ExportJobSpec::new().set_output_path("example");
+        /// ```
         pub fn set_output_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.output_path = v.into();
             self
@@ -7983,12 +10959,24 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [organization_level][crate::model::metadata_job::export_job_spec::ExportJobScope::organization_level].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::export_job_spec::ExportJobScope;
+            /// let x = ExportJobScope::new().set_organization_level(true);
+            /// ```
             pub fn set_organization_level<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.organization_level = v.into();
                 self
             }
 
             /// Sets the value of [projects][crate::model::metadata_job::export_job_spec::ExportJobScope::projects].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::export_job_spec::ExportJobScope;
+            /// let x = ExportJobScope::new().set_projects(["a", "b", "c"]);
+            /// ```
             pub fn set_projects<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8000,6 +10988,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [entry_groups][crate::model::metadata_job::export_job_spec::ExportJobScope::entry_groups].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::export_job_spec::ExportJobScope;
+            /// let x = ExportJobScope::new().set_entry_groups(["a", "b", "c"]);
+            /// ```
             pub fn set_entry_groups<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8011,6 +11005,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [entry_types][crate::model::metadata_job::export_job_spec::ExportJobScope::entry_types].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::export_job_spec::ExportJobScope;
+            /// let x = ExportJobScope::new().set_entry_types(["a", "b", "c"]);
+            /// ```
             pub fn set_entry_types<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8022,6 +11022,12 @@ pub mod metadata_job {
             }
 
             /// Sets the value of [aspect_types][crate::model::metadata_job::export_job_spec::ExportJobScope::aspect_types].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::metadata_job::export_job_spec::ExportJobScope;
+            /// let x = ExportJobScope::new().set_aspect_types(["a", "b", "c"]);
+            /// ```
             pub fn set_aspect_types<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8065,6 +11071,15 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [state][crate::model::metadata_job::Status::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::Status;
+        /// use google_cloud_dataplex_v1::model::metadata_job::status::State;
+        /// let x0 = Status::new().set_state(State::Queued);
+        /// let x1 = Status::new().set_state(State::Running);
+        /// let x2 = Status::new().set_state(State::Canceling);
+        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::metadata_job::status::State>>(
             mut self,
             v: T,
@@ -8074,18 +11089,37 @@ pub mod metadata_job {
         }
 
         /// Sets the value of [message][crate::model::metadata_job::Status::message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::Status;
+        /// let x = Status::new().set_message("example");
+        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self
         }
 
         /// Sets the value of [completion_percent][crate::model::metadata_job::Status::completion_percent].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::Status;
+        /// let x = Status::new().set_completion_percent(42);
+        /// ```
         pub fn set_completion_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.completion_percent = v.into();
             self
         }
 
         /// Sets the value of [update_time][crate::model::metadata_job::Status::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::Status;
+        /// use wkt::Timestamp;
+        /// let x = Status::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -8095,6 +11129,14 @@ pub mod metadata_job {
         }
 
         /// Sets or clears the value of [update_time][crate::model::metadata_job::Status::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::metadata_job::Status;
+        /// use wkt::Timestamp;
+        /// let x = Status::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Status::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -8476,18 +11518,37 @@ impl EntryLink {
     }
 
     /// Sets the value of [name][crate::model::EntryLink::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLink;
+    /// let x = EntryLink::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [entry_link_type][crate::model::EntryLink::entry_link_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLink;
+    /// let x = EntryLink::new().set_entry_link_type("example");
+    /// ```
     pub fn set_entry_link_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_link_type = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::EntryLink::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLink;
+    /// use wkt::Timestamp;
+    /// let x = EntryLink::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8497,6 +11558,14 @@ impl EntryLink {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EntryLink::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLink;
+    /// use wkt::Timestamp;
+    /// let x = EntryLink::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntryLink::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8506,6 +11575,13 @@ impl EntryLink {
     }
 
     /// Sets the value of [update_time][crate::model::EntryLink::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLink;
+    /// use wkt::Timestamp;
+    /// let x = EntryLink::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8515,6 +11591,14 @@ impl EntryLink {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EntryLink::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLink;
+    /// use wkt::Timestamp;
+    /// let x = EntryLink::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EntryLink::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8524,6 +11608,17 @@ impl EntryLink {
     }
 
     /// Sets the value of [entry_references][crate::model::EntryLink::entry_references].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLink;
+    /// use google_cloud_dataplex_v1::model::entry_link::EntryReference;
+    /// let x = EntryLink::new()
+    ///     .set_entry_references([
+    ///         EntryReference::default()/* use setters */,
+    ///         EntryReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entry_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8572,18 +11667,38 @@ pub mod entry_link {
         }
 
         /// Sets the value of [name][crate::model::entry_link::EntryReference::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entry_link::EntryReference;
+        /// let x = EntryReference::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::entry_link::EntryReference::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entry_link::EntryReference;
+        /// let x = EntryReference::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::entry_link::EntryReference::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entry_link::EntryReference;
+        /// use google_cloud_dataplex_v1::model::entry_link::entry_reference::Type;
+        /// let x0 = EntryReference::new().set_type(Type::Source);
+        /// let x1 = EntryReference::new().set_type(Type::Target);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::entry_link::entry_reference::Type>>(
             mut self,
             v: T,
@@ -8771,18 +11886,37 @@ impl CreateEntryLinkRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEntryLinkRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryLinkRequest;
+    /// let x = CreateEntryLinkRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entry_link_id][crate::model::CreateEntryLinkRequest::entry_link_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryLinkRequest;
+    /// let x = CreateEntryLinkRequest::new().set_entry_link_id("example");
+    /// ```
     pub fn set_entry_link_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_link_id = v.into();
         self
     }
 
     /// Sets the value of [entry_link][crate::model::CreateEntryLinkRequest::entry_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryLinkRequest;
+    /// use google_cloud_dataplex_v1::model::EntryLink;
+    /// let x = CreateEntryLinkRequest::new().set_entry_link(EntryLink::default()/* use setters */);
+    /// ```
     pub fn set_entry_link<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntryLink>,
@@ -8792,6 +11926,14 @@ impl CreateEntryLinkRequest {
     }
 
     /// Sets or clears the value of [entry_link][crate::model::CreateEntryLinkRequest::entry_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntryLinkRequest;
+    /// use google_cloud_dataplex_v1::model::EntryLink;
+    /// let x = CreateEntryLinkRequest::new().set_or_clear_entry_link(Some(EntryLink::default()/* use setters */));
+    /// let x = CreateEntryLinkRequest::new().set_or_clear_entry_link(None::<EntryLink>);
+    /// ```
     pub fn set_or_clear_entry_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntryLink>,
@@ -8824,6 +11966,12 @@ impl DeleteEntryLinkRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEntryLinkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntryLinkRequest;
+    /// let x = DeleteEntryLinkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8853,6 +12001,12 @@ impl GetEntryLinkRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEntryLinkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntryLinkRequest;
+    /// let x = GetEntryLinkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8908,18 +12062,37 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [name][crate::model::EncryptionConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = EncryptionConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::EncryptionConfig::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = EncryptionConfig::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::EncryptionConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// use wkt::Timestamp;
+    /// let x = EncryptionConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8929,6 +12102,14 @@ impl EncryptionConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EncryptionConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// use wkt::Timestamp;
+    /// let x = EncryptionConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EncryptionConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8938,6 +12119,13 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [update_time][crate::model::EncryptionConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// use wkt::Timestamp;
+    /// let x = EncryptionConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8947,6 +12135,14 @@ impl EncryptionConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EncryptionConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// use wkt::Timestamp;
+    /// let x = EncryptionConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EncryptionConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8956,6 +12152,15 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [encryption_state][crate::model::EncryptionConfig::encryption_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// use google_cloud_dataplex_v1::model::encryption_config::EncryptionState;
+    /// let x0 = EncryptionConfig::new().set_encryption_state(EncryptionState::Encrypting);
+    /// let x1 = EncryptionConfig::new().set_encryption_state(EncryptionState::Completed);
+    /// let x2 = EncryptionConfig::new().set_encryption_state(EncryptionState::Failed);
+    /// ```
     pub fn set_encryption_state<
         T: std::convert::Into<crate::model::encryption_config::EncryptionState>,
     >(
@@ -8967,12 +12172,25 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [etag][crate::model::EncryptionConfig::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = EncryptionConfig::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [failure_details][crate::model::EncryptionConfig::failure_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// use google_cloud_dataplex_v1::model::encryption_config::FailureDetails;
+    /// let x = EncryptionConfig::new().set_failure_details(FailureDetails::default()/* use setters */);
+    /// ```
     pub fn set_failure_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::encryption_config::FailureDetails>,
@@ -8982,6 +12200,14 @@ impl EncryptionConfig {
     }
 
     /// Sets or clears the value of [failure_details][crate::model::EncryptionConfig::failure_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// use google_cloud_dataplex_v1::model::encryption_config::FailureDetails;
+    /// let x = EncryptionConfig::new().set_or_clear_failure_details(Some(FailureDetails::default()/* use setters */));
+    /// let x = EncryptionConfig::new().set_or_clear_failure_details(None::<FailureDetails>);
+    /// ```
     pub fn set_or_clear_failure_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::encryption_config::FailureDetails>,
@@ -8991,6 +12217,12 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [enable_metastore_encryption][crate::model::EncryptionConfig::enable_metastore_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = EncryptionConfig::new().set_enable_metastore_encryption(true);
+    /// ```
     pub fn set_enable_metastore_encryption<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_metastore_encryption = v.into();
         self
@@ -9028,6 +12260,14 @@ pub mod encryption_config {
         }
 
         /// Sets the value of [error_code][crate::model::encryption_config::FailureDetails::error_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::encryption_config::FailureDetails;
+        /// use google_cloud_dataplex_v1::model::encryption_config::failure_details::ErrorCode;
+        /// let x0 = FailureDetails::new().set_error_code(ErrorCode::InternalError);
+        /// let x1 = FailureDetails::new().set_error_code(ErrorCode::RequireUserAction);
+        /// ```
         pub fn set_error_code<
             T: std::convert::Into<crate::model::encryption_config::failure_details::ErrorCode>,
         >(
@@ -9039,6 +12279,12 @@ pub mod encryption_config {
         }
 
         /// Sets the value of [error_message][crate::model::encryption_config::FailureDetails::error_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::encryption_config::FailureDetails;
+        /// let x = FailureDetails::new().set_error_message("example");
+        /// ```
         pub fn set_error_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9366,12 +12612,24 @@ impl CreateEncryptionConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEncryptionConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEncryptionConfigRequest;
+    /// let x = CreateEncryptionConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [encryption_config_id][crate::model::CreateEncryptionConfigRequest::encryption_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEncryptionConfigRequest;
+    /// let x = CreateEncryptionConfigRequest::new().set_encryption_config_id("example");
+    /// ```
     pub fn set_encryption_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9381,6 +12639,13 @@ impl CreateEncryptionConfigRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::CreateEncryptionConfigRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEncryptionConfigRequest;
+    /// use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = CreateEncryptionConfigRequest::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
+    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -9390,6 +12655,14 @@ impl CreateEncryptionConfigRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::CreateEncryptionConfigRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEncryptionConfigRequest;
+    /// use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = CreateEncryptionConfigRequest::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
+    /// let x = CreateEncryptionConfigRequest::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
+    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -9421,6 +12694,12 @@ impl GetEncryptionConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEncryptionConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEncryptionConfigRequest;
+    /// let x = GetEncryptionConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9454,6 +12733,13 @@ impl UpdateEncryptionConfigRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::UpdateEncryptionConfigRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEncryptionConfigRequest;
+    /// use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = UpdateEncryptionConfigRequest::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
+    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -9463,6 +12749,14 @@ impl UpdateEncryptionConfigRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::UpdateEncryptionConfigRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEncryptionConfigRequest;
+    /// use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = UpdateEncryptionConfigRequest::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
+    /// let x = UpdateEncryptionConfigRequest::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
+    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -9472,6 +12766,13 @@ impl UpdateEncryptionConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEncryptionConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEncryptionConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEncryptionConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9481,6 +12782,14 @@ impl UpdateEncryptionConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEncryptionConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEncryptionConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEncryptionConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEncryptionConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9515,12 +12824,24 @@ impl DeleteEncryptionConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEncryptionConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEncryptionConfigRequest;
+    /// let x = DeleteEncryptionConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteEncryptionConfigRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEncryptionConfigRequest;
+    /// let x = DeleteEncryptionConfigRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -9582,30 +12903,60 @@ impl ListEncryptionConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEncryptionConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsRequest;
+    /// let x = ListEncryptionConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEncryptionConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsRequest;
+    /// let x = ListEncryptionConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEncryptionConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsRequest;
+    /// let x = ListEncryptionConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEncryptionConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsRequest;
+    /// let x = ListEncryptionConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEncryptionConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsRequest;
+    /// let x = ListEncryptionConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -9641,6 +12992,17 @@ impl ListEncryptionConfigsResponse {
     }
 
     /// Sets the value of [encryption_configs][crate::model::ListEncryptionConfigsResponse::encryption_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsResponse;
+    /// use google_cloud_dataplex_v1::model::EncryptionConfig;
+    /// let x = ListEncryptionConfigsResponse::new()
+    ///     .set_encryption_configs([
+    ///         EncryptionConfig::default()/* use setters */,
+    ///         EncryptionConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_encryption_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9652,12 +13014,24 @@ impl ListEncryptionConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEncryptionConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsResponse;
+    /// let x = ListEncryptionConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListEncryptionConfigsResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEncryptionConfigsResponse;
+    /// let x = ListEncryptionConfigsResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9713,12 +13087,25 @@ impl CreateContentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateContentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateContentRequest;
+    /// let x = CreateContentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::CreateContentRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateContentRequest;
+    /// use google_cloud_dataplex_v1::model::Content;
+    /// let x = CreateContentRequest::new().set_content(Content::default()/* use setters */);
+    /// ```
     pub fn set_content<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Content>,
@@ -9728,6 +13115,14 @@ impl CreateContentRequest {
     }
 
     /// Sets or clears the value of [content][crate::model::CreateContentRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateContentRequest;
+    /// use google_cloud_dataplex_v1::model::Content;
+    /// let x = CreateContentRequest::new().set_or_clear_content(Some(Content::default()/* use setters */));
+    /// let x = CreateContentRequest::new().set_or_clear_content(None::<Content>);
+    /// ```
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Content>,
@@ -9737,6 +13132,12 @@ impl CreateContentRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateContentRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateContentRequest;
+    /// let x = CreateContentRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -9773,6 +13174,13 @@ impl UpdateContentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateContentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateContentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateContentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9782,6 +13190,14 @@ impl UpdateContentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateContentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateContentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateContentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateContentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9791,6 +13207,13 @@ impl UpdateContentRequest {
     }
 
     /// Sets the value of [content][crate::model::UpdateContentRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateContentRequest;
+    /// use google_cloud_dataplex_v1::model::Content;
+    /// let x = UpdateContentRequest::new().set_content(Content::default()/* use setters */);
+    /// ```
     pub fn set_content<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Content>,
@@ -9800,6 +13223,14 @@ impl UpdateContentRequest {
     }
 
     /// Sets or clears the value of [content][crate::model::UpdateContentRequest::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateContentRequest;
+    /// use google_cloud_dataplex_v1::model::Content;
+    /// let x = UpdateContentRequest::new().set_or_clear_content(Some(Content::default()/* use setters */));
+    /// let x = UpdateContentRequest::new().set_or_clear_content(None::<Content>);
+    /// ```
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Content>,
@@ -9809,6 +13240,12 @@ impl UpdateContentRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateContentRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateContentRequest;
+    /// let x = UpdateContentRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -9838,6 +13275,12 @@ impl DeleteContentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteContentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteContentRequest;
+    /// let x = DeleteContentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9889,24 +13332,48 @@ impl ListContentRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListContentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListContentRequest;
+    /// let x = ListContentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListContentRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListContentRequest;
+    /// let x = ListContentRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListContentRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListContentRequest;
+    /// let x = ListContentRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListContentRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListContentRequest;
+    /// let x = ListContentRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -9939,6 +13406,17 @@ impl ListContentResponse {
     }
 
     /// Sets the value of [content][crate::model::ListContentResponse::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListContentResponse;
+    /// use google_cloud_dataplex_v1::model::Content;
+    /// let x = ListContentResponse::new()
+    ///     .set_content([
+    ///         Content::default()/* use setters */,
+    ///         Content::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_content<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9950,6 +13428,12 @@ impl ListContentResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListContentResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListContentResponse;
+    /// let x = ListContentResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -9996,12 +13480,26 @@ impl GetContentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetContentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetContentRequest;
+    /// let x = GetContentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetContentRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetContentRequest;
+    /// use google_cloud_dataplex_v1::model::get_content_request::ContentView;
+    /// let x0 = GetContentRequest::new().set_view(ContentView::Basic);
+    /// let x1 = GetContentRequest::new().set_view(ContentView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::get_content_request::ContentView>>(
         mut self,
         v: T,
@@ -10177,6 +13675,13 @@ impl DataDiscoverySpec {
     }
 
     /// Sets the value of [bigquery_publishing_config][crate::model::DataDiscoverySpec::bigquery_publishing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoverySpec;
+    /// use google_cloud_dataplex_v1::model::data_discovery_spec::BigQueryPublishingConfig;
+    /// let x = DataDiscoverySpec::new().set_bigquery_publishing_config(BigQueryPublishingConfig::default()/* use setters */);
+    /// ```
     pub fn set_bigquery_publishing_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_discovery_spec::BigQueryPublishingConfig>,
@@ -10186,6 +13691,14 @@ impl DataDiscoverySpec {
     }
 
     /// Sets or clears the value of [bigquery_publishing_config][crate::model::DataDiscoverySpec::bigquery_publishing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoverySpec;
+    /// use google_cloud_dataplex_v1::model::data_discovery_spec::BigQueryPublishingConfig;
+    /// let x = DataDiscoverySpec::new().set_or_clear_bigquery_publishing_config(Some(BigQueryPublishingConfig::default()/* use setters */));
+    /// let x = DataDiscoverySpec::new().set_or_clear_bigquery_publishing_config(None::<BigQueryPublishingConfig>);
+    /// ```
     pub fn set_or_clear_bigquery_publishing_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_discovery_spec::BigQueryPublishingConfig>,
@@ -10198,6 +13711,14 @@ impl DataDiscoverySpec {
     ///
     /// Note that all the setters affecting `resource_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoverySpec;
+    /// use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+    /// let x = DataDiscoverySpec::new().set_resource_config(Some(
+    ///     google_cloud_dataplex_v1::model::data_discovery_spec::ResourceConfig::StorageConfig(StorageConfig::default().into())));
+    /// ```
     pub fn set_resource_config<
         T: std::convert::Into<std::option::Option<crate::model::data_discovery_spec::ResourceConfig>>,
     >(
@@ -10229,6 +13750,14 @@ impl DataDiscoverySpec {
     ///
     /// Note that all the setters affecting `resource_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoverySpec;
+    /// use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+    /// let x = DataDiscoverySpec::new().set_storage_config(StorageConfig::default()/* use setters */);
+    /// assert!(x.storage_config().is_some());
+    /// ```
     pub fn set_storage_config<
         T: std::convert::Into<std::boxed::Box<crate::model::data_discovery_spec::StorageConfig>>,
     >(
@@ -10305,6 +13834,14 @@ pub mod data_discovery_spec {
         }
 
         /// Sets the value of [table_type][crate::model::data_discovery_spec::BigQueryPublishingConfig::table_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::BigQueryPublishingConfig;
+        /// use google_cloud_dataplex_v1::model::data_discovery_spec::big_query_publishing_config::TableType;
+        /// let x0 = BigQueryPublishingConfig::new().set_table_type(TableType::External);
+        /// let x1 = BigQueryPublishingConfig::new().set_table_type(TableType::Biglake);
+        /// ```
         pub fn set_table_type<
             T: std::convert::Into<
                     crate::model::data_discovery_spec::big_query_publishing_config::TableType,
@@ -10318,18 +13855,36 @@ pub mod data_discovery_spec {
         }
 
         /// Sets the value of [connection][crate::model::data_discovery_spec::BigQueryPublishingConfig::connection].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::BigQueryPublishingConfig;
+        /// let x = BigQueryPublishingConfig::new().set_connection("example");
+        /// ```
         pub fn set_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.connection = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::data_discovery_spec::BigQueryPublishingConfig::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::BigQueryPublishingConfig;
+        /// let x = BigQueryPublishingConfig::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::data_discovery_spec::BigQueryPublishingConfig::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::BigQueryPublishingConfig;
+        /// let x = BigQueryPublishingConfig::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
@@ -10522,6 +14077,12 @@ pub mod data_discovery_spec {
         }
 
         /// Sets the value of [include_patterns][crate::model::data_discovery_spec::StorageConfig::include_patterns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// let x = StorageConfig::new().set_include_patterns(["a", "b", "c"]);
+        /// ```
         pub fn set_include_patterns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10533,6 +14094,12 @@ pub mod data_discovery_spec {
         }
 
         /// Sets the value of [exclude_patterns][crate::model::data_discovery_spec::StorageConfig::exclude_patterns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// let x = StorageConfig::new().set_exclude_patterns(["a", "b", "c"]);
+        /// ```
         pub fn set_exclude_patterns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10544,6 +14111,13 @@ pub mod data_discovery_spec {
         }
 
         /// Sets the value of [csv_options][crate::model::data_discovery_spec::StorageConfig::csv_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::CsvOptions;
+        /// let x = StorageConfig::new().set_csv_options(CsvOptions::default()/* use setters */);
+        /// ```
         pub fn set_csv_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::data_discovery_spec::storage_config::CsvOptions>,
@@ -10553,6 +14127,14 @@ pub mod data_discovery_spec {
         }
 
         /// Sets or clears the value of [csv_options][crate::model::data_discovery_spec::StorageConfig::csv_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::CsvOptions;
+        /// let x = StorageConfig::new().set_or_clear_csv_options(Some(CsvOptions::default()/* use setters */));
+        /// let x = StorageConfig::new().set_or_clear_csv_options(None::<CsvOptions>);
+        /// ```
         pub fn set_or_clear_csv_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::data_discovery_spec::storage_config::CsvOptions>,
@@ -10562,6 +14144,13 @@ pub mod data_discovery_spec {
         }
 
         /// Sets the value of [json_options][crate::model::data_discovery_spec::StorageConfig::json_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::JsonOptions;
+        /// let x = StorageConfig::new().set_json_options(JsonOptions::default()/* use setters */);
+        /// ```
         pub fn set_json_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::data_discovery_spec::storage_config::JsonOptions>,
@@ -10571,6 +14160,14 @@ pub mod data_discovery_spec {
         }
 
         /// Sets or clears the value of [json_options][crate::model::data_discovery_spec::StorageConfig::json_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_spec::StorageConfig;
+        /// use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::JsonOptions;
+        /// let x = StorageConfig::new().set_or_clear_json_options(Some(JsonOptions::default()/* use setters */));
+        /// let x = StorageConfig::new().set_or_clear_json_options(None::<JsonOptions>);
+        /// ```
         pub fn set_or_clear_json_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::data_discovery_spec::storage_config::JsonOptions>,
@@ -10624,12 +14221,24 @@ pub mod data_discovery_spec {
             }
 
             /// Sets the value of [header_rows][crate::model::data_discovery_spec::storage_config::CsvOptions::header_rows].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::CsvOptions;
+            /// let x = CsvOptions::new().set_header_rows(42);
+            /// ```
             pub fn set_header_rows<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.header_rows = v.into();
                 self
             }
 
             /// Sets the value of [delimiter][crate::model::data_discovery_spec::storage_config::CsvOptions::delimiter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::CsvOptions;
+            /// let x = CsvOptions::new().set_delimiter("example");
+            /// ```
             pub fn set_delimiter<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -10639,6 +14248,12 @@ pub mod data_discovery_spec {
             }
 
             /// Sets the value of [encoding][crate::model::data_discovery_spec::storage_config::CsvOptions::encoding].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::CsvOptions;
+            /// let x = CsvOptions::new().set_encoding("example");
+            /// ```
             pub fn set_encoding<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -10648,6 +14263,12 @@ pub mod data_discovery_spec {
             }
 
             /// Sets the value of [type_inference_disabled][crate::model::data_discovery_spec::storage_config::CsvOptions::type_inference_disabled].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::CsvOptions;
+            /// let x = CsvOptions::new().set_type_inference_disabled(true);
+            /// ```
             pub fn set_type_inference_disabled<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -10657,6 +14278,12 @@ pub mod data_discovery_spec {
             }
 
             /// Sets the value of [quote][crate::model::data_discovery_spec::storage_config::CsvOptions::quote].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::CsvOptions;
+            /// let x = CsvOptions::new().set_quote("example");
+            /// ```
             pub fn set_quote<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.quote = v.into();
                 self
@@ -10690,6 +14317,12 @@ pub mod data_discovery_spec {
             }
 
             /// Sets the value of [encoding][crate::model::data_discovery_spec::storage_config::JsonOptions::encoding].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::JsonOptions;
+            /// let x = JsonOptions::new().set_encoding("example");
+            /// ```
             pub fn set_encoding<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -10699,6 +14332,12 @@ pub mod data_discovery_spec {
             }
 
             /// Sets the value of [type_inference_disabled][crate::model::data_discovery_spec::storage_config::JsonOptions::type_inference_disabled].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_discovery_spec::storage_config::JsonOptions;
+            /// let x = JsonOptions::new().set_type_inference_disabled(true);
+            /// ```
             pub fn set_type_inference_disabled<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -10744,6 +14383,13 @@ impl DataDiscoveryResult {
     }
 
     /// Sets the value of [bigquery_publishing][crate::model::DataDiscoveryResult::bigquery_publishing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoveryResult;
+    /// use google_cloud_dataplex_v1::model::data_discovery_result::BigQueryPublishing;
+    /// let x = DataDiscoveryResult::new().set_bigquery_publishing(BigQueryPublishing::default()/* use setters */);
+    /// ```
     pub fn set_bigquery_publishing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_discovery_result::BigQueryPublishing>,
@@ -10753,6 +14399,14 @@ impl DataDiscoveryResult {
     }
 
     /// Sets or clears the value of [bigquery_publishing][crate::model::DataDiscoveryResult::bigquery_publishing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoveryResult;
+    /// use google_cloud_dataplex_v1::model::data_discovery_result::BigQueryPublishing;
+    /// let x = DataDiscoveryResult::new().set_or_clear_bigquery_publishing(Some(BigQueryPublishing::default()/* use setters */));
+    /// let x = DataDiscoveryResult::new().set_or_clear_bigquery_publishing(None::<BigQueryPublishing>);
+    /// ```
     pub fn set_or_clear_bigquery_publishing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_discovery_result::BigQueryPublishing>,
@@ -10762,6 +14416,13 @@ impl DataDiscoveryResult {
     }
 
     /// Sets the value of [scan_statistics][crate::model::DataDiscoveryResult::scan_statistics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoveryResult;
+    /// use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+    /// let x = DataDiscoveryResult::new().set_scan_statistics(ScanStatistics::default()/* use setters */);
+    /// ```
     pub fn set_scan_statistics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_discovery_result::ScanStatistics>,
@@ -10771,6 +14432,14 @@ impl DataDiscoveryResult {
     }
 
     /// Sets or clears the value of [scan_statistics][crate::model::DataDiscoveryResult::scan_statistics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDiscoveryResult;
+    /// use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+    /// let x = DataDiscoveryResult::new().set_or_clear_scan_statistics(Some(ScanStatistics::default()/* use setters */));
+    /// let x = DataDiscoveryResult::new().set_or_clear_scan_statistics(None::<ScanStatistics>);
+    /// ```
     pub fn set_or_clear_scan_statistics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_discovery_result::ScanStatistics>,
@@ -10810,12 +14479,24 @@ pub mod data_discovery_result {
         }
 
         /// Sets the value of [dataset][crate::model::data_discovery_result::BigQueryPublishing::dataset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::BigQueryPublishing;
+        /// let x = BigQueryPublishing::new().set_dataset("example");
+        /// ```
         pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::data_discovery_result::BigQueryPublishing::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::BigQueryPublishing;
+        /// let x = BigQueryPublishing::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
@@ -10868,54 +14549,108 @@ pub mod data_discovery_result {
         }
 
         /// Sets the value of [scanned_file_count][crate::model::data_discovery_result::ScanStatistics::scanned_file_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_scanned_file_count(42);
+        /// ```
         pub fn set_scanned_file_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.scanned_file_count = v.into();
             self
         }
 
         /// Sets the value of [data_processed_bytes][crate::model::data_discovery_result::ScanStatistics::data_processed_bytes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_data_processed_bytes(42);
+        /// ```
         pub fn set_data_processed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.data_processed_bytes = v.into();
             self
         }
 
         /// Sets the value of [files_excluded][crate::model::data_discovery_result::ScanStatistics::files_excluded].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_files_excluded(42);
+        /// ```
         pub fn set_files_excluded<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.files_excluded = v.into();
             self
         }
 
         /// Sets the value of [tables_created][crate::model::data_discovery_result::ScanStatistics::tables_created].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_tables_created(42);
+        /// ```
         pub fn set_tables_created<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.tables_created = v.into();
             self
         }
 
         /// Sets the value of [tables_deleted][crate::model::data_discovery_result::ScanStatistics::tables_deleted].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_tables_deleted(42);
+        /// ```
         pub fn set_tables_deleted<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.tables_deleted = v.into();
             self
         }
 
         /// Sets the value of [tables_updated][crate::model::data_discovery_result::ScanStatistics::tables_updated].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_tables_updated(42);
+        /// ```
         pub fn set_tables_updated<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.tables_updated = v.into();
             self
         }
 
         /// Sets the value of [filesets_created][crate::model::data_discovery_result::ScanStatistics::filesets_created].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_filesets_created(42);
+        /// ```
         pub fn set_filesets_created<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.filesets_created = v.into();
             self
         }
 
         /// Sets the value of [filesets_deleted][crate::model::data_discovery_result::ScanStatistics::filesets_deleted].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_filesets_deleted(42);
+        /// ```
         pub fn set_filesets_deleted<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.filesets_deleted = v.into();
             self
         }
 
         /// Sets the value of [filesets_updated][crate::model::data_discovery_result::ScanStatistics::filesets_updated].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_discovery_result::ScanStatistics;
+        /// let x = ScanStatistics::new().set_filesets_updated(42);
+        /// ```
         pub fn set_filesets_updated<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.filesets_updated = v.into();
             self
@@ -10967,6 +14702,14 @@ impl DataDocumentationResult {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDocumentationResult;
+    /// use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+    /// let x = DataDocumentationResult::new().set_result(Some(
+    ///     google_cloud_dataplex_v1::model::data_documentation_result::Result::TableResult(TableResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::data_documentation_result::Result>>,
     >(
@@ -10998,6 +14741,14 @@ impl DataDocumentationResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataDocumentationResult;
+    /// use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+    /// let x = DataDocumentationResult::new().set_table_result(TableResult::default()/* use setters */);
+    /// assert!(x.table_result().is_some());
+    /// ```
     pub fn set_table_result<
         T: std::convert::Into<std::boxed::Box<crate::model::data_documentation_result::TableResult>>,
     >(
@@ -11050,18 +14801,37 @@ pub mod data_documentation_result {
         }
 
         /// Sets the value of [name][crate::model::data_documentation_result::TableResult::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+        /// let x = TableResult::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [overview][crate::model::data_documentation_result::TableResult::overview].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+        /// let x = TableResult::new().set_overview("example");
+        /// ```
         pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.overview = v.into();
             self
         }
 
         /// Sets the value of [schema][crate::model::data_documentation_result::TableResult::schema].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::Schema;
+        /// let x = TableResult::new().set_schema(Schema::default()/* use setters */);
+        /// ```
         pub fn set_schema<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::data_documentation_result::Schema>,
@@ -11071,6 +14841,14 @@ pub mod data_documentation_result {
         }
 
         /// Sets or clears the value of [schema][crate::model::data_documentation_result::TableResult::schema].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::Schema;
+        /// let x = TableResult::new().set_or_clear_schema(Some(Schema::default()/* use setters */));
+        /// let x = TableResult::new().set_or_clear_schema(None::<Schema>);
+        /// ```
         pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::data_documentation_result::Schema>,
@@ -11080,6 +14858,17 @@ pub mod data_documentation_result {
         }
 
         /// Sets the value of [queries][crate::model::data_documentation_result::TableResult::queries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::Query;
+        /// let x = TableResult::new()
+        ///     .set_queries([
+        ///         Query::default()/* use setters */,
+        ///         Query::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_queries<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11116,12 +14905,24 @@ pub mod data_documentation_result {
         }
 
         /// Sets the value of [sql][crate::model::data_documentation_result::Query::sql].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::Query;
+        /// let x = Query::new().set_sql("example");
+        /// ```
         pub fn set_sql<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.sql = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::data_documentation_result::Query::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::Query;
+        /// let x = Query::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -11150,6 +14951,17 @@ pub mod data_documentation_result {
         }
 
         /// Sets the value of [fields][crate::model::data_documentation_result::Schema::fields].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::Schema;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::Field;
+        /// let x = Schema::new()
+        ///     .set_fields([
+        ///         Field::default()/* use setters */,
+        ///         Field::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11189,18 +15001,41 @@ pub mod data_documentation_result {
         }
 
         /// Sets the value of [name][crate::model::data_documentation_result::Field::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::Field;
+        /// let x = Field::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::data_documentation_result::Field::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::Field;
+        /// let x = Field::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [fields][crate::model::data_documentation_result::Field::fields].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::Field;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::Field;
+        /// let x = Field::new()
+        ///     .set_fields([
+        ///         Field::default()/* use setters */,
+        ///         Field::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11274,18 +15109,37 @@ impl DataProfileSpec {
     }
 
     /// Sets the value of [sampling_percent][crate::model::DataProfileSpec::sampling_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// let x = DataProfileSpec::new().set_sampling_percent(42.0);
+    /// ```
     pub fn set_sampling_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.sampling_percent = v.into();
         self
     }
 
     /// Sets the value of [row_filter][crate::model::DataProfileSpec::row_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// let x = DataProfileSpec::new().set_row_filter("example");
+    /// ```
     pub fn set_row_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.row_filter = v.into();
         self
     }
 
     /// Sets the value of [post_scan_actions][crate::model::DataProfileSpec::post_scan_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// use google_cloud_dataplex_v1::model::data_profile_spec::PostScanActions;
+    /// let x = DataProfileSpec::new().set_post_scan_actions(PostScanActions::default()/* use setters */);
+    /// ```
     pub fn set_post_scan_actions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_spec::PostScanActions>,
@@ -11295,6 +15149,14 @@ impl DataProfileSpec {
     }
 
     /// Sets or clears the value of [post_scan_actions][crate::model::DataProfileSpec::post_scan_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// use google_cloud_dataplex_v1::model::data_profile_spec::PostScanActions;
+    /// let x = DataProfileSpec::new().set_or_clear_post_scan_actions(Some(PostScanActions::default()/* use setters */));
+    /// let x = DataProfileSpec::new().set_or_clear_post_scan_actions(None::<PostScanActions>);
+    /// ```
     pub fn set_or_clear_post_scan_actions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_spec::PostScanActions>,
@@ -11304,6 +15166,13 @@ impl DataProfileSpec {
     }
 
     /// Sets the value of [include_fields][crate::model::DataProfileSpec::include_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// use google_cloud_dataplex_v1::model::data_profile_spec::SelectedFields;
+    /// let x = DataProfileSpec::new().set_include_fields(SelectedFields::default()/* use setters */);
+    /// ```
     pub fn set_include_fields<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_spec::SelectedFields>,
@@ -11313,6 +15182,14 @@ impl DataProfileSpec {
     }
 
     /// Sets or clears the value of [include_fields][crate::model::DataProfileSpec::include_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// use google_cloud_dataplex_v1::model::data_profile_spec::SelectedFields;
+    /// let x = DataProfileSpec::new().set_or_clear_include_fields(Some(SelectedFields::default()/* use setters */));
+    /// let x = DataProfileSpec::new().set_or_clear_include_fields(None::<SelectedFields>);
+    /// ```
     pub fn set_or_clear_include_fields<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_spec::SelectedFields>,
@@ -11322,6 +15199,13 @@ impl DataProfileSpec {
     }
 
     /// Sets the value of [exclude_fields][crate::model::DataProfileSpec::exclude_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// use google_cloud_dataplex_v1::model::data_profile_spec::SelectedFields;
+    /// let x = DataProfileSpec::new().set_exclude_fields(SelectedFields::default()/* use setters */);
+    /// ```
     pub fn set_exclude_fields<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_spec::SelectedFields>,
@@ -11331,6 +15215,14 @@ impl DataProfileSpec {
     }
 
     /// Sets or clears the value of [exclude_fields][crate::model::DataProfileSpec::exclude_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// use google_cloud_dataplex_v1::model::data_profile_spec::SelectedFields;
+    /// let x = DataProfileSpec::new().set_or_clear_exclude_fields(Some(SelectedFields::default()/* use setters */));
+    /// let x = DataProfileSpec::new().set_or_clear_exclude_fields(None::<SelectedFields>);
+    /// ```
     pub fn set_or_clear_exclude_fields<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_spec::SelectedFields>,
@@ -11375,6 +15267,13 @@ pub mod data_profile_spec {
         }
 
         /// Sets the value of [bigquery_export][crate::model::data_profile_spec::PostScanActions::bigquery_export].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_profile_spec::PostScanActions;
+        /// use google_cloud_dataplex_v1::model::data_profile_spec::post_scan_actions::BigQueryExport;
+        /// let x = PostScanActions::new().set_bigquery_export(BigQueryExport::default()/* use setters */);
+        /// ```
         pub fn set_bigquery_export<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -11386,6 +15285,14 @@ pub mod data_profile_spec {
         }
 
         /// Sets or clears the value of [bigquery_export][crate::model::data_profile_spec::PostScanActions::bigquery_export].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_profile_spec::PostScanActions;
+        /// use google_cloud_dataplex_v1::model::data_profile_spec::post_scan_actions::BigQueryExport;
+        /// let x = PostScanActions::new().set_or_clear_bigquery_export(Some(BigQueryExport::default()/* use setters */));
+        /// let x = PostScanActions::new().set_or_clear_bigquery_export(None::<BigQueryExport>);
+        /// ```
         pub fn set_or_clear_bigquery_export<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -11426,6 +15333,12 @@ pub mod data_profile_spec {
             }
 
             /// Sets the value of [results_table][crate::model::data_profile_spec::post_scan_actions::BigQueryExport::results_table].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_spec::post_scan_actions::BigQueryExport;
+            /// let x = BigQueryExport::new().set_results_table("example");
+            /// ```
             pub fn set_results_table<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -11464,6 +15377,12 @@ pub mod data_profile_spec {
         }
 
         /// Sets the value of [field_names][crate::model::data_profile_spec::SelectedFields::field_names].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_profile_spec::SelectedFields;
+        /// let x = SelectedFields::new().set_field_names(["a", "b", "c"]);
+        /// ```
         pub fn set_field_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11514,12 +15433,25 @@ impl DataProfileResult {
     }
 
     /// Sets the value of [row_count][crate::model::DataProfileResult::row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// let x = DataProfileResult::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
     /// Sets the value of [profile][crate::model::DataProfileResult::profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// use google_cloud_dataplex_v1::model::data_profile_result::Profile;
+    /// let x = DataProfileResult::new().set_profile(Profile::default()/* use setters */);
+    /// ```
     pub fn set_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_result::Profile>,
@@ -11529,6 +15461,14 @@ impl DataProfileResult {
     }
 
     /// Sets or clears the value of [profile][crate::model::DataProfileResult::profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// use google_cloud_dataplex_v1::model::data_profile_result::Profile;
+    /// let x = DataProfileResult::new().set_or_clear_profile(Some(Profile::default()/* use setters */));
+    /// let x = DataProfileResult::new().set_or_clear_profile(None::<Profile>);
+    /// ```
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_result::Profile>,
@@ -11538,6 +15478,13 @@ impl DataProfileResult {
     }
 
     /// Sets the value of [scanned_data][crate::model::DataProfileResult::scanned_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// use google_cloud_dataplex_v1::model::ScannedData;
+    /// let x = DataProfileResult::new().set_scanned_data(ScannedData::default()/* use setters */);
+    /// ```
     pub fn set_scanned_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScannedData>,
@@ -11547,6 +15494,14 @@ impl DataProfileResult {
     }
 
     /// Sets or clears the value of [scanned_data][crate::model::DataProfileResult::scanned_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// use google_cloud_dataplex_v1::model::ScannedData;
+    /// let x = DataProfileResult::new().set_or_clear_scanned_data(Some(ScannedData::default()/* use setters */));
+    /// let x = DataProfileResult::new().set_or_clear_scanned_data(None::<ScannedData>);
+    /// ```
     pub fn set_or_clear_scanned_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScannedData>,
@@ -11556,6 +15511,13 @@ impl DataProfileResult {
     }
 
     /// Sets the value of [post_scan_actions_result][crate::model::DataProfileResult::post_scan_actions_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// use google_cloud_dataplex_v1::model::data_profile_result::PostScanActionsResult;
+    /// let x = DataProfileResult::new().set_post_scan_actions_result(PostScanActionsResult::default()/* use setters */);
+    /// ```
     pub fn set_post_scan_actions_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_result::PostScanActionsResult>,
@@ -11565,6 +15527,14 @@ impl DataProfileResult {
     }
 
     /// Sets or clears the value of [post_scan_actions_result][crate::model::DataProfileResult::post_scan_actions_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// use google_cloud_dataplex_v1::model::data_profile_result::PostScanActionsResult;
+    /// let x = DataProfileResult::new().set_or_clear_post_scan_actions_result(Some(PostScanActionsResult::default()/* use setters */));
+    /// let x = DataProfileResult::new().set_or_clear_post_scan_actions_result(None::<PostScanActionsResult>);
+    /// ```
     pub fn set_or_clear_post_scan_actions_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_result::PostScanActionsResult>,
@@ -11620,6 +15590,17 @@ pub mod data_profile_result {
         }
 
         /// Sets the value of [fields][crate::model::data_profile_result::Profile::fields].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_profile_result::Profile;
+        /// use google_cloud_dataplex_v1::model::data_profile_result::profile::Field;
+        /// let x = Profile::new()
+        ///     .set_fields([
+        ///         Field::default()/* use setters */,
+        ///         Field::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11677,24 +15658,49 @@ pub mod data_profile_result {
             }
 
             /// Sets the value of [name][crate::model::data_profile_result::profile::Field::name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::Field;
+            /// let x = Field::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
             }
 
             /// Sets the value of [r#type][crate::model::data_profile_result::profile::Field::type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::Field;
+            /// let x = Field::new().set_type("example");
+            /// ```
             pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.r#type = v.into();
                 self
             }
 
             /// Sets the value of [mode][crate::model::data_profile_result::profile::Field::mode].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::Field;
+            /// let x = Field::new().set_mode("example");
+            /// ```
             pub fn set_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.mode = v.into();
                 self
             }
 
             /// Sets the value of [profile][crate::model::data_profile_result::profile::Field::profile].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::Field;
+            /// use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+            /// let x = Field::new().set_profile(ProfileInfo::default()/* use setters */);
+            /// ```
             pub fn set_profile<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -11706,6 +15712,14 @@ pub mod data_profile_result {
             }
 
             /// Sets or clears the value of [profile][crate::model::data_profile_result::profile::Field::profile].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::Field;
+            /// use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+            /// let x = Field::new().set_or_clear_profile(Some(ProfileInfo::default()/* use setters */));
+            /// let x = Field::new().set_or_clear_profile(None::<ProfileInfo>);
+            /// ```
             pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -11766,18 +15780,41 @@ pub mod data_profile_result {
                 }
 
                 /// Sets the value of [null_ratio][crate::model::data_profile_result::profile::field::ProfileInfo::null_ratio].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+                /// let x = ProfileInfo::new().set_null_ratio(42.0);
+                /// ```
                 pub fn set_null_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                     self.null_ratio = v.into();
                     self
                 }
 
                 /// Sets the value of [distinct_ratio][crate::model::data_profile_result::profile::field::ProfileInfo::distinct_ratio].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+                /// let x = ProfileInfo::new().set_distinct_ratio(42.0);
+                /// ```
                 pub fn set_distinct_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                     self.distinct_ratio = v.into();
                     self
                 }
 
                 /// Sets the value of [top_n_values][crate::model::data_profile_result::profile::field::ProfileInfo::top_n_values].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+                /// use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::TopNValue;
+                /// let x = ProfileInfo::new()
+                ///     .set_top_n_values([
+                ///         TopNValue::default()/* use setters */,
+                ///         TopNValue::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_top_n_values<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -11792,6 +15829,14 @@ pub mod data_profile_result {
                 ///
                 /// Note that all the setters affecting `field_info` are mutually
                 /// exclusive.
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+                /// use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::StringFieldInfo;
+                /// let x = ProfileInfo::new().set_field_info(Some(
+                ///     google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::FieldInfo::StringProfile(StringFieldInfo::default().into())));
+                /// ```
                 pub fn set_field_info<T: std::convert::Into<std::option::Option<crate::model::data_profile_result::profile::field::profile_info::FieldInfo>>>(mut self, v: T) -> Self
                 {
                     self.field_info = v.into();
@@ -11814,6 +15859,16 @@ pub mod data_profile_result {
                 ///
                 /// Note that all the setters affecting `field_info` are
                 /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+                /// use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::StringFieldInfo;
+                /// let x = ProfileInfo::new().set_string_profile(StringFieldInfo::default()/* use setters */);
+                /// assert!(x.string_profile().is_some());
+                /// assert!(x.integer_profile().is_none());
+                /// assert!(x.double_profile().is_none());
+                /// ```
                 pub fn set_string_profile<T: std::convert::Into<std::boxed::Box<crate::model::data_profile_result::profile::field::profile_info::StringFieldInfo>>>(mut self, v: T) -> Self{
                     self.field_info = std::option::Option::Some(
                         crate::model::data_profile_result::profile::field::profile_info::FieldInfo::StringProfile(
@@ -11839,6 +15894,16 @@ pub mod data_profile_result {
                 ///
                 /// Note that all the setters affecting `field_info` are
                 /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+                /// use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo;
+                /// let x = ProfileInfo::new().set_integer_profile(IntegerFieldInfo::default()/* use setters */);
+                /// assert!(x.integer_profile().is_some());
+                /// assert!(x.string_profile().is_none());
+                /// assert!(x.double_profile().is_none());
+                /// ```
                 pub fn set_integer_profile<T: std::convert::Into<std::boxed::Box<crate::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo>>>(mut self, v: T) -> Self{
                     self.field_info = std::option::Option::Some(
                         crate::model::data_profile_result::profile::field::profile_info::FieldInfo::IntegerProfile(
@@ -11864,6 +15929,16 @@ pub mod data_profile_result {
                 ///
                 /// Note that all the setters affecting `field_info` are
                 /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::ProfileInfo;
+                /// use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo;
+                /// let x = ProfileInfo::new().set_double_profile(DoubleFieldInfo::default()/* use setters */);
+                /// assert!(x.double_profile().is_some());
+                /// assert!(x.string_profile().is_none());
+                /// assert!(x.integer_profile().is_none());
+                /// ```
                 pub fn set_double_profile<T: std::convert::Into<std::boxed::Box<crate::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo>>>(mut self, v: T) -> Self{
                     self.field_info = std::option::Option::Some(
                         crate::model::data_profile_result::profile::field::profile_info::FieldInfo::DoubleProfile(
@@ -11908,18 +15983,36 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [min_length][crate::model::data_profile_result::profile::field::profile_info::StringFieldInfo::min_length].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::StringFieldInfo;
+                    /// let x = StringFieldInfo::new().set_min_length(42);
+                    /// ```
                     pub fn set_min_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                         self.min_length = v.into();
                         self
                     }
 
                     /// Sets the value of [max_length][crate::model::data_profile_result::profile::field::profile_info::StringFieldInfo::max_length].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::StringFieldInfo;
+                    /// let x = StringFieldInfo::new().set_max_length(42);
+                    /// ```
                     pub fn set_max_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                         self.max_length = v.into();
                         self
                     }
 
                     /// Sets the value of [average_length][crate::model::data_profile_result::profile::field::profile_info::StringFieldInfo::average_length].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::StringFieldInfo;
+                    /// let x = StringFieldInfo::new().set_average_length(42.0);
+                    /// ```
                     pub fn set_average_length<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                         self.average_length = v.into();
                         self
@@ -11976,12 +16069,24 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [average][crate::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo::average].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo;
+                    /// let x = IntegerFieldInfo::new().set_average(42.0);
+                    /// ```
                     pub fn set_average<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                         self.average = v.into();
                         self
                     }
 
                     /// Sets the value of [standard_deviation][crate::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo::standard_deviation].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo;
+                    /// let x = IntegerFieldInfo::new().set_standard_deviation(42.0);
+                    /// ```
                     pub fn set_standard_deviation<T: std::convert::Into<f64>>(
                         mut self,
                         v: T,
@@ -11991,12 +16096,24 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [min][crate::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo::min].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo;
+                    /// let x = IntegerFieldInfo::new().set_min(42);
+                    /// ```
                     pub fn set_min<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                         self.min = v.into();
                         self
                     }
 
                     /// Sets the value of [quartiles][crate::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo::quartiles].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo;
+                    /// let x = IntegerFieldInfo::new().set_quartiles([1, 2, 3]);
+                    /// ```
                     pub fn set_quartiles<T, V>(mut self, v: T) -> Self
                     where
                         T: std::iter::IntoIterator<Item = V>,
@@ -12008,6 +16125,12 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [max][crate::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo::max].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::IntegerFieldInfo;
+                    /// let x = IntegerFieldInfo::new().set_max(42);
+                    /// ```
                     pub fn set_max<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                         self.max = v.into();
                         self
@@ -12064,12 +16187,24 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [average][crate::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo::average].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo;
+                    /// let x = DoubleFieldInfo::new().set_average(42.0);
+                    /// ```
                     pub fn set_average<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                         self.average = v.into();
                         self
                     }
 
                     /// Sets the value of [standard_deviation][crate::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo::standard_deviation].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo;
+                    /// let x = DoubleFieldInfo::new().set_standard_deviation(42.0);
+                    /// ```
                     pub fn set_standard_deviation<T: std::convert::Into<f64>>(
                         mut self,
                         v: T,
@@ -12079,12 +16214,24 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [min][crate::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo::min].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo;
+                    /// let x = DoubleFieldInfo::new().set_min(42.0);
+                    /// ```
                     pub fn set_min<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                         self.min = v.into();
                         self
                     }
 
                     /// Sets the value of [quartiles][crate::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo::quartiles].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo;
+                    /// let x = DoubleFieldInfo::new().set_quartiles([1.0, 2.0, 3.0]);
+                    /// ```
                     pub fn set_quartiles<T, V>(mut self, v: T) -> Self
                     where
                         T: std::iter::IntoIterator<Item = V>,
@@ -12096,6 +16243,12 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [max][crate::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo::max].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::DoubleFieldInfo;
+                    /// let x = DoubleFieldInfo::new().set_max(42.0);
+                    /// ```
                     pub fn set_max<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                         self.max = v.into();
                         self
@@ -12132,6 +16285,12 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [value][crate::model::data_profile_result::profile::field::profile_info::TopNValue::value].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::TopNValue;
+                    /// let x = TopNValue::new().set_value("example");
+                    /// ```
                     pub fn set_value<T: std::convert::Into<std::string::String>>(
                         mut self,
                         v: T,
@@ -12141,12 +16300,24 @@ pub mod data_profile_result {
                     }
 
                     /// Sets the value of [count][crate::model::data_profile_result::profile::field::profile_info::TopNValue::count].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::TopNValue;
+                    /// let x = TopNValue::new().set_count(42);
+                    /// ```
                     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                         self.count = v.into();
                         self
                     }
 
                     /// Sets the value of [ratio][crate::model::data_profile_result::profile::field::profile_info::TopNValue::ratio].
+                    ///
+                    /// # Example
+                    /// ```
+                    /// # use google_cloud_dataplex_v1::model::data_profile_result::profile::field::profile_info::TopNValue;
+                    /// let x = TopNValue::new().set_ratio(42.0);
+                    /// ```
                     pub fn set_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                         self.ratio = v.into();
                         self
@@ -12193,6 +16364,13 @@ pub mod data_profile_result {
         }
 
         /// Sets the value of [bigquery_export_result][crate::model::data_profile_result::PostScanActionsResult::bigquery_export_result].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_profile_result::PostScanActionsResult;
+        /// use google_cloud_dataplex_v1::model::data_profile_result::post_scan_actions_result::BigQueryExportResult;
+        /// let x = PostScanActionsResult::new().set_bigquery_export_result(BigQueryExportResult::default()/* use setters */);
+        /// ```
         pub fn set_bigquery_export_result<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::data_profile_result::post_scan_actions_result::BigQueryExportResult>
         {
@@ -12201,6 +16379,14 @@ pub mod data_profile_result {
         }
 
         /// Sets or clears the value of [bigquery_export_result][crate::model::data_profile_result::PostScanActionsResult::bigquery_export_result].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_profile_result::PostScanActionsResult;
+        /// use google_cloud_dataplex_v1::model::data_profile_result::post_scan_actions_result::BigQueryExportResult;
+        /// let x = PostScanActionsResult::new().set_or_clear_bigquery_export_result(Some(BigQueryExportResult::default()/* use setters */));
+        /// let x = PostScanActionsResult::new().set_or_clear_bigquery_export_result(None::<BigQueryExportResult>);
+        /// ```
         pub fn set_or_clear_bigquery_export_result<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::data_profile_result::post_scan_actions_result::BigQueryExportResult>
         {
@@ -12224,13 +16410,13 @@ pub mod data_profile_result {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BigQueryExportResult {
-
+        
             /// Output only. Execution state for the BigQuery exporting.
             pub state: crate::model::data_profile_result::post_scan_actions_result::big_query_export_result::State,
-
+        
             /// Output only. Additional information about the BigQuery exporting.
             pub message: std::string::String,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -12240,12 +16426,27 @@ pub mod data_profile_result {
             }
 
             /// Sets the value of [state][crate::model::data_profile_result::post_scan_actions_result::BigQueryExportResult::state].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_result::post_scan_actions_result::BigQueryExportResult;
+            /// use google_cloud_dataplex_v1::model::data_profile_result::post_scan_actions_result::big_query_export_result::State;
+            /// let x0 = BigQueryExportResult::new().set_state(State::Succeeded);
+            /// let x1 = BigQueryExportResult::new().set_state(State::Failed);
+            /// let x2 = BigQueryExportResult::new().set_state(State::Skipped);
+            /// ```
             pub fn set_state<T: std::convert::Into<crate::model::data_profile_result::post_scan_actions_result::big_query_export_result::State>>(mut self, v: T) -> Self{
                 self.state = v.into();
                 self
             }
 
             /// Sets the value of [message][crate::model::data_profile_result::post_scan_actions_result::BigQueryExportResult::message].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_profile_result::post_scan_actions_result::BigQueryExportResult;
+            /// let x = BigQueryExportResult::new().set_message("example");
+            /// ```
             pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.message = v.into();
                 self
@@ -12449,6 +16650,17 @@ impl DataQualitySpec {
     }
 
     /// Sets the value of [rules][crate::model::DataQualitySpec::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualitySpec::new()
+    ///     .set_rules([
+    ///         DataQualityRule::default()/* use setters */,
+    ///         DataQualityRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12460,18 +16672,37 @@ impl DataQualitySpec {
     }
 
     /// Sets the value of [sampling_percent][crate::model::DataQualitySpec::sampling_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataQualitySpec::new().set_sampling_percent(42.0);
+    /// ```
     pub fn set_sampling_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.sampling_percent = v.into();
         self
     }
 
     /// Sets the value of [row_filter][crate::model::DataQualitySpec::row_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataQualitySpec::new().set_row_filter("example");
+    /// ```
     pub fn set_row_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.row_filter = v.into();
         self
     }
 
     /// Sets the value of [post_scan_actions][crate::model::DataQualitySpec::post_scan_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// use google_cloud_dataplex_v1::model::data_quality_spec::PostScanActions;
+    /// let x = DataQualitySpec::new().set_post_scan_actions(PostScanActions::default()/* use setters */);
+    /// ```
     pub fn set_post_scan_actions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_quality_spec::PostScanActions>,
@@ -12481,6 +16712,14 @@ impl DataQualitySpec {
     }
 
     /// Sets or clears the value of [post_scan_actions][crate::model::DataQualitySpec::post_scan_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// use google_cloud_dataplex_v1::model::data_quality_spec::PostScanActions;
+    /// let x = DataQualitySpec::new().set_or_clear_post_scan_actions(Some(PostScanActions::default()/* use setters */));
+    /// let x = DataQualitySpec::new().set_or_clear_post_scan_actions(None::<PostScanActions>);
+    /// ```
     pub fn set_or_clear_post_scan_actions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_quality_spec::PostScanActions>,
@@ -12490,6 +16729,12 @@ impl DataQualitySpec {
     }
 
     /// Sets the value of [catalog_publishing_enabled][crate::model::DataQualitySpec::catalog_publishing_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataQualitySpec::new().set_catalog_publishing_enabled(true);
+    /// ```
     pub fn set_catalog_publishing_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.catalog_publishing_enabled = v.into();
         self
@@ -12531,6 +16776,13 @@ pub mod data_quality_spec {
         }
 
         /// Sets the value of [bigquery_export][crate::model::data_quality_spec::PostScanActions::bigquery_export].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_spec::PostScanActions;
+        /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::BigQueryExport;
+        /// let x = PostScanActions::new().set_bigquery_export(BigQueryExport::default()/* use setters */);
+        /// ```
         pub fn set_bigquery_export<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -12542,6 +16794,14 @@ pub mod data_quality_spec {
         }
 
         /// Sets or clears the value of [bigquery_export][crate::model::data_quality_spec::PostScanActions::bigquery_export].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_spec::PostScanActions;
+        /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::BigQueryExport;
+        /// let x = PostScanActions::new().set_or_clear_bigquery_export(Some(BigQueryExport::default()/* use setters */));
+        /// let x = PostScanActions::new().set_or_clear_bigquery_export(None::<BigQueryExport>);
+        /// ```
         pub fn set_or_clear_bigquery_export<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -12553,6 +16813,13 @@ pub mod data_quality_spec {
         }
 
         /// Sets the value of [notification_report][crate::model::data_quality_spec::PostScanActions::notification_report].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_spec::PostScanActions;
+        /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+        /// let x = PostScanActions::new().set_notification_report(NotificationReport::default()/* use setters */);
+        /// ```
         pub fn set_notification_report<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -12564,6 +16831,14 @@ pub mod data_quality_spec {
         }
 
         /// Sets or clears the value of [notification_report][crate::model::data_quality_spec::PostScanActions::notification_report].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_spec::PostScanActions;
+        /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+        /// let x = PostScanActions::new().set_or_clear_notification_report(Some(NotificationReport::default()/* use setters */));
+        /// let x = PostScanActions::new().set_or_clear_notification_report(None::<NotificationReport>);
+        /// ```
         pub fn set_or_clear_notification_report<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -12606,6 +16881,12 @@ pub mod data_quality_spec {
             }
 
             /// Sets the value of [results_table][crate::model::data_quality_spec::post_scan_actions::BigQueryExport::results_table].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::BigQueryExport;
+            /// let x = BigQueryExport::new().set_results_table("example");
+            /// ```
             pub fn set_results_table<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -12639,6 +16920,12 @@ pub mod data_quality_spec {
             }
 
             /// Sets the value of [emails][crate::model::data_quality_spec::post_scan_actions::Recipients::emails].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::Recipients;
+            /// let x = Recipients::new().set_emails(["a", "b", "c"]);
+            /// ```
             pub fn set_emails<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -12673,6 +16960,12 @@ pub mod data_quality_spec {
             }
 
             /// Sets the value of [score_threshold][crate::model::data_quality_spec::post_scan_actions::ScoreThresholdTrigger::score_threshold].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::ScoreThresholdTrigger;
+            /// let x = ScoreThresholdTrigger::new().set_score_threshold(42.0);
+            /// ```
             pub fn set_score_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.score_threshold = v.into();
                 self
@@ -12757,6 +17050,13 @@ pub mod data_quality_spec {
             }
 
             /// Sets the value of [recipients][crate::model::data_quality_spec::post_scan_actions::NotificationReport::recipients].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::Recipients;
+            /// let x = NotificationReport::new().set_recipients(Recipients::default()/* use setters */);
+            /// ```
             pub fn set_recipients<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -12768,6 +17068,14 @@ pub mod data_quality_spec {
             }
 
             /// Sets or clears the value of [recipients][crate::model::data_quality_spec::post_scan_actions::NotificationReport::recipients].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::Recipients;
+            /// let x = NotificationReport::new().set_or_clear_recipients(Some(Recipients::default()/* use setters */));
+            /// let x = NotificationReport::new().set_or_clear_recipients(None::<Recipients>);
+            /// ```
             pub fn set_or_clear_recipients<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -12779,6 +17087,13 @@ pub mod data_quality_spec {
             }
 
             /// Sets the value of [score_threshold_trigger][crate::model::data_quality_spec::post_scan_actions::NotificationReport::score_threshold_trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::ScoreThresholdTrigger;
+            /// let x = NotificationReport::new().set_score_threshold_trigger(ScoreThresholdTrigger::default()/* use setters */);
+            /// ```
             pub fn set_score_threshold_trigger<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -12790,6 +17105,14 @@ pub mod data_quality_spec {
             }
 
             /// Sets or clears the value of [score_threshold_trigger][crate::model::data_quality_spec::post_scan_actions::NotificationReport::score_threshold_trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::ScoreThresholdTrigger;
+            /// let x = NotificationReport::new().set_or_clear_score_threshold_trigger(Some(ScoreThresholdTrigger::default()/* use setters */));
+            /// let x = NotificationReport::new().set_or_clear_score_threshold_trigger(None::<ScoreThresholdTrigger>);
+            /// ```
             pub fn set_or_clear_score_threshold_trigger<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -12804,6 +17127,13 @@ pub mod data_quality_spec {
             }
 
             /// Sets the value of [job_failure_trigger][crate::model::data_quality_spec::post_scan_actions::NotificationReport::job_failure_trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::JobFailureTrigger;
+            /// let x = NotificationReport::new().set_job_failure_trigger(JobFailureTrigger::default()/* use setters */);
+            /// ```
             pub fn set_job_failure_trigger<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -12815,6 +17145,14 @@ pub mod data_quality_spec {
             }
 
             /// Sets or clears the value of [job_failure_trigger][crate::model::data_quality_spec::post_scan_actions::NotificationReport::job_failure_trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::JobFailureTrigger;
+            /// let x = NotificationReport::new().set_or_clear_job_failure_trigger(Some(JobFailureTrigger::default()/* use setters */));
+            /// let x = NotificationReport::new().set_or_clear_job_failure_trigger(None::<JobFailureTrigger>);
+            /// ```
             pub fn set_or_clear_job_failure_trigger<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -12826,6 +17164,13 @@ pub mod data_quality_spec {
             }
 
             /// Sets the value of [job_end_trigger][crate::model::data_quality_spec::post_scan_actions::NotificationReport::job_end_trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::JobEndTrigger;
+            /// let x = NotificationReport::new().set_job_end_trigger(JobEndTrigger::default()/* use setters */);
+            /// ```
             pub fn set_job_end_trigger<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -12837,6 +17182,14 @@ pub mod data_quality_spec {
             }
 
             /// Sets or clears the value of [job_end_trigger][crate::model::data_quality_spec::post_scan_actions::NotificationReport::job_end_trigger].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::NotificationReport;
+            /// use google_cloud_dataplex_v1::model::data_quality_spec::post_scan_actions::JobEndTrigger;
+            /// let x = NotificationReport::new().set_or_clear_job_end_trigger(Some(JobEndTrigger::default()/* use setters */));
+            /// let x = NotificationReport::new().set_or_clear_job_end_trigger(None::<JobEndTrigger>);
+            /// ```
             pub fn set_or_clear_job_end_trigger<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -12911,12 +17264,24 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [passed][crate::model::DataQualityResult::passed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataQualityResult::new().set_passed(true);
+    /// ```
     pub fn set_passed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.passed = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::DataQualityResult::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataQualityResult::new().set_score(42.0);
+    /// ```
     pub fn set_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f32>,
@@ -12926,6 +17291,13 @@ impl DataQualityResult {
     }
 
     /// Sets or clears the value of [score][crate::model::DataQualityResult::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataQualityResult::new().set_or_clear_score(Some(42.0));
+    /// let x = DataQualityResult::new().set_or_clear_score(None::<f32>);
+    /// ```
     pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
@@ -12935,6 +17307,17 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [dimensions][crate::model::DataQualityResult::dimensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityDimensionResult;
+    /// let x = DataQualityResult::new()
+    ///     .set_dimensions([
+    ///         DataQualityDimensionResult::default()/* use setters */,
+    ///         DataQualityDimensionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12946,6 +17329,17 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [columns][crate::model::DataQualityResult::columns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityColumnResult;
+    /// let x = DataQualityResult::new()
+    ///     .set_columns([
+    ///         DataQualityColumnResult::default()/* use setters */,
+    ///         DataQualityColumnResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12957,6 +17351,17 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [rules][crate::model::DataQualityResult::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityResult::new()
+    ///     .set_rules([
+    ///         DataQualityRuleResult::default()/* use setters */,
+    ///         DataQualityRuleResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12968,12 +17373,25 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [row_count][crate::model::DataQualityResult::row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataQualityResult::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
     /// Sets the value of [scanned_data][crate::model::DataQualityResult::scanned_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::ScannedData;
+    /// let x = DataQualityResult::new().set_scanned_data(ScannedData::default()/* use setters */);
+    /// ```
     pub fn set_scanned_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScannedData>,
@@ -12983,6 +17401,14 @@ impl DataQualityResult {
     }
 
     /// Sets or clears the value of [scanned_data][crate::model::DataQualityResult::scanned_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::ScannedData;
+    /// let x = DataQualityResult::new().set_or_clear_scanned_data(Some(ScannedData::default()/* use setters */));
+    /// let x = DataQualityResult::new().set_or_clear_scanned_data(None::<ScannedData>);
+    /// ```
     pub fn set_or_clear_scanned_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScannedData>,
@@ -12992,6 +17418,13 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [post_scan_actions_result][crate::model::DataQualityResult::post_scan_actions_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::data_quality_result::PostScanActionsResult;
+    /// let x = DataQualityResult::new().set_post_scan_actions_result(PostScanActionsResult::default()/* use setters */);
+    /// ```
     pub fn set_post_scan_actions_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_quality_result::PostScanActionsResult>,
@@ -13001,6 +17434,14 @@ impl DataQualityResult {
     }
 
     /// Sets or clears the value of [post_scan_actions_result][crate::model::DataQualityResult::post_scan_actions_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::data_quality_result::PostScanActionsResult;
+    /// let x = DataQualityResult::new().set_or_clear_post_scan_actions_result(Some(PostScanActionsResult::default()/* use setters */));
+    /// let x = DataQualityResult::new().set_or_clear_post_scan_actions_result(None::<PostScanActionsResult>);
+    /// ```
     pub fn set_or_clear_post_scan_actions_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_quality_result::PostScanActionsResult>,
@@ -13010,6 +17451,13 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [catalog_publishing_status][crate::model::DataQualityResult::catalog_publishing_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::DataScanCatalogPublishingStatus;
+    /// let x = DataQualityResult::new().set_catalog_publishing_status(DataScanCatalogPublishingStatus::default()/* use setters */);
+    /// ```
     pub fn set_catalog_publishing_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
@@ -13019,6 +17467,14 @@ impl DataQualityResult {
     }
 
     /// Sets or clears the value of [catalog_publishing_status][crate::model::DataQualityResult::catalog_publishing_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::DataScanCatalogPublishingStatus;
+    /// let x = DataQualityResult::new().set_or_clear_catalog_publishing_status(Some(DataScanCatalogPublishingStatus::default()/* use setters */));
+    /// let x = DataQualityResult::new().set_or_clear_catalog_publishing_status(None::<DataScanCatalogPublishingStatus>);
+    /// ```
     pub fn set_or_clear_catalog_publishing_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
@@ -13028,6 +17484,13 @@ impl DataQualityResult {
     }
 
     /// Sets the value of [anomaly_detection_generated_assets][crate::model::DataQualityResult::anomaly_detection_generated_assets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::data_quality_result::AnomalyDetectionGeneratedAssets;
+    /// let x = DataQualityResult::new().set_anomaly_detection_generated_assets(AnomalyDetectionGeneratedAssets::default()/* use setters */);
+    /// ```
     pub fn set_anomaly_detection_generated_assets<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_quality_result::AnomalyDetectionGeneratedAssets>,
@@ -13037,6 +17500,14 @@ impl DataQualityResult {
     }
 
     /// Sets or clears the value of [anomaly_detection_generated_assets][crate::model::DataQualityResult::anomaly_detection_generated_assets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// use google_cloud_dataplex_v1::model::data_quality_result::AnomalyDetectionGeneratedAssets;
+    /// let x = DataQualityResult::new().set_or_clear_anomaly_detection_generated_assets(Some(AnomalyDetectionGeneratedAssets::default()/* use setters */));
+    /// let x = DataQualityResult::new().set_or_clear_anomaly_detection_generated_assets(None::<AnomalyDetectionGeneratedAssets>);
+    /// ```
     pub fn set_or_clear_anomaly_detection_generated_assets<T>(
         mut self,
         v: std::option::Option<T>,
@@ -13078,6 +17549,13 @@ pub mod data_quality_result {
         }
 
         /// Sets the value of [bigquery_export_result][crate::model::data_quality_result::PostScanActionsResult::bigquery_export_result].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_result::PostScanActionsResult;
+        /// use google_cloud_dataplex_v1::model::data_quality_result::post_scan_actions_result::BigQueryExportResult;
+        /// let x = PostScanActionsResult::new().set_bigquery_export_result(BigQueryExportResult::default()/* use setters */);
+        /// ```
         pub fn set_bigquery_export_result<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::data_quality_result::post_scan_actions_result::BigQueryExportResult>
         {
@@ -13086,6 +17564,14 @@ pub mod data_quality_result {
         }
 
         /// Sets or clears the value of [bigquery_export_result][crate::model::data_quality_result::PostScanActionsResult::bigquery_export_result].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_result::PostScanActionsResult;
+        /// use google_cloud_dataplex_v1::model::data_quality_result::post_scan_actions_result::BigQueryExportResult;
+        /// let x = PostScanActionsResult::new().set_or_clear_bigquery_export_result(Some(BigQueryExportResult::default()/* use setters */));
+        /// let x = PostScanActionsResult::new().set_or_clear_bigquery_export_result(None::<BigQueryExportResult>);
+        /// ```
         pub fn set_or_clear_bigquery_export_result<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::data_quality_result::post_scan_actions_result::BigQueryExportResult>
         {
@@ -13109,13 +17595,13 @@ pub mod data_quality_result {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BigQueryExportResult {
-
+        
             /// Output only. Execution state for the BigQuery exporting.
             pub state: crate::model::data_quality_result::post_scan_actions_result::big_query_export_result::State,
-
+        
             /// Output only. Additional information about the BigQuery exporting.
             pub message: std::string::String,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -13125,12 +17611,27 @@ pub mod data_quality_result {
             }
 
             /// Sets the value of [state][crate::model::data_quality_result::post_scan_actions_result::BigQueryExportResult::state].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_result::post_scan_actions_result::BigQueryExportResult;
+            /// use google_cloud_dataplex_v1::model::data_quality_result::post_scan_actions_result::big_query_export_result::State;
+            /// let x0 = BigQueryExportResult::new().set_state(State::Succeeded);
+            /// let x1 = BigQueryExportResult::new().set_state(State::Failed);
+            /// let x2 = BigQueryExportResult::new().set_state(State::Skipped);
+            /// ```
             pub fn set_state<T: std::convert::Into<crate::model::data_quality_result::post_scan_actions_result::big_query_export_result::State>>(mut self, v: T) -> Self{
                 self.state = v.into();
                 self
             }
 
             /// Sets the value of [message][crate::model::data_quality_result::post_scan_actions_result::BigQueryExportResult::message].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_quality_result::post_scan_actions_result::BigQueryExportResult;
+            /// let x = BigQueryExportResult::new().set_message("example");
+            /// ```
             pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.message = v.into();
                 self
@@ -13328,6 +17829,12 @@ pub mod data_quality_result {
         }
 
         /// Sets the value of [result_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::result_table].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_result::AnomalyDetectionGeneratedAssets;
+        /// let x = AnomalyDetectionGeneratedAssets::new().set_result_table("example");
+        /// ```
         pub fn set_result_table<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13337,6 +17844,12 @@ pub mod data_quality_result {
         }
 
         /// Sets the value of [data_intermediate_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::data_intermediate_table].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_result::AnomalyDetectionGeneratedAssets;
+        /// let x = AnomalyDetectionGeneratedAssets::new().set_data_intermediate_table("example");
+        /// ```
         pub fn set_data_intermediate_table<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13346,6 +17859,12 @@ pub mod data_quality_result {
         }
 
         /// Sets the value of [freshness_intermediate_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::freshness_intermediate_table].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_result::AnomalyDetectionGeneratedAssets;
+        /// let x = AnomalyDetectionGeneratedAssets::new().set_freshness_intermediate_table("example");
+        /// ```
         pub fn set_freshness_intermediate_table<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13355,6 +17874,12 @@ pub mod data_quality_result {
         }
 
         /// Sets the value of [volume_intermediate_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::volume_intermediate_table].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_result::AnomalyDetectionGeneratedAssets;
+        /// let x = AnomalyDetectionGeneratedAssets::new().set_volume_intermediate_table("example");
+        /// ```
         pub fn set_volume_intermediate_table<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13430,6 +17955,13 @@ impl DataQualityRuleResult {
     }
 
     /// Sets the value of [rule][crate::model::DataQualityRuleResult::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRuleResult::new().set_rule(DataQualityRule::default()/* use setters */);
+    /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataQualityRule>,
@@ -13439,6 +17971,14 @@ impl DataQualityRuleResult {
     }
 
     /// Sets or clears the value of [rule][crate::model::DataQualityRuleResult::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRuleResult::new().set_or_clear_rule(Some(DataQualityRule::default()/* use setters */));
+    /// let x = DataQualityRuleResult::new().set_or_clear_rule(None::<DataQualityRule>);
+    /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataQualityRule>,
@@ -13448,36 +17988,72 @@ impl DataQualityRuleResult {
     }
 
     /// Sets the value of [passed][crate::model::DataQualityRuleResult::passed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityRuleResult::new().set_passed(true);
+    /// ```
     pub fn set_passed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.passed = v.into();
         self
     }
 
     /// Sets the value of [evaluated_count][crate::model::DataQualityRuleResult::evaluated_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityRuleResult::new().set_evaluated_count(42);
+    /// ```
     pub fn set_evaluated_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.evaluated_count = v.into();
         self
     }
 
     /// Sets the value of [passed_count][crate::model::DataQualityRuleResult::passed_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityRuleResult::new().set_passed_count(42);
+    /// ```
     pub fn set_passed_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.passed_count = v.into();
         self
     }
 
     /// Sets the value of [null_count][crate::model::DataQualityRuleResult::null_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityRuleResult::new().set_null_count(42);
+    /// ```
     pub fn set_null_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.null_count = v.into();
         self
     }
 
     /// Sets the value of [pass_ratio][crate::model::DataQualityRuleResult::pass_ratio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityRuleResult::new().set_pass_ratio(42.0);
+    /// ```
     pub fn set_pass_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.pass_ratio = v.into();
         self
     }
 
     /// Sets the value of [failing_rows_query][crate::model::DataQualityRuleResult::failing_rows_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityRuleResult::new().set_failing_rows_query("example");
+    /// ```
     pub fn set_failing_rows_query<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13487,6 +18063,12 @@ impl DataQualityRuleResult {
     }
 
     /// Sets the value of [assertion_row_count][crate::model::DataQualityRuleResult::assertion_row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRuleResult;
+    /// let x = DataQualityRuleResult::new().set_assertion_row_count(42);
+    /// ```
     pub fn set_assertion_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.assertion_row_count = v.into();
         self
@@ -13526,6 +18108,13 @@ impl DataQualityDimensionResult {
     }
 
     /// Sets the value of [dimension][crate::model::DataQualityDimensionResult::dimension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityDimensionResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityDimension;
+    /// let x = DataQualityDimensionResult::new().set_dimension(DataQualityDimension::default()/* use setters */);
+    /// ```
     pub fn set_dimension<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataQualityDimension>,
@@ -13535,6 +18124,14 @@ impl DataQualityDimensionResult {
     }
 
     /// Sets or clears the value of [dimension][crate::model::DataQualityDimensionResult::dimension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityDimensionResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityDimension;
+    /// let x = DataQualityDimensionResult::new().set_or_clear_dimension(Some(DataQualityDimension::default()/* use setters */));
+    /// let x = DataQualityDimensionResult::new().set_or_clear_dimension(None::<DataQualityDimension>);
+    /// ```
     pub fn set_or_clear_dimension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataQualityDimension>,
@@ -13544,12 +18141,24 @@ impl DataQualityDimensionResult {
     }
 
     /// Sets the value of [passed][crate::model::DataQualityDimensionResult::passed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityDimensionResult;
+    /// let x = DataQualityDimensionResult::new().set_passed(true);
+    /// ```
     pub fn set_passed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.passed = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::DataQualityDimensionResult::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityDimensionResult;
+    /// let x = DataQualityDimensionResult::new().set_score(42.0);
+    /// ```
     pub fn set_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f32>,
@@ -13559,6 +18168,13 @@ impl DataQualityDimensionResult {
     }
 
     /// Sets or clears the value of [score][crate::model::DataQualityDimensionResult::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityDimensionResult;
+    /// let x = DataQualityDimensionResult::new().set_or_clear_score(Some(42.0));
+    /// let x = DataQualityDimensionResult::new().set_or_clear_score(None::<f32>);
+    /// ```
     pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
@@ -13592,6 +18208,12 @@ impl DataQualityDimension {
     }
 
     /// Sets the value of [name][crate::model::DataQualityDimension::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityDimension;
+    /// let x = DataQualityDimension::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13666,42 +18288,84 @@ impl DataQualityRule {
     }
 
     /// Sets the value of [column][crate::model::DataQualityRule::column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_column("example");
+    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [ignore_null][crate::model::DataQualityRule::ignore_null].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_ignore_null(true);
+    /// ```
     pub fn set_ignore_null<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_null = v.into();
         self
     }
 
     /// Sets the value of [dimension][crate::model::DataQualityRule::dimension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_dimension("example");
+    /// ```
     pub fn set_dimension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dimension = v.into();
         self
     }
 
     /// Sets the value of [threshold][crate::model::DataQualityRule::threshold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_threshold(42.0);
+    /// ```
     pub fn set_threshold<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.threshold = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::DataQualityRule::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DataQualityRule::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [suspended][crate::model::DataQualityRule::suspended].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = DataQualityRule::new().set_suspended(true);
+    /// ```
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
         self
@@ -13711,6 +18375,14 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::RangeExpectation;
+    /// let x = DataQualityRule::new().set_rule_type(Some(
+    ///     google_cloud_dataplex_v1::model::data_quality_rule::RuleType::RangeExpectation(RangeExpectation::default().into())));
+    /// ```
     pub fn set_rule_type<
         T: std::convert::Into<std::option::Option<crate::model::data_quality_rule::RuleType>>,
     >(
@@ -13742,6 +18414,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::RangeExpectation;
+    /// let x = DataQualityRule::new().set_range_expectation(RangeExpectation::default()/* use setters */);
+    /// assert!(x.range_expectation().is_some());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_range_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::RangeExpectation>>,
     >(
@@ -13775,6 +18463,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::NonNullExpectation;
+    /// let x = DataQualityRule::new().set_non_null_expectation(NonNullExpectation::default()/* use setters */);
+    /// assert!(x.non_null_expectation().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_non_null_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::NonNullExpectation>>,
     >(
@@ -13808,6 +18512,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::SetExpectation;
+    /// let x = DataQualityRule::new().set_set_expectation(SetExpectation::default()/* use setters */);
+    /// assert!(x.set_expectation().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_set_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::SetExpectation>>,
     >(
@@ -13841,6 +18561,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::RegexExpectation;
+    /// let x = DataQualityRule::new().set_regex_expectation(RegexExpectation::default()/* use setters */);
+    /// assert!(x.regex_expectation().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_regex_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::RegexExpectation>>,
     >(
@@ -13874,6 +18610,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::UniquenessExpectation;
+    /// let x = DataQualityRule::new().set_uniqueness_expectation(UniquenessExpectation::default()/* use setters */);
+    /// assert!(x.uniqueness_expectation().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_uniqueness_expectation<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::UniquenessExpectation>>,
     >(
@@ -13908,6 +18660,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::StatisticRangeExpectation;
+    /// let x = DataQualityRule::new().set_statistic_range_expectation(StatisticRangeExpectation::default()/* use setters */);
+    /// assert!(x.statistic_range_expectation().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_statistic_range_expectation<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::data_quality_rule::StatisticRangeExpectation>,
@@ -13944,6 +18712,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::RowConditionExpectation;
+    /// let x = DataQualityRule::new().set_row_condition_expectation(RowConditionExpectation::default()/* use setters */);
+    /// assert!(x.row_condition_expectation().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_row_condition_expectation<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::data_quality_rule::RowConditionExpectation>,
@@ -13980,6 +18764,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::TableConditionExpectation;
+    /// let x = DataQualityRule::new().set_table_condition_expectation(TableConditionExpectation::default()/* use setters */);
+    /// assert!(x.table_condition_expectation().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.sql_assertion().is_none());
+    /// ```
     pub fn set_table_condition_expectation<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::data_quality_rule::TableConditionExpectation>,
@@ -14014,6 +18814,22 @@ impl DataQualityRule {
     ///
     /// Note that all the setters affecting `rule_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// use google_cloud_dataplex_v1::model::data_quality_rule::SqlAssertion;
+    /// let x = DataQualityRule::new().set_sql_assertion(SqlAssertion::default()/* use setters */);
+    /// assert!(x.sql_assertion().is_some());
+    /// assert!(x.range_expectation().is_none());
+    /// assert!(x.non_null_expectation().is_none());
+    /// assert!(x.set_expectation().is_none());
+    /// assert!(x.regex_expectation().is_none());
+    /// assert!(x.uniqueness_expectation().is_none());
+    /// assert!(x.statistic_range_expectation().is_none());
+    /// assert!(x.row_condition_expectation().is_none());
+    /// assert!(x.table_condition_expectation().is_none());
+    /// ```
     pub fn set_sql_assertion<
         T: std::convert::Into<std::boxed::Box<crate::model::data_quality_rule::SqlAssertion>>,
     >(
@@ -14073,24 +18889,48 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [min_value][crate::model::data_quality_rule::RangeExpectation::min_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::RangeExpectation;
+        /// let x = RangeExpectation::new().set_min_value("example");
+        /// ```
         pub fn set_min_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.min_value = v.into();
             self
         }
 
         /// Sets the value of [max_value][crate::model::data_quality_rule::RangeExpectation::max_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::RangeExpectation;
+        /// let x = RangeExpectation::new().set_max_value("example");
+        /// ```
         pub fn set_max_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.max_value = v.into();
             self
         }
 
         /// Sets the value of [strict_min_enabled][crate::model::data_quality_rule::RangeExpectation::strict_min_enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::RangeExpectation;
+        /// let x = RangeExpectation::new().set_strict_min_enabled(true);
+        /// ```
         pub fn set_strict_min_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.strict_min_enabled = v.into();
             self
         }
 
         /// Sets the value of [strict_max_enabled][crate::model::data_quality_rule::RangeExpectation::strict_max_enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::RangeExpectation;
+        /// let x = RangeExpectation::new().set_strict_max_enabled(true);
+        /// ```
         pub fn set_strict_max_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.strict_max_enabled = v.into();
             self
@@ -14138,6 +18978,12 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [values][crate::model::data_quality_rule::SetExpectation::values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::SetExpectation;
+        /// let x = SetExpectation::new().set_values(["a", "b", "c"]);
+        /// ```
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -14171,6 +19017,12 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [regex][crate::model::data_quality_rule::RegexExpectation::regex].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::RegexExpectation;
+        /// let x = RegexExpectation::new().set_regex("example");
+        /// ```
         pub fn set_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.regex = v.into();
             self
@@ -14244,6 +19096,15 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [statistic][crate::model::data_quality_rule::StatisticRangeExpectation::statistic].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::StatisticRangeExpectation;
+        /// use google_cloud_dataplex_v1::model::data_quality_rule::statistic_range_expectation::ColumnStatistic;
+        /// let x0 = StatisticRangeExpectation::new().set_statistic(ColumnStatistic::Mean);
+        /// let x1 = StatisticRangeExpectation::new().set_statistic(ColumnStatistic::Min);
+        /// let x2 = StatisticRangeExpectation::new().set_statistic(ColumnStatistic::Max);
+        /// ```
         pub fn set_statistic<
             T: std::convert::Into<
                     crate::model::data_quality_rule::statistic_range_expectation::ColumnStatistic,
@@ -14257,24 +19118,48 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [min_value][crate::model::data_quality_rule::StatisticRangeExpectation::min_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::StatisticRangeExpectation;
+        /// let x = StatisticRangeExpectation::new().set_min_value("example");
+        /// ```
         pub fn set_min_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.min_value = v.into();
             self
         }
 
         /// Sets the value of [max_value][crate::model::data_quality_rule::StatisticRangeExpectation::max_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::StatisticRangeExpectation;
+        /// let x = StatisticRangeExpectation::new().set_max_value("example");
+        /// ```
         pub fn set_max_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.max_value = v.into();
             self
         }
 
         /// Sets the value of [strict_min_enabled][crate::model::data_quality_rule::StatisticRangeExpectation::strict_min_enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::StatisticRangeExpectation;
+        /// let x = StatisticRangeExpectation::new().set_strict_min_enabled(true);
+        /// ```
         pub fn set_strict_min_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.strict_min_enabled = v.into();
             self
         }
 
         /// Sets the value of [strict_max_enabled][crate::model::data_quality_rule::StatisticRangeExpectation::strict_max_enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::StatisticRangeExpectation;
+        /// let x = StatisticRangeExpectation::new().set_strict_max_enabled(true);
+        /// ```
         pub fn set_strict_max_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.strict_max_enabled = v.into();
             self
@@ -14456,6 +19341,12 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [sql_expression][crate::model::data_quality_rule::RowConditionExpectation::sql_expression].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::RowConditionExpectation;
+        /// let x = RowConditionExpectation::new().set_sql_expression("example");
+        /// ```
         pub fn set_sql_expression<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -14493,6 +19384,12 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [sql_expression][crate::model::data_quality_rule::TableConditionExpectation::sql_expression].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::TableConditionExpectation;
+        /// let x = TableConditionExpectation::new().set_sql_expression("example");
+        /// ```
         pub fn set_sql_expression<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -14537,6 +19434,12 @@ pub mod data_quality_rule {
         }
 
         /// Sets the value of [sql_statement][crate::model::data_quality_rule::SqlAssertion::sql_statement].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_quality_rule::SqlAssertion;
+        /// let x = SqlAssertion::new().set_sql_statement("example");
+        /// ```
         pub fn set_sql_statement<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -14622,12 +19525,24 @@ impl DataQualityColumnResult {
     }
 
     /// Sets the value of [column][crate::model::DataQualityColumnResult::column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityColumnResult;
+    /// let x = DataQualityColumnResult::new().set_column("example");
+    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::DataQualityColumnResult::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityColumnResult;
+    /// let x = DataQualityColumnResult::new().set_score(42.0);
+    /// ```
     pub fn set_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f32>,
@@ -14637,6 +19552,13 @@ impl DataQualityColumnResult {
     }
 
     /// Sets or clears the value of [score][crate::model::DataQualityColumnResult::score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityColumnResult;
+    /// let x = DataQualityColumnResult::new().set_or_clear_score(Some(42.0));
+    /// let x = DataQualityColumnResult::new().set_or_clear_score(None::<f32>);
+    /// ```
     pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
@@ -14646,12 +19568,29 @@ impl DataQualityColumnResult {
     }
 
     /// Sets the value of [passed][crate::model::DataQualityColumnResult::passed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityColumnResult;
+    /// let x = DataQualityColumnResult::new().set_passed(true);
+    /// ```
     pub fn set_passed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.passed = v.into();
         self
     }
 
     /// Sets the value of [dimensions][crate::model::DataQualityColumnResult::dimensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityColumnResult;
+    /// use google_cloud_dataplex_v1::model::DataQualityDimensionResult;
+    /// let x = DataQualityColumnResult::new()
+    ///     .set_dimensions([
+    ///         DataQualityDimensionResult::default()/* use setters */,
+    ///         DataQualityDimensionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14720,18 +19659,37 @@ impl DataTaxonomy {
     }
 
     /// Sets the value of [name][crate::model::DataTaxonomy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::DataTaxonomy::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataTaxonomy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// use wkt::Timestamp;
+    /// let x = DataTaxonomy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14741,6 +19699,14 @@ impl DataTaxonomy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataTaxonomy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// use wkt::Timestamp;
+    /// let x = DataTaxonomy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataTaxonomy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14750,6 +19716,13 @@ impl DataTaxonomy {
     }
 
     /// Sets the value of [update_time][crate::model::DataTaxonomy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// use wkt::Timestamp;
+    /// let x = DataTaxonomy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14759,6 +19732,14 @@ impl DataTaxonomy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DataTaxonomy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// use wkt::Timestamp;
+    /// let x = DataTaxonomy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataTaxonomy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14768,18 +19749,39 @@ impl DataTaxonomy {
     }
 
     /// Sets the value of [description][crate::model::DataTaxonomy::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataTaxonomy::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DataTaxonomy::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14792,18 +19794,36 @@ impl DataTaxonomy {
     }
 
     /// Sets the value of [attribute_count][crate::model::DataTaxonomy::attribute_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_attribute_count(42);
+    /// ```
     pub fn set_attribute_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.attribute_count = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DataTaxonomy::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [class_count][crate::model::DataTaxonomy::class_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = DataTaxonomy::new().set_class_count(42);
+    /// ```
     pub fn set_class_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.class_count = v.into();
         self
@@ -14886,18 +19906,37 @@ impl DataAttribute {
     }
 
     /// Sets the value of [name][crate::model::DataAttribute::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::DataAttribute::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataAttribute::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use wkt::Timestamp;
+    /// let x = DataAttribute::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14907,6 +19946,14 @@ impl DataAttribute {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataAttribute::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use wkt::Timestamp;
+    /// let x = DataAttribute::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAttribute::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14916,6 +19963,13 @@ impl DataAttribute {
     }
 
     /// Sets the value of [update_time][crate::model::DataAttribute::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use wkt::Timestamp;
+    /// let x = DataAttribute::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14925,6 +19979,14 @@ impl DataAttribute {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DataAttribute::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use wkt::Timestamp;
+    /// let x = DataAttribute::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAttribute::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14934,18 +19996,39 @@ impl DataAttribute {
     }
 
     /// Sets the value of [description][crate::model::DataAttribute::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataAttribute::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DataAttribute::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14958,24 +20041,49 @@ impl DataAttribute {
     }
 
     /// Sets the value of [parent_id][crate::model::DataAttribute::parent_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_parent_id("example");
+    /// ```
     pub fn set_parent_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_id = v.into();
         self
     }
 
     /// Sets the value of [attribute_count][crate::model::DataAttribute::attribute_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_attribute_count(42);
+    /// ```
     pub fn set_attribute_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.attribute_count = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DataAttribute::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = DataAttribute::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [resource_access_spec][crate::model::DataAttribute::resource_access_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use google_cloud_dataplex_v1::model::ResourceAccessSpec;
+    /// let x = DataAttribute::new().set_resource_access_spec(ResourceAccessSpec::default()/* use setters */);
+    /// ```
     pub fn set_resource_access_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceAccessSpec>,
@@ -14985,6 +20093,14 @@ impl DataAttribute {
     }
 
     /// Sets or clears the value of [resource_access_spec][crate::model::DataAttribute::resource_access_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use google_cloud_dataplex_v1::model::ResourceAccessSpec;
+    /// let x = DataAttribute::new().set_or_clear_resource_access_spec(Some(ResourceAccessSpec::default()/* use setters */));
+    /// let x = DataAttribute::new().set_or_clear_resource_access_spec(None::<ResourceAccessSpec>);
+    /// ```
     pub fn set_or_clear_resource_access_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceAccessSpec>,
@@ -14994,6 +20110,13 @@ impl DataAttribute {
     }
 
     /// Sets the value of [data_access_spec][crate::model::DataAttribute::data_access_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use google_cloud_dataplex_v1::model::DataAccessSpec;
+    /// let x = DataAttribute::new().set_data_access_spec(DataAccessSpec::default()/* use setters */);
+    /// ```
     pub fn set_data_access_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessSpec>,
@@ -15003,6 +20126,14 @@ impl DataAttribute {
     }
 
     /// Sets or clears the value of [data_access_spec][crate::model::DataAttribute::data_access_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttribute;
+    /// use google_cloud_dataplex_v1::model::DataAccessSpec;
+    /// let x = DataAttribute::new().set_or_clear_data_access_spec(Some(DataAccessSpec::default()/* use setters */));
+    /// let x = DataAttribute::new().set_or_clear_data_access_spec(None::<DataAccessSpec>);
+    /// ```
     pub fn set_or_clear_data_access_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessSpec>,
@@ -15079,18 +20210,37 @@ impl DataAttributeBinding {
     }
 
     /// Sets the value of [name][crate::model::DataAttributeBinding::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::DataAttributeBinding::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataAttributeBinding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// use wkt::Timestamp;
+    /// let x = DataAttributeBinding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15100,6 +20250,14 @@ impl DataAttributeBinding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataAttributeBinding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// use wkt::Timestamp;
+    /// let x = DataAttributeBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAttributeBinding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15109,6 +20267,13 @@ impl DataAttributeBinding {
     }
 
     /// Sets the value of [update_time][crate::model::DataAttributeBinding::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// use wkt::Timestamp;
+    /// let x = DataAttributeBinding::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15118,6 +20283,14 @@ impl DataAttributeBinding {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DataAttributeBinding::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// use wkt::Timestamp;
+    /// let x = DataAttributeBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataAttributeBinding::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15127,18 +20300,39 @@ impl DataAttributeBinding {
     }
 
     /// Sets the value of [description][crate::model::DataAttributeBinding::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataAttributeBinding::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DataAttributeBinding::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -15151,12 +20345,24 @@ impl DataAttributeBinding {
     }
 
     /// Sets the value of [etag][crate::model::DataAttributeBinding::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::DataAttributeBinding::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_attributes(["a", "b", "c"]);
+    /// ```
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15168,6 +20374,17 @@ impl DataAttributeBinding {
     }
 
     /// Sets the value of [paths][crate::model::DataAttributeBinding::paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// use google_cloud_dataplex_v1::model::data_attribute_binding::Path;
+    /// let x = DataAttributeBinding::new()
+    ///     .set_paths([
+    ///         Path::default()/* use setters */,
+    ///         Path::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15182,6 +20399,13 @@ impl DataAttributeBinding {
     ///
     /// Note that all the setters affecting `resource_reference` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// use google_cloud_dataplex_v1::model::data_attribute_binding::ResourceReference;
+    /// let x = DataAttributeBinding::new().set_resource_reference(Some(ResourceReference::Resource("example".to_string())));
+    /// ```
     pub fn set_resource_reference<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_attribute_binding::ResourceReference>,
@@ -15212,6 +20436,13 @@ impl DataAttributeBinding {
     ///
     /// Note that all the setters affecting `resource_reference` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = DataAttributeBinding::new().set_resource("example");
+    /// assert!(x.resource().is_some());
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_reference = std::option::Option::Some(
             crate::model::data_attribute_binding::ResourceReference::Resource(v.into()),
@@ -15255,12 +20486,24 @@ pub mod data_attribute_binding {
         }
 
         /// Sets the value of [name][crate::model::data_attribute_binding::Path::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_attribute_binding::Path;
+        /// let x = Path::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [attributes][crate::model::data_attribute_binding::Path::attributes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_attribute_binding::Path;
+        /// let x = Path::new().set_attributes(["a", "b", "c"]);
+        /// ```
         pub fn set_attributes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -15324,12 +20567,24 @@ impl CreateDataTaxonomyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataTaxonomyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataTaxonomyRequest;
+    /// let x = CreateDataTaxonomyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_taxonomy_id][crate::model::CreateDataTaxonomyRequest::data_taxonomy_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataTaxonomyRequest;
+    /// let x = CreateDataTaxonomyRequest::new().set_data_taxonomy_id("example");
+    /// ```
     pub fn set_data_taxonomy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15339,6 +20594,13 @@ impl CreateDataTaxonomyRequest {
     }
 
     /// Sets the value of [data_taxonomy][crate::model::CreateDataTaxonomyRequest::data_taxonomy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataTaxonomyRequest;
+    /// use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = CreateDataTaxonomyRequest::new().set_data_taxonomy(DataTaxonomy::default()/* use setters */);
+    /// ```
     pub fn set_data_taxonomy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataTaxonomy>,
@@ -15348,6 +20610,14 @@ impl CreateDataTaxonomyRequest {
     }
 
     /// Sets or clears the value of [data_taxonomy][crate::model::CreateDataTaxonomyRequest::data_taxonomy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataTaxonomyRequest;
+    /// use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = CreateDataTaxonomyRequest::new().set_or_clear_data_taxonomy(Some(DataTaxonomy::default()/* use setters */));
+    /// let x = CreateDataTaxonomyRequest::new().set_or_clear_data_taxonomy(None::<DataTaxonomy>);
+    /// ```
     pub fn set_or_clear_data_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataTaxonomy>,
@@ -15357,6 +20627,12 @@ impl CreateDataTaxonomyRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateDataTaxonomyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataTaxonomyRequest;
+    /// let x = CreateDataTaxonomyRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -15393,6 +20669,13 @@ impl UpdateDataTaxonomyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataTaxonomyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataTaxonomyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataTaxonomyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15402,6 +20685,14 @@ impl UpdateDataTaxonomyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataTaxonomyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataTaxonomyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataTaxonomyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataTaxonomyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15411,6 +20702,13 @@ impl UpdateDataTaxonomyRequest {
     }
 
     /// Sets the value of [data_taxonomy][crate::model::UpdateDataTaxonomyRequest::data_taxonomy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataTaxonomyRequest;
+    /// use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = UpdateDataTaxonomyRequest::new().set_data_taxonomy(DataTaxonomy::default()/* use setters */);
+    /// ```
     pub fn set_data_taxonomy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataTaxonomy>,
@@ -15420,6 +20718,14 @@ impl UpdateDataTaxonomyRequest {
     }
 
     /// Sets or clears the value of [data_taxonomy][crate::model::UpdateDataTaxonomyRequest::data_taxonomy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataTaxonomyRequest;
+    /// use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = UpdateDataTaxonomyRequest::new().set_or_clear_data_taxonomy(Some(DataTaxonomy::default()/* use setters */));
+    /// let x = UpdateDataTaxonomyRequest::new().set_or_clear_data_taxonomy(None::<DataTaxonomy>);
+    /// ```
     pub fn set_or_clear_data_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataTaxonomy>,
@@ -15429,6 +20735,12 @@ impl UpdateDataTaxonomyRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateDataTaxonomyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataTaxonomyRequest;
+    /// let x = UpdateDataTaxonomyRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -15457,6 +20769,12 @@ impl GetDataTaxonomyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataTaxonomyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetDataTaxonomyRequest;
+    /// let x = GetDataTaxonomyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15505,30 +20823,60 @@ impl ListDataTaxonomiesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataTaxonomiesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesRequest;
+    /// let x = ListDataTaxonomiesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataTaxonomiesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesRequest;
+    /// let x = ListDataTaxonomiesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataTaxonomiesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesRequest;
+    /// let x = ListDataTaxonomiesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataTaxonomiesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesRequest;
+    /// let x = ListDataTaxonomiesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDataTaxonomiesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesRequest;
+    /// let x = ListDataTaxonomiesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -15564,6 +20912,17 @@ impl ListDataTaxonomiesResponse {
     }
 
     /// Sets the value of [data_taxonomies][crate::model::ListDataTaxonomiesResponse::data_taxonomies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesResponse;
+    /// use google_cloud_dataplex_v1::model::DataTaxonomy;
+    /// let x = ListDataTaxonomiesResponse::new()
+    ///     .set_data_taxonomies([
+    ///         DataTaxonomy::default()/* use setters */,
+    ///         DataTaxonomy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_taxonomies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15575,12 +20934,24 @@ impl ListDataTaxonomiesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataTaxonomiesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesResponse;
+    /// let x = ListDataTaxonomiesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListDataTaxonomiesResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataTaxonomiesResponse;
+    /// let x = ListDataTaxonomiesResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15634,12 +21005,24 @@ impl DeleteDataTaxonomyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataTaxonomyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataTaxonomyRequest;
+    /// let x = DeleteDataTaxonomyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteDataTaxonomyRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataTaxonomyRequest;
+    /// let x = DeleteDataTaxonomyRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -15685,12 +21068,24 @@ impl CreateDataAttributeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataAttributeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeRequest;
+    /// let x = CreateDataAttributeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_attribute_id][crate::model::CreateDataAttributeRequest::data_attribute_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeRequest;
+    /// let x = CreateDataAttributeRequest::new().set_data_attribute_id("example");
+    /// ```
     pub fn set_data_attribute_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15700,6 +21095,13 @@ impl CreateDataAttributeRequest {
     }
 
     /// Sets the value of [data_attribute][crate::model::CreateDataAttributeRequest::data_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = CreateDataAttributeRequest::new().set_data_attribute(DataAttribute::default()/* use setters */);
+    /// ```
     pub fn set_data_attribute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAttribute>,
@@ -15709,6 +21111,14 @@ impl CreateDataAttributeRequest {
     }
 
     /// Sets or clears the value of [data_attribute][crate::model::CreateDataAttributeRequest::data_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = CreateDataAttributeRequest::new().set_or_clear_data_attribute(Some(DataAttribute::default()/* use setters */));
+    /// let x = CreateDataAttributeRequest::new().set_or_clear_data_attribute(None::<DataAttribute>);
+    /// ```
     pub fn set_or_clear_data_attribute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAttribute>,
@@ -15718,6 +21128,12 @@ impl CreateDataAttributeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateDataAttributeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeRequest;
+    /// let x = CreateDataAttributeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -15753,6 +21169,13 @@ impl UpdateDataAttributeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataAttributeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAttributeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15762,6 +21185,14 @@ impl UpdateDataAttributeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataAttributeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAttributeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataAttributeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15771,6 +21202,13 @@ impl UpdateDataAttributeRequest {
     }
 
     /// Sets the value of [data_attribute][crate::model::UpdateDataAttributeRequest::data_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = UpdateDataAttributeRequest::new().set_data_attribute(DataAttribute::default()/* use setters */);
+    /// ```
     pub fn set_data_attribute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAttribute>,
@@ -15780,6 +21218,14 @@ impl UpdateDataAttributeRequest {
     }
 
     /// Sets or clears the value of [data_attribute][crate::model::UpdateDataAttributeRequest::data_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = UpdateDataAttributeRequest::new().set_or_clear_data_attribute(Some(DataAttribute::default()/* use setters */));
+    /// let x = UpdateDataAttributeRequest::new().set_or_clear_data_attribute(None::<DataAttribute>);
+    /// ```
     pub fn set_or_clear_data_attribute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAttribute>,
@@ -15789,6 +21235,12 @@ impl UpdateDataAttributeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateDataAttributeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeRequest;
+    /// let x = UpdateDataAttributeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -15818,6 +21270,12 @@ impl GetDataAttributeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataAttributeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetDataAttributeRequest;
+    /// let x = GetDataAttributeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15865,30 +21323,60 @@ impl ListDataAttributesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataAttributesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesRequest;
+    /// let x = ListDataAttributesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataAttributesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesRequest;
+    /// let x = ListDataAttributesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataAttributesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesRequest;
+    /// let x = ListDataAttributesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataAttributesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesRequest;
+    /// let x = ListDataAttributesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDataAttributesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesRequest;
+    /// let x = ListDataAttributesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -15924,6 +21412,17 @@ impl ListDataAttributesResponse {
     }
 
     /// Sets the value of [data_attributes][crate::model::ListDataAttributesResponse::data_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesResponse;
+    /// use google_cloud_dataplex_v1::model::DataAttribute;
+    /// let x = ListDataAttributesResponse::new()
+    ///     .set_data_attributes([
+    ///         DataAttribute::default()/* use setters */,
+    ///         DataAttribute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15935,12 +21434,24 @@ impl ListDataAttributesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataAttributesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesResponse;
+    /// let x = ListDataAttributesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListDataAttributesResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributesResponse;
+    /// let x = ListDataAttributesResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15993,12 +21504,24 @@ impl DeleteDataAttributeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataAttributeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataAttributeRequest;
+    /// let x = DeleteDataAttributeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteDataAttributeRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataAttributeRequest;
+    /// let x = DeleteDataAttributeRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -16044,12 +21567,24 @@ impl CreateDataAttributeBindingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataAttributeBindingRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeBindingRequest;
+    /// let x = CreateDataAttributeBindingRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_attribute_binding_id][crate::model::CreateDataAttributeBindingRequest::data_attribute_binding_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeBindingRequest;
+    /// let x = CreateDataAttributeBindingRequest::new().set_data_attribute_binding_id("example");
+    /// ```
     pub fn set_data_attribute_binding_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16059,6 +21594,13 @@ impl CreateDataAttributeBindingRequest {
     }
 
     /// Sets the value of [data_attribute_binding][crate::model::CreateDataAttributeBindingRequest::data_attribute_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeBindingRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = CreateDataAttributeBindingRequest::new().set_data_attribute_binding(DataAttributeBinding::default()/* use setters */);
+    /// ```
     pub fn set_data_attribute_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAttributeBinding>,
@@ -16068,6 +21610,14 @@ impl CreateDataAttributeBindingRequest {
     }
 
     /// Sets or clears the value of [data_attribute_binding][crate::model::CreateDataAttributeBindingRequest::data_attribute_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeBindingRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = CreateDataAttributeBindingRequest::new().set_or_clear_data_attribute_binding(Some(DataAttributeBinding::default()/* use setters */));
+    /// let x = CreateDataAttributeBindingRequest::new().set_or_clear_data_attribute_binding(None::<DataAttributeBinding>);
+    /// ```
     pub fn set_or_clear_data_attribute_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAttributeBinding>,
@@ -16077,6 +21627,12 @@ impl CreateDataAttributeBindingRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateDataAttributeBindingRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataAttributeBindingRequest;
+    /// let x = CreateDataAttributeBindingRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -16112,6 +21668,13 @@ impl UpdateDataAttributeBindingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataAttributeBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAttributeBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16121,6 +21684,14 @@ impl UpdateDataAttributeBindingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataAttributeBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataAttributeBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataAttributeBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16130,6 +21701,13 @@ impl UpdateDataAttributeBindingRequest {
     }
 
     /// Sets the value of [data_attribute_binding][crate::model::UpdateDataAttributeBindingRequest::data_attribute_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeBindingRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = UpdateDataAttributeBindingRequest::new().set_data_attribute_binding(DataAttributeBinding::default()/* use setters */);
+    /// ```
     pub fn set_data_attribute_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataAttributeBinding>,
@@ -16139,6 +21717,14 @@ impl UpdateDataAttributeBindingRequest {
     }
 
     /// Sets or clears the value of [data_attribute_binding][crate::model::UpdateDataAttributeBindingRequest::data_attribute_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeBindingRequest;
+    /// use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = UpdateDataAttributeBindingRequest::new().set_or_clear_data_attribute_binding(Some(DataAttributeBinding::default()/* use setters */));
+    /// let x = UpdateDataAttributeBindingRequest::new().set_or_clear_data_attribute_binding(None::<DataAttributeBinding>);
+    /// ```
     pub fn set_or_clear_data_attribute_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAttributeBinding>,
@@ -16148,6 +21734,12 @@ impl UpdateDataAttributeBindingRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateDataAttributeBindingRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataAttributeBindingRequest;
+    /// let x = UpdateDataAttributeBindingRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -16177,6 +21769,12 @@ impl GetDataAttributeBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataAttributeBindingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetDataAttributeBindingRequest;
+    /// let x = GetDataAttributeBindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16228,30 +21826,60 @@ impl ListDataAttributeBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataAttributeBindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsRequest;
+    /// let x = ListDataAttributeBindingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataAttributeBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsRequest;
+    /// let x = ListDataAttributeBindingsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataAttributeBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsRequest;
+    /// let x = ListDataAttributeBindingsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataAttributeBindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsRequest;
+    /// let x = ListDataAttributeBindingsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDataAttributeBindingsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsRequest;
+    /// let x = ListDataAttributeBindingsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -16287,6 +21915,17 @@ impl ListDataAttributeBindingsResponse {
     }
 
     /// Sets the value of [data_attribute_bindings][crate::model::ListDataAttributeBindingsResponse::data_attribute_bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsResponse;
+    /// use google_cloud_dataplex_v1::model::DataAttributeBinding;
+    /// let x = ListDataAttributeBindingsResponse::new()
+    ///     .set_data_attribute_bindings([
+    ///         DataAttributeBinding::default()/* use setters */,
+    ///         DataAttributeBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_attribute_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16298,12 +21937,24 @@ impl ListDataAttributeBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataAttributeBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsResponse;
+    /// let x = ListDataAttributeBindingsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListDataAttributeBindingsResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataAttributeBindingsResponse;
+    /// let x = ListDataAttributeBindingsResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16358,12 +22009,24 @@ impl DeleteDataAttributeBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataAttributeBindingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataAttributeBindingRequest;
+    /// let x = DeleteDataAttributeBindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteDataAttributeBindingRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataAttributeBindingRequest;
+    /// let x = DeleteDataAttributeBindingRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -16411,12 +22074,25 @@ impl CreateDataScanRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataScanRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataScanRequest;
+    /// let x = CreateDataScanRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_scan][crate::model::CreateDataScanRequest::data_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataScanRequest;
+    /// use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = CreateDataScanRequest::new().set_data_scan(DataScan::default()/* use setters */);
+    /// ```
     pub fn set_data_scan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataScan>,
@@ -16426,6 +22102,14 @@ impl CreateDataScanRequest {
     }
 
     /// Sets or clears the value of [data_scan][crate::model::CreateDataScanRequest::data_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataScanRequest;
+    /// use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = CreateDataScanRequest::new().set_or_clear_data_scan(Some(DataScan::default()/* use setters */));
+    /// let x = CreateDataScanRequest::new().set_or_clear_data_scan(None::<DataScan>);
+    /// ```
     pub fn set_or_clear_data_scan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataScan>,
@@ -16435,12 +22119,24 @@ impl CreateDataScanRequest {
     }
 
     /// Sets the value of [data_scan_id][crate::model::CreateDataScanRequest::data_scan_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataScanRequest;
+    /// let x = CreateDataScanRequest::new().set_data_scan_id("example");
+    /// ```
     pub fn set_data_scan_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_scan_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateDataScanRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateDataScanRequest;
+    /// let x = CreateDataScanRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -16478,6 +22174,13 @@ impl UpdateDataScanRequest {
     }
 
     /// Sets the value of [data_scan][crate::model::UpdateDataScanRequest::data_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataScanRequest;
+    /// use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = UpdateDataScanRequest::new().set_data_scan(DataScan::default()/* use setters */);
+    /// ```
     pub fn set_data_scan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataScan>,
@@ -16487,6 +22190,14 @@ impl UpdateDataScanRequest {
     }
 
     /// Sets or clears the value of [data_scan][crate::model::UpdateDataScanRequest::data_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataScanRequest;
+    /// use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = UpdateDataScanRequest::new().set_or_clear_data_scan(Some(DataScan::default()/* use setters */));
+    /// let x = UpdateDataScanRequest::new().set_or_clear_data_scan(None::<DataScan>);
+    /// ```
     pub fn set_or_clear_data_scan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataScan>,
@@ -16496,6 +22207,13 @@ impl UpdateDataScanRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataScanRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataScanRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataScanRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16505,6 +22223,14 @@ impl UpdateDataScanRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataScanRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataScanRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataScanRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataScanRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16514,6 +22240,12 @@ impl UpdateDataScanRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateDataScanRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateDataScanRequest;
+    /// let x = UpdateDataScanRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -16550,12 +22282,24 @@ impl DeleteDataScanRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataScanRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataScanRequest;
+    /// let x = DeleteDataScanRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteDataScanRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteDataScanRequest;
+    /// let x = DeleteDataScanRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -16590,12 +22334,26 @@ impl GetDataScanRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataScanRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetDataScanRequest;
+    /// let x = GetDataScanRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetDataScanRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetDataScanRequest;
+    /// use google_cloud_dataplex_v1::model::get_data_scan_request::DataScanView;
+    /// let x0 = GetDataScanRequest::new().set_view(DataScanView::Basic);
+    /// let x1 = GetDataScanRequest::new().set_view(DataScanView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::get_data_scan_request::DataScanView>>(
         mut self,
         v: T,
@@ -16786,30 +22544,60 @@ impl ListDataScansRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataScansRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansRequest;
+    /// let x = ListDataScansRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataScansRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansRequest;
+    /// let x = ListDataScansRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataScansRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansRequest;
+    /// let x = ListDataScansRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataScansRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansRequest;
+    /// let x = ListDataScansRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDataScansRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansRequest;
+    /// let x = ListDataScansRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -16845,6 +22633,17 @@ impl ListDataScansResponse {
     }
 
     /// Sets the value of [data_scans][crate::model::ListDataScansResponse::data_scans].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansResponse;
+    /// use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = ListDataScansResponse::new()
+    ///     .set_data_scans([
+    ///         DataScan::default()/* use setters */,
+    ///         DataScan::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_scans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16856,12 +22655,24 @@ impl ListDataScansResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataScansResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansResponse;
+    /// let x = ListDataScansResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDataScansResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScansResponse;
+    /// let x = ListDataScansResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16914,6 +22725,12 @@ impl RunDataScanRequest {
     }
 
     /// Sets the value of [name][crate::model::RunDataScanRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunDataScanRequest;
+    /// let x = RunDataScanRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16942,6 +22759,13 @@ impl RunDataScanResponse {
     }
 
     /// Sets the value of [job][crate::model::RunDataScanResponse::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunDataScanResponse;
+    /// use google_cloud_dataplex_v1::model::DataScanJob;
+    /// let x = RunDataScanResponse::new().set_job(DataScanJob::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataScanJob>,
@@ -16951,6 +22775,14 @@ impl RunDataScanResponse {
     }
 
     /// Sets or clears the value of [job][crate::model::RunDataScanResponse::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunDataScanResponse;
+    /// use google_cloud_dataplex_v1::model::DataScanJob;
+    /// let x = RunDataScanResponse::new().set_or_clear_job(Some(DataScanJob::default()/* use setters */));
+    /// let x = RunDataScanResponse::new().set_or_clear_job(None::<DataScanJob>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataScanJob>,
@@ -16988,12 +22820,26 @@ impl GetDataScanJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataScanJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetDataScanJobRequest;
+    /// let x = GetDataScanJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetDataScanJobRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetDataScanJobRequest;
+    /// use google_cloud_dataplex_v1::model::get_data_scan_job_request::DataScanJobView;
+    /// let x0 = GetDataScanJobRequest::new().set_view(DataScanJobView::Basic);
+    /// let x1 = GetDataScanJobRequest::new().set_view(DataScanJobView::Full);
+    /// ```
     pub fn set_view<
         T: std::convert::Into<crate::model::get_data_scan_job_request::DataScanJobView>,
     >(
@@ -17199,24 +23045,48 @@ impl ListDataScanJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataScanJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScanJobsRequest;
+    /// let x = ListDataScanJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataScanJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScanJobsRequest;
+    /// let x = ListDataScanJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataScanJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScanJobsRequest;
+    /// let x = ListDataScanJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataScanJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScanJobsRequest;
+    /// let x = ListDataScanJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -17249,6 +23119,17 @@ impl ListDataScanJobsResponse {
     }
 
     /// Sets the value of [data_scan_jobs][crate::model::ListDataScanJobsResponse::data_scan_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScanJobsResponse;
+    /// use google_cloud_dataplex_v1::model::DataScanJob;
+    /// let x = ListDataScanJobsResponse::new()
+    ///     .set_data_scan_jobs([
+    ///         DataScanJob::default()/* use setters */,
+    ///         DataScanJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_scan_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17260,6 +23141,12 @@ impl ListDataScanJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataScanJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListDataScanJobsResponse;
+    /// let x = ListDataScanJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -17307,6 +23194,12 @@ impl GenerateDataQualityRulesRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateDataQualityRulesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GenerateDataQualityRulesRequest;
+    /// let x = GenerateDataQualityRulesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -17336,6 +23229,17 @@ impl GenerateDataQualityRulesResponse {
     }
 
     /// Sets the value of [rule][crate::model::GenerateDataQualityRulesResponse::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GenerateDataQualityRulesResponse;
+    /// use google_cloud_dataplex_v1::model::DataQualityRule;
+    /// let x = GenerateDataQualityRulesResponse::new()
+    ///     .set_rule([
+    ///         DataQualityRule::default()/* use setters */,
+    ///         DataQualityRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rule<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17440,30 +23344,63 @@ impl DataScan {
     }
 
     /// Sets the value of [name][crate::model::DataScan::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = DataScan::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::DataScan::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = DataScan::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DataScan::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = DataScan::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataScan::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = DataScan::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DataScan::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// let x = DataScan::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -17476,12 +23413,28 @@ impl DataScan {
     }
 
     /// Sets the value of [state][crate::model::DataScan::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::State;
+    /// let x0 = DataScan::new().set_state(State::Active);
+    /// let x1 = DataScan::new().set_state(State::Creating);
+    /// let x2 = DataScan::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataScan::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use wkt::Timestamp;
+    /// let x = DataScan::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17491,6 +23444,14 @@ impl DataScan {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataScan::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use wkt::Timestamp;
+    /// let x = DataScan::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScan::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17500,6 +23461,13 @@ impl DataScan {
     }
 
     /// Sets the value of [update_time][crate::model::DataScan::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use wkt::Timestamp;
+    /// let x = DataScan::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17509,6 +23477,14 @@ impl DataScan {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DataScan::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use wkt::Timestamp;
+    /// let x = DataScan::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScan::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17518,6 +23494,13 @@ impl DataScan {
     }
 
     /// Sets the value of [data][crate::model::DataScan::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataSource;
+    /// let x = DataScan::new().set_data(DataSource::default()/* use setters */);
+    /// ```
     pub fn set_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSource>,
@@ -17527,6 +23510,14 @@ impl DataScan {
     }
 
     /// Sets or clears the value of [data][crate::model::DataScan::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataSource;
+    /// let x = DataScan::new().set_or_clear_data(Some(DataSource::default()/* use setters */));
+    /// let x = DataScan::new().set_or_clear_data(None::<DataSource>);
+    /// ```
     pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSource>,
@@ -17536,6 +23527,13 @@ impl DataScan {
     }
 
     /// Sets the value of [execution_spec][crate::model::DataScan::execution_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::data_scan::ExecutionSpec;
+    /// let x = DataScan::new().set_execution_spec(ExecutionSpec::default()/* use setters */);
+    /// ```
     pub fn set_execution_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_scan::ExecutionSpec>,
@@ -17545,6 +23543,14 @@ impl DataScan {
     }
 
     /// Sets or clears the value of [execution_spec][crate::model::DataScan::execution_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::data_scan::ExecutionSpec;
+    /// let x = DataScan::new().set_or_clear_execution_spec(Some(ExecutionSpec::default()/* use setters */));
+    /// let x = DataScan::new().set_or_clear_execution_spec(None::<ExecutionSpec>);
+    /// ```
     pub fn set_or_clear_execution_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_scan::ExecutionSpec>,
@@ -17554,6 +23560,13 @@ impl DataScan {
     }
 
     /// Sets the value of [execution_status][crate::model::DataScan::execution_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+    /// let x = DataScan::new().set_execution_status(ExecutionStatus::default()/* use setters */);
+    /// ```
     pub fn set_execution_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_scan::ExecutionStatus>,
@@ -17563,6 +23576,14 @@ impl DataScan {
     }
 
     /// Sets or clears the value of [execution_status][crate::model::DataScan::execution_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+    /// let x = DataScan::new().set_or_clear_execution_status(Some(ExecutionStatus::default()/* use setters */));
+    /// let x = DataScan::new().set_or_clear_execution_status(None::<ExecutionStatus>);
+    /// ```
     pub fn set_or_clear_execution_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_scan::ExecutionStatus>,
@@ -17572,6 +23593,15 @@ impl DataScan {
     }
 
     /// Sets the value of [r#type][crate::model::DataScan::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataScanType;
+    /// let x0 = DataScan::new().set_type(DataScanType::DataQuality);
+    /// let x1 = DataScan::new().set_type(DataScanType::DataProfile);
+    /// let x2 = DataScan::new().set_type(DataScanType::DataDiscovery);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::DataScanType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -17581,6 +23611,14 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `spec` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataScan::new().set_spec(Some(
+    ///     google_cloud_dataplex_v1::model::data_scan::Spec::DataQualitySpec(DataQualitySpec::default().into())));
+    /// ```
     pub fn set_spec<T: std::convert::Into<std::option::Option<crate::model::data_scan::Spec>>>(
         mut self,
         v: T,
@@ -17607,6 +23645,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataScan::new().set_data_quality_spec(DataQualitySpec::default()/* use setters */);
+    /// assert!(x.data_quality_spec().is_some());
+    /// assert!(x.data_profile_spec().is_none());
+    /// assert!(x.data_discovery_spec().is_none());
+    /// assert!(x.data_documentation_spec().is_none());
+    /// ```
     pub fn set_data_quality_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataQualitySpec>>,
     >(
@@ -17636,6 +23685,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// let x = DataScan::new().set_data_profile_spec(DataProfileSpec::default()/* use setters */);
+    /// assert!(x.data_profile_spec().is_some());
+    /// assert!(x.data_quality_spec().is_none());
+    /// assert!(x.data_discovery_spec().is_none());
+    /// assert!(x.data_documentation_spec().is_none());
+    /// ```
     pub fn set_data_profile_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataProfileSpec>>,
     >(
@@ -17665,6 +23725,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataDiscoverySpec;
+    /// let x = DataScan::new().set_data_discovery_spec(DataDiscoverySpec::default()/* use setters */);
+    /// assert!(x.data_discovery_spec().is_some());
+    /// assert!(x.data_quality_spec().is_none());
+    /// assert!(x.data_profile_spec().is_none());
+    /// assert!(x.data_documentation_spec().is_none());
+    /// ```
     pub fn set_data_discovery_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDiscoverySpec>>,
     >(
@@ -17694,6 +23765,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataDocumentationSpec;
+    /// let x = DataScan::new().set_data_documentation_spec(DataDocumentationSpec::default()/* use setters */);
+    /// assert!(x.data_documentation_spec().is_some());
+    /// assert!(x.data_quality_spec().is_none());
+    /// assert!(x.data_profile_spec().is_none());
+    /// assert!(x.data_discovery_spec().is_none());
+    /// ```
     pub fn set_data_documentation_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationSpec>>,
     >(
@@ -17710,6 +23792,14 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataScan::new().set_result(Some(
+    ///     google_cloud_dataplex_v1::model::data_scan::Result::DataQualityResult(DataQualityResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::data_scan::Result>>,
     >(
@@ -17738,6 +23828,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataScan::new().set_data_quality_result(DataQualityResult::default()/* use setters */);
+    /// assert!(x.data_quality_result().is_some());
+    /// assert!(x.data_profile_result().is_none());
+    /// assert!(x.data_discovery_result().is_none());
+    /// assert!(x.data_documentation_result().is_none());
+    /// ```
     pub fn set_data_quality_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataQualityResult>>,
     >(
@@ -17767,6 +23868,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// let x = DataScan::new().set_data_profile_result(DataProfileResult::default()/* use setters */);
+    /// assert!(x.data_profile_result().is_some());
+    /// assert!(x.data_quality_result().is_none());
+    /// assert!(x.data_discovery_result().is_none());
+    /// assert!(x.data_documentation_result().is_none());
+    /// ```
     pub fn set_data_profile_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataProfileResult>>,
     >(
@@ -17796,6 +23908,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataDiscoveryResult;
+    /// let x = DataScan::new().set_data_discovery_result(DataDiscoveryResult::default()/* use setters */);
+    /// assert!(x.data_discovery_result().is_some());
+    /// assert!(x.data_quality_result().is_none());
+    /// assert!(x.data_profile_result().is_none());
+    /// assert!(x.data_documentation_result().is_none());
+    /// ```
     pub fn set_data_discovery_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDiscoveryResult>>,
     >(
@@ -17828,6 +23951,17 @@ impl DataScan {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScan;
+    /// use google_cloud_dataplex_v1::model::DataDocumentationResult;
+    /// let x = DataScan::new().set_data_documentation_result(DataDocumentationResult::default()/* use setters */);
+    /// assert!(x.data_documentation_result().is_some());
+    /// assert!(x.data_quality_result().is_none());
+    /// assert!(x.data_profile_result().is_none());
+    /// assert!(x.data_discovery_result().is_none());
+    /// ```
     pub fn set_data_documentation_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationResult>>,
     >(
@@ -17878,6 +24012,13 @@ pub mod data_scan {
         }
 
         /// Sets the value of [trigger][crate::model::data_scan::ExecutionSpec::trigger].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionSpec;
+        /// use google_cloud_dataplex_v1::model::Trigger;
+        /// let x = ExecutionSpec::new().set_trigger(Trigger::default()/* use setters */);
+        /// ```
         pub fn set_trigger<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Trigger>,
@@ -17887,6 +24028,14 @@ pub mod data_scan {
         }
 
         /// Sets or clears the value of [trigger][crate::model::data_scan::ExecutionSpec::trigger].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionSpec;
+        /// use google_cloud_dataplex_v1::model::Trigger;
+        /// let x = ExecutionSpec::new().set_or_clear_trigger(Some(Trigger::default()/* use setters */));
+        /// let x = ExecutionSpec::new().set_or_clear_trigger(None::<Trigger>);
+        /// ```
         pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Trigger>,
@@ -17899,6 +24048,13 @@ pub mod data_scan {
         ///
         /// Note that all the setters affecting `incremental` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionSpec;
+        /// use google_cloud_dataplex_v1::model::data_scan::execution_spec::Incremental;
+        /// let x = ExecutionSpec::new().set_incremental(Some(Incremental::Field("example".to_string())));
+        /// ```
         pub fn set_incremental<
             T: std::convert::Into<
                     std::option::Option<crate::model::data_scan::execution_spec::Incremental>,
@@ -17929,6 +24085,13 @@ pub mod data_scan {
         ///
         /// Note that all the setters affecting `incremental` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionSpec;
+        /// let x = ExecutionSpec::new().set_field("example");
+        /// assert!(x.field().is_some());
+        /// ```
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.incremental = std::option::Option::Some(
                 crate::model::data_scan::execution_spec::Incremental::Field(v.into()),
@@ -17986,6 +24149,13 @@ pub mod data_scan {
         }
 
         /// Sets the value of [latest_job_start_time][crate::model::data_scan::ExecutionStatus::latest_job_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_latest_job_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_latest_job_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -17995,6 +24165,14 @@ pub mod data_scan {
         }
 
         /// Sets or clears the value of [latest_job_start_time][crate::model::data_scan::ExecutionStatus::latest_job_start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_latest_job_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -18004,6 +24182,13 @@ pub mod data_scan {
         }
 
         /// Sets the value of [latest_job_end_time][crate::model::data_scan::ExecutionStatus::latest_job_end_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_latest_job_end_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_latest_job_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -18013,6 +24198,14 @@ pub mod data_scan {
         }
 
         /// Sets or clears the value of [latest_job_end_time][crate::model::data_scan::ExecutionStatus::latest_job_end_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job_end_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job_end_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_latest_job_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -18022,6 +24215,13 @@ pub mod data_scan {
         }
 
         /// Sets the value of [latest_job_create_time][crate::model::data_scan::ExecutionStatus::latest_job_create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_latest_job_create_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_latest_job_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -18031,6 +24231,14 @@ pub mod data_scan {
         }
 
         /// Sets or clears the value of [latest_job_create_time][crate::model::data_scan::ExecutionStatus::latest_job_create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job_create_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job_create_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_latest_job_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -18125,18 +24333,37 @@ impl DataScanJob {
     }
 
     /// Sets the value of [name][crate::model::DataScanJob::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// let x = DataScanJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::DataScanJob::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// let x = DataScanJob::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataScanJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use wkt::Timestamp;
+    /// let x = DataScanJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18146,6 +24373,14 @@ impl DataScanJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataScanJob::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use wkt::Timestamp;
+    /// let x = DataScanJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScanJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18155,6 +24390,13 @@ impl DataScanJob {
     }
 
     /// Sets the value of [start_time][crate::model::DataScanJob::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use wkt::Timestamp;
+    /// let x = DataScanJob::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18164,6 +24406,14 @@ impl DataScanJob {
     }
 
     /// Sets or clears the value of [start_time][crate::model::DataScanJob::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use wkt::Timestamp;
+    /// let x = DataScanJob::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScanJob::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18173,6 +24423,13 @@ impl DataScanJob {
     }
 
     /// Sets the value of [end_time][crate::model::DataScanJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use wkt::Timestamp;
+    /// let x = DataScanJob::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18182,6 +24439,14 @@ impl DataScanJob {
     }
 
     /// Sets or clears the value of [end_time][crate::model::DataScanJob::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use wkt::Timestamp;
+    /// let x = DataScanJob::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScanJob::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18191,6 +24456,15 @@ impl DataScanJob {
     }
 
     /// Sets the value of [state][crate::model::DataScanJob::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::data_scan_job::State;
+    /// let x0 = DataScanJob::new().set_state(State::Running);
+    /// let x1 = DataScanJob::new().set_state(State::Canceling);
+    /// let x2 = DataScanJob::new().set_state(State::Cancelled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::data_scan_job::State>>(
         mut self,
         v: T,
@@ -18200,12 +24474,27 @@ impl DataScanJob {
     }
 
     /// Sets the value of [message][crate::model::DataScanJob::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// let x = DataScanJob::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::DataScanJob::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataScanType;
+    /// let x0 = DataScanJob::new().set_type(DataScanType::DataQuality);
+    /// let x1 = DataScanJob::new().set_type(DataScanType::DataProfile);
+    /// let x2 = DataScanJob::new().set_type(DataScanType::DataDiscovery);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::DataScanType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -18215,6 +24504,14 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `spec` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataScanJob::new().set_spec(Some(
+    ///     google_cloud_dataplex_v1::model::data_scan_job::Spec::DataQualitySpec(DataQualitySpec::default().into())));
+    /// ```
     pub fn set_spec<
         T: std::convert::Into<std::option::Option<crate::model::data_scan_job::Spec>>,
     >(
@@ -18243,6 +24540,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataQualitySpec;
+    /// let x = DataScanJob::new().set_data_quality_spec(DataQualitySpec::default()/* use setters */);
+    /// assert!(x.data_quality_spec().is_some());
+    /// assert!(x.data_profile_spec().is_none());
+    /// assert!(x.data_discovery_spec().is_none());
+    /// assert!(x.data_documentation_spec().is_none());
+    /// ```
     pub fn set_data_quality_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataQualitySpec>>,
     >(
@@ -18272,6 +24580,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataProfileSpec;
+    /// let x = DataScanJob::new().set_data_profile_spec(DataProfileSpec::default()/* use setters */);
+    /// assert!(x.data_profile_spec().is_some());
+    /// assert!(x.data_quality_spec().is_none());
+    /// assert!(x.data_discovery_spec().is_none());
+    /// assert!(x.data_documentation_spec().is_none());
+    /// ```
     pub fn set_data_profile_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataProfileSpec>>,
     >(
@@ -18301,6 +24620,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataDiscoverySpec;
+    /// let x = DataScanJob::new().set_data_discovery_spec(DataDiscoverySpec::default()/* use setters */);
+    /// assert!(x.data_discovery_spec().is_some());
+    /// assert!(x.data_quality_spec().is_none());
+    /// assert!(x.data_profile_spec().is_none());
+    /// assert!(x.data_documentation_spec().is_none());
+    /// ```
     pub fn set_data_discovery_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDiscoverySpec>>,
     >(
@@ -18333,6 +24663,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataDocumentationSpec;
+    /// let x = DataScanJob::new().set_data_documentation_spec(DataDocumentationSpec::default()/* use setters */);
+    /// assert!(x.data_documentation_spec().is_some());
+    /// assert!(x.data_quality_spec().is_none());
+    /// assert!(x.data_profile_spec().is_none());
+    /// assert!(x.data_discovery_spec().is_none());
+    /// ```
     pub fn set_data_documentation_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationSpec>>,
     >(
@@ -18349,6 +24690,14 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataScanJob::new().set_result(Some(
+    ///     google_cloud_dataplex_v1::model::data_scan_job::Result::DataQualityResult(DataQualityResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::data_scan_job::Result>>,
     >(
@@ -18379,6 +24728,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataQualityResult;
+    /// let x = DataScanJob::new().set_data_quality_result(DataQualityResult::default()/* use setters */);
+    /// assert!(x.data_quality_result().is_some());
+    /// assert!(x.data_profile_result().is_none());
+    /// assert!(x.data_discovery_result().is_none());
+    /// assert!(x.data_documentation_result().is_none());
+    /// ```
     pub fn set_data_quality_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataQualityResult>>,
     >(
@@ -18411,6 +24771,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataProfileResult;
+    /// let x = DataScanJob::new().set_data_profile_result(DataProfileResult::default()/* use setters */);
+    /// assert!(x.data_profile_result().is_some());
+    /// assert!(x.data_quality_result().is_none());
+    /// assert!(x.data_discovery_result().is_none());
+    /// assert!(x.data_documentation_result().is_none());
+    /// ```
     pub fn set_data_profile_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataProfileResult>>,
     >(
@@ -18443,6 +24814,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataDiscoveryResult;
+    /// let x = DataScanJob::new().set_data_discovery_result(DataDiscoveryResult::default()/* use setters */);
+    /// assert!(x.data_discovery_result().is_some());
+    /// assert!(x.data_quality_result().is_none());
+    /// assert!(x.data_profile_result().is_none());
+    /// assert!(x.data_documentation_result().is_none());
+    /// ```
     pub fn set_data_discovery_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDiscoveryResult>>,
     >(
@@ -18475,6 +24857,17 @@ impl DataScanJob {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanJob;
+    /// use google_cloud_dataplex_v1::model::DataDocumentationResult;
+    /// let x = DataScanJob::new().set_data_documentation_result(DataDocumentationResult::default()/* use setters */);
+    /// assert!(x.data_documentation_result().is_some());
+    /// assert!(x.data_quality_result().is_none());
+    /// assert!(x.data_profile_result().is_none());
+    /// assert!(x.data_discovery_result().is_none());
+    /// ```
     pub fn set_data_documentation_result<
         T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationResult>>,
     >(
@@ -18705,6 +25098,14 @@ impl DataScanCatalogPublishingStatus {
     }
 
     /// Sets the value of [state][crate::model::DataScanCatalogPublishingStatus::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanCatalogPublishingStatus;
+    /// use google_cloud_dataplex_v1::model::data_scan_catalog_publishing_status::State;
+    /// let x0 = DataScanCatalogPublishingStatus::new().set_state(State::Succeeded);
+    /// let x1 = DataScanCatalogPublishingStatus::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<
         T: std::convert::Into<crate::model::data_scan_catalog_publishing_status::State>,
     >(
@@ -18897,42 +25298,87 @@ impl DiscoveryEvent {
     }
 
     /// Sets the value of [message][crate::model::DiscoveryEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// let x = DiscoveryEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [lake_id][crate::model::DiscoveryEvent::lake_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// let x = DiscoveryEvent::new().set_lake_id("example");
+    /// ```
     pub fn set_lake_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lake_id = v.into();
         self
     }
 
     /// Sets the value of [zone_id][crate::model::DiscoveryEvent::zone_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// let x = DiscoveryEvent::new().set_zone_id("example");
+    /// ```
     pub fn set_zone_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone_id = v.into();
         self
     }
 
     /// Sets the value of [asset_id][crate::model::DiscoveryEvent::asset_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// let x = DiscoveryEvent::new().set_asset_id("example");
+    /// ```
     pub fn set_asset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_id = v.into();
         self
     }
 
     /// Sets the value of [data_location][crate::model::DiscoveryEvent::data_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// let x = DiscoveryEvent::new().set_data_location("example");
+    /// ```
     pub fn set_data_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_location = v.into();
         self
     }
 
     /// Sets the value of [datascan_id][crate::model::DiscoveryEvent::datascan_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// let x = DiscoveryEvent::new().set_datascan_id("example");
+    /// ```
     pub fn set_datascan_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.datascan_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::DiscoveryEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// use google_cloud_dataplex_v1::model::discovery_event::EventType;
+    /// let x0 = DiscoveryEvent::new().set_type(EventType::Config);
+    /// let x1 = DiscoveryEvent::new().set_type(EventType::EntityCreated);
+    /// let x2 = DiscoveryEvent::new().set_type(EventType::EntityUpdated);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::discovery_event::EventType>>(
         mut self,
         v: T,
@@ -18945,6 +25391,14 @@ impl DiscoveryEvent {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// use google_cloud_dataplex_v1::model::discovery_event::ConfigDetails;
+    /// let x = DiscoveryEvent::new().set_details(Some(
+    ///     google_cloud_dataplex_v1::model::discovery_event::Details::Config(ConfigDetails::default().into())));
+    /// ```
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::discovery_event::Details>>,
     >(
@@ -18973,6 +25427,18 @@ impl DiscoveryEvent {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// use google_cloud_dataplex_v1::model::discovery_event::ConfigDetails;
+    /// let x = DiscoveryEvent::new().set_config(ConfigDetails::default()/* use setters */);
+    /// assert!(x.config().is_some());
+    /// assert!(x.entity().is_none());
+    /// assert!(x.partition().is_none());
+    /// assert!(x.action().is_none());
+    /// assert!(x.table().is_none());
+    /// ```
     pub fn set_config<
         T: std::convert::Into<std::boxed::Box<crate::model::discovery_event::ConfigDetails>>,
     >(
@@ -19002,6 +25468,18 @@ impl DiscoveryEvent {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// use google_cloud_dataplex_v1::model::discovery_event::EntityDetails;
+    /// let x = DiscoveryEvent::new().set_entity(EntityDetails::default()/* use setters */);
+    /// assert!(x.entity().is_some());
+    /// assert!(x.config().is_none());
+    /// assert!(x.partition().is_none());
+    /// assert!(x.action().is_none());
+    /// assert!(x.table().is_none());
+    /// ```
     pub fn set_entity<
         T: std::convert::Into<std::boxed::Box<crate::model::discovery_event::EntityDetails>>,
     >(
@@ -19032,6 +25510,18 @@ impl DiscoveryEvent {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// use google_cloud_dataplex_v1::model::discovery_event::PartitionDetails;
+    /// let x = DiscoveryEvent::new().set_partition(PartitionDetails::default()/* use setters */);
+    /// assert!(x.partition().is_some());
+    /// assert!(x.config().is_none());
+    /// assert!(x.entity().is_none());
+    /// assert!(x.action().is_none());
+    /// assert!(x.table().is_none());
+    /// ```
     pub fn set_partition<
         T: std::convert::Into<std::boxed::Box<crate::model::discovery_event::PartitionDetails>>,
     >(
@@ -19061,6 +25551,18 @@ impl DiscoveryEvent {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// use google_cloud_dataplex_v1::model::discovery_event::ActionDetails;
+    /// let x = DiscoveryEvent::new().set_action(ActionDetails::default()/* use setters */);
+    /// assert!(x.action().is_some());
+    /// assert!(x.config().is_none());
+    /// assert!(x.entity().is_none());
+    /// assert!(x.partition().is_none());
+    /// assert!(x.table().is_none());
+    /// ```
     pub fn set_action<
         T: std::convert::Into<std::boxed::Box<crate::model::discovery_event::ActionDetails>>,
     >(
@@ -19090,6 +25592,18 @@ impl DiscoveryEvent {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DiscoveryEvent;
+    /// use google_cloud_dataplex_v1::model::discovery_event::TableDetails;
+    /// let x = DiscoveryEvent::new().set_table(TableDetails::default()/* use setters */);
+    /// assert!(x.table().is_some());
+    /// assert!(x.config().is_none());
+    /// assert!(x.entity().is_none());
+    /// assert!(x.partition().is_none());
+    /// assert!(x.action().is_none());
+    /// ```
     pub fn set_table<
         T: std::convert::Into<std::boxed::Box<crate::model::discovery_event::TableDetails>>,
     >(
@@ -19132,6 +25646,15 @@ pub mod discovery_event {
         }
 
         /// Sets the value of [parameters][crate::model::discovery_event::ConfigDetails::parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::ConfigDetails;
+        /// let x = ConfigDetails::new().set_parameters([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -19170,12 +25693,26 @@ pub mod discovery_event {
         }
 
         /// Sets the value of [entity][crate::model::discovery_event::EntityDetails::entity].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::EntityDetails;
+        /// let x = EntityDetails::new().set_entity("example");
+        /// ```
         pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::discovery_event::EntityDetails::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::EntityDetails;
+        /// use google_cloud_dataplex_v1::model::discovery_event::EntityType;
+        /// let x0 = EntityDetails::new().set_type(EntityType::Table);
+        /// let x1 = EntityDetails::new().set_type(EntityType::Fileset);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::discovery_event::EntityType>>(
             mut self,
             v: T,
@@ -19210,12 +25747,27 @@ pub mod discovery_event {
         }
 
         /// Sets the value of [table][crate::model::discovery_event::TableDetails::table].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::TableDetails;
+        /// let x = TableDetails::new().set_table("example");
+        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::discovery_event::TableDetails::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::TableDetails;
+        /// use google_cloud_dataplex_v1::model::discovery_event::TableType;
+        /// let x0 = TableDetails::new().set_type(TableType::ExternalTable);
+        /// let x1 = TableDetails::new().set_type(TableType::BiglakeTable);
+        /// let x2 = TableDetails::new().set_type(TableType::ObjectTable);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::discovery_event::TableType>>(
             mut self,
             v: T,
@@ -19259,18 +25811,38 @@ pub mod discovery_event {
         }
 
         /// Sets the value of [partition][crate::model::discovery_event::PartitionDetails::partition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::PartitionDetails;
+        /// let x = PartitionDetails::new().set_partition("example");
+        /// ```
         pub fn set_partition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.partition = v.into();
             self
         }
 
         /// Sets the value of [entity][crate::model::discovery_event::PartitionDetails::entity].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::PartitionDetails;
+        /// let x = PartitionDetails::new().set_entity("example");
+        /// ```
         pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::discovery_event::PartitionDetails::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::PartitionDetails;
+        /// use google_cloud_dataplex_v1::model::discovery_event::EntityType;
+        /// let x0 = PartitionDetails::new().set_type(EntityType::Table);
+        /// let x1 = PartitionDetails::new().set_type(EntityType::Fileset);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::discovery_event::EntityType>>(
             mut self,
             v: T,
@@ -19280,6 +25852,12 @@ pub mod discovery_event {
         }
 
         /// Sets the value of [sampled_data_locations][crate::model::discovery_event::PartitionDetails::sampled_data_locations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::PartitionDetails;
+        /// let x = PartitionDetails::new().set_sampled_data_locations(["a", "b", "c"]);
+        /// ```
         pub fn set_sampled_data_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -19317,12 +25895,24 @@ pub mod discovery_event {
         }
 
         /// Sets the value of [r#type][crate::model::discovery_event::ActionDetails::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::ActionDetails;
+        /// let x = ActionDetails::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [issue][crate::model::discovery_event::ActionDetails::issue].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::discovery_event::ActionDetails;
+        /// let x = ActionDetails::new().set_issue("example");
+        /// ```
         pub fn set_issue<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.issue = v.into();
             self
@@ -19862,18 +26452,37 @@ impl JobEvent {
     }
 
     /// Sets the value of [message][crate::model::JobEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// let x = JobEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::JobEvent::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// let x = JobEvent::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::JobEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use wkt::Timestamp;
+    /// let x = JobEvent::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19883,6 +26492,14 @@ impl JobEvent {
     }
 
     /// Sets or clears the value of [start_time][crate::model::JobEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use wkt::Timestamp;
+    /// let x = JobEvent::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobEvent::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19892,6 +26509,13 @@ impl JobEvent {
     }
 
     /// Sets the value of [end_time][crate::model::JobEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use wkt::Timestamp;
+    /// let x = JobEvent::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19901,6 +26525,14 @@ impl JobEvent {
     }
 
     /// Sets or clears the value of [end_time][crate::model::JobEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use wkt::Timestamp;
+    /// let x = JobEvent::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobEvent::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19910,6 +26542,15 @@ impl JobEvent {
     }
 
     /// Sets the value of [state][crate::model::JobEvent::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use google_cloud_dataplex_v1::model::job_event::State;
+    /// let x0 = JobEvent::new().set_state(State::Succeeded);
+    /// let x1 = JobEvent::new().set_state(State::Failed);
+    /// let x2 = JobEvent::new().set_state(State::Cancelled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job_event::State>>(
         mut self,
         v: T,
@@ -19919,18 +26560,39 @@ impl JobEvent {
     }
 
     /// Sets the value of [retries][crate::model::JobEvent::retries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// let x = JobEvent::new().set_retries(42);
+    /// ```
     pub fn set_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retries = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::JobEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use google_cloud_dataplex_v1::model::job_event::Type;
+    /// let x0 = JobEvent::new().set_type(Type::Spark);
+    /// let x1 = JobEvent::new().set_type(Type::Notebook);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::job_event::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::JobEvent::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use google_cloud_dataplex_v1::model::job_event::Service;
+    /// let x0 = JobEvent::new().set_service(Service::Dataproc);
+    /// ```
     pub fn set_service<T: std::convert::Into<crate::model::job_event::Service>>(
         mut self,
         v: T,
@@ -19940,12 +26602,26 @@ impl JobEvent {
     }
 
     /// Sets the value of [service_job][crate::model::JobEvent::service_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// let x = JobEvent::new().set_service_job("example");
+    /// ```
     pub fn set_service_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_job = v.into();
         self
     }
 
     /// Sets the value of [execution_trigger][crate::model::JobEvent::execution_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::JobEvent;
+    /// use google_cloud_dataplex_v1::model::job_event::ExecutionTrigger;
+    /// let x0 = JobEvent::new().set_execution_trigger(ExecutionTrigger::TaskConfig);
+    /// let x1 = JobEvent::new().set_execution_trigger(ExecutionTrigger::RunRequest);
+    /// ```
     pub fn set_execution_trigger<
         T: std::convert::Into<crate::model::job_event::ExecutionTrigger>,
     >(
@@ -20545,24 +27221,51 @@ impl SessionEvent {
     }
 
     /// Sets the value of [message][crate::model::SessionEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// let x = SessionEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::SessionEvent::user_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// let x = SessionEvent::new().set_user_id("example");
+    /// ```
     pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [session_id][crate::model::SessionEvent::session_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// let x = SessionEvent::new().set_session_id("example");
+    /// ```
     pub fn set_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::SessionEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// use google_cloud_dataplex_v1::model::session_event::EventType;
+    /// let x0 = SessionEvent::new().set_type(EventType::Start);
+    /// let x1 = SessionEvent::new().set_type(EventType::Stop);
+    /// let x2 = SessionEvent::new().set_type(EventType::Query);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::session_event::EventType>>(
         mut self,
         v: T,
@@ -20572,18 +27275,37 @@ impl SessionEvent {
     }
 
     /// Sets the value of [event_succeeded][crate::model::SessionEvent::event_succeeded].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// let x = SessionEvent::new().set_event_succeeded(true);
+    /// ```
     pub fn set_event_succeeded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.event_succeeded = v.into();
         self
     }
 
     /// Sets the value of [fast_startup_enabled][crate::model::SessionEvent::fast_startup_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// let x = SessionEvent::new().set_fast_startup_enabled(true);
+    /// ```
     pub fn set_fast_startup_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fast_startup_enabled = v.into();
         self
     }
 
     /// Sets the value of [unassigned_duration][crate::model::SessionEvent::unassigned_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// use wkt::Duration;
+    /// let x = SessionEvent::new().set_unassigned_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_unassigned_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -20593,6 +27315,14 @@ impl SessionEvent {
     }
 
     /// Sets or clears the value of [unassigned_duration][crate::model::SessionEvent::unassigned_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// use wkt::Duration;
+    /// let x = SessionEvent::new().set_or_clear_unassigned_duration(Some(Duration::default()/* use setters */));
+    /// let x = SessionEvent::new().set_or_clear_unassigned_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_unassigned_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -20605,6 +27335,14 @@ impl SessionEvent {
     ///
     /// Note that all the setters affecting `detail` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+    /// let x = SessionEvent::new().set_detail(Some(
+    ///     google_cloud_dataplex_v1::model::session_event::Detail::Query(QueryDetail::default().into())));
+    /// ```
     pub fn set_detail<
         T: std::convert::Into<std::option::Option<crate::model::session_event::Detail>>,
     >(
@@ -20633,6 +27371,14 @@ impl SessionEvent {
     ///
     /// Note that all the setters affecting `detail` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::SessionEvent;
+    /// use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+    /// let x = SessionEvent::new().set_query(QueryDetail::default()/* use setters */);
+    /// assert!(x.query().is_some());
+    /// ```
     pub fn set_query<
         T: std::convert::Into<std::boxed::Box<crate::model::session_event::QueryDetail>>,
     >(
@@ -20687,18 +27433,38 @@ pub mod session_event {
         }
 
         /// Sets the value of [query_id][crate::model::session_event::QueryDetail::query_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+        /// let x = QueryDetail::new().set_query_id("example");
+        /// ```
         pub fn set_query_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.query_id = v.into();
             self
         }
 
         /// Sets the value of [query_text][crate::model::session_event::QueryDetail::query_text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+        /// let x = QueryDetail::new().set_query_text("example");
+        /// ```
         pub fn set_query_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.query_text = v.into();
             self
         }
 
         /// Sets the value of [engine][crate::model::session_event::QueryDetail::engine].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+        /// use google_cloud_dataplex_v1::model::session_event::query_detail::Engine;
+        /// let x0 = QueryDetail::new().set_engine(Engine::SparkSql);
+        /// let x1 = QueryDetail::new().set_engine(Engine::Bigquery);
+        /// ```
         pub fn set_engine<
             T: std::convert::Into<crate::model::session_event::query_detail::Engine>,
         >(
@@ -20710,6 +27476,13 @@ pub mod session_event {
         }
 
         /// Sets the value of [duration][crate::model::session_event::QueryDetail::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+        /// use wkt::Duration;
+        /// let x = QueryDetail::new().set_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -20719,6 +27492,14 @@ pub mod session_event {
         }
 
         /// Sets or clears the value of [duration][crate::model::session_event::QueryDetail::duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+        /// use wkt::Duration;
+        /// let x = QueryDetail::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+        /// let x = QueryDetail::new().set_or_clear_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -20728,12 +27509,24 @@ pub mod session_event {
         }
 
         /// Sets the value of [result_size_bytes][crate::model::session_event::QueryDetail::result_size_bytes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+        /// let x = QueryDetail::new().set_result_size_bytes(42);
+        /// ```
         pub fn set_result_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.result_size_bytes = v.into();
             self
         }
 
         /// Sets the value of [data_processed_bytes][crate::model::session_event::QueryDetail::data_processed_bytes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::session_event::QueryDetail;
+        /// let x = QueryDetail::new().set_data_processed_bytes(42);
+        /// ```
         pub fn set_data_processed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.data_processed_bytes = v.into();
             self
@@ -21066,12 +27859,27 @@ impl GovernanceEvent {
     }
 
     /// Sets the value of [message][crate::model::GovernanceEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GovernanceEvent;
+    /// let x = GovernanceEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [event_type][crate::model::GovernanceEvent::event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GovernanceEvent;
+    /// use google_cloud_dataplex_v1::model::governance_event::EventType;
+    /// let x0 = GovernanceEvent::new().set_event_type(EventType::ResourceIamPolicyUpdate);
+    /// let x1 = GovernanceEvent::new().set_event_type(EventType::BigqueryTableCreate);
+    /// let x2 = GovernanceEvent::new().set_event_type(EventType::BigqueryTableUpdate);
+    /// ```
     pub fn set_event_type<T: std::convert::Into<crate::model::governance_event::EventType>>(
         mut self,
         v: T,
@@ -21081,6 +27889,13 @@ impl GovernanceEvent {
     }
 
     /// Sets the value of [entity][crate::model::GovernanceEvent::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GovernanceEvent;
+    /// use google_cloud_dataplex_v1::model::governance_event::Entity;
+    /// let x = GovernanceEvent::new().set_entity(Entity::default()/* use setters */);
+    /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::governance_event::Entity>,
@@ -21090,6 +27905,14 @@ impl GovernanceEvent {
     }
 
     /// Sets or clears the value of [entity][crate::model::GovernanceEvent::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GovernanceEvent;
+    /// use google_cloud_dataplex_v1::model::governance_event::Entity;
+    /// let x = GovernanceEvent::new().set_or_clear_entity(Some(Entity::default()/* use setters */));
+    /// let x = GovernanceEvent::new().set_or_clear_entity(None::<Entity>);
+    /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::governance_event::Entity>,
@@ -21131,12 +27954,26 @@ pub mod governance_event {
         }
 
         /// Sets the value of [entity][crate::model::governance_event::Entity::entity].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::governance_event::Entity;
+        /// let x = Entity::new().set_entity("example");
+        /// ```
         pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity = v.into();
             self
         }
 
         /// Sets the value of [entity_type][crate::model::governance_event::Entity::entity_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::governance_event::Entity;
+        /// use google_cloud_dataplex_v1::model::governance_event::entity::EntityType;
+        /// let x0 = Entity::new().set_entity_type(EntityType::Table);
+        /// let x1 = Entity::new().set_entity_type(EntityType::Fileset);
+        /// ```
         pub fn set_entity_type<
             T: std::convert::Into<crate::model::governance_event::entity::EntityType>,
         >(
@@ -21610,18 +28447,37 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [data_source][crate::model::DataScanEvent::data_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// let x = DataScanEvent::new().set_data_source("example");
+    /// ```
     pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::DataScanEvent::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// let x = DataScanEvent::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DataScanEvent::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataScanEvent::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21631,6 +28487,14 @@ impl DataScanEvent {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DataScanEvent::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataScanEvent::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScanEvent::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21640,6 +28504,13 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [start_time][crate::model::DataScanEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataScanEvent::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21649,6 +28520,14 @@ impl DataScanEvent {
     }
 
     /// Sets or clears the value of [start_time][crate::model::DataScanEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataScanEvent::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScanEvent::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21658,6 +28537,13 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [end_time][crate::model::DataScanEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataScanEvent::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21667,6 +28553,14 @@ impl DataScanEvent {
     }
 
     /// Sets or clears the value of [end_time][crate::model::DataScanEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use wkt::Timestamp;
+    /// let x = DataScanEvent::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataScanEvent::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -21676,6 +28570,15 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [r#type][crate::model::DataScanEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::ScanType;
+    /// let x0 = DataScanEvent::new().set_type(ScanType::DataProfile);
+    /// let x1 = DataScanEvent::new().set_type(ScanType::DataQuality);
+    /// let x2 = DataScanEvent::new().set_type(ScanType::DataDiscovery);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::data_scan_event::ScanType>>(
         mut self,
         v: T,
@@ -21685,6 +28588,15 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [state][crate::model::DataScanEvent::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::State;
+    /// let x0 = DataScanEvent::new().set_state(State::Started);
+    /// let x1 = DataScanEvent::new().set_state(State::Succeeded);
+    /// let x2 = DataScanEvent::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::data_scan_event::State>>(
         mut self,
         v: T,
@@ -21694,18 +28606,38 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [message][crate::model::DataScanEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// let x = DataScanEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [spec_version][crate::model::DataScanEvent::spec_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// let x = DataScanEvent::new().set_spec_version("example");
+    /// ```
     pub fn set_spec_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.spec_version = v.into();
         self
     }
 
     /// Sets the value of [trigger][crate::model::DataScanEvent::trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::Trigger;
+    /// let x0 = DataScanEvent::new().set_trigger(Trigger::OnDemand);
+    /// let x1 = DataScanEvent::new().set_trigger(Trigger::Schedule);
+    /// ```
     pub fn set_trigger<T: std::convert::Into<crate::model::data_scan_event::Trigger>>(
         mut self,
         v: T,
@@ -21715,6 +28647,14 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [scope][crate::model::DataScanEvent::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::Scope;
+    /// let x0 = DataScanEvent::new().set_scope(Scope::Full);
+    /// let x1 = DataScanEvent::new().set_scope(Scope::Incremental);
+    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::data_scan_event::Scope>>(
         mut self,
         v: T,
@@ -21724,6 +28664,13 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [post_scan_actions_result][crate::model::DataScanEvent::post_scan_actions_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::PostScanActionsResult;
+    /// let x = DataScanEvent::new().set_post_scan_actions_result(PostScanActionsResult::default()/* use setters */);
+    /// ```
     pub fn set_post_scan_actions_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_scan_event::PostScanActionsResult>,
@@ -21733,6 +28680,14 @@ impl DataScanEvent {
     }
 
     /// Sets or clears the value of [post_scan_actions_result][crate::model::DataScanEvent::post_scan_actions_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::PostScanActionsResult;
+    /// let x = DataScanEvent::new().set_or_clear_post_scan_actions_result(Some(PostScanActionsResult::default()/* use setters */));
+    /// let x = DataScanEvent::new().set_or_clear_post_scan_actions_result(None::<PostScanActionsResult>);
+    /// ```
     pub fn set_or_clear_post_scan_actions_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_scan_event::PostScanActionsResult>,
@@ -21742,6 +28697,13 @@ impl DataScanEvent {
     }
 
     /// Sets the value of [catalog_publishing_status][crate::model::DataScanEvent::catalog_publishing_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::DataScanCatalogPublishingStatus;
+    /// let x = DataScanEvent::new().set_catalog_publishing_status(DataScanCatalogPublishingStatus::default()/* use setters */);
+    /// ```
     pub fn set_catalog_publishing_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
@@ -21751,6 +28713,14 @@ impl DataScanEvent {
     }
 
     /// Sets or clears the value of [catalog_publishing_status][crate::model::DataScanEvent::catalog_publishing_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::DataScanCatalogPublishingStatus;
+    /// let x = DataScanEvent::new().set_or_clear_catalog_publishing_status(Some(DataScanCatalogPublishingStatus::default()/* use setters */));
+    /// let x = DataScanEvent::new().set_or_clear_catalog_publishing_status(None::<DataScanCatalogPublishingStatus>);
+    /// ```
     pub fn set_or_clear_catalog_publishing_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
@@ -21763,6 +28733,14 @@ impl DataScanEvent {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::DataProfileResult;
+    /// let x = DataScanEvent::new().set_result(Some(
+    ///     google_cloud_dataplex_v1::model::data_scan_event::Result::DataProfile(DataProfileResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::data_scan_event::Result>>,
     >(
@@ -21792,6 +28770,15 @@ impl DataScanEvent {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::DataProfileResult;
+    /// let x = DataScanEvent::new().set_data_profile(DataProfileResult::default()/* use setters */);
+    /// assert!(x.data_profile().is_some());
+    /// assert!(x.data_quality().is_none());
+    /// ```
     pub fn set_data_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::data_scan_event::DataProfileResult>>,
     >(
@@ -21822,6 +28809,15 @@ impl DataScanEvent {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::DataQualityResult;
+    /// let x = DataScanEvent::new().set_data_quality(DataQualityResult::default()/* use setters */);
+    /// assert!(x.data_quality().is_some());
+    /// assert!(x.data_profile().is_none());
+    /// ```
     pub fn set_data_quality<
         T: std::convert::Into<std::boxed::Box<crate::model::data_scan_event::DataQualityResult>>,
     >(
@@ -21837,6 +28833,14 @@ impl DataScanEvent {
     ///
     /// Note that all the setters affecting `applied_configs` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::DataProfileAppliedConfigs;
+    /// let x = DataScanEvent::new().set_applied_configs(Some(
+    ///     google_cloud_dataplex_v1::model::data_scan_event::AppliedConfigs::DataProfileConfigs(DataProfileAppliedConfigs::default().into())));
+    /// ```
     pub fn set_applied_configs<
         T: std::convert::Into<std::option::Option<crate::model::data_scan_event::AppliedConfigs>>,
     >(
@@ -21869,6 +28873,15 @@ impl DataScanEvent {
     ///
     /// Note that all the setters affecting `applied_configs` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::DataProfileAppliedConfigs;
+    /// let x = DataScanEvent::new().set_data_profile_configs(DataProfileAppliedConfigs::default()/* use setters */);
+    /// assert!(x.data_profile_configs().is_some());
+    /// assert!(x.data_quality_configs().is_none());
+    /// ```
     pub fn set_data_profile_configs<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::data_scan_event::DataProfileAppliedConfigs>,
@@ -21905,6 +28918,15 @@ impl DataScanEvent {
     ///
     /// Note that all the setters affecting `applied_configs` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataScanEvent;
+    /// use google_cloud_dataplex_v1::model::data_scan_event::DataQualityAppliedConfigs;
+    /// let x = DataScanEvent::new().set_data_quality_configs(DataQualityAppliedConfigs::default()/* use setters */);
+    /// assert!(x.data_quality_configs().is_some());
+    /// assert!(x.data_profile_configs().is_none());
+    /// ```
     pub fn set_data_quality_configs<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::data_scan_event::DataQualityAppliedConfigs>,
@@ -21947,6 +28969,12 @@ pub mod data_scan_event {
         }
 
         /// Sets the value of [row_count][crate::model::data_scan_event::DataProfileResult::row_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataProfileResult;
+        /// let x = DataProfileResult::new().set_row_count(42);
+        /// ```
         pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.row_count = v.into();
             self
@@ -22006,18 +29034,39 @@ pub mod data_scan_event {
         }
 
         /// Sets the value of [row_count][crate::model::data_scan_event::DataQualityResult::row_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityResult;
+        /// let x = DataQualityResult::new().set_row_count(42);
+        /// ```
         pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.row_count = v.into();
             self
         }
 
         /// Sets the value of [passed][crate::model::data_scan_event::DataQualityResult::passed].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityResult;
+        /// let x = DataQualityResult::new().set_passed(true);
+        /// ```
         pub fn set_passed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.passed = v.into();
             self
         }
 
         /// Sets the value of [dimension_passed][crate::model::data_scan_event::DataQualityResult::dimension_passed].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityResult;
+        /// let x = DataQualityResult::new().set_dimension_passed([
+        ///     ("key0", true),
+        ///     ("key1", false),
+        /// ]);
+        /// ```
         pub fn set_dimension_passed<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -22030,12 +29079,27 @@ pub mod data_scan_event {
         }
 
         /// Sets the value of [score][crate::model::data_scan_event::DataQualityResult::score].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityResult;
+        /// let x = DataQualityResult::new().set_score(42.0);
+        /// ```
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.score = v.into();
             self
         }
 
         /// Sets the value of [dimension_score][crate::model::data_scan_event::DataQualityResult::dimension_score].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityResult;
+        /// let x = DataQualityResult::new().set_dimension_score([
+        ///     ("key0", 123.5),
+        ///     ("key1", 456.5),
+        /// ]);
+        /// ```
         pub fn set_dimension_score<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -22048,6 +29112,15 @@ pub mod data_scan_event {
         }
 
         /// Sets the value of [column_score][crate::model::data_scan_event::DataQualityResult::column_score].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityResult;
+        /// let x = DataQualityResult::new().set_column_score([
+        ///     ("key0", 123.5),
+        ///     ("key1", 456.5),
+        /// ]);
+        /// ```
         pub fn set_column_score<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -22092,18 +29165,36 @@ pub mod data_scan_event {
         }
 
         /// Sets the value of [sampling_percent][crate::model::data_scan_event::DataProfileAppliedConfigs::sampling_percent].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataProfileAppliedConfigs;
+        /// let x = DataProfileAppliedConfigs::new().set_sampling_percent(42.0);
+        /// ```
         pub fn set_sampling_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.sampling_percent = v.into();
             self
         }
 
         /// Sets the value of [row_filter_applied][crate::model::data_scan_event::DataProfileAppliedConfigs::row_filter_applied].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataProfileAppliedConfigs;
+        /// let x = DataProfileAppliedConfigs::new().set_row_filter_applied(true);
+        /// ```
         pub fn set_row_filter_applied<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.row_filter_applied = v.into();
             self
         }
 
         /// Sets the value of [column_filter_applied][crate::model::data_scan_event::DataProfileAppliedConfigs::column_filter_applied].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataProfileAppliedConfigs;
+        /// let x = DataProfileAppliedConfigs::new().set_column_filter_applied(true);
+        /// ```
         pub fn set_column_filter_applied<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.column_filter_applied = v.into();
             self
@@ -22138,12 +29229,24 @@ pub mod data_scan_event {
         }
 
         /// Sets the value of [sampling_percent][crate::model::data_scan_event::DataQualityAppliedConfigs::sampling_percent].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityAppliedConfigs;
+        /// let x = DataQualityAppliedConfigs::new().set_sampling_percent(42.0);
+        /// ```
         pub fn set_sampling_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.sampling_percent = v.into();
             self
         }
 
         /// Sets the value of [row_filter_applied][crate::model::data_scan_event::DataQualityAppliedConfigs::row_filter_applied].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::DataQualityAppliedConfigs;
+        /// let x = DataQualityAppliedConfigs::new().set_row_filter_applied(true);
+        /// ```
         pub fn set_row_filter_applied<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.row_filter_applied = v.into();
             self
@@ -22174,6 +29277,13 @@ pub mod data_scan_event {
         }
 
         /// Sets the value of [bigquery_export_result][crate::model::data_scan_event::PostScanActionsResult::bigquery_export_result].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::PostScanActionsResult;
+        /// use google_cloud_dataplex_v1::model::data_scan_event::post_scan_actions_result::BigQueryExportResult;
+        /// let x = PostScanActionsResult::new().set_bigquery_export_result(BigQueryExportResult::default()/* use setters */);
+        /// ```
         pub fn set_bigquery_export_result<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -22185,6 +29295,14 @@ pub mod data_scan_event {
         }
 
         /// Sets or clears the value of [bigquery_export_result][crate::model::data_scan_event::PostScanActionsResult::bigquery_export_result].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::data_scan_event::PostScanActionsResult;
+        /// use google_cloud_dataplex_v1::model::data_scan_event::post_scan_actions_result::BigQueryExportResult;
+        /// let x = PostScanActionsResult::new().set_or_clear_bigquery_export_result(Some(BigQueryExportResult::default()/* use setters */));
+        /// let x = PostScanActionsResult::new().set_or_clear_bigquery_export_result(None::<BigQueryExportResult>);
+        /// ```
         pub fn set_or_clear_bigquery_export_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -22211,13 +29329,13 @@ pub mod data_scan_event {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BigQueryExportResult {
-
+        
             /// Execution state for the BigQuery exporting.
             pub state: crate::model::data_scan_event::post_scan_actions_result::big_query_export_result::State,
-
+        
             /// Additional information about the BigQuery exporting.
             pub message: std::string::String,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -22227,12 +29345,27 @@ pub mod data_scan_event {
             }
 
             /// Sets the value of [state][crate::model::data_scan_event::post_scan_actions_result::BigQueryExportResult::state].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_scan_event::post_scan_actions_result::BigQueryExportResult;
+            /// use google_cloud_dataplex_v1::model::data_scan_event::post_scan_actions_result::big_query_export_result::State;
+            /// let x0 = BigQueryExportResult::new().set_state(State::Succeeded);
+            /// let x1 = BigQueryExportResult::new().set_state(State::Failed);
+            /// let x2 = BigQueryExportResult::new().set_state(State::Skipped);
+            /// ```
             pub fn set_state<T: std::convert::Into<crate::model::data_scan_event::post_scan_actions_result::big_query_export_result::State>>(mut self, v: T) -> Self{
                 self.state = v.into();
                 self
             }
 
             /// Sets the value of [message][crate::model::data_scan_event::post_scan_actions_result::BigQueryExportResult::message].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::data_scan_event::post_scan_actions_result::BigQueryExportResult;
+            /// let x = BigQueryExportResult::new().set_message("example");
+            /// ```
             pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.message = v.into();
                 self
@@ -23031,30 +30164,63 @@ impl DataQualityScanRuleResult {
     }
 
     /// Sets the value of [job_id][crate::model::DataQualityScanRuleResult::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [data_source][crate::model::DataQualityScanRuleResult::data_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_data_source("example");
+    /// ```
     pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source = v.into();
         self
     }
 
     /// Sets the value of [column][crate::model::DataQualityScanRuleResult::column].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_column("example");
+    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [rule_name][crate::model::DataQualityScanRuleResult::rule_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_rule_name("example");
+    /// ```
     pub fn set_rule_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_name = v.into();
         self
     }
 
     /// Sets the value of [rule_type][crate::model::DataQualityScanRuleResult::rule_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// use google_cloud_dataplex_v1::model::data_quality_scan_rule_result::RuleType;
+    /// let x0 = DataQualityScanRuleResult::new().set_rule_type(RuleType::NonNullExpectation);
+    /// let x1 = DataQualityScanRuleResult::new().set_rule_type(RuleType::RangeExpectation);
+    /// let x2 = DataQualityScanRuleResult::new().set_rule_type(RuleType::RegexExpectation);
+    /// ```
     pub fn set_rule_type<
         T: std::convert::Into<crate::model::data_quality_scan_rule_result::RuleType>,
     >(
@@ -23066,6 +30232,14 @@ impl DataQualityScanRuleResult {
     }
 
     /// Sets the value of [evalution_type][crate::model::DataQualityScanRuleResult::evalution_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// use google_cloud_dataplex_v1::model::data_quality_scan_rule_result::EvaluationType;
+    /// let x0 = DataQualityScanRuleResult::new().set_evalution_type(EvaluationType::PerRow);
+    /// let x1 = DataQualityScanRuleResult::new().set_evalution_type(EvaluationType::Aggregate);
+    /// ```
     pub fn set_evalution_type<
         T: std::convert::Into<crate::model::data_quality_scan_rule_result::EvaluationType>,
     >(
@@ -23077,18 +30251,38 @@ impl DataQualityScanRuleResult {
     }
 
     /// Sets the value of [rule_dimension][crate::model::DataQualityScanRuleResult::rule_dimension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_rule_dimension("example");
+    /// ```
     pub fn set_rule_dimension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_dimension = v.into();
         self
     }
 
     /// Sets the value of [threshold_percent][crate::model::DataQualityScanRuleResult::threshold_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_threshold_percent(42.0);
+    /// ```
     pub fn set_threshold_percent<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.threshold_percent = v.into();
         self
     }
 
     /// Sets the value of [result][crate::model::DataQualityScanRuleResult::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// use google_cloud_dataplex_v1::model::data_quality_scan_rule_result::Result;
+    /// let x0 = DataQualityScanRuleResult::new().set_result(Result::Passed);
+    /// let x1 = DataQualityScanRuleResult::new().set_result(Result::Failed);
+    /// ```
     pub fn set_result<
         T: std::convert::Into<crate::model::data_quality_scan_rule_result::Result>,
     >(
@@ -23100,24 +30294,48 @@ impl DataQualityScanRuleResult {
     }
 
     /// Sets the value of [evaluated_row_count][crate::model::DataQualityScanRuleResult::evaluated_row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_evaluated_row_count(42);
+    /// ```
     pub fn set_evaluated_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.evaluated_row_count = v.into();
         self
     }
 
     /// Sets the value of [passed_row_count][crate::model::DataQualityScanRuleResult::passed_row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_passed_row_count(42);
+    /// ```
     pub fn set_passed_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.passed_row_count = v.into();
         self
     }
 
     /// Sets the value of [null_row_count][crate::model::DataQualityScanRuleResult::null_row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_null_row_count(42);
+    /// ```
     pub fn set_null_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.null_row_count = v.into();
         self
     }
 
     /// Sets the value of [assertion_row_count][crate::model::DataQualityScanRuleResult::assertion_row_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataQualityScanRuleResult;
+    /// let x = DataQualityScanRuleResult::new().set_assertion_row_count(42);
+    /// ```
     pub fn set_assertion_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.assertion_row_count = v.into();
         self
@@ -23636,12 +30854,27 @@ impl BusinessGlossaryEvent {
     }
 
     /// Sets the value of [message][crate::model::BusinessGlossaryEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::BusinessGlossaryEvent;
+    /// let x = BusinessGlossaryEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [event_type][crate::model::BusinessGlossaryEvent::event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::BusinessGlossaryEvent;
+    /// use google_cloud_dataplex_v1::model::business_glossary_event::EventType;
+    /// let x0 = BusinessGlossaryEvent::new().set_event_type(EventType::GlossaryCreate);
+    /// let x1 = BusinessGlossaryEvent::new().set_event_type(EventType::GlossaryUpdate);
+    /// let x2 = BusinessGlossaryEvent::new().set_event_type(EventType::GlossaryDelete);
+    /// ```
     pub fn set_event_type<
         T: std::convert::Into<crate::model::business_glossary_event::EventType>,
     >(
@@ -23653,6 +30886,12 @@ impl BusinessGlossaryEvent {
     }
 
     /// Sets the value of [resource][crate::model::BusinessGlossaryEvent::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::BusinessGlossaryEvent;
+    /// let x = BusinessGlossaryEvent::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
@@ -23880,12 +31119,26 @@ impl EntryLinkEvent {
     }
 
     /// Sets the value of [message][crate::model::EntryLinkEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLinkEvent;
+    /// let x = EntryLinkEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [event_type][crate::model::EntryLinkEvent::event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLinkEvent;
+    /// use google_cloud_dataplex_v1::model::entry_link_event::EventType;
+    /// let x0 = EntryLinkEvent::new().set_event_type(EventType::EntryLinkCreate);
+    /// let x1 = EntryLinkEvent::new().set_event_type(EventType::EntryLinkDelete);
+    /// ```
     pub fn set_event_type<T: std::convert::Into<crate::model::entry_link_event::EventType>>(
         mut self,
         v: T,
@@ -23895,6 +31148,12 @@ impl EntryLinkEvent {
     }
 
     /// Sets the value of [resource][crate::model::EntryLinkEvent::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::EntryLinkEvent;
+    /// let x = EntryLinkEvent::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
@@ -24069,12 +31328,25 @@ impl CreateEntityRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEntityRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntityRequest;
+    /// let x = CreateEntityRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [entity][crate::model::CreateEntityRequest::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntityRequest;
+    /// use google_cloud_dataplex_v1::model::Entity;
+    /// let x = CreateEntityRequest::new().set_entity(Entity::default()/* use setters */);
+    /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -24084,6 +31356,14 @@ impl CreateEntityRequest {
     }
 
     /// Sets or clears the value of [entity][crate::model::CreateEntityRequest::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntityRequest;
+    /// use google_cloud_dataplex_v1::model::Entity;
+    /// let x = CreateEntityRequest::new().set_or_clear_entity(Some(Entity::default()/* use setters */));
+    /// let x = CreateEntityRequest::new().set_or_clear_entity(None::<Entity>);
+    /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -24093,6 +31373,12 @@ impl CreateEntityRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateEntityRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEntityRequest;
+    /// let x = CreateEntityRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -24128,6 +31414,13 @@ impl UpdateEntityRequest {
     }
 
     /// Sets the value of [entity][crate::model::UpdateEntityRequest::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntityRequest;
+    /// use google_cloud_dataplex_v1::model::Entity;
+    /// let x = UpdateEntityRequest::new().set_entity(Entity::default()/* use setters */);
+    /// ```
     pub fn set_entity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -24137,6 +31430,14 @@ impl UpdateEntityRequest {
     }
 
     /// Sets or clears the value of [entity][crate::model::UpdateEntityRequest::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntityRequest;
+    /// use google_cloud_dataplex_v1::model::Entity;
+    /// let x = UpdateEntityRequest::new().set_or_clear_entity(Some(Entity::default()/* use setters */));
+    /// let x = UpdateEntityRequest::new().set_or_clear_entity(None::<Entity>);
+    /// ```
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -24146,6 +31447,12 @@ impl UpdateEntityRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateEntityRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEntityRequest;
+    /// let x = UpdateEntityRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -24179,12 +31486,24 @@ impl DeleteEntityRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEntityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntityRequest;
+    /// let x = DeleteEntityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteEntityRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEntityRequest;
+    /// let x = DeleteEntityRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -24239,12 +31558,26 @@ impl ListEntitiesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEntitiesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntitiesRequest;
+    /// let x = ListEntitiesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListEntitiesRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntitiesRequest;
+    /// use google_cloud_dataplex_v1::model::list_entities_request::EntityView;
+    /// let x0 = ListEntitiesRequest::new().set_view(EntityView::Tables);
+    /// let x1 = ListEntitiesRequest::new().set_view(EntityView::Filesets);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::list_entities_request::EntityView>>(
         mut self,
         v: T,
@@ -24254,18 +31587,36 @@ impl ListEntitiesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListEntitiesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntitiesRequest;
+    /// let x = ListEntitiesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEntitiesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntitiesRequest;
+    /// let x = ListEntitiesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEntitiesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntitiesRequest;
+    /// let x = ListEntitiesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -24437,6 +31788,17 @@ impl ListEntitiesResponse {
     }
 
     /// Sets the value of [entities][crate::model::ListEntitiesResponse::entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntitiesResponse;
+    /// use google_cloud_dataplex_v1::model::Entity;
+    /// let x = ListEntitiesResponse::new()
+    ///     .set_entities([
+    ///         Entity::default()/* use setters */,
+    ///         Entity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24448,6 +31810,12 @@ impl ListEntitiesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEntitiesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEntitiesResponse;
+    /// let x = ListEntitiesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -24495,12 +31863,27 @@ impl GetEntityRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEntityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntityRequest;
+    /// let x = GetEntityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetEntityRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEntityRequest;
+    /// use google_cloud_dataplex_v1::model::get_entity_request::EntityView;
+    /// let x0 = GetEntityRequest::new().set_view(EntityView::Basic);
+    /// let x1 = GetEntityRequest::new().set_view(EntityView::Schema);
+    /// let x2 = GetEntityRequest::new().set_view(EntityView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::get_entity_request::EntityView>>(
         mut self,
         v: T,
@@ -24711,24 +32094,48 @@ impl ListPartitionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPartitionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListPartitionsRequest;
+    /// let x = ListPartitionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPartitionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListPartitionsRequest;
+    /// let x = ListPartitionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPartitionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListPartitionsRequest;
+    /// let x = ListPartitionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPartitionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListPartitionsRequest;
+    /// let x = ListPartitionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -24765,12 +32172,25 @@ impl CreatePartitionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePartitionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreatePartitionRequest;
+    /// let x = CreatePartitionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [partition][crate::model::CreatePartitionRequest::partition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreatePartitionRequest;
+    /// use google_cloud_dataplex_v1::model::Partition;
+    /// let x = CreatePartitionRequest::new().set_partition(Partition::default()/* use setters */);
+    /// ```
     pub fn set_partition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Partition>,
@@ -24780,6 +32200,14 @@ impl CreatePartitionRequest {
     }
 
     /// Sets or clears the value of [partition][crate::model::CreatePartitionRequest::partition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreatePartitionRequest;
+    /// use google_cloud_dataplex_v1::model::Partition;
+    /// let x = CreatePartitionRequest::new().set_or_clear_partition(Some(Partition::default()/* use setters */));
+    /// let x = CreatePartitionRequest::new().set_or_clear_partition(None::<Partition>);
+    /// ```
     pub fn set_or_clear_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Partition>,
@@ -24789,6 +32217,12 @@ impl CreatePartitionRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreatePartitionRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreatePartitionRequest;
+    /// let x = CreatePartitionRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -24825,12 +32259,24 @@ impl DeletePartitionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePartitionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeletePartitionRequest;
+    /// let x = DeletePartitionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePartitionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeletePartitionRequest;
+    /// let x = DeletePartitionRequest::new().set_etag("example");
+    /// ```
     #[deprecated]
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -24864,6 +32310,17 @@ impl ListPartitionsResponse {
     }
 
     /// Sets the value of [partitions][crate::model::ListPartitionsResponse::partitions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListPartitionsResponse;
+    /// use google_cloud_dataplex_v1::model::Partition;
+    /// let x = ListPartitionsResponse::new()
+    ///     .set_partitions([
+    ///         Partition::default()/* use setters */,
+    ///         Partition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24875,6 +32332,12 @@ impl ListPartitionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPartitionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListPartitionsResponse;
+    /// let x = ListPartitionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -24920,6 +32383,12 @@ impl GetPartitionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPartitionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetPartitionRequest;
+    /// let x = GetPartitionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -25019,24 +32488,49 @@ impl Entity {
     }
 
     /// Sets the value of [name][crate::model::Entity::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Entity::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Entity::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Entity::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use wkt::Timestamp;
+    /// let x = Entity::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25046,6 +32540,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Entity::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use wkt::Timestamp;
+    /// let x = Entity::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25055,6 +32557,13 @@ impl Entity {
     }
 
     /// Sets the value of [update_time][crate::model::Entity::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use wkt::Timestamp;
+    /// let x = Entity::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25064,6 +32573,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Entity::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use wkt::Timestamp;
+    /// let x = Entity::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25073,36 +32590,74 @@ impl Entity {
     }
 
     /// Sets the value of [id][crate::model::Entity::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Entity::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Entity::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::entity::Type;
+    /// let x0 = Entity::new().set_type(Type::Table);
+    /// let x1 = Entity::new().set_type(Type::Fileset);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::entity::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [asset][crate::model::Entity::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_asset("example");
+    /// ```
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
         self
     }
 
     /// Sets the value of [data_path][crate::model::Entity::data_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_data_path("example");
+    /// ```
     pub fn set_data_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_path = v.into();
         self
     }
 
     /// Sets the value of [data_path_pattern][crate::model::Entity::data_path_pattern].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_data_path_pattern("example");
+    /// ```
     pub fn set_data_path_pattern<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25112,18 +32667,39 @@ impl Entity {
     }
 
     /// Sets the value of [catalog_entry][crate::model::Entity::catalog_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_catalog_entry("example");
+    /// ```
     pub fn set_catalog_entry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog_entry = v.into();
         self
     }
 
     /// Sets the value of [system][crate::model::Entity::system].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::StorageSystem;
+    /// let x0 = Entity::new().set_system(StorageSystem::CloudStorage);
+    /// let x1 = Entity::new().set_system(StorageSystem::Bigquery);
+    /// ```
     pub fn set_system<T: std::convert::Into<crate::model::StorageSystem>>(mut self, v: T) -> Self {
         self.system = v.into();
         self
     }
 
     /// Sets the value of [format][crate::model::Entity::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::StorageFormat;
+    /// let x = Entity::new().set_format(StorageFormat::default()/* use setters */);
+    /// ```
     pub fn set_format<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StorageFormat>,
@@ -25133,6 +32709,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [format][crate::model::Entity::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::StorageFormat;
+    /// let x = Entity::new().set_or_clear_format(Some(StorageFormat::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_format(None::<StorageFormat>);
+    /// ```
     pub fn set_or_clear_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageFormat>,
@@ -25142,6 +32726,13 @@ impl Entity {
     }
 
     /// Sets the value of [compatibility][crate::model::Entity::compatibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::entity::CompatibilityStatus;
+    /// let x = Entity::new().set_compatibility(CompatibilityStatus::default()/* use setters */);
+    /// ```
     pub fn set_compatibility<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::entity::CompatibilityStatus>,
@@ -25151,6 +32742,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [compatibility][crate::model::Entity::compatibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::entity::CompatibilityStatus;
+    /// let x = Entity::new().set_or_clear_compatibility(Some(CompatibilityStatus::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_compatibility(None::<CompatibilityStatus>);
+    /// ```
     pub fn set_or_clear_compatibility<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::entity::CompatibilityStatus>,
@@ -25160,6 +32759,13 @@ impl Entity {
     }
 
     /// Sets the value of [access][crate::model::Entity::access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::StorageAccess;
+    /// let x = Entity::new().set_access(StorageAccess::default()/* use setters */);
+    /// ```
     pub fn set_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StorageAccess>,
@@ -25169,6 +32775,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [access][crate::model::Entity::access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::StorageAccess;
+    /// let x = Entity::new().set_or_clear_access(Some(StorageAccess::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_access(None::<StorageAccess>);
+    /// ```
     pub fn set_or_clear_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageAccess>,
@@ -25178,12 +32792,25 @@ impl Entity {
     }
 
     /// Sets the value of [uid][crate::model::Entity::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// let x = Entity::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [schema][crate::model::Entity::schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::Schema;
+    /// let x = Entity::new().set_schema(Schema::default()/* use setters */);
+    /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -25193,6 +32820,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [schema][crate::model::Entity::schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Entity;
+    /// use google_cloud_dataplex_v1::model::Schema;
+    /// let x = Entity::new().set_or_clear_schema(Some(Schema::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_schema(None::<Schema>);
+    /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -25234,6 +32869,13 @@ pub mod entity {
         }
 
         /// Sets the value of [hive_metastore][crate::model::entity::CompatibilityStatus::hive_metastore].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entity::CompatibilityStatus;
+        /// use google_cloud_dataplex_v1::model::entity::compatibility_status::Compatibility;
+        /// let x = CompatibilityStatus::new().set_hive_metastore(Compatibility::default()/* use setters */);
+        /// ```
         pub fn set_hive_metastore<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::entity::compatibility_status::Compatibility>,
@@ -25243,6 +32885,14 @@ pub mod entity {
         }
 
         /// Sets or clears the value of [hive_metastore][crate::model::entity::CompatibilityStatus::hive_metastore].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entity::CompatibilityStatus;
+        /// use google_cloud_dataplex_v1::model::entity::compatibility_status::Compatibility;
+        /// let x = CompatibilityStatus::new().set_or_clear_hive_metastore(Some(Compatibility::default()/* use setters */));
+        /// let x = CompatibilityStatus::new().set_or_clear_hive_metastore(None::<Compatibility>);
+        /// ```
         pub fn set_or_clear_hive_metastore<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::entity::compatibility_status::Compatibility>,
@@ -25252,6 +32902,13 @@ pub mod entity {
         }
 
         /// Sets the value of [bigquery][crate::model::entity::CompatibilityStatus::bigquery].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entity::CompatibilityStatus;
+        /// use google_cloud_dataplex_v1::model::entity::compatibility_status::Compatibility;
+        /// let x = CompatibilityStatus::new().set_bigquery(Compatibility::default()/* use setters */);
+        /// ```
         pub fn set_bigquery<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::entity::compatibility_status::Compatibility>,
@@ -25261,6 +32918,14 @@ pub mod entity {
         }
 
         /// Sets or clears the value of [bigquery][crate::model::entity::CompatibilityStatus::bigquery].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::entity::CompatibilityStatus;
+        /// use google_cloud_dataplex_v1::model::entity::compatibility_status::Compatibility;
+        /// let x = CompatibilityStatus::new().set_or_clear_bigquery(Some(Compatibility::default()/* use setters */));
+        /// let x = CompatibilityStatus::new().set_or_clear_bigquery(None::<Compatibility>);
+        /// ```
         pub fn set_or_clear_bigquery<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::entity::compatibility_status::Compatibility>,
@@ -25302,12 +32967,24 @@ pub mod entity {
             }
 
             /// Sets the value of [compatible][crate::model::entity::compatibility_status::Compatibility::compatible].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::entity::compatibility_status::Compatibility;
+            /// let x = Compatibility::new().set_compatible(true);
+            /// ```
             pub fn set_compatible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.compatible = v.into();
                 self
             }
 
             /// Sets the value of [reason][crate::model::entity::compatibility_status::Compatibility::reason].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::entity::compatibility_status::Compatibility;
+            /// let x = Compatibility::new().set_reason("example");
+            /// ```
             pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.reason = v.into();
                 self
@@ -25487,12 +33164,24 @@ impl Partition {
     }
 
     /// Sets the value of [name][crate::model::Partition::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Partition;
+    /// let x = Partition::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [values][crate::model::Partition::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Partition;
+    /// let x = Partition::new().set_values(["a", "b", "c"]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25504,12 +33193,24 @@ impl Partition {
     }
 
     /// Sets the value of [location][crate::model::Partition::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Partition;
+    /// let x = Partition::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Partition::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Partition;
+    /// let x = Partition::new().set_etag("example");
+    /// ```
     #[deprecated]
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -25566,12 +33267,29 @@ impl Schema {
     }
 
     /// Sets the value of [user_managed][crate::model::Schema::user_managed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Schema;
+    /// let x = Schema::new().set_user_managed(true);
+    /// ```
     pub fn set_user_managed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.user_managed = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::Schema::fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Schema;
+    /// use google_cloud_dataplex_v1::model::schema::SchemaField;
+    /// let x = Schema::new()
+    ///     .set_fields([
+    ///         SchemaField::default()/* use setters */,
+    ///         SchemaField::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25583,6 +33301,17 @@ impl Schema {
     }
 
     /// Sets the value of [partition_fields][crate::model::Schema::partition_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Schema;
+    /// use google_cloud_dataplex_v1::model::schema::PartitionField;
+    /// let x = Schema::new()
+    ///     .set_partition_fields([
+    ///         PartitionField::default()/* use setters */,
+    ///         PartitionField::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partition_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25594,6 +33323,13 @@ impl Schema {
     }
 
     /// Sets the value of [partition_style][crate::model::Schema::partition_style].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Schema;
+    /// use google_cloud_dataplex_v1::model::schema::PartitionStyle;
+    /// let x0 = Schema::new().set_partition_style(PartitionStyle::HiveCompatible);
+    /// ```
     pub fn set_partition_style<T: std::convert::Into<crate::model::schema::PartitionStyle>>(
         mut self,
         v: T,
@@ -25645,30 +33381,71 @@ pub mod schema {
         }
 
         /// Sets the value of [name][crate::model::schema::SchemaField::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::schema::SchemaField;
+        /// let x = SchemaField::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::schema::SchemaField::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::schema::SchemaField;
+        /// let x = SchemaField::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::schema::SchemaField::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::schema::SchemaField;
+        /// use google_cloud_dataplex_v1::model::schema::Type;
+        /// let x0 = SchemaField::new().set_type(Type::Boolean);
+        /// let x1 = SchemaField::new().set_type(Type::Byte);
+        /// let x2 = SchemaField::new().set_type(Type::Int16);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::schema::Type>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [mode][crate::model::schema::SchemaField::mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::schema::SchemaField;
+        /// use google_cloud_dataplex_v1::model::schema::Mode;
+        /// let x0 = SchemaField::new().set_mode(Mode::Required);
+        /// let x1 = SchemaField::new().set_mode(Mode::Nullable);
+        /// let x2 = SchemaField::new().set_mode(Mode::Repeated);
+        /// ```
         pub fn set_mode<T: std::convert::Into<crate::model::schema::Mode>>(mut self, v: T) -> Self {
             self.mode = v.into();
             self
         }
 
         /// Sets the value of [fields][crate::model::schema::SchemaField::fields].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::schema::SchemaField;
+        /// use google_cloud_dataplex_v1::model::schema::SchemaField;
+        /// let x = SchemaField::new()
+        ///     .set_fields([
+        ///         SchemaField::default()/* use setters */,
+        ///         SchemaField::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -25710,12 +33487,27 @@ pub mod schema {
         }
 
         /// Sets the value of [name][crate::model::schema::PartitionField::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::schema::PartitionField;
+        /// let x = PartitionField::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::schema::PartitionField::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::schema::PartitionField;
+        /// use google_cloud_dataplex_v1::model::schema::Type;
+        /// let x0 = PartitionField::new().set_type(Type::Boolean);
+        /// let x1 = PartitionField::new().set_type(Type::Byte);
+        /// let x2 = PartitionField::new().set_type(Type::Int16);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::schema::Type>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
@@ -26262,6 +34054,15 @@ impl StorageFormat {
     }
 
     /// Sets the value of [format][crate::model::StorageFormat::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageFormat;
+    /// use google_cloud_dataplex_v1::model::storage_format::Format;
+    /// let x0 = StorageFormat::new().set_format(Format::Parquet);
+    /// let x1 = StorageFormat::new().set_format(Format::Avro);
+    /// let x2 = StorageFormat::new().set_format(Format::Orc);
+    /// ```
     pub fn set_format<T: std::convert::Into<crate::model::storage_format::Format>>(
         mut self,
         v: T,
@@ -26271,6 +34072,14 @@ impl StorageFormat {
     }
 
     /// Sets the value of [compression_format][crate::model::StorageFormat::compression_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageFormat;
+    /// use google_cloud_dataplex_v1::model::storage_format::CompressionFormat;
+    /// let x0 = StorageFormat::new().set_compression_format(CompressionFormat::Gzip);
+    /// let x1 = StorageFormat::new().set_compression_format(CompressionFormat::Bzip2);
+    /// ```
     pub fn set_compression_format<
         T: std::convert::Into<crate::model::storage_format::CompressionFormat>,
     >(
@@ -26282,6 +34091,12 @@ impl StorageFormat {
     }
 
     /// Sets the value of [mime_type][crate::model::StorageFormat::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageFormat;
+    /// let x = StorageFormat::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -26291,6 +34106,14 @@ impl StorageFormat {
     ///
     /// Note that all the setters affecting `options` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageFormat;
+    /// use google_cloud_dataplex_v1::model::storage_format::CsvOptions;
+    /// let x = StorageFormat::new().set_options(Some(
+    ///     google_cloud_dataplex_v1::model::storage_format::Options::Csv(CsvOptions::default().into())));
+    /// ```
     pub fn set_options<
         T: std::convert::Into<std::option::Option<crate::model::storage_format::Options>>,
     >(
@@ -26319,6 +34142,16 @@ impl StorageFormat {
     ///
     /// Note that all the setters affecting `options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageFormat;
+    /// use google_cloud_dataplex_v1::model::storage_format::CsvOptions;
+    /// let x = StorageFormat::new().set_csv(CsvOptions::default()/* use setters */);
+    /// assert!(x.csv().is_some());
+    /// assert!(x.json().is_none());
+    /// assert!(x.iceberg().is_none());
+    /// ```
     pub fn set_csv<
         T: std::convert::Into<std::boxed::Box<crate::model::storage_format::CsvOptions>>,
     >(
@@ -26348,6 +34181,16 @@ impl StorageFormat {
     ///
     /// Note that all the setters affecting `options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageFormat;
+    /// use google_cloud_dataplex_v1::model::storage_format::JsonOptions;
+    /// let x = StorageFormat::new().set_json(JsonOptions::default()/* use setters */);
+    /// assert!(x.json().is_some());
+    /// assert!(x.csv().is_none());
+    /// assert!(x.iceberg().is_none());
+    /// ```
     pub fn set_json<
         T: std::convert::Into<std::boxed::Box<crate::model::storage_format::JsonOptions>>,
     >(
@@ -26377,6 +34220,16 @@ impl StorageFormat {
     ///
     /// Note that all the setters affecting `options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageFormat;
+    /// use google_cloud_dataplex_v1::model::storage_format::IcebergOptions;
+    /// let x = StorageFormat::new().set_iceberg(IcebergOptions::default()/* use setters */);
+    /// assert!(x.iceberg().is_some());
+    /// assert!(x.csv().is_none());
+    /// assert!(x.json().is_none());
+    /// ```
     pub fn set_iceberg<
         T: std::convert::Into<std::boxed::Box<crate::model::storage_format::IcebergOptions>>,
     >(
@@ -26429,24 +34282,48 @@ pub mod storage_format {
         }
 
         /// Sets the value of [encoding][crate::model::storage_format::CsvOptions::encoding].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::storage_format::CsvOptions;
+        /// let x = CsvOptions::new().set_encoding("example");
+        /// ```
         pub fn set_encoding<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.encoding = v.into();
             self
         }
 
         /// Sets the value of [header_rows][crate::model::storage_format::CsvOptions::header_rows].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::storage_format::CsvOptions;
+        /// let x = CsvOptions::new().set_header_rows(42);
+        /// ```
         pub fn set_header_rows<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.header_rows = v.into();
             self
         }
 
         /// Sets the value of [delimiter][crate::model::storage_format::CsvOptions::delimiter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::storage_format::CsvOptions;
+        /// let x = CsvOptions::new().set_delimiter("example");
+        /// ```
         pub fn set_delimiter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.delimiter = v.into();
             self
         }
 
         /// Sets the value of [quote][crate::model::storage_format::CsvOptions::quote].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::storage_format::CsvOptions;
+        /// let x = CsvOptions::new().set_quote("example");
+        /// ```
         pub fn set_quote<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.quote = v.into();
             self
@@ -26476,6 +34353,12 @@ pub mod storage_format {
         }
 
         /// Sets the value of [encoding][crate::model::storage_format::JsonOptions::encoding].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::storage_format::JsonOptions;
+        /// let x = JsonOptions::new().set_encoding("example");
+        /// ```
         pub fn set_encoding<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.encoding = v.into();
             self
@@ -26505,6 +34388,12 @@ pub mod storage_format {
         }
 
         /// Sets the value of [metadata_location][crate::model::storage_format::IcebergOptions::metadata_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::storage_format::IcebergOptions;
+        /// let x = IcebergOptions::new().set_metadata_location("example");
+        /// ```
         pub fn set_metadata_location<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -26884,6 +34773,14 @@ impl StorageAccess {
     }
 
     /// Sets the value of [read][crate::model::StorageAccess::read].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::StorageAccess;
+    /// use google_cloud_dataplex_v1::model::storage_access::AccessMode;
+    /// let x0 = StorageAccess::new().set_read(AccessMode::Direct);
+    /// let x1 = StorageAccess::new().set_read(AccessMode::Managed);
+    /// ```
     pub fn set_read<T: std::convert::Into<crate::model::storage_access::AccessMode>>(
         mut self,
         v: T,
@@ -27058,6 +34955,14 @@ impl Trigger {
     ///
     /// Note that all the setters affecting `mode` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Trigger;
+    /// use google_cloud_dataplex_v1::model::trigger::OnDemand;
+    /// let x = Trigger::new().set_mode(Some(
+    ///     google_cloud_dataplex_v1::model::trigger::Mode::OnDemand(OnDemand::default().into())));
+    /// ```
     pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::trigger::Mode>>>(
         mut self,
         v: T,
@@ -27084,6 +34989,15 @@ impl Trigger {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Trigger;
+    /// use google_cloud_dataplex_v1::model::trigger::OnDemand;
+    /// let x = Trigger::new().set_on_demand(OnDemand::default()/* use setters */);
+    /// assert!(x.on_demand().is_some());
+    /// assert!(x.schedule().is_none());
+    /// ```
     pub fn set_on_demand<
         T: std::convert::Into<std::boxed::Box<crate::model::trigger::OnDemand>>,
     >(
@@ -27112,6 +35026,15 @@ impl Trigger {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Trigger;
+    /// use google_cloud_dataplex_v1::model::trigger::Schedule;
+    /// let x = Trigger::new().set_schedule(Schedule::default()/* use setters */);
+    /// assert!(x.schedule().is_some());
+    /// assert!(x.on_demand().is_none());
+    /// ```
     pub fn set_schedule<T: std::convert::Into<std::boxed::Box<crate::model::trigger::Schedule>>>(
         mut self,
         v: T,
@@ -27178,6 +35101,12 @@ pub mod trigger {
         }
 
         /// Sets the value of [cron][crate::model::trigger::Schedule::cron].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::trigger::Schedule;
+        /// let x = Schedule::new().set_cron("example");
+        /// ```
         pub fn set_cron<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cron = v.into();
             self
@@ -27223,6 +35152,13 @@ impl DataSource {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataSource;
+    /// use google_cloud_dataplex_v1::model::data_source::Source;
+    /// let x = DataSource::new().set_source(Some(Source::Entity("example".to_string())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::data_source::Source>>,
     >(
@@ -27249,6 +35185,14 @@ impl DataSource {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataSource;
+    /// let x = DataSource::new().set_entity("example");
+    /// assert!(x.entity().is_some());
+    /// assert!(x.resource().is_none());
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source =
             std::option::Option::Some(crate::model::data_source::Source::Entity(v.into()));
@@ -27271,6 +35215,14 @@ impl DataSource {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataSource;
+    /// let x = DataSource::new().set_resource("example");
+    /// assert!(x.resource().is_some());
+    /// assert!(x.entity().is_none());
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source =
             std::option::Option::Some(crate::model::data_source::Source::Resource(v.into()));
@@ -27329,6 +35281,14 @@ impl ScannedData {
     ///
     /// Note that all the setters affecting `data_range` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ScannedData;
+    /// use google_cloud_dataplex_v1::model::scanned_data::IncrementalField;
+    /// let x = ScannedData::new().set_data_range(Some(
+    ///     google_cloud_dataplex_v1::model::scanned_data::DataRange::IncrementalField(IncrementalField::default().into())));
+    /// ```
     pub fn set_data_range<
         T: std::convert::Into<std::option::Option<crate::model::scanned_data::DataRange>>,
     >(
@@ -27359,6 +35319,14 @@ impl ScannedData {
     ///
     /// Note that all the setters affecting `data_range` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ScannedData;
+    /// use google_cloud_dataplex_v1::model::scanned_data::IncrementalField;
+    /// let x = ScannedData::new().set_incremental_field(IncrementalField::default()/* use setters */);
+    /// assert!(x.incremental_field().is_some());
+    /// ```
     pub fn set_incremental_field<
         T: std::convert::Into<std::boxed::Box<crate::model::scanned_data::IncrementalField>>,
     >(
@@ -27406,18 +35374,36 @@ pub mod scanned_data {
         }
 
         /// Sets the value of [field][crate::model::scanned_data::IncrementalField::field].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::scanned_data::IncrementalField;
+        /// let x = IncrementalField::new().set_field("example");
+        /// ```
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field = v.into();
             self
         }
 
         /// Sets the value of [start][crate::model::scanned_data::IncrementalField::start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::scanned_data::IncrementalField;
+        /// let x = IncrementalField::new().set_start("example");
+        /// ```
         pub fn set_start<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.start = v.into();
             self
         }
 
         /// Sets the value of [end][crate::model::scanned_data::IncrementalField::end].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::scanned_data::IncrementalField;
+        /// let x = IncrementalField::new().set_end("example");
+        /// ```
         pub fn set_end<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.end = v.into();
             self
@@ -27500,24 +35486,49 @@ impl Lake {
     }
 
     /// Sets the value of [name][crate::model::Lake::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// let x = Lake::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Lake::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// let x = Lake::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Lake::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// let x = Lake::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Lake::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use wkt::Timestamp;
+    /// let x = Lake::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -27527,6 +35538,14 @@ impl Lake {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Lake::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use wkt::Timestamp;
+    /// let x = Lake::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Lake::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -27536,6 +35555,13 @@ impl Lake {
     }
 
     /// Sets the value of [update_time][crate::model::Lake::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use wkt::Timestamp;
+    /// let x = Lake::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -27545,6 +35571,14 @@ impl Lake {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Lake::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use wkt::Timestamp;
+    /// let x = Lake::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Lake::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -27554,6 +35588,15 @@ impl Lake {
     }
 
     /// Sets the value of [labels][crate::model::Lake::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// let x = Lake::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -27566,24 +35609,52 @@ impl Lake {
     }
 
     /// Sets the value of [description][crate::model::Lake::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// let x = Lake::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Lake::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use google_cloud_dataplex_v1::model::State;
+    /// let x0 = Lake::new().set_state(State::Active);
+    /// let x1 = Lake::new().set_state(State::Creating);
+    /// let x2 = Lake::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::Lake::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// let x = Lake::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [metastore][crate::model::Lake::metastore].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use google_cloud_dataplex_v1::model::lake::Metastore;
+    /// let x = Lake::new().set_metastore(Metastore::default()/* use setters */);
+    /// ```
     pub fn set_metastore<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::lake::Metastore>,
@@ -27593,6 +35664,14 @@ impl Lake {
     }
 
     /// Sets or clears the value of [metastore][crate::model::Lake::metastore].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use google_cloud_dataplex_v1::model::lake::Metastore;
+    /// let x = Lake::new().set_or_clear_metastore(Some(Metastore::default()/* use setters */));
+    /// let x = Lake::new().set_or_clear_metastore(None::<Metastore>);
+    /// ```
     pub fn set_or_clear_metastore<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::lake::Metastore>,
@@ -27602,6 +35681,13 @@ impl Lake {
     }
 
     /// Sets the value of [asset_status][crate::model::Lake::asset_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use google_cloud_dataplex_v1::model::AssetStatus;
+    /// let x = Lake::new().set_asset_status(AssetStatus::default()/* use setters */);
+    /// ```
     pub fn set_asset_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AssetStatus>,
@@ -27611,6 +35697,14 @@ impl Lake {
     }
 
     /// Sets or clears the value of [asset_status][crate::model::Lake::asset_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use google_cloud_dataplex_v1::model::AssetStatus;
+    /// let x = Lake::new().set_or_clear_asset_status(Some(AssetStatus::default()/* use setters */));
+    /// let x = Lake::new().set_or_clear_asset_status(None::<AssetStatus>);
+    /// ```
     pub fn set_or_clear_asset_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AssetStatus>,
@@ -27620,6 +35714,13 @@ impl Lake {
     }
 
     /// Sets the value of [metastore_status][crate::model::Lake::metastore_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use google_cloud_dataplex_v1::model::lake::MetastoreStatus;
+    /// let x = Lake::new().set_metastore_status(MetastoreStatus::default()/* use setters */);
+    /// ```
     pub fn set_metastore_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::lake::MetastoreStatus>,
@@ -27629,6 +35730,14 @@ impl Lake {
     }
 
     /// Sets or clears the value of [metastore_status][crate::model::Lake::metastore_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Lake;
+    /// use google_cloud_dataplex_v1::model::lake::MetastoreStatus;
+    /// let x = Lake::new().set_or_clear_metastore_status(Some(MetastoreStatus::default()/* use setters */));
+    /// let x = Lake::new().set_or_clear_metastore_status(None::<MetastoreStatus>);
+    /// ```
     pub fn set_or_clear_metastore_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::lake::MetastoreStatus>,
@@ -27668,6 +35777,12 @@ pub mod lake {
         }
 
         /// Sets the value of [service][crate::model::lake::Metastore::service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::lake::Metastore;
+        /// let x = Metastore::new().set_service("example");
+        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
@@ -27705,6 +35820,15 @@ pub mod lake {
         }
 
         /// Sets the value of [state][crate::model::lake::MetastoreStatus::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::lake::MetastoreStatus;
+        /// use google_cloud_dataplex_v1::model::lake::metastore_status::State;
+        /// let x0 = MetastoreStatus::new().set_state(State::None);
+        /// let x1 = MetastoreStatus::new().set_state(State::Ready);
+        /// let x2 = MetastoreStatus::new().set_state(State::Updating);
+        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::lake::metastore_status::State>>(
             mut self,
             v: T,
@@ -27714,12 +35838,25 @@ pub mod lake {
         }
 
         /// Sets the value of [message][crate::model::lake::MetastoreStatus::message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::lake::MetastoreStatus;
+        /// let x = MetastoreStatus::new().set_message("example");
+        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self
         }
 
         /// Sets the value of [update_time][crate::model::lake::MetastoreStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::lake::MetastoreStatus;
+        /// use wkt::Timestamp;
+        /// let x = MetastoreStatus::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -27729,6 +35866,14 @@ pub mod lake {
         }
 
         /// Sets or clears the value of [update_time][crate::model::lake::MetastoreStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::lake::MetastoreStatus;
+        /// use wkt::Timestamp;
+        /// let x = MetastoreStatus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = MetastoreStatus::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -27738,6 +35883,12 @@ pub mod lake {
         }
 
         /// Sets the value of [endpoint][crate::model::lake::MetastoreStatus::endpoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::lake::MetastoreStatus;
+        /// let x = MetastoreStatus::new().set_endpoint("example");
+        /// ```
         pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.endpoint = v.into();
             self
@@ -27929,6 +36080,13 @@ impl AssetStatus {
     }
 
     /// Sets the value of [update_time][crate::model::AssetStatus::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AssetStatus;
+    /// use wkt::Timestamp;
+    /// let x = AssetStatus::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -27938,6 +36096,14 @@ impl AssetStatus {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AssetStatus::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AssetStatus;
+    /// use wkt::Timestamp;
+    /// let x = AssetStatus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AssetStatus::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -27947,12 +36113,24 @@ impl AssetStatus {
     }
 
     /// Sets the value of [active_assets][crate::model::AssetStatus::active_assets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AssetStatus;
+    /// let x = AssetStatus::new().set_active_assets(42);
+    /// ```
     pub fn set_active_assets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.active_assets = v.into();
         self
     }
 
     /// Sets the value of [security_policy_applying_assets][crate::model::AssetStatus::security_policy_applying_assets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::AssetStatus;
+    /// let x = AssetStatus::new().set_security_policy_applying_assets(42);
+    /// ```
     pub fn set_security_policy_applying_assets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.security_policy_applying_assets = v.into();
         self
@@ -28021,24 +36199,49 @@ impl Zone {
     }
 
     /// Sets the value of [name][crate::model::Zone::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// let x = Zone::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Zone::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// let x = Zone::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Zone::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// let x = Zone::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Zone::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28048,6 +36251,14 @@ impl Zone {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Zone::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Zone::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28057,6 +36268,13 @@ impl Zone {
     }
 
     /// Sets the value of [update_time][crate::model::Zone::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28066,6 +36284,14 @@ impl Zone {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Zone::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Zone::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28075,6 +36301,15 @@ impl Zone {
     }
 
     /// Sets the value of [labels][crate::model::Zone::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// let x = Zone::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -28087,24 +36322,54 @@ impl Zone {
     }
 
     /// Sets the value of [description][crate::model::Zone::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// let x = Zone::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Zone::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::State;
+    /// let x0 = Zone::new().set_state(State::Active);
+    /// let x1 = Zone::new().set_state(State::Creating);
+    /// let x2 = Zone::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Zone::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::zone::Type;
+    /// let x0 = Zone::new().set_type(Type::Raw);
+    /// let x1 = Zone::new().set_type(Type::Curated);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::zone::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [discovery_spec][crate::model::Zone::discovery_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+    /// let x = Zone::new().set_discovery_spec(DiscoverySpec::default()/* use setters */);
+    /// ```
     pub fn set_discovery_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::zone::DiscoverySpec>,
@@ -28114,6 +36379,14 @@ impl Zone {
     }
 
     /// Sets or clears the value of [discovery_spec][crate::model::Zone::discovery_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+    /// let x = Zone::new().set_or_clear_discovery_spec(Some(DiscoverySpec::default()/* use setters */));
+    /// let x = Zone::new().set_or_clear_discovery_spec(None::<DiscoverySpec>);
+    /// ```
     pub fn set_or_clear_discovery_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::zone::DiscoverySpec>,
@@ -28123,6 +36396,13 @@ impl Zone {
     }
 
     /// Sets the value of [resource_spec][crate::model::Zone::resource_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::zone::ResourceSpec;
+    /// let x = Zone::new().set_resource_spec(ResourceSpec::default()/* use setters */);
+    /// ```
     pub fn set_resource_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::zone::ResourceSpec>,
@@ -28132,6 +36412,14 @@ impl Zone {
     }
 
     /// Sets or clears the value of [resource_spec][crate::model::Zone::resource_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::zone::ResourceSpec;
+    /// let x = Zone::new().set_or_clear_resource_spec(Some(ResourceSpec::default()/* use setters */));
+    /// let x = Zone::new().set_or_clear_resource_spec(None::<ResourceSpec>);
+    /// ```
     pub fn set_or_clear_resource_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::zone::ResourceSpec>,
@@ -28141,6 +36429,13 @@ impl Zone {
     }
 
     /// Sets the value of [asset_status][crate::model::Zone::asset_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::AssetStatus;
+    /// let x = Zone::new().set_asset_status(AssetStatus::default()/* use setters */);
+    /// ```
     pub fn set_asset_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AssetStatus>,
@@ -28150,6 +36445,14 @@ impl Zone {
     }
 
     /// Sets or clears the value of [asset_status][crate::model::Zone::asset_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Zone;
+    /// use google_cloud_dataplex_v1::model::AssetStatus;
+    /// let x = Zone::new().set_or_clear_asset_status(Some(AssetStatus::default()/* use setters */));
+    /// let x = Zone::new().set_or_clear_asset_status(None::<AssetStatus>);
+    /// ```
     pub fn set_or_clear_asset_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AssetStatus>,
@@ -28187,6 +36490,14 @@ pub mod zone {
         }
 
         /// Sets the value of [location_type][crate::model::zone::ResourceSpec::location_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::ResourceSpec;
+        /// use google_cloud_dataplex_v1::model::zone::resource_spec::LocationType;
+        /// let x0 = ResourceSpec::new().set_location_type(LocationType::SingleRegion);
+        /// let x1 = ResourceSpec::new().set_location_type(LocationType::MultiRegion);
+        /// ```
         pub fn set_location_type<
             T: std::convert::Into<crate::model::zone::resource_spec::LocationType>,
         >(
@@ -28383,12 +36694,24 @@ pub mod zone {
         }
 
         /// Sets the value of [enabled][crate::model::zone::DiscoverySpec::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [include_patterns][crate::model::zone::DiscoverySpec::include_patterns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_include_patterns(["a", "b", "c"]);
+        /// ```
         pub fn set_include_patterns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -28400,6 +36723,12 @@ pub mod zone {
         }
 
         /// Sets the value of [exclude_patterns][crate::model::zone::DiscoverySpec::exclude_patterns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_exclude_patterns(["a", "b", "c"]);
+        /// ```
         pub fn set_exclude_patterns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -28411,6 +36740,13 @@ pub mod zone {
         }
 
         /// Sets the value of [csv_options][crate::model::zone::DiscoverySpec::csv_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::zone::discovery_spec::CsvOptions;
+        /// let x = DiscoverySpec::new().set_csv_options(CsvOptions::default()/* use setters */);
+        /// ```
         pub fn set_csv_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::zone::discovery_spec::CsvOptions>,
@@ -28420,6 +36756,14 @@ pub mod zone {
         }
 
         /// Sets or clears the value of [csv_options][crate::model::zone::DiscoverySpec::csv_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::zone::discovery_spec::CsvOptions;
+        /// let x = DiscoverySpec::new().set_or_clear_csv_options(Some(CsvOptions::default()/* use setters */));
+        /// let x = DiscoverySpec::new().set_or_clear_csv_options(None::<CsvOptions>);
+        /// ```
         pub fn set_or_clear_csv_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::zone::discovery_spec::CsvOptions>,
@@ -28429,6 +36773,13 @@ pub mod zone {
         }
 
         /// Sets the value of [json_options][crate::model::zone::DiscoverySpec::json_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::zone::discovery_spec::JsonOptions;
+        /// let x = DiscoverySpec::new().set_json_options(JsonOptions::default()/* use setters */);
+        /// ```
         pub fn set_json_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::zone::discovery_spec::JsonOptions>,
@@ -28438,6 +36789,14 @@ pub mod zone {
         }
 
         /// Sets or clears the value of [json_options][crate::model::zone::DiscoverySpec::json_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::zone::discovery_spec::JsonOptions;
+        /// let x = DiscoverySpec::new().set_or_clear_json_options(Some(JsonOptions::default()/* use setters */));
+        /// let x = DiscoverySpec::new().set_or_clear_json_options(None::<JsonOptions>);
+        /// ```
         pub fn set_or_clear_json_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::zone::discovery_spec::JsonOptions>,
@@ -28450,6 +36809,13 @@ pub mod zone {
         ///
         /// Note that all the setters affecting `trigger` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::zone::discovery_spec::Trigger;
+        /// let x = DiscoverySpec::new().set_trigger(Some(Trigger::Schedule("example".to_string())));
+        /// ```
         pub fn set_trigger<
             T: std::convert::Into<std::option::Option<crate::model::zone::discovery_spec::Trigger>>,
         >(
@@ -28478,6 +36844,13 @@ pub mod zone {
         ///
         /// Note that all the setters affecting `trigger` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::zone::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_schedule("example");
+        /// assert!(x.schedule().is_some());
+        /// ```
         pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trigger = std::option::Option::Some(
                 crate::model::zone::discovery_spec::Trigger::Schedule(v.into()),
@@ -28525,12 +36898,24 @@ pub mod zone {
             }
 
             /// Sets the value of [header_rows][crate::model::zone::discovery_spec::CsvOptions::header_rows].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::zone::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_header_rows(42);
+            /// ```
             pub fn set_header_rows<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.header_rows = v.into();
                 self
             }
 
             /// Sets the value of [delimiter][crate::model::zone::discovery_spec::CsvOptions::delimiter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::zone::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_delimiter("example");
+            /// ```
             pub fn set_delimiter<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -28540,6 +36925,12 @@ pub mod zone {
             }
 
             /// Sets the value of [encoding][crate::model::zone::discovery_spec::CsvOptions::encoding].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::zone::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_encoding("example");
+            /// ```
             pub fn set_encoding<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -28549,6 +36940,12 @@ pub mod zone {
             }
 
             /// Sets the value of [disable_type_inference][crate::model::zone::discovery_spec::CsvOptions::disable_type_inference].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::zone::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_disable_type_inference(true);
+            /// ```
             pub fn set_disable_type_inference<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.disable_type_inference = v.into();
                 self
@@ -28582,6 +36979,12 @@ pub mod zone {
             }
 
             /// Sets the value of [encoding][crate::model::zone::discovery_spec::JsonOptions::encoding].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::zone::discovery_spec::JsonOptions;
+            /// let x = JsonOptions::new().set_encoding("example");
+            /// ```
             pub fn set_encoding<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -28591,6 +36994,12 @@ pub mod zone {
             }
 
             /// Sets the value of [disable_type_inference][crate::model::zone::discovery_spec::JsonOptions::disable_type_inference].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::zone::discovery_spec::JsonOptions;
+            /// let x = JsonOptions::new().set_disable_type_inference(true);
+            /// ```
             pub fn set_disable_type_inference<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.disable_type_inference = v.into();
                 self
@@ -28808,6 +37217,15 @@ impl Action {
     }
 
     /// Sets the value of [category][crate::model::Action::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::Category;
+    /// let x0 = Action::new().set_category(Category::ResourceManagement);
+    /// let x1 = Action::new().set_category(Category::SecurityPolicy);
+    /// let x2 = Action::new().set_category(Category::DataDiscovery);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::action::Category>>(
         mut self,
         v: T,
@@ -28817,12 +37235,25 @@ impl Action {
     }
 
     /// Sets the value of [issue][crate::model::Action::issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// let x = Action::new().set_issue("example");
+    /// ```
     pub fn set_issue<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issue = v.into();
         self
     }
 
     /// Sets the value of [detect_time][crate::model::Action::detect_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use wkt::Timestamp;
+    /// let x = Action::new().set_detect_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_detect_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28832,6 +37263,14 @@ impl Action {
     }
 
     /// Sets or clears the value of [detect_time][crate::model::Action::detect_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use wkt::Timestamp;
+    /// let x = Action::new().set_or_clear_detect_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Action::new().set_or_clear_detect_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_detect_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28841,30 +37280,60 @@ impl Action {
     }
 
     /// Sets the value of [name][crate::model::Action::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// let x = Action::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [lake][crate::model::Action::lake].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// let x = Action::new().set_lake("example");
+    /// ```
     pub fn set_lake<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lake = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::Action::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// let x = Action::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [asset][crate::model::Action::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// let x = Action::new().set_asset("example");
+    /// ```
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
         self
     }
 
     /// Sets the value of [data_locations][crate::model::Action::data_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// let x = Action::new().set_data_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_data_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28879,6 +37348,14 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::InvalidDataFormat;
+    /// let x = Action::new().set_details(Some(
+    ///     google_cloud_dataplex_v1::model::action::Details::InvalidDataFormat(InvalidDataFormat::default().into())));
+    /// ```
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::action::Details>>,
     >(
@@ -28907,6 +37384,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::InvalidDataFormat;
+    /// let x = Action::new().set_invalid_data_format(InvalidDataFormat::default()/* use setters */);
+    /// assert!(x.invalid_data_format().is_some());
+    /// assert!(x.incompatible_data_schema().is_none());
+    /// assert!(x.invalid_data_partition().is_none());
+    /// assert!(x.missing_data().is_none());
+    /// assert!(x.missing_resource().is_none());
+    /// assert!(x.unauthorized_resource().is_none());
+    /// assert!(x.failed_security_policy_apply().is_none());
+    /// assert!(x.invalid_data_organization().is_none());
+    /// ```
     pub fn set_invalid_data_format<
         T: std::convert::Into<std::boxed::Box<crate::model::action::InvalidDataFormat>>,
     >(
@@ -28938,6 +37430,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::IncompatibleDataSchema;
+    /// let x = Action::new().set_incompatible_data_schema(IncompatibleDataSchema::default()/* use setters */);
+    /// assert!(x.incompatible_data_schema().is_some());
+    /// assert!(x.invalid_data_format().is_none());
+    /// assert!(x.invalid_data_partition().is_none());
+    /// assert!(x.missing_data().is_none());
+    /// assert!(x.missing_resource().is_none());
+    /// assert!(x.unauthorized_resource().is_none());
+    /// assert!(x.failed_security_policy_apply().is_none());
+    /// assert!(x.invalid_data_organization().is_none());
+    /// ```
     pub fn set_incompatible_data_schema<
         T: std::convert::Into<std::boxed::Box<crate::model::action::IncompatibleDataSchema>>,
     >(
@@ -28968,6 +37475,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::InvalidDataPartition;
+    /// let x = Action::new().set_invalid_data_partition(InvalidDataPartition::default()/* use setters */);
+    /// assert!(x.invalid_data_partition().is_some());
+    /// assert!(x.invalid_data_format().is_none());
+    /// assert!(x.incompatible_data_schema().is_none());
+    /// assert!(x.missing_data().is_none());
+    /// assert!(x.missing_resource().is_none());
+    /// assert!(x.unauthorized_resource().is_none());
+    /// assert!(x.failed_security_policy_apply().is_none());
+    /// assert!(x.invalid_data_organization().is_none());
+    /// ```
     pub fn set_invalid_data_partition<
         T: std::convert::Into<std::boxed::Box<crate::model::action::InvalidDataPartition>>,
     >(
@@ -28998,6 +37520,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::MissingData;
+    /// let x = Action::new().set_missing_data(MissingData::default()/* use setters */);
+    /// assert!(x.missing_data().is_some());
+    /// assert!(x.invalid_data_format().is_none());
+    /// assert!(x.incompatible_data_schema().is_none());
+    /// assert!(x.invalid_data_partition().is_none());
+    /// assert!(x.missing_resource().is_none());
+    /// assert!(x.unauthorized_resource().is_none());
+    /// assert!(x.failed_security_policy_apply().is_none());
+    /// assert!(x.invalid_data_organization().is_none());
+    /// ```
     pub fn set_missing_data<
         T: std::convert::Into<std::boxed::Box<crate::model::action::MissingData>>,
     >(
@@ -29027,6 +37564,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::MissingResource;
+    /// let x = Action::new().set_missing_resource(MissingResource::default()/* use setters */);
+    /// assert!(x.missing_resource().is_some());
+    /// assert!(x.invalid_data_format().is_none());
+    /// assert!(x.incompatible_data_schema().is_none());
+    /// assert!(x.invalid_data_partition().is_none());
+    /// assert!(x.missing_data().is_none());
+    /// assert!(x.unauthorized_resource().is_none());
+    /// assert!(x.failed_security_policy_apply().is_none());
+    /// assert!(x.invalid_data_organization().is_none());
+    /// ```
     pub fn set_missing_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::action::MissingResource>>,
     >(
@@ -29056,6 +37608,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::UnauthorizedResource;
+    /// let x = Action::new().set_unauthorized_resource(UnauthorizedResource::default()/* use setters */);
+    /// assert!(x.unauthorized_resource().is_some());
+    /// assert!(x.invalid_data_format().is_none());
+    /// assert!(x.incompatible_data_schema().is_none());
+    /// assert!(x.invalid_data_partition().is_none());
+    /// assert!(x.missing_data().is_none());
+    /// assert!(x.missing_resource().is_none());
+    /// assert!(x.failed_security_policy_apply().is_none());
+    /// assert!(x.invalid_data_organization().is_none());
+    /// ```
     pub fn set_unauthorized_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::action::UnauthorizedResource>>,
     >(
@@ -29089,6 +37656,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::FailedSecurityPolicyApply;
+    /// let x = Action::new().set_failed_security_policy_apply(FailedSecurityPolicyApply::default()/* use setters */);
+    /// assert!(x.failed_security_policy_apply().is_some());
+    /// assert!(x.invalid_data_format().is_none());
+    /// assert!(x.incompatible_data_schema().is_none());
+    /// assert!(x.invalid_data_partition().is_none());
+    /// assert!(x.missing_data().is_none());
+    /// assert!(x.missing_resource().is_none());
+    /// assert!(x.unauthorized_resource().is_none());
+    /// assert!(x.invalid_data_organization().is_none());
+    /// ```
     pub fn set_failed_security_policy_apply<
         T: std::convert::Into<std::boxed::Box<crate::model::action::FailedSecurityPolicyApply>>,
     >(
@@ -29121,6 +37703,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Action;
+    /// use google_cloud_dataplex_v1::model::action::InvalidDataOrganization;
+    /// let x = Action::new().set_invalid_data_organization(InvalidDataOrganization::default()/* use setters */);
+    /// assert!(x.invalid_data_organization().is_some());
+    /// assert!(x.invalid_data_format().is_none());
+    /// assert!(x.incompatible_data_schema().is_none());
+    /// assert!(x.invalid_data_partition().is_none());
+    /// assert!(x.missing_data().is_none());
+    /// assert!(x.missing_resource().is_none());
+    /// assert!(x.unauthorized_resource().is_none());
+    /// assert!(x.failed_security_policy_apply().is_none());
+    /// ```
     pub fn set_invalid_data_organization<
         T: std::convert::Into<std::boxed::Box<crate::model::action::InvalidDataOrganization>>,
     >(
@@ -29205,6 +37802,12 @@ pub mod action {
         }
 
         /// Sets the value of [asset][crate::model::action::FailedSecurityPolicyApply::asset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::FailedSecurityPolicyApply;
+        /// let x = FailedSecurityPolicyApply::new().set_asset("example");
+        /// ```
         pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset = v.into();
             self
@@ -29240,6 +37843,12 @@ pub mod action {
         }
 
         /// Sets the value of [sampled_data_locations][crate::model::action::InvalidDataFormat::sampled_data_locations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::InvalidDataFormat;
+        /// let x = InvalidDataFormat::new().set_sampled_data_locations(["a", "b", "c"]);
+        /// ```
         pub fn set_sampled_data_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -29251,6 +37860,12 @@ pub mod action {
         }
 
         /// Sets the value of [expected_format][crate::model::action::InvalidDataFormat::expected_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::InvalidDataFormat;
+        /// let x = InvalidDataFormat::new().set_expected_format("example");
+        /// ```
         pub fn set_expected_format<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -29260,6 +37875,12 @@ pub mod action {
         }
 
         /// Sets the value of [new_format][crate::model::action::InvalidDataFormat::new_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::InvalidDataFormat;
+        /// let x = InvalidDataFormat::new().set_new_format("example");
+        /// ```
         pub fn set_new_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.new_format = v.into();
             self
@@ -29303,12 +37924,24 @@ pub mod action {
         }
 
         /// Sets the value of [table][crate::model::action::IncompatibleDataSchema::table].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::IncompatibleDataSchema;
+        /// let x = IncompatibleDataSchema::new().set_table("example");
+        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
         }
 
         /// Sets the value of [existing_schema][crate::model::action::IncompatibleDataSchema::existing_schema].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::IncompatibleDataSchema;
+        /// let x = IncompatibleDataSchema::new().set_existing_schema("example");
+        /// ```
         pub fn set_existing_schema<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -29318,12 +37951,24 @@ pub mod action {
         }
 
         /// Sets the value of [new_schema][crate::model::action::IncompatibleDataSchema::new_schema].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::IncompatibleDataSchema;
+        /// let x = IncompatibleDataSchema::new().set_new_schema("example");
+        /// ```
         pub fn set_new_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.new_schema = v.into();
             self
         }
 
         /// Sets the value of [sampled_data_locations][crate::model::action::IncompatibleDataSchema::sampled_data_locations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::IncompatibleDataSchema;
+        /// let x = IncompatibleDataSchema::new().set_sampled_data_locations(["a", "b", "c"]);
+        /// ```
         pub fn set_sampled_data_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -29335,6 +37980,14 @@ pub mod action {
         }
 
         /// Sets the value of [schema_change][crate::model::action::IncompatibleDataSchema::schema_change].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::IncompatibleDataSchema;
+        /// use google_cloud_dataplex_v1::model::action::incompatible_data_schema::SchemaChange;
+        /// let x0 = IncompatibleDataSchema::new().set_schema_change(SchemaChange::Incompatible);
+        /// let x1 = IncompatibleDataSchema::new().set_schema_change(SchemaChange::Modified);
+        /// ```
         pub fn set_schema_change<
             T: std::convert::Into<crate::model::action::incompatible_data_schema::SchemaChange>,
         >(
@@ -29510,6 +38163,14 @@ pub mod action {
         }
 
         /// Sets the value of [expected_structure][crate::model::action::InvalidDataPartition::expected_structure].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::action::InvalidDataPartition;
+        /// use google_cloud_dataplex_v1::model::action::invalid_data_partition::PartitionStructure;
+        /// let x0 = InvalidDataPartition::new().set_expected_structure(PartitionStructure::ConsistentKeys);
+        /// let x1 = InvalidDataPartition::new().set_expected_structure(PartitionStructure::HiveStyleKeys);
+        /// ```
         pub fn set_expected_structure<
             T: std::convert::Into<crate::model::action::invalid_data_partition::PartitionStructure>,
         >(
@@ -29932,24 +38593,49 @@ impl Asset {
     }
 
     /// Sets the value of [name][crate::model::Asset::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// let x = Asset::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Asset::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// let x = Asset::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Asset::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// let x = Asset::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Asset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29959,6 +38645,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Asset::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29968,6 +38662,13 @@ impl Asset {
     }
 
     /// Sets the value of [update_time][crate::model::Asset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29977,6 +38678,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Asset::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29986,6 +38695,15 @@ impl Asset {
     }
 
     /// Sets the value of [labels][crate::model::Asset::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// let x = Asset::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -29998,18 +38716,40 @@ impl Asset {
     }
 
     /// Sets the value of [description][crate::model::Asset::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// let x = Asset::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Asset::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::State;
+    /// let x0 = Asset::new().set_state(State::Active);
+    /// let x1 = Asset::new().set_state(State::Creating);
+    /// let x2 = Asset::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [resource_spec][crate::model::Asset::resource_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::ResourceSpec;
+    /// let x = Asset::new().set_resource_spec(ResourceSpec::default()/* use setters */);
+    /// ```
     pub fn set_resource_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::asset::ResourceSpec>,
@@ -30019,6 +38759,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [resource_spec][crate::model::Asset::resource_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::ResourceSpec;
+    /// let x = Asset::new().set_or_clear_resource_spec(Some(ResourceSpec::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_resource_spec(None::<ResourceSpec>);
+    /// ```
     pub fn set_or_clear_resource_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::asset::ResourceSpec>,
@@ -30028,6 +38776,13 @@ impl Asset {
     }
 
     /// Sets the value of [resource_status][crate::model::Asset::resource_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::ResourceStatus;
+    /// let x = Asset::new().set_resource_status(ResourceStatus::default()/* use setters */);
+    /// ```
     pub fn set_resource_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::asset::ResourceStatus>,
@@ -30037,6 +38792,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [resource_status][crate::model::Asset::resource_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::ResourceStatus;
+    /// let x = Asset::new().set_or_clear_resource_status(Some(ResourceStatus::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_resource_status(None::<ResourceStatus>);
+    /// ```
     pub fn set_or_clear_resource_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::asset::ResourceStatus>,
@@ -30046,6 +38809,13 @@ impl Asset {
     }
 
     /// Sets the value of [security_status][crate::model::Asset::security_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::SecurityStatus;
+    /// let x = Asset::new().set_security_status(SecurityStatus::default()/* use setters */);
+    /// ```
     pub fn set_security_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::asset::SecurityStatus>,
@@ -30055,6 +38825,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [security_status][crate::model::Asset::security_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::SecurityStatus;
+    /// let x = Asset::new().set_or_clear_security_status(Some(SecurityStatus::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_security_status(None::<SecurityStatus>);
+    /// ```
     pub fn set_or_clear_security_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::asset::SecurityStatus>,
@@ -30064,6 +38842,13 @@ impl Asset {
     }
 
     /// Sets the value of [discovery_spec][crate::model::Asset::discovery_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+    /// let x = Asset::new().set_discovery_spec(DiscoverySpec::default()/* use setters */);
+    /// ```
     pub fn set_discovery_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::asset::DiscoverySpec>,
@@ -30073,6 +38858,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [discovery_spec][crate::model::Asset::discovery_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+    /// let x = Asset::new().set_or_clear_discovery_spec(Some(DiscoverySpec::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_discovery_spec(None::<DiscoverySpec>);
+    /// ```
     pub fn set_or_clear_discovery_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::asset::DiscoverySpec>,
@@ -30082,6 +38875,13 @@ impl Asset {
     }
 
     /// Sets the value of [discovery_status][crate::model::Asset::discovery_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+    /// let x = Asset::new().set_discovery_status(DiscoveryStatus::default()/* use setters */);
+    /// ```
     pub fn set_discovery_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::asset::DiscoveryStatus>,
@@ -30091,6 +38891,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [discovery_status][crate::model::Asset::discovery_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Asset;
+    /// use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+    /// let x = Asset::new().set_or_clear_discovery_status(Some(DiscoveryStatus::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_discovery_status(None::<DiscoveryStatus>);
+    /// ```
     pub fn set_or_clear_discovery_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::asset::DiscoveryStatus>,
@@ -30135,6 +38943,15 @@ pub mod asset {
         }
 
         /// Sets the value of [state][crate::model::asset::SecurityStatus::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::SecurityStatus;
+        /// use google_cloud_dataplex_v1::model::asset::security_status::State;
+        /// let x0 = SecurityStatus::new().set_state(State::Ready);
+        /// let x1 = SecurityStatus::new().set_state(State::Applying);
+        /// let x2 = SecurityStatus::new().set_state(State::Error);
+        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::asset::security_status::State>>(
             mut self,
             v: T,
@@ -30144,12 +38961,25 @@ pub mod asset {
         }
 
         /// Sets the value of [message][crate::model::asset::SecurityStatus::message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::SecurityStatus;
+        /// let x = SecurityStatus::new().set_message("example");
+        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self
         }
 
         /// Sets the value of [update_time][crate::model::asset::SecurityStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::SecurityStatus;
+        /// use wkt::Timestamp;
+        /// let x = SecurityStatus::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -30159,6 +38989,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [update_time][crate::model::asset::SecurityStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::SecurityStatus;
+        /// use wkt::Timestamp;
+        /// let x = SecurityStatus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SecurityStatus::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -30362,12 +39200,24 @@ pub mod asset {
         }
 
         /// Sets the value of [enabled][crate::model::asset::DiscoverySpec::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [include_patterns][crate::model::asset::DiscoverySpec::include_patterns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_include_patterns(["a", "b", "c"]);
+        /// ```
         pub fn set_include_patterns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -30379,6 +39229,12 @@ pub mod asset {
         }
 
         /// Sets the value of [exclude_patterns][crate::model::asset::DiscoverySpec::exclude_patterns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_exclude_patterns(["a", "b", "c"]);
+        /// ```
         pub fn set_exclude_patterns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -30390,6 +39246,13 @@ pub mod asset {
         }
 
         /// Sets the value of [csv_options][crate::model::asset::DiscoverySpec::csv_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_spec::CsvOptions;
+        /// let x = DiscoverySpec::new().set_csv_options(CsvOptions::default()/* use setters */);
+        /// ```
         pub fn set_csv_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::asset::discovery_spec::CsvOptions>,
@@ -30399,6 +39262,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [csv_options][crate::model::asset::DiscoverySpec::csv_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_spec::CsvOptions;
+        /// let x = DiscoverySpec::new().set_or_clear_csv_options(Some(CsvOptions::default()/* use setters */));
+        /// let x = DiscoverySpec::new().set_or_clear_csv_options(None::<CsvOptions>);
+        /// ```
         pub fn set_or_clear_csv_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::asset::discovery_spec::CsvOptions>,
@@ -30408,6 +39279,13 @@ pub mod asset {
         }
 
         /// Sets the value of [json_options][crate::model::asset::DiscoverySpec::json_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_spec::JsonOptions;
+        /// let x = DiscoverySpec::new().set_json_options(JsonOptions::default()/* use setters */);
+        /// ```
         pub fn set_json_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::asset::discovery_spec::JsonOptions>,
@@ -30417,6 +39295,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [json_options][crate::model::asset::DiscoverySpec::json_options].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_spec::JsonOptions;
+        /// let x = DiscoverySpec::new().set_or_clear_json_options(Some(JsonOptions::default()/* use setters */));
+        /// let x = DiscoverySpec::new().set_or_clear_json_options(None::<JsonOptions>);
+        /// ```
         pub fn set_or_clear_json_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::asset::discovery_spec::JsonOptions>,
@@ -30429,6 +39315,13 @@ pub mod asset {
         ///
         /// Note that all the setters affecting `trigger` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_spec::Trigger;
+        /// let x = DiscoverySpec::new().set_trigger(Some(Trigger::Schedule("example".to_string())));
+        /// ```
         pub fn set_trigger<
             T: std::convert::Into<std::option::Option<crate::model::asset::discovery_spec::Trigger>>,
         >(
@@ -30457,6 +39350,13 @@ pub mod asset {
         ///
         /// Note that all the setters affecting `trigger` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoverySpec;
+        /// let x = DiscoverySpec::new().set_schedule("example");
+        /// assert!(x.schedule().is_some());
+        /// ```
         pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trigger = std::option::Option::Some(
                 crate::model::asset::discovery_spec::Trigger::Schedule(v.into()),
@@ -30504,12 +39404,24 @@ pub mod asset {
             }
 
             /// Sets the value of [header_rows][crate::model::asset::discovery_spec::CsvOptions::header_rows].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_header_rows(42);
+            /// ```
             pub fn set_header_rows<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.header_rows = v.into();
                 self
             }
 
             /// Sets the value of [delimiter][crate::model::asset::discovery_spec::CsvOptions::delimiter].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_delimiter("example");
+            /// ```
             pub fn set_delimiter<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -30519,6 +39431,12 @@ pub mod asset {
             }
 
             /// Sets the value of [encoding][crate::model::asset::discovery_spec::CsvOptions::encoding].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_encoding("example");
+            /// ```
             pub fn set_encoding<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -30528,6 +39446,12 @@ pub mod asset {
             }
 
             /// Sets the value of [disable_type_inference][crate::model::asset::discovery_spec::CsvOptions::disable_type_inference].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_spec::CsvOptions;
+            /// let x = CsvOptions::new().set_disable_type_inference(true);
+            /// ```
             pub fn set_disable_type_inference<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.disable_type_inference = v.into();
                 self
@@ -30561,6 +39485,12 @@ pub mod asset {
             }
 
             /// Sets the value of [encoding][crate::model::asset::discovery_spec::JsonOptions::encoding].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_spec::JsonOptions;
+            /// let x = JsonOptions::new().set_encoding("example");
+            /// ```
             pub fn set_encoding<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -30570,6 +39500,12 @@ pub mod asset {
             }
 
             /// Sets the value of [disable_type_inference][crate::model::asset::discovery_spec::JsonOptions::disable_type_inference].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_spec::JsonOptions;
+            /// let x = JsonOptions::new().set_disable_type_inference(true);
+            /// ```
             pub fn set_disable_type_inference<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.disable_type_inference = v.into();
                 self
@@ -30626,12 +39562,26 @@ pub mod asset {
         }
 
         /// Sets the value of [name][crate::model::asset::ResourceSpec::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceSpec;
+        /// let x = ResourceSpec::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::asset::ResourceSpec::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceSpec;
+        /// use google_cloud_dataplex_v1::model::asset::resource_spec::Type;
+        /// let x0 = ResourceSpec::new().set_type(Type::StorageBucket);
+        /// let x1 = ResourceSpec::new().set_type(Type::BigqueryDataset);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::asset::resource_spec::Type>>(
             mut self,
             v: T,
@@ -30641,6 +39591,14 @@ pub mod asset {
         }
 
         /// Sets the value of [read_access_mode][crate::model::asset::ResourceSpec::read_access_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceSpec;
+        /// use google_cloud_dataplex_v1::model::asset::resource_spec::AccessMode;
+        /// let x0 = ResourceSpec::new().set_read_access_mode(AccessMode::Direct);
+        /// let x1 = ResourceSpec::new().set_read_access_mode(AccessMode::Managed);
+        /// ```
         pub fn set_read_access_mode<
             T: std::convert::Into<crate::model::asset::resource_spec::AccessMode>,
         >(
@@ -30960,6 +39918,14 @@ pub mod asset {
         }
 
         /// Sets the value of [state][crate::model::asset::ResourceStatus::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceStatus;
+        /// use google_cloud_dataplex_v1::model::asset::resource_status::State;
+        /// let x0 = ResourceStatus::new().set_state(State::Ready);
+        /// let x1 = ResourceStatus::new().set_state(State::Error);
+        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::asset::resource_status::State>>(
             mut self,
             v: T,
@@ -30969,12 +39935,25 @@ pub mod asset {
         }
 
         /// Sets the value of [message][crate::model::asset::ResourceStatus::message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceStatus;
+        /// let x = ResourceStatus::new().set_message("example");
+        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self
         }
 
         /// Sets the value of [update_time][crate::model::asset::ResourceStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceStatus;
+        /// use wkt::Timestamp;
+        /// let x = ResourceStatus::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -30984,6 +39963,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [update_time][crate::model::asset::ResourceStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceStatus;
+        /// use wkt::Timestamp;
+        /// let x = ResourceStatus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ResourceStatus::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -30993,6 +39980,12 @@ pub mod asset {
         }
 
         /// Sets the value of [managed_access_identity][crate::model::asset::ResourceStatus::managed_access_identity].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::ResourceStatus;
+        /// let x = ResourceStatus::new().set_managed_access_identity("example");
+        /// ```
         pub fn set_managed_access_identity<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -31180,6 +40173,15 @@ pub mod asset {
         }
 
         /// Sets the value of [state][crate::model::asset::DiscoveryStatus::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_status::State;
+        /// let x0 = DiscoveryStatus::new().set_state(State::Scheduled);
+        /// let x1 = DiscoveryStatus::new().set_state(State::InProgress);
+        /// let x2 = DiscoveryStatus::new().set_state(State::Paused);
+        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::asset::discovery_status::State>>(
             mut self,
             v: T,
@@ -31189,12 +40191,25 @@ pub mod asset {
         }
 
         /// Sets the value of [message][crate::model::asset::DiscoveryStatus::message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// let x = DiscoveryStatus::new().set_message("example");
+        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self
         }
 
         /// Sets the value of [update_time][crate::model::asset::DiscoveryStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use wkt::Timestamp;
+        /// let x = DiscoveryStatus::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -31204,6 +40219,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [update_time][crate::model::asset::DiscoveryStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use wkt::Timestamp;
+        /// let x = DiscoveryStatus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = DiscoveryStatus::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -31213,6 +40236,13 @@ pub mod asset {
         }
 
         /// Sets the value of [last_run_time][crate::model::asset::DiscoveryStatus::last_run_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use wkt::Timestamp;
+        /// let x = DiscoveryStatus::new().set_last_run_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_last_run_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -31222,6 +40252,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [last_run_time][crate::model::asset::DiscoveryStatus::last_run_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use wkt::Timestamp;
+        /// let x = DiscoveryStatus::new().set_or_clear_last_run_time(Some(Timestamp::default()/* use setters */));
+        /// let x = DiscoveryStatus::new().set_or_clear_last_run_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_last_run_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -31231,6 +40269,13 @@ pub mod asset {
         }
 
         /// Sets the value of [stats][crate::model::asset::DiscoveryStatus::stats].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_status::Stats;
+        /// let x = DiscoveryStatus::new().set_stats(Stats::default()/* use setters */);
+        /// ```
         pub fn set_stats<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::asset::discovery_status::Stats>,
@@ -31240,6 +40285,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [stats][crate::model::asset::DiscoveryStatus::stats].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use google_cloud_dataplex_v1::model::asset::discovery_status::Stats;
+        /// let x = DiscoveryStatus::new().set_or_clear_stats(Some(Stats::default()/* use setters */));
+        /// let x = DiscoveryStatus::new().set_or_clear_stats(None::<Stats>);
+        /// ```
         pub fn set_or_clear_stats<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::asset::discovery_status::Stats>,
@@ -31249,6 +40302,13 @@ pub mod asset {
         }
 
         /// Sets the value of [last_run_duration][crate::model::asset::DiscoveryStatus::last_run_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use wkt::Duration;
+        /// let x = DiscoveryStatus::new().set_last_run_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_last_run_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -31258,6 +40318,14 @@ pub mod asset {
         }
 
         /// Sets or clears the value of [last_run_duration][crate::model::asset::DiscoveryStatus::last_run_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::asset::DiscoveryStatus;
+        /// use wkt::Duration;
+        /// let x = DiscoveryStatus::new().set_or_clear_last_run_duration(Some(Duration::default()/* use setters */));
+        /// let x = DiscoveryStatus::new().set_or_clear_last_run_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_last_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -31303,24 +40371,48 @@ pub mod asset {
             }
 
             /// Sets the value of [data_items][crate::model::asset::discovery_status::Stats::data_items].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_status::Stats;
+            /// let x = Stats::new().set_data_items(42);
+            /// ```
             pub fn set_data_items<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.data_items = v.into();
                 self
             }
 
             /// Sets the value of [data_size][crate::model::asset::discovery_status::Stats::data_size].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_status::Stats;
+            /// let x = Stats::new().set_data_size(42);
+            /// ```
             pub fn set_data_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.data_size = v.into();
                 self
             }
 
             /// Sets the value of [tables][crate::model::asset::discovery_status::Stats::tables].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_status::Stats;
+            /// let x = Stats::new().set_tables(42);
+            /// ```
             pub fn set_tables<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.tables = v.into();
                 self
             }
 
             /// Sets the value of [filesets][crate::model::asset::discovery_status::Stats::filesets].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::asset::discovery_status::Stats;
+            /// let x = Stats::new().set_filesets(42);
+            /// ```
             pub fn set_filesets<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.filesets = v.into();
                 self
@@ -31511,6 +40603,12 @@ impl ResourceAccessSpec {
     }
 
     /// Sets the value of [readers][crate::model::ResourceAccessSpec::readers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ResourceAccessSpec;
+    /// let x = ResourceAccessSpec::new().set_readers(["a", "b", "c"]);
+    /// ```
     pub fn set_readers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31522,6 +40620,12 @@ impl ResourceAccessSpec {
     }
 
     /// Sets the value of [writers][crate::model::ResourceAccessSpec::writers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ResourceAccessSpec;
+    /// let x = ResourceAccessSpec::new().set_writers(["a", "b", "c"]);
+    /// ```
     pub fn set_writers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31533,6 +40637,12 @@ impl ResourceAccessSpec {
     }
 
     /// Sets the value of [owners][crate::model::ResourceAccessSpec::owners].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ResourceAccessSpec;
+    /// let x = ResourceAccessSpec::new().set_owners(["a", "b", "c"]);
+    /// ```
     pub fn set_owners<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31573,6 +40683,12 @@ impl DataAccessSpec {
     }
 
     /// Sets the value of [readers][crate::model::DataAccessSpec::readers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DataAccessSpec;
+    /// let x = DataAccessSpec::new().set_readers(["a", "b", "c"]);
+    /// ```
     pub fn set_readers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31626,18 +40742,37 @@ impl CreateLakeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLakeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateLakeRequest;
+    /// let x = CreateLakeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [lake_id][crate::model::CreateLakeRequest::lake_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateLakeRequest;
+    /// let x = CreateLakeRequest::new().set_lake_id("example");
+    /// ```
     pub fn set_lake_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lake_id = v.into();
         self
     }
 
     /// Sets the value of [lake][crate::model::CreateLakeRequest::lake].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateLakeRequest;
+    /// use google_cloud_dataplex_v1::model::Lake;
+    /// let x = CreateLakeRequest::new().set_lake(Lake::default()/* use setters */);
+    /// ```
     pub fn set_lake<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Lake>,
@@ -31647,6 +40782,14 @@ impl CreateLakeRequest {
     }
 
     /// Sets or clears the value of [lake][crate::model::CreateLakeRequest::lake].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateLakeRequest;
+    /// use google_cloud_dataplex_v1::model::Lake;
+    /// let x = CreateLakeRequest::new().set_or_clear_lake(Some(Lake::default()/* use setters */));
+    /// let x = CreateLakeRequest::new().set_or_clear_lake(None::<Lake>);
+    /// ```
     pub fn set_or_clear_lake<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Lake>,
@@ -31656,6 +40799,12 @@ impl CreateLakeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateLakeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateLakeRequest;
+    /// let x = CreateLakeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -31692,6 +40841,13 @@ impl UpdateLakeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLakeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateLakeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLakeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -31701,6 +40857,14 @@ impl UpdateLakeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLakeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateLakeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLakeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateLakeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -31710,6 +40874,13 @@ impl UpdateLakeRequest {
     }
 
     /// Sets the value of [lake][crate::model::UpdateLakeRequest::lake].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateLakeRequest;
+    /// use google_cloud_dataplex_v1::model::Lake;
+    /// let x = UpdateLakeRequest::new().set_lake(Lake::default()/* use setters */);
+    /// ```
     pub fn set_lake<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Lake>,
@@ -31719,6 +40890,14 @@ impl UpdateLakeRequest {
     }
 
     /// Sets or clears the value of [lake][crate::model::UpdateLakeRequest::lake].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateLakeRequest;
+    /// use google_cloud_dataplex_v1::model::Lake;
+    /// let x = UpdateLakeRequest::new().set_or_clear_lake(Some(Lake::default()/* use setters */));
+    /// let x = UpdateLakeRequest::new().set_or_clear_lake(None::<Lake>);
+    /// ```
     pub fn set_or_clear_lake<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Lake>,
@@ -31728,6 +40907,12 @@ impl UpdateLakeRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateLakeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateLakeRequest;
+    /// let x = UpdateLakeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -31757,6 +40942,12 @@ impl DeleteLakeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLakeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteLakeRequest;
+    /// let x = DeleteLakeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -31803,30 +40994,60 @@ impl ListLakesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLakesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesRequest;
+    /// let x = ListLakesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLakesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesRequest;
+    /// let x = ListLakesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLakesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesRequest;
+    /// let x = ListLakesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListLakesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesRequest;
+    /// let x = ListLakesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListLakesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesRequest;
+    /// let x = ListLakesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -31862,6 +41083,17 @@ impl ListLakesResponse {
     }
 
     /// Sets the value of [lakes][crate::model::ListLakesResponse::lakes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesResponse;
+    /// use google_cloud_dataplex_v1::model::Lake;
+    /// let x = ListLakesResponse::new()
+    ///     .set_lakes([
+    ///         Lake::default()/* use setters */,
+    ///         Lake::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_lakes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31873,12 +41105,24 @@ impl ListLakesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLakesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesResponse;
+    /// let x = ListLakesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListLakesResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakesResponse;
+    /// let x = ListLakesResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31938,18 +41182,36 @@ impl ListLakeActionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLakeActionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakeActionsRequest;
+    /// let x = ListLakeActionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLakeActionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakeActionsRequest;
+    /// let x = ListLakeActionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLakeActionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListLakeActionsRequest;
+    /// let x = ListLakeActionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -31982,6 +41244,17 @@ impl ListActionsResponse {
     }
 
     /// Sets the value of [actions][crate::model::ListActionsResponse::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListActionsResponse;
+    /// use google_cloud_dataplex_v1::model::Action;
+    /// let x = ListActionsResponse::new()
+    ///     .set_actions([
+    ///         Action::default()/* use setters */,
+    ///         Action::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31993,6 +41266,12 @@ impl ListActionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListActionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListActionsResponse;
+    /// let x = ListActionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -32036,6 +41315,12 @@ impl GetLakeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLakeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetLakeRequest;
+    /// let x = GetLakeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -32084,18 +41369,37 @@ impl CreateZoneRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateZoneRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateZoneRequest;
+    /// let x = CreateZoneRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [zone_id][crate::model::CreateZoneRequest::zone_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateZoneRequest;
+    /// let x = CreateZoneRequest::new().set_zone_id("example");
+    /// ```
     pub fn set_zone_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::CreateZoneRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateZoneRequest;
+    /// use google_cloud_dataplex_v1::model::Zone;
+    /// let x = CreateZoneRequest::new().set_zone(Zone::default()/* use setters */);
+    /// ```
     pub fn set_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Zone>,
@@ -32105,6 +41409,14 @@ impl CreateZoneRequest {
     }
 
     /// Sets or clears the value of [zone][crate::model::CreateZoneRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateZoneRequest;
+    /// use google_cloud_dataplex_v1::model::Zone;
+    /// let x = CreateZoneRequest::new().set_or_clear_zone(Some(Zone::default()/* use setters */));
+    /// let x = CreateZoneRequest::new().set_or_clear_zone(None::<Zone>);
+    /// ```
     pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Zone>,
@@ -32114,6 +41426,12 @@ impl CreateZoneRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateZoneRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateZoneRequest;
+    /// let x = CreateZoneRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -32150,6 +41468,13 @@ impl UpdateZoneRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateZoneRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateZoneRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateZoneRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -32159,6 +41484,14 @@ impl UpdateZoneRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateZoneRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateZoneRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateZoneRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateZoneRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -32168,6 +41501,13 @@ impl UpdateZoneRequest {
     }
 
     /// Sets the value of [zone][crate::model::UpdateZoneRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateZoneRequest;
+    /// use google_cloud_dataplex_v1::model::Zone;
+    /// let x = UpdateZoneRequest::new().set_zone(Zone::default()/* use setters */);
+    /// ```
     pub fn set_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Zone>,
@@ -32177,6 +41517,14 @@ impl UpdateZoneRequest {
     }
 
     /// Sets or clears the value of [zone][crate::model::UpdateZoneRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateZoneRequest;
+    /// use google_cloud_dataplex_v1::model::Zone;
+    /// let x = UpdateZoneRequest::new().set_or_clear_zone(Some(Zone::default()/* use setters */));
+    /// let x = UpdateZoneRequest::new().set_or_clear_zone(None::<Zone>);
+    /// ```
     pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Zone>,
@@ -32186,6 +41534,12 @@ impl UpdateZoneRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateZoneRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateZoneRequest;
+    /// let x = UpdateZoneRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -32215,6 +41569,12 @@ impl DeleteZoneRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteZoneRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteZoneRequest;
+    /// let x = DeleteZoneRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -32260,30 +41620,60 @@ impl ListZonesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListZonesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListZonesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListZonesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListZonesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListZonesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -32316,6 +41706,17 @@ impl ListZonesResponse {
     }
 
     /// Sets the value of [zones][crate::model::ListZonesResponse::zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZonesResponse;
+    /// use google_cloud_dataplex_v1::model::Zone;
+    /// let x = ListZonesResponse::new()
+    ///     .set_zones([
+    ///         Zone::default()/* use setters */,
+    ///         Zone::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32327,6 +41728,12 @@ impl ListZonesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListZonesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZonesResponse;
+    /// let x = ListZonesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -32381,18 +41788,36 @@ impl ListZoneActionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListZoneActionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZoneActionsRequest;
+    /// let x = ListZoneActionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListZoneActionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZoneActionsRequest;
+    /// let x = ListZoneActionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListZoneActionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListZoneActionsRequest;
+    /// let x = ListZoneActionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -32422,6 +41847,12 @@ impl GetZoneRequest {
     }
 
     /// Sets the value of [name][crate::model::GetZoneRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetZoneRequest;
+    /// let x = GetZoneRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -32469,18 +41900,37 @@ impl CreateAssetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAssetRequest;
+    /// let x = CreateAssetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [asset_id][crate::model::CreateAssetRequest::asset_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAssetRequest;
+    /// let x = CreateAssetRequest::new().set_asset_id("example");
+    /// ```
     pub fn set_asset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_id = v.into();
         self
     }
 
     /// Sets the value of [asset][crate::model::CreateAssetRequest::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAssetRequest;
+    /// use google_cloud_dataplex_v1::model::Asset;
+    /// let x = CreateAssetRequest::new().set_asset(Asset::default()/* use setters */);
+    /// ```
     pub fn set_asset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -32490,6 +41940,14 @@ impl CreateAssetRequest {
     }
 
     /// Sets or clears the value of [asset][crate::model::CreateAssetRequest::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAssetRequest;
+    /// use google_cloud_dataplex_v1::model::Asset;
+    /// let x = CreateAssetRequest::new().set_or_clear_asset(Some(Asset::default()/* use setters */));
+    /// let x = CreateAssetRequest::new().set_or_clear_asset(None::<Asset>);
+    /// ```
     pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -32499,6 +41957,12 @@ impl CreateAssetRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateAssetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateAssetRequest;
+    /// let x = CreateAssetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -32535,6 +41999,13 @@ impl UpdateAssetRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAssetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAssetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -32544,6 +42015,14 @@ impl UpdateAssetRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAssetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAssetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAssetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -32553,6 +42032,13 @@ impl UpdateAssetRequest {
     }
 
     /// Sets the value of [asset][crate::model::UpdateAssetRequest::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAssetRequest;
+    /// use google_cloud_dataplex_v1::model::Asset;
+    /// let x = UpdateAssetRequest::new().set_asset(Asset::default()/* use setters */);
+    /// ```
     pub fn set_asset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -32562,6 +42048,14 @@ impl UpdateAssetRequest {
     }
 
     /// Sets or clears the value of [asset][crate::model::UpdateAssetRequest::asset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAssetRequest;
+    /// use google_cloud_dataplex_v1::model::Asset;
+    /// let x = UpdateAssetRequest::new().set_or_clear_asset(Some(Asset::default()/* use setters */));
+    /// let x = UpdateAssetRequest::new().set_or_clear_asset(None::<Asset>);
+    /// ```
     pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -32571,6 +42065,12 @@ impl UpdateAssetRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateAssetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateAssetRequest;
+    /// let x = UpdateAssetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -32600,6 +42100,12 @@ impl DeleteAssetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteAssetRequest;
+    /// let x = DeleteAssetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -32646,30 +42152,60 @@ impl ListAssetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAssetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAssetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAssetsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAssetsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -32702,6 +42238,17 @@ impl ListAssetsResponse {
     }
 
     /// Sets the value of [assets][crate::model::ListAssetsResponse::assets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetsResponse;
+    /// use google_cloud_dataplex_v1::model::Asset;
+    /// let x = ListAssetsResponse::new()
+    ///     .set_assets([
+    ///         Asset::default()/* use setters */,
+    ///         Asset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32713,6 +42260,12 @@ impl ListAssetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAssetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetsResponse;
+    /// let x = ListAssetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -32767,18 +42320,36 @@ impl ListAssetActionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAssetActionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetActionsRequest;
+    /// let x = ListAssetActionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAssetActionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetActionsRequest;
+    /// let x = ListAssetActionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAssetActionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListAssetActionsRequest;
+    /// let x = ListAssetActionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -32808,6 +42379,12 @@ impl GetAssetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAssetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetAssetRequest;
+    /// let x = GetAssetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -32860,6 +42437,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -32869,6 +42453,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -32878,6 +42470,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -32887,6 +42486,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -32896,30 +42503,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -32959,18 +42596,37 @@ impl CreateTaskRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTaskRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateTaskRequest;
+    /// let x = CreateTaskRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [task_id][crate::model::CreateTaskRequest::task_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateTaskRequest;
+    /// let x = CreateTaskRequest::new().set_task_id("example");
+    /// ```
     pub fn set_task_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.task_id = v.into();
         self
     }
 
     /// Sets the value of [task][crate::model::CreateTaskRequest::task].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateTaskRequest;
+    /// use google_cloud_dataplex_v1::model::Task;
+    /// let x = CreateTaskRequest::new().set_task(Task::default()/* use setters */);
+    /// ```
     pub fn set_task<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Task>,
@@ -32980,6 +42636,14 @@ impl CreateTaskRequest {
     }
 
     /// Sets or clears the value of [task][crate::model::CreateTaskRequest::task].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateTaskRequest;
+    /// use google_cloud_dataplex_v1::model::Task;
+    /// let x = CreateTaskRequest::new().set_or_clear_task(Some(Task::default()/* use setters */));
+    /// let x = CreateTaskRequest::new().set_or_clear_task(None::<Task>);
+    /// ```
     pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Task>,
@@ -32989,6 +42653,12 @@ impl CreateTaskRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateTaskRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateTaskRequest;
+    /// let x = CreateTaskRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -33025,6 +42695,13 @@ impl UpdateTaskRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTaskRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateTaskRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTaskRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -33034,6 +42711,14 @@ impl UpdateTaskRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTaskRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateTaskRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTaskRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTaskRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -33043,6 +42728,13 @@ impl UpdateTaskRequest {
     }
 
     /// Sets the value of [task][crate::model::UpdateTaskRequest::task].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateTaskRequest;
+    /// use google_cloud_dataplex_v1::model::Task;
+    /// let x = UpdateTaskRequest::new().set_task(Task::default()/* use setters */);
+    /// ```
     pub fn set_task<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Task>,
@@ -33052,6 +42744,14 @@ impl UpdateTaskRequest {
     }
 
     /// Sets or clears the value of [task][crate::model::UpdateTaskRequest::task].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateTaskRequest;
+    /// use google_cloud_dataplex_v1::model::Task;
+    /// let x = UpdateTaskRequest::new().set_or_clear_task(Some(Task::default()/* use setters */));
+    /// let x = UpdateTaskRequest::new().set_or_clear_task(None::<Task>);
+    /// ```
     pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Task>,
@@ -33061,6 +42761,12 @@ impl UpdateTaskRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateTaskRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateTaskRequest;
+    /// let x = UpdateTaskRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -33090,6 +42796,12 @@ impl DeleteTaskRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTaskRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteTaskRequest;
+    /// let x = DeleteTaskRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33135,30 +42847,60 @@ impl ListTasksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTasksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTasksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTasksRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTasksRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -33194,6 +42936,17 @@ impl ListTasksResponse {
     }
 
     /// Sets the value of [tasks][crate::model::ListTasksResponse::tasks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksResponse;
+    /// use google_cloud_dataplex_v1::model::Task;
+    /// let x = ListTasksResponse::new()
+    ///     .set_tasks([
+    ///         Task::default()/* use setters */,
+    ///         Task::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tasks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33205,12 +42958,24 @@ impl ListTasksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTasksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksResponse;
+    /// let x = ListTasksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListTasksResponse::unreachable_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListTasksResponse;
+    /// let x = ListTasksResponse::new().set_unreachable_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33259,6 +43024,12 @@ impl GetTaskRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTaskRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetTaskRequest;
+    /// let x = GetTaskRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33288,6 +43059,12 @@ impl GetJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetJobRequest;
+    /// let x = GetJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33334,12 +43111,27 @@ impl RunTaskRequest {
     }
 
     /// Sets the value of [name][crate::model::RunTaskRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunTaskRequest;
+    /// let x = RunTaskRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::RunTaskRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunTaskRequest;
+    /// let x = RunTaskRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -33352,6 +43144,15 @@ impl RunTaskRequest {
     }
 
     /// Sets the value of [args][crate::model::RunTaskRequest::args].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunTaskRequest;
+    /// let x = RunTaskRequest::new().set_args([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_args<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -33385,6 +43186,13 @@ impl RunTaskResponse {
     }
 
     /// Sets the value of [job][crate::model::RunTaskResponse::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunTaskResponse;
+    /// use google_cloud_dataplex_v1::model::Job;
+    /// let x = RunTaskResponse::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -33394,6 +43202,14 @@ impl RunTaskResponse {
     }
 
     /// Sets or clears the value of [job][crate::model::RunTaskResponse::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::RunTaskResponse;
+    /// use google_cloud_dataplex_v1::model::Job;
+    /// let x = RunTaskResponse::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = RunTaskResponse::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -33437,18 +43253,36 @@ impl ListJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -33481,6 +43315,17 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListJobsResponse;
+    /// use google_cloud_dataplex_v1::model::Job;
+    /// let x = ListJobsResponse::new()
+    ///     .set_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33492,6 +43337,12 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListJobsResponse;
+    /// let x = ListJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -33535,6 +43386,12 @@ impl CancelJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CancelJobRequest;
+    /// let x = CancelJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33580,18 +43437,37 @@ impl CreateEnvironmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEnvironmentRequest;
+    /// let x = CreateEnvironmentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [environment_id][crate::model::CreateEnvironmentRequest::environment_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEnvironmentRequest;
+    /// let x = CreateEnvironmentRequest::new().set_environment_id("example");
+    /// ```
     pub fn set_environment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment_id = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEnvironmentRequest;
+    /// use google_cloud_dataplex_v1::model::Environment;
+    /// let x = CreateEnvironmentRequest::new().set_environment(Environment::default()/* use setters */);
+    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -33601,6 +43477,14 @@ impl CreateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEnvironmentRequest;
+    /// use google_cloud_dataplex_v1::model::Environment;
+    /// let x = CreateEnvironmentRequest::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
+    /// let x = CreateEnvironmentRequest::new().set_or_clear_environment(None::<Environment>);
+    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -33610,6 +43494,12 @@ impl CreateEnvironmentRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateEnvironmentRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::CreateEnvironmentRequest;
+    /// let x = CreateEnvironmentRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -33646,6 +43536,13 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEnvironmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEnvironmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -33655,6 +43552,14 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEnvironmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEnvironmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEnvironmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -33664,6 +43569,13 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEnvironmentRequest;
+    /// use google_cloud_dataplex_v1::model::Environment;
+    /// let x = UpdateEnvironmentRequest::new().set_environment(Environment::default()/* use setters */);
+    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -33673,6 +43585,14 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEnvironmentRequest;
+    /// use google_cloud_dataplex_v1::model::Environment;
+    /// let x = UpdateEnvironmentRequest::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
+    /// let x = UpdateEnvironmentRequest::new().set_or_clear_environment(None::<Environment>);
+    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -33682,6 +43602,12 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateEnvironmentRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::UpdateEnvironmentRequest;
+    /// let x = UpdateEnvironmentRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -33711,6 +43637,12 @@ impl DeleteEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::DeleteEnvironmentRequest;
+    /// let x = DeleteEnvironmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33758,30 +43690,60 @@ impl ListEnvironmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEnvironmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEnvironmentsRequest;
+    /// let x = ListEnvironmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEnvironmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEnvironmentsRequest;
+    /// let x = ListEnvironmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEnvironmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEnvironmentsRequest;
+    /// let x = ListEnvironmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEnvironmentsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEnvironmentsRequest;
+    /// let x = ListEnvironmentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEnvironmentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEnvironmentsRequest;
+    /// let x = ListEnvironmentsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -33814,6 +43776,17 @@ impl ListEnvironmentsResponse {
     }
 
     /// Sets the value of [environments][crate::model::ListEnvironmentsResponse::environments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEnvironmentsResponse;
+    /// use google_cloud_dataplex_v1::model::Environment;
+    /// let x = ListEnvironmentsResponse::new()
+    ///     .set_environments([
+    ///         Environment::default()/* use setters */,
+    ///         Environment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33825,6 +43798,12 @@ impl ListEnvironmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEnvironmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListEnvironmentsResponse;
+    /// let x = ListEnvironmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -33868,6 +43847,12 @@ impl GetEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::GetEnvironmentRequest;
+    /// let x = GetEnvironmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33919,24 +43904,48 @@ impl ListSessionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSessionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListSessionsRequest;
+    /// let x = ListSessionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSessionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListSessionsRequest;
+    /// let x = ListSessionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSessionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListSessionsRequest;
+    /// let x = ListSessionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSessionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListSessionsRequest;
+    /// let x = ListSessionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -33969,6 +43978,17 @@ impl ListSessionsResponse {
     }
 
     /// Sets the value of [sessions][crate::model::ListSessionsResponse::sessions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListSessionsResponse;
+    /// use google_cloud_dataplex_v1::model::Session;
+    /// let x = ListSessionsResponse::new()
+    ///     .set_sessions([
+    ///         Session::default()/* use setters */,
+    ///         Session::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sessions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33980,6 +44000,12 @@ impl ListSessionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSessionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::ListSessionsResponse;
+    /// let x = ListSessionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -34058,18 +44084,37 @@ impl Task {
     }
 
     /// Sets the value of [name][crate::model::Task::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// let x = Task::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Task::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// let x = Task::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Task::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -34079,6 +44124,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Task::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -34088,6 +44141,13 @@ impl Task {
     }
 
     /// Sets the value of [update_time][crate::model::Task::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -34097,6 +44157,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Task::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -34106,24 +44174,54 @@ impl Task {
     }
 
     /// Sets the value of [description][crate::model::Task::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// let x = Task::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Task::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// let x = Task::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Task::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::State;
+    /// let x0 = Task::new().set_state(State::Active);
+    /// let x1 = Task::new().set_state(State::Creating);
+    /// let x2 = Task::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Task::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// let x = Task::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -34136,6 +44234,13 @@ impl Task {
     }
 
     /// Sets the value of [trigger_spec][crate::model::Task::trigger_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::TriggerSpec;
+    /// let x = Task::new().set_trigger_spec(TriggerSpec::default()/* use setters */);
+    /// ```
     pub fn set_trigger_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::task::TriggerSpec>,
@@ -34145,6 +44250,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [trigger_spec][crate::model::Task::trigger_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::TriggerSpec;
+    /// let x = Task::new().set_or_clear_trigger_spec(Some(TriggerSpec::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_trigger_spec(None::<TriggerSpec>);
+    /// ```
     pub fn set_or_clear_trigger_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::task::TriggerSpec>,
@@ -34154,6 +44267,13 @@ impl Task {
     }
 
     /// Sets the value of [execution_spec][crate::model::Task::execution_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+    /// let x = Task::new().set_execution_spec(ExecutionSpec::default()/* use setters */);
+    /// ```
     pub fn set_execution_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::task::ExecutionSpec>,
@@ -34163,6 +44283,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [execution_spec][crate::model::Task::execution_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+    /// let x = Task::new().set_or_clear_execution_spec(Some(ExecutionSpec::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_execution_spec(None::<ExecutionSpec>);
+    /// ```
     pub fn set_or_clear_execution_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::task::ExecutionSpec>,
@@ -34172,6 +44300,13 @@ impl Task {
     }
 
     /// Sets the value of [execution_status][crate::model::Task::execution_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::ExecutionStatus;
+    /// let x = Task::new().set_execution_status(ExecutionStatus::default()/* use setters */);
+    /// ```
     pub fn set_execution_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::task::ExecutionStatus>,
@@ -34181,6 +44316,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [execution_status][crate::model::Task::execution_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::ExecutionStatus;
+    /// let x = Task::new().set_or_clear_execution_status(Some(ExecutionStatus::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_execution_status(None::<ExecutionStatus>);
+    /// ```
     pub fn set_or_clear_execution_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::task::ExecutionStatus>,
@@ -34193,6 +44336,14 @@ impl Task {
     ///
     /// Note that all the setters affecting `config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+    /// let x = Task::new().set_config(Some(
+    ///     google_cloud_dataplex_v1::model::task::Config::Spark(SparkTaskConfig::default().into())));
+    /// ```
     pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::task::Config>>>(
         mut self,
         v: T,
@@ -34219,6 +44370,15 @@ impl Task {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+    /// let x = Task::new().set_spark(SparkTaskConfig::default()/* use setters */);
+    /// assert!(x.spark().is_some());
+    /// assert!(x.notebook().is_none());
+    /// ```
     pub fn set_spark<
         T: std::convert::Into<std::boxed::Box<crate::model::task::SparkTaskConfig>>,
     >(
@@ -34247,6 +44407,15 @@ impl Task {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Task;
+    /// use google_cloud_dataplex_v1::model::task::NotebookTaskConfig;
+    /// let x = Task::new().set_notebook(NotebookTaskConfig::default()/* use setters */);
+    /// assert!(x.notebook().is_some());
+    /// assert!(x.spark().is_none());
+    /// ```
     pub fn set_notebook<
         T: std::convert::Into<std::boxed::Box<crate::model::task::NotebookTaskConfig>>,
     >(
@@ -34294,6 +44463,14 @@ pub mod task {
         ///
         /// Note that all the setters affecting `resources` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::task::infrastructure_spec::BatchComputeResources;
+        /// let x = InfrastructureSpec::new().set_resources(Some(
+        ///     google_cloud_dataplex_v1::model::task::infrastructure_spec::Resources::Batch(BatchComputeResources::default().into())));
+        /// ```
         pub fn set_resources<
             T: std::convert::Into<
                     std::option::Option<crate::model::task::infrastructure_spec::Resources>,
@@ -34328,6 +44505,14 @@ pub mod task {
         ///
         /// Note that all the setters affecting `resources` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::task::infrastructure_spec::BatchComputeResources;
+        /// let x = InfrastructureSpec::new().set_batch(BatchComputeResources::default()/* use setters */);
+        /// assert!(x.batch().is_some());
+        /// ```
         pub fn set_batch<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::task::infrastructure_spec::BatchComputeResources>,
@@ -34346,6 +44531,14 @@ pub mod task {
         ///
         /// Note that all the setters affecting `runtime` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::task::infrastructure_spec::ContainerImageRuntime;
+        /// let x = InfrastructureSpec::new().set_runtime(Some(
+        ///     google_cloud_dataplex_v1::model::task::infrastructure_spec::Runtime::ContainerImage(ContainerImageRuntime::default().into())));
+        /// ```
         pub fn set_runtime<
             T: std::convert::Into<
                     std::option::Option<crate::model::task::infrastructure_spec::Runtime>,
@@ -34380,6 +44573,14 @@ pub mod task {
         ///
         /// Note that all the setters affecting `runtime` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::task::infrastructure_spec::ContainerImageRuntime;
+        /// let x = InfrastructureSpec::new().set_container_image(ContainerImageRuntime::default()/* use setters */);
+        /// assert!(x.container_image().is_some());
+        /// ```
         pub fn set_container_image<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::task::infrastructure_spec::ContainerImageRuntime>,
@@ -34398,6 +44599,14 @@ pub mod task {
         ///
         /// Note that all the setters affecting `network` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::task::infrastructure_spec::VpcNetwork;
+        /// let x = InfrastructureSpec::new().set_network(Some(
+        ///     google_cloud_dataplex_v1::model::task::infrastructure_spec::Network::VpcNetwork(VpcNetwork::default().into())));
+        /// ```
         pub fn set_network<
             T: std::convert::Into<
                     std::option::Option<crate::model::task::infrastructure_spec::Network>,
@@ -34432,6 +44641,14 @@ pub mod task {
         ///
         /// Note that all the setters affecting `network` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// use google_cloud_dataplex_v1::model::task::infrastructure_spec::VpcNetwork;
+        /// let x = InfrastructureSpec::new().set_vpc_network(VpcNetwork::default()/* use setters */);
+        /// assert!(x.vpc_network().is_some());
+        /// ```
         pub fn set_vpc_network<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::task::infrastructure_spec::VpcNetwork>,
@@ -34480,12 +44697,24 @@ pub mod task {
             }
 
             /// Sets the value of [executors_count][crate::model::task::infrastructure_spec::BatchComputeResources::executors_count].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::BatchComputeResources;
+            /// let x = BatchComputeResources::new().set_executors_count(42);
+            /// ```
             pub fn set_executors_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.executors_count = v.into();
                 self
             }
 
             /// Sets the value of [max_executors_count][crate::model::task::infrastructure_spec::BatchComputeResources::max_executors_count].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::BatchComputeResources;
+            /// let x = BatchComputeResources::new().set_max_executors_count(42);
+            /// ```
             pub fn set_max_executors_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.max_executors_count = v.into();
                 self
@@ -34531,12 +44760,24 @@ pub mod task {
             }
 
             /// Sets the value of [image][crate::model::task::infrastructure_spec::ContainerImageRuntime::image].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::ContainerImageRuntime;
+            /// let x = ContainerImageRuntime::new().set_image("example");
+            /// ```
             pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.image = v.into();
                 self
             }
 
             /// Sets the value of [java_jars][crate::model::task::infrastructure_spec::ContainerImageRuntime::java_jars].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::ContainerImageRuntime;
+            /// let x = ContainerImageRuntime::new().set_java_jars(["a", "b", "c"]);
+            /// ```
             pub fn set_java_jars<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -34548,6 +44789,12 @@ pub mod task {
             }
 
             /// Sets the value of [python_packages][crate::model::task::infrastructure_spec::ContainerImageRuntime::python_packages].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::ContainerImageRuntime;
+            /// let x = ContainerImageRuntime::new().set_python_packages(["a", "b", "c"]);
+            /// ```
             pub fn set_python_packages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -34559,6 +44806,15 @@ pub mod task {
             }
 
             /// Sets the value of [properties][crate::model::task::infrastructure_spec::ContainerImageRuntime::properties].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::ContainerImageRuntime;
+            /// let x = ContainerImageRuntime::new().set_properties([
+            ///     ("key0", "abc"),
+            ///     ("key1", "xyz"),
+            /// ]);
+            /// ```
             pub fn set_properties<T, K, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = (K, V)>,
@@ -34598,6 +44854,12 @@ pub mod task {
             }
 
             /// Sets the value of [network_tags][crate::model::task::infrastructure_spec::VpcNetwork::network_tags].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::VpcNetwork;
+            /// let x = VpcNetwork::new().set_network_tags(["a", "b", "c"]);
+            /// ```
             pub fn set_network_tags<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -34612,6 +44874,13 @@ pub mod task {
             ///
             /// Note that all the setters affecting `network_name` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::VpcNetwork;
+            /// use google_cloud_dataplex_v1::model::task::infrastructure_spec::vpc_network::NetworkName;
+            /// let x = VpcNetwork::new().set_network_name(Some(NetworkName::Network("example".to_string())));
+            /// ```
             pub fn set_network_name<
                 T: std::convert::Into<
                         std::option::Option<
@@ -34644,6 +44913,14 @@ pub mod task {
             ///
             /// Note that all the setters affecting `network_name` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::VpcNetwork;
+            /// let x = VpcNetwork::new().set_network("example");
+            /// assert!(x.network().is_some());
+            /// assert!(x.sub_network().is_none());
+            /// ```
             pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.network_name = std::option::Option::Some(
                     crate::model::task::infrastructure_spec::vpc_network::NetworkName::Network(
@@ -34669,6 +44946,14 @@ pub mod task {
             ///
             /// Note that all the setters affecting `network_name` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_dataplex_v1::model::task::infrastructure_spec::VpcNetwork;
+            /// let x = VpcNetwork::new().set_sub_network("example");
+            /// assert!(x.sub_network().is_some());
+            /// assert!(x.network().is_none());
+            /// ```
             pub fn set_sub_network<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -34765,6 +45050,14 @@ pub mod task {
         }
 
         /// Sets the value of [r#type][crate::model::task::TriggerSpec::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::TriggerSpec;
+        /// use google_cloud_dataplex_v1::model::task::trigger_spec::Type;
+        /// let x0 = TriggerSpec::new().set_type(Type::OnDemand);
+        /// let x1 = TriggerSpec::new().set_type(Type::Recurring);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::task::trigger_spec::Type>>(
             mut self,
             v: T,
@@ -34774,6 +45067,13 @@ pub mod task {
         }
 
         /// Sets the value of [start_time][crate::model::task::TriggerSpec::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::TriggerSpec;
+        /// use wkt::Timestamp;
+        /// let x = TriggerSpec::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -34783,6 +45083,14 @@ pub mod task {
         }
 
         /// Sets or clears the value of [start_time][crate::model::task::TriggerSpec::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::TriggerSpec;
+        /// use wkt::Timestamp;
+        /// let x = TriggerSpec::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TriggerSpec::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -34792,12 +45100,24 @@ pub mod task {
         }
 
         /// Sets the value of [disabled][crate::model::task::TriggerSpec::disabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::TriggerSpec;
+        /// let x = TriggerSpec::new().set_disabled(true);
+        /// ```
         pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.disabled = v.into();
             self
         }
 
         /// Sets the value of [max_retries][crate::model::task::TriggerSpec::max_retries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::TriggerSpec;
+        /// let x = TriggerSpec::new().set_max_retries(42);
+        /// ```
         pub fn set_max_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_retries = v.into();
             self
@@ -34807,6 +45127,13 @@ pub mod task {
         ///
         /// Note that all the setters affecting `trigger` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::TriggerSpec;
+        /// use google_cloud_dataplex_v1::model::task::trigger_spec::Trigger;
+        /// let x = TriggerSpec::new().set_trigger(Some(Trigger::Schedule("example".to_string())));
+        /// ```
         pub fn set_trigger<
             T: std::convert::Into<std::option::Option<crate::model::task::trigger_spec::Trigger>>,
         >(
@@ -34835,6 +45162,13 @@ pub mod task {
         ///
         /// Note that all the setters affecting `trigger` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::TriggerSpec;
+        /// let x = TriggerSpec::new().set_schedule("example");
+        /// assert!(x.schedule().is_some());
+        /// ```
         pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trigger = std::option::Option::Some(
                 crate::model::task::trigger_spec::Trigger::Schedule(v.into()),
@@ -35052,6 +45386,15 @@ pub mod task {
         }
 
         /// Sets the value of [args][crate::model::task::ExecutionSpec::args].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+        /// let x = ExecutionSpec::new().set_args([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_args<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -35064,6 +45407,12 @@ pub mod task {
         }
 
         /// Sets the value of [service_account][crate::model::task::ExecutionSpec::service_account].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+        /// let x = ExecutionSpec::new().set_service_account("example");
+        /// ```
         pub fn set_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -35073,12 +45422,25 @@ pub mod task {
         }
 
         /// Sets the value of [project][crate::model::task::ExecutionSpec::project].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+        /// let x = ExecutionSpec::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [max_job_execution_lifetime][crate::model::task::ExecutionSpec::max_job_execution_lifetime].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+        /// use wkt::Duration;
+        /// let x = ExecutionSpec::new().set_max_job_execution_lifetime(Duration::default()/* use setters */);
+        /// ```
         pub fn set_max_job_execution_lifetime<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -35088,6 +45450,14 @@ pub mod task {
         }
 
         /// Sets or clears the value of [max_job_execution_lifetime][crate::model::task::ExecutionSpec::max_job_execution_lifetime].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+        /// use wkt::Duration;
+        /// let x = ExecutionSpec::new().set_or_clear_max_job_execution_lifetime(Some(Duration::default()/* use setters */));
+        /// let x = ExecutionSpec::new().set_or_clear_max_job_execution_lifetime(None::<Duration>);
+        /// ```
         pub fn set_or_clear_max_job_execution_lifetime<T>(
             mut self,
             v: std::option::Option<T>,
@@ -35100,6 +45470,12 @@ pub mod task {
         }
 
         /// Sets the value of [kms_key][crate::model::task::ExecutionSpec::kms_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+        /// let x = ExecutionSpec::new().set_kms_key("example");
+        /// ```
         pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kms_key = v.into();
             self
@@ -35142,6 +45518,12 @@ pub mod task {
         }
 
         /// Sets the value of [file_uris][crate::model::task::SparkTaskConfig::file_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// let x = SparkTaskConfig::new().set_file_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_file_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -35153,6 +45535,12 @@ pub mod task {
         }
 
         /// Sets the value of [archive_uris][crate::model::task::SparkTaskConfig::archive_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// let x = SparkTaskConfig::new().set_archive_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -35164,6 +45552,13 @@ pub mod task {
         }
 
         /// Sets the value of [infrastructure_spec][crate::model::task::SparkTaskConfig::infrastructure_spec].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// let x = SparkTaskConfig::new().set_infrastructure_spec(InfrastructureSpec::default()/* use setters */);
+        /// ```
         pub fn set_infrastructure_spec<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::task::InfrastructureSpec>,
@@ -35173,6 +45568,14 @@ pub mod task {
         }
 
         /// Sets or clears the value of [infrastructure_spec][crate::model::task::SparkTaskConfig::infrastructure_spec].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// let x = SparkTaskConfig::new().set_or_clear_infrastructure_spec(Some(InfrastructureSpec::default()/* use setters */));
+        /// let x = SparkTaskConfig::new().set_or_clear_infrastructure_spec(None::<InfrastructureSpec>);
+        /// ```
         pub fn set_or_clear_infrastructure_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::task::InfrastructureSpec>,
@@ -35185,6 +45588,13 @@ pub mod task {
         ///
         /// Note that all the setters affecting `driver` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// use google_cloud_dataplex_v1::model::task::spark_task_config::Driver;
+        /// let x = SparkTaskConfig::new().set_driver(Some(Driver::MainJarFileUri("example".to_string())));
+        /// ```
         pub fn set_driver<
             T: std::convert::Into<std::option::Option<crate::model::task::spark_task_config::Driver>>,
         >(
@@ -35213,6 +45623,17 @@ pub mod task {
         ///
         /// Note that all the setters affecting `driver` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// let x = SparkTaskConfig::new().set_main_jar_file_uri("example");
+        /// assert!(x.main_jar_file_uri().is_some());
+        /// assert!(x.main_class().is_none());
+        /// assert!(x.python_script_file().is_none());
+        /// assert!(x.sql_script_file().is_none());
+        /// assert!(x.sql_script().is_none());
+        /// ```
         pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -35241,6 +45662,17 @@ pub mod task {
         ///
         /// Note that all the setters affecting `driver` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// let x = SparkTaskConfig::new().set_main_class("example");
+        /// assert!(x.main_class().is_some());
+        /// assert!(x.main_jar_file_uri().is_none());
+        /// assert!(x.python_script_file().is_none());
+        /// assert!(x.sql_script_file().is_none());
+        /// assert!(x.sql_script().is_none());
+        /// ```
         pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.driver = std::option::Option::Some(
                 crate::model::task::spark_task_config::Driver::MainClass(v.into()),
@@ -35266,6 +45698,17 @@ pub mod task {
         ///
         /// Note that all the setters affecting `driver` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// let x = SparkTaskConfig::new().set_python_script_file("example");
+        /// assert!(x.python_script_file().is_some());
+        /// assert!(x.main_jar_file_uri().is_none());
+        /// assert!(x.main_class().is_none());
+        /// assert!(x.sql_script_file().is_none());
+        /// assert!(x.sql_script().is_none());
+        /// ```
         pub fn set_python_script_file<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -35294,6 +45737,17 @@ pub mod task {
         ///
         /// Note that all the setters affecting `driver` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// let x = SparkTaskConfig::new().set_sql_script_file("example");
+        /// assert!(x.sql_script_file().is_some());
+        /// assert!(x.main_jar_file_uri().is_none());
+        /// assert!(x.main_class().is_none());
+        /// assert!(x.python_script_file().is_none());
+        /// assert!(x.sql_script().is_none());
+        /// ```
         pub fn set_sql_script_file<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -35322,6 +45776,17 @@ pub mod task {
         ///
         /// Note that all the setters affecting `driver` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::SparkTaskConfig;
+        /// let x = SparkTaskConfig::new().set_sql_script("example");
+        /// assert!(x.sql_script().is_some());
+        /// assert!(x.main_jar_file_uri().is_none());
+        /// assert!(x.main_class().is_none());
+        /// assert!(x.python_script_file().is_none());
+        /// assert!(x.sql_script_file().is_none());
+        /// ```
         pub fn set_sql_script<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.driver = std::option::Option::Some(
                 crate::model::task::spark_task_config::Driver::SqlScript(v.into()),
@@ -35403,12 +45868,25 @@ pub mod task {
         }
 
         /// Sets the value of [notebook][crate::model::task::NotebookTaskConfig::notebook].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::NotebookTaskConfig;
+        /// let x = NotebookTaskConfig::new().set_notebook("example");
+        /// ```
         pub fn set_notebook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.notebook = v.into();
             self
         }
 
         /// Sets the value of [infrastructure_spec][crate::model::task::NotebookTaskConfig::infrastructure_spec].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::NotebookTaskConfig;
+        /// use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// let x = NotebookTaskConfig::new().set_infrastructure_spec(InfrastructureSpec::default()/* use setters */);
+        /// ```
         pub fn set_infrastructure_spec<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::task::InfrastructureSpec>,
@@ -35418,6 +45896,14 @@ pub mod task {
         }
 
         /// Sets or clears the value of [infrastructure_spec][crate::model::task::NotebookTaskConfig::infrastructure_spec].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::NotebookTaskConfig;
+        /// use google_cloud_dataplex_v1::model::task::InfrastructureSpec;
+        /// let x = NotebookTaskConfig::new().set_or_clear_infrastructure_spec(Some(InfrastructureSpec::default()/* use setters */));
+        /// let x = NotebookTaskConfig::new().set_or_clear_infrastructure_spec(None::<InfrastructureSpec>);
+        /// ```
         pub fn set_or_clear_infrastructure_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::task::InfrastructureSpec>,
@@ -35427,6 +45913,12 @@ pub mod task {
         }
 
         /// Sets the value of [file_uris][crate::model::task::NotebookTaskConfig::file_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::NotebookTaskConfig;
+        /// let x = NotebookTaskConfig::new().set_file_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_file_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -35438,6 +45930,12 @@ pub mod task {
         }
 
         /// Sets the value of [archive_uris][crate::model::task::NotebookTaskConfig::archive_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::NotebookTaskConfig;
+        /// let x = NotebookTaskConfig::new().set_archive_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -35474,6 +45972,13 @@ pub mod task {
         }
 
         /// Sets the value of [update_time][crate::model::task::ExecutionStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -35483,6 +45988,14 @@ pub mod task {
         }
 
         /// Sets or clears the value of [update_time][crate::model::task::ExecutionStatus::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionStatus;
+        /// use wkt::Timestamp;
+        /// let x = ExecutionStatus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ExecutionStatus::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -35492,6 +46005,13 @@ pub mod task {
         }
 
         /// Sets the value of [latest_job][crate::model::task::ExecutionStatus::latest_job].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionStatus;
+        /// use google_cloud_dataplex_v1::model::Job;
+        /// let x = ExecutionStatus::new().set_latest_job(Job::default()/* use setters */);
+        /// ```
         pub fn set_latest_job<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
@@ -35501,6 +46021,14 @@ pub mod task {
         }
 
         /// Sets or clears the value of [latest_job][crate::model::task::ExecutionStatus::latest_job].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_dataplex_v1::model::task::ExecutionStatus;
+        /// use google_cloud_dataplex_v1::model::Job;
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job(Some(Job::default()/* use setters */));
+        /// let x = ExecutionStatus::new().set_or_clear_latest_job(None::<Job>);
+        /// ```
         pub fn set_or_clear_latest_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
@@ -35579,18 +46107,37 @@ impl Job {
     }
 
     /// Sets the value of [name][crate::model::Job::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// let x = Job::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Job::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// let x = Job::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::Job::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -35600,6 +46147,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Job::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -35609,6 +46164,13 @@ impl Job {
     }
 
     /// Sets the value of [end_time][crate::model::Job::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -35618,6 +46180,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Job::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -35627,36 +46197,79 @@ impl Job {
     }
 
     /// Sets the value of [state][crate::model::Job::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use google_cloud_dataplex_v1::model::job::State;
+    /// let x0 = Job::new().set_state(State::Running);
+    /// let x1 = Job::new().set_state(State::Cancelling);
+    /// let x2 = Job::new().set_state(State::Cancelled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [retry_count][crate::model::Job::retry_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// let x = Job::new().set_retry_count(42u32);
+    /// ```
     pub fn set_retry_count<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.retry_count = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::Job::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use google_cloud_dataplex_v1::model::job::Service;
+    /// let x0 = Job::new().set_service(Service::Dataproc);
+    /// ```
     pub fn set_service<T: std::convert::Into<crate::model::job::Service>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [service_job][crate::model::Job::service_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// let x = Job::new().set_service_job("example");
+    /// ```
     pub fn set_service_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_job = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::Job::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// let x = Job::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Job::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// let x = Job::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -35669,12 +46282,27 @@ impl Job {
     }
 
     /// Sets the value of [trigger][crate::model::Job::trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use google_cloud_dataplex_v1::model::job::Trigger;
+    /// let x0 = Job::new().set_trigger(Trigger::TaskConfig);
+    /// let x1 = Job::new().set_trigger(Trigger::RunRequest);
+    /// ```
     pub fn set_trigger<T: std::convert::Into<crate::model::job::Trigger>>(mut self, v: T) -> Self {
         self.trigger = v.into();
         self
     }
 
     /// Sets the value of [execution_spec][crate::model::Job::execution_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+    /// let x = Job::new().set_execution_spec(ExecutionSpec::default()/* use setters */);
+    /// ```
     pub fn set_execution_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::task::ExecutionSpec>,
@@ -35684,6 +46312,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [execution_spec][crate::model::Job::execution_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::model::Job;
+    /// use google_cloud_dataplex_v1::model::task::ExecutionSpec;
+    /// let x = Job::new().set_or_clear_execution_spec(Some(ExecutionSpec::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_execution_spec(None::<ExecutionSpec>);
+    /// ```
     pub fn set_or_clear_execution_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::task::ExecutionSpec>,

@@ -73,18 +73,37 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = Service::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::Service::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = Service::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::Service::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::Service;
+    /// use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// let x = Service::new().set_config(ServiceConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceConfig>,
@@ -94,6 +113,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [config][crate::model::Service::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::Service;
+    /// use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// let x = Service::new().set_or_clear_config(Some(ServiceConfig::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_config(None::<ServiceConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceConfig>,
@@ -103,6 +130,14 @@ impl Service {
     }
 
     /// Sets the value of [state][crate::model::Service::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::Service;
+    /// use google_cloud_api_serviceusage_v1::model::State;
+    /// let x0 = Service::new().set_state(State::Disabled);
+    /// let x1 = Service::new().set_state(State::Enabled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -167,18 +202,41 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [name][crate::model::ServiceConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// let x = ServiceConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::ServiceConfig::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// let x = ServiceConfig::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [apis][crate::model::ServiceConfig::apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use wkt::Api;
+    /// let x = ServiceConfig::new()
+    ///     .set_apis([
+    ///         Api::default()/* use setters */,
+    ///         Api::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -190,6 +248,13 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [documentation][crate::model::ServiceConfig::documentation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Documentation;
+    /// let x = ServiceConfig::new().set_documentation(Documentation::default()/* use setters */);
+    /// ```
     pub fn set_documentation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Documentation>,
@@ -199,6 +264,14 @@ impl ServiceConfig {
     }
 
     /// Sets or clears the value of [documentation][crate::model::ServiceConfig::documentation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Documentation;
+    /// let x = ServiceConfig::new().set_or_clear_documentation(Some(Documentation::default()/* use setters */));
+    /// let x = ServiceConfig::new().set_or_clear_documentation(None::<Documentation>);
+    /// ```
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Documentation>,
@@ -208,6 +281,13 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [quota][crate::model::ServiceConfig::quota].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Quota;
+    /// let x = ServiceConfig::new().set_quota(Quota::default()/* use setters */);
+    /// ```
     pub fn set_quota<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Quota>,
@@ -217,6 +297,14 @@ impl ServiceConfig {
     }
 
     /// Sets or clears the value of [quota][crate::model::ServiceConfig::quota].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Quota;
+    /// let x = ServiceConfig::new().set_or_clear_quota(Some(Quota::default()/* use setters */));
+    /// let x = ServiceConfig::new().set_or_clear_quota(None::<Quota>);
+    /// ```
     pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Quota>,
@@ -226,6 +314,13 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [authentication][crate::model::ServiceConfig::authentication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Authentication;
+    /// let x = ServiceConfig::new().set_authentication(Authentication::default()/* use setters */);
+    /// ```
     pub fn set_authentication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Authentication>,
@@ -235,6 +330,14 @@ impl ServiceConfig {
     }
 
     /// Sets or clears the value of [authentication][crate::model::ServiceConfig::authentication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Authentication;
+    /// let x = ServiceConfig::new().set_or_clear_authentication(Some(Authentication::default()/* use setters */));
+    /// let x = ServiceConfig::new().set_or_clear_authentication(None::<Authentication>);
+    /// ```
     pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Authentication>,
@@ -244,6 +347,13 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [usage][crate::model::ServiceConfig::usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Usage;
+    /// let x = ServiceConfig::new().set_usage(Usage::default()/* use setters */);
+    /// ```
     pub fn set_usage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Usage>,
@@ -253,6 +363,14 @@ impl ServiceConfig {
     }
 
     /// Sets or clears the value of [usage][crate::model::ServiceConfig::usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Usage;
+    /// let x = ServiceConfig::new().set_or_clear_usage(Some(Usage::default()/* use setters */));
+    /// let x = ServiceConfig::new().set_or_clear_usage(None::<Usage>);
+    /// ```
     pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Usage>,
@@ -262,6 +380,17 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [endpoints][crate::model::ServiceConfig::endpoints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Endpoint;
+    /// let x = ServiceConfig::new()
+    ///     .set_endpoints([
+    ///         Endpoint::default()/* use setters */,
+    ///         Endpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -273,6 +402,17 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [monitored_resources][crate::model::ServiceConfig::monitored_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::MonitoredResourceDescriptor;
+    /// let x = ServiceConfig::new()
+    ///     .set_monitored_resources([
+    ///         MonitoredResourceDescriptor::default()/* use setters */,
+    ///         MonitoredResourceDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -284,6 +424,13 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [monitoring][crate::model::ServiceConfig::monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Monitoring;
+    /// let x = ServiceConfig::new().set_monitoring(Monitoring::default()/* use setters */);
+    /// ```
     pub fn set_monitoring<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::Monitoring>,
@@ -293,6 +440,14 @@ impl ServiceConfig {
     }
 
     /// Sets or clears the value of [monitoring][crate::model::ServiceConfig::monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ServiceConfig;
+    /// use api::model::Monitoring;
+    /// let x = ServiceConfig::new().set_or_clear_monitoring(Some(Monitoring::default()/* use setters */));
+    /// let x = ServiceConfig::new().set_or_clear_monitoring(None::<Monitoring>);
+    /// ```
     pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Monitoring>,
@@ -325,6 +480,12 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [resource_names][crate::model::OperationMetadata::resource_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_resource_names(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -368,6 +529,12 @@ impl EnableServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::EnableServiceRequest;
+    /// let x = EnableServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -398,6 +565,13 @@ impl EnableServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::EnableServiceResponse::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::EnableServiceResponse;
+    /// use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = EnableServiceResponse::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -407,6 +581,14 @@ impl EnableServiceResponse {
     }
 
     /// Sets or clears the value of [service][crate::model::EnableServiceResponse::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::EnableServiceResponse;
+    /// use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = EnableServiceResponse::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = EnableServiceResponse::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -454,18 +636,38 @@ impl DisableServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::DisableServiceRequest;
+    /// let x = DisableServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [disable_dependent_services][crate::model::DisableServiceRequest::disable_dependent_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::DisableServiceRequest;
+    /// let x = DisableServiceRequest::new().set_disable_dependent_services(true);
+    /// ```
     pub fn set_disable_dependent_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_dependent_services = v.into();
         self
     }
 
     /// Sets the value of [check_if_service_has_usage][crate::model::DisableServiceRequest::check_if_service_has_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::DisableServiceRequest;
+    /// use google_cloud_api_serviceusage_v1::model::disable_service_request::CheckIfServiceHasUsage;
+    /// let x0 = DisableServiceRequest::new().set_check_if_service_has_usage(CheckIfServiceHasUsage::Skip);
+    /// let x1 = DisableServiceRequest::new().set_check_if_service_has_usage(CheckIfServiceHasUsage::Check);
+    /// ```
     pub fn set_check_if_service_has_usage<
         T: std::convert::Into<crate::model::disable_service_request::CheckIfServiceHasUsage>,
     >(
@@ -644,6 +846,13 @@ impl DisableServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::DisableServiceResponse::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::DisableServiceResponse;
+    /// use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = DisableServiceResponse::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -653,6 +862,14 @@ impl DisableServiceResponse {
     }
 
     /// Sets or clears the value of [service][crate::model::DisableServiceResponse::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::DisableServiceResponse;
+    /// use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = DisableServiceResponse::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = DisableServiceResponse::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -688,6 +905,12 @@ impl GetServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::GetServiceRequest;
+    /// let x = GetServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -732,24 +955,48 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServicesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -782,6 +1029,17 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ListServicesResponse;
+    /// use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = ListServicesResponse::new()
+    ///     .set_services([
+    ///         Service::default()/* use setters */,
+    ///         Service::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -793,6 +1051,12 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::ListServicesResponse;
+    /// let x = ListServicesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -853,12 +1117,24 @@ impl BatchEnableServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchEnableServicesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::BatchEnableServicesRequest;
+    /// let x = BatchEnableServicesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_ids][crate::model::BatchEnableServicesRequest::service_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::BatchEnableServicesRequest;
+    /// let x = BatchEnableServicesRequest::new().set_service_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_service_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -898,6 +1174,17 @@ impl BatchEnableServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::BatchEnableServicesResponse::services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::BatchEnableServicesResponse;
+    /// use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = BatchEnableServicesResponse::new()
+    ///     .set_services([
+    ///         Service::default()/* use setters */,
+    ///         Service::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -909,6 +1196,17 @@ impl BatchEnableServicesResponse {
     }
 
     /// Sets the value of [failures][crate::model::BatchEnableServicesResponse::failures].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::BatchEnableServicesResponse;
+    /// use google_cloud_api_serviceusage_v1::model::batch_enable_services_response::EnableFailure;
+    /// let x = BatchEnableServicesResponse::new()
+    ///     .set_failures([
+    ///         EnableFailure::default()/* use setters */,
+    ///         EnableFailure::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_failures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -950,12 +1248,24 @@ pub mod batch_enable_services_response {
         }
 
         /// Sets the value of [service_id][crate::model::batch_enable_services_response::EnableFailure::service_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api_serviceusage_v1::model::batch_enable_services_response::EnableFailure;
+        /// let x = EnableFailure::new().set_service_id("example");
+        /// ```
         pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_id = v.into();
             self
         }
 
         /// Sets the value of [error_message][crate::model::batch_enable_services_response::EnableFailure::error_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api_serviceusage_v1::model::batch_enable_services_response::EnableFailure;
+        /// let x = EnableFailure::new().set_error_message("example");
+        /// ```
         pub fn set_error_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1000,12 +1310,24 @@ impl BatchGetServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchGetServicesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::BatchGetServicesRequest;
+    /// let x = BatchGetServicesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::BatchGetServicesRequest::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::BatchGetServicesRequest;
+    /// let x = BatchGetServicesRequest::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1039,6 +1361,17 @@ impl BatchGetServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::BatchGetServicesResponse::services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::model::BatchGetServicesResponse;
+    /// use google_cloud_api_serviceusage_v1::model::Service;
+    /// let x = BatchGetServicesResponse::new()
+    ///     .set_services([
+    ///         Service::default()/* use setters */,
+    ///         Service::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

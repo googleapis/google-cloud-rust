@@ -71,30 +71,60 @@ impl ListCertificateIssuanceConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificateIssuanceConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsRequest;
+    /// let x = ListCertificateIssuanceConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificateIssuanceConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsRequest;
+    /// let x = ListCertificateIssuanceConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificateIssuanceConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsRequest;
+    /// let x = ListCertificateIssuanceConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificateIssuanceConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsRequest;
+    /// let x = ListCertificateIssuanceConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificateIssuanceConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsRequest;
+    /// let x = ListCertificateIssuanceConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -131,6 +161,17 @@ impl ListCertificateIssuanceConfigsResponse {
     }
 
     /// Sets the value of [certificate_issuance_configs][crate::model::ListCertificateIssuanceConfigsResponse::certificate_issuance_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsResponse;
+    /// use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = ListCertificateIssuanceConfigsResponse::new()
+    ///     .set_certificate_issuance_configs([
+    ///         CertificateIssuanceConfig::default()/* use setters */,
+    ///         CertificateIssuanceConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificate_issuance_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -142,12 +183,24 @@ impl ListCertificateIssuanceConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificateIssuanceConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsResponse;
+    /// let x = ListCertificateIssuanceConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificateIssuanceConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateIssuanceConfigsResponse;
+    /// let x = ListCertificateIssuanceConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -196,6 +249,12 @@ impl GetCertificateIssuanceConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateIssuanceConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::GetCertificateIssuanceConfigRequest;
+    /// let x = GetCertificateIssuanceConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -231,12 +290,24 @@ impl CreateCertificateIssuanceConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCertificateIssuanceConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateIssuanceConfigRequest;
+    /// let x = CreateCertificateIssuanceConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [certificate_issuance_config_id][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateIssuanceConfigRequest;
+    /// let x = CreateCertificateIssuanceConfigRequest::new().set_certificate_issuance_config_id("example");
+    /// ```
     pub fn set_certificate_issuance_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -246,6 +317,13 @@ impl CreateCertificateIssuanceConfigRequest {
     }
 
     /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateIssuanceConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = CreateCertificateIssuanceConfigRequest::new().set_certificate_issuance_config(CertificateIssuanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
@@ -255,6 +333,14 @@ impl CreateCertificateIssuanceConfigRequest {
     }
 
     /// Sets or clears the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateIssuanceConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = CreateCertificateIssuanceConfigRequest::new().set_or_clear_certificate_issuance_config(Some(CertificateIssuanceConfig::default()/* use setters */));
+    /// let x = CreateCertificateIssuanceConfigRequest::new().set_or_clear_certificate_issuance_config(None::<CertificateIssuanceConfig>);
+    /// ```
     pub fn set_or_clear_certificate_issuance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
@@ -287,6 +373,12 @@ impl DeleteCertificateIssuanceConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCertificateIssuanceConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateIssuanceConfigRequest;
+    /// let x = DeleteCertificateIssuanceConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -345,12 +437,25 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [name][crate::model::CertificateIssuanceConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = CertificateIssuanceConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::CertificateIssuanceConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use wkt::Timestamp;
+    /// let x = CertificateIssuanceConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -360,6 +465,14 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CertificateIssuanceConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use wkt::Timestamp;
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -369,6 +482,13 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [update_time][crate::model::CertificateIssuanceConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use wkt::Timestamp;
+    /// let x = CertificateIssuanceConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -378,6 +498,14 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CertificateIssuanceConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use wkt::Timestamp;
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -387,6 +515,15 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [labels][crate::model::CertificateIssuanceConfig::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = CertificateIssuanceConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -399,12 +536,25 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [description][crate::model::CertificateIssuanceConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = CertificateIssuanceConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [certificate_authority_config][crate::model::CertificateIssuanceConfig::certificate_authority_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use google_cloud_certificatemanager_v1::model::certificate_issuance_config::CertificateAuthorityConfig;
+    /// let x = CertificateIssuanceConfig::new().set_certificate_authority_config(CertificateAuthorityConfig::default()/* use setters */);
+    /// ```
     pub fn set_certificate_authority_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -416,6 +566,14 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets or clears the value of [certificate_authority_config][crate::model::CertificateIssuanceConfig::certificate_authority_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use google_cloud_certificatemanager_v1::model::certificate_issuance_config::CertificateAuthorityConfig;
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_certificate_authority_config(Some(CertificateAuthorityConfig::default()/* use setters */));
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_certificate_authority_config(None::<CertificateAuthorityConfig>);
+    /// ```
     pub fn set_or_clear_certificate_authority_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -427,6 +585,13 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [lifetime][crate::model::CertificateIssuanceConfig::lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use wkt::Duration;
+    /// let x = CertificateIssuanceConfig::new().set_lifetime(Duration::default()/* use setters */);
+    /// ```
     pub fn set_lifetime<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -436,6 +601,14 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets or clears the value of [lifetime][crate::model::CertificateIssuanceConfig::lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use wkt::Duration;
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_lifetime(Some(Duration::default()/* use setters */));
+    /// let x = CertificateIssuanceConfig::new().set_or_clear_lifetime(None::<Duration>);
+    /// ```
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -445,12 +618,26 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [rotation_window_percentage][crate::model::CertificateIssuanceConfig::rotation_window_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// let x = CertificateIssuanceConfig::new().set_rotation_window_percentage(42);
+    /// ```
     pub fn set_rotation_window_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rotation_window_percentage = v.into();
         self
     }
 
     /// Sets the value of [key_algorithm][crate::model::CertificateIssuanceConfig::key_algorithm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use google_cloud_certificatemanager_v1::model::certificate_issuance_config::KeyAlgorithm;
+    /// let x0 = CertificateIssuanceConfig::new().set_key_algorithm(KeyAlgorithm::Rsa2048);
+    /// let x1 = CertificateIssuanceConfig::new().set_key_algorithm(KeyAlgorithm::EcdsaP256);
+    /// ```
     pub fn set_key_algorithm<
         T: std::convert::Into<crate::model::certificate_issuance_config::KeyAlgorithm>,
     >(
@@ -494,6 +681,14 @@ pub mod certificate_issuance_config {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate_issuance_config::CertificateAuthorityConfig;
+        /// use google_cloud_certificatemanager_v1::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig;
+        /// let x = CertificateAuthorityConfig::new().set_kind(Some(
+        ///     google_cloud_certificatemanager_v1::model::certificate_issuance_config::certificate_authority_config::Kind::CertificateAuthorityServiceConfig(CertificateAuthorityServiceConfig::default().into())));
+        /// ```
         pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::certificate_issuance_config::certificate_authority_config::Kind>>>(mut self, v: T) -> Self
         {
             self.kind = v.into();
@@ -516,6 +711,14 @@ pub mod certificate_issuance_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate_issuance_config::CertificateAuthorityConfig;
+        /// use google_cloud_certificatemanager_v1::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig;
+        /// let x = CertificateAuthorityConfig::new().set_certificate_authority_service_config(CertificateAuthorityServiceConfig::default()/* use setters */);
+        /// assert!(x.certificate_authority_service_config().is_some());
+        /// ```
         pub fn set_certificate_authority_service_config<T: std::convert::Into<std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>>>(mut self, v: T) -> Self{
             self.kind = std::option::Option::Some(
                 crate::model::certificate_issuance_config::certificate_authority_config::Kind::CertificateAuthorityServiceConfig(
@@ -555,6 +758,12 @@ pub mod certificate_issuance_config {
             }
 
             /// Sets the value of [ca_pool][crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig::ca_pool].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig;
+            /// let x = CertificateAuthorityServiceConfig::new().set_ca_pool("example");
+            /// ```
             pub fn set_ca_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.ca_pool = v.into();
                 self
@@ -741,30 +950,60 @@ impl ListCertificatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificatesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificatesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -801,6 +1040,17 @@ impl ListCertificatesResponse {
     }
 
     /// Sets the value of [certificates][crate::model::ListCertificatesResponse::certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesResponse;
+    /// use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = ListCertificatesResponse::new()
+    ///     .set_certificates([
+    ///         Certificate::default()/* use setters */,
+    ///         Certificate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -812,12 +1062,24 @@ impl ListCertificatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesResponse;
+    /// let x = ListCertificatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificatesResponse;
+    /// let x = ListCertificatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -866,6 +1128,12 @@ impl GetCertificateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::GetCertificateRequest;
+    /// let x = GetCertificateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -901,18 +1169,37 @@ impl CreateCertificateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateRequest;
+    /// let x = CreateCertificateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [certificate_id][crate::model::CreateCertificateRequest::certificate_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateRequest;
+    /// let x = CreateCertificateRequest::new().set_certificate_id("example");
+    /// ```
     pub fn set_certificate_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.certificate_id = v.into();
         self
     }
 
     /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateRequest;
+    /// use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = CreateCertificateRequest::new().set_certificate(Certificate::default()/* use setters */);
+    /// ```
     pub fn set_certificate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -922,6 +1209,14 @@ impl CreateCertificateRequest {
     }
 
     /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateRequest;
+    /// use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = CreateCertificateRequest::new().set_or_clear_certificate(Some(Certificate::default()/* use setters */));
+    /// let x = CreateCertificateRequest::new().set_or_clear_certificate(None::<Certificate>);
+    /// ```
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -958,6 +1253,13 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateRequest;
+    /// use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = UpdateCertificateRequest::new().set_certificate(Certificate::default()/* use setters */);
+    /// ```
     pub fn set_certificate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -967,6 +1269,14 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateRequest;
+    /// use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = UpdateCertificateRequest::new().set_or_clear_certificate(Some(Certificate::default()/* use setters */));
+    /// let x = UpdateCertificateRequest::new().set_or_clear_certificate(None::<Certificate>);
+    /// ```
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -976,6 +1286,13 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -985,6 +1302,14 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1017,6 +1342,12 @@ impl DeleteCertificateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCertificateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateRequest;
+    /// let x = DeleteCertificateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1062,30 +1393,60 @@ impl ListCertificateMapsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificateMapsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsRequest;
+    /// let x = ListCertificateMapsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificateMapsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsRequest;
+    /// let x = ListCertificateMapsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificateMapsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsRequest;
+    /// let x = ListCertificateMapsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificateMapsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsRequest;
+    /// let x = ListCertificateMapsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificateMapsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsRequest;
+    /// let x = ListCertificateMapsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1122,6 +1483,17 @@ impl ListCertificateMapsResponse {
     }
 
     /// Sets the value of [certificate_maps][crate::model::ListCertificateMapsResponse::certificate_maps].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsResponse;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = ListCertificateMapsResponse::new()
+    ///     .set_certificate_maps([
+    ///         CertificateMap::default()/* use setters */,
+    ///         CertificateMap::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificate_maps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1133,12 +1505,24 @@ impl ListCertificateMapsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificateMapsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsResponse;
+    /// let x = ListCertificateMapsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificateMapsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapsResponse;
+    /// let x = ListCertificateMapsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1187,6 +1571,12 @@ impl GetCertificateMapRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateMapRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::GetCertificateMapRequest;
+    /// let x = GetCertificateMapRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1222,12 +1612,24 @@ impl CreateCertificateMapRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCertificateMapRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapRequest;
+    /// let x = CreateCertificateMapRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [certificate_map_id][crate::model::CreateCertificateMapRequest::certificate_map_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapRequest;
+    /// let x = CreateCertificateMapRequest::new().set_certificate_map_id("example");
+    /// ```
     pub fn set_certificate_map_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1237,6 +1639,13 @@ impl CreateCertificateMapRequest {
     }
 
     /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = CreateCertificateMapRequest::new().set_certificate_map(CertificateMap::default()/* use setters */);
+    /// ```
     pub fn set_certificate_map<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMap>,
@@ -1246,6 +1655,14 @@ impl CreateCertificateMapRequest {
     }
 
     /// Sets or clears the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = CreateCertificateMapRequest::new().set_or_clear_certificate_map(Some(CertificateMap::default()/* use setters */));
+    /// let x = CreateCertificateMapRequest::new().set_or_clear_certificate_map(None::<CertificateMap>);
+    /// ```
     pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMap>,
@@ -1282,6 +1699,13 @@ impl UpdateCertificateMapRequest {
     }
 
     /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = UpdateCertificateMapRequest::new().set_certificate_map(CertificateMap::default()/* use setters */);
+    /// ```
     pub fn set_certificate_map<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMap>,
@@ -1291,6 +1715,14 @@ impl UpdateCertificateMapRequest {
     }
 
     /// Sets or clears the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = UpdateCertificateMapRequest::new().set_or_clear_certificate_map(Some(CertificateMap::default()/* use setters */));
+    /// let x = UpdateCertificateMapRequest::new().set_or_clear_certificate_map(None::<CertificateMap>);
+    /// ```
     pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMap>,
@@ -1300,6 +1732,13 @@ impl UpdateCertificateMapRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateMapRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1309,6 +1748,14 @@ impl UpdateCertificateMapRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateMapRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateMapRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1341,6 +1788,12 @@ impl DeleteCertificateMapRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCertificateMapRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateMapRequest;
+    /// let x = DeleteCertificateMapRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1391,30 +1844,60 @@ impl ListCertificateMapEntriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificateMapEntriesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesRequest;
+    /// let x = ListCertificateMapEntriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificateMapEntriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesRequest;
+    /// let x = ListCertificateMapEntriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificateMapEntriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesRequest;
+    /// let x = ListCertificateMapEntriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificateMapEntriesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesRequest;
+    /// let x = ListCertificateMapEntriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificateMapEntriesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesRequest;
+    /// let x = ListCertificateMapEntriesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1451,6 +1934,17 @@ impl ListCertificateMapEntriesResponse {
     }
 
     /// Sets the value of [certificate_map_entries][crate::model::ListCertificateMapEntriesResponse::certificate_map_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesResponse;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = ListCertificateMapEntriesResponse::new()
+    ///     .set_certificate_map_entries([
+    ///         CertificateMapEntry::default()/* use setters */,
+    ///         CertificateMapEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificate_map_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1462,12 +1956,24 @@ impl ListCertificateMapEntriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificateMapEntriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesResponse;
+    /// let x = ListCertificateMapEntriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificateMapEntriesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListCertificateMapEntriesResponse;
+    /// let x = ListCertificateMapEntriesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1516,6 +2022,12 @@ impl GetCertificateMapEntryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateMapEntryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::GetCertificateMapEntryRequest;
+    /// let x = GetCertificateMapEntryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1551,12 +2063,24 @@ impl CreateCertificateMapEntryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCertificateMapEntryRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapEntryRequest;
+    /// let x = CreateCertificateMapEntryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [certificate_map_entry_id][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapEntryRequest;
+    /// let x = CreateCertificateMapEntryRequest::new().set_certificate_map_entry_id("example");
+    /// ```
     pub fn set_certificate_map_entry_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1566,6 +2090,13 @@ impl CreateCertificateMapEntryRequest {
     }
 
     /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapEntryRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = CreateCertificateMapEntryRequest::new().set_certificate_map_entry(CertificateMapEntry::default()/* use setters */);
+    /// ```
     pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMapEntry>,
@@ -1575,6 +2106,14 @@ impl CreateCertificateMapEntryRequest {
     }
 
     /// Sets or clears the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateCertificateMapEntryRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = CreateCertificateMapEntryRequest::new().set_or_clear_certificate_map_entry(Some(CertificateMapEntry::default()/* use setters */));
+    /// let x = CreateCertificateMapEntryRequest::new().set_or_clear_certificate_map_entry(None::<CertificateMapEntry>);
+    /// ```
     pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMapEntry>,
@@ -1611,6 +2150,13 @@ impl UpdateCertificateMapEntryRequest {
     }
 
     /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapEntryRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = UpdateCertificateMapEntryRequest::new().set_certificate_map_entry(CertificateMapEntry::default()/* use setters */);
+    /// ```
     pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMapEntry>,
@@ -1620,6 +2166,14 @@ impl UpdateCertificateMapEntryRequest {
     }
 
     /// Sets or clears the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapEntryRequest;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = UpdateCertificateMapEntryRequest::new().set_or_clear_certificate_map_entry(Some(CertificateMapEntry::default()/* use setters */));
+    /// let x = UpdateCertificateMapEntryRequest::new().set_or_clear_certificate_map_entry(None::<CertificateMapEntry>);
+    /// ```
     pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateMapEntry>,
@@ -1629,6 +2183,13 @@ impl UpdateCertificateMapEntryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapEntryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateMapEntryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1638,6 +2199,14 @@ impl UpdateCertificateMapEntryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateCertificateMapEntryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateMapEntryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateMapEntryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1670,6 +2239,12 @@ impl DeleteCertificateMapEntryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCertificateMapEntryRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DeleteCertificateMapEntryRequest;
+    /// let x = DeleteCertificateMapEntryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1715,30 +2290,60 @@ impl ListDnsAuthorizationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDnsAuthorizationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsRequest;
+    /// let x = ListDnsAuthorizationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDnsAuthorizationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsRequest;
+    /// let x = ListDnsAuthorizationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDnsAuthorizationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsRequest;
+    /// let x = ListDnsAuthorizationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDnsAuthorizationsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsRequest;
+    /// let x = ListDnsAuthorizationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDnsAuthorizationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsRequest;
+    /// let x = ListDnsAuthorizationsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1775,6 +2380,17 @@ impl ListDnsAuthorizationsResponse {
     }
 
     /// Sets the value of [dns_authorizations][crate::model::ListDnsAuthorizationsResponse::dns_authorizations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsResponse;
+    /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = ListDnsAuthorizationsResponse::new()
+    ///     .set_dns_authorizations([
+    ///         DnsAuthorization::default()/* use setters */,
+    ///         DnsAuthorization::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dns_authorizations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1786,12 +2402,24 @@ impl ListDnsAuthorizationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDnsAuthorizationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsResponse;
+    /// let x = ListDnsAuthorizationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDnsAuthorizationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListDnsAuthorizationsResponse;
+    /// let x = ListDnsAuthorizationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1840,6 +2468,12 @@ impl GetDnsAuthorizationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDnsAuthorizationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::GetDnsAuthorizationRequest;
+    /// let x = GetDnsAuthorizationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1875,12 +2509,24 @@ impl CreateDnsAuthorizationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDnsAuthorizationRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateDnsAuthorizationRequest;
+    /// let x = CreateDnsAuthorizationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dns_authorization_id][crate::model::CreateDnsAuthorizationRequest::dns_authorization_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateDnsAuthorizationRequest;
+    /// let x = CreateDnsAuthorizationRequest::new().set_dns_authorization_id("example");
+    /// ```
     pub fn set_dns_authorization_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1890,6 +2536,13 @@ impl CreateDnsAuthorizationRequest {
     }
 
     /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateDnsAuthorizationRequest;
+    /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = CreateDnsAuthorizationRequest::new().set_dns_authorization(DnsAuthorization::default()/* use setters */);
+    /// ```
     pub fn set_dns_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DnsAuthorization>,
@@ -1899,6 +2552,14 @@ impl CreateDnsAuthorizationRequest {
     }
 
     /// Sets or clears the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateDnsAuthorizationRequest;
+    /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = CreateDnsAuthorizationRequest::new().set_or_clear_dns_authorization(Some(DnsAuthorization::default()/* use setters */));
+    /// let x = CreateDnsAuthorizationRequest::new().set_or_clear_dns_authorization(None::<DnsAuthorization>);
+    /// ```
     pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsAuthorization>,
@@ -1935,6 +2596,13 @@ impl UpdateDnsAuthorizationRequest {
     }
 
     /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateDnsAuthorizationRequest;
+    /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = UpdateDnsAuthorizationRequest::new().set_dns_authorization(DnsAuthorization::default()/* use setters */);
+    /// ```
     pub fn set_dns_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DnsAuthorization>,
@@ -1944,6 +2612,14 @@ impl UpdateDnsAuthorizationRequest {
     }
 
     /// Sets or clears the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateDnsAuthorizationRequest;
+    /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = UpdateDnsAuthorizationRequest::new().set_or_clear_dns_authorization(Some(DnsAuthorization::default()/* use setters */));
+    /// let x = UpdateDnsAuthorizationRequest::new().set_or_clear_dns_authorization(None::<DnsAuthorization>);
+    /// ```
     pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsAuthorization>,
@@ -1953,6 +2629,13 @@ impl UpdateDnsAuthorizationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateDnsAuthorizationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDnsAuthorizationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1962,6 +2645,14 @@ impl UpdateDnsAuthorizationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateDnsAuthorizationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDnsAuthorizationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDnsAuthorizationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1994,6 +2685,12 @@ impl DeleteDnsAuthorizationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDnsAuthorizationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DeleteDnsAuthorizationRequest;
+    /// let x = DeleteDnsAuthorizationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2046,6 +2743,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2055,6 +2759,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2064,6 +2776,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2073,6 +2792,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2082,30 +2809,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -2164,18 +2921,37 @@ impl Certificate {
     }
 
     /// Sets the value of [name][crate::model::Certificate::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = Certificate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Certificate::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = Certificate::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Certificate::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2185,6 +2961,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Certificate::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2194,6 +2978,13 @@ impl Certificate {
     }
 
     /// Sets the value of [update_time][crate::model::Certificate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2203,6 +2994,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Certificate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2212,6 +3011,15 @@ impl Certificate {
     }
 
     /// Sets the value of [labels][crate::model::Certificate::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = Certificate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2224,6 +3032,12 @@ impl Certificate {
     }
 
     /// Sets the value of [san_dnsnames][crate::model::Certificate::san_dnsnames].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = Certificate::new().set_san_dnsnames(["a", "b", "c"]);
+    /// ```
     pub fn set_san_dnsnames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2235,12 +3049,25 @@ impl Certificate {
     }
 
     /// Sets the value of [pem_certificate][crate::model::Certificate::pem_certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// let x = Certificate::new().set_pem_certificate("example");
+    /// ```
     pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_certificate = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Certificate::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2250,6 +3077,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Certificate::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2259,6 +3094,14 @@ impl Certificate {
     }
 
     /// Sets the value of [scope][crate::model::Certificate::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::model::certificate::Scope;
+    /// let x0 = Certificate::new().set_scope(Scope::EdgeCache);
+    /// let x1 = Certificate::new().set_scope(Scope::AllRegions);
+    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::certificate::Scope>>(
         mut self,
         v: T,
@@ -2271,6 +3114,14 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::model::certificate::SelfManagedCertificate;
+    /// let x = Certificate::new().set_type(Some(
+    ///     google_cloud_certificatemanager_v1::model::certificate::Type::SelfManaged(SelfManagedCertificate::default().into())));
+    /// ```
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::certificate::Type>>>(
         mut self,
         v: T,
@@ -2298,6 +3149,15 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::model::certificate::SelfManagedCertificate;
+    /// let x = Certificate::new().set_self_managed(SelfManagedCertificate::default()/* use setters */);
+    /// assert!(x.self_managed().is_some());
+    /// assert!(x.managed().is_none());
+    /// ```
     pub fn set_self_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::certificate::SelfManagedCertificate>>,
     >(
@@ -2327,6 +3187,15 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+    /// let x = Certificate::new().set_managed(ManagedCertificate::default()/* use setters */);
+    /// assert!(x.managed().is_some());
+    /// assert!(x.self_managed().is_none());
+    /// ```
     pub fn set_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::certificate::ManagedCertificate>>,
     >(
@@ -2371,6 +3240,12 @@ pub mod certificate {
         }
 
         /// Sets the value of [pem_certificate][crate::model::certificate::SelfManagedCertificate::pem_certificate].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::SelfManagedCertificate;
+        /// let x = SelfManagedCertificate::new().set_pem_certificate("example");
+        /// ```
         pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2380,6 +3255,12 @@ pub mod certificate {
         }
 
         /// Sets the value of [pem_private_key][crate::model::certificate::SelfManagedCertificate::pem_private_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::SelfManagedCertificate;
+        /// let x = SelfManagedCertificate::new().set_pem_private_key("example");
+        /// ```
         pub fn set_pem_private_key<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2443,6 +3324,12 @@ pub mod certificate {
         }
 
         /// Sets the value of [domains][crate::model::certificate::ManagedCertificate::domains].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+        /// let x = ManagedCertificate::new().set_domains(["a", "b", "c"]);
+        /// ```
         pub fn set_domains<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2454,6 +3341,12 @@ pub mod certificate {
         }
 
         /// Sets the value of [dns_authorizations][crate::model::certificate::ManagedCertificate::dns_authorizations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+        /// let x = ManagedCertificate::new().set_dns_authorizations(["a", "b", "c"]);
+        /// ```
         pub fn set_dns_authorizations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2465,6 +3358,12 @@ pub mod certificate {
         }
 
         /// Sets the value of [issuance_config][crate::model::certificate::ManagedCertificate::issuance_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+        /// let x = ManagedCertificate::new().set_issuance_config("example");
+        /// ```
         pub fn set_issuance_config<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2474,6 +3373,15 @@ pub mod certificate {
         }
 
         /// Sets the value of [state][crate::model::certificate::ManagedCertificate::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+        /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::State;
+        /// let x0 = ManagedCertificate::new().set_state(State::Provisioning);
+        /// let x1 = ManagedCertificate::new().set_state(State::Failed);
+        /// let x2 = ManagedCertificate::new().set_state(State::Active);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::certificate::managed_certificate::State>,
         >(
@@ -2485,6 +3393,13 @@ pub mod certificate {
         }
 
         /// Sets the value of [provisioning_issue][crate::model::certificate::ManagedCertificate::provisioning_issue].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+        /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::ProvisioningIssue;
+        /// let x = ManagedCertificate::new().set_provisioning_issue(ProvisioningIssue::default()/* use setters */);
+        /// ```
         pub fn set_provisioning_issue<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -2496,6 +3411,14 @@ pub mod certificate {
         }
 
         /// Sets or clears the value of [provisioning_issue][crate::model::certificate::ManagedCertificate::provisioning_issue].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+        /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::ProvisioningIssue;
+        /// let x = ManagedCertificate::new().set_or_clear_provisioning_issue(Some(ProvisioningIssue::default()/* use setters */));
+        /// let x = ManagedCertificate::new().set_or_clear_provisioning_issue(None::<ProvisioningIssue>);
+        /// ```
         pub fn set_or_clear_provisioning_issue<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -2507,6 +3430,17 @@ pub mod certificate {
         }
 
         /// Sets the value of [authorization_attempt_info][crate::model::certificate::ManagedCertificate::authorization_attempt_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate::ManagedCertificate;
+        /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+        /// let x = ManagedCertificate::new()
+        ///     .set_authorization_attempt_info([
+        ///         AuthorizationAttemptInfo::default()/* use setters */,
+        ///         AuthorizationAttemptInfo::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_authorization_attempt_info<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2552,6 +3486,14 @@ pub mod certificate {
             }
 
             /// Sets the value of [reason][crate::model::certificate::managed_certificate::ProvisioningIssue::reason].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::ProvisioningIssue;
+            /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::provisioning_issue::Reason;
+            /// let x0 = ProvisioningIssue::new().set_reason(Reason::AuthorizationIssue);
+            /// let x1 = ProvisioningIssue::new().set_reason(Reason::RateLimited);
+            /// ```
             pub fn set_reason<
                 T: std::convert::Into<
                         crate::model::certificate::managed_certificate::provisioning_issue::Reason,
@@ -2565,6 +3507,12 @@ pub mod certificate {
             }
 
             /// Sets the value of [details][crate::model::certificate::managed_certificate::ProvisioningIssue::details].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::ProvisioningIssue;
+            /// let x = ProvisioningIssue::new().set_details("example");
+            /// ```
             pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.details = v.into();
                 self
@@ -2728,22 +3676,22 @@ pub mod certificate {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AuthorizationAttemptInfo {
-
+        
             /// Domain name of the authorization attempt.
             pub domain: std::string::String,
-
+        
             /// Output only. State of the domain for managed certificate issuance.
             pub state: crate::model::certificate::managed_certificate::authorization_attempt_info::State,
-
+        
             /// Output only. Reason for failure of the authorization attempt for the
             /// domain.
             pub failure_reason: crate::model::certificate::managed_certificate::authorization_attempt_info::FailureReason,
-
+        
             /// Output only. Human readable explanation for reaching the state.
             /// Provided to help address the configuration issues. Not guaranteed to be
             /// stable. For programmatic access use FailureReason enum.
             pub details: std::string::String,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -2753,24 +3701,54 @@ pub mod certificate {
             }
 
             /// Sets the value of [domain][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::domain].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// let x = AuthorizationAttemptInfo::new().set_domain("example");
+            /// ```
             pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.domain = v.into();
                 self
             }
 
             /// Sets the value of [state][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::state].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::State;
+            /// let x0 = AuthorizationAttemptInfo::new().set_state(State::Authorizing);
+            /// let x1 = AuthorizationAttemptInfo::new().set_state(State::Authorized);
+            /// let x2 = AuthorizationAttemptInfo::new().set_state(State::Failed);
+            /// ```
             pub fn set_state<T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::State>>(mut self, v: T) -> Self{
                 self.state = v.into();
                 self
             }
 
             /// Sets the value of [failure_reason][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::failure_reason].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::authorization_attempt_info::FailureReason;
+            /// let x0 = AuthorizationAttemptInfo::new().set_failure_reason(FailureReason::Config);
+            /// let x1 = AuthorizationAttemptInfo::new().set_failure_reason(FailureReason::Caa);
+            /// let x2 = AuthorizationAttemptInfo::new().set_failure_reason(FailureReason::RateLimited);
+            /// ```
             pub fn set_failure_reason<T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::FailureReason>>(mut self, v: T) -> Self{
                 self.failure_reason = v.into();
                 self
             }
 
             /// Sets the value of [details][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::details].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate::managed_certificate::AuthorizationAttemptInfo;
+            /// let x = AuthorizationAttemptInfo::new().set_details("example");
+            /// ```
             pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.details = v.into();
                 self
@@ -3409,18 +4387,37 @@ impl CertificateMap {
     }
 
     /// Sets the value of [name][crate::model::CertificateMap::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = CertificateMap::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CertificateMap::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = CertificateMap::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::CertificateMap::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMap::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3430,6 +4427,14 @@ impl CertificateMap {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CertificateMap::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMap::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateMap::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3439,6 +4444,13 @@ impl CertificateMap {
     }
 
     /// Sets the value of [update_time][crate::model::CertificateMap::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMap::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3448,6 +4460,14 @@ impl CertificateMap {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CertificateMap::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMap::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateMap::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3457,6 +4477,15 @@ impl CertificateMap {
     }
 
     /// Sets the value of [labels][crate::model::CertificateMap::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// let x = CertificateMap::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3469,6 +4498,17 @@ impl CertificateMap {
     }
 
     /// Sets the value of [gclb_targets][crate::model::CertificateMap::gclb_targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// use google_cloud_certificatemanager_v1::model::certificate_map::GclbTarget;
+    /// let x = CertificateMap::new()
+    ///     .set_gclb_targets([
+    ///         GclbTarget::default()/* use setters */,
+    ///         GclbTarget::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_gclb_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3512,6 +4552,17 @@ pub mod certificate_map {
         }
 
         /// Sets the value of [ip_configs][crate::model::certificate_map::GclbTarget::ip_configs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate_map::GclbTarget;
+        /// use google_cloud_certificatemanager_v1::model::certificate_map::gclb_target::IpConfig;
+        /// let x = GclbTarget::new()
+        ///     .set_ip_configs([
+        ///         IpConfig::default()/* use setters */,
+        ///         IpConfig::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_ip_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3526,6 +4577,13 @@ pub mod certificate_map {
         ///
         /// Note that all the setters affecting `target_proxy` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate_map::GclbTarget;
+        /// use google_cloud_certificatemanager_v1::model::certificate_map::gclb_target::TargetProxy;
+        /// let x = GclbTarget::new().set_target_proxy(Some(TargetProxy::TargetHttpsProxy("example".to_string())));
+        /// ```
         pub fn set_target_proxy<
             T: std::convert::Into<
                     std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
@@ -3556,6 +4614,14 @@ pub mod certificate_map {
         ///
         /// Note that all the setters affecting `target_proxy` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate_map::GclbTarget;
+        /// let x = GclbTarget::new().set_target_https_proxy("example");
+        /// assert!(x.target_https_proxy().is_some());
+        /// assert!(x.target_ssl_proxy().is_none());
+        /// ```
         pub fn set_target_https_proxy<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3584,6 +4650,14 @@ pub mod certificate_map {
         ///
         /// Note that all the setters affecting `target_proxy` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::certificate_map::GclbTarget;
+        /// let x = GclbTarget::new().set_target_ssl_proxy("example");
+        /// assert!(x.target_ssl_proxy().is_some());
+        /// assert!(x.target_https_proxy().is_none());
+        /// ```
         pub fn set_target_ssl_proxy<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3625,6 +4699,12 @@ pub mod certificate_map {
             }
 
             /// Sets the value of [ip_address][crate::model::certificate_map::gclb_target::IpConfig::ip_address].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate_map::gclb_target::IpConfig;
+            /// let x = IpConfig::new().set_ip_address("example");
+            /// ```
             pub fn set_ip_address<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3634,6 +4714,12 @@ pub mod certificate_map {
             }
 
             /// Sets the value of [ports][crate::model::certificate_map::gclb_target::IpConfig::ports].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_certificatemanager_v1::model::certificate_map::gclb_target::IpConfig;
+            /// let x = IpConfig::new().set_ports([1u32, 2u32, 3u32]);
+            /// ```
             pub fn set_ports<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -3707,18 +4793,37 @@ impl CertificateMapEntry {
     }
 
     /// Sets the value of [name][crate::model::CertificateMapEntry::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = CertificateMapEntry::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CertificateMapEntry::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = CertificateMapEntry::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::CertificateMapEntry::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMapEntry::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3728,6 +4833,14 @@ impl CertificateMapEntry {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CertificateMapEntry::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMapEntry::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateMapEntry::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3737,6 +4850,13 @@ impl CertificateMapEntry {
     }
 
     /// Sets the value of [update_time][crate::model::CertificateMapEntry::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMapEntry::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3746,6 +4866,14 @@ impl CertificateMapEntry {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CertificateMapEntry::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use wkt::Timestamp;
+    /// let x = CertificateMapEntry::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateMapEntry::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3755,6 +4883,15 @@ impl CertificateMapEntry {
     }
 
     /// Sets the value of [labels][crate::model::CertificateMapEntry::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = CertificateMapEntry::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3767,6 +4904,12 @@ impl CertificateMapEntry {
     }
 
     /// Sets the value of [certificates][crate::model::CertificateMapEntry::certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = CertificateMapEntry::new().set_certificates(["a", "b", "c"]);
+    /// ```
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3778,6 +4921,14 @@ impl CertificateMapEntry {
     }
 
     /// Sets the value of [state][crate::model::CertificateMapEntry::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use google_cloud_certificatemanager_v1::model::ServingState;
+    /// let x0 = CertificateMapEntry::new().set_state(ServingState::Active);
+    /// let x1 = CertificateMapEntry::new().set_state(ServingState::Pending);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::ServingState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -3787,6 +4938,13 @@ impl CertificateMapEntry {
     ///
     /// Note that all the setters affecting `r#match` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use google_cloud_certificatemanager_v1::model::certificate_map_entry::Match;
+    /// let x = CertificateMapEntry::new().set_match(Some(Match::Hostname("example".to_string())));
+    /// ```
     pub fn set_match<
         T: std::convert::Into<std::option::Option<crate::model::certificate_map_entry::Match>>,
     >(
@@ -3813,6 +4971,14 @@ impl CertificateMapEntry {
     ///
     /// Note that all the setters affecting `r#match` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// let x = CertificateMapEntry::new().set_hostname("example");
+    /// assert!(x.hostname().is_some());
+    /// assert!(x.matcher().is_none());
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#match = std::option::Option::Some(
             crate::model::certificate_map_entry::Match::Hostname(v.into()),
@@ -3836,6 +5002,15 @@ impl CertificateMapEntry {
     ///
     /// Note that all the setters affecting `r#match` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use google_cloud_certificatemanager_v1::model::certificate_map_entry::Matcher;
+    /// let x0 = CertificateMapEntry::new().set_matcher(Matcher::Primary);
+    /// assert!(x0.matcher().is_some());
+    /// assert!(x0.hostname().is_none());
+    /// ```
     pub fn set_matcher<T: std::convert::Into<crate::model::certificate_map_entry::Matcher>>(
         mut self,
         v: T,
@@ -4045,12 +5220,25 @@ impl DnsAuthorization {
     }
 
     /// Sets the value of [name][crate::model::DnsAuthorization::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = DnsAuthorization::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DnsAuthorization::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use wkt::Timestamp;
+    /// let x = DnsAuthorization::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4060,6 +5248,14 @@ impl DnsAuthorization {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DnsAuthorization::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use wkt::Timestamp;
+    /// let x = DnsAuthorization::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DnsAuthorization::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4069,6 +5265,13 @@ impl DnsAuthorization {
     }
 
     /// Sets the value of [update_time][crate::model::DnsAuthorization::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use wkt::Timestamp;
+    /// let x = DnsAuthorization::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4078,6 +5281,14 @@ impl DnsAuthorization {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DnsAuthorization::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use wkt::Timestamp;
+    /// let x = DnsAuthorization::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DnsAuthorization::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4087,6 +5298,15 @@ impl DnsAuthorization {
     }
 
     /// Sets the value of [labels][crate::model::DnsAuthorization::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = DnsAuthorization::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4099,18 +5319,37 @@ impl DnsAuthorization {
     }
 
     /// Sets the value of [description][crate::model::DnsAuthorization::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = DnsAuthorization::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::DnsAuthorization::domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// let x = DnsAuthorization::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [dns_resource_record][crate::model::DnsAuthorization::dns_resource_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use google_cloud_certificatemanager_v1::model::dns_authorization::DnsResourceRecord;
+    /// let x = DnsAuthorization::new().set_dns_resource_record(DnsResourceRecord::default()/* use setters */);
+    /// ```
     pub fn set_dns_resource_record<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>,
@@ -4120,6 +5359,14 @@ impl DnsAuthorization {
     }
 
     /// Sets or clears the value of [dns_resource_record][crate::model::DnsAuthorization::dns_resource_record].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use google_cloud_certificatemanager_v1::model::dns_authorization::DnsResourceRecord;
+    /// let x = DnsAuthorization::new().set_or_clear_dns_resource_record(Some(DnsResourceRecord::default()/* use setters */));
+    /// let x = DnsAuthorization::new().set_or_clear_dns_resource_record(None::<DnsResourceRecord>);
+    /// ```
     pub fn set_or_clear_dns_resource_record<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>,
@@ -4129,6 +5376,14 @@ impl DnsAuthorization {
     }
 
     /// Sets the value of [r#type][crate::model::DnsAuthorization::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use google_cloud_certificatemanager_v1::model::dns_authorization::Type;
+    /// let x0 = DnsAuthorization::new().set_type(Type::FixedRecord);
+    /// let x1 = DnsAuthorization::new().set_type(Type::PerProjectRecord);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::dns_authorization::Type>>(
         mut self,
         v: T,
@@ -4175,18 +5430,36 @@ pub mod dns_authorization {
         }
 
         /// Sets the value of [name][crate::model::dns_authorization::DnsResourceRecord::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::dns_authorization::DnsResourceRecord;
+        /// let x = DnsResourceRecord::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::dns_authorization::DnsResourceRecord::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::dns_authorization::DnsResourceRecord;
+        /// let x = DnsResourceRecord::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [data][crate::model::dns_authorization::DnsResourceRecord::data].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::dns_authorization::DnsResourceRecord;
+        /// let x = DnsResourceRecord::new().set_data("example");
+        /// ```
         pub fn set_data<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.data = v.into();
             self
@@ -4367,30 +5640,60 @@ impl ListTrustConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTrustConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsRequest;
+    /// let x = ListTrustConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTrustConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsRequest;
+    /// let x = ListTrustConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTrustConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsRequest;
+    /// let x = ListTrustConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTrustConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsRequest;
+    /// let x = ListTrustConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTrustConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsRequest;
+    /// let x = ListTrustConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4427,6 +5730,17 @@ impl ListTrustConfigsResponse {
     }
 
     /// Sets the value of [trust_configs][crate::model::ListTrustConfigsResponse::trust_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsResponse;
+    /// use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = ListTrustConfigsResponse::new()
+    ///     .set_trust_configs([
+    ///         TrustConfig::default()/* use setters */,
+    ///         TrustConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_trust_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4438,12 +5752,24 @@ impl ListTrustConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTrustConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsResponse;
+    /// let x = ListTrustConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListTrustConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::ListTrustConfigsResponse;
+    /// let x = ListTrustConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4492,6 +5818,12 @@ impl GetTrustConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTrustConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::GetTrustConfigRequest;
+    /// let x = GetTrustConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4528,18 +5860,37 @@ impl CreateTrustConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTrustConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateTrustConfigRequest;
+    /// let x = CreateTrustConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [trust_config_id][crate::model::CreateTrustConfigRequest::trust_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateTrustConfigRequest;
+    /// let x = CreateTrustConfigRequest::new().set_trust_config_id("example");
+    /// ```
     pub fn set_trust_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trust_config_id = v.into();
         self
     }
 
     /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateTrustConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = CreateTrustConfigRequest::new().set_trust_config(TrustConfig::default()/* use setters */);
+    /// ```
     pub fn set_trust_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TrustConfig>,
@@ -4549,6 +5900,14 @@ impl CreateTrustConfigRequest {
     }
 
     /// Sets or clears the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::CreateTrustConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = CreateTrustConfigRequest::new().set_or_clear_trust_config(Some(TrustConfig::default()/* use setters */));
+    /// let x = CreateTrustConfigRequest::new().set_or_clear_trust_config(None::<TrustConfig>);
+    /// ```
     pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TrustConfig>,
@@ -4585,6 +5944,13 @@ impl UpdateTrustConfigRequest {
     }
 
     /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateTrustConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = UpdateTrustConfigRequest::new().set_trust_config(TrustConfig::default()/* use setters */);
+    /// ```
     pub fn set_trust_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TrustConfig>,
@@ -4594,6 +5960,14 @@ impl UpdateTrustConfigRequest {
     }
 
     /// Sets or clears the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateTrustConfigRequest;
+    /// use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = UpdateTrustConfigRequest::new().set_or_clear_trust_config(Some(TrustConfig::default()/* use setters */));
+    /// let x = UpdateTrustConfigRequest::new().set_or_clear_trust_config(None::<TrustConfig>);
+    /// ```
     pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TrustConfig>,
@@ -4603,6 +5977,13 @@ impl UpdateTrustConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateTrustConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTrustConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4612,6 +5993,14 @@ impl UpdateTrustConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::UpdateTrustConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTrustConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTrustConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4649,12 +6038,24 @@ impl DeleteTrustConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTrustConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DeleteTrustConfigRequest;
+    /// let x = DeleteTrustConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteTrustConfigRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::DeleteTrustConfigRequest;
+    /// let x = DeleteTrustConfigRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4710,12 +6111,25 @@ impl TrustConfig {
     }
 
     /// Sets the value of [name][crate::model::TrustConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = TrustConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::TrustConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use wkt::Timestamp;
+    /// let x = TrustConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4725,6 +6139,14 @@ impl TrustConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TrustConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use wkt::Timestamp;
+    /// let x = TrustConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TrustConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4734,6 +6156,13 @@ impl TrustConfig {
     }
 
     /// Sets the value of [update_time][crate::model::TrustConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use wkt::Timestamp;
+    /// let x = TrustConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4743,6 +6172,14 @@ impl TrustConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TrustConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use wkt::Timestamp;
+    /// let x = TrustConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TrustConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4752,6 +6189,15 @@ impl TrustConfig {
     }
 
     /// Sets the value of [labels][crate::model::TrustConfig::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = TrustConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4764,18 +6210,41 @@ impl TrustConfig {
     }
 
     /// Sets the value of [description][crate::model::TrustConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = TrustConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::TrustConfig::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// let x = TrustConfig::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [trust_stores][crate::model::TrustConfig::trust_stores].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use google_cloud_certificatemanager_v1::model::trust_config::TrustStore;
+    /// let x = TrustConfig::new()
+    ///     .set_trust_stores([
+    ///         TrustStore::default()/* use setters */,
+    ///         TrustStore::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_trust_stores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4816,6 +6285,13 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::trust_config::TrustAnchor;
+        /// use google_cloud_certificatemanager_v1::model::trust_config::trust_anchor::Kind;
+        /// let x = TrustAnchor::new().set_kind(Some(Kind::PemCertificate("example".to_string())));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::trust_config::trust_anchor::Kind>>,
         >(
@@ -4844,6 +6320,13 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::trust_config::TrustAnchor;
+        /// let x = TrustAnchor::new().set_pem_certificate("example");
+        /// assert!(x.pem_certificate().is_some());
+        /// ```
         pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4894,6 +6377,13 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::trust_config::IntermediateCA;
+        /// use google_cloud_certificatemanager_v1::model::trust_config::intermediate_ca::Kind;
+        /// let x = IntermediateCA::new().set_kind(Some(Kind::PemCertificate("example".to_string())));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
@@ -4924,6 +6414,13 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::trust_config::IntermediateCA;
+        /// let x = IntermediateCA::new().set_pem_certificate("example");
+        /// assert!(x.pem_certificate().is_some());
+        /// ```
         pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4981,6 +6478,17 @@ pub mod trust_config {
         }
 
         /// Sets the value of [trust_anchors][crate::model::trust_config::TrustStore::trust_anchors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::trust_config::TrustStore;
+        /// use google_cloud_certificatemanager_v1::model::trust_config::TrustAnchor;
+        /// let x = TrustStore::new()
+        ///     .set_trust_anchors([
+        ///         TrustAnchor::default()/* use setters */,
+        ///         TrustAnchor::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_trust_anchors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4992,6 +6500,17 @@ pub mod trust_config {
         }
 
         /// Sets the value of [intermediate_cas][crate::model::trust_config::TrustStore::intermediate_cas].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_certificatemanager_v1::model::trust_config::TrustStore;
+        /// use google_cloud_certificatemanager_v1::model::trust_config::IntermediateCA;
+        /// let x = TrustStore::new()
+        ///     .set_intermediate_cas([
+        ///         IntermediateCA::default()/* use setters */,
+        ///         IntermediateCA::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_intermediate_cas<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

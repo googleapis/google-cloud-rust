@@ -76,12 +76,25 @@ impl Parameter {
     }
 
     /// Sets the value of [name][crate::model::Parameter::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = Parameter::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Parameter::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// use wkt::Timestamp;
+    /// let x = Parameter::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -91,6 +104,14 @@ impl Parameter {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Parameter::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// use wkt::Timestamp;
+    /// let x = Parameter::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Parameter::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -100,6 +121,13 @@ impl Parameter {
     }
 
     /// Sets the value of [update_time][crate::model::Parameter::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// use wkt::Timestamp;
+    /// let x = Parameter::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -109,6 +137,14 @@ impl Parameter {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Parameter::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// use wkt::Timestamp;
+    /// let x = Parameter::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Parameter::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -118,6 +154,15 @@ impl Parameter {
     }
 
     /// Sets the value of [labels][crate::model::Parameter::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = Parameter::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -130,6 +175,15 @@ impl Parameter {
     }
 
     /// Sets the value of [format][crate::model::Parameter::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// use google_cloud_parametermanager_v1::model::ParameterFormat;
+    /// let x0 = Parameter::new().set_format(ParameterFormat::Unformatted);
+    /// let x1 = Parameter::new().set_format(ParameterFormat::Yaml);
+    /// let x2 = Parameter::new().set_format(ParameterFormat::Json);
+    /// ```
     pub fn set_format<T: std::convert::Into<crate::model::ParameterFormat>>(
         mut self,
         v: T,
@@ -139,6 +193,13 @@ impl Parameter {
     }
 
     /// Sets the value of [policy_member][crate::model::Parameter::policy_member].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// use iam_v1::model::ResourcePolicyMember;
+    /// let x = Parameter::new().set_policy_member(ResourcePolicyMember::default()/* use setters */);
+    /// ```
     pub fn set_policy_member<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
@@ -148,6 +209,14 @@ impl Parameter {
     }
 
     /// Sets or clears the value of [policy_member][crate::model::Parameter::policy_member].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// use iam_v1::model::ResourcePolicyMember;
+    /// let x = Parameter::new().set_or_clear_policy_member(Some(ResourcePolicyMember::default()/* use setters */));
+    /// let x = Parameter::new().set_or_clear_policy_member(None::<ResourcePolicyMember>);
+    /// ```
     pub fn set_or_clear_policy_member<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
@@ -157,6 +226,12 @@ impl Parameter {
     }
 
     /// Sets the value of [kms_key][crate::model::Parameter::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = Parameter::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -166,6 +241,13 @@ impl Parameter {
     }
 
     /// Sets or clears the value of [kms_key][crate::model::Parameter::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = Parameter::new().set_or_clear_kms_key(Some("example"));
+    /// let x = Parameter::new().set_or_clear_kms_key(None::<String>);
+    /// ```
     pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -211,30 +293,60 @@ impl ListParametersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListParametersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersRequest;
+    /// let x = ListParametersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListParametersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersRequest;
+    /// let x = ListParametersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListParametersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersRequest;
+    /// let x = ListParametersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListParametersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersRequest;
+    /// let x = ListParametersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListParametersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersRequest;
+    /// let x = ListParametersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -269,6 +381,17 @@ impl ListParametersResponse {
     }
 
     /// Sets the value of [parameters][crate::model::ListParametersResponse::parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersResponse;
+    /// use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = ListParametersResponse::new()
+    ///     .set_parameters([
+    ///         Parameter::default()/* use setters */,
+    ///         Parameter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -280,12 +403,24 @@ impl ListParametersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListParametersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersResponse;
+    /// let x = ListParametersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListParametersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParametersResponse;
+    /// let x = ListParametersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -334,6 +469,12 @@ impl GetParameterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetParameterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::GetParameterRequest;
+    /// let x = GetParameterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -384,18 +525,37 @@ impl CreateParameterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateParameterRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterRequest;
+    /// let x = CreateParameterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [parameter_id][crate::model::CreateParameterRequest::parameter_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterRequest;
+    /// let x = CreateParameterRequest::new().set_parameter_id("example");
+    /// ```
     pub fn set_parameter_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parameter_id = v.into();
         self
     }
 
     /// Sets the value of [parameter][crate::model::CreateParameterRequest::parameter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterRequest;
+    /// use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = CreateParameterRequest::new().set_parameter(Parameter::default()/* use setters */);
+    /// ```
     pub fn set_parameter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Parameter>,
@@ -405,6 +565,14 @@ impl CreateParameterRequest {
     }
 
     /// Sets or clears the value of [parameter][crate::model::CreateParameterRequest::parameter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterRequest;
+    /// use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = CreateParameterRequest::new().set_or_clear_parameter(Some(Parameter::default()/* use setters */));
+    /// let x = CreateParameterRequest::new().set_or_clear_parameter(None::<Parameter>);
+    /// ```
     pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Parameter>,
@@ -414,6 +582,12 @@ impl CreateParameterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateParameterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterRequest;
+    /// let x = CreateParameterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -465,6 +639,13 @@ impl UpdateParameterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateParameterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -474,6 +655,14 @@ impl UpdateParameterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateParameterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateParameterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -483,6 +672,13 @@ impl UpdateParameterRequest {
     }
 
     /// Sets the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterRequest;
+    /// use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = UpdateParameterRequest::new().set_parameter(Parameter::default()/* use setters */);
+    /// ```
     pub fn set_parameter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Parameter>,
@@ -492,6 +688,14 @@ impl UpdateParameterRequest {
     }
 
     /// Sets or clears the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterRequest;
+    /// use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = UpdateParameterRequest::new().set_or_clear_parameter(Some(Parameter::default()/* use setters */));
+    /// let x = UpdateParameterRequest::new().set_or_clear_parameter(None::<Parameter>);
+    /// ```
     pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Parameter>,
@@ -501,6 +705,12 @@ impl UpdateParameterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateParameterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterRequest;
+    /// let x = UpdateParameterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -545,12 +755,24 @@ impl DeleteParameterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteParameterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::DeleteParameterRequest;
+    /// let x = DeleteParameterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteParameterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::DeleteParameterRequest;
+    /// let x = DeleteParameterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -604,12 +826,25 @@ impl ParameterVersion {
     }
 
     /// Sets the value of [name][crate::model::ParameterVersion::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = ParameterVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ParameterVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use wkt::Timestamp;
+    /// let x = ParameterVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -619,6 +854,14 @@ impl ParameterVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ParameterVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use wkt::Timestamp;
+    /// let x = ParameterVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ParameterVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -628,6 +871,13 @@ impl ParameterVersion {
     }
 
     /// Sets the value of [update_time][crate::model::ParameterVersion::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use wkt::Timestamp;
+    /// let x = ParameterVersion::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -637,6 +887,14 @@ impl ParameterVersion {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ParameterVersion::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use wkt::Timestamp;
+    /// let x = ParameterVersion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ParameterVersion::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -646,12 +904,25 @@ impl ParameterVersion {
     }
 
     /// Sets the value of [disabled][crate::model::ParameterVersion::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = ParameterVersion::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [payload][crate::model::ParameterVersion::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersionPayload;
+    /// let x = ParameterVersion::new().set_payload(ParameterVersionPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersionPayload>,
@@ -661,6 +932,14 @@ impl ParameterVersion {
     }
 
     /// Sets or clears the value of [payload][crate::model::ParameterVersion::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersionPayload;
+    /// let x = ParameterVersion::new().set_or_clear_payload(Some(ParameterVersionPayload::default()/* use setters */));
+    /// let x = ParameterVersion::new().set_or_clear_payload(None::<ParameterVersionPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersionPayload>,
@@ -670,6 +949,12 @@ impl ParameterVersion {
     }
 
     /// Sets the value of [kms_key_version][crate::model::ParameterVersion::kms_key_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = ParameterVersion::new().set_kms_key_version("example");
+    /// ```
     pub fn set_kms_key_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -679,6 +964,13 @@ impl ParameterVersion {
     }
 
     /// Sets or clears the value of [kms_key_version][crate::model::ParameterVersion::kms_key_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = ParameterVersion::new().set_or_clear_kms_key_version(Some("example"));
+    /// let x = ParameterVersion::new().set_or_clear_kms_key_version(None::<String>);
+    /// ```
     pub fn set_or_clear_kms_key_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -710,6 +1002,12 @@ impl ParameterVersionPayload {
     }
 
     /// Sets the value of [data][crate::model::ParameterVersionPayload::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersionPayload;
+    /// let x = ParameterVersionPayload::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
@@ -752,30 +1050,60 @@ impl ListParameterVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListParameterVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsRequest;
+    /// let x = ListParameterVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListParameterVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsRequest;
+    /// let x = ListParameterVersionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListParameterVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsRequest;
+    /// let x = ListParameterVersionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListParameterVersionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsRequest;
+    /// let x = ListParameterVersionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListParameterVersionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsRequest;
+    /// let x = ListParameterVersionsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -810,6 +1138,17 @@ impl ListParameterVersionsResponse {
     }
 
     /// Sets the value of [parameter_versions][crate::model::ListParameterVersionsResponse::parameter_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsResponse;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = ListParameterVersionsResponse::new()
+    ///     .set_parameter_versions([
+    ///         ParameterVersion::default()/* use setters */,
+    ///         ParameterVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_parameter_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -821,12 +1160,24 @@ impl ListParameterVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListParameterVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsResponse;
+    /// let x = ListParameterVersionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListParameterVersionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::ListParameterVersionsResponse;
+    /// let x = ListParameterVersionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -880,12 +1231,26 @@ impl GetParameterVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetParameterVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::GetParameterVersionRequest;
+    /// let x = GetParameterVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetParameterVersionRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::GetParameterVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::View;
+    /// let x0 = GetParameterVersionRequest::new().set_view(View::Basic);
+    /// let x1 = GetParameterVersionRequest::new().set_view(View::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::View>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -914,6 +1279,12 @@ impl RenderParameterVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::RenderParameterVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionRequest;
+    /// let x = RenderParameterVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -952,6 +1323,12 @@ impl RenderParameterVersionResponse {
     }
 
     /// Sets the value of [parameter_version][crate::model::RenderParameterVersionResponse::parameter_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionResponse;
+    /// let x = RenderParameterVersionResponse::new().set_parameter_version("example");
+    /// ```
     pub fn set_parameter_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -961,6 +1338,13 @@ impl RenderParameterVersionResponse {
     }
 
     /// Sets the value of [payload][crate::model::RenderParameterVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionResponse;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersionPayload;
+    /// let x = RenderParameterVersionResponse::new().set_payload(ParameterVersionPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersionPayload>,
@@ -970,6 +1354,14 @@ impl RenderParameterVersionResponse {
     }
 
     /// Sets or clears the value of [payload][crate::model::RenderParameterVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionResponse;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersionPayload;
+    /// let x = RenderParameterVersionResponse::new().set_or_clear_payload(Some(ParameterVersionPayload::default()/* use setters */));
+    /// let x = RenderParameterVersionResponse::new().set_or_clear_payload(None::<ParameterVersionPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersionPayload>,
@@ -979,6 +1371,12 @@ impl RenderParameterVersionResponse {
     }
 
     /// Sets the value of [rendered_payload][crate::model::RenderParameterVersionResponse::rendered_payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionResponse;
+    /// let x = RenderParameterVersionResponse::new().set_rendered_payload(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_rendered_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.rendered_payload = v.into();
         self
@@ -1029,12 +1427,24 @@ impl CreateParameterVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateParameterVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterVersionRequest;
+    /// let x = CreateParameterVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [parameter_version_id][crate::model::CreateParameterVersionRequest::parameter_version_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterVersionRequest;
+    /// let x = CreateParameterVersionRequest::new().set_parameter_version_id("example");
+    /// ```
     pub fn set_parameter_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1044,6 +1454,13 @@ impl CreateParameterVersionRequest {
     }
 
     /// Sets the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = CreateParameterVersionRequest::new().set_parameter_version(ParameterVersion::default()/* use setters */);
+    /// ```
     pub fn set_parameter_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersion>,
@@ -1053,6 +1470,14 @@ impl CreateParameterVersionRequest {
     }
 
     /// Sets or clears the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = CreateParameterVersionRequest::new().set_or_clear_parameter_version(Some(ParameterVersion::default()/* use setters */));
+    /// let x = CreateParameterVersionRequest::new().set_or_clear_parameter_version(None::<ParameterVersion>);
+    /// ```
     pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersion>,
@@ -1062,6 +1487,12 @@ impl CreateParameterVersionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateParameterVersionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::CreateParameterVersionRequest;
+    /// let x = CreateParameterVersionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1113,6 +1544,13 @@ impl UpdateParameterVersionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterVersionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateParameterVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1122,6 +1560,14 @@ impl UpdateParameterVersionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterVersionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateParameterVersionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateParameterVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1131,6 +1577,13 @@ impl UpdateParameterVersionRequest {
     }
 
     /// Sets the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = UpdateParameterVersionRequest::new().set_parameter_version(ParameterVersion::default()/* use setters */);
+    /// ```
     pub fn set_parameter_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersion>,
@@ -1140,6 +1593,14 @@ impl UpdateParameterVersionRequest {
     }
 
     /// Sets or clears the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// let x = UpdateParameterVersionRequest::new().set_or_clear_parameter_version(Some(ParameterVersion::default()/* use setters */));
+    /// let x = UpdateParameterVersionRequest::new().set_or_clear_parameter_version(None::<ParameterVersion>);
+    /// ```
     pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersion>,
@@ -1149,6 +1610,12 @@ impl UpdateParameterVersionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateParameterVersionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::UpdateParameterVersionRequest;
+    /// let x = UpdateParameterVersionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1193,12 +1660,24 @@ impl DeleteParameterVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteParameterVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::DeleteParameterVersionRequest;
+    /// let x = DeleteParameterVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteParameterVersionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::model::DeleteParameterVersionRequest;
+    /// let x = DeleteParameterVersionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self

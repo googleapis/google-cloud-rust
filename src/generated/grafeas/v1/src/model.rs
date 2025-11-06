@@ -58,6 +58,13 @@ impl AttestationNote {
     }
 
     /// Sets the value of [hint][crate::model::AttestationNote::hint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::AttestationNote;
+    /// use google_cloud_grafeas_v1::model::attestation_note::Hint;
+    /// let x = AttestationNote::new().set_hint(Hint::default()/* use setters */);
+    /// ```
     pub fn set_hint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attestation_note::Hint>,
@@ -67,6 +74,14 @@ impl AttestationNote {
     }
 
     /// Sets or clears the value of [hint][crate::model::AttestationNote::hint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::AttestationNote;
+    /// use google_cloud_grafeas_v1::model::attestation_note::Hint;
+    /// let x = AttestationNote::new().set_or_clear_hint(Some(Hint::default()/* use setters */));
+    /// let x = AttestationNote::new().set_or_clear_hint(None::<Hint>);
+    /// ```
     pub fn set_or_clear_hint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attestation_note::Hint>,
@@ -110,6 +125,12 @@ pub mod attestation_note {
         }
 
         /// Sets the value of [human_readable_name][crate::model::attestation_note::Hint::human_readable_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::attestation_note::Hint;
+        /// let x = Hint::new().set_human_readable_name("example");
+        /// ```
         pub fn set_human_readable_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -143,6 +164,12 @@ impl Jwt {
     }
 
     /// Sets the value of [compact_jwt][crate::model::Jwt::compact_jwt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Jwt;
+    /// let x = Jwt::new().set_compact_jwt("example");
+    /// ```
     pub fn set_compact_jwt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compact_jwt = v.into();
         self
@@ -196,12 +223,29 @@ impl AttestationOccurrence {
     }
 
     /// Sets the value of [serialized_payload][crate::model::AttestationOccurrence::serialized_payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::AttestationOccurrence;
+    /// let x = AttestationOccurrence::new().set_serialized_payload(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_serialized_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.serialized_payload = v.into();
         self
     }
 
     /// Sets the value of [signatures][crate::model::AttestationOccurrence::signatures].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::AttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::Signature;
+    /// let x = AttestationOccurrence::new()
+    ///     .set_signatures([
+    ///         Signature::default()/* use setters */,
+    ///         Signature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_signatures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -213,6 +257,17 @@ impl AttestationOccurrence {
     }
 
     /// Sets the value of [jwts][crate::model::AttestationOccurrence::jwts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::AttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::Jwt;
+    /// let x = AttestationOccurrence::new()
+    ///     .set_jwts([
+    ///         Jwt::default()/* use setters */,
+    ///         Jwt::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jwts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -247,6 +302,12 @@ impl BuildNote {
     }
 
     /// Sets the value of [builder_version][crate::model::BuildNote::builder_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildNote;
+    /// let x = BuildNote::new().set_builder_version("example");
+    /// ```
     pub fn set_builder_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.builder_version = v.into();
         self
@@ -304,6 +365,13 @@ impl BuildOccurrence {
     }
 
     /// Sets the value of [provenance][crate::model::BuildOccurrence::provenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildOccurrence::new().set_provenance(BuildProvenance::default()/* use setters */);
+    /// ```
     pub fn set_provenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BuildProvenance>,
@@ -313,6 +381,14 @@ impl BuildOccurrence {
     }
 
     /// Sets or clears the value of [provenance][crate::model::BuildOccurrence::provenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildOccurrence::new().set_or_clear_provenance(Some(BuildProvenance::default()/* use setters */));
+    /// let x = BuildOccurrence::new().set_or_clear_provenance(None::<BuildProvenance>);
+    /// ```
     pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BuildProvenance>,
@@ -322,6 +398,12 @@ impl BuildOccurrence {
     }
 
     /// Sets the value of [provenance_bytes][crate::model::BuildOccurrence::provenance_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// let x = BuildOccurrence::new().set_provenance_bytes("example");
+    /// ```
     pub fn set_provenance_bytes<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -331,6 +413,13 @@ impl BuildOccurrence {
     }
 
     /// Sets the value of [intoto_provenance][crate::model::BuildOccurrence::intoto_provenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// let x = BuildOccurrence::new().set_intoto_provenance(InTotoProvenance::default()/* use setters */);
+    /// ```
     pub fn set_intoto_provenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InTotoProvenance>,
@@ -340,6 +429,14 @@ impl BuildOccurrence {
     }
 
     /// Sets or clears the value of [intoto_provenance][crate::model::BuildOccurrence::intoto_provenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// let x = BuildOccurrence::new().set_or_clear_intoto_provenance(Some(InTotoProvenance::default()/* use setters */));
+    /// let x = BuildOccurrence::new().set_or_clear_intoto_provenance(None::<InTotoProvenance>);
+    /// ```
     pub fn set_or_clear_intoto_provenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InTotoProvenance>,
@@ -349,6 +446,13 @@ impl BuildOccurrence {
     }
 
     /// Sets the value of [intoto_statement][crate::model::BuildOccurrence::intoto_statement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// let x = BuildOccurrence::new().set_intoto_statement(InTotoStatement::default()/* use setters */);
+    /// ```
     pub fn set_intoto_statement<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InTotoStatement>,
@@ -358,6 +462,14 @@ impl BuildOccurrence {
     }
 
     /// Sets or clears the value of [intoto_statement][crate::model::BuildOccurrence::intoto_statement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// let x = BuildOccurrence::new().set_or_clear_intoto_statement(Some(InTotoStatement::default()/* use setters */));
+    /// let x = BuildOccurrence::new().set_or_clear_intoto_statement(None::<InTotoStatement>);
+    /// ```
     pub fn set_or_clear_intoto_statement<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InTotoStatement>,
@@ -367,6 +479,13 @@ impl BuildOccurrence {
     }
 
     /// Sets the value of [in_toto_slsa_provenance_v1][crate::model::BuildOccurrence::in_toto_slsa_provenance_v1].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoSlsaProvenanceV1;
+    /// let x = BuildOccurrence::new().set_in_toto_slsa_provenance_v1(InTotoSlsaProvenanceV1::default()/* use setters */);
+    /// ```
     pub fn set_in_toto_slsa_provenance_v1<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InTotoSlsaProvenanceV1>,
@@ -376,6 +495,14 @@ impl BuildOccurrence {
     }
 
     /// Sets or clears the value of [in_toto_slsa_provenance_v1][crate::model::BuildOccurrence::in_toto_slsa_provenance_v1].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoSlsaProvenanceV1;
+    /// let x = BuildOccurrence::new().set_or_clear_in_toto_slsa_provenance_v1(Some(InTotoSlsaProvenanceV1::default()/* use setters */));
+    /// let x = BuildOccurrence::new().set_or_clear_in_toto_slsa_provenance_v1(None::<InTotoSlsaProvenanceV1>);
+    /// ```
     pub fn set_or_clear_in_toto_slsa_provenance_v1<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InTotoSlsaProvenanceV1>,
@@ -410,12 +537,24 @@ impl RelatedUrl {
     }
 
     /// Sets the value of [url][crate::model::RelatedUrl::url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::RelatedUrl;
+    /// let x = RelatedUrl::new().set_url("example");
+    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
     }
 
     /// Sets the value of [label][crate::model::RelatedUrl::label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::RelatedUrl;
+    /// let x = RelatedUrl::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
@@ -493,12 +632,24 @@ impl Signature {
     }
 
     /// Sets the value of [signature][crate::model::Signature::signature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Signature;
+    /// let x = Signature::new().set_signature(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
 
     /// Sets the value of [public_key_id][crate::model::Signature::public_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Signature;
+    /// let x = Signature::new().set_public_key_id("example");
+    /// ```
     pub fn set_public_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_key_id = v.into();
         self
@@ -532,18 +683,41 @@ impl Envelope {
     }
 
     /// Sets the value of [payload][crate::model::Envelope::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Envelope;
+    /// let x = Envelope::new().set_payload(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
     }
 
     /// Sets the value of [payload_type][crate::model::Envelope::payload_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Envelope;
+    /// let x = Envelope::new().set_payload_type("example");
+    /// ```
     pub fn set_payload_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload_type = v.into();
         self
     }
 
     /// Sets the value of [signatures][crate::model::Envelope::signatures].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Envelope;
+    /// use google_cloud_grafeas_v1::model::EnvelopeSignature;
+    /// let x = Envelope::new()
+    ///     .set_signatures([
+    ///         EnvelopeSignature::default()/* use setters */,
+    ///         EnvelopeSignature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_signatures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -577,12 +751,24 @@ impl EnvelopeSignature {
     }
 
     /// Sets the value of [sig][crate::model::EnvelopeSignature::sig].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::EnvelopeSignature;
+    /// let x = EnvelopeSignature::new().set_sig(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_sig<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.sig = v.into();
         self
     }
 
     /// Sets the value of [keyid][crate::model::EnvelopeSignature::keyid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::EnvelopeSignature;
+    /// let x = EnvelopeSignature::new().set_keyid("example");
+    /// ```
     pub fn set_keyid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.keyid = v.into();
         self
@@ -616,12 +802,25 @@ impl FileLocation {
     }
 
     /// Sets the value of [file_path][crate::model::FileLocation::file_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::FileLocation;
+    /// let x = FileLocation::new().set_file_path("example");
+    /// ```
     pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_path = v.into();
         self
     }
 
     /// Sets the value of [layer_details][crate::model::FileLocation::layer_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::FileLocation;
+    /// use google_cloud_grafeas_v1::model::LayerDetails;
+    /// let x = FileLocation::new().set_layer_details(LayerDetails::default()/* use setters */);
+    /// ```
     pub fn set_layer_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LayerDetails>,
@@ -631,6 +830,14 @@ impl FileLocation {
     }
 
     /// Sets or clears the value of [layer_details][crate::model::FileLocation::layer_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::FileLocation;
+    /// use google_cloud_grafeas_v1::model::LayerDetails;
+    /// let x = FileLocation::new().set_or_clear_layer_details(Some(LayerDetails::default()/* use setters */));
+    /// let x = FileLocation::new().set_or_clear_layer_details(None::<LayerDetails>);
+    /// ```
     pub fn set_or_clear_layer_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LayerDetails>,
@@ -668,18 +875,36 @@ impl BaseImage {
     }
 
     /// Sets the value of [name][crate::model::BaseImage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BaseImage;
+    /// let x = BaseImage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [repository][crate::model::BaseImage::repository].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BaseImage;
+    /// let x = BaseImage::new().set_repository("example");
+    /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
     /// Sets the value of [layer_count][crate::model::BaseImage::layer_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BaseImage;
+    /// let x = BaseImage::new().set_layer_count(42);
+    /// ```
     pub fn set_layer_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.layer_count = v.into();
         self
@@ -722,30 +947,65 @@ impl LayerDetails {
     }
 
     /// Sets the value of [index][crate::model::LayerDetails::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::LayerDetails;
+    /// let x = LayerDetails::new().set_index(42);
+    /// ```
     pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [diff_id][crate::model::LayerDetails::diff_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::LayerDetails;
+    /// let x = LayerDetails::new().set_diff_id("example");
+    /// ```
     pub fn set_diff_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.diff_id = v.into();
         self
     }
 
     /// Sets the value of [chain_id][crate::model::LayerDetails::chain_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::LayerDetails;
+    /// let x = LayerDetails::new().set_chain_id("example");
+    /// ```
     pub fn set_chain_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.chain_id = v.into();
         self
     }
 
     /// Sets the value of [command][crate::model::LayerDetails::command].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::LayerDetails;
+    /// let x = LayerDetails::new().set_command("example");
+    /// ```
     pub fn set_command<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.command = v.into();
         self
     }
 
     /// Sets the value of [base_images][crate::model::LayerDetails::base_images].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::LayerDetails;
+    /// use google_cloud_grafeas_v1::model::BaseImage;
+    /// let x = LayerDetails::new()
+    ///     .set_base_images([
+    ///         BaseImage::default()/* use setters */,
+    ///         BaseImage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_base_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -786,12 +1046,24 @@ impl License {
     }
 
     /// Sets the value of [expression][crate::model::License::expression].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::License;
+    /// let x = License::new().set_expression("example");
+    /// ```
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
     }
 
     /// Sets the value of [comments][crate::model::License::comments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::License;
+    /// let x = License::new().set_comments("example");
+    /// ```
     pub fn set_comments<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.comments = v.into();
         self
@@ -823,12 +1095,24 @@ impl Digest {
     }
 
     /// Sets the value of [algo][crate::model::Digest::algo].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Digest;
+    /// let x = Digest::new().set_algo("example");
+    /// ```
     pub fn set_algo<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.algo = v.into();
         self
     }
 
     /// Sets the value of [digest_bytes][crate::model::Digest::digest_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Digest;
+    /// let x = Digest::new().set_digest_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_digest_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest_bytes = v.into();
         self
@@ -876,18 +1160,41 @@ impl ComplianceNote {
     }
 
     /// Sets the value of [title][crate::model::ComplianceNote::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// let x = ComplianceNote::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ComplianceNote::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// let x = ComplianceNote::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::ComplianceNote::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// use google_cloud_grafeas_v1::model::ComplianceVersion;
+    /// let x = ComplianceNote::new()
+    ///     .set_version([
+    ///         ComplianceVersion::default()/* use setters */,
+    ///         ComplianceVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_version<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -899,18 +1206,36 @@ impl ComplianceNote {
     }
 
     /// Sets the value of [rationale][crate::model::ComplianceNote::rationale].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// let x = ComplianceNote::new().set_rationale("example");
+    /// ```
     pub fn set_rationale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rationale = v.into();
         self
     }
 
     /// Sets the value of [remediation][crate::model::ComplianceNote::remediation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// let x = ComplianceNote::new().set_remediation("example");
+    /// ```
     pub fn set_remediation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remediation = v.into();
         self
     }
 
     /// Sets the value of [scan_instructions][crate::model::ComplianceNote::scan_instructions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// let x = ComplianceNote::new().set_scan_instructions(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_scan_instructions<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.scan_instructions = v.into();
         self
@@ -920,6 +1245,14 @@ impl ComplianceNote {
     ///
     /// Note that all the setters affecting `compliance_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// use google_cloud_grafeas_v1::model::compliance_note::CisBenchmark;
+    /// let x = ComplianceNote::new().set_compliance_type(Some(
+    ///     google_cloud_grafeas_v1::model::compliance_note::ComplianceType::CisBenchmark(CisBenchmark::default().into())));
+    /// ```
     pub fn set_compliance_type<
         T: std::convert::Into<std::option::Option<crate::model::compliance_note::ComplianceType>>,
     >(
@@ -950,6 +1283,14 @@ impl ComplianceNote {
     ///
     /// Note that all the setters affecting `compliance_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// use google_cloud_grafeas_v1::model::compliance_note::CisBenchmark;
+    /// let x = ComplianceNote::new().set_cis_benchmark(CisBenchmark::default()/* use setters */);
+    /// assert!(x.cis_benchmark().is_some());
+    /// ```
     pub fn set_cis_benchmark<
         T: std::convert::Into<std::boxed::Box<crate::model::compliance_note::CisBenchmark>>,
     >(
@@ -966,6 +1307,13 @@ impl ComplianceNote {
     ///
     /// Note that all the setters affecting `potential_impact` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// use google_cloud_grafeas_v1::model::compliance_note::PotentialImpact;
+    /// let x = ComplianceNote::new().set_potential_impact(Some(PotentialImpact::Impact("example".to_string())));
+    /// ```
     pub fn set_potential_impact<
         T: std::convert::Into<std::option::Option<crate::model::compliance_note::PotentialImpact>>,
     >(
@@ -994,6 +1342,13 @@ impl ComplianceNote {
     ///
     /// Note that all the setters affecting `potential_impact` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// let x = ComplianceNote::new().set_impact("example");
+    /// assert!(x.impact().is_some());
+    /// ```
     pub fn set_impact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.potential_impact = std::option::Option::Some(
             crate::model::compliance_note::PotentialImpact::Impact(v.into()),
@@ -1030,12 +1385,27 @@ pub mod compliance_note {
         }
 
         /// Sets the value of [profile_level][crate::model::compliance_note::CisBenchmark::profile_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::compliance_note::CisBenchmark;
+        /// let x = CisBenchmark::new().set_profile_level(42);
+        /// ```
         pub fn set_profile_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.profile_level = v.into();
             self
         }
 
         /// Sets the value of [severity][crate::model::compliance_note::CisBenchmark::severity].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::compliance_note::CisBenchmark;
+        /// use google_cloud_grafeas_v1::model::Severity;
+        /// let x0 = CisBenchmark::new().set_severity(Severity::Minimal);
+        /// let x1 = CisBenchmark::new().set_severity(Severity::Low);
+        /// let x2 = CisBenchmark::new().set_severity(Severity::Medium);
+        /// ```
         pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
             self.severity = v.into();
             self
@@ -1088,12 +1458,24 @@ impl ComplianceVersion {
     }
 
     /// Sets the value of [cpe_uri][crate::model::ComplianceVersion::cpe_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceVersion;
+    /// let x = ComplianceVersion::new().set_cpe_uri("example");
+    /// ```
     pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe_uri = v.into();
         self
     }
 
     /// Sets the value of [benchmark_document][crate::model::ComplianceVersion::benchmark_document].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceVersion;
+    /// let x = ComplianceVersion::new().set_benchmark_document("example");
+    /// ```
     pub fn set_benchmark_document<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1103,6 +1485,12 @@ impl ComplianceVersion {
     }
 
     /// Sets the value of [version][crate::model::ComplianceVersion::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceVersion;
+    /// let x = ComplianceVersion::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -1136,6 +1524,17 @@ impl ComplianceOccurrence {
     }
 
     /// Sets the value of [non_compliant_files][crate::model::ComplianceOccurrence::non_compliant_files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceOccurrence;
+    /// use google_cloud_grafeas_v1::model::NonCompliantFile;
+    /// let x = ComplianceOccurrence::new()
+    ///     .set_non_compliant_files([
+    ///         NonCompliantFile::default()/* use setters */,
+    ///         NonCompliantFile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_non_compliant_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1147,6 +1546,12 @@ impl ComplianceOccurrence {
     }
 
     /// Sets the value of [non_compliance_reason][crate::model::ComplianceOccurrence::non_compliance_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceOccurrence;
+    /// let x = ComplianceOccurrence::new().set_non_compliance_reason("example");
+    /// ```
     pub fn set_non_compliance_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1156,6 +1561,13 @@ impl ComplianceOccurrence {
     }
 
     /// Sets the value of [version][crate::model::ComplianceOccurrence::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceOccurrence;
+    /// use google_cloud_grafeas_v1::model::ComplianceVersion;
+    /// let x = ComplianceOccurrence::new().set_version(ComplianceVersion::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceVersion>,
@@ -1165,6 +1577,14 @@ impl ComplianceOccurrence {
     }
 
     /// Sets or clears the value of [version][crate::model::ComplianceOccurrence::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ComplianceOccurrence;
+    /// use google_cloud_grafeas_v1::model::ComplianceVersion;
+    /// let x = ComplianceOccurrence::new().set_or_clear_version(Some(ComplianceVersion::default()/* use setters */));
+    /// let x = ComplianceOccurrence::new().set_or_clear_version(None::<ComplianceVersion>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceVersion>,
@@ -1202,18 +1622,36 @@ impl NonCompliantFile {
     }
 
     /// Sets the value of [path][crate::model::NonCompliantFile::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::NonCompliantFile;
+    /// let x = NonCompliantFile::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [display_command][crate::model::NonCompliantFile::display_command].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::NonCompliantFile;
+    /// let x = NonCompliantFile::new().set_display_command("example");
+    /// ```
     pub fn set_display_command<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_command = v.into();
         self
     }
 
     /// Sets the value of [reason][crate::model::NonCompliantFile::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::NonCompliantFile;
+    /// let x = NonCompliantFile::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
@@ -1266,24 +1704,51 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [base_score][crate::model::CVSSv3::base_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// let x = CVSSv3::new().set_base_score(42.0);
+    /// ```
     pub fn set_base_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.base_score = v.into();
         self
     }
 
     /// Sets the value of [exploitability_score][crate::model::CVSSv3::exploitability_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// let x = CVSSv3::new().set_exploitability_score(42.0);
+    /// ```
     pub fn set_exploitability_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.exploitability_score = v.into();
         self
     }
 
     /// Sets the value of [impact_score][crate::model::CVSSv3::impact_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// let x = CVSSv3::new().set_impact_score(42.0);
+    /// ```
     pub fn set_impact_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.impact_score = v.into();
         self
     }
 
     /// Sets the value of [attack_vector][crate::model::CVSSv3::attack_vector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::AttackVector;
+    /// let x0 = CVSSv3::new().set_attack_vector(AttackVector::Network);
+    /// let x1 = CVSSv3::new().set_attack_vector(AttackVector::Adjacent);
+    /// let x2 = CVSSv3::new().set_attack_vector(AttackVector::Local);
+    /// ```
     pub fn set_attack_vector<T: std::convert::Into<crate::model::cvs_sv_3::AttackVector>>(
         mut self,
         v: T,
@@ -1293,6 +1758,14 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [attack_complexity][crate::model::CVSSv3::attack_complexity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::AttackComplexity;
+    /// let x0 = CVSSv3::new().set_attack_complexity(AttackComplexity::Low);
+    /// let x1 = CVSSv3::new().set_attack_complexity(AttackComplexity::High);
+    /// ```
     pub fn set_attack_complexity<
         T: std::convert::Into<crate::model::cvs_sv_3::AttackComplexity>,
     >(
@@ -1304,6 +1777,15 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [privileges_required][crate::model::CVSSv3::privileges_required].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::PrivilegesRequired;
+    /// let x0 = CVSSv3::new().set_privileges_required(PrivilegesRequired::None);
+    /// let x1 = CVSSv3::new().set_privileges_required(PrivilegesRequired::Low);
+    /// let x2 = CVSSv3::new().set_privileges_required(PrivilegesRequired::High);
+    /// ```
     pub fn set_privileges_required<
         T: std::convert::Into<crate::model::cvs_sv_3::PrivilegesRequired>,
     >(
@@ -1315,6 +1797,14 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [user_interaction][crate::model::CVSSv3::user_interaction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::UserInteraction;
+    /// let x0 = CVSSv3::new().set_user_interaction(UserInteraction::None);
+    /// let x1 = CVSSv3::new().set_user_interaction(UserInteraction::Required);
+    /// ```
     pub fn set_user_interaction<T: std::convert::Into<crate::model::cvs_sv_3::UserInteraction>>(
         mut self,
         v: T,
@@ -1324,12 +1814,29 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [scope][crate::model::CVSSv3::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::Scope;
+    /// let x0 = CVSSv3::new().set_scope(Scope::Unchanged);
+    /// let x1 = CVSSv3::new().set_scope(Scope::Changed);
+    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::cvs_sv_3::Scope>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [confidentiality_impact][crate::model::CVSSv3::confidentiality_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::Impact;
+    /// let x0 = CVSSv3::new().set_confidentiality_impact(Impact::High);
+    /// let x1 = CVSSv3::new().set_confidentiality_impact(Impact::Low);
+    /// let x2 = CVSSv3::new().set_confidentiality_impact(Impact::None);
+    /// ```
     pub fn set_confidentiality_impact<T: std::convert::Into<crate::model::cvs_sv_3::Impact>>(
         mut self,
         v: T,
@@ -1339,6 +1846,15 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [integrity_impact][crate::model::CVSSv3::integrity_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::Impact;
+    /// let x0 = CVSSv3::new().set_integrity_impact(Impact::High);
+    /// let x1 = CVSSv3::new().set_integrity_impact(Impact::Low);
+    /// let x2 = CVSSv3::new().set_integrity_impact(Impact::None);
+    /// ```
     pub fn set_integrity_impact<T: std::convert::Into<crate::model::cvs_sv_3::Impact>>(
         mut self,
         v: T,
@@ -1348,6 +1864,15 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [availability_impact][crate::model::CVSSv3::availability_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CVSSv3;
+    /// use google_cloud_grafeas_v1::model::cvs_sv_3::Impact;
+    /// let x0 = CVSSv3::new().set_availability_impact(Impact::High);
+    /// let x1 = CVSSv3::new().set_availability_impact(Impact::Low);
+    /// let x2 = CVSSv3::new().set_availability_impact(Impact::None);
+    /// ```
     pub fn set_availability_impact<T: std::convert::Into<crate::model::cvs_sv_3::Impact>>(
         mut self,
         v: T,
@@ -2205,24 +2730,51 @@ impl Cvss {
     }
 
     /// Sets the value of [base_score][crate::model::Cvss::base_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = Cvss::new().set_base_score(42.0);
+    /// ```
     pub fn set_base_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.base_score = v.into();
         self
     }
 
     /// Sets the value of [exploitability_score][crate::model::Cvss::exploitability_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = Cvss::new().set_exploitability_score(42.0);
+    /// ```
     pub fn set_exploitability_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.exploitability_score = v.into();
         self
     }
 
     /// Sets the value of [impact_score][crate::model::Cvss::impact_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = Cvss::new().set_impact_score(42.0);
+    /// ```
     pub fn set_impact_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.impact_score = v.into();
         self
     }
 
     /// Sets the value of [attack_vector][crate::model::Cvss::attack_vector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::AttackVector;
+    /// let x0 = Cvss::new().set_attack_vector(AttackVector::Network);
+    /// let x1 = Cvss::new().set_attack_vector(AttackVector::Adjacent);
+    /// let x2 = Cvss::new().set_attack_vector(AttackVector::Local);
+    /// ```
     pub fn set_attack_vector<T: std::convert::Into<crate::model::cvss::AttackVector>>(
         mut self,
         v: T,
@@ -2232,6 +2784,15 @@ impl Cvss {
     }
 
     /// Sets the value of [attack_complexity][crate::model::Cvss::attack_complexity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::AttackComplexity;
+    /// let x0 = Cvss::new().set_attack_complexity(AttackComplexity::Low);
+    /// let x1 = Cvss::new().set_attack_complexity(AttackComplexity::High);
+    /// let x2 = Cvss::new().set_attack_complexity(AttackComplexity::Medium);
+    /// ```
     pub fn set_attack_complexity<T: std::convert::Into<crate::model::cvss::AttackComplexity>>(
         mut self,
         v: T,
@@ -2241,6 +2802,15 @@ impl Cvss {
     }
 
     /// Sets the value of [authentication][crate::model::Cvss::authentication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Authentication;
+    /// let x0 = Cvss::new().set_authentication(Authentication::Multiple);
+    /// let x1 = Cvss::new().set_authentication(Authentication::Single);
+    /// let x2 = Cvss::new().set_authentication(Authentication::None);
+    /// ```
     pub fn set_authentication<T: std::convert::Into<crate::model::cvss::Authentication>>(
         mut self,
         v: T,
@@ -2250,6 +2820,15 @@ impl Cvss {
     }
 
     /// Sets the value of [privileges_required][crate::model::Cvss::privileges_required].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::PrivilegesRequired;
+    /// let x0 = Cvss::new().set_privileges_required(PrivilegesRequired::None);
+    /// let x1 = Cvss::new().set_privileges_required(PrivilegesRequired::Low);
+    /// let x2 = Cvss::new().set_privileges_required(PrivilegesRequired::High);
+    /// ```
     pub fn set_privileges_required<
         T: std::convert::Into<crate::model::cvss::PrivilegesRequired>,
     >(
@@ -2261,6 +2840,14 @@ impl Cvss {
     }
 
     /// Sets the value of [user_interaction][crate::model::Cvss::user_interaction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::UserInteraction;
+    /// let x0 = Cvss::new().set_user_interaction(UserInteraction::None);
+    /// let x1 = Cvss::new().set_user_interaction(UserInteraction::Required);
+    /// ```
     pub fn set_user_interaction<T: std::convert::Into<crate::model::cvss::UserInteraction>>(
         mut self,
         v: T,
@@ -2270,12 +2857,29 @@ impl Cvss {
     }
 
     /// Sets the value of [scope][crate::model::Cvss::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Scope;
+    /// let x0 = Cvss::new().set_scope(Scope::Unchanged);
+    /// let x1 = Cvss::new().set_scope(Scope::Changed);
+    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::cvss::Scope>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [confidentiality_impact][crate::model::Cvss::confidentiality_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_confidentiality_impact(Impact::High);
+    /// let x1 = Cvss::new().set_confidentiality_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_confidentiality_impact(Impact::None);
+    /// ```
     pub fn set_confidentiality_impact<T: std::convert::Into<crate::model::cvss::Impact>>(
         mut self,
         v: T,
@@ -2285,6 +2889,15 @@ impl Cvss {
     }
 
     /// Sets the value of [integrity_impact][crate::model::Cvss::integrity_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_integrity_impact(Impact::High);
+    /// let x1 = Cvss::new().set_integrity_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_integrity_impact(Impact::None);
+    /// ```
     pub fn set_integrity_impact<T: std::convert::Into<crate::model::cvss::Impact>>(
         mut self,
         v: T,
@@ -2294,6 +2907,15 @@ impl Cvss {
     }
 
     /// Sets the value of [availability_impact][crate::model::Cvss::availability_impact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_availability_impact(Impact::High);
+    /// let x1 = Cvss::new().set_availability_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_availability_impact(Impact::None);
+    /// ```
     pub fn set_availability_impact<T: std::convert::Into<crate::model::cvss::Impact>>(
         mut self,
         v: T,
@@ -3275,6 +3897,12 @@ impl DeploymentNote {
     }
 
     /// Sets the value of [resource_uri][crate::model::DeploymentNote::resource_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentNote;
+    /// let x = DeploymentNote::new().set_resource_uri(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_uri<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3327,12 +3955,25 @@ impl DeploymentOccurrence {
     }
 
     /// Sets the value of [user_email][crate::model::DeploymentOccurrence::user_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// let x = DeploymentOccurrence::new().set_user_email("example");
+    /// ```
     pub fn set_user_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_email = v.into();
         self
     }
 
     /// Sets the value of [deploy_time][crate::model::DeploymentOccurrence::deploy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentOccurrence::new().set_deploy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_deploy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3342,6 +3983,14 @@ impl DeploymentOccurrence {
     }
 
     /// Sets or clears the value of [deploy_time][crate::model::DeploymentOccurrence::deploy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentOccurrence::new().set_or_clear_deploy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentOccurrence::new().set_or_clear_deploy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_deploy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3351,6 +4000,13 @@ impl DeploymentOccurrence {
     }
 
     /// Sets the value of [undeploy_time][crate::model::DeploymentOccurrence::undeploy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentOccurrence::new().set_undeploy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_undeploy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3360,6 +4016,14 @@ impl DeploymentOccurrence {
     }
 
     /// Sets or clears the value of [undeploy_time][crate::model::DeploymentOccurrence::undeploy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentOccurrence::new().set_or_clear_undeploy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentOccurrence::new().set_or_clear_undeploy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_undeploy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3369,18 +4033,36 @@ impl DeploymentOccurrence {
     }
 
     /// Sets the value of [config][crate::model::DeploymentOccurrence::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// let x = DeploymentOccurrence::new().set_config("example");
+    /// ```
     pub fn set_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config = v.into();
         self
     }
 
     /// Sets the value of [address][crate::model::DeploymentOccurrence::address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// let x = DeploymentOccurrence::new().set_address("example");
+    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [resource_uri][crate::model::DeploymentOccurrence::resource_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// let x = DeploymentOccurrence::new().set_resource_uri(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_uri<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3392,6 +4074,15 @@ impl DeploymentOccurrence {
     }
 
     /// Sets the value of [platform][crate::model::DeploymentOccurrence::platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// use google_cloud_grafeas_v1::model::deployment_occurrence::Platform;
+    /// let x0 = DeploymentOccurrence::new().set_platform(Platform::Gke);
+    /// let x1 = DeploymentOccurrence::new().set_platform(Platform::Flex);
+    /// let x2 = DeploymentOccurrence::new().set_platform(Platform::Custom);
+    /// ```
     pub fn set_platform<T: std::convert::Into<crate::model::deployment_occurrence::Platform>>(
         mut self,
         v: T,
@@ -3571,6 +4262,15 @@ impl DiscoveryNote {
     }
 
     /// Sets the value of [analysis_kind][crate::model::DiscoveryNote::analysis_kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryNote;
+    /// use google_cloud_grafeas_v1::model::NoteKind;
+    /// let x0 = DiscoveryNote::new().set_analysis_kind(NoteKind::Vulnerability);
+    /// let x1 = DiscoveryNote::new().set_analysis_kind(NoteKind::Build);
+    /// let x2 = DiscoveryNote::new().set_analysis_kind(NoteKind::Image);
+    /// ```
     pub fn set_analysis_kind<T: std::convert::Into<crate::model::NoteKind>>(
         mut self,
         v: T,
@@ -3633,6 +4333,14 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [continuous_analysis][crate::model::DiscoveryOccurrence::continuous_analysis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::ContinuousAnalysis;
+    /// let x0 = DiscoveryOccurrence::new().set_continuous_analysis(ContinuousAnalysis::Active);
+    /// let x1 = DiscoveryOccurrence::new().set_continuous_analysis(ContinuousAnalysis::Inactive);
+    /// ```
     pub fn set_continuous_analysis<
         T: std::convert::Into<crate::model::discovery_occurrence::ContinuousAnalysis>,
     >(
@@ -3644,6 +4352,15 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [analysis_status][crate::model::DiscoveryOccurrence::analysis_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::AnalysisStatus;
+    /// let x0 = DiscoveryOccurrence::new().set_analysis_status(AnalysisStatus::Pending);
+    /// let x1 = DiscoveryOccurrence::new().set_analysis_status(AnalysisStatus::Scanning);
+    /// let x2 = DiscoveryOccurrence::new().set_analysis_status(AnalysisStatus::FinishedSuccess);
+    /// ```
     pub fn set_analysis_status<
         T: std::convert::Into<crate::model::discovery_occurrence::AnalysisStatus>,
     >(
@@ -3655,6 +4372,13 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [analysis_completed][crate::model::DiscoveryOccurrence::analysis_completed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::AnalysisCompleted;
+    /// let x = DiscoveryOccurrence::new().set_analysis_completed(AnalysisCompleted::default()/* use setters */);
+    /// ```
     pub fn set_analysis_completed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::discovery_occurrence::AnalysisCompleted>,
@@ -3664,6 +4388,14 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets or clears the value of [analysis_completed][crate::model::DiscoveryOccurrence::analysis_completed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::AnalysisCompleted;
+    /// let x = DiscoveryOccurrence::new().set_or_clear_analysis_completed(Some(AnalysisCompleted::default()/* use setters */));
+    /// let x = DiscoveryOccurrence::new().set_or_clear_analysis_completed(None::<AnalysisCompleted>);
+    /// ```
     pub fn set_or_clear_analysis_completed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::discovery_occurrence::AnalysisCompleted>,
@@ -3673,6 +4405,17 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [analysis_error][crate::model::DiscoveryOccurrence::analysis_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use rpc::model::Status;
+    /// let x = DiscoveryOccurrence::new()
+    ///     .set_analysis_error([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_analysis_error<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3684,6 +4427,13 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [analysis_status_error][crate::model::DiscoveryOccurrence::analysis_status_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use rpc::model::Status;
+    /// let x = DiscoveryOccurrence::new().set_analysis_status_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_analysis_status_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3693,6 +4443,14 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets or clears the value of [analysis_status_error][crate::model::DiscoveryOccurrence::analysis_status_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use rpc::model::Status;
+    /// let x = DiscoveryOccurrence::new().set_or_clear_analysis_status_error(Some(Status::default()/* use setters */));
+    /// let x = DiscoveryOccurrence::new().set_or_clear_analysis_status_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_analysis_status_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3702,12 +4460,25 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [cpe][crate::model::DiscoveryOccurrence::cpe].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// let x = DiscoveryOccurrence::new().set_cpe("example");
+    /// ```
     pub fn set_cpe<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe = v.into();
         self
     }
 
     /// Sets the value of [last_scan_time][crate::model::DiscoveryOccurrence::last_scan_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryOccurrence::new().set_last_scan_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_scan_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3717,6 +4488,14 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets or clears the value of [last_scan_time][crate::model::DiscoveryOccurrence::last_scan_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryOccurrence::new().set_or_clear_last_scan_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryOccurrence::new().set_or_clear_last_scan_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_scan_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3726,6 +4505,13 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [archive_time][crate::model::DiscoveryOccurrence::archive_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryOccurrence::new().set_archive_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_archive_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3735,6 +4521,14 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets or clears the value of [archive_time][crate::model::DiscoveryOccurrence::archive_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryOccurrence::new().set_or_clear_archive_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryOccurrence::new().set_or_clear_archive_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_archive_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3744,6 +4538,13 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [sbom_status][crate::model::DiscoveryOccurrence::sbom_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::SBOMStatus;
+    /// let x = DiscoveryOccurrence::new().set_sbom_status(SBOMStatus::default()/* use setters */);
+    /// ```
     pub fn set_sbom_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::discovery_occurrence::SBOMStatus>,
@@ -3753,6 +4554,14 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets or clears the value of [sbom_status][crate::model::DiscoveryOccurrence::sbom_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::SBOMStatus;
+    /// let x = DiscoveryOccurrence::new().set_or_clear_sbom_status(Some(SBOMStatus::default()/* use setters */));
+    /// let x = DiscoveryOccurrence::new().set_or_clear_sbom_status(None::<SBOMStatus>);
+    /// ```
     pub fn set_or_clear_sbom_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::discovery_occurrence::SBOMStatus>,
@@ -3762,6 +4571,13 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets the value of [vulnerability_attestation][crate::model::DiscoveryOccurrence::vulnerability_attestation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::VulnerabilityAttestation;
+    /// let x = DiscoveryOccurrence::new().set_vulnerability_attestation(VulnerabilityAttestation::default()/* use setters */);
+    /// ```
     pub fn set_vulnerability_attestation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::discovery_occurrence::VulnerabilityAttestation>,
@@ -3771,6 +4587,14 @@ impl DiscoveryOccurrence {
     }
 
     /// Sets or clears the value of [vulnerability_attestation][crate::model::DiscoveryOccurrence::vulnerability_attestation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::VulnerabilityAttestation;
+    /// let x = DiscoveryOccurrence::new().set_or_clear_vulnerability_attestation(Some(VulnerabilityAttestation::default()/* use setters */));
+    /// let x = DiscoveryOccurrence::new().set_or_clear_vulnerability_attestation(None::<VulnerabilityAttestation>);
+    /// ```
     pub fn set_or_clear_vulnerability_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::discovery_occurrence::VulnerabilityAttestation>,
@@ -3807,6 +4631,12 @@ pub mod discovery_occurrence {
         }
 
         /// Sets the value of [analysis_type][crate::model::discovery_occurrence::AnalysisCompleted::analysis_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::AnalysisCompleted;
+        /// let x = AnalysisCompleted::new().set_analysis_type(["a", "b", "c"]);
+        /// ```
         pub fn set_analysis_type<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3844,6 +4674,14 @@ pub mod discovery_occurrence {
         }
 
         /// Sets the value of [sbom_state][crate::model::discovery_occurrence::SBOMStatus::sbom_state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::SBOMStatus;
+        /// use google_cloud_grafeas_v1::model::discovery_occurrence::sbom_status::SBOMState;
+        /// let x0 = SBOMStatus::new().set_sbom_state(SBOMState::Pending);
+        /// let x1 = SBOMStatus::new().set_sbom_state(SBOMState::Complete);
+        /// ```
         pub fn set_sbom_state<
             T: std::convert::Into<crate::model::discovery_occurrence::sbom_status::SBOMState>,
         >(
@@ -3855,6 +4693,12 @@ pub mod discovery_occurrence {
         }
 
         /// Sets the value of [error][crate::model::discovery_occurrence::SBOMStatus::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::SBOMStatus;
+        /// let x = SBOMStatus::new().set_error("example");
+        /// ```
         pub fn set_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.error = v.into();
             self
@@ -4012,16 +4856,16 @@ pub mod discovery_occurrence {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VulnerabilityAttestation {
-
+    
         /// The last time we attempted to generate an attestation.
         pub last_attempt_time: std::option::Option<wkt::Timestamp>,
-
+    
         /// The success/failure state of the latest attestation attempt.
         pub state: crate::model::discovery_occurrence::vulnerability_attestation::VulnerabilityAttestationState,
-
+    
         /// If failure, the error reason for why the attestation generation failed.
         pub error: std::string::String,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -4031,6 +4875,13 @@ pub mod discovery_occurrence {
         }
 
         /// Sets the value of [last_attempt_time][crate::model::discovery_occurrence::VulnerabilityAttestation::last_attempt_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::VulnerabilityAttestation;
+        /// use wkt::Timestamp;
+        /// let x = VulnerabilityAttestation::new().set_last_attempt_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_last_attempt_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4040,6 +4891,14 @@ pub mod discovery_occurrence {
         }
 
         /// Sets or clears the value of [last_attempt_time][crate::model::discovery_occurrence::VulnerabilityAttestation::last_attempt_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::VulnerabilityAttestation;
+        /// use wkt::Timestamp;
+        /// let x = VulnerabilityAttestation::new().set_or_clear_last_attempt_time(Some(Timestamp::default()/* use setters */));
+        /// let x = VulnerabilityAttestation::new().set_or_clear_last_attempt_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_last_attempt_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4049,12 +4908,26 @@ pub mod discovery_occurrence {
         }
 
         /// Sets the value of [state][crate::model::discovery_occurrence::VulnerabilityAttestation::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::VulnerabilityAttestation;
+        /// use google_cloud_grafeas_v1::model::discovery_occurrence::vulnerability_attestation::VulnerabilityAttestationState;
+        /// let x0 = VulnerabilityAttestation::new().set_state(VulnerabilityAttestationState::Success);
+        /// let x1 = VulnerabilityAttestation::new().set_state(VulnerabilityAttestationState::Failure);
+        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::discovery_occurrence::vulnerability_attestation::VulnerabilityAttestationState>>(mut self, v: T) -> Self{
             self.state = v.into();
             self
         }
 
         /// Sets the value of [error][crate::model::discovery_occurrence::VulnerabilityAttestation::error].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::VulnerabilityAttestation;
+        /// let x = VulnerabilityAttestation::new().set_error("example");
+        /// ```
         pub fn set_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.error = v.into();
             self
@@ -4518,6 +5391,13 @@ impl DSSEAttestationNote {
     }
 
     /// Sets the value of [hint][crate::model::DSSEAttestationNote::hint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DSSEAttestationNote;
+    /// use google_cloud_grafeas_v1::model::dsse_attestation_note::DSSEHint;
+    /// let x = DSSEAttestationNote::new().set_hint(DSSEHint::default()/* use setters */);
+    /// ```
     pub fn set_hint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::dsse_attestation_note::DSSEHint>,
@@ -4527,6 +5407,14 @@ impl DSSEAttestationNote {
     }
 
     /// Sets or clears the value of [hint][crate::model::DSSEAttestationNote::hint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DSSEAttestationNote;
+    /// use google_cloud_grafeas_v1::model::dsse_attestation_note::DSSEHint;
+    /// let x = DSSEAttestationNote::new().set_or_clear_hint(Some(DSSEHint::default()/* use setters */));
+    /// let x = DSSEAttestationNote::new().set_or_clear_hint(None::<DSSEHint>);
+    /// ```
     pub fn set_or_clear_hint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::dsse_attestation_note::DSSEHint>,
@@ -4570,6 +5458,12 @@ pub mod dsse_attestation_note {
         }
 
         /// Sets the value of [human_readable_name][crate::model::dsse_attestation_note::DSSEHint::human_readable_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::dsse_attestation_note::DSSEHint;
+        /// let x = DSSEHint::new().set_human_readable_name("example");
+        /// ```
         pub fn set_human_readable_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4607,6 +5501,13 @@ impl DSSEAttestationOccurrence {
     }
 
     /// Sets the value of [envelope][crate::model::DSSEAttestationOccurrence::envelope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DSSEAttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::Envelope;
+    /// let x = DSSEAttestationOccurrence::new().set_envelope(Envelope::default()/* use setters */);
+    /// ```
     pub fn set_envelope<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Envelope>,
@@ -4616,6 +5517,14 @@ impl DSSEAttestationOccurrence {
     }
 
     /// Sets or clears the value of [envelope][crate::model::DSSEAttestationOccurrence::envelope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DSSEAttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::Envelope;
+    /// let x = DSSEAttestationOccurrence::new().set_or_clear_envelope(Some(Envelope::default()/* use setters */));
+    /// let x = DSSEAttestationOccurrence::new().set_or_clear_envelope(None::<Envelope>);
+    /// ```
     pub fn set_or_clear_envelope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Envelope>,
@@ -4628,6 +5537,14 @@ impl DSSEAttestationOccurrence {
     ///
     /// Note that all the setters affecting `decoded_payload` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DSSEAttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// let x = DSSEAttestationOccurrence::new().set_decoded_payload(Some(
+    ///     google_cloud_grafeas_v1::model::dsse_attestation_occurrence::DecodedPayload::Statement(InTotoStatement::default().into())));
+    /// ```
     pub fn set_decoded_payload<
         T: std::convert::Into<
                 std::option::Option<crate::model::dsse_attestation_occurrence::DecodedPayload>,
@@ -4660,6 +5577,14 @@ impl DSSEAttestationOccurrence {
     ///
     /// Note that all the setters affecting `decoded_payload` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DSSEAttestationOccurrence;
+    /// use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// let x = DSSEAttestationOccurrence::new().set_statement(InTotoStatement::default()/* use setters */);
+    /// assert!(x.statement().is_some());
+    /// ```
     pub fn set_statement<T: std::convert::Into<std::boxed::Box<crate::model::InTotoStatement>>>(
         mut self,
         v: T,
@@ -4736,36 +5661,76 @@ impl Occurrence {
     }
 
     /// Sets the value of [name][crate::model::Occurrence::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = Occurrence::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_uri][crate::model::Occurrence::resource_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = Occurrence::new().set_resource_uri("example");
+    /// ```
     pub fn set_resource_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_uri = v.into();
         self
     }
 
     /// Sets the value of [note_name][crate::model::Occurrence::note_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = Occurrence::new().set_note_name("example");
+    /// ```
     pub fn set_note_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.note_name = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::Occurrence::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::NoteKind;
+    /// let x0 = Occurrence::new().set_kind(NoteKind::Vulnerability);
+    /// let x1 = Occurrence::new().set_kind(NoteKind::Build);
+    /// let x2 = Occurrence::new().set_kind(NoteKind::Image);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::NoteKind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [remediation][crate::model::Occurrence::remediation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = Occurrence::new().set_remediation("example");
+    /// ```
     pub fn set_remediation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remediation = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Occurrence::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use wkt::Timestamp;
+    /// let x = Occurrence::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4775,6 +5740,14 @@ impl Occurrence {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Occurrence::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use wkt::Timestamp;
+    /// let x = Occurrence::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Occurrence::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4784,6 +5757,13 @@ impl Occurrence {
     }
 
     /// Sets the value of [update_time][crate::model::Occurrence::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use wkt::Timestamp;
+    /// let x = Occurrence::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4793,6 +5773,14 @@ impl Occurrence {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Occurrence::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use wkt::Timestamp;
+    /// let x = Occurrence::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Occurrence::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4802,6 +5790,13 @@ impl Occurrence {
     }
 
     /// Sets the value of [envelope][crate::model::Occurrence::envelope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::Envelope;
+    /// let x = Occurrence::new().set_envelope(Envelope::default()/* use setters */);
+    /// ```
     pub fn set_envelope<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Envelope>,
@@ -4811,6 +5806,14 @@ impl Occurrence {
     }
 
     /// Sets or clears the value of [envelope][crate::model::Occurrence::envelope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::Envelope;
+    /// let x = Occurrence::new().set_or_clear_envelope(Some(Envelope::default()/* use setters */));
+    /// let x = Occurrence::new().set_or_clear_envelope(None::<Envelope>);
+    /// ```
     pub fn set_or_clear_envelope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Envelope>,
@@ -4823,6 +5826,14 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = Occurrence::new().set_details(Some(
+    ///     google_cloud_grafeas_v1::model::occurrence::Details::Vulnerability(VulnerabilityOccurrence::default().into())));
+    /// ```
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::occurrence::Details>>,
     >(
@@ -4851,6 +5862,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = Occurrence::new().set_vulnerability(VulnerabilityOccurrence::default()/* use setters */);
+    /// assert!(x.vulnerability().is_some());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_vulnerability<
         T: std::convert::Into<std::boxed::Box<crate::model::VulnerabilityOccurrence>>,
     >(
@@ -4878,6 +5908,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::BuildOccurrence;
+    /// let x = Occurrence::new().set_build(BuildOccurrence::default()/* use setters */);
+    /// assert!(x.build().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_build<T: std::convert::Into<std::boxed::Box<crate::model::BuildOccurrence>>>(
         mut self,
         v: T,
@@ -4903,6 +5952,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::ImageOccurrence;
+    /// let x = Occurrence::new().set_image(ImageOccurrence::default()/* use setters */);
+    /// assert!(x.image().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_image<T: std::convert::Into<std::boxed::Box<crate::model::ImageOccurrence>>>(
         mut self,
         v: T,
@@ -4930,6 +5998,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// let x = Occurrence::new().set_package(PackageOccurrence::default()/* use setters */);
+    /// assert!(x.package().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_package<T: std::convert::Into<std::boxed::Box<crate::model::PackageOccurrence>>>(
         mut self,
         v: T,
@@ -4957,6 +6044,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::DeploymentOccurrence;
+    /// let x = Occurrence::new().set_deployment(DeploymentOccurrence::default()/* use setters */);
+    /// assert!(x.deployment().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_deployment<
         T: std::convert::Into<std::boxed::Box<crate::model::DeploymentOccurrence>>,
     >(
@@ -4986,6 +6092,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// let x = Occurrence::new().set_discovery(DiscoveryOccurrence::default()/* use setters */);
+    /// assert!(x.discovery().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_discovery<
         T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryOccurrence>>,
     >(
@@ -5015,6 +6140,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::AttestationOccurrence;
+    /// let x = Occurrence::new().set_attestation(AttestationOccurrence::default()/* use setters */);
+    /// assert!(x.attestation().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_attestation<
         T: std::convert::Into<std::boxed::Box<crate::model::AttestationOccurrence>>,
     >(
@@ -5044,6 +6188,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// let x = Occurrence::new().set_upgrade(UpgradeOccurrence::default()/* use setters */);
+    /// assert!(x.upgrade().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_upgrade<T: std::convert::Into<std::boxed::Box<crate::model::UpgradeOccurrence>>>(
         mut self,
         v: T,
@@ -5071,6 +6234,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::ComplianceOccurrence;
+    /// let x = Occurrence::new().set_compliance(ComplianceOccurrence::default()/* use setters */);
+    /// assert!(x.compliance().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_compliance<
         T: std::convert::Into<std::boxed::Box<crate::model::ComplianceOccurrence>>,
     >(
@@ -5100,6 +6282,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::DSSEAttestationOccurrence;
+    /// let x = Occurrence::new().set_dsse_attestation(DSSEAttestationOccurrence::default()/* use setters */);
+    /// assert!(x.dsse_attestation().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_dsse_attestation<
         T: std::convert::Into<std::boxed::Box<crate::model::DSSEAttestationOccurrence>>,
     >(
@@ -5129,6 +6330,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::SBOMReferenceOccurrence;
+    /// let x = Occurrence::new().set_sbom_reference(SBOMReferenceOccurrence::default()/* use setters */);
+    /// assert!(x.sbom_reference().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_sbom_reference<
         T: std::convert::Into<std::boxed::Box<crate::model::SBOMReferenceOccurrence>>,
     >(
@@ -5156,6 +6376,25 @@ impl Occurrence {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Occurrence;
+    /// use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// let x = Occurrence::new().set_secret(SecretOccurrence::default()/* use setters */);
+    /// assert!(x.secret().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// ```
     pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretOccurrence>>>(
         mut self,
         v: T,
@@ -5257,12 +6496,24 @@ impl Note {
     }
 
     /// Sets the value of [name][crate::model::Note::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// let x = Note::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [short_description][crate::model::Note::short_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// let x = Note::new().set_short_description("example");
+    /// ```
     pub fn set_short_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5272,6 +6523,12 @@ impl Note {
     }
 
     /// Sets the value of [long_description][crate::model::Note::long_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// let x = Note::new().set_long_description("example");
+    /// ```
     pub fn set_long_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5281,12 +6538,32 @@ impl Note {
     }
 
     /// Sets the value of [kind][crate::model::Note::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::NoteKind;
+    /// let x0 = Note::new().set_kind(NoteKind::Vulnerability);
+    /// let x1 = Note::new().set_kind(NoteKind::Build);
+    /// let x2 = Note::new().set_kind(NoteKind::Image);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::NoteKind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [related_url][crate::model::Note::related_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::RelatedUrl;
+    /// let x = Note::new()
+    ///     .set_related_url([
+    ///         RelatedUrl::default()/* use setters */,
+    ///         RelatedUrl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_url<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5298,6 +6575,13 @@ impl Note {
     }
 
     /// Sets the value of [expiration_time][crate::model::Note::expiration_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use wkt::Timestamp;
+    /// let x = Note::new().set_expiration_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5307,6 +6591,14 @@ impl Note {
     }
 
     /// Sets or clears the value of [expiration_time][crate::model::Note::expiration_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use wkt::Timestamp;
+    /// let x = Note::new().set_or_clear_expiration_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Note::new().set_or_clear_expiration_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5316,6 +6608,13 @@ impl Note {
     }
 
     /// Sets the value of [create_time][crate::model::Note::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use wkt::Timestamp;
+    /// let x = Note::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5325,6 +6624,14 @@ impl Note {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Note::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use wkt::Timestamp;
+    /// let x = Note::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Note::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5334,6 +6641,13 @@ impl Note {
     }
 
     /// Sets the value of [update_time][crate::model::Note::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use wkt::Timestamp;
+    /// let x = Note::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5343,6 +6657,14 @@ impl Note {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Note::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use wkt::Timestamp;
+    /// let x = Note::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Note::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5352,6 +6674,12 @@ impl Note {
     }
 
     /// Sets the value of [related_note_names][crate::model::Note::related_note_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// let x = Note::new().set_related_note_names(["a", "b", "c"]);
+    /// ```
     pub fn set_related_note_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5366,6 +6694,14 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// let x = Note::new().set_type(Some(
+    ///     google_cloud_grafeas_v1::model::note::Type::Vulnerability(VulnerabilityNote::default().into())));
+    /// ```
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::note::Type>>>(
         mut self,
         v: T,
@@ -5392,6 +6728,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// let x = Note::new().set_vulnerability(VulnerabilityNote::default()/* use setters */);
+    /// assert!(x.vulnerability().is_some());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_vulnerability<
         T: std::convert::Into<std::boxed::Box<crate::model::VulnerabilityNote>>,
     >(
@@ -5418,6 +6774,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::BuildNote;
+    /// let x = Note::new().set_build(BuildNote::default()/* use setters */);
+    /// assert!(x.build().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_build<T: std::convert::Into<std::boxed::Box<crate::model::BuildNote>>>(
         mut self,
         v: T,
@@ -5442,6 +6818,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::ImageNote;
+    /// let x = Note::new().set_image(ImageNote::default()/* use setters */);
+    /// assert!(x.image().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_image<T: std::convert::Into<std::boxed::Box<crate::model::ImageNote>>>(
         mut self,
         v: T,
@@ -5466,6 +6862,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::PackageNote;
+    /// let x = Note::new().set_package(PackageNote::default()/* use setters */);
+    /// assert!(x.package().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_package<T: std::convert::Into<std::boxed::Box<crate::model::PackageNote>>>(
         mut self,
         v: T,
@@ -5492,6 +6908,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::DeploymentNote;
+    /// let x = Note::new().set_deployment(DeploymentNote::default()/* use setters */);
+    /// assert!(x.deployment().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_deployment<T: std::convert::Into<std::boxed::Box<crate::model::DeploymentNote>>>(
         mut self,
         v: T,
@@ -5516,6 +6952,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::DiscoveryNote;
+    /// let x = Note::new().set_discovery(DiscoveryNote::default()/* use setters */);
+    /// assert!(x.discovery().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_discovery<T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryNote>>>(
         mut self,
         v: T,
@@ -5542,6 +6998,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::AttestationNote;
+    /// let x = Note::new().set_attestation(AttestationNote::default()/* use setters */);
+    /// assert!(x.attestation().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_attestation<
         T: std::convert::Into<std::boxed::Box<crate::model::AttestationNote>>,
     >(
@@ -5568,6 +7044,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::UpgradeNote;
+    /// let x = Note::new().set_upgrade(UpgradeNote::default()/* use setters */);
+    /// assert!(x.upgrade().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_upgrade<T: std::convert::Into<std::boxed::Box<crate::model::UpgradeNote>>>(
         mut self,
         v: T,
@@ -5594,6 +7090,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::ComplianceNote;
+    /// let x = Note::new().set_compliance(ComplianceNote::default()/* use setters */);
+    /// assert!(x.compliance().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_compliance<T: std::convert::Into<std::boxed::Box<crate::model::ComplianceNote>>>(
         mut self,
         v: T,
@@ -5620,6 +7136,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::DSSEAttestationNote;
+    /// let x = Note::new().set_dsse_attestation(DSSEAttestationNote::default()/* use setters */);
+    /// assert!(x.dsse_attestation().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_dsse_attestation<
         T: std::convert::Into<std::boxed::Box<crate::model::DSSEAttestationNote>>,
     >(
@@ -5649,6 +7185,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// let x = Note::new().set_vulnerability_assessment(VulnerabilityAssessmentNote::default()/* use setters */);
+    /// assert!(x.vulnerability_assessment().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_vulnerability_assessment<
         T: std::convert::Into<std::boxed::Box<crate::model::VulnerabilityAssessmentNote>>,
     >(
@@ -5678,6 +7234,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::SBOMReferenceNote;
+    /// let x = Note::new().set_sbom_reference(SBOMReferenceNote::default()/* use setters */);
+    /// assert!(x.sbom_reference().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.secret().is_none());
+    /// ```
     pub fn set_sbom_reference<
         T: std::convert::Into<std::boxed::Box<crate::model::SBOMReferenceNote>>,
     >(
@@ -5704,6 +7280,26 @@ impl Note {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Note;
+    /// use google_cloud_grafeas_v1::model::SecretNote;
+    /// let x = Note::new().set_secret(SecretNote::default()/* use setters */);
+    /// assert!(x.secret().is_some());
+    /// assert!(x.vulnerability().is_none());
+    /// assert!(x.build().is_none());
+    /// assert!(x.image().is_none());
+    /// assert!(x.package().is_none());
+    /// assert!(x.deployment().is_none());
+    /// assert!(x.discovery().is_none());
+    /// assert!(x.attestation().is_none());
+    /// assert!(x.upgrade().is_none());
+    /// assert!(x.compliance().is_none());
+    /// assert!(x.dsse_attestation().is_none());
+    /// assert!(x.vulnerability_assessment().is_none());
+    /// assert!(x.sbom_reference().is_none());
+    /// ```
     pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretNote>>>(
         mut self,
         v: T,
@@ -5774,6 +7370,12 @@ impl GetOccurrenceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOccurrenceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GetOccurrenceRequest;
+    /// let x = GetOccurrenceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5813,24 +7415,48 @@ impl ListOccurrencesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOccurrencesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesRequest;
+    /// let x = ListOccurrencesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOccurrencesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesRequest;
+    /// let x = ListOccurrencesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOccurrencesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesRequest;
+    /// let x = ListOccurrencesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOccurrencesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesRequest;
+    /// let x = ListOccurrencesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5864,6 +7490,17 @@ impl ListOccurrencesResponse {
     }
 
     /// Sets the value of [occurrences][crate::model::ListOccurrencesResponse::occurrences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesResponse;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = ListOccurrencesResponse::new()
+    ///     .set_occurrences([
+    ///         Occurrence::default()/* use setters */,
+    ///         Occurrence::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_occurrences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5875,6 +7512,12 @@ impl ListOccurrencesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOccurrencesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesResponse;
+    /// let x = ListOccurrencesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5918,6 +7561,12 @@ impl DeleteOccurrenceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteOccurrenceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeleteOccurrenceRequest;
+    /// let x = DeleteOccurrenceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5950,12 +7599,25 @@ impl CreateOccurrenceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateOccurrenceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CreateOccurrenceRequest;
+    /// let x = CreateOccurrenceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CreateOccurrenceRequest;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = CreateOccurrenceRequest::new().set_occurrence(Occurrence::default()/* use setters */);
+    /// ```
     pub fn set_occurrence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Occurrence>,
@@ -5965,6 +7627,14 @@ impl CreateOccurrenceRequest {
     }
 
     /// Sets or clears the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CreateOccurrenceRequest;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = CreateOccurrenceRequest::new().set_or_clear_occurrence(Some(Occurrence::default()/* use setters */));
+    /// let x = CreateOccurrenceRequest::new().set_or_clear_occurrence(None::<Occurrence>);
+    /// ```
     pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Occurrence>,
@@ -6003,12 +7673,25 @@ impl UpdateOccurrenceRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateOccurrenceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateOccurrenceRequest;
+    /// let x = UpdateOccurrenceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateOccurrenceRequest;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = UpdateOccurrenceRequest::new().set_occurrence(Occurrence::default()/* use setters */);
+    /// ```
     pub fn set_occurrence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Occurrence>,
@@ -6018,6 +7701,14 @@ impl UpdateOccurrenceRequest {
     }
 
     /// Sets or clears the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateOccurrenceRequest;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = UpdateOccurrenceRequest::new().set_or_clear_occurrence(Some(Occurrence::default()/* use setters */));
+    /// let x = UpdateOccurrenceRequest::new().set_or_clear_occurrence(None::<Occurrence>);
+    /// ```
     pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Occurrence>,
@@ -6027,6 +7718,13 @@ impl UpdateOccurrenceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateOccurrenceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateOccurrenceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6036,6 +7734,14 @@ impl UpdateOccurrenceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateOccurrenceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateOccurrenceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateOccurrenceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6068,6 +7774,12 @@ impl GetNoteRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNoteRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GetNoteRequest;
+    /// let x = GetNoteRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6097,6 +7809,12 @@ impl GetOccurrenceNoteRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOccurrenceNoteRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GetOccurrenceNoteRequest;
+    /// let x = GetOccurrenceNoteRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6136,24 +7854,48 @@ impl ListNotesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNotesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNotesRequest;
+    /// let x = ListNotesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNotesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNotesRequest;
+    /// let x = ListNotesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNotesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNotesRequest;
+    /// let x = ListNotesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNotesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNotesRequest;
+    /// let x = ListNotesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6187,6 +7929,17 @@ impl ListNotesResponse {
     }
 
     /// Sets the value of [notes][crate::model::ListNotesResponse::notes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNotesResponse;
+    /// use google_cloud_grafeas_v1::model::Note;
+    /// let x = ListNotesResponse::new()
+    ///     .set_notes([
+    ///         Note::default()/* use setters */,
+    ///         Note::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_notes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6198,6 +7951,12 @@ impl ListNotesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNotesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNotesResponse;
+    /// let x = ListNotesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6241,6 +8000,12 @@ impl DeleteNoteRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNoteRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::DeleteNoteRequest;
+    /// let x = DeleteNoteRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6276,18 +8041,37 @@ impl CreateNoteRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNoteRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CreateNoteRequest;
+    /// let x = CreateNoteRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [note_id][crate::model::CreateNoteRequest::note_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CreateNoteRequest;
+    /// let x = CreateNoteRequest::new().set_note_id("example");
+    /// ```
     pub fn set_note_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.note_id = v.into();
         self
     }
 
     /// Sets the value of [note][crate::model::CreateNoteRequest::note].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CreateNoteRequest;
+    /// use google_cloud_grafeas_v1::model::Note;
+    /// let x = CreateNoteRequest::new().set_note(Note::default()/* use setters */);
+    /// ```
     pub fn set_note<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Note>,
@@ -6297,6 +8081,14 @@ impl CreateNoteRequest {
     }
 
     /// Sets or clears the value of [note][crate::model::CreateNoteRequest::note].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CreateNoteRequest;
+    /// use google_cloud_grafeas_v1::model::Note;
+    /// let x = CreateNoteRequest::new().set_or_clear_note(Some(Note::default()/* use setters */));
+    /// let x = CreateNoteRequest::new().set_or_clear_note(None::<Note>);
+    /// ```
     pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Note>,
@@ -6335,12 +8127,25 @@ impl UpdateNoteRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateNoteRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateNoteRequest;
+    /// let x = UpdateNoteRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [note][crate::model::UpdateNoteRequest::note].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateNoteRequest;
+    /// use google_cloud_grafeas_v1::model::Note;
+    /// let x = UpdateNoteRequest::new().set_note(Note::default()/* use setters */);
+    /// ```
     pub fn set_note<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Note>,
@@ -6350,6 +8155,14 @@ impl UpdateNoteRequest {
     }
 
     /// Sets or clears the value of [note][crate::model::UpdateNoteRequest::note].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateNoteRequest;
+    /// use google_cloud_grafeas_v1::model::Note;
+    /// let x = UpdateNoteRequest::new().set_or_clear_note(Some(Note::default()/* use setters */));
+    /// let x = UpdateNoteRequest::new().set_or_clear_note(None::<Note>);
+    /// ```
     pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Note>,
@@ -6359,6 +8172,13 @@ impl UpdateNoteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateNoteRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNoteRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6368,6 +8188,14 @@ impl UpdateNoteRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpdateNoteRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNoteRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNoteRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6409,24 +8237,48 @@ impl ListNoteOccurrencesRequest {
     }
 
     /// Sets the value of [name][crate::model::ListNoteOccurrencesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNoteOccurrencesRequest;
+    /// let x = ListNoteOccurrencesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNoteOccurrencesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNoteOccurrencesRequest;
+    /// let x = ListNoteOccurrencesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNoteOccurrencesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNoteOccurrencesRequest;
+    /// let x = ListNoteOccurrencesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNoteOccurrencesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNoteOccurrencesRequest;
+    /// let x = ListNoteOccurrencesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6458,6 +8310,17 @@ impl ListNoteOccurrencesResponse {
     }
 
     /// Sets the value of [occurrences][crate::model::ListNoteOccurrencesResponse::occurrences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNoteOccurrencesResponse;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = ListNoteOccurrencesResponse::new()
+    ///     .set_occurrences([
+    ///         Occurrence::default()/* use setters */,
+    ///         Occurrence::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_occurrences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6469,6 +8332,12 @@ impl ListNoteOccurrencesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNoteOccurrencesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ListNoteOccurrencesResponse;
+    /// let x = ListNoteOccurrencesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6515,12 +8384,28 @@ impl BatchCreateNotesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchCreateNotesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BatchCreateNotesRequest;
+    /// let x = BatchCreateNotesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [notes][crate::model::BatchCreateNotesRequest::notes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BatchCreateNotesRequest;
+    /// use google_cloud_grafeas_v1::model::Note;
+    /// let x = BatchCreateNotesRequest::new().set_notes([
+    ///     ("key0", Note::default()/* use setters */),
+    ///     ("key1", Note::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_notes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6555,6 +8440,17 @@ impl BatchCreateNotesResponse {
     }
 
     /// Sets the value of [notes][crate::model::BatchCreateNotesResponse::notes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BatchCreateNotesResponse;
+    /// use google_cloud_grafeas_v1::model::Note;
+    /// let x = BatchCreateNotesResponse::new()
+    ///     .set_notes([
+    ///         Note::default()/* use setters */,
+    ///         Note::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_notes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6592,12 +8488,29 @@ impl BatchCreateOccurrencesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchCreateOccurrencesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BatchCreateOccurrencesRequest;
+    /// let x = BatchCreateOccurrencesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [occurrences][crate::model::BatchCreateOccurrencesRequest::occurrences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BatchCreateOccurrencesRequest;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = BatchCreateOccurrencesRequest::new()
+    ///     .set_occurrences([
+    ///         Occurrence::default()/* use setters */,
+    ///         Occurrence::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_occurrences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6631,6 +8544,17 @@ impl BatchCreateOccurrencesResponse {
     }
 
     /// Sets the value of [occurrences][crate::model::BatchCreateOccurrencesResponse::occurrences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BatchCreateOccurrencesResponse;
+    /// use google_cloud_grafeas_v1::model::Occurrence;
+    /// let x = BatchCreateOccurrencesResponse::new()
+    ///     .set_occurrences([
+    ///         Occurrence::default()/* use setters */,
+    ///         Occurrence::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_occurrences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6668,12 +8592,24 @@ impl Layer {
     }
 
     /// Sets the value of [directive][crate::model::Layer::directive].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Layer;
+    /// let x = Layer::new().set_directive("example");
+    /// ```
     pub fn set_directive<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.directive = v.into();
         self
     }
 
     /// Sets the value of [arguments][crate::model::Layer::arguments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Layer;
+    /// let x = Layer::new().set_arguments("example");
+    /// ```
     pub fn set_arguments<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.arguments = v.into();
         self
@@ -6712,12 +8648,24 @@ impl Fingerprint {
     }
 
     /// Sets the value of [v1_name][crate::model::Fingerprint::v1_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Fingerprint;
+    /// let x = Fingerprint::new().set_v1_name("example");
+    /// ```
     pub fn set_v1_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.v1_name = v.into();
         self
     }
 
     /// Sets the value of [v2_blob][crate::model::Fingerprint::v2_blob].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Fingerprint;
+    /// let x = Fingerprint::new().set_v2_blob(["a", "b", "c"]);
+    /// ```
     pub fn set_v2_blob<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6729,6 +8677,12 @@ impl Fingerprint {
     }
 
     /// Sets the value of [v2_name][crate::model::Fingerprint::v2_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Fingerprint;
+    /// let x = Fingerprint::new().set_v2_name("example");
+    /// ```
     pub fn set_v2_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.v2_name = v.into();
         self
@@ -6765,12 +8719,25 @@ impl ImageNote {
     }
 
     /// Sets the value of [resource_url][crate::model::ImageNote::resource_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageNote;
+    /// let x = ImageNote::new().set_resource_url("example");
+    /// ```
     pub fn set_resource_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_url = v.into();
         self
     }
 
     /// Sets the value of [fingerprint][crate::model::ImageNote::fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageNote;
+    /// use google_cloud_grafeas_v1::model::Fingerprint;
+    /// let x = ImageNote::new().set_fingerprint(Fingerprint::default()/* use setters */);
+    /// ```
     pub fn set_fingerprint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fingerprint>,
@@ -6780,6 +8747,14 @@ impl ImageNote {
     }
 
     /// Sets or clears the value of [fingerprint][crate::model::ImageNote::fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageNote;
+    /// use google_cloud_grafeas_v1::model::Fingerprint;
+    /// let x = ImageNote::new().set_or_clear_fingerprint(Some(Fingerprint::default()/* use setters */));
+    /// let x = ImageNote::new().set_or_clear_fingerprint(None::<Fingerprint>);
+    /// ```
     pub fn set_or_clear_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fingerprint>,
@@ -6826,6 +8801,13 @@ impl ImageOccurrence {
     }
 
     /// Sets the value of [fingerprint][crate::model::ImageOccurrence::fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageOccurrence;
+    /// use google_cloud_grafeas_v1::model::Fingerprint;
+    /// let x = ImageOccurrence::new().set_fingerprint(Fingerprint::default()/* use setters */);
+    /// ```
     pub fn set_fingerprint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fingerprint>,
@@ -6835,6 +8817,14 @@ impl ImageOccurrence {
     }
 
     /// Sets or clears the value of [fingerprint][crate::model::ImageOccurrence::fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageOccurrence;
+    /// use google_cloud_grafeas_v1::model::Fingerprint;
+    /// let x = ImageOccurrence::new().set_or_clear_fingerprint(Some(Fingerprint::default()/* use setters */));
+    /// let x = ImageOccurrence::new().set_or_clear_fingerprint(None::<Fingerprint>);
+    /// ```
     pub fn set_or_clear_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fingerprint>,
@@ -6844,12 +8834,29 @@ impl ImageOccurrence {
     }
 
     /// Sets the value of [distance][crate::model::ImageOccurrence::distance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageOccurrence;
+    /// let x = ImageOccurrence::new().set_distance(42);
+    /// ```
     pub fn set_distance<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.distance = v.into();
         self
     }
 
     /// Sets the value of [layer_info][crate::model::ImageOccurrence::layer_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageOccurrence;
+    /// use google_cloud_grafeas_v1::model::Layer;
+    /// let x = ImageOccurrence::new()
+    ///     .set_layer_info([
+    ///         Layer::default()/* use setters */,
+    ///         Layer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_layer_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6861,6 +8868,12 @@ impl ImageOccurrence {
     }
 
     /// Sets the value of [base_resource_url][crate::model::ImageOccurrence::base_resource_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ImageOccurrence;
+    /// let x = ImageOccurrence::new().set_base_resource_url("example");
+    /// ```
     pub fn set_base_resource_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6923,24 +8936,53 @@ impl Recipe {
     }
 
     /// Sets the value of [r#type][crate::model::Recipe::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Recipe;
+    /// let x = Recipe::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [defined_in_material][crate::model::Recipe::defined_in_material].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Recipe;
+    /// let x = Recipe::new().set_defined_in_material(42);
+    /// ```
     pub fn set_defined_in_material<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.defined_in_material = v.into();
         self
     }
 
     /// Sets the value of [entry_point][crate::model::Recipe::entry_point].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Recipe;
+    /// let x = Recipe::new().set_entry_point("example");
+    /// ```
     pub fn set_entry_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entry_point = v.into();
         self
     }
 
     /// Sets the value of [arguments][crate::model::Recipe::arguments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Recipe;
+    /// use wkt::Any;
+    /// let x = Recipe::new()
+    ///     .set_arguments([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_arguments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6952,6 +8994,17 @@ impl Recipe {
     }
 
     /// Sets the value of [environment][crate::model::Recipe::environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Recipe;
+    /// use wkt::Any;
+    /// let x = Recipe::new()
+    ///     .set_environment([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_environment<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6995,18 +9048,36 @@ impl Completeness {
     }
 
     /// Sets the value of [arguments][crate::model::Completeness::arguments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Completeness;
+    /// let x = Completeness::new().set_arguments(true);
+    /// ```
     pub fn set_arguments<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.arguments = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::Completeness::environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Completeness;
+    /// let x = Completeness::new().set_environment(true);
+    /// ```
     pub fn set_environment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [materials][crate::model::Completeness::materials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Completeness;
+    /// let x = Completeness::new().set_materials(true);
+    /// ```
     pub fn set_materials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.materials = v.into();
         self
@@ -7051,6 +9122,12 @@ impl Metadata {
     }
 
     /// Sets the value of [build_invocation_id][crate::model::Metadata::build_invocation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// let x = Metadata::new().set_build_invocation_id("example");
+    /// ```
     pub fn set_build_invocation_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7060,6 +9137,13 @@ impl Metadata {
     }
 
     /// Sets the value of [build_started_on][crate::model::Metadata::build_started_on].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// use wkt::Timestamp;
+    /// let x = Metadata::new().set_build_started_on(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_build_started_on<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7069,6 +9153,14 @@ impl Metadata {
     }
 
     /// Sets or clears the value of [build_started_on][crate::model::Metadata::build_started_on].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// use wkt::Timestamp;
+    /// let x = Metadata::new().set_or_clear_build_started_on(Some(Timestamp::default()/* use setters */));
+    /// let x = Metadata::new().set_or_clear_build_started_on(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_build_started_on<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7078,6 +9170,13 @@ impl Metadata {
     }
 
     /// Sets the value of [build_finished_on][crate::model::Metadata::build_finished_on].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// use wkt::Timestamp;
+    /// let x = Metadata::new().set_build_finished_on(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_build_finished_on<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7087,6 +9186,14 @@ impl Metadata {
     }
 
     /// Sets or clears the value of [build_finished_on][crate::model::Metadata::build_finished_on].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// use wkt::Timestamp;
+    /// let x = Metadata::new().set_or_clear_build_finished_on(Some(Timestamp::default()/* use setters */));
+    /// let x = Metadata::new().set_or_clear_build_finished_on(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_build_finished_on<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7096,6 +9203,13 @@ impl Metadata {
     }
 
     /// Sets the value of [completeness][crate::model::Metadata::completeness].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// use google_cloud_grafeas_v1::model::Completeness;
+    /// let x = Metadata::new().set_completeness(Completeness::default()/* use setters */);
+    /// ```
     pub fn set_completeness<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Completeness>,
@@ -7105,6 +9219,14 @@ impl Metadata {
     }
 
     /// Sets or clears the value of [completeness][crate::model::Metadata::completeness].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// use google_cloud_grafeas_v1::model::Completeness;
+    /// let x = Metadata::new().set_or_clear_completeness(Some(Completeness::default()/* use setters */));
+    /// let x = Metadata::new().set_or_clear_completeness(None::<Completeness>);
+    /// ```
     pub fn set_or_clear_completeness<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Completeness>,
@@ -7114,6 +9236,12 @@ impl Metadata {
     }
 
     /// Sets the value of [reproducible][crate::model::Metadata::reproducible].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Metadata;
+    /// let x = Metadata::new().set_reproducible(true);
+    /// ```
     pub fn set_reproducible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reproducible = v.into();
         self
@@ -7140,6 +9268,12 @@ impl BuilderConfig {
     }
 
     /// Sets the value of [id][crate::model::BuilderConfig::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuilderConfig;
+    /// let x = BuilderConfig::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -7180,6 +9314,13 @@ impl InTotoProvenance {
     }
 
     /// Sets the value of [builder_config][crate::model::InTotoProvenance::builder_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// use google_cloud_grafeas_v1::model::BuilderConfig;
+    /// let x = InTotoProvenance::new().set_builder_config(BuilderConfig::default()/* use setters */);
+    /// ```
     pub fn set_builder_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BuilderConfig>,
@@ -7189,6 +9330,14 @@ impl InTotoProvenance {
     }
 
     /// Sets or clears the value of [builder_config][crate::model::InTotoProvenance::builder_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// use google_cloud_grafeas_v1::model::BuilderConfig;
+    /// let x = InTotoProvenance::new().set_or_clear_builder_config(Some(BuilderConfig::default()/* use setters */));
+    /// let x = InTotoProvenance::new().set_or_clear_builder_config(None::<BuilderConfig>);
+    /// ```
     pub fn set_or_clear_builder_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BuilderConfig>,
@@ -7198,6 +9347,13 @@ impl InTotoProvenance {
     }
 
     /// Sets the value of [recipe][crate::model::InTotoProvenance::recipe].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// use google_cloud_grafeas_v1::model::Recipe;
+    /// let x = InTotoProvenance::new().set_recipe(Recipe::default()/* use setters */);
+    /// ```
     pub fn set_recipe<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Recipe>,
@@ -7207,6 +9363,14 @@ impl InTotoProvenance {
     }
 
     /// Sets or clears the value of [recipe][crate::model::InTotoProvenance::recipe].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// use google_cloud_grafeas_v1::model::Recipe;
+    /// let x = InTotoProvenance::new().set_or_clear_recipe(Some(Recipe::default()/* use setters */));
+    /// let x = InTotoProvenance::new().set_or_clear_recipe(None::<Recipe>);
+    /// ```
     pub fn set_or_clear_recipe<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Recipe>,
@@ -7216,6 +9380,13 @@ impl InTotoProvenance {
     }
 
     /// Sets the value of [metadata][crate::model::InTotoProvenance::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// use google_cloud_grafeas_v1::model::Metadata;
+    /// let x = InTotoProvenance::new().set_metadata(Metadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -7225,6 +9396,14 @@ impl InTotoProvenance {
     }
 
     /// Sets or clears the value of [metadata][crate::model::InTotoProvenance::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// use google_cloud_grafeas_v1::model::Metadata;
+    /// let x = InTotoProvenance::new().set_or_clear_metadata(Some(Metadata::default()/* use setters */));
+    /// let x = InTotoProvenance::new().set_or_clear_metadata(None::<Metadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -7234,6 +9413,12 @@ impl InTotoProvenance {
     }
 
     /// Sets the value of [materials][crate::model::InTotoProvenance::materials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// let x = InTotoProvenance::new().set_materials(["a", "b", "c"]);
+    /// ```
     pub fn set_materials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7277,12 +9462,29 @@ impl InTotoStatement {
     }
 
     /// Sets the value of [r#type][crate::model::InTotoStatement::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// let x = InTotoStatement::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::InTotoStatement::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// use google_cloud_grafeas_v1::model::Subject;
+    /// let x = InTotoStatement::new()
+    ///     .set_subject([
+    ///         Subject::default()/* use setters */,
+    ///         Subject::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subject<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7294,6 +9496,12 @@ impl InTotoStatement {
     }
 
     /// Sets the value of [predicate_type][crate::model::InTotoStatement::predicate_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// let x = InTotoStatement::new().set_predicate_type("example");
+    /// ```
     pub fn set_predicate_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predicate_type = v.into();
         self
@@ -7303,6 +9511,14 @@ impl InTotoStatement {
     ///
     /// Note that all the setters affecting `predicate` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// let x = InTotoStatement::new().set_predicate(Some(
+    ///     google_cloud_grafeas_v1::model::in_toto_statement::Predicate::Provenance(InTotoProvenance::default().into())));
+    /// ```
     pub fn set_predicate<
         T: std::convert::Into<std::option::Option<crate::model::in_toto_statement::Predicate>>,
     >(
@@ -7333,6 +9549,16 @@ impl InTotoStatement {
     ///
     /// Note that all the setters affecting `predicate` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// use google_cloud_grafeas_v1::model::InTotoProvenance;
+    /// let x = InTotoStatement::new().set_provenance(InTotoProvenance::default()/* use setters */);
+    /// assert!(x.provenance().is_some());
+    /// assert!(x.slsa_provenance().is_none());
+    /// assert!(x.slsa_provenance_zero_two().is_none());
+    /// ```
     pub fn set_provenance<
         T: std::convert::Into<std::boxed::Box<crate::model::InTotoProvenance>>,
     >(
@@ -7365,6 +9591,16 @@ impl InTotoStatement {
     ///
     /// Note that all the setters affecting `predicate` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// let x = InTotoStatement::new().set_slsa_provenance(SlsaProvenance::default()/* use setters */);
+    /// assert!(x.slsa_provenance().is_some());
+    /// assert!(x.provenance().is_none());
+    /// assert!(x.slsa_provenance_zero_two().is_none());
+    /// ```
     pub fn set_slsa_provenance<
         T: std::convert::Into<std::boxed::Box<crate::model::SlsaProvenance>>,
     >(
@@ -7397,6 +9633,16 @@ impl InTotoStatement {
     ///
     /// Note that all the setters affecting `predicate` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoStatement;
+    /// use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// let x = InTotoStatement::new().set_slsa_provenance_zero_two(SlsaProvenanceZeroTwo::default()/* use setters */);
+    /// assert!(x.slsa_provenance_zero_two().is_some());
+    /// assert!(x.provenance().is_none());
+    /// assert!(x.slsa_provenance().is_none());
+    /// ```
     pub fn set_slsa_provenance_zero_two<
         T: std::convert::Into<std::boxed::Box<crate::model::SlsaProvenanceZeroTwo>>,
     >(
@@ -7450,12 +9696,27 @@ impl Subject {
     }
 
     /// Sets the value of [name][crate::model::Subject::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Subject;
+    /// let x = Subject::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [digest][crate::model::Subject::digest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Subject;
+    /// let x = Subject::new().set_digest([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_digest<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7496,12 +9757,29 @@ impl InTotoSlsaProvenanceV1 {
     }
 
     /// Sets the value of [r#type][crate::model::InTotoSlsaProvenanceV1::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoSlsaProvenanceV1;
+    /// let x = InTotoSlsaProvenanceV1::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::InTotoSlsaProvenanceV1::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoSlsaProvenanceV1;
+    /// use google_cloud_grafeas_v1::model::Subject;
+    /// let x = InTotoSlsaProvenanceV1::new()
+    ///     .set_subject([
+    ///         Subject::default()/* use setters */,
+    ///         Subject::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subject<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7513,12 +9791,25 @@ impl InTotoSlsaProvenanceV1 {
     }
 
     /// Sets the value of [predicate_type][crate::model::InTotoSlsaProvenanceV1::predicate_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoSlsaProvenanceV1;
+    /// let x = InTotoSlsaProvenanceV1::new().set_predicate_type("example");
+    /// ```
     pub fn set_predicate_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predicate_type = v.into();
         self
     }
 
     /// Sets the value of [predicate][crate::model::InTotoSlsaProvenanceV1::predicate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoSlsaProvenanceV1;
+    /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1;
+    /// let x = InTotoSlsaProvenanceV1::new().set_predicate(SlsaProvenanceV1::default()/* use setters */);
+    /// ```
     pub fn set_predicate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1>,
@@ -7528,6 +9819,14 @@ impl InTotoSlsaProvenanceV1 {
     }
 
     /// Sets or clears the value of [predicate][crate::model::InTotoSlsaProvenanceV1::predicate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::InTotoSlsaProvenanceV1;
+    /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1;
+    /// let x = InTotoSlsaProvenanceV1::new().set_or_clear_predicate(Some(SlsaProvenanceV1::default()/* use setters */));
+    /// let x = InTotoSlsaProvenanceV1::new().set_or_clear_predicate(None::<SlsaProvenanceV1>);
+    /// ```
     pub fn set_or_clear_predicate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1>,
@@ -7568,6 +9867,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [build_definition][crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1::build_definition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// let x = SlsaProvenanceV1::new().set_build_definition(BuildDefinition::default()/* use setters */);
+        /// ```
         pub fn set_build_definition<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::BuildDefinition>,
@@ -7577,6 +9883,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [build_definition][crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1::build_definition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// let x = SlsaProvenanceV1::new().set_or_clear_build_definition(Some(BuildDefinition::default()/* use setters */));
+        /// let x = SlsaProvenanceV1::new().set_or_clear_build_definition(None::<BuildDefinition>);
+        /// ```
         pub fn set_or_clear_build_definition<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::BuildDefinition>,
@@ -7586,6 +9900,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [run_details][crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1::run_details].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::RunDetails;
+        /// let x = SlsaProvenanceV1::new().set_run_details(RunDetails::default()/* use setters */);
+        /// ```
         pub fn set_run_details<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::RunDetails>,
@@ -7595,6 +9916,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [run_details][crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1::run_details].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::RunDetails;
+        /// let x = SlsaProvenanceV1::new().set_or_clear_run_details(Some(RunDetails::default()/* use setters */));
+        /// let x = SlsaProvenanceV1::new().set_or_clear_run_details(None::<RunDetails>);
+        /// ```
         pub fn set_or_clear_run_details<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::RunDetails>,
@@ -7631,12 +9960,25 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [build_type][crate::model::in_toto_slsa_provenance_v_1::BuildDefinition::build_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// let x = BuildDefinition::new().set_build_type("example");
+        /// ```
         pub fn set_build_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.build_type = v.into();
             self
         }
 
         /// Sets the value of [external_parameters][crate::model::in_toto_slsa_provenance_v_1::BuildDefinition::external_parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// use wkt::Struct;
+        /// let x = BuildDefinition::new().set_external_parameters(Struct::default()/* use setters */);
+        /// ```
         pub fn set_external_parameters<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -7646,6 +9988,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [external_parameters][crate::model::in_toto_slsa_provenance_v_1::BuildDefinition::external_parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// use wkt::Struct;
+        /// let x = BuildDefinition::new().set_or_clear_external_parameters(Some(Struct::default()/* use setters */));
+        /// let x = BuildDefinition::new().set_or_clear_external_parameters(None::<Struct>);
+        /// ```
         pub fn set_or_clear_external_parameters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -7655,6 +10005,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [internal_parameters][crate::model::in_toto_slsa_provenance_v_1::BuildDefinition::internal_parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// use wkt::Struct;
+        /// let x = BuildDefinition::new().set_internal_parameters(Struct::default()/* use setters */);
+        /// ```
         pub fn set_internal_parameters<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -7664,6 +10021,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [internal_parameters][crate::model::in_toto_slsa_provenance_v_1::BuildDefinition::internal_parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// use wkt::Struct;
+        /// let x = BuildDefinition::new().set_or_clear_internal_parameters(Some(Struct::default()/* use setters */));
+        /// let x = BuildDefinition::new().set_or_clear_internal_parameters(None::<Struct>);
+        /// ```
         pub fn set_or_clear_internal_parameters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -7673,6 +10038,17 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [resolved_dependencies][crate::model::in_toto_slsa_provenance_v_1::BuildDefinition::resolved_dependencies].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildDefinition;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = BuildDefinition::new()
+        ///     .set_resolved_dependencies([
+        ///         ResourceDescriptor::default()/* use setters */,
+        ///         ResourceDescriptor::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_resolved_dependencies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7716,18 +10092,39 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [name][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = ResourceDescriptor::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [uri][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = ResourceDescriptor::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [digest][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::digest].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = ResourceDescriptor::new().set_digest([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_digest<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7740,12 +10137,24 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [content][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::content].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = ResourceDescriptor::new().set_content(bytes::Bytes::from_static(b"example"));
+        /// ```
         pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.content = v.into();
             self
         }
 
         /// Sets the value of [download_location][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::download_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = ResourceDescriptor::new().set_download_location("example");
+        /// ```
         pub fn set_download_location<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7755,12 +10164,28 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [media_type][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::media_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = ResourceDescriptor::new().set_media_type("example");
+        /// ```
         pub fn set_media_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.media_type = v.into();
             self
         }
 
         /// Sets the value of [annotations][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::annotations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// use wkt::Value;
+        /// let x = ResourceDescriptor::new().set_annotations([
+        ///     ("key0", Value::default()/* use setters */),
+        ///     ("key1", Value::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7799,6 +10224,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [builder][crate::model::in_toto_slsa_provenance_v_1::RunDetails::builder].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::RunDetails;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder;
+        /// let x = RunDetails::new().set_builder(ProvenanceBuilder::default()/* use setters */);
+        /// ```
         pub fn set_builder<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder>,
@@ -7808,6 +10240,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [builder][crate::model::in_toto_slsa_provenance_v_1::RunDetails::builder].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::RunDetails;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder;
+        /// let x = RunDetails::new().set_or_clear_builder(Some(ProvenanceBuilder::default()/* use setters */));
+        /// let x = RunDetails::new().set_or_clear_builder(None::<ProvenanceBuilder>);
+        /// ```
         pub fn set_or_clear_builder<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder>,
@@ -7817,6 +10257,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [metadata][crate::model::in_toto_slsa_provenance_v_1::RunDetails::metadata].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::RunDetails;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildMetadata;
+        /// let x = RunDetails::new().set_metadata(BuildMetadata::default()/* use setters */);
+        /// ```
         pub fn set_metadata<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::BuildMetadata>,
@@ -7826,6 +10273,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [metadata][crate::model::in_toto_slsa_provenance_v_1::RunDetails::metadata].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::RunDetails;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildMetadata;
+        /// let x = RunDetails::new().set_or_clear_metadata(Some(BuildMetadata::default()/* use setters */));
+        /// let x = RunDetails::new().set_or_clear_metadata(None::<BuildMetadata>);
+        /// ```
         pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::BuildMetadata>,
@@ -7835,6 +10290,17 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [byproducts][crate::model::in_toto_slsa_provenance_v_1::RunDetails::byproducts].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::RunDetails;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = RunDetails::new()
+        ///     .set_byproducts([
+        ///         ResourceDescriptor::default()/* use setters */,
+        ///         ResourceDescriptor::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_byproducts<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7871,12 +10337,27 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [id][crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder;
+        /// let x = ProvenanceBuilder::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder;
+        /// let x = ProvenanceBuilder::new().set_version([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_version<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7889,6 +10370,17 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [builder_dependencies][crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder::builder_dependencies].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder;
+        /// use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::ResourceDescriptor;
+        /// let x = ProvenanceBuilder::new()
+        ///     .set_builder_dependencies([
+        ///         ResourceDescriptor::default()/* use setters */,
+        ///         ResourceDescriptor::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_builder_dependencies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7924,6 +10416,12 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [invocation_id][crate::model::in_toto_slsa_provenance_v_1::BuildMetadata::invocation_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildMetadata;
+        /// let x = BuildMetadata::new().set_invocation_id("example");
+        /// ```
         pub fn set_invocation_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7933,6 +10431,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [started_on][crate::model::in_toto_slsa_provenance_v_1::BuildMetadata::started_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildMetadata;
+        /// use wkt::Timestamp;
+        /// let x = BuildMetadata::new().set_started_on(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_started_on<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7942,6 +10447,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [started_on][crate::model::in_toto_slsa_provenance_v_1::BuildMetadata::started_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildMetadata;
+        /// use wkt::Timestamp;
+        /// let x = BuildMetadata::new().set_or_clear_started_on(Some(Timestamp::default()/* use setters */));
+        /// let x = BuildMetadata::new().set_or_clear_started_on(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_started_on<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7951,6 +10464,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [finished_on][crate::model::in_toto_slsa_provenance_v_1::BuildMetadata::finished_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildMetadata;
+        /// use wkt::Timestamp;
+        /// let x = BuildMetadata::new().set_finished_on(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_finished_on<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7960,6 +10480,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets or clears the value of [finished_on][crate::model::in_toto_slsa_provenance_v_1::BuildMetadata::finished_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::in_toto_slsa_provenance_v_1::BuildMetadata;
+        /// use wkt::Timestamp;
+        /// let x = BuildMetadata::new().set_or_clear_finished_on(Some(Timestamp::default()/* use setters */));
+        /// let x = BuildMetadata::new().set_or_clear_finished_on(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_finished_on<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -8010,12 +10538,26 @@ impl Distribution {
     }
 
     /// Sets the value of [cpe_uri][crate::model::Distribution::cpe_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Distribution;
+    /// let x = Distribution::new().set_cpe_uri("example");
+    /// ```
     pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe_uri = v.into();
         self
     }
 
     /// Sets the value of [architecture][crate::model::Distribution::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Distribution;
+    /// use google_cloud_grafeas_v1::model::Architecture;
+    /// let x0 = Distribution::new().set_architecture(Architecture::X86);
+    /// let x1 = Distribution::new().set_architecture(Architecture::X64);
+    /// ```
     pub fn set_architecture<T: std::convert::Into<crate::model::Architecture>>(
         mut self,
         v: T,
@@ -8025,6 +10567,13 @@ impl Distribution {
     }
 
     /// Sets the value of [latest_version][crate::model::Distribution::latest_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Distribution;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = Distribution::new().set_latest_version(Version::default()/* use setters */);
+    /// ```
     pub fn set_latest_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8034,6 +10583,14 @@ impl Distribution {
     }
 
     /// Sets or clears the value of [latest_version][crate::model::Distribution::latest_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Distribution;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = Distribution::new().set_or_clear_latest_version(Some(Version::default()/* use setters */));
+    /// let x = Distribution::new().set_or_clear_latest_version(None::<Version>);
+    /// ```
     pub fn set_or_clear_latest_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8043,18 +10600,36 @@ impl Distribution {
     }
 
     /// Sets the value of [maintainer][crate::model::Distribution::maintainer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Distribution;
+    /// let x = Distribution::new().set_maintainer("example");
+    /// ```
     pub fn set_maintainer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.maintainer = v.into();
         self
     }
 
     /// Sets the value of [url][crate::model::Distribution::url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Distribution;
+    /// let x = Distribution::new().set_url("example");
+    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Distribution::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Distribution;
+    /// let x = Distribution::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -8092,12 +10667,25 @@ impl Location {
     }
 
     /// Sets the value of [cpe_uri][crate::model::Location::cpe_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Location;
+    /// let x = Location::new().set_cpe_uri("example");
+    /// ```
     pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe_uri = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Location::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Location;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = Location::new().set_version(Version::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8107,6 +10695,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [version][crate::model::Location::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Location;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = Location::new().set_or_clear_version(Some(Version::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_version(None::<Version>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8116,6 +10712,12 @@ impl Location {
     }
 
     /// Sets the value of [path][crate::model::Location::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Location;
+    /// let x = Location::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -8180,12 +10782,29 @@ impl PackageNote {
     }
 
     /// Sets the value of [name][crate::model::PackageNote::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// let x = PackageNote::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [distribution][crate::model::PackageNote::distribution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// use google_cloud_grafeas_v1::model::Distribution;
+    /// let x = PackageNote::new()
+    ///     .set_distribution([
+    ///         Distribution::default()/* use setters */,
+    ///         Distribution::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_distribution<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8197,18 +10816,38 @@ impl PackageNote {
     }
 
     /// Sets the value of [package_type][crate::model::PackageNote::package_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// let x = PackageNote::new().set_package_type("example");
+    /// ```
     pub fn set_package_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_type = v.into();
         self
     }
 
     /// Sets the value of [cpe_uri][crate::model::PackageNote::cpe_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// let x = PackageNote::new().set_cpe_uri("example");
+    /// ```
     pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe_uri = v.into();
         self
     }
 
     /// Sets the value of [architecture][crate::model::PackageNote::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// use google_cloud_grafeas_v1::model::Architecture;
+    /// let x0 = PackageNote::new().set_architecture(Architecture::X86);
+    /// let x1 = PackageNote::new().set_architecture(Architecture::X64);
+    /// ```
     pub fn set_architecture<T: std::convert::Into<crate::model::Architecture>>(
         mut self,
         v: T,
@@ -8218,6 +10857,13 @@ impl PackageNote {
     }
 
     /// Sets the value of [version][crate::model::PackageNote::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = PackageNote::new().set_version(Version::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8227,6 +10873,14 @@ impl PackageNote {
     }
 
     /// Sets or clears the value of [version][crate::model::PackageNote::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = PackageNote::new().set_or_clear_version(Some(Version::default()/* use setters */));
+    /// let x = PackageNote::new().set_or_clear_version(None::<Version>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8236,24 +10890,49 @@ impl PackageNote {
     }
 
     /// Sets the value of [maintainer][crate::model::PackageNote::maintainer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// let x = PackageNote::new().set_maintainer("example");
+    /// ```
     pub fn set_maintainer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.maintainer = v.into();
         self
     }
 
     /// Sets the value of [url][crate::model::PackageNote::url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// let x = PackageNote::new().set_url("example");
+    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::PackageNote::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// let x = PackageNote::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [license][crate::model::PackageNote::license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// use google_cloud_grafeas_v1::model::License;
+    /// let x = PackageNote::new().set_license(License::default()/* use setters */);
+    /// ```
     pub fn set_license<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::License>,
@@ -8263,6 +10942,14 @@ impl PackageNote {
     }
 
     /// Sets or clears the value of [license][crate::model::PackageNote::license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// use google_cloud_grafeas_v1::model::License;
+    /// let x = PackageNote::new().set_or_clear_license(Some(License::default()/* use setters */));
+    /// let x = PackageNote::new().set_or_clear_license(None::<License>);
+    /// ```
     pub fn set_or_clear_license<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::License>,
@@ -8272,6 +10959,17 @@ impl PackageNote {
     }
 
     /// Sets the value of [digest][crate::model::PackageNote::digest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageNote;
+    /// use google_cloud_grafeas_v1::model::Digest;
+    /// let x = PackageNote::new()
+    ///     .set_digest([
+    ///         Digest::default()/* use setters */,
+    ///         Digest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_digest<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8328,12 +11026,29 @@ impl PackageOccurrence {
     }
 
     /// Sets the value of [name][crate::model::PackageOccurrence::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// let x = PackageOccurrence::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::PackageOccurrence::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// use google_cloud_grafeas_v1::model::Location;
+    /// let x = PackageOccurrence::new()
+    ///     .set_location([
+    ///         Location::default()/* use setters */,
+    ///         Location::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_location<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8345,18 +11060,38 @@ impl PackageOccurrence {
     }
 
     /// Sets the value of [package_type][crate::model::PackageOccurrence::package_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// let x = PackageOccurrence::new().set_package_type("example");
+    /// ```
     pub fn set_package_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_type = v.into();
         self
     }
 
     /// Sets the value of [cpe_uri][crate::model::PackageOccurrence::cpe_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// let x = PackageOccurrence::new().set_cpe_uri("example");
+    /// ```
     pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe_uri = v.into();
         self
     }
 
     /// Sets the value of [architecture][crate::model::PackageOccurrence::architecture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// use google_cloud_grafeas_v1::model::Architecture;
+    /// let x0 = PackageOccurrence::new().set_architecture(Architecture::X86);
+    /// let x1 = PackageOccurrence::new().set_architecture(Architecture::X64);
+    /// ```
     pub fn set_architecture<T: std::convert::Into<crate::model::Architecture>>(
         mut self,
         v: T,
@@ -8366,6 +11101,13 @@ impl PackageOccurrence {
     }
 
     /// Sets the value of [license][crate::model::PackageOccurrence::license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// use google_cloud_grafeas_v1::model::License;
+    /// let x = PackageOccurrence::new().set_license(License::default()/* use setters */);
+    /// ```
     pub fn set_license<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::License>,
@@ -8375,6 +11117,14 @@ impl PackageOccurrence {
     }
 
     /// Sets or clears the value of [license][crate::model::PackageOccurrence::license].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// use google_cloud_grafeas_v1::model::License;
+    /// let x = PackageOccurrence::new().set_or_clear_license(Some(License::default()/* use setters */));
+    /// let x = PackageOccurrence::new().set_or_clear_license(None::<License>);
+    /// ```
     pub fn set_or_clear_license<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::License>,
@@ -8384,6 +11134,13 @@ impl PackageOccurrence {
     }
 
     /// Sets the value of [version][crate::model::PackageOccurrence::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = PackageOccurrence::new().set_version(Version::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8393,6 +11150,14 @@ impl PackageOccurrence {
     }
 
     /// Sets or clears the value of [version][crate::model::PackageOccurrence::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::PackageOccurrence;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = PackageOccurrence::new().set_or_clear_version(Some(Version::default()/* use setters */));
+    /// let x = PackageOccurrence::new().set_or_clear_version(None::<Version>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -8447,30 +11212,63 @@ impl Version {
     }
 
     /// Sets the value of [epoch][crate::model::Version::epoch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Version;
+    /// let x = Version::new().set_epoch(42);
+    /// ```
     pub fn set_epoch<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.epoch = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::Version::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Version;
+    /// let x = Version::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision][crate::model::Version::revision].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Version;
+    /// let x = Version::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [inclusive][crate::model::Version::inclusive].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Version;
+    /// let x = Version::new().set_inclusive(true);
+    /// ```
     pub fn set_inclusive<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.inclusive = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::Version::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Version;
+    /// use google_cloud_grafeas_v1::model::version::VersionKind;
+    /// let x0 = Version::new().set_kind(VersionKind::Normal);
+    /// let x1 = Version::new().set_kind(VersionKind::Minimum);
+    /// let x2 = Version::new().set_kind(VersionKind::Maximum);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::version::VersionKind>>(
         mut self,
         v: T,
@@ -8480,6 +11278,12 @@ impl Version {
     }
 
     /// Sets the value of [full_name][crate::model::Version::full_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Version;
+    /// let x = Version::new().set_full_name("example");
+    /// ```
     pub fn set_full_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_name = v.into();
         self
@@ -8693,18 +11497,41 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [id][crate::model::BuildProvenance::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildProvenance::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::BuildProvenance::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildProvenance::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [commands][crate::model::BuildProvenance::commands].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use google_cloud_grafeas_v1::model::Command;
+    /// let x = BuildProvenance::new()
+    ///     .set_commands([
+    ///         Command::default()/* use setters */,
+    ///         Command::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_commands<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8716,6 +11543,17 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [built_artifacts][crate::model::BuildProvenance::built_artifacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use google_cloud_grafeas_v1::model::Artifact;
+    /// let x = BuildProvenance::new()
+    ///     .set_built_artifacts([
+    ///         Artifact::default()/* use setters */,
+    ///         Artifact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_built_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8727,6 +11565,13 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [create_time][crate::model::BuildProvenance::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use wkt::Timestamp;
+    /// let x = BuildProvenance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8736,6 +11581,14 @@ impl BuildProvenance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BuildProvenance::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use wkt::Timestamp;
+    /// let x = BuildProvenance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BuildProvenance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8745,6 +11598,13 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [start_time][crate::model::BuildProvenance::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use wkt::Timestamp;
+    /// let x = BuildProvenance::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8754,6 +11614,14 @@ impl BuildProvenance {
     }
 
     /// Sets or clears the value of [start_time][crate::model::BuildProvenance::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use wkt::Timestamp;
+    /// let x = BuildProvenance::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BuildProvenance::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8763,6 +11631,13 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [end_time][crate::model::BuildProvenance::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use wkt::Timestamp;
+    /// let x = BuildProvenance::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8772,6 +11647,14 @@ impl BuildProvenance {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BuildProvenance::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use wkt::Timestamp;
+    /// let x = BuildProvenance::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BuildProvenance::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8781,18 +11664,37 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [creator][crate::model::BuildProvenance::creator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildProvenance::new().set_creator("example");
+    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [logs_uri][crate::model::BuildProvenance::logs_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildProvenance::new().set_logs_uri("example");
+    /// ```
     pub fn set_logs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logs_uri = v.into();
         self
     }
 
     /// Sets the value of [source_provenance][crate::model::BuildProvenance::source_provenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use google_cloud_grafeas_v1::model::Source;
+    /// let x = BuildProvenance::new().set_source_provenance(Source::default()/* use setters */);
+    /// ```
     pub fn set_source_provenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -8802,6 +11704,14 @@ impl BuildProvenance {
     }
 
     /// Sets or clears the value of [source_provenance][crate::model::BuildProvenance::source_provenance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// use google_cloud_grafeas_v1::model::Source;
+    /// let x = BuildProvenance::new().set_or_clear_source_provenance(Some(Source::default()/* use setters */));
+    /// let x = BuildProvenance::new().set_or_clear_source_provenance(None::<Source>);
+    /// ```
     pub fn set_or_clear_source_provenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -8811,12 +11721,27 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [trigger_id][crate::model::BuildProvenance::trigger_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildProvenance::new().set_trigger_id("example");
+    /// ```
     pub fn set_trigger_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger_id = v.into();
         self
     }
 
     /// Sets the value of [build_options][crate::model::BuildProvenance::build_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildProvenance::new().set_build_options([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_build_options<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8829,6 +11754,12 @@ impl BuildProvenance {
     }
 
     /// Sets the value of [builder_version][crate::model::BuildProvenance::builder_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::BuildProvenance;
+    /// let x = BuildProvenance::new().set_builder_version("example");
+    /// ```
     pub fn set_builder_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.builder_version = v.into();
         self
@@ -8877,6 +11808,12 @@ impl Source {
     }
 
     /// Sets the value of [artifact_storage_source_uri][crate::model::Source::artifact_storage_source_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Source;
+    /// let x = Source::new().set_artifact_storage_source_uri("example");
+    /// ```
     pub fn set_artifact_storage_source_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8886,6 +11823,16 @@ impl Source {
     }
 
     /// Sets the value of [file_hashes][crate::model::Source::file_hashes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Source;
+    /// use google_cloud_grafeas_v1::model::FileHashes;
+    /// let x = Source::new().set_file_hashes([
+    ///     ("key0", FileHashes::default()/* use setters */),
+    ///     ("key1", FileHashes::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_file_hashes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8898,6 +11845,13 @@ impl Source {
     }
 
     /// Sets the value of [context][crate::model::Source::context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Source;
+    /// use google_cloud_grafeas_v1::model::SourceContext;
+    /// let x = Source::new().set_context(SourceContext::default()/* use setters */);
+    /// ```
     pub fn set_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceContext>,
@@ -8907,6 +11861,14 @@ impl Source {
     }
 
     /// Sets or clears the value of [context][crate::model::Source::context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Source;
+    /// use google_cloud_grafeas_v1::model::SourceContext;
+    /// let x = Source::new().set_or_clear_context(Some(SourceContext::default()/* use setters */));
+    /// let x = Source::new().set_or_clear_context(None::<SourceContext>);
+    /// ```
     pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceContext>,
@@ -8916,6 +11878,17 @@ impl Source {
     }
 
     /// Sets the value of [additional_contexts][crate::model::Source::additional_contexts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Source;
+    /// use google_cloud_grafeas_v1::model::SourceContext;
+    /// let x = Source::new()
+    ///     .set_additional_contexts([
+    ///         SourceContext::default()/* use setters */,
+    ///         SourceContext::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_contexts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8950,6 +11923,17 @@ impl FileHashes {
     }
 
     /// Sets the value of [file_hash][crate::model::FileHashes::file_hash].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::FileHashes;
+    /// use google_cloud_grafeas_v1::model::Hash;
+    /// let x = FileHashes::new()
+    ///     .set_file_hash([
+    ///         Hash::default()/* use setters */,
+    ///         Hash::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_hash<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8986,12 +11970,24 @@ impl Hash {
     }
 
     /// Sets the value of [r#type][crate::model::Hash::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Hash;
+    /// let x = Hash::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::Hash::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Hash;
+    /// let x = Hash::new().set_value(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -9038,12 +12034,24 @@ impl Command {
     }
 
     /// Sets the value of [name][crate::model::Command::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Command;
+    /// let x = Command::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [env][crate::model::Command::env].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Command;
+    /// let x = Command::new().set_env(["a", "b", "c"]);
+    /// ```
     pub fn set_env<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9055,6 +12063,12 @@ impl Command {
     }
 
     /// Sets the value of [args][crate::model::Command::args].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Command;
+    /// let x = Command::new().set_args(["a", "b", "c"]);
+    /// ```
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9066,18 +12080,36 @@ impl Command {
     }
 
     /// Sets the value of [dir][crate::model::Command::dir].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Command;
+    /// let x = Command::new().set_dir("example");
+    /// ```
     pub fn set_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dir = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Command::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Command;
+    /// let x = Command::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [wait_for][crate::model::Command::wait_for].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Command;
+    /// let x = Command::new().set_wait_for(["a", "b", "c"]);
+    /// ```
     pub fn set_wait_for<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9123,18 +12155,36 @@ impl Artifact {
     }
 
     /// Sets the value of [checksum][crate::model::Artifact::checksum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Artifact;
+    /// let x = Artifact::new().set_checksum("example");
+    /// ```
     pub fn set_checksum<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.checksum = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Artifact::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Artifact;
+    /// let x = Artifact::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::Artifact::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::Artifact;
+    /// let x = Artifact::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9172,6 +12222,15 @@ impl SourceContext {
     }
 
     /// Sets the value of [labels][crate::model::SourceContext::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SourceContext;
+    /// let x = SourceContext::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9187,6 +12246,14 @@ impl SourceContext {
     ///
     /// Note that all the setters affecting `context` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SourceContext;
+    /// use google_cloud_grafeas_v1::model::CloudRepoSourceContext;
+    /// let x = SourceContext::new().set_context(Some(
+    ///     google_cloud_grafeas_v1::model::source_context::Context::CloudRepo(CloudRepoSourceContext::default().into())));
+    /// ```
     pub fn set_context<
         T: std::convert::Into<std::option::Option<crate::model::source_context::Context>>,
     >(
@@ -9215,6 +12282,16 @@ impl SourceContext {
     ///
     /// Note that all the setters affecting `context` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SourceContext;
+    /// use google_cloud_grafeas_v1::model::CloudRepoSourceContext;
+    /// let x = SourceContext::new().set_cloud_repo(CloudRepoSourceContext::default()/* use setters */);
+    /// assert!(x.cloud_repo().is_some());
+    /// assert!(x.gerrit().is_none());
+    /// assert!(x.git().is_none());
+    /// ```
     pub fn set_cloud_repo<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudRepoSourceContext>>,
     >(
@@ -9244,6 +12321,16 @@ impl SourceContext {
     ///
     /// Note that all the setters affecting `context` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SourceContext;
+    /// use google_cloud_grafeas_v1::model::GerritSourceContext;
+    /// let x = SourceContext::new().set_gerrit(GerritSourceContext::default()/* use setters */);
+    /// assert!(x.gerrit().is_some());
+    /// assert!(x.cloud_repo().is_none());
+    /// assert!(x.git().is_none());
+    /// ```
     pub fn set_gerrit<T: std::convert::Into<std::boxed::Box<crate::model::GerritSourceContext>>>(
         mut self,
         v: T,
@@ -9269,6 +12356,16 @@ impl SourceContext {
     ///
     /// Note that all the setters affecting `context` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SourceContext;
+    /// use google_cloud_grafeas_v1::model::GitSourceContext;
+    /// let x = SourceContext::new().set_git(GitSourceContext::default()/* use setters */);
+    /// assert!(x.git().is_some());
+    /// assert!(x.cloud_repo().is_none());
+    /// assert!(x.gerrit().is_none());
+    /// ```
     pub fn set_git<T: std::convert::Into<std::boxed::Box<crate::model::GitSourceContext>>>(
         mut self,
         v: T,
@@ -9322,6 +12419,15 @@ impl AliasContext {
     }
 
     /// Sets the value of [kind][crate::model::AliasContext::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::AliasContext;
+    /// use google_cloud_grafeas_v1::model::alias_context::Kind;
+    /// let x0 = AliasContext::new().set_kind(Kind::Fixed);
+    /// let x1 = AliasContext::new().set_kind(Kind::Movable);
+    /// let x2 = AliasContext::new().set_kind(Kind::Other);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::alias_context::Kind>>(
         mut self,
         v: T,
@@ -9331,6 +12437,12 @@ impl AliasContext {
     }
 
     /// Sets the value of [name][crate::model::AliasContext::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::AliasContext;
+    /// let x = AliasContext::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9510,6 +12622,13 @@ impl CloudRepoSourceContext {
     }
 
     /// Sets the value of [repo_id][crate::model::CloudRepoSourceContext::repo_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CloudRepoSourceContext;
+    /// use google_cloud_grafeas_v1::model::RepoId;
+    /// let x = CloudRepoSourceContext::new().set_repo_id(RepoId::default()/* use setters */);
+    /// ```
     pub fn set_repo_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RepoId>,
@@ -9519,6 +12638,14 @@ impl CloudRepoSourceContext {
     }
 
     /// Sets or clears the value of [repo_id][crate::model::CloudRepoSourceContext::repo_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CloudRepoSourceContext;
+    /// use google_cloud_grafeas_v1::model::RepoId;
+    /// let x = CloudRepoSourceContext::new().set_or_clear_repo_id(Some(RepoId::default()/* use setters */));
+    /// let x = CloudRepoSourceContext::new().set_or_clear_repo_id(None::<RepoId>);
+    /// ```
     pub fn set_or_clear_repo_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RepoId>,
@@ -9531,6 +12658,13 @@ impl CloudRepoSourceContext {
     ///
     /// Note that all the setters affecting `revision` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CloudRepoSourceContext;
+    /// use google_cloud_grafeas_v1::model::cloud_repo_source_context::Revision;
+    /// let x = CloudRepoSourceContext::new().set_revision(Some(Revision::RevisionId("example".to_string())));
+    /// ```
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::cloud_repo_source_context::Revision>>,
     >(
@@ -9559,6 +12693,14 @@ impl CloudRepoSourceContext {
     ///
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CloudRepoSourceContext;
+    /// let x = CloudRepoSourceContext::new().set_revision_id("example");
+    /// assert!(x.revision_id().is_some());
+    /// assert!(x.alias_context().is_none());
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = std::option::Option::Some(
             crate::model::cloud_repo_source_context::Revision::RevisionId(v.into()),
@@ -9586,6 +12728,15 @@ impl CloudRepoSourceContext {
     ///
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::CloudRepoSourceContext;
+    /// use google_cloud_grafeas_v1::model::AliasContext;
+    /// let x = CloudRepoSourceContext::new().set_alias_context(AliasContext::default()/* use setters */);
+    /// assert!(x.alias_context().is_some());
+    /// assert!(x.revision_id().is_none());
+    /// ```
     pub fn set_alias_context<T: std::convert::Into<std::boxed::Box<crate::model::AliasContext>>>(
         mut self,
         v: T,
@@ -9645,12 +12796,24 @@ impl GerritSourceContext {
     }
 
     /// Sets the value of [host_uri][crate::model::GerritSourceContext::host_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GerritSourceContext;
+    /// let x = GerritSourceContext::new().set_host_uri("example");
+    /// ```
     pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_uri = v.into();
         self
     }
 
     /// Sets the value of [gerrit_project][crate::model::GerritSourceContext::gerrit_project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GerritSourceContext;
+    /// let x = GerritSourceContext::new().set_gerrit_project("example");
+    /// ```
     pub fn set_gerrit_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gerrit_project = v.into();
         self
@@ -9660,6 +12823,13 @@ impl GerritSourceContext {
     ///
     /// Note that all the setters affecting `revision` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GerritSourceContext;
+    /// use google_cloud_grafeas_v1::model::gerrit_source_context::Revision;
+    /// let x = GerritSourceContext::new().set_revision(Some(Revision::RevisionId("example".to_string())));
+    /// ```
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::gerrit_source_context::Revision>>,
     >(
@@ -9688,6 +12858,14 @@ impl GerritSourceContext {
     ///
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GerritSourceContext;
+    /// let x = GerritSourceContext::new().set_revision_id("example");
+    /// assert!(x.revision_id().is_some());
+    /// assert!(x.alias_context().is_none());
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = std::option::Option::Some(
             crate::model::gerrit_source_context::Revision::RevisionId(v.into()),
@@ -9715,6 +12893,15 @@ impl GerritSourceContext {
     ///
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GerritSourceContext;
+    /// use google_cloud_grafeas_v1::model::AliasContext;
+    /// let x = GerritSourceContext::new().set_alias_context(AliasContext::default()/* use setters */);
+    /// assert!(x.alias_context().is_some());
+    /// assert!(x.revision_id().is_none());
+    /// ```
     pub fn set_alias_context<T: std::convert::Into<std::boxed::Box<crate::model::AliasContext>>>(
         mut self,
         v: T,
@@ -9769,12 +12956,24 @@ impl GitSourceContext {
     }
 
     /// Sets the value of [url][crate::model::GitSourceContext::url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GitSourceContext;
+    /// let x = GitSourceContext::new().set_url("example");
+    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::GitSourceContext::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::GitSourceContext;
+    /// let x = GitSourceContext::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -9807,6 +13006,13 @@ impl RepoId {
     ///
     /// Note that all the setters affecting `id` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::RepoId;
+    /// use google_cloud_grafeas_v1::model::repo_id::Id;
+    /// let x = RepoId::new().set_id(Some(Id::Uid("example".to_string())));
+    /// ```
     pub fn set_id<T: std::convert::Into<std::option::Option<crate::model::repo_id::Id>>>(
         mut self,
         v: T,
@@ -9833,6 +13039,15 @@ impl RepoId {
     ///
     /// Note that all the setters affecting `id` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::RepoId;
+    /// use google_cloud_grafeas_v1::model::ProjectRepoId;
+    /// let x = RepoId::new().set_project_repo_id(ProjectRepoId::default()/* use setters */);
+    /// assert!(x.project_repo_id().is_some());
+    /// assert!(x.uid().is_none());
+    /// ```
     pub fn set_project_repo_id<
         T: std::convert::Into<std::boxed::Box<crate::model::ProjectRepoId>>,
     >(
@@ -9859,6 +13074,14 @@ impl RepoId {
     ///
     /// Note that all the setters affecting `id` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::RepoId;
+    /// let x = RepoId::new().set_uid("example");
+    /// assert!(x.uid().is_some());
+    /// assert!(x.project_repo_id().is_none());
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = std::option::Option::Some(crate::model::repo_id::Id::Uid(v.into()));
         self
@@ -9908,12 +13131,24 @@ impl ProjectRepoId {
     }
 
     /// Sets the value of [project_id][crate::model::ProjectRepoId::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ProjectRepoId;
+    /// let x = ProjectRepoId::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [repo_name][crate::model::ProjectRepoId::repo_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::ProjectRepoId;
+    /// let x = ProjectRepoId::new().set_repo_name("example");
+    /// ```
     pub fn set_repo_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repo_name = v.into();
         self
@@ -9946,12 +13181,24 @@ impl SBOMReferenceNote {
     }
 
     /// Sets the value of [format][crate::model::SBOMReferenceNote::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SBOMReferenceNote;
+    /// let x = SBOMReferenceNote::new().set_format("example");
+    /// ```
     pub fn set_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::SBOMReferenceNote::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SBOMReferenceNote;
+    /// let x = SBOMReferenceNote::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -9991,6 +13238,13 @@ impl SBOMReferenceOccurrence {
     }
 
     /// Sets the value of [payload][crate::model::SBOMReferenceOccurrence::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SBOMReferenceOccurrence;
+    /// use google_cloud_grafeas_v1::model::SbomReferenceIntotoPayload;
+    /// let x = SBOMReferenceOccurrence::new().set_payload(SbomReferenceIntotoPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SbomReferenceIntotoPayload>,
@@ -10000,6 +13254,14 @@ impl SBOMReferenceOccurrence {
     }
 
     /// Sets or clears the value of [payload][crate::model::SBOMReferenceOccurrence::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SBOMReferenceOccurrence;
+    /// use google_cloud_grafeas_v1::model::SbomReferenceIntotoPayload;
+    /// let x = SBOMReferenceOccurrence::new().set_or_clear_payload(Some(SbomReferenceIntotoPayload::default()/* use setters */));
+    /// let x = SBOMReferenceOccurrence::new().set_or_clear_payload(None::<SbomReferenceIntotoPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SbomReferenceIntotoPayload>,
@@ -10009,12 +13271,29 @@ impl SBOMReferenceOccurrence {
     }
 
     /// Sets the value of [payload_type][crate::model::SBOMReferenceOccurrence::payload_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SBOMReferenceOccurrence;
+    /// let x = SBOMReferenceOccurrence::new().set_payload_type("example");
+    /// ```
     pub fn set_payload_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload_type = v.into();
         self
     }
 
     /// Sets the value of [signatures][crate::model::SBOMReferenceOccurrence::signatures].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SBOMReferenceOccurrence;
+    /// use google_cloud_grafeas_v1::model::EnvelopeSignature;
+    /// let x = SBOMReferenceOccurrence::new()
+    ///     .set_signatures([
+    ///         EnvelopeSignature::default()/* use setters */,
+    ///         EnvelopeSignature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_signatures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10062,18 +13341,41 @@ impl SbomReferenceIntotoPayload {
     }
 
     /// Sets the value of [r#type][crate::model::SbomReferenceIntotoPayload::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPayload;
+    /// let x = SbomReferenceIntotoPayload::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [predicate_type][crate::model::SbomReferenceIntotoPayload::predicate_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPayload;
+    /// let x = SbomReferenceIntotoPayload::new().set_predicate_type("example");
+    /// ```
     pub fn set_predicate_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predicate_type = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::SbomReferenceIntotoPayload::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPayload;
+    /// use google_cloud_grafeas_v1::model::Subject;
+    /// let x = SbomReferenceIntotoPayload::new()
+    ///     .set_subject([
+    ///         Subject::default()/* use setters */,
+    ///         Subject::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subject<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10085,6 +13387,13 @@ impl SbomReferenceIntotoPayload {
     }
 
     /// Sets the value of [predicate][crate::model::SbomReferenceIntotoPayload::predicate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPayload;
+    /// use google_cloud_grafeas_v1::model::SbomReferenceIntotoPredicate;
+    /// let x = SbomReferenceIntotoPayload::new().set_predicate(SbomReferenceIntotoPredicate::default()/* use setters */);
+    /// ```
     pub fn set_predicate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SbomReferenceIntotoPredicate>,
@@ -10094,6 +13403,14 @@ impl SbomReferenceIntotoPayload {
     }
 
     /// Sets or clears the value of [predicate][crate::model::SbomReferenceIntotoPayload::predicate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPayload;
+    /// use google_cloud_grafeas_v1::model::SbomReferenceIntotoPredicate;
+    /// let x = SbomReferenceIntotoPayload::new().set_or_clear_predicate(Some(SbomReferenceIntotoPredicate::default()/* use setters */));
+    /// let x = SbomReferenceIntotoPayload::new().set_or_clear_predicate(None::<SbomReferenceIntotoPredicate>);
+    /// ```
     pub fn set_or_clear_predicate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SbomReferenceIntotoPredicate>,
@@ -10134,24 +13451,51 @@ impl SbomReferenceIntotoPredicate {
     }
 
     /// Sets the value of [referrer_id][crate::model::SbomReferenceIntotoPredicate::referrer_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPredicate;
+    /// let x = SbomReferenceIntotoPredicate::new().set_referrer_id("example");
+    /// ```
     pub fn set_referrer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.referrer_id = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::SbomReferenceIntotoPredicate::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPredicate;
+    /// let x = SbomReferenceIntotoPredicate::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::SbomReferenceIntotoPredicate::mime_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPredicate;
+    /// let x = SbomReferenceIntotoPredicate::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [digest][crate::model::SbomReferenceIntotoPredicate::digest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SbomReferenceIntotoPredicate;
+    /// let x = SbomReferenceIntotoPredicate::new().set_digest([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_digest<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10211,12 +13555,31 @@ impl SecretOccurrence {
     }
 
     /// Sets the value of [kind][crate::model::SecretOccurrence::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// use google_cloud_grafeas_v1::model::SecretKind;
+    /// let x0 = SecretOccurrence::new().set_kind(SecretKind::Unknown);
+    /// let x1 = SecretOccurrence::new().set_kind(SecretKind::GcpServiceAccountKey);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::SecretKind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [locations][crate::model::SecretOccurrence::locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// use google_cloud_grafeas_v1::model::SecretLocation;
+    /// let x = SecretOccurrence::new()
+    ///     .set_locations([
+    ///         SecretLocation::default()/* use setters */,
+    ///         SecretLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10228,6 +13591,17 @@ impl SecretOccurrence {
     }
 
     /// Sets the value of [statuses][crate::model::SecretOccurrence::statuses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// use google_cloud_grafeas_v1::model::SecretStatus;
+    /// let x = SecretOccurrence::new()
+    ///     .set_statuses([
+    ///         SecretStatus::default()/* use setters */,
+    ///         SecretStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10264,6 +13638,14 @@ impl SecretLocation {
     ///
     /// Note that all the setters affecting `location` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretLocation;
+    /// use google_cloud_grafeas_v1::model::FileLocation;
+    /// let x = SecretLocation::new().set_location(Some(
+    ///     google_cloud_grafeas_v1::model::secret_location::Location::FileLocation(FileLocation::default().into())));
+    /// ```
     pub fn set_location<
         T: std::convert::Into<std::option::Option<crate::model::secret_location::Location>>,
     >(
@@ -10294,6 +13676,14 @@ impl SecretLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretLocation;
+    /// use google_cloud_grafeas_v1::model::FileLocation;
+    /// let x = SecretLocation::new().set_file_location(FileLocation::default()/* use setters */);
+    /// assert!(x.file_location().is_some());
+    /// ```
     pub fn set_file_location<T: std::convert::Into<std::boxed::Box<crate::model::FileLocation>>>(
         mut self,
         v: T,
@@ -10347,6 +13737,15 @@ impl SecretStatus {
     }
 
     /// Sets the value of [status][crate::model::SecretStatus::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretStatus;
+    /// use google_cloud_grafeas_v1::model::secret_status::Status;
+    /// let x0 = SecretStatus::new().set_status(Status::Unknown);
+    /// let x1 = SecretStatus::new().set_status(Status::Valid);
+    /// let x2 = SecretStatus::new().set_status(Status::Invalid);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::secret_status::Status>>(
         mut self,
         v: T,
@@ -10356,6 +13755,13 @@ impl SecretStatus {
     }
 
     /// Sets the value of [update_time][crate::model::SecretStatus::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretStatus;
+    /// use wkt::Timestamp;
+    /// let x = SecretStatus::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10365,6 +13771,14 @@ impl SecretStatus {
     }
 
     /// Sets or clears the value of [update_time][crate::model::SecretStatus::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretStatus;
+    /// use wkt::Timestamp;
+    /// let x = SecretStatus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretStatus::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10374,6 +13788,12 @@ impl SecretStatus {
     }
 
     /// Sets the value of [message][crate::model::SecretStatus::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SecretStatus;
+    /// let x = SecretStatus::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -10559,6 +13979,13 @@ impl SlsaProvenance {
     }
 
     /// Sets the value of [builder][crate::model::SlsaProvenance::builder].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaBuilder;
+    /// let x = SlsaProvenance::new().set_builder(SlsaBuilder::default()/* use setters */);
+    /// ```
     pub fn set_builder<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance::SlsaBuilder>,
@@ -10568,6 +13995,14 @@ impl SlsaProvenance {
     }
 
     /// Sets or clears the value of [builder][crate::model::SlsaProvenance::builder].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaBuilder;
+    /// let x = SlsaProvenance::new().set_or_clear_builder(Some(SlsaBuilder::default()/* use setters */));
+    /// let x = SlsaProvenance::new().set_or_clear_builder(None::<SlsaBuilder>);
+    /// ```
     pub fn set_or_clear_builder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance::SlsaBuilder>,
@@ -10577,6 +14012,13 @@ impl SlsaProvenance {
     }
 
     /// Sets the value of [recipe][crate::model::SlsaProvenance::recipe].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+    /// let x = SlsaProvenance::new().set_recipe(SlsaRecipe::default()/* use setters */);
+    /// ```
     pub fn set_recipe<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance::SlsaRecipe>,
@@ -10586,6 +14028,14 @@ impl SlsaProvenance {
     }
 
     /// Sets or clears the value of [recipe][crate::model::SlsaProvenance::recipe].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+    /// let x = SlsaProvenance::new().set_or_clear_recipe(Some(SlsaRecipe::default()/* use setters */));
+    /// let x = SlsaProvenance::new().set_or_clear_recipe(None::<SlsaRecipe>);
+    /// ```
     pub fn set_or_clear_recipe<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance::SlsaRecipe>,
@@ -10595,6 +14045,13 @@ impl SlsaProvenance {
     }
 
     /// Sets the value of [metadata][crate::model::SlsaProvenance::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+    /// let x = SlsaProvenance::new().set_metadata(SlsaMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance::SlsaMetadata>,
@@ -10604,6 +14061,14 @@ impl SlsaProvenance {
     }
 
     /// Sets or clears the value of [metadata][crate::model::SlsaProvenance::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+    /// let x = SlsaProvenance::new().set_or_clear_metadata(Some(SlsaMetadata::default()/* use setters */));
+    /// let x = SlsaProvenance::new().set_or_clear_metadata(None::<SlsaMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance::SlsaMetadata>,
@@ -10613,6 +14078,17 @@ impl SlsaProvenance {
     }
 
     /// Sets the value of [materials][crate::model::SlsaProvenance::materials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenance;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance::Material;
+    /// let x = SlsaProvenance::new()
+    ///     .set_materials([
+    ///         Material::default()/* use setters */,
+    ///         Material::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_materials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10682,24 +14158,49 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [r#type][crate::model::slsa_provenance::SlsaRecipe::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+        /// let x = SlsaRecipe::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [defined_in_material][crate::model::slsa_provenance::SlsaRecipe::defined_in_material].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+        /// let x = SlsaRecipe::new().set_defined_in_material(42);
+        /// ```
         pub fn set_defined_in_material<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.defined_in_material = v.into();
             self
         }
 
         /// Sets the value of [entry_point][crate::model::slsa_provenance::SlsaRecipe::entry_point].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+        /// let x = SlsaRecipe::new().set_entry_point("example");
+        /// ```
         pub fn set_entry_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entry_point = v.into();
             self
         }
 
         /// Sets the value of [arguments][crate::model::slsa_provenance::SlsaRecipe::arguments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+        /// use wkt::Any;
+        /// let x = SlsaRecipe::new().set_arguments(Any::default()/* use setters */);
+        /// ```
         pub fn set_arguments<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Any>,
@@ -10709,6 +14210,14 @@ pub mod slsa_provenance {
         }
 
         /// Sets or clears the value of [arguments][crate::model::slsa_provenance::SlsaRecipe::arguments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+        /// use wkt::Any;
+        /// let x = SlsaRecipe::new().set_or_clear_arguments(Some(Any::default()/* use setters */));
+        /// let x = SlsaRecipe::new().set_or_clear_arguments(None::<Any>);
+        /// ```
         pub fn set_or_clear_arguments<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Any>,
@@ -10718,6 +14227,13 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [environment][crate::model::slsa_provenance::SlsaRecipe::environment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+        /// use wkt::Any;
+        /// let x = SlsaRecipe::new().set_environment(Any::default()/* use setters */);
+        /// ```
         pub fn set_environment<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Any>,
@@ -10727,6 +14243,14 @@ pub mod slsa_provenance {
         }
 
         /// Sets or clears the value of [environment][crate::model::slsa_provenance::SlsaRecipe::environment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaRecipe;
+        /// use wkt::Any;
+        /// let x = SlsaRecipe::new().set_or_clear_environment(Some(Any::default()/* use setters */));
+        /// let x = SlsaRecipe::new().set_or_clear_environment(None::<Any>);
+        /// ```
         pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Any>,
@@ -10768,18 +14292,36 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [arguments][crate::model::slsa_provenance::SlsaCompleteness::arguments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaCompleteness;
+        /// let x = SlsaCompleteness::new().set_arguments(true);
+        /// ```
         pub fn set_arguments<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.arguments = v.into();
             self
         }
 
         /// Sets the value of [environment][crate::model::slsa_provenance::SlsaCompleteness::environment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaCompleteness;
+        /// let x = SlsaCompleteness::new().set_environment(true);
+        /// ```
         pub fn set_environment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.environment = v.into();
             self
         }
 
         /// Sets the value of [materials][crate::model::slsa_provenance::SlsaCompleteness::materials].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaCompleteness;
+        /// let x = SlsaCompleteness::new().set_materials(true);
+        /// ```
         pub fn set_materials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.materials = v.into();
             self
@@ -10824,6 +14366,12 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [build_invocation_id][crate::model::slsa_provenance::SlsaMetadata::build_invocation_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// let x = SlsaMetadata::new().set_build_invocation_id("example");
+        /// ```
         pub fn set_build_invocation_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10833,6 +14381,13 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [build_started_on][crate::model::slsa_provenance::SlsaMetadata::build_started_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_build_started_on(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_build_started_on<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -10842,6 +14397,14 @@ pub mod slsa_provenance {
         }
 
         /// Sets or clears the value of [build_started_on][crate::model::slsa_provenance::SlsaMetadata::build_started_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_or_clear_build_started_on(Some(Timestamp::default()/* use setters */));
+        /// let x = SlsaMetadata::new().set_or_clear_build_started_on(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_build_started_on<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -10851,6 +14414,13 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [build_finished_on][crate::model::slsa_provenance::SlsaMetadata::build_finished_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_build_finished_on(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_build_finished_on<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -10860,6 +14430,14 @@ pub mod slsa_provenance {
         }
 
         /// Sets or clears the value of [build_finished_on][crate::model::slsa_provenance::SlsaMetadata::build_finished_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_or_clear_build_finished_on(Some(Timestamp::default()/* use setters */));
+        /// let x = SlsaMetadata::new().set_or_clear_build_finished_on(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_build_finished_on<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -10869,6 +14447,13 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [completeness][crate::model::slsa_provenance::SlsaMetadata::completeness].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaCompleteness;
+        /// let x = SlsaMetadata::new().set_completeness(SlsaCompleteness::default()/* use setters */);
+        /// ```
         pub fn set_completeness<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::slsa_provenance::SlsaCompleteness>,
@@ -10878,6 +14463,14 @@ pub mod slsa_provenance {
         }
 
         /// Sets or clears the value of [completeness][crate::model::slsa_provenance::SlsaMetadata::completeness].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// use google_cloud_grafeas_v1::model::slsa_provenance::SlsaCompleteness;
+        /// let x = SlsaMetadata::new().set_or_clear_completeness(Some(SlsaCompleteness::default()/* use setters */));
+        /// let x = SlsaMetadata::new().set_or_clear_completeness(None::<SlsaCompleteness>);
+        /// ```
         pub fn set_or_clear_completeness<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::slsa_provenance::SlsaCompleteness>,
@@ -10887,6 +14480,12 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [reproducible][crate::model::slsa_provenance::SlsaMetadata::reproducible].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaMetadata;
+        /// let x = SlsaMetadata::new().set_reproducible(true);
+        /// ```
         pub fn set_reproducible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.reproducible = v.into();
             self
@@ -10913,6 +14512,12 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [id][crate::model::slsa_provenance::SlsaBuilder::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::SlsaBuilder;
+        /// let x = SlsaBuilder::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
@@ -10941,12 +14546,27 @@ pub mod slsa_provenance {
         }
 
         /// Sets the value of [uri][crate::model::slsa_provenance::Material::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::Material;
+        /// let x = Material::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [digest][crate::model::slsa_provenance::Material::digest].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance::Material;
+        /// let x = Material::new().set_digest([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_digest<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10990,6 +14610,13 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets the value of [builder][crate::model::SlsaProvenanceZeroTwo::builder].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaBuilder;
+    /// let x = SlsaProvenanceZeroTwo::new().set_builder(SlsaBuilder::default()/* use setters */);
+    /// ```
     pub fn set_builder<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaBuilder>,
@@ -10999,6 +14626,14 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets or clears the value of [builder][crate::model::SlsaProvenanceZeroTwo::builder].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaBuilder;
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_builder(Some(SlsaBuilder::default()/* use setters */));
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_builder(None::<SlsaBuilder>);
+    /// ```
     pub fn set_or_clear_builder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaBuilder>,
@@ -11008,12 +14643,25 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets the value of [build_type][crate::model::SlsaProvenanceZeroTwo::build_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// let x = SlsaProvenanceZeroTwo::new().set_build_type("example");
+    /// ```
     pub fn set_build_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build_type = v.into();
         self
     }
 
     /// Sets the value of [invocation][crate::model::SlsaProvenanceZeroTwo::invocation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+    /// let x = SlsaProvenanceZeroTwo::new().set_invocation(SlsaInvocation::default()/* use setters */);
+    /// ```
     pub fn set_invocation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaInvocation>,
@@ -11023,6 +14671,14 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets or clears the value of [invocation][crate::model::SlsaProvenanceZeroTwo::invocation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_invocation(Some(SlsaInvocation::default()/* use setters */));
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_invocation(None::<SlsaInvocation>);
+    /// ```
     pub fn set_or_clear_invocation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaInvocation>,
@@ -11032,6 +14688,13 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets the value of [build_config][crate::model::SlsaProvenanceZeroTwo::build_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use wkt::Struct;
+    /// let x = SlsaProvenanceZeroTwo::new().set_build_config(Struct::default()/* use setters */);
+    /// ```
     pub fn set_build_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -11041,6 +14704,14 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets or clears the value of [build_config][crate::model::SlsaProvenanceZeroTwo::build_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use wkt::Struct;
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_build_config(Some(Struct::default()/* use setters */));
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_build_config(None::<Struct>);
+    /// ```
     pub fn set_or_clear_build_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -11050,6 +14721,13 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets the value of [metadata][crate::model::SlsaProvenanceZeroTwo::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+    /// let x = SlsaProvenanceZeroTwo::new().set_metadata(SlsaMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaMetadata>,
@@ -11059,6 +14737,14 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets or clears the value of [metadata][crate::model::SlsaProvenanceZeroTwo::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_metadata(Some(SlsaMetadata::default()/* use setters */));
+    /// let x = SlsaProvenanceZeroTwo::new().set_or_clear_metadata(None::<SlsaMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaMetadata>,
@@ -11068,6 +14754,17 @@ impl SlsaProvenanceZeroTwo {
     }
 
     /// Sets the value of [materials][crate::model::SlsaProvenanceZeroTwo::materials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::SlsaProvenanceZeroTwo;
+    /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMaterial;
+    /// let x = SlsaProvenanceZeroTwo::new()
+    ///     .set_materials([
+    ///         SlsaMaterial::default()/* use setters */,
+    ///         SlsaMaterial::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_materials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11106,6 +14803,12 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [id][crate::model::slsa_provenance_zero_two::SlsaBuilder::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaBuilder;
+        /// let x = SlsaBuilder::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
@@ -11136,12 +14839,27 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [uri][crate::model::slsa_provenance_zero_two::SlsaMaterial::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMaterial;
+        /// let x = SlsaMaterial::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [digest][crate::model::slsa_provenance_zero_two::SlsaMaterial::digest].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMaterial;
+        /// let x = SlsaMaterial::new().set_digest([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_digest<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11180,6 +14898,13 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [config_source][crate::model::slsa_provenance_zero_two::SlsaInvocation::config_source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+        /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaConfigSource;
+        /// let x = SlsaInvocation::new().set_config_source(SlsaConfigSource::default()/* use setters */);
+        /// ```
         pub fn set_config_source<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaConfigSource>,
@@ -11189,6 +14914,14 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets or clears the value of [config_source][crate::model::slsa_provenance_zero_two::SlsaInvocation::config_source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+        /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaConfigSource;
+        /// let x = SlsaInvocation::new().set_or_clear_config_source(Some(SlsaConfigSource::default()/* use setters */));
+        /// let x = SlsaInvocation::new().set_or_clear_config_source(None::<SlsaConfigSource>);
+        /// ```
         pub fn set_or_clear_config_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaConfigSource>,
@@ -11198,6 +14931,13 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [parameters][crate::model::slsa_provenance_zero_two::SlsaInvocation::parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+        /// use wkt::Struct;
+        /// let x = SlsaInvocation::new().set_parameters(Struct::default()/* use setters */);
+        /// ```
         pub fn set_parameters<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -11207,6 +14947,14 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets or clears the value of [parameters][crate::model::slsa_provenance_zero_two::SlsaInvocation::parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+        /// use wkt::Struct;
+        /// let x = SlsaInvocation::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
+        /// let x = SlsaInvocation::new().set_or_clear_parameters(None::<Struct>);
+        /// ```
         pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -11216,6 +14964,13 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [environment][crate::model::slsa_provenance_zero_two::SlsaInvocation::environment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+        /// use wkt::Struct;
+        /// let x = SlsaInvocation::new().set_environment(Struct::default()/* use setters */);
+        /// ```
         pub fn set_environment<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -11225,6 +14980,14 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets or clears the value of [environment][crate::model::slsa_provenance_zero_two::SlsaInvocation::environment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaInvocation;
+        /// use wkt::Struct;
+        /// let x = SlsaInvocation::new().set_or_clear_environment(Some(Struct::default()/* use setters */));
+        /// let x = SlsaInvocation::new().set_or_clear_environment(None::<Struct>);
+        /// ```
         pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -11260,12 +15023,27 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [uri][crate::model::slsa_provenance_zero_two::SlsaConfigSource::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaConfigSource;
+        /// let x = SlsaConfigSource::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [digest][crate::model::slsa_provenance_zero_two::SlsaConfigSource::digest].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaConfigSource;
+        /// let x = SlsaConfigSource::new().set_digest([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_digest<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11278,6 +15056,12 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [entry_point][crate::model::slsa_provenance_zero_two::SlsaConfigSource::entry_point].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaConfigSource;
+        /// let x = SlsaConfigSource::new().set_entry_point("example");
+        /// ```
         pub fn set_entry_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entry_point = v.into();
             self
@@ -11314,6 +15098,12 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [build_invocation_id][crate::model::slsa_provenance_zero_two::SlsaMetadata::build_invocation_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// let x = SlsaMetadata::new().set_build_invocation_id("example");
+        /// ```
         pub fn set_build_invocation_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11323,6 +15113,13 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [build_started_on][crate::model::slsa_provenance_zero_two::SlsaMetadata::build_started_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_build_started_on(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_build_started_on<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -11332,6 +15129,14 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets or clears the value of [build_started_on][crate::model::slsa_provenance_zero_two::SlsaMetadata::build_started_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_or_clear_build_started_on(Some(Timestamp::default()/* use setters */));
+        /// let x = SlsaMetadata::new().set_or_clear_build_started_on(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_build_started_on<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -11341,6 +15146,13 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [build_finished_on][crate::model::slsa_provenance_zero_two::SlsaMetadata::build_finished_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_build_finished_on(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_build_finished_on<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -11350,6 +15162,14 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets or clears the value of [build_finished_on][crate::model::slsa_provenance_zero_two::SlsaMetadata::build_finished_on].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// use wkt::Timestamp;
+        /// let x = SlsaMetadata::new().set_or_clear_build_finished_on(Some(Timestamp::default()/* use setters */));
+        /// let x = SlsaMetadata::new().set_or_clear_build_finished_on(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_build_finished_on<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -11359,6 +15179,13 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [completeness][crate::model::slsa_provenance_zero_two::SlsaMetadata::completeness].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaCompleteness;
+        /// let x = SlsaMetadata::new().set_completeness(SlsaCompleteness::default()/* use setters */);
+        /// ```
         pub fn set_completeness<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaCompleteness>,
@@ -11368,6 +15195,14 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets or clears the value of [completeness][crate::model::slsa_provenance_zero_two::SlsaMetadata::completeness].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaCompleteness;
+        /// let x = SlsaMetadata::new().set_or_clear_completeness(Some(SlsaCompleteness::default()/* use setters */));
+        /// let x = SlsaMetadata::new().set_or_clear_completeness(None::<SlsaCompleteness>);
+        /// ```
         pub fn set_or_clear_completeness<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::slsa_provenance_zero_two::SlsaCompleteness>,
@@ -11377,6 +15212,12 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [reproducible][crate::model::slsa_provenance_zero_two::SlsaMetadata::reproducible].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaMetadata;
+        /// let x = SlsaMetadata::new().set_reproducible(true);
+        /// ```
         pub fn set_reproducible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.reproducible = v.into();
             self
@@ -11409,18 +15250,36 @@ pub mod slsa_provenance_zero_two {
         }
 
         /// Sets the value of [parameters][crate::model::slsa_provenance_zero_two::SlsaCompleteness::parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaCompleteness;
+        /// let x = SlsaCompleteness::new().set_parameters(true);
+        /// ```
         pub fn set_parameters<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.parameters = v.into();
             self
         }
 
         /// Sets the value of [environment][crate::model::slsa_provenance_zero_two::SlsaCompleteness::environment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaCompleteness;
+        /// let x = SlsaCompleteness::new().set_environment(true);
+        /// ```
         pub fn set_environment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.environment = v.into();
             self
         }
 
         /// Sets the value of [materials][crate::model::slsa_provenance_zero_two::SlsaCompleteness::materials].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::slsa_provenance_zero_two::SlsaCompleteness;
+        /// let x = SlsaCompleteness::new().set_materials(true);
+        /// ```
         pub fn set_materials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.materials = v.into();
             self
@@ -11463,12 +15322,25 @@ impl UpgradeNote {
     }
 
     /// Sets the value of [package][crate::model::UpgradeNote::package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeNote;
+    /// let x = UpgradeNote::new().set_package("example");
+    /// ```
     pub fn set_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::UpgradeNote::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeNote;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = UpgradeNote::new().set_version(Version::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -11478,6 +15350,14 @@ impl UpgradeNote {
     }
 
     /// Sets or clears the value of [version][crate::model::UpgradeNote::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeNote;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = UpgradeNote::new().set_or_clear_version(Some(Version::default()/* use setters */));
+    /// let x = UpgradeNote::new().set_or_clear_version(None::<Version>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -11487,6 +15367,17 @@ impl UpgradeNote {
     }
 
     /// Sets the value of [distributions][crate::model::UpgradeNote::distributions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeNote;
+    /// use google_cloud_grafeas_v1::model::UpgradeDistribution;
+    /// let x = UpgradeNote::new()
+    ///     .set_distributions([
+    ///         UpgradeDistribution::default()/* use setters */,
+    ///         UpgradeDistribution::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_distributions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11498,6 +15389,13 @@ impl UpgradeNote {
     }
 
     /// Sets the value of [windows_update][crate::model::UpgradeNote::windows_update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeNote;
+    /// use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = UpgradeNote::new().set_windows_update(WindowsUpdate::default()/* use setters */);
+    /// ```
     pub fn set_windows_update<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WindowsUpdate>,
@@ -11507,6 +15405,14 @@ impl UpgradeNote {
     }
 
     /// Sets or clears the value of [windows_update][crate::model::UpgradeNote::windows_update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeNote;
+    /// use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = UpgradeNote::new().set_or_clear_windows_update(Some(WindowsUpdate::default()/* use setters */));
+    /// let x = UpgradeNote::new().set_or_clear_windows_update(None::<WindowsUpdate>);
+    /// ```
     pub fn set_or_clear_windows_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsUpdate>,
@@ -11553,24 +15459,48 @@ impl UpgradeDistribution {
     }
 
     /// Sets the value of [cpe_uri][crate::model::UpgradeDistribution::cpe_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeDistribution;
+    /// let x = UpgradeDistribution::new().set_cpe_uri("example");
+    /// ```
     pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cpe_uri = v.into();
         self
     }
 
     /// Sets the value of [classification][crate::model::UpgradeDistribution::classification].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeDistribution;
+    /// let x = UpgradeDistribution::new().set_classification("example");
+    /// ```
     pub fn set_classification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.classification = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::UpgradeDistribution::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeDistribution;
+    /// let x = UpgradeDistribution::new().set_severity("example");
+    /// ```
     pub fn set_severity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [cve][crate::model::UpgradeDistribution::cve].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeDistribution;
+    /// let x = UpgradeDistribution::new().set_cve(["a", "b", "c"]);
+    /// ```
     pub fn set_cve<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11626,6 +15556,13 @@ impl WindowsUpdate {
     }
 
     /// Sets the value of [identity][crate::model::WindowsUpdate::identity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// use google_cloud_grafeas_v1::model::windows_update::Identity;
+    /// let x = WindowsUpdate::new().set_identity(Identity::default()/* use setters */);
+    /// ```
     pub fn set_identity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::windows_update::Identity>,
@@ -11635,6 +15572,14 @@ impl WindowsUpdate {
     }
 
     /// Sets or clears the value of [identity][crate::model::WindowsUpdate::identity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// use google_cloud_grafeas_v1::model::windows_update::Identity;
+    /// let x = WindowsUpdate::new().set_or_clear_identity(Some(Identity::default()/* use setters */));
+    /// let x = WindowsUpdate::new().set_or_clear_identity(None::<Identity>);
+    /// ```
     pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::windows_update::Identity>,
@@ -11644,18 +15589,41 @@ impl WindowsUpdate {
     }
 
     /// Sets the value of [title][crate::model::WindowsUpdate::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = WindowsUpdate::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::WindowsUpdate::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = WindowsUpdate::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [categories][crate::model::WindowsUpdate::categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// use google_cloud_grafeas_v1::model::windows_update::Category;
+    /// let x = WindowsUpdate::new()
+    ///     .set_categories([
+    ///         Category::default()/* use setters */,
+    ///         Category::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11667,6 +15635,12 @@ impl WindowsUpdate {
     }
 
     /// Sets the value of [kb_article_ids][crate::model::WindowsUpdate::kb_article_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = WindowsUpdate::new().set_kb_article_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_kb_article_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11678,12 +15652,25 @@ impl WindowsUpdate {
     }
 
     /// Sets the value of [support_url][crate::model::WindowsUpdate::support_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = WindowsUpdate::new().set_support_url("example");
+    /// ```
     pub fn set_support_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.support_url = v.into();
         self
     }
 
     /// Sets the value of [last_published_timestamp][crate::model::WindowsUpdate::last_published_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// use wkt::Timestamp;
+    /// let x = WindowsUpdate::new().set_last_published_timestamp(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_published_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11693,6 +15680,14 @@ impl WindowsUpdate {
     }
 
     /// Sets or clears the value of [last_published_timestamp][crate::model::WindowsUpdate::last_published_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// use wkt::Timestamp;
+    /// let x = WindowsUpdate::new().set_or_clear_last_published_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = WindowsUpdate::new().set_or_clear_last_published_timestamp(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_published_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11732,12 +15727,24 @@ pub mod windows_update {
         }
 
         /// Sets the value of [update_id][crate::model::windows_update::Identity::update_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::windows_update::Identity;
+        /// let x = Identity::new().set_update_id("example");
+        /// ```
         pub fn set_update_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.update_id = v.into();
             self
         }
 
         /// Sets the value of [revision][crate::model::windows_update::Identity::revision].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::windows_update::Identity;
+        /// let x = Identity::new().set_revision(42);
+        /// ```
         pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.revision = v.into();
             self
@@ -11769,12 +15776,24 @@ pub mod windows_update {
         }
 
         /// Sets the value of [category_id][crate::model::windows_update::Category::category_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::windows_update::Category;
+        /// let x = Category::new().set_category_id("example");
+        /// ```
         pub fn set_category_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.category_id = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::windows_update::Category::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::windows_update::Category;
+        /// let x = Category::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -11820,12 +15839,25 @@ impl UpgradeOccurrence {
     }
 
     /// Sets the value of [package][crate::model::UpgradeOccurrence::package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// let x = UpgradeOccurrence::new().set_package("example");
+    /// ```
     pub fn set_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package = v.into();
         self
     }
 
     /// Sets the value of [parsed_version][crate::model::UpgradeOccurrence::parsed_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = UpgradeOccurrence::new().set_parsed_version(Version::default()/* use setters */);
+    /// ```
     pub fn set_parsed_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -11835,6 +15867,14 @@ impl UpgradeOccurrence {
     }
 
     /// Sets or clears the value of [parsed_version][crate::model::UpgradeOccurrence::parsed_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// use google_cloud_grafeas_v1::model::Version;
+    /// let x = UpgradeOccurrence::new().set_or_clear_parsed_version(Some(Version::default()/* use setters */));
+    /// let x = UpgradeOccurrence::new().set_or_clear_parsed_version(None::<Version>);
+    /// ```
     pub fn set_or_clear_parsed_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -11844,6 +15884,13 @@ impl UpgradeOccurrence {
     }
 
     /// Sets the value of [distribution][crate::model::UpgradeOccurrence::distribution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// use google_cloud_grafeas_v1::model::UpgradeDistribution;
+    /// let x = UpgradeOccurrence::new().set_distribution(UpgradeDistribution::default()/* use setters */);
+    /// ```
     pub fn set_distribution<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UpgradeDistribution>,
@@ -11853,6 +15900,14 @@ impl UpgradeOccurrence {
     }
 
     /// Sets or clears the value of [distribution][crate::model::UpgradeOccurrence::distribution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// use google_cloud_grafeas_v1::model::UpgradeDistribution;
+    /// let x = UpgradeOccurrence::new().set_or_clear_distribution(Some(UpgradeDistribution::default()/* use setters */));
+    /// let x = UpgradeOccurrence::new().set_or_clear_distribution(None::<UpgradeDistribution>);
+    /// ```
     pub fn set_or_clear_distribution<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpgradeDistribution>,
@@ -11862,6 +15917,13 @@ impl UpgradeOccurrence {
     }
 
     /// Sets the value of [windows_update][crate::model::UpgradeOccurrence::windows_update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = UpgradeOccurrence::new().set_windows_update(WindowsUpdate::default()/* use setters */);
+    /// ```
     pub fn set_windows_update<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WindowsUpdate>,
@@ -11871,6 +15933,14 @@ impl UpgradeOccurrence {
     }
 
     /// Sets or clears the value of [windows_update][crate::model::UpgradeOccurrence::windows_update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::UpgradeOccurrence;
+    /// use google_cloud_grafeas_v1::model::WindowsUpdate;
+    /// let x = UpgradeOccurrence::new().set_or_clear_windows_update(Some(WindowsUpdate::default()/* use setters */));
+    /// let x = UpgradeOccurrence::new().set_or_clear_windows_update(None::<WindowsUpdate>);
+    /// ```
     pub fn set_or_clear_windows_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsUpdate>,
@@ -11922,12 +15992,24 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets the value of [title][crate::model::VulnerabilityAssessmentNote::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// let x = VulnerabilityAssessmentNote::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [short_description][crate::model::VulnerabilityAssessmentNote::short_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// let x = VulnerabilityAssessmentNote::new().set_short_description("example");
+    /// ```
     pub fn set_short_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11937,6 +16019,12 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets the value of [long_description][crate::model::VulnerabilityAssessmentNote::long_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// let x = VulnerabilityAssessmentNote::new().set_long_description("example");
+    /// ```
     pub fn set_long_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11946,12 +16034,25 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets the value of [language_code][crate::model::VulnerabilityAssessmentNote::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// let x = VulnerabilityAssessmentNote::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [publisher][crate::model::VulnerabilityAssessmentNote::publisher].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Publisher;
+    /// let x = VulnerabilityAssessmentNote::new().set_publisher(Publisher::default()/* use setters */);
+    /// ```
     pub fn set_publisher<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_assessment_note::Publisher>,
@@ -11961,6 +16062,14 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets or clears the value of [publisher][crate::model::VulnerabilityAssessmentNote::publisher].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Publisher;
+    /// let x = VulnerabilityAssessmentNote::new().set_or_clear_publisher(Some(Publisher::default()/* use setters */));
+    /// let x = VulnerabilityAssessmentNote::new().set_or_clear_publisher(None::<Publisher>);
+    /// ```
     pub fn set_or_clear_publisher<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_assessment_note::Publisher>,
@@ -11970,6 +16079,13 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets the value of [product][crate::model::VulnerabilityAssessmentNote::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Product;
+    /// let x = VulnerabilityAssessmentNote::new().set_product(Product::default()/* use setters */);
+    /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_assessment_note::Product>,
@@ -11979,6 +16095,14 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets or clears the value of [product][crate::model::VulnerabilityAssessmentNote::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Product;
+    /// let x = VulnerabilityAssessmentNote::new().set_or_clear_product(Some(Product::default()/* use setters */));
+    /// let x = VulnerabilityAssessmentNote::new().set_or_clear_product(None::<Product>);
+    /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_assessment_note::Product>,
@@ -11988,6 +16112,13 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets the value of [assessment][crate::model::VulnerabilityAssessmentNote::assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+    /// let x = VulnerabilityAssessmentNote::new().set_assessment(Assessment::default()/* use setters */);
+    /// ```
     pub fn set_assessment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_assessment_note::Assessment>,
@@ -11997,6 +16128,14 @@ impl VulnerabilityAssessmentNote {
     }
 
     /// Sets or clears the value of [assessment][crate::model::VulnerabilityAssessmentNote::assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityAssessmentNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+    /// let x = VulnerabilityAssessmentNote::new().set_or_clear_assessment(Some(Assessment::default()/* use setters */));
+    /// let x = VulnerabilityAssessmentNote::new().set_or_clear_assessment(None::<Assessment>);
+    /// ```
     pub fn set_or_clear_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_assessment_note::Assessment>,
@@ -12048,12 +16187,24 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [name][crate::model::vulnerability_assessment_note::Publisher::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Publisher;
+        /// let x = Publisher::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [issuing_authority][crate::model::vulnerability_assessment_note::Publisher::issuing_authority].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Publisher;
+        /// let x = Publisher::new().set_issuing_authority("example");
+        /// ```
         pub fn set_issuing_authority<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12063,6 +16214,12 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [publisher_namespace][crate::model::vulnerability_assessment_note::Publisher::publisher_namespace].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Publisher;
+        /// let x = Publisher::new().set_publisher_namespace("example");
+        /// ```
         pub fn set_publisher_namespace<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12105,12 +16262,24 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [name][crate::model::vulnerability_assessment_note::Product::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Product;
+        /// let x = Product::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [id][crate::model::vulnerability_assessment_note::Product::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Product;
+        /// let x = Product::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
@@ -12120,6 +16289,13 @@ pub mod vulnerability_assessment_note {
         ///
         /// Note that all the setters affecting `identifier` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Product;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::product::Identifier;
+        /// let x = Product::new().set_identifier(Some(Identifier::GenericUri("example".to_string())));
+        /// ```
         pub fn set_identifier<
             T: std::convert::Into<
                     std::option::Option<
@@ -12152,6 +16328,13 @@ pub mod vulnerability_assessment_note {
         ///
         /// Note that all the setters affecting `identifier` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Product;
+        /// let x = Product::new().set_generic_uri("example");
+        /// assert!(x.generic_uri().is_some());
+        /// ```
         pub fn set_generic_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.identifier = std::option::Option::Some(
                 crate::model::vulnerability_assessment_note::product::Identifier::GenericUri(
@@ -12235,6 +16418,12 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [cve][crate::model::vulnerability_assessment_note::Assessment::cve].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// let x = Assessment::new().set_cve("example");
+        /// ```
         #[deprecated]
         pub fn set_cve<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cve = v.into();
@@ -12242,6 +16431,12 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [vulnerability_id][crate::model::vulnerability_assessment_note::Assessment::vulnerability_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// let x = Assessment::new().set_vulnerability_id("example");
+        /// ```
         pub fn set_vulnerability_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12251,6 +16446,12 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [short_description][crate::model::vulnerability_assessment_note::Assessment::short_description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// let x = Assessment::new().set_short_description("example");
+        /// ```
         pub fn set_short_description<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12260,6 +16461,12 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [long_description][crate::model::vulnerability_assessment_note::Assessment::long_description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// let x = Assessment::new().set_long_description("example");
+        /// ```
         pub fn set_long_description<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -12269,6 +16476,17 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [related_uris][crate::model::vulnerability_assessment_note::Assessment::related_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// use google_cloud_grafeas_v1::model::RelatedUrl;
+        /// let x = Assessment::new()
+        ///     .set_related_uris([
+        ///         RelatedUrl::default()/* use setters */,
+        ///         RelatedUrl::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_related_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12280,6 +16498,15 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [state][crate::model::vulnerability_assessment_note::Assessment::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::State;
+        /// let x0 = Assessment::new().set_state(State::Affected);
+        /// let x1 = Assessment::new().set_state(State::NotAffected);
+        /// let x2 = Assessment::new().set_state(State::Fixed);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::vulnerability_assessment_note::assessment::State>,
         >(
@@ -12291,6 +16518,12 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [impacts][crate::model::vulnerability_assessment_note::Assessment::impacts].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// let x = Assessment::new().set_impacts(["a", "b", "c"]);
+        /// ```
         pub fn set_impacts<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12302,6 +16535,13 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [justification][crate::model::vulnerability_assessment_note::Assessment::justification].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Justification;
+        /// let x = Assessment::new().set_justification(Justification::default()/* use setters */);
+        /// ```
         pub fn set_justification<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -12313,6 +16553,14 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets or clears the value of [justification][crate::model::vulnerability_assessment_note::Assessment::justification].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Justification;
+        /// let x = Assessment::new().set_or_clear_justification(Some(Justification::default()/* use setters */));
+        /// let x = Assessment::new().set_or_clear_justification(None::<Justification>);
+        /// ```
         pub fn set_or_clear_justification<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -12324,6 +16572,17 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [remediations][crate::model::vulnerability_assessment_note::Assessment::remediations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::Assessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Remediation;
+        /// let x = Assessment::new()
+        ///     .set_remediations([
+        ///         Remediation::default()/* use setters */,
+        ///         Remediation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_remediations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12353,13 +16612,13 @@ pub mod vulnerability_assessment_note {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Justification {
-
+        
             /// The justification type for this vulnerability.
             pub justification_type: crate::model::vulnerability_assessment_note::assessment::justification::JustificationType,
-
+        
             /// Additional details on why this justification was chosen.
             pub details: std::string::String,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -12369,12 +16628,27 @@ pub mod vulnerability_assessment_note {
             }
 
             /// Sets the value of [justification_type][crate::model::vulnerability_assessment_note::assessment::Justification::justification_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Justification;
+            /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::justification::JustificationType;
+            /// let x0 = Justification::new().set_justification_type(JustificationType::ComponentNotPresent);
+            /// let x1 = Justification::new().set_justification_type(JustificationType::VulnerableCodeNotPresent);
+            /// let x2 = Justification::new().set_justification_type(JustificationType::VulnerableCodeNotInExecutePath);
+            /// ```
             pub fn set_justification_type<T: std::convert::Into<crate::model::vulnerability_assessment_note::assessment::justification::JustificationType>>(mut self, v: T) -> Self{
                 self.justification_type = v.into();
                 self
             }
 
             /// Sets the value of [details][crate::model::vulnerability_assessment_note::assessment::Justification::details].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Justification;
+            /// let x = Justification::new().set_details("example");
+            /// ```
             pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.details = v.into();
                 self
@@ -12583,16 +16857,16 @@ pub mod vulnerability_assessment_note {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Remediation {
-
+        
             /// The type of remediation that can be applied.
             pub remediation_type: crate::model::vulnerability_assessment_note::assessment::remediation::RemediationType,
-
+        
             /// Contains a comprehensive human-readable discussion of the remediation.
             pub details: std::string::String,
-
+        
             /// Contains the URL where to obtain the remediation.
             pub remediation_uri: std::option::Option<crate::model::RelatedUrl>,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -12602,18 +16876,40 @@ pub mod vulnerability_assessment_note {
             }
 
             /// Sets the value of [remediation_type][crate::model::vulnerability_assessment_note::assessment::Remediation::remediation_type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Remediation;
+            /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::remediation::RemediationType;
+            /// let x0 = Remediation::new().set_remediation_type(RemediationType::Mitigation);
+            /// let x1 = Remediation::new().set_remediation_type(RemediationType::NoFixPlanned);
+            /// let x2 = Remediation::new().set_remediation_type(RemediationType::NoneAvailable);
+            /// ```
             pub fn set_remediation_type<T: std::convert::Into<crate::model::vulnerability_assessment_note::assessment::remediation::RemediationType>>(mut self, v: T) -> Self{
                 self.remediation_type = v.into();
                 self
             }
 
             /// Sets the value of [details][crate::model::vulnerability_assessment_note::assessment::Remediation::details].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Remediation;
+            /// let x = Remediation::new().set_details("example");
+            /// ```
             pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.details = v.into();
                 self
             }
 
             /// Sets the value of [remediation_uri][crate::model::vulnerability_assessment_note::assessment::Remediation::remediation_uri].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Remediation;
+            /// use google_cloud_grafeas_v1::model::RelatedUrl;
+            /// let x = Remediation::new().set_remediation_uri(RelatedUrl::default()/* use setters */);
+            /// ```
             pub fn set_remediation_uri<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::RelatedUrl>,
@@ -12623,6 +16919,14 @@ pub mod vulnerability_assessment_note {
             }
 
             /// Sets or clears the value of [remediation_uri][crate::model::vulnerability_assessment_note::assessment::Remediation::remediation_uri].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Remediation;
+            /// use google_cloud_grafeas_v1::model::RelatedUrl;
+            /// let x = Remediation::new().set_or_clear_remediation_uri(Some(RelatedUrl::default()/* use setters */));
+            /// let x = Remediation::new().set_or_clear_remediation_uri(None::<RelatedUrl>);
+            /// ```
             pub fn set_or_clear_remediation_uri<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::RelatedUrl>,
@@ -12996,18 +17300,44 @@ impl VulnerabilityNote {
     }
 
     /// Sets the value of [cvss_score][crate::model::VulnerabilityNote::cvss_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// let x = VulnerabilityNote::new().set_cvss_score(42.0);
+    /// ```
     pub fn set_cvss_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.cvss_score = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::VulnerabilityNote::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::Severity;
+    /// let x0 = VulnerabilityNote::new().set_severity(Severity::Minimal);
+    /// let x1 = VulnerabilityNote::new().set_severity(Severity::Low);
+    /// let x2 = VulnerabilityNote::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [details][crate::model::VulnerabilityNote::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+    /// let x = VulnerabilityNote::new()
+    ///     .set_details([
+    ///         Detail::default()/* use setters */,
+    ///         Detail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13019,6 +17349,13 @@ impl VulnerabilityNote {
     }
 
     /// Sets the value of [cvss_v3][crate::model::VulnerabilityNote::cvss_v3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::CVSSv3;
+    /// let x = VulnerabilityNote::new().set_cvss_v3(CVSSv3::default()/* use setters */);
+    /// ```
     pub fn set_cvss_v3<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CVSSv3>,
@@ -13028,6 +17365,14 @@ impl VulnerabilityNote {
     }
 
     /// Sets or clears the value of [cvss_v3][crate::model::VulnerabilityNote::cvss_v3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::CVSSv3;
+    /// let x = VulnerabilityNote::new().set_or_clear_cvss_v3(Some(CVSSv3::default()/* use setters */));
+    /// let x = VulnerabilityNote::new().set_or_clear_cvss_v3(None::<CVSSv3>);
+    /// ```
     pub fn set_or_clear_cvss_v3<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CVSSv3>,
@@ -13037,6 +17382,17 @@ impl VulnerabilityNote {
     }
 
     /// Sets the value of [windows_details][crate::model::VulnerabilityNote::windows_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::vulnerability_note::WindowsDetail;
+    /// let x = VulnerabilityNote::new()
+    ///     .set_windows_details([
+    ///         WindowsDetail::default()/* use setters */,
+    ///         WindowsDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_windows_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13048,6 +17404,13 @@ impl VulnerabilityNote {
     }
 
     /// Sets the value of [source_update_time][crate::model::VulnerabilityNote::source_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use wkt::Timestamp;
+    /// let x = VulnerabilityNote::new().set_source_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_source_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13057,6 +17420,14 @@ impl VulnerabilityNote {
     }
 
     /// Sets or clears the value of [source_update_time][crate::model::VulnerabilityNote::source_update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use wkt::Timestamp;
+    /// let x = VulnerabilityNote::new().set_or_clear_source_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VulnerabilityNote::new().set_or_clear_source_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_source_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13066,6 +17437,14 @@ impl VulnerabilityNote {
     }
 
     /// Sets the value of [cvss_version][crate::model::VulnerabilityNote::cvss_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::CVSSVersion;
+    /// let x0 = VulnerabilityNote::new().set_cvss_version(CVSSVersion::CvssVersion2);
+    /// let x1 = VulnerabilityNote::new().set_cvss_version(CVSSVersion::CvssVersion3);
+    /// ```
     pub fn set_cvss_version<T: std::convert::Into<crate::model::CVSSVersion>>(
         mut self,
         v: T,
@@ -13075,6 +17454,13 @@ impl VulnerabilityNote {
     }
 
     /// Sets the value of [cvss_v2][crate::model::VulnerabilityNote::cvss_v2].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityNote::new().set_cvss_v2(Cvss::default()/* use setters */);
+    /// ```
     pub fn set_cvss_v2<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cvss>,
@@ -13084,6 +17470,14 @@ impl VulnerabilityNote {
     }
 
     /// Sets or clears the value of [cvss_v2][crate::model::VulnerabilityNote::cvss_v2].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityNote::new().set_or_clear_cvss_v2(Some(Cvss::default()/* use setters */));
+    /// let x = VulnerabilityNote::new().set_or_clear_cvss_v2(None::<Cvss>);
+    /// ```
     pub fn set_or_clear_cvss_v2<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cvss>,
@@ -13183,6 +17577,12 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [severity_name][crate::model::vulnerability_note::Detail::severity_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_severity_name("example");
+        /// ```
         pub fn set_severity_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13192,12 +17592,24 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [description][crate::model::vulnerability_note::Detail::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [package_type][crate::model::vulnerability_note::Detail::package_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_package_type("example");
+        /// ```
         pub fn set_package_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13207,6 +17619,12 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [affected_cpe_uri][crate::model::vulnerability_note::Detail::affected_cpe_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_affected_cpe_uri("example");
+        /// ```
         pub fn set_affected_cpe_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13216,6 +17634,12 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [affected_package][crate::model::vulnerability_note::Detail::affected_package].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_affected_package("example");
+        /// ```
         pub fn set_affected_package<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13225,6 +17649,13 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [affected_version_start][crate::model::vulnerability_note::Detail::affected_version_start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = Detail::new().set_affected_version_start(Version::default()/* use setters */);
+        /// ```
         pub fn set_affected_version_start<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13234,6 +17665,14 @@ pub mod vulnerability_note {
         }
 
         /// Sets or clears the value of [affected_version_start][crate::model::vulnerability_note::Detail::affected_version_start].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = Detail::new().set_or_clear_affected_version_start(Some(Version::default()/* use setters */));
+        /// let x = Detail::new().set_or_clear_affected_version_start(None::<Version>);
+        /// ```
         pub fn set_or_clear_affected_version_start<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13243,6 +17682,13 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [affected_version_end][crate::model::vulnerability_note::Detail::affected_version_end].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = Detail::new().set_affected_version_end(Version::default()/* use setters */);
+        /// ```
         pub fn set_affected_version_end<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13252,6 +17698,14 @@ pub mod vulnerability_note {
         }
 
         /// Sets or clears the value of [affected_version_end][crate::model::vulnerability_note::Detail::affected_version_end].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = Detail::new().set_or_clear_affected_version_end(Some(Version::default()/* use setters */));
+        /// let x = Detail::new().set_or_clear_affected_version_end(None::<Version>);
+        /// ```
         pub fn set_or_clear_affected_version_end<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13261,6 +17715,12 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [fixed_cpe_uri][crate::model::vulnerability_note::Detail::fixed_cpe_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_fixed_cpe_uri("example");
+        /// ```
         pub fn set_fixed_cpe_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13270,6 +17730,12 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [fixed_package][crate::model::vulnerability_note::Detail::fixed_package].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_fixed_package("example");
+        /// ```
         pub fn set_fixed_package<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13279,6 +17745,13 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [fixed_version][crate::model::vulnerability_note::Detail::fixed_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = Detail::new().set_fixed_version(Version::default()/* use setters */);
+        /// ```
         pub fn set_fixed_version<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13288,6 +17761,14 @@ pub mod vulnerability_note {
         }
 
         /// Sets or clears the value of [fixed_version][crate::model::vulnerability_note::Detail::fixed_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = Detail::new().set_or_clear_fixed_version(Some(Version::default()/* use setters */));
+        /// let x = Detail::new().set_or_clear_fixed_version(None::<Version>);
+        /// ```
         pub fn set_or_clear_fixed_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13297,12 +17778,25 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [is_obsolete][crate::model::vulnerability_note::Detail::is_obsolete].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_is_obsolete(true);
+        /// ```
         pub fn set_is_obsolete<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_obsolete = v.into();
             self
         }
 
         /// Sets the value of [source_update_time][crate::model::vulnerability_note::Detail::source_update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use wkt::Timestamp;
+        /// let x = Detail::new().set_source_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_source_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -13312,6 +17806,14 @@ pub mod vulnerability_note {
         }
 
         /// Sets or clears the value of [source_update_time][crate::model::vulnerability_note::Detail::source_update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// use wkt::Timestamp;
+        /// let x = Detail::new().set_or_clear_source_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Detail::new().set_or_clear_source_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_source_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -13321,12 +17823,24 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [source][crate::model::vulnerability_note::Detail::source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_source("example");
+        /// ```
         pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = v.into();
             self
         }
 
         /// Sets the value of [vendor][crate::model::vulnerability_note::Detail::vendor].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::Detail;
+        /// let x = Detail::new().set_vendor("example");
+        /// ```
         pub fn set_vendor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.vendor = v.into();
             self
@@ -13368,24 +17882,53 @@ pub mod vulnerability_note {
         }
 
         /// Sets the value of [cpe_uri][crate::model::vulnerability_note::WindowsDetail::cpe_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::WindowsDetail;
+        /// let x = WindowsDetail::new().set_cpe_uri("example");
+        /// ```
         pub fn set_cpe_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cpe_uri = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::vulnerability_note::WindowsDetail::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::WindowsDetail;
+        /// let x = WindowsDetail::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::vulnerability_note::WindowsDetail::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::WindowsDetail;
+        /// let x = WindowsDetail::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [fixing_kbs][crate::model::vulnerability_note::WindowsDetail::fixing_kbs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_note::WindowsDetail;
+        /// use google_cloud_grafeas_v1::model::vulnerability_note::windows_detail::KnowledgeBase;
+        /// let x = WindowsDetail::new()
+        ///     .set_fixing_kbs([
+        ///         KnowledgeBase::default()/* use setters */,
+        ///         KnowledgeBase::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_fixing_kbs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13427,12 +17970,24 @@ pub mod vulnerability_note {
             }
 
             /// Sets the value of [name][crate::model::vulnerability_note::windows_detail::KnowledgeBase::name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_note::windows_detail::KnowledgeBase;
+            /// let x = KnowledgeBase::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
             }
 
             /// Sets the value of [url][crate::model::vulnerability_note::windows_detail::KnowledgeBase::url].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_grafeas_v1::model::vulnerability_note::windows_detail::KnowledgeBase;
+            /// let x = KnowledgeBase::new().set_url("example");
+            /// ```
             pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.url = v.into();
                 self
@@ -13515,24 +18070,52 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [r#type][crate::model::VulnerabilityOccurrence::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = VulnerabilityOccurrence::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::VulnerabilityOccurrence::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Severity;
+    /// let x0 = VulnerabilityOccurrence::new().set_severity(Severity::Minimal);
+    /// let x1 = VulnerabilityOccurrence::new().set_severity(Severity::Low);
+    /// let x2 = VulnerabilityOccurrence::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [cvss_score][crate::model::VulnerabilityOccurrence::cvss_score].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = VulnerabilityOccurrence::new().set_cvss_score(42.0);
+    /// ```
     pub fn set_cvss_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.cvss_score = v.into();
         self
     }
 
     /// Sets the value of [cvssv3][crate::model::VulnerabilityOccurrence::cvssv3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityOccurrence::new().set_cvssv3(Cvss::default()/* use setters */);
+    /// ```
     pub fn set_cvssv3<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cvss>,
@@ -13542,6 +18125,14 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets or clears the value of [cvssv3][crate::model::VulnerabilityOccurrence::cvssv3].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_cvssv3(Some(Cvss::default()/* use setters */));
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_cvssv3(None::<Cvss>);
+    /// ```
     pub fn set_or_clear_cvssv3<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cvss>,
@@ -13551,6 +18142,17 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [package_issue][crate::model::VulnerabilityOccurrence::package_issue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+    /// let x = VulnerabilityOccurrence::new()
+    ///     .set_package_issue([
+    ///         PackageIssue::default()/* use setters */,
+    ///         PackageIssue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_package_issue<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13562,6 +18164,12 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [short_description][crate::model::VulnerabilityOccurrence::short_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = VulnerabilityOccurrence::new().set_short_description("example");
+    /// ```
     pub fn set_short_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13571,6 +18179,12 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [long_description][crate::model::VulnerabilityOccurrence::long_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = VulnerabilityOccurrence::new().set_long_description("example");
+    /// ```
     pub fn set_long_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13580,6 +18194,17 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [related_urls][crate::model::VulnerabilityOccurrence::related_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::RelatedUrl;
+    /// let x = VulnerabilityOccurrence::new()
+    ///     .set_related_urls([
+    ///         RelatedUrl::default()/* use setters */,
+    ///         RelatedUrl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13591,6 +18216,15 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [effective_severity][crate::model::VulnerabilityOccurrence::effective_severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Severity;
+    /// let x0 = VulnerabilityOccurrence::new().set_effective_severity(Severity::Minimal);
+    /// let x1 = VulnerabilityOccurrence::new().set_effective_severity(Severity::Low);
+    /// let x2 = VulnerabilityOccurrence::new().set_effective_severity(Severity::Medium);
+    /// ```
     pub fn set_effective_severity<T: std::convert::Into<crate::model::Severity>>(
         mut self,
         v: T,
@@ -13600,12 +18234,26 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [fix_available][crate::model::VulnerabilityOccurrence::fix_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = VulnerabilityOccurrence::new().set_fix_available(true);
+    /// ```
     pub fn set_fix_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fix_available = v.into();
         self
     }
 
     /// Sets the value of [cvss_version][crate::model::VulnerabilityOccurrence::cvss_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::CVSSVersion;
+    /// let x0 = VulnerabilityOccurrence::new().set_cvss_version(CVSSVersion::CvssVersion2);
+    /// let x1 = VulnerabilityOccurrence::new().set_cvss_version(CVSSVersion::CvssVersion3);
+    /// ```
     pub fn set_cvss_version<T: std::convert::Into<crate::model::CVSSVersion>>(
         mut self,
         v: T,
@@ -13615,6 +18263,13 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [cvss_v2][crate::model::VulnerabilityOccurrence::cvss_v2].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityOccurrence::new().set_cvss_v2(Cvss::default()/* use setters */);
+    /// ```
     pub fn set_cvss_v2<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cvss>,
@@ -13624,6 +18279,14 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets or clears the value of [cvss_v2][crate::model::VulnerabilityOccurrence::cvss_v2].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_cvss_v2(Some(Cvss::default()/* use setters */));
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_cvss_v2(None::<Cvss>);
+    /// ```
     pub fn set_or_clear_cvss_v2<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cvss>,
@@ -13633,6 +18296,13 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [vex_assessment][crate::model::VulnerabilityOccurrence::vex_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+    /// let x = VulnerabilityOccurrence::new().set_vex_assessment(VexAssessment::default()/* use setters */);
+    /// ```
     pub fn set_vex_assessment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_occurrence::VexAssessment>,
@@ -13642,6 +18312,14 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets or clears the value of [vex_assessment][crate::model::VulnerabilityOccurrence::vex_assessment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_vex_assessment(Some(VexAssessment::default()/* use setters */));
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_vex_assessment(None::<VexAssessment>);
+    /// ```
     pub fn set_or_clear_vex_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vulnerability_occurrence::VexAssessment>,
@@ -13651,6 +18329,12 @@ impl VulnerabilityOccurrence {
     }
 
     /// Sets the value of [extra_details][crate::model::VulnerabilityOccurrence::extra_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// let x = VulnerabilityOccurrence::new().set_extra_details("example");
+    /// ```
     pub fn set_extra_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extra_details = v.into();
         self
@@ -13720,6 +18404,12 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [affected_cpe_uri][crate::model::vulnerability_occurrence::PackageIssue::affected_cpe_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// let x = PackageIssue::new().set_affected_cpe_uri("example");
+        /// ```
         pub fn set_affected_cpe_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13729,6 +18419,12 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [affected_package][crate::model::vulnerability_occurrence::PackageIssue::affected_package].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// let x = PackageIssue::new().set_affected_package("example");
+        /// ```
         pub fn set_affected_package<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13738,6 +18434,13 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [affected_version][crate::model::vulnerability_occurrence::PackageIssue::affected_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = PackageIssue::new().set_affected_version(Version::default()/* use setters */);
+        /// ```
         pub fn set_affected_version<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13747,6 +18450,14 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets or clears the value of [affected_version][crate::model::vulnerability_occurrence::PackageIssue::affected_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = PackageIssue::new().set_or_clear_affected_version(Some(Version::default()/* use setters */));
+        /// let x = PackageIssue::new().set_or_clear_affected_version(None::<Version>);
+        /// ```
         pub fn set_or_clear_affected_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13756,6 +18467,12 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [fixed_cpe_uri][crate::model::vulnerability_occurrence::PackageIssue::fixed_cpe_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// let x = PackageIssue::new().set_fixed_cpe_uri("example");
+        /// ```
         pub fn set_fixed_cpe_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13765,6 +18482,12 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [fixed_package][crate::model::vulnerability_occurrence::PackageIssue::fixed_package].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// let x = PackageIssue::new().set_fixed_package("example");
+        /// ```
         pub fn set_fixed_package<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13774,6 +18497,13 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [fixed_version][crate::model::vulnerability_occurrence::PackageIssue::fixed_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = PackageIssue::new().set_fixed_version(Version::default()/* use setters */);
+        /// ```
         pub fn set_fixed_version<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13783,6 +18513,14 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets or clears the value of [fixed_version][crate::model::vulnerability_occurrence::PackageIssue::fixed_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// use google_cloud_grafeas_v1::model::Version;
+        /// let x = PackageIssue::new().set_or_clear_fixed_version(Some(Version::default()/* use setters */));
+        /// let x = PackageIssue::new().set_or_clear_fixed_version(None::<Version>);
+        /// ```
         pub fn set_or_clear_fixed_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -13792,12 +18530,24 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [fix_available][crate::model::vulnerability_occurrence::PackageIssue::fix_available].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// let x = PackageIssue::new().set_fix_available(true);
+        /// ```
         pub fn set_fix_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.fix_available = v.into();
             self
         }
 
         /// Sets the value of [package_type][crate::model::vulnerability_occurrence::PackageIssue::package_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// let x = PackageIssue::new().set_package_type("example");
+        /// ```
         pub fn set_package_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13807,6 +18557,15 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [effective_severity][crate::model::vulnerability_occurrence::PackageIssue::effective_severity].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// use google_cloud_grafeas_v1::model::Severity;
+        /// let x0 = PackageIssue::new().set_effective_severity(Severity::Minimal);
+        /// let x1 = PackageIssue::new().set_effective_severity(Severity::Low);
+        /// let x2 = PackageIssue::new().set_effective_severity(Severity::Medium);
+        /// ```
         pub fn set_effective_severity<T: std::convert::Into<crate::model::Severity>>(
             mut self,
             v: T,
@@ -13816,6 +18575,17 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [file_location][crate::model::vulnerability_occurrence::PackageIssue::file_location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::PackageIssue;
+        /// use google_cloud_grafeas_v1::model::FileLocation;
+        /// let x = PackageIssue::new()
+        ///     .set_file_location([
+        ///         FileLocation::default()/* use setters */,
+        ///         FileLocation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_file_location<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13885,6 +18655,12 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [cve][crate::model::vulnerability_occurrence::VexAssessment::cve].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// let x = VexAssessment::new().set_cve("example");
+        /// ```
         #[deprecated]
         pub fn set_cve<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cve = v.into();
@@ -13892,6 +18668,12 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [vulnerability_id][crate::model::vulnerability_occurrence::VexAssessment::vulnerability_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// let x = VexAssessment::new().set_vulnerability_id("example");
+        /// ```
         pub fn set_vulnerability_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13901,6 +18683,17 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [related_uris][crate::model::vulnerability_occurrence::VexAssessment::related_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// use google_cloud_grafeas_v1::model::RelatedUrl;
+        /// let x = VexAssessment::new()
+        ///     .set_related_uris([
+        ///         RelatedUrl::default()/* use setters */,
+        ///         RelatedUrl::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_related_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13912,12 +18705,27 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [note_name][crate::model::vulnerability_occurrence::VexAssessment::note_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// let x = VexAssessment::new().set_note_name("example");
+        /// ```
         pub fn set_note_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.note_name = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::vulnerability_occurrence::VexAssessment::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::State;
+        /// let x0 = VexAssessment::new().set_state(State::Affected);
+        /// let x1 = VexAssessment::new().set_state(State::NotAffected);
+        /// let x2 = VexAssessment::new().set_state(State::Fixed);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::vulnerability_assessment_note::assessment::State>,
         >(
@@ -13929,6 +18737,12 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [impacts][crate::model::vulnerability_occurrence::VexAssessment::impacts].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// let x = VexAssessment::new().set_impacts(["a", "b", "c"]);
+        /// ```
         pub fn set_impacts<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13940,6 +18754,17 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [remediations][crate::model::vulnerability_occurrence::VexAssessment::remediations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Remediation;
+        /// let x = VexAssessment::new()
+        ///     .set_remediations([
+        ///         Remediation::default()/* use setters */,
+        ///         Remediation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_remediations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -13953,6 +18778,13 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [justification][crate::model::vulnerability_occurrence::VexAssessment::justification].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Justification;
+        /// let x = VexAssessment::new().set_justification(Justification::default()/* use setters */);
+        /// ```
         pub fn set_justification<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -13964,6 +18796,14 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets or clears the value of [justification][crate::model::vulnerability_occurrence::VexAssessment::justification].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_grafeas_v1::model::vulnerability_occurrence::VexAssessment;
+        /// use google_cloud_grafeas_v1::model::vulnerability_assessment_note::assessment::Justification;
+        /// let x = VexAssessment::new().set_or_clear_justification(Some(Justification::default()/* use setters */));
+        /// let x = VexAssessment::new().set_or_clear_justification(None::<Justification>);
+        /// ```
         pub fn set_or_clear_justification<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<

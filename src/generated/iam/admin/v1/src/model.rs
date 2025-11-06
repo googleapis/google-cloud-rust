@@ -54,6 +54,13 @@ impl AuditData {
     }
 
     /// Sets the value of [permission_delta][crate::model::AuditData::permission_delta].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::AuditData;
+    /// use google_cloud_iam_admin_v1::model::audit_data::PermissionDelta;
+    /// let x = AuditData::new().set_permission_delta(PermissionDelta::default()/* use setters */);
+    /// ```
     pub fn set_permission_delta<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::audit_data::PermissionDelta>,
@@ -63,6 +70,14 @@ impl AuditData {
     }
 
     /// Sets or clears the value of [permission_delta][crate::model::AuditData::permission_delta].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::AuditData;
+    /// use google_cloud_iam_admin_v1::model::audit_data::PermissionDelta;
+    /// let x = AuditData::new().set_or_clear_permission_delta(Some(PermissionDelta::default()/* use setters */));
+    /// let x = AuditData::new().set_or_clear_permission_delta(None::<PermissionDelta>);
+    /// ```
     pub fn set_or_clear_permission_delta<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::audit_data::PermissionDelta>,
@@ -103,6 +118,12 @@ pub mod audit_data {
         }
 
         /// Sets the value of [added_permissions][crate::model::audit_data::PermissionDelta::added_permissions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_iam_admin_v1::model::audit_data::PermissionDelta;
+        /// let x = PermissionDelta::new().set_added_permissions(["a", "b", "c"]);
+        /// ```
         pub fn set_added_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -114,6 +135,12 @@ pub mod audit_data {
         }
 
         /// Sets the value of [removed_permissions][crate::model::audit_data::PermissionDelta::removed_permissions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_iam_admin_v1::model::audit_data::PermissionDelta;
+        /// let x = PermissionDelta::new().set_removed_permissions(["a", "b", "c"]);
+        /// ```
         pub fn set_removed_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -208,36 +235,72 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [name][crate::model::ServiceAccount::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::ServiceAccount::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [unique_id][crate::model::ServiceAccount::unique_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_unique_id("example");
+    /// ```
     pub fn set_unique_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unique_id = v.into();
         self
     }
 
     /// Sets the value of [email][crate::model::ServiceAccount::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ServiceAccount::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::ServiceAccount::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_etag(bytes::Bytes::from_static(b"example"));
+    /// ```
     #[deprecated]
     pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -245,12 +308,24 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [description][crate::model::ServiceAccount::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [oauth2_client_id][crate::model::ServiceAccount::oauth2_client_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_oauth2_client_id("example");
+    /// ```
     pub fn set_oauth2_client_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -260,6 +335,12 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [disabled][crate::model::ServiceAccount::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ServiceAccount::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -302,18 +383,37 @@ impl CreateServiceAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateServiceAccountRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountRequest;
+    /// let x = CreateServiceAccountRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [account_id][crate::model::CreateServiceAccountRequest::account_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountRequest;
+    /// let x = CreateServiceAccountRequest::new().set_account_id("example");
+    /// ```
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountRequest;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = CreateServiceAccountRequest::new().set_service_account(ServiceAccount::default()/* use setters */);
+    /// ```
     pub fn set_service_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -323,6 +423,14 @@ impl CreateServiceAccountRequest {
     }
 
     /// Sets or clears the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountRequest;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = CreateServiceAccountRequest::new().set_or_clear_service_account(Some(ServiceAccount::default()/* use setters */));
+    /// let x = CreateServiceAccountRequest::new().set_or_clear_service_account(None::<ServiceAccount>);
+    /// ```
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -371,18 +479,36 @@ impl ListServiceAccountsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListServiceAccountsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountsRequest;
+    /// let x = ListServiceAccountsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServiceAccountsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountsRequest;
+    /// let x = ListServiceAccountsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServiceAccountsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountsRequest;
+    /// let x = ListServiceAccountsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -418,6 +544,17 @@ impl ListServiceAccountsResponse {
     }
 
     /// Sets the value of [accounts][crate::model::ListServiceAccountsResponse::accounts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountsResponse;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = ListServiceAccountsResponse::new()
+    ///     .set_accounts([
+    ///         ServiceAccount::default()/* use setters */,
+    ///         ServiceAccount::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -429,6 +566,12 @@ impl ListServiceAccountsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServiceAccountsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountsResponse;
+    /// let x = ListServiceAccountsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -475,6 +618,12 @@ impl GetServiceAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceAccountRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::GetServiceAccountRequest;
+    /// let x = GetServiceAccountRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -507,6 +656,12 @@ impl DeleteServiceAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceAccountRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::DeleteServiceAccountRequest;
+    /// let x = DeleteServiceAccountRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -542,6 +697,13 @@ impl PatchServiceAccountRequest {
     }
 
     /// Sets the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::PatchServiceAccountRequest;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = PatchServiceAccountRequest::new().set_service_account(ServiceAccount::default()/* use setters */);
+    /// ```
     pub fn set_service_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -551,6 +713,14 @@ impl PatchServiceAccountRequest {
     }
 
     /// Sets or clears the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::PatchServiceAccountRequest;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = PatchServiceAccountRequest::new().set_or_clear_service_account(Some(ServiceAccount::default()/* use setters */));
+    /// let x = PatchServiceAccountRequest::new().set_or_clear_service_account(None::<ServiceAccount>);
+    /// ```
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -560,6 +730,13 @@ impl PatchServiceAccountRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::PatchServiceAccountRequest;
+    /// use wkt::FieldMask;
+    /// let x = PatchServiceAccountRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -569,6 +746,14 @@ impl PatchServiceAccountRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::PatchServiceAccountRequest;
+    /// use wkt::FieldMask;
+    /// let x = PatchServiceAccountRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = PatchServiceAccountRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -603,6 +788,12 @@ impl UndeleteServiceAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteServiceAccountRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UndeleteServiceAccountRequest;
+    /// let x = UndeleteServiceAccountRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -630,6 +821,13 @@ impl UndeleteServiceAccountResponse {
     }
 
     /// Sets the value of [restored_account][crate::model::UndeleteServiceAccountResponse::restored_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UndeleteServiceAccountResponse;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = UndeleteServiceAccountResponse::new().set_restored_account(ServiceAccount::default()/* use setters */);
+    /// ```
     pub fn set_restored_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -639,6 +837,14 @@ impl UndeleteServiceAccountResponse {
     }
 
     /// Sets or clears the value of [restored_account][crate::model::UndeleteServiceAccountResponse::restored_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UndeleteServiceAccountResponse;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccount;
+    /// let x = UndeleteServiceAccountResponse::new().set_or_clear_restored_account(Some(ServiceAccount::default()/* use setters */));
+    /// let x = UndeleteServiceAccountResponse::new().set_or_clear_restored_account(None::<ServiceAccount>);
+    /// ```
     pub fn set_or_clear_restored_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -674,6 +880,12 @@ impl EnableServiceAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableServiceAccountRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::EnableServiceAccountRequest;
+    /// let x = EnableServiceAccountRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -706,6 +918,12 @@ impl DisableServiceAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableServiceAccountRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::DisableServiceAccountRequest;
+    /// let x = DisableServiceAccountRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -744,12 +962,28 @@ impl ListServiceAccountKeysRequest {
     }
 
     /// Sets the value of [name][crate::model::ListServiceAccountKeysRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountKeysRequest;
+    /// let x = ListServiceAccountKeysRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [key_types][crate::model::ListServiceAccountKeysRequest::key_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountKeysRequest;
+    /// use google_cloud_iam_admin_v1::model::list_service_account_keys_request::KeyType;
+    /// let x = ListServiceAccountKeysRequest::new().set_key_types([
+    ///     KeyType::UserManaged,
+    ///     KeyType::SystemManaged,
+    /// ]);
+    /// ```
     pub fn set_key_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -923,6 +1157,17 @@ impl ListServiceAccountKeysResponse {
     }
 
     /// Sets the value of [keys][crate::model::ListServiceAccountKeysResponse::keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListServiceAccountKeysResponse;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// let x = ListServiceAccountKeysResponse::new()
+    ///     .set_keys([
+    ///         ServiceAccountKey::default()/* use setters */,
+    ///         ServiceAccountKey::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -965,12 +1210,26 @@ impl GetServiceAccountKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceAccountKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::GetServiceAccountKeyRequest;
+    /// let x = GetServiceAccountKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [public_key_type][crate::model::GetServiceAccountKeyRequest::public_key_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::GetServiceAccountKeyRequest;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccountPublicKeyType;
+    /// let x0 = GetServiceAccountKeyRequest::new().set_public_key_type(ServiceAccountPublicKeyType::TypeX509PemFile);
+    /// let x1 = GetServiceAccountKeyRequest::new().set_public_key_type(ServiceAccountPublicKeyType::TypeRawPublicKey);
+    /// ```
     pub fn set_public_key_type<T: std::convert::Into<crate::model::ServiceAccountPublicKeyType>>(
         mut self,
         v: T,
@@ -1067,12 +1326,26 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [name][crate::model::ServiceAccountKey::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// let x = ServiceAccountKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [private_key_type][crate::model::ServiceAccountKey::private_key_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccountPrivateKeyType;
+    /// let x0 = ServiceAccountKey::new().set_private_key_type(ServiceAccountPrivateKeyType::TypePkcs12File);
+    /// let x1 = ServiceAccountKey::new().set_private_key_type(ServiceAccountPrivateKeyType::TypeGoogleCredentialsFile);
+    /// ```
     pub fn set_private_key_type<
         T: std::convert::Into<crate::model::ServiceAccountPrivateKeyType>,
     >(
@@ -1084,6 +1357,14 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [key_algorithm][crate::model::ServiceAccountKey::key_algorithm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccountKeyAlgorithm;
+    /// let x0 = ServiceAccountKey::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa1024);
+    /// let x1 = ServiceAccountKey::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa2048);
+    /// ```
     pub fn set_key_algorithm<T: std::convert::Into<crate::model::ServiceAccountKeyAlgorithm>>(
         mut self,
         v: T,
@@ -1093,18 +1374,37 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [private_key_data][crate::model::ServiceAccountKey::private_key_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// let x = ServiceAccountKey::new().set_private_key_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_private_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key_data = v.into();
         self
     }
 
     /// Sets the value of [public_key_data][crate::model::ServiceAccountKey::public_key_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// let x = ServiceAccountKey::new().set_public_key_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_public_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key_data = v.into();
         self
     }
 
     /// Sets the value of [valid_after_time][crate::model::ServiceAccountKey::valid_after_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use wkt::Timestamp;
+    /// let x = ServiceAccountKey::new().set_valid_after_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_valid_after_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1114,6 +1414,14 @@ impl ServiceAccountKey {
     }
 
     /// Sets or clears the value of [valid_after_time][crate::model::ServiceAccountKey::valid_after_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use wkt::Timestamp;
+    /// let x = ServiceAccountKey::new().set_or_clear_valid_after_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ServiceAccountKey::new().set_or_clear_valid_after_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_valid_after_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1123,6 +1431,13 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [valid_before_time][crate::model::ServiceAccountKey::valid_before_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use wkt::Timestamp;
+    /// let x = ServiceAccountKey::new().set_valid_before_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_valid_before_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1132,6 +1447,14 @@ impl ServiceAccountKey {
     }
 
     /// Sets or clears the value of [valid_before_time][crate::model::ServiceAccountKey::valid_before_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use wkt::Timestamp;
+    /// let x = ServiceAccountKey::new().set_or_clear_valid_before_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ServiceAccountKey::new().set_or_clear_valid_before_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_valid_before_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1141,6 +1464,14 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [key_origin][crate::model::ServiceAccountKey::key_origin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccountKeyOrigin;
+    /// let x0 = ServiceAccountKey::new().set_key_origin(ServiceAccountKeyOrigin::UserProvided);
+    /// let x1 = ServiceAccountKey::new().set_key_origin(ServiceAccountKeyOrigin::GoogleProvided);
+    /// ```
     pub fn set_key_origin<T: std::convert::Into<crate::model::ServiceAccountKeyOrigin>>(
         mut self,
         v: T,
@@ -1150,6 +1481,14 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [key_type][crate::model::ServiceAccountKey::key_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// use google_cloud_iam_admin_v1::model::list_service_account_keys_request::KeyType;
+    /// let x0 = ServiceAccountKey::new().set_key_type(KeyType::UserManaged);
+    /// let x1 = ServiceAccountKey::new().set_key_type(KeyType::SystemManaged);
+    /// ```
     pub fn set_key_type<
         T: std::convert::Into<crate::model::list_service_account_keys_request::KeyType>,
     >(
@@ -1161,6 +1500,12 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [disabled][crate::model::ServiceAccountKey::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ServiceAccountKey;
+    /// let x = ServiceAccountKey::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -1203,12 +1548,26 @@ impl CreateServiceAccountKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateServiceAccountKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountKeyRequest;
+    /// let x = CreateServiceAccountKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [private_key_type][crate::model::CreateServiceAccountKeyRequest::private_key_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountKeyRequest;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccountPrivateKeyType;
+    /// let x0 = CreateServiceAccountKeyRequest::new().set_private_key_type(ServiceAccountPrivateKeyType::TypePkcs12File);
+    /// let x1 = CreateServiceAccountKeyRequest::new().set_private_key_type(ServiceAccountPrivateKeyType::TypeGoogleCredentialsFile);
+    /// ```
     pub fn set_private_key_type<
         T: std::convert::Into<crate::model::ServiceAccountPrivateKeyType>,
     >(
@@ -1220,6 +1579,14 @@ impl CreateServiceAccountKeyRequest {
     }
 
     /// Sets the value of [key_algorithm][crate::model::CreateServiceAccountKeyRequest::key_algorithm].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateServiceAccountKeyRequest;
+    /// use google_cloud_iam_admin_v1::model::ServiceAccountKeyAlgorithm;
+    /// let x0 = CreateServiceAccountKeyRequest::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa1024);
+    /// let x1 = CreateServiceAccountKeyRequest::new().set_key_algorithm(ServiceAccountKeyAlgorithm::KeyAlgRsa2048);
+    /// ```
     pub fn set_key_algorithm<T: std::convert::Into<crate::model::ServiceAccountKeyAlgorithm>>(
         mut self,
         v: T,
@@ -1261,12 +1628,24 @@ impl UploadServiceAccountKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::UploadServiceAccountKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UploadServiceAccountKeyRequest;
+    /// let x = UploadServiceAccountKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [public_key_data][crate::model::UploadServiceAccountKeyRequest::public_key_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UploadServiceAccountKeyRequest;
+    /// let x = UploadServiceAccountKeyRequest::new().set_public_key_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_public_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key_data = v.into();
         self
@@ -1299,6 +1678,12 @@ impl DeleteServiceAccountKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceAccountKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::DeleteServiceAccountKeyRequest;
+    /// let x = DeleteServiceAccountKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1332,6 +1717,12 @@ impl DisableServiceAccountKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableServiceAccountKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::DisableServiceAccountKeyRequest;
+    /// let x = DisableServiceAccountKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1365,6 +1756,12 @@ impl EnableServiceAccountKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableServiceAccountKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::EnableServiceAccountKeyRequest;
+    /// let x = EnableServiceAccountKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1411,6 +1808,12 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [name][crate::model::SignBlobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignBlobRequest;
+    /// let x = SignBlobRequest::new().set_name("example");
+    /// ```
     #[deprecated]
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1418,6 +1821,12 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignBlobRequest;
+    /// let x = SignBlobRequest::new().set_bytes_to_sign(bytes::Bytes::from_static(b"example"));
+    /// ```
     #[deprecated]
     pub fn set_bytes_to_sign<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.bytes_to_sign = v.into();
@@ -1461,6 +1870,12 @@ impl SignBlobResponse {
     }
 
     /// Sets the value of [key_id][crate::model::SignBlobResponse::key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignBlobResponse;
+    /// let x = SignBlobResponse::new().set_key_id("example");
+    /// ```
     #[deprecated]
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
@@ -1468,6 +1883,12 @@ impl SignBlobResponse {
     }
 
     /// Sets the value of [signature][crate::model::SignBlobResponse::signature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignBlobResponse;
+    /// let x = SignBlobResponse::new().set_signature(bytes::Bytes::from_static(b"example"));
+    /// ```
     #[deprecated]
     pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
@@ -1524,6 +1945,12 @@ impl SignJwtRequest {
     }
 
     /// Sets the value of [name][crate::model::SignJwtRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignJwtRequest;
+    /// let x = SignJwtRequest::new().set_name("example");
+    /// ```
     #[deprecated]
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1531,6 +1958,12 @@ impl SignJwtRequest {
     }
 
     /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignJwtRequest;
+    /// let x = SignJwtRequest::new().set_payload("example");
+    /// ```
     #[deprecated]
     pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = v.into();
@@ -1574,6 +2007,12 @@ impl SignJwtResponse {
     }
 
     /// Sets the value of [key_id][crate::model::SignJwtResponse::key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignJwtResponse;
+    /// let x = SignJwtResponse::new().set_key_id("example");
+    /// ```
     #[deprecated]
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
@@ -1581,6 +2020,12 @@ impl SignJwtResponse {
     }
 
     /// Sets the value of [signed_jwt][crate::model::SignJwtResponse::signed_jwt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::SignJwtResponse;
+    /// let x = SignJwtResponse::new().set_signed_jwt("example");
+    /// ```
     #[deprecated]
     pub fn set_signed_jwt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.signed_jwt = v.into();
@@ -1638,24 +2083,48 @@ impl Role {
     }
 
     /// Sets the value of [name][crate::model::Role::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Role;
+    /// let x = Role::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::Role::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Role;
+    /// let x = Role::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Role::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Role;
+    /// let x = Role::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [included_permissions][crate::model::Role::included_permissions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Role;
+    /// let x = Role::new().set_included_permissions(["a", "b", "c"]);
+    /// ```
     pub fn set_included_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1667,6 +2136,15 @@ impl Role {
     }
 
     /// Sets the value of [stage][crate::model::Role::stage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Role;
+    /// use google_cloud_iam_admin_v1::model::role::RoleLaunchStage;
+    /// let x0 = Role::new().set_stage(RoleLaunchStage::Beta);
+    /// let x1 = Role::new().set_stage(RoleLaunchStage::Ga);
+    /// let x2 = Role::new().set_stage(RoleLaunchStage::Deprecated);
+    /// ```
     pub fn set_stage<T: std::convert::Into<crate::model::role::RoleLaunchStage>>(
         mut self,
         v: T,
@@ -1676,12 +2154,24 @@ impl Role {
     }
 
     /// Sets the value of [etag][crate::model::Role::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Role;
+    /// let x = Role::new().set_etag(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [deleted][crate::model::Role::deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Role;
+    /// let x = Role::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deleted = v.into();
         self
@@ -1887,6 +2377,12 @@ impl QueryGrantableRolesRequest {
     }
 
     /// Sets the value of [full_resource_name][crate::model::QueryGrantableRolesRequest::full_resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryGrantableRolesRequest;
+    /// let x = QueryGrantableRolesRequest::new().set_full_resource_name("example");
+    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1896,18 +2392,37 @@ impl QueryGrantableRolesRequest {
     }
 
     /// Sets the value of [view][crate::model::QueryGrantableRolesRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryGrantableRolesRequest;
+    /// use google_cloud_iam_admin_v1::model::RoleView;
+    /// let x0 = QueryGrantableRolesRequest::new().set_view(RoleView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::RoleView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::QueryGrantableRolesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryGrantableRolesRequest;
+    /// let x = QueryGrantableRolesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryGrantableRolesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryGrantableRolesRequest;
+    /// let x = QueryGrantableRolesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1940,6 +2455,17 @@ impl QueryGrantableRolesResponse {
     }
 
     /// Sets the value of [roles][crate::model::QueryGrantableRolesResponse::roles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryGrantableRolesResponse;
+    /// use google_cloud_iam_admin_v1::model::Role;
+    /// let x = QueryGrantableRolesResponse::new()
+    ///     .set_roles([
+    ///         Role::default()/* use setters */,
+    ///         Role::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1951,6 +2477,12 @@ impl QueryGrantableRolesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryGrantableRolesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryGrantableRolesResponse;
+    /// let x = QueryGrantableRolesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2040,30 +2572,61 @@ impl ListRolesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRolesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListRolesRequest;
+    /// let x = ListRolesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRolesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListRolesRequest;
+    /// let x = ListRolesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRolesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListRolesRequest;
+    /// let x = ListRolesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListRolesRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListRolesRequest;
+    /// use google_cloud_iam_admin_v1::model::RoleView;
+    /// let x0 = ListRolesRequest::new().set_view(RoleView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::RoleView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListRolesRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListRolesRequest;
+    /// let x = ListRolesRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -2096,6 +2659,17 @@ impl ListRolesResponse {
     }
 
     /// Sets the value of [roles][crate::model::ListRolesResponse::roles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListRolesResponse;
+    /// use google_cloud_iam_admin_v1::model::Role;
+    /// let x = ListRolesResponse::new()
+    ///     .set_roles([
+    ///         Role::default()/* use setters */,
+    ///         Role::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2107,6 +2681,12 @@ impl ListRolesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRolesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::ListRolesResponse;
+    /// let x = ListRolesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2180,6 +2760,12 @@ impl GetRoleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRoleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::GetRoleRequest;
+    /// let x = GetRoleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2241,18 +2827,37 @@ impl CreateRoleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRoleRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateRoleRequest;
+    /// let x = CreateRoleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [role_id][crate::model::CreateRoleRequest::role_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateRoleRequest;
+    /// let x = CreateRoleRequest::new().set_role_id("example");
+    /// ```
     pub fn set_role_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role_id = v.into();
         self
     }
 
     /// Sets the value of [role][crate::model::CreateRoleRequest::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateRoleRequest;
+    /// use google_cloud_iam_admin_v1::model::Role;
+    /// let x = CreateRoleRequest::new().set_role(Role::default()/* use setters */);
+    /// ```
     pub fn set_role<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Role>,
@@ -2262,6 +2867,14 @@ impl CreateRoleRequest {
     }
 
     /// Sets or clears the value of [role][crate::model::CreateRoleRequest::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::CreateRoleRequest;
+    /// use google_cloud_iam_admin_v1::model::Role;
+    /// let x = CreateRoleRequest::new().set_or_clear_role(Some(Role::default()/* use setters */));
+    /// let x = CreateRoleRequest::new().set_or_clear_role(None::<Role>);
+    /// ```
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Role>,
@@ -2322,12 +2935,25 @@ impl UpdateRoleRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateRoleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UpdateRoleRequest;
+    /// let x = UpdateRoleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [role][crate::model::UpdateRoleRequest::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UpdateRoleRequest;
+    /// use google_cloud_iam_admin_v1::model::Role;
+    /// let x = UpdateRoleRequest::new().set_role(Role::default()/* use setters */);
+    /// ```
     pub fn set_role<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Role>,
@@ -2337,6 +2963,14 @@ impl UpdateRoleRequest {
     }
 
     /// Sets or clears the value of [role][crate::model::UpdateRoleRequest::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UpdateRoleRequest;
+    /// use google_cloud_iam_admin_v1::model::Role;
+    /// let x = UpdateRoleRequest::new().set_or_clear_role(Some(Role::default()/* use setters */));
+    /// let x = UpdateRoleRequest::new().set_or_clear_role(None::<Role>);
+    /// ```
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Role>,
@@ -2346,6 +2980,13 @@ impl UpdateRoleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UpdateRoleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRoleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2355,6 +2996,14 @@ impl UpdateRoleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UpdateRoleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRoleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRoleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2412,12 +3061,24 @@ impl DeleteRoleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRoleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::DeleteRoleRequest;
+    /// let x = DeleteRoleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteRoleRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::DeleteRoleRequest;
+    /// let x = DeleteRoleRequest::new().set_etag(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2472,12 +3133,24 @@ impl UndeleteRoleRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteRoleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UndeleteRoleRequest;
+    /// let x = UndeleteRoleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::UndeleteRoleRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::UndeleteRoleRequest;
+    /// let x = UndeleteRoleRequest::new().set_etag(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2529,24 +3202,48 @@ impl Permission {
     }
 
     /// Sets the value of [name][crate::model::Permission::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// let x = Permission::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::Permission::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// let x = Permission::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Permission::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// let x = Permission::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [only_in_predefined_roles][crate::model::Permission::only_in_predefined_roles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// let x = Permission::new().set_only_in_predefined_roles(true);
+    /// ```
     #[deprecated]
     pub fn set_only_in_predefined_roles<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.only_in_predefined_roles = v.into();
@@ -2554,6 +3251,15 @@ impl Permission {
     }
 
     /// Sets the value of [stage][crate::model::Permission::stage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// use google_cloud_iam_admin_v1::model::permission::PermissionLaunchStage;
+    /// let x0 = Permission::new().set_stage(PermissionLaunchStage::Beta);
+    /// let x1 = Permission::new().set_stage(PermissionLaunchStage::Ga);
+    /// let x2 = Permission::new().set_stage(PermissionLaunchStage::Deprecated);
+    /// ```
     pub fn set_stage<T: std::convert::Into<crate::model::permission::PermissionLaunchStage>>(
         mut self,
         v: T,
@@ -2563,6 +3269,14 @@ impl Permission {
     }
 
     /// Sets the value of [custom_roles_support_level][crate::model::Permission::custom_roles_support_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// use google_cloud_iam_admin_v1::model::permission::CustomRolesSupportLevel;
+    /// let x0 = Permission::new().set_custom_roles_support_level(CustomRolesSupportLevel::Testing);
+    /// let x1 = Permission::new().set_custom_roles_support_level(CustomRolesSupportLevel::NotSupported);
+    /// ```
     pub fn set_custom_roles_support_level<
         T: std::convert::Into<crate::model::permission::CustomRolesSupportLevel>,
     >(
@@ -2574,12 +3288,24 @@ impl Permission {
     }
 
     /// Sets the value of [api_disabled][crate::model::Permission::api_disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// let x = Permission::new().set_api_disabled(true);
+    /// ```
     pub fn set_api_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.api_disabled = v.into();
         self
     }
 
     /// Sets the value of [primary_permission][crate::model::Permission::primary_permission].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::Permission;
+    /// let x = Permission::new().set_primary_permission("example");
+    /// ```
     pub fn set_primary_permission<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2904,6 +3630,12 @@ impl QueryTestablePermissionsRequest {
     }
 
     /// Sets the value of [full_resource_name][crate::model::QueryTestablePermissionsRequest::full_resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryTestablePermissionsRequest;
+    /// let x = QueryTestablePermissionsRequest::new().set_full_resource_name("example");
+    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2913,12 +3645,24 @@ impl QueryTestablePermissionsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::QueryTestablePermissionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryTestablePermissionsRequest;
+    /// let x = QueryTestablePermissionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryTestablePermissionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryTestablePermissionsRequest;
+    /// let x = QueryTestablePermissionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2951,6 +3695,17 @@ impl QueryTestablePermissionsResponse {
     }
 
     /// Sets the value of [permissions][crate::model::QueryTestablePermissionsResponse::permissions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryTestablePermissionsResponse;
+    /// use google_cloud_iam_admin_v1::model::Permission;
+    /// let x = QueryTestablePermissionsResponse::new()
+    ///     .set_permissions([
+    ///         Permission::default()/* use setters */,
+    ///         Permission::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2962,6 +3717,12 @@ impl QueryTestablePermissionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryTestablePermissionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryTestablePermissionsResponse;
+    /// let x = QueryTestablePermissionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3009,6 +3770,12 @@ impl QueryAuditableServicesRequest {
     }
 
     /// Sets the value of [full_resource_name][crate::model::QueryAuditableServicesRequest::full_resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryAuditableServicesRequest;
+    /// let x = QueryAuditableServicesRequest::new().set_full_resource_name("example");
+    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3040,6 +3807,17 @@ impl QueryAuditableServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::QueryAuditableServicesResponse::services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::QueryAuditableServicesResponse;
+    /// use google_cloud_iam_admin_v1::model::query_auditable_services_response::AuditableService;
+    /// let x = QueryAuditableServicesResponse::new()
+    ///     .set_services([
+    ///         AuditableService::default()/* use setters */,
+    ///         AuditableService::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3079,6 +3857,12 @@ pub mod query_auditable_services_response {
         }
 
         /// Sets the value of [name][crate::model::query_auditable_services_response::AuditableService::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_iam_admin_v1::model::query_auditable_services_response::AuditableService;
+        /// let x = AuditableService::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -3119,6 +3903,12 @@ impl LintPolicyRequest {
     }
 
     /// Sets the value of [full_resource_name][crate::model::LintPolicyRequest::full_resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintPolicyRequest;
+    /// let x = LintPolicyRequest::new().set_full_resource_name("example");
+    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3131,6 +3921,14 @@ impl LintPolicyRequest {
     ///
     /// Note that all the setters affecting `lint_object` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintPolicyRequest;
+    /// use gtype::model::Expr;
+    /// let x = LintPolicyRequest::new().set_lint_object(Some(
+    ///     google_cloud_iam_admin_v1::model::lint_policy_request::LintObject::Condition(Expr::default().into())));
+    /// ```
     pub fn set_lint_object<
         T: std::convert::Into<std::option::Option<crate::model::lint_policy_request::LintObject>>,
     >(
@@ -3159,6 +3957,14 @@ impl LintPolicyRequest {
     ///
     /// Note that all the setters affecting `lint_object` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintPolicyRequest;
+    /// use gtype::model::Expr;
+    /// let x = LintPolicyRequest::new().set_condition(Expr::default()/* use setters */);
+    /// assert!(x.condition().is_some());
+    /// ```
     pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
         mut self,
         v: T,
@@ -3230,6 +4036,13 @@ impl LintResult {
     }
 
     /// Sets the value of [level][crate::model::LintResult::level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintResult;
+    /// use google_cloud_iam_admin_v1::model::lint_result::Level;
+    /// let x0 = LintResult::new().set_level(Level::Condition);
+    /// ```
     pub fn set_level<T: std::convert::Into<crate::model::lint_result::Level>>(
         mut self,
         v: T,
@@ -3239,6 +4052,12 @@ impl LintResult {
     }
 
     /// Sets the value of [validation_unit_name][crate::model::LintResult::validation_unit_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintResult;
+    /// let x = LintResult::new().set_validation_unit_name("example");
+    /// ```
     pub fn set_validation_unit_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3248,6 +4067,15 @@ impl LintResult {
     }
 
     /// Sets the value of [severity][crate::model::LintResult::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintResult;
+    /// use google_cloud_iam_admin_v1::model::lint_result::Severity;
+    /// let x0 = LintResult::new().set_severity(Severity::Error);
+    /// let x1 = LintResult::new().set_severity(Severity::Warning);
+    /// let x2 = LintResult::new().set_severity(Severity::Notice);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::lint_result::Severity>>(
         mut self,
         v: T,
@@ -3257,18 +4085,36 @@ impl LintResult {
     }
 
     /// Sets the value of [field_name][crate::model::LintResult::field_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintResult;
+    /// let x = LintResult::new().set_field_name("example");
+    /// ```
     pub fn set_field_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field_name = v.into();
         self
     }
 
     /// Sets the value of [location_offset][crate::model::LintResult::location_offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintResult;
+    /// let x = LintResult::new().set_location_offset(42);
+    /// ```
     pub fn set_location_offset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.location_offset = v.into();
         self
     }
 
     /// Sets the value of [debug_message][crate::model::LintResult::debug_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintResult;
+    /// let x = LintResult::new().set_debug_message("example");
+    /// ```
     pub fn set_debug_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.debug_message = v.into();
         self
@@ -3599,6 +4445,17 @@ impl LintPolicyResponse {
     }
 
     /// Sets the value of [lint_results][crate::model::LintPolicyResponse::lint_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::model::LintPolicyResponse;
+    /// use google_cloud_iam_admin_v1::model::LintResult;
+    /// let x = LintPolicyResponse::new()
+    ///     .set_lint_results([
+    ///         LintResult::default()/* use setters */,
+    ///         LintResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_lint_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
