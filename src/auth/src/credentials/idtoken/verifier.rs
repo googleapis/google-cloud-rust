@@ -205,7 +205,7 @@ impl Verifier {
                 | jsonwebtoken::errors::ErrorKind::InvalidKeyFormat => {
                     Error::invalid("signature", e)
                 }
-                _ => Error::invalid("unkown", e),
+                _ => Error::invalid("unknown", e),
             })?;
 
         let claims = token.claims;
