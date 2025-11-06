@@ -115,7 +115,11 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let audience = self.audience.clone();
         let target_audience = self.target_audience.clone();
         let service_account_key = self.service_account_key.clone();
-        let tg = ServiceAccountTokenGenerator::new_id_token_generator(target_audience, audience, service_account_key);
+        let tg = ServiceAccountTokenGenerator::new_id_token_generator(
+            target_audience,
+            audience,
+            service_account_key,
+        );
         let assertion = tg.generate()?;
 
         let client = Client::new();

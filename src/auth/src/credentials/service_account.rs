@@ -395,7 +395,7 @@ impl ServiceAccountTokenGenerator {
             service_account_key,
             target_audience: Some(target_audience),
             audience: Some(audience),
-            scopes: None
+            scopes: None,
         }
     }
 
