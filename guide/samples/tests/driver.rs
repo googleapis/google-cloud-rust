@@ -19,6 +19,21 @@ mod driver {
     const SECRET_ID_LENGTH: usize = 32;
 
     #[tokio::test(flavor = "multi_thread")]
+    async fn authentication() -> anyhow::Result<()> {
+        user_guide_samples::authentication::adc::sample().await?;
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn endpoint() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        let region = std::env::var("GOOGLE_CLOUD_TEST_REGION").unwrap_or("us-central1".to_string());
+        user_guide_samples::endpoint::default::sample(&project_id).await?;
+        user_guide_samples::endpoint::regional::sample(&project_id, &region).await?;
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
     async fn gemini_text_prompt() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::gemini::text_prompt(&project_id).await
@@ -28,6 +43,13 @@ mod driver {
     async fn gemini_prompt_and_image() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::gemini::prompt_and_image(&project_id).await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn logging() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::logging::sample(&project_id).await?;
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread")]

@@ -35,9 +35,13 @@ mod tests {
     use std::time::Duration;
 
     #[cfg(google_cloud_unstable_tracing)]
+    use google_cloud_gax_internal::observability::attributes::keys::{
+        OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION,
+    };
+    #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
     #[cfg(google_cloud_unstable_tracing)]
-    use opentelemetry_semantic_conventions::trace::HTTP_REQUEST_RESEND_COUNT;
+    use opentelemetry_semantic_conventions::trace::{self as semconv, HTTP_REQUEST_RESEND_COUNT};
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -145,29 +149,74 @@ mod tests {
             spans
         );
 
-        // Span 0 (Initial Attempt)
+        // Span 0 (Initial Attempt - Failure)
         let span0 = &spans[0];
         assert_eq!(span0.name, "http_request");
         let attributes0 = &span0.attributes;
-
         assert!(
             attributes0.get(HTTP_REQUEST_RESEND_COUNT).is_none(),
             "Span 0: '{}' should not be present, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
             attributes0
         );
+        assert_eq!(
+            attributes0.get(OTEL_STATUS_CODE),
+            Some(&"ERROR".into()),
+            "Span 0: '{}' mismatch, all attributes: {:?}",
+            OTEL_STATUS_CODE,
+            attributes0
+        );
+        assert_eq!(
+            attributes0.get(semconv::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(StatusCode::SERVICE_UNAVAILABLE.as_u16() as i64).into()),
+            "Span 0: '{}' mismatch, all attributes: {:?}",
+            semconv::HTTP_RESPONSE_STATUS_CODE,
+            attributes0
+        );
+        assert_eq!(
+            attributes0.get(OTEL_STATUS_DESCRIPTION),
+            Some(
+                &"the service reports an error with code UNAVAILABLE described as: try-again"
+                    .into()
+            ),
+            "Span 0: '{}' mismatch, all attributes: {:?}",
+            OTEL_STATUS_DESCRIPTION,
+            attributes0
+        );
 
-        // Span 1 (Retry 1)
+        // Span 1 (Retry 1 - Failure)
         let span1 = &spans[1];
         assert_eq!(span1.name, "http_request");
         let attributes1 = &span1.attributes;
-
-        let expected_resend_count = "1".to_string();
         assert_eq!(
             attributes1.get(HTTP_REQUEST_RESEND_COUNT),
-            Some(&expected_resend_count),
+            Some(&1_i64.into()),
             "Span 1: '{}' mismatch, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
+            attributes1
+        );
+        assert_eq!(
+            attributes1.get(OTEL_STATUS_CODE),
+            Some(&"ERROR".into()),
+            "Span 1: '{}' mismatch, all attributes: {:?}",
+            OTEL_STATUS_CODE,
+            attributes1
+        );
+        assert_eq!(
+            attributes1.get(semconv::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(StatusCode::SERVICE_UNAVAILABLE.as_u16() as i64).into()),
+            "Span 1: '{}' mismatch, all attributes: {:?}",
+            semconv::HTTP_RESPONSE_STATUS_CODE,
+            attributes1
+        );
+        assert_eq!(
+            attributes1.get(OTEL_STATUS_DESCRIPTION),
+            Some(
+                &"the service reports an error with code UNAVAILABLE described as: try-again"
+                    .into()
+            ),
+            "Span 1: '{}' mismatch, all attributes: {:?}",
+            OTEL_STATUS_DESCRIPTION,
             attributes1
         );
 
@@ -175,13 +224,31 @@ mod tests {
         let span2 = &spans[2];
         assert_eq!(span2.name, "http_request");
         let attributes2 = &span2.attributes;
-
-        let expected_resend_count = "2".to_string();
         assert_eq!(
             attributes2.get(HTTP_REQUEST_RESEND_COUNT),
-            Some(&expected_resend_count),
+            Some(&2_i64.into()),
             "Span 2: '{}' mismatch, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
+            attributes2
+        );
+        assert_eq!(
+            attributes2.get(OTEL_STATUS_CODE),
+            Some(&"UNSET".into()),
+            "Span 2: '{}' mismatch, all attributes: {:?}",
+            OTEL_STATUS_CODE,
+            attributes2
+        );
+        assert_eq!(
+            attributes2.get(semconv::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(StatusCode::OK.as_u16() as i64).into()),
+            "Span 2: '{}' mismatch, all attributes: {:?}",
+            semconv::HTTP_RESPONSE_STATUS_CODE,
+            attributes2
+        );
+        assert!(
+            attributes2.get(OTEL_STATUS_DESCRIPTION).is_none(),
+            "Span 2: '{}' should not be present, all attributes: {:?}",
+            OTEL_STATUS_DESCRIPTION,
             attributes2
         );
 

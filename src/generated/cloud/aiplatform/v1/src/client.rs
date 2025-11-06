@@ -7178,6 +7178,11 @@ impl PredictionService {
         super::builder::prediction_service::GenerateContent::new(self.inner.clone())
     }
 
+    /// Embed content with multimodal inputs.
+    pub fn embed_content(&self) -> super::builder::prediction_service::EmbedContent {
+        super::builder::prediction_service::EmbedContent::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::prediction_service::ListLocations {
         super::builder::prediction_service::ListLocations::new(self.inner.clone())

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::sync::{Mutex, Once};
 use tracing::{Subscriber, field, span};
@@ -26,6 +27,70 @@ pub struct TestLayerGuard {
     _guard: tracing::span::EnteredSpan,
 }
 
+/// Represents the value of a captured tracing attribute.
+#[derive(Debug, Clone, PartialEq)]
+pub enum AttributeValue {
+    String(Cow<'static, str>),
+    Int64(i64),
+    UInt64(u64),
+    Boolean(bool),
+    Double(f64),
+}
+
+impl From<&'static str> for AttributeValue {
+    fn from(s: &'static str) -> Self {
+        AttributeValue::String(Cow::Borrowed(s))
+    }
+}
+
+impl From<String> for AttributeValue {
+    fn from(s: String) -> Self {
+        AttributeValue::String(Cow::Owned(s))
+    }
+}
+
+impl From<i64> for AttributeValue {
+    fn from(i: i64) -> Self {
+        AttributeValue::Int64(i)
+    }
+}
+
+impl From<u64> for AttributeValue {
+    fn from(u: u64) -> Self {
+        AttributeValue::UInt64(u)
+    }
+}
+
+impl From<bool> for AttributeValue {
+    fn from(b: bool) -> Self {
+        AttributeValue::Boolean(b)
+    }
+}
+
+impl From<f64> for AttributeValue {
+    fn from(f: f64) -> Self {
+        AttributeValue::Double(f)
+    }
+}
+
+impl AttributeValue {
+    /// Helper to get the string value if the variant is String.
+    pub fn as_string(&self) -> Option<String> {
+        match self {
+            AttributeValue::String(s) => Some(s.to_string()),
+            _ => None,
+        }
+    }
+    /// Helper to get the i64 value if the variant is Int64.
+    pub fn as_i64(&self) -> Option<i64> {
+        match self {
+            AttributeValue::Int64(i) => Some(*i),
+            _ => None,
+        }
+    }
+    // Add other as_ type helpers as needed
+}
+
 /// Represents a captured tracing span with its attributes.
 #[derive(Debug, Clone)]
 pub struct CapturedSpan {
@@ -33,8 +98,8 @@ pub struct CapturedSpan {
     pub id: span::Id,
     /// The name of the span.
     pub name: String,
-    /// A map of attribute keys to their string representations.
-    pub attributes: HashMap<String, String>,
+    /// A map of attribute keys to their typed values.
+    pub attributes: HashMap<String, AttributeValue>,
     /// The test ID associated with this span, if captured via `TestLayer::initialize`.
     pub test_id: Option<String>,
 }
@@ -44,28 +109,41 @@ pub struct CapturedSpan {
 /// This visitor is used by the `TestLayer` to populate the `attributes` map
 /// in a `CapturedSpan`. It converts various field types (str, debug, i64, u64, bool)
 /// into String representations.
-struct TestVisitor<'a>(&'a mut HashMap<String, String>);
+struct TestVisitor<'a>(&'a mut HashMap<String, AttributeValue>);
 
 impl<'a> field::Visit for TestVisitor<'a> {
     fn record_str(&mut self, field: &field::Field, value: &str) {
-        self.0.insert(field.name().to_string(), value.to_string());
-    }
-
-    fn record_debug(&mut self, field: &field::Field, value: &dyn std::fmt::Debug) {
-        self.0
-            .insert(field.name().to_string(), format!("{:?}", value));
+        self.0.insert(
+            field.name().to_string(),
+            AttributeValue::String(Cow::Owned(value.to_string())),
+        );
     }
 
     fn record_i64(&mut self, field: &field::Field, value: i64) {
-        self.0.insert(field.name().to_string(), value.to_string());
+        self.0
+            .insert(field.name().to_string(), AttributeValue::from(value));
     }
 
     fn record_u64(&mut self, field: &field::Field, value: u64) {
-        self.0.insert(field.name().to_string(), value.to_string());
+        self.0
+            .insert(field.name().to_string(), AttributeValue::from(value));
     }
 
     fn record_bool(&mut self, field: &field::Field, value: bool) {
-        self.0.insert(field.name().to_string(), value.to_string());
+        self.0
+            .insert(field.name().to_string(), AttributeValue::from(value));
+    }
+
+    fn record_f64(&mut self, field: &field::Field, value: f64) {
+        self.0
+            .insert(field.name().to_string(), AttributeValue::from(value));
+    }
+
+    fn record_debug(&mut self, field: &field::Field, value: &dyn std::fmt::Debug) {
+        self.0.insert(
+            field.name().to_string(),
+            AttributeValue::String(Cow::Owned(format!("{:?}", value))),
+        );
     }
 }
 
@@ -178,7 +256,7 @@ fn find_test_id<S: Subscriber + for<'b> tracing_subscriber::registry::LookupSpan
 ///     assert_eq!(captured.len(), 1);
 ///     let span = &captured[0];
 ///     assert_eq!(span.name, "my_operation");
-///     assert_eq!(span.attributes.get("foo"), Some(&"bar".to_string()));
+///     assert_eq!(span.attributes.get("foo"), Some("bar".into()));
 /// }
 /// ```
 #[derive(Clone, Default)]
@@ -230,9 +308,12 @@ where
         let span_ref = ctx.span(id).expect("Span not found in registry");
         let name = span_ref.name().to_string();
         let test_id = if name == "test_layer" {
-            span_map.get("test_id").cloned().inspect(|id_str| {
-                span_ref.extensions_mut().insert(TestId(id_str.clone()));
-            })
+            span_map
+                .get("test_id")
+                .and_then(|v| v.as_string())
+                .inspect(|id_str| {
+                    span_ref.extensions_mut().insert(TestId(id_str.clone()));
+                })
         } else {
             find_test_id(span_ref, &ctx)
         };
@@ -352,7 +433,7 @@ mod tests {
         span.in_scope(|| {
             // Record attributes within the span's context
             span.record("dynamic_attr", "dynamic_value");
-            span.record("number_attr", 123i64);
+            span.record("number_attr", 123_i64);
             span.record("bool_attr", true);
             span.record("debug_attr", field::debug(&vec![1, 2, 3]));
         });
@@ -362,14 +443,15 @@ mod tests {
         let span = &captured[0];
         assert_eq!(span.name, "my_span");
 
-        let expected_attributes: HashMap<String, String> = [
-            ("initial_attr".to_string(), "initial_value".to_string()),
-            ("dynamic_attr".to_string(), "dynamic_value".to_string()),
-            ("number_attr".to_string(), "123".to_string()),
-            ("bool_attr".to_string(), "true".to_string()),
-            ("debug_attr".to_string(), "[1, 2, 3]".to_string()),
+        let expected_attributes: HashMap<String, AttributeValue> = [
+            ("initial_attr", "initial_value".into()),
+            ("dynamic_attr", "dynamic_value".into()),
+            ("number_attr", 123_i64.into()),
+            ("bool_attr", true.into()),
+            ("debug_attr", "[1, 2, 3]".into()),
         ]
         .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
         .collect();
         assert_eq!(span.attributes, expected_attributes);
     }
@@ -382,9 +464,10 @@ mod tests {
         let _span = info_span!(
             "type_test_span",
             my_str = "hello",
-            my_i64 = -123i64,
-            my_u64 = 456u64,
+            my_i64 = -123_i64,
+            my_u64 = 456_u64,
             my_bool = true,
+            my_f64 = 1.23_f64,
             my_debug = field::debug(&("test", 789))
         );
 
@@ -392,16 +475,52 @@ mod tests {
         assert_eq!(captured.len(), 1);
         let span = &captured[0];
 
-        let expected_attributes: HashMap<String, String> = [
-            ("my_str", "hello"),
-            ("my_i64", "-123"),
-            ("my_u64", "456"),
-            ("my_bool", "true"),
-            ("my_debug", "(\"test\", 789)"),
+        let expected_attributes: HashMap<String, AttributeValue> = [
+            ("my_str", "hello".into()),
+            ("my_i64", (-123_i64).into()),
+            ("my_u64", 456_u64.into()),
+            ("my_bool", true.into()),
+            ("my_f64", 1.23_f64.into()),
+            ("my_debug", "(\"test\", 789)".into()),
         ]
         .into_iter()
-        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .map(|(k, v)| (k.to_string(), v))
         .collect();
         assert_eq!(span.attributes, expected_attributes);
+    }
+
+    #[test]
+    fn test_attribute_value_from() {
+        assert_eq!(
+            AttributeValue::from("hello"),
+            AttributeValue::String(Cow::Borrowed("hello"))
+        );
+        assert_eq!(
+            AttributeValue::from("hello".to_string()),
+            AttributeValue::String(Cow::Owned("hello".to_string()))
+        );
+        assert_eq!(AttributeValue::from(123_i64), AttributeValue::Int64(123));
+        assert_eq!(AttributeValue::from(456_u64), AttributeValue::UInt64(456));
+        assert_eq!(AttributeValue::from(true), AttributeValue::Boolean(true));
+        assert_eq!(AttributeValue::from(1.23_f64), AttributeValue::Double(1.23));
+    }
+
+    #[test]
+    fn test_attribute_value_as_string() {
+        assert_eq!(
+            AttributeValue::from("hello").as_string(),
+            Some("hello".to_string())
+        );
+        assert_eq!(
+            AttributeValue::String(Cow::Borrowed("hello")).as_string(),
+            Some("hello".to_string())
+        );
+        assert_eq!(AttributeValue::from(123_i64).as_string(), None);
+    }
+
+    #[test]
+    fn test_attribute_value_as_i64() {
+        assert_eq!(AttributeValue::from(123_i64).as_i64(), Some(123));
+        assert_eq!(AttributeValue::from("hello").as_i64(), None);
     }
 }

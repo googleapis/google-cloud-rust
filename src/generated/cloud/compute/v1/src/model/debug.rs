@@ -56,6 +56,50 @@ impl std::fmt::Debug for super::AcceleratorConfig {
     }
 }
 
+#[cfg(feature = "reservation-sub-blocks")]
+impl std::fmt::Debug for super::AcceleratorTopologiesInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceleratorTopologiesInfo");
+        debug_struct.field(
+            "accelerator_topology_infos",
+            &self.accelerator_topology_infos,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-sub-blocks")]
+impl std::fmt::Debug for super::AcceleratorTopologiesInfoAcceleratorTopologyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceleratorTopologiesInfoAcceleratorTopologyInfo");
+        debug_struct.field("accelerator_topology", &self.accelerator_topology);
+        debug_struct.field("info_per_topology_states", &self.info_per_topology_states);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-sub-blocks")]
+impl std::fmt::Debug
+    for super::AcceleratorTopologiesInfoAcceleratorTopologyInfoInfoPerTopologyState
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("AcceleratorTopologiesInfoAcceleratorTopologyInfoInfoPerTopologyState");
+        debug_struct.field("count", &self.count);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "accelerator-types")]
 impl std::fmt::Debug for super::AcceleratorType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4226,6 +4270,7 @@ impl std::fmt::Debug for super::FutureReservation {
         debug_struct.field("name", &self.name);
         debug_struct.field("name_prefix", &self.name_prefix);
         debug_struct.field("planning_status", &self.planning_status);
+        debug_struct.field("reservation_mode", &self.reservation_mode);
         debug_struct.field("reservation_name", &self.reservation_name);
         debug_struct.field("scheduling_type", &self.scheduling_type);
         debug_struct.field("self_link", &self.self_link);
@@ -4520,6 +4565,20 @@ impl std::fmt::Debug for super::GRPCHealthCheck {
     }
 }
 
+#[cfg(any(feature = "health-checks", feature = "region-health-checks",))]
+impl std::fmt::Debug for super::GRPCTLSHealthCheck {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GRPCTLSHealthCheck");
+        debug_struct.field("grpc_service_name", &self.grpc_service_name);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("port_specification", &self.port_specification);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "global-addresses")]
 impl std::fmt::Debug for super::GlobalAddressesMoveRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4785,6 +4844,7 @@ impl std::fmt::Debug for super::HealthCheck {
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("description", &self.description);
         debug_struct.field("grpc_health_check", &self.grpc_health_check);
+        debug_struct.field("grpc_tls_health_check", &self.grpc_tls_health_check);
         debug_struct.field("healthy_threshold", &self.healthy_threshold);
         debug_struct.field("http_2_health_check", &self.http_2_health_check);
         debug_struct.field("http_health_check", &self.http_health_check);
@@ -8083,6 +8143,7 @@ impl std::fmt::Debug for super::Interconnect {
         debug_struct.field("name", &self.name);
         debug_struct.field("noc_contact_email", &self.noc_contact_email);
         debug_struct.field("operational_status", &self.operational_status);
+        debug_struct.field("params", &self.params);
         debug_struct.field("peer_ip_address", &self.peer_ip_address);
         debug_struct.field("provisioned_link_count", &self.provisioned_link_count);
         debug_struct.field("remote_location", &self.remote_location);
@@ -8198,12 +8259,14 @@ impl std::fmt::Debug for super::InterconnectAttachment {
         debug_struct.field("interconnect", &self.interconnect);
         debug_struct.field("ipsec_internal_addresses", &self.ipsec_internal_addresses);
         debug_struct.field("kind", &self.kind);
+        debug_struct.field("l_2_forwarding", &self.l_2_forwarding);
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("mtu", &self.mtu);
         debug_struct.field("name", &self.name);
         debug_struct.field("operational_status", &self.operational_status);
         debug_struct.field("pairing_key", &self.pairing_key);
+        debug_struct.field("params", &self.params);
         debug_struct.field("partner_asn", &self.partner_asn);
         debug_struct.field("partner_metadata", &self.partner_metadata);
         debug_struct.field("private_interconnect_info", &self.private_interconnect_info);
@@ -8557,6 +8620,77 @@ impl std::fmt::Debug for super::InterconnectAttachmentGroupsOperationalStatusAtt
 }
 
 #[cfg(feature = "interconnect-attachments")]
+impl std::fmt::Debug for super::InterconnectAttachmentL2Forwarding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InterconnectAttachmentL2Forwarding");
+        debug_struct.field("appliance_mappings", &self.appliance_mappings);
+        debug_struct.field(
+            "default_appliance_ip_address",
+            &self.default_appliance_ip_address,
+        );
+        debug_struct.field("geneve_header", &self.geneve_header);
+        debug_struct.field("network", &self.network);
+        debug_struct.field(
+            "tunnel_endpoint_ip_address",
+            &self.tunnel_endpoint_ip_address,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+impl std::fmt::Debug for super::InterconnectAttachmentL2ForwardingApplianceMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InterconnectAttachmentL2ForwardingApplianceMapping");
+        debug_struct.field("appliance_ip_address", &self.appliance_ip_address);
+        debug_struct.field(
+            "inner_vlan_to_appliance_mappings",
+            &self.inner_vlan_to_appliance_mappings,
+        );
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+impl std::fmt::Debug
+    for super::InterconnectAttachmentL2ForwardingApplianceMappingInnerVlanToApplianceMapping
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct(
+            "InterconnectAttachmentL2ForwardingApplianceMappingInnerVlanToApplianceMapping",
+        );
+        debug_struct.field(
+            "inner_appliance_ip_address",
+            &self.inner_appliance_ip_address,
+        );
+        debug_struct.field("inner_vlan_tags", &self.inner_vlan_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+impl std::fmt::Debug for super::InterconnectAttachmentL2ForwardingGeneveHeader {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InterconnectAttachmentL2ForwardingGeneveHeader");
+        debug_struct.field("vni", &self.vni);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
 impl std::fmt::Debug for super::InterconnectAttachmentList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InterconnectAttachmentList");
@@ -8593,6 +8727,18 @@ impl std::fmt::Debug for super::interconnect_attachment_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+impl std::fmt::Debug for super::InterconnectAttachmentParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InterconnectAttachmentParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9203,6 +9349,7 @@ impl std::fmt::Debug for super::InterconnectLocationRegionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InterconnectLocationRegionInfo");
         debug_struct.field("expected_rtt_ms", &self.expected_rtt_ms);
+        debug_struct.field("l_2_forwarding_enabled", &self.l_2_forwarding_enabled);
         debug_struct.field("location_presence", &self.location_presence);
         debug_struct.field("region", &self.region);
         if !self._unknown_fields.is_empty() {
@@ -9277,6 +9424,18 @@ impl std::fmt::Debug for super::InterconnectOutageNotification {
         debug_struct.field("source", &self.source);
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "interconnects")]
+impl std::fmt::Debug for super::InterconnectParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InterconnectParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11022,6 +11181,7 @@ impl std::fmt::Debug for super::NetworkInterface {
         debug_struct.field("access_configs", &self.access_configs);
         debug_struct.field("alias_ip_ranges", &self.alias_ip_ranges);
         debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("igmp_query", &self.igmp_query);
         debug_struct.field(
             "internal_ipv_6_prefix_length",
             &self.internal_ipv_6_prefix_length,
@@ -11266,6 +11426,7 @@ impl std::fmt::Debug for super::NetworkProfileNetworkFeatures {
             "allow_multi_nic_in_same_network",
             &self.allow_multi_nic_in_same_network,
         );
+        debug_struct.field("allow_multicast", &self.allow_multicast);
         debug_struct.field("allow_ncc", &self.allow_ncc);
         debug_struct.field("allow_network_migration", &self.allow_network_migration);
         debug_struct.field("allow_packet_mirroring", &self.allow_packet_mirroring);
@@ -11283,6 +11444,7 @@ impl std::fmt::Debug for super::NetworkProfileNetworkFeatures {
         debug_struct.field("allow_vpc_peering", &self.allow_vpc_peering);
         debug_struct.field("allow_vpn", &self.allow_vpn);
         debug_struct.field("interface_types", &self.interface_types);
+        debug_struct.field("multicast", &self.multicast);
         debug_struct.field("subnet_purposes", &self.subnet_purposes);
         debug_struct.field("subnet_stack_types", &self.subnet_stack_types);
         debug_struct.field("subnetwork_purposes", &self.subnetwork_purposes);
@@ -14966,6 +15128,7 @@ impl std::fmt::Debug for super::Reservation {
         debug_struct.field("kind", &self.kind);
         debug_struct.field("linked_commitments", &self.linked_commitments);
         debug_struct.field("name", &self.name);
+        debug_struct.field("protection_tier", &self.protection_tier);
         debug_struct.field(
             "reservation_sharing_policy",
             &self.reservation_sharing_policy,
@@ -15262,6 +15425,10 @@ impl std::fmt::Debug for super::reservation_list::warning::Data {
 impl std::fmt::Debug for super::ReservationSubBlock {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReservationSubBlock");
+        debug_struct.field(
+            "accelerator_topologies_info",
+            &self.accelerator_topologies_info,
+        );
         debug_struct.field("count", &self.count);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("health_info", &self.health_info);
@@ -18261,6 +18428,8 @@ impl std::fmt::Debug for super::ShieldedInstanceConfig {
 impl std::fmt::Debug for super::ShieldedInstanceIdentity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShieldedInstanceIdentity");
+        debug_struct.field("ecc_p_256_encryption_key", &self.ecc_p_256_encryption_key);
+        debug_struct.field("ecc_p_256_signing_key", &self.ecc_p_256_signing_key);
         debug_struct.field("encryption_key", &self.encryption_key);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("signing_key", &self.signing_key);
@@ -21181,6 +21350,7 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "disks",
     feature = "external-vpn-gateways",
     feature = "firewall-policies",
+    feature = "firewalls",
     feature = "global-addresses",
     feature = "images",
     feature = "instance-groups",
@@ -21233,6 +21403,7 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "disks",
     feature = "external-vpn-gateways",
     feature = "firewall-policies",
+    feature = "firewalls",
     feature = "global-addresses",
     feature = "images",
     feature = "instance-groups",
@@ -24152,6 +24323,20 @@ impl std::fmt::Debug for super::firewalls::PatchRequest {
         debug_struct.field("firewall", &self.firewall);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "firewalls")]
+impl std::fmt::Debug for super::firewalls::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -33111,6 +33296,7 @@ impl std::fmt::Debug for super::reservation_sub_blocks::GetRequest {
         debug_struct.field("parent_name", &self.parent_name);
         debug_struct.field("project", &self.project);
         debug_struct.field("reservation_sub_block", &self.reservation_sub_block);
+        debug_struct.field("view", &self.view);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -34777,6 +34963,7 @@ impl std::fmt::Debug for super::subnetworks::AggregatedListRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("service_project_number", &self.service_project_number);
+        debug_struct.field("views", &self.views);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -128,6 +128,51 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_lb_edge_extensions(
+        &self,
+        req: crate::model::ListLbEdgeExtensionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListLbEdgeExtensionsResponse>> {
+        self.inner.list_lb_edge_extensions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_lb_edge_extension(
+        &self,
+        req: crate::model::GetLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::LbEdgeExtension>> {
+        self.inner.get_lb_edge_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_lb_edge_extension(
+        &self,
+        req: crate::model::CreateLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_lb_edge_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_lb_edge_extension(
+        &self,
+        req: crate::model::UpdateLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_lb_edge_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_lb_edge_extension(
+        &self,
+        req: crate::model::DeleteLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_lb_edge_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_authz_extensions(
         &self,
         req: crate::model::ListAuthzExtensionsRequest,

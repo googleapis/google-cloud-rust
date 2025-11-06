@@ -12,34 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::publisher::publisher::PublisherBuilder;
+
 /// Client for publishing messages to Pub/Sub topics.
 #[derive(Clone, Debug)]
-pub struct Publisher {
+pub struct PublisherFactory {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
 }
 
-/// A builder for [Publisher].
+/// A builder for [PublisherFactory].
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::ClientBuilder;
-/// # use client::Publisher;
-/// let builder : ClientBuilder = Publisher::builder();
+/// # use client::PublisherFactory;
+/// let builder : ClientBuilder = PublisherFactory::builder();
 /// let client = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
+/// let publisher_a = client.publisher("projects/my-project/topics/topic-a").build();
+/// let publisher_b = client.publisher("projects/my-project/topics/topic-b").build();
 /// # Ok(()) }
 /// ```
 pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
-    use super::Publisher;
+    use super::PublisherFactory;
 
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = Publisher;
+        type Client = PublisherFactory;
         type Credentials = gaxi::options::Credentials;
         #[allow(unused_mut)]
         async fn build(
@@ -52,13 +56,13 @@ pub(crate) mod client_builder {
     }
 }
 
-impl Publisher {
-    /// Returns a builder for [Publisher].
+impl PublisherFactory {
+    /// Returns a builder for [PublisherFactory].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::Publisher;
-    /// let client = Publisher::builder().build().await?;
+    /// # use google_cloud_pubsub::client::PublisherFactory;
+    /// let client = PublisherFactory::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
@@ -66,30 +70,47 @@ impl Publisher {
     }
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
-    pub async fn new(
+    pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
     ) -> Result<Self, gax::client_builder::Error> {
         let inner = crate::generated::gapic_dataplane::client::Publisher::new(config).await?;
-        Ok(Self { inner })
+        std::result::Result::Ok(Self { inner })
     }
 
-    /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
-    /// does not exist.
-    pub fn publish(&self) -> crate::builder::publisher::Publish {
-        self.inner.publish()
+    /// Creates a new `Publisher` for a given topic.
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # use google_cloud_pubsub::*;
+    /// # use builder::publisher::ClientBuilder;
+    /// # use client::PublisherFactory;
+    /// # use model::PubsubMessage;
+    /// let client = PublisherFactory::builder()
+    ///     .with_endpoint("https://pubsub.googleapis.com")
+    ///     .build().await?;
+    /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+    /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn publisher<T>(&self, topic: T) -> PublisherBuilder
+    where
+        T: Into<String>,
+    {
+        PublisherBuilder::new(self.inner.clone(), topic.into())
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::Publisher;
+    use super::PublisherFactory;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let _ = Publisher::builder()
+        let client = PublisherFactory::builder()
             .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .build()
             .await?;
+        let _ = client.publisher("projects/my-project/topics/my-topic".to_string());
         Ok(())
     }
 }

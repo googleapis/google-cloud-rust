@@ -26,7 +26,7 @@
 
 pub(crate) mod generated;
 
-pub mod publisher;
+pub(crate) mod publisher;
 
 pub use gax::Result;
 pub use gax::error::Error;
@@ -34,20 +34,33 @@ pub use gax::error::Error;
 pub mod builder {
     pub use crate::generated::gapic::builder::*;
     pub mod publisher {
+        #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::client::ClientBuilder;
+        pub use crate::publisher::publisher::PublisherBuilder;
     }
 }
 pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_dataplane::model::*;
 }
+
+pub mod model_ext {
+    pub use crate::publisher::model_ext::*;
+}
+
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::*;
+    pub use crate::publisher::client::PublisherFactory;
+    pub use crate::publisher::publisher::Publisher;
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
+}
+pub mod options {
+    pub mod publisher {
+        pub use crate::publisher::options::BatchingOptions;
+    }
 }
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";

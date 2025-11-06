@@ -525,3 +525,150 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
         Ok(SubjectTokenBuilder::new(self.subject_token.clone()).build())
     }
 }
+
+#[cfg(google_cloud_unstable_id_token)]
+pub mod unstable {
+    use super::*;
+    use auth::credentials::{
+        idtoken::Builder as IDTokenCredentialBuilder,
+        impersonated::idtoken::Builder as ImpersonatedIDTokenBuilder,
+        mds::idtoken::Builder as IDTokenMDSBuilder,
+        service_account::idtoken::Builder as ServiceAccountIDTokenBuilder,
+    };
+    use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+    use scoped_env::ScopedEnv;
+    use serde_json::Value;
+
+    pub async fn mds_id_token() -> anyhow::Result<()> {
+        let audience = "https://example.com";
+
+        // Get the service account email from the metadata server directly
+        let client = reqwest::Client::new();
+        let expected_email = client
+            .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")
+            .header("Metadata-Flavor", "Google")
+            .send()
+            .await
+            .expect("failed to get service account email from metadata server")
+            .text()
+            .await
+            .expect("failed to read service account email from metadata server response");
+
+        // Only works when running on an env that has MDS.
+        let id_token_creds = IDTokenMDSBuilder::new(audience)
+            .with_format("full")
+            .build()
+            .expect("failed to create id token credentials");
+
+        let token = id_token_creds
+            .id_token()
+            .await
+            .expect("failed to get id token");
+
+        let claims = parse_id_token(token)?;
+
+        assert_eq!(claims["aud"], audience);
+        assert_eq!(claims["email"], expected_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
+    }
+
+    pub async fn id_token_adc() -> anyhow::Result<()> {
+        let (project, adc_json) = get_project_and_service_account().await?;
+
+        // Write the ADC to a temporary file
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, adc_json).expect("Unable to write to temporary file.");
+
+        let expected_email = format!("test-sa-creds@{project}.iam.gserviceaccount.com");
+        let target_audience = "https://example.com";
+
+        // Create credentials for the principal under test.
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+        let id_token_creds = IDTokenCredentialBuilder::new(target_audience)
+            .build()
+            .expect("failed to create id token credentials");
+
+        let token = id_token_creds
+            .id_token()
+            .await
+            .expect("failed to get id token");
+
+        let claims = parse_id_token(token)?;
+
+        assert_eq!(claims["aud"], target_audience);
+        assert_eq!(claims["email"], expected_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
+    }
+
+    pub async fn id_token_service_account() -> anyhow::Result<()> {
+        let (_, adc_json) = get_project_and_service_account().await?;
+
+        let source_sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
+        let expected_email = source_sa_json["client_email"].as_str().unwrap();
+        let target_audience = "https://example.com";
+
+        let id_token_creds =
+            ServiceAccountIDTokenBuilder::new(target_audience, source_sa_json.clone())
+                .build()
+                .expect("failed to create id token credentials");
+
+        let token = id_token_creds
+            .id_token()
+            .await
+            .expect("failed to get id token");
+
+        let claims = parse_id_token(token)?;
+
+        assert_eq!(claims["aud"], target_audience);
+        assert_eq!(claims["email"], expected_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
+    }
+
+    pub async fn id_token_impersonated() -> anyhow::Result<()> {
+        let (project, adc_json) = get_project_and_service_account().await?;
+        let source_sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
+        let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
+
+        let target_principal_email =
+            format!("impersonation-target@{project}.iam.gserviceaccount.com");
+        let target_audience = "https://example.com";
+
+        let id_token_creds = ImpersonatedIDTokenBuilder::from_source_credentials(
+            target_audience,
+            &target_principal_email,
+            source_sa_creds,
+        )
+        .with_include_email(true)
+        .build()
+        .expect("failed to setup id token credentials");
+
+        let token = id_token_creds
+            .id_token()
+            .await
+            .expect("failed to generate id token");
+
+        let claims = parse_id_token(token)?;
+
+        assert_eq!(claims["aud"], target_audience);
+        assert_eq!(claims["email"], target_principal_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
+    }
+
+    fn parse_id_token(token: String) -> anyhow::Result<Value> {
+        // Decode the JWT and verify its claims
+        let parts: Vec<&str> = token.split('.').collect();
+        anyhow::ensure!(parts.len() == 3, "ID token is not a valid JWT");
+        let payload = URL_SAFE_NO_PAD.decode(parts[1])?;
+
+        serde_json::from_slice(&payload).map_err(anyhow::Error::from)
+    }
+}

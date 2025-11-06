@@ -195,6 +195,12 @@ impl serde::ser::Serialize for super::Interconnect {
         if !self.physical_ports.is_empty() {
             state.serialize_entry("physicalPorts", &self.physical_ports)?;
         }
+        if !wkt::internal::is_default(&self.remote_peering_network_type) {
+            state.serialize_entry(
+                "remotePeeringNetworkType",
+                &self.remote_peering_network_type,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -261,6 +267,9 @@ impl serde::ser::Serialize for super::InterconnectAttachment {
         }
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
+        }
+        if !wkt::internal::is_default(&self.peering_type) {
+            state.serialize_entry("peeringType", &self.peering_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -18240,6 +18240,10 @@ pub enum SqlDatabaseVersion {
     Postgres15,
     /// The database version is PostgreSQL 16.
     Postgres16,
+    /// The database version is PostgreSQL 17.
+    Postgres17,
+    /// The database version is PostgreSQL 18.
+    Postgres18,
     /// The database version is MySQL 8.
     Mysql80,
     /// The database major version is MySQL 8.0 and the minor version is 18.
@@ -18334,6 +18338,8 @@ impl SqlDatabaseVersion {
             Self::Postgres14 => std::option::Option::Some(110),
             Self::Postgres15 => std::option::Option::Some(172),
             Self::Postgres16 => std::option::Option::Some(272),
+            Self::Postgres17 => std::option::Option::Some(408),
+            Self::Postgres18 => std::option::Option::Some(557),
             Self::Mysql80 => std::option::Option::Some(20),
             Self::Mysql8018 => std::option::Option::Some(41),
             Self::Mysql8026 => std::option::Option::Some(85),
@@ -18388,6 +18394,8 @@ impl SqlDatabaseVersion {
             Self::Postgres14 => std::option::Option::Some("POSTGRES_14"),
             Self::Postgres15 => std::option::Option::Some("POSTGRES_15"),
             Self::Postgres16 => std::option::Option::Some("POSTGRES_16"),
+            Self::Postgres17 => std::option::Option::Some("POSTGRES_17"),
+            Self::Postgres18 => std::option::Option::Some("POSTGRES_18"),
             Self::Mysql80 => std::option::Option::Some("MYSQL_8_0"),
             Self::Mysql8018 => std::option::Option::Some("MYSQL_8_0_18"),
             Self::Mysql8026 => std::option::Option::Some("MYSQL_8_0_26"),
@@ -18480,6 +18488,8 @@ impl std::convert::From<i32> for SqlDatabaseVersion {
             358 => Self::Mysql8040,
             398 => Self::Mysql84,
             399 => Self::Mysql840,
+            408 => Self::Postgres17,
+            557 => Self::Postgres18,
             _ => Self::UnknownValue(sql_database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -18508,6 +18518,8 @@ impl std::convert::From<&str> for SqlDatabaseVersion {
             "POSTGRES_14" => Self::Postgres14,
             "POSTGRES_15" => Self::Postgres15,
             "POSTGRES_16" => Self::Postgres16,
+            "POSTGRES_17" => Self::Postgres17,
+            "POSTGRES_18" => Self::Postgres18,
             "MYSQL_8_0" => Self::Mysql80,
             "MYSQL_8_0_18" => Self::Mysql8018,
             "MYSQL_8_0_26" => Self::Mysql8026,
@@ -18565,6 +18577,8 @@ impl serde::ser::Serialize for SqlDatabaseVersion {
             Self::Postgres14 => serializer.serialize_i32(110),
             Self::Postgres15 => serializer.serialize_i32(172),
             Self::Postgres16 => serializer.serialize_i32(272),
+            Self::Postgres17 => serializer.serialize_i32(408),
+            Self::Postgres18 => serializer.serialize_i32(557),
             Self::Mysql80 => serializer.serialize_i32(20),
             Self::Mysql8018 => serializer.serialize_i32(41),
             Self::Mysql8026 => serializer.serialize_i32(85),

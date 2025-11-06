@@ -97,6 +97,94 @@ impl serde::ser::Serialize for super::AcceleratorConfig {
     }
 }
 
+#[cfg(feature = "reservation-sub-blocks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AcceleratorTopologiesInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.accelerator_topology_infos.is_empty() {
+            state.serialize_entry("acceleratorTopologyInfos", &self.accelerator_topology_infos)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-sub-blocks")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AcceleratorTopologiesInfoAcceleratorTopologyInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.accelerator_topology.is_some() {
+            state.serialize_entry("acceleratorTopology", &self.accelerator_topology)?;
+        }
+        if !self.info_per_topology_states.is_empty() {
+            state.serialize_entry("infoPerTopologyStates", &self.info_per_topology_states)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-sub-blocks")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::AcceleratorTopologiesInfoAcceleratorTopologyInfoInfoPerTopologyState
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("count", &__With(&self.count))?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "accelerator-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AcceleratorType {
@@ -9942,6 +10030,9 @@ impl serde::ser::Serialize for super::FutureReservation {
         if self.planning_status.is_some() {
             state.serialize_entry("planningStatus", &self.planning_status)?;
         }
+        if self.reservation_mode.is_some() {
+            state.serialize_entry("reservationMode", &self.reservation_mode)?;
+        }
         if self.reservation_name.is_some() {
             state.serialize_entry("reservationName", &self.reservation_name)?;
         }
@@ -10584,6 +10675,46 @@ impl serde::ser::Serialize for super::GRPCHealthCheck {
         }
         if self.port_name.is_some() {
             state.serialize_entry("portName", &self.port_name)?;
+        }
+        if self.port_specification.is_some() {
+            state.serialize_entry("portSpecification", &self.port_specification)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "health-checks", feature = "region-health-checks",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GRPCTLSHealthCheck {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.grpc_service_name.is_some() {
+            state.serialize_entry("grpcServiceName", &self.grpc_service_name)?;
+        }
+        if self.port.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
         }
         if self.port_specification.is_some() {
             state.serialize_entry("portSpecification", &self.port_specification)?;
@@ -11258,6 +11389,9 @@ impl serde::ser::Serialize for super::HealthCheck {
         }
         if self.grpc_health_check.is_some() {
             state.serialize_entry("grpcHealthCheck", &self.grpc_health_check)?;
+        }
+        if self.grpc_tls_health_check.is_some() {
+            state.serialize_entry("grpcTlsHealthCheck", &self.grpc_tls_health_check)?;
         }
         if self.healthy_threshold.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
@@ -18636,6 +18770,9 @@ impl serde::ser::Serialize for super::Interconnect {
         if self.operational_status.is_some() {
             state.serialize_entry("operationalStatus", &self.operational_status)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.peer_ip_address.is_some() {
             state.serialize_entry("peerIpAddress", &self.peer_ip_address)?;
         }
@@ -18925,6 +19062,9 @@ impl serde::ser::Serialize for super::InterconnectAttachment {
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
+        if self.l_2_forwarding.is_some() {
+            state.serialize_entry("l2Forwarding", &self.l_2_forwarding)?;
+        }
         if self.label_fingerprint.is_some() {
             struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -18966,6 +19106,9 @@ impl serde::ser::Serialize for super::InterconnectAttachment {
         }
         if self.pairing_key.is_some() {
             state.serialize_entry("pairingKey", &self.pairing_key)?;
+        }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
         }
         if self.partner_asn.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -19758,6 +19901,138 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "interconnect-attachments")]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::InterconnectAttachmentL2Forwarding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.appliance_mappings.is_empty() {
+            state.serialize_entry("applianceMappings", &self.appliance_mappings)?;
+        }
+        if self.default_appliance_ip_address.is_some() {
+            state.serialize_entry(
+                "defaultApplianceIpAddress",
+                &self.default_appliance_ip_address,
+            )?;
+        }
+        if self.geneve_header.is_some() {
+            state.serialize_entry("geneveHeader", &self.geneve_header)?;
+        }
+        if self.network.is_some() {
+            state.serialize_entry("network", &self.network)?;
+        }
+        if self.tunnel_endpoint_ip_address.is_some() {
+            state.serialize_entry("tunnelEndpointIpAddress", &self.tunnel_endpoint_ip_address)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InterconnectAttachmentL2ForwardingApplianceMapping {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.appliance_ip_address.is_some() {
+            state.serialize_entry("applianceIpAddress", &self.appliance_ip_address)?;
+        }
+        if !self.inner_vlan_to_appliance_mappings.is_empty() {
+            state.serialize_entry(
+                "innerVlanToApplianceMappings",
+                &self.inner_vlan_to_appliance_mappings,
+            )?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::InterconnectAttachmentL2ForwardingApplianceMappingInnerVlanToApplianceMapping
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.inner_appliance_ip_address.is_some() {
+            state.serialize_entry("innerApplianceIpAddress", &self.inner_appliance_ip_address)?;
+        }
+        if !self.inner_vlan_tags.is_empty() {
+            state.serialize_entry("innerVlanTags", &self.inner_vlan_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InterconnectAttachmentL2ForwardingGeneveHeader {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.vni.is_some() {
+            struct __With<'a>(&'a std::option::Option<u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("vni", &__With(&self.vni))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::InterconnectAttachmentList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -19839,6 +20114,29 @@ impl serde::ser::Serialize for super::interconnect_attachment_list::warning::Dat
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "interconnect-attachments")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InterconnectAttachmentParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -21170,6 +21468,9 @@ impl serde::ser::Serialize for super::InterconnectLocationRegionInfo {
             }
             state.serialize_entry("expectedRttMs", &__With(&self.expected_rtt_ms))?;
         }
+        if self.l_2_forwarding_enabled.is_some() {
+            state.serialize_entry("l2ForwardingEnabled", &self.l_2_forwarding_enabled)?;
+        }
         if self.location_presence.is_some() {
             state.serialize_entry("locationPresence", &self.location_presence)?;
         }
@@ -21348,6 +21649,29 @@ impl serde::ser::Serialize for super::InterconnectOutageNotification {
         }
         if self.state.is_some() {
             state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "interconnects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InterconnectParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -25293,6 +25617,9 @@ impl serde::ser::Serialize for super::NetworkInterface {
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
         }
+        if self.igmp_query.is_some() {
+            state.serialize_entry("igmpQuery", &self.igmp_query)?;
+        }
         if self.internal_ipv_6_prefix_length.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -25852,6 +26179,9 @@ impl serde::ser::Serialize for super::NetworkProfileNetworkFeatures {
                 &self.allow_multi_nic_in_same_network,
             )?;
         }
+        if self.allow_multicast.is_some() {
+            state.serialize_entry("allowMulticast", &self.allow_multicast)?;
+        }
         if self.allow_ncc.is_some() {
             state.serialize_entry("allowNcc", &self.allow_ncc)?;
         }
@@ -25887,6 +26217,9 @@ impl serde::ser::Serialize for super::NetworkProfileNetworkFeatures {
         }
         if !self.interface_types.is_empty() {
             state.serialize_entry("interfaceTypes", &self.interface_types)?;
+        }
+        if self.multicast.is_some() {
+            state.serialize_entry("multicast", &self.multicast)?;
         }
         if !self.subnet_purposes.is_empty() {
             state.serialize_entry("subnetPurposes", &self.subnet_purposes)?;
@@ -33437,6 +33770,9 @@ impl serde::ser::Serialize for super::Reservation {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.protection_tier.is_some() {
+            state.serialize_entry("protectionTier", &self.protection_tier)?;
+        }
         if self.reservation_sharing_policy.is_some() {
             state.serialize_entry("reservationSharingPolicy", &self.reservation_sharing_policy)?;
         }
@@ -34148,6 +34484,12 @@ impl serde::ser::Serialize for super::ReservationSubBlock {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.accelerator_topologies_info.is_some() {
+            state.serialize_entry(
+                "acceleratorTopologiesInfo",
+                &self.accelerator_topologies_info,
+            )?;
+        }
         if self.count.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -40830,6 +41172,12 @@ impl serde::ser::Serialize for super::ShieldedInstanceIdentity {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.ecc_p_256_encryption_key.is_some() {
+            state.serialize_entry("eccP256EncryptionKey", &self.ecc_p_256_encryption_key)?;
+        }
+        if self.ecc_p_256_signing_key.is_some() {
+            state.serialize_entry("eccP256SigningKey", &self.ecc_p_256_signing_key)?;
+        }
         if self.encryption_key.is_some() {
             state.serialize_entry("encryptionKey", &self.encryption_key)?;
         }
@@ -47495,6 +47843,7 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "disks",
     feature = "external-vpn-gateways",
     feature = "firewall-policies",
+    feature = "firewalls",
     feature = "global-addresses",
     feature = "images",
     feature = "instance-groups",
@@ -47558,6 +47907,7 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "disks",
     feature = "external-vpn-gateways",
     feature = "firewall-policies",
+    feature = "firewalls",
     feature = "global-addresses",
     feature = "images",
     feature = "instance-groups",

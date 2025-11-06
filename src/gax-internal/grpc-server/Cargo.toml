@@ -24,6 +24,7 @@ publish           = false
 _generate-protos = ["dep:tonic-prost-build"]
 
 [dependencies]
+async-trait.workspace = true
 anyhow.workspace      = true
 http.workspace        = true
 prost                 = { workspace = true, default-features = true }

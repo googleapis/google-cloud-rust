@@ -255,6 +255,191 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn query_org_vpc_flow_logs_configs(
+        &self,
+        req: crate::model::QueryOrgVpcFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryOrgVpcFlowLogsConfigsResponse>> {
+        self.inner
+            .query_org_vpc_flow_logs_configs(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn show_effective_flow_logs_configs(
+        &self,
+        req: crate::model::ShowEffectiveFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ShowEffectiveFlowLogsConfigsResponse>> {
+        self.inner
+            .show_effective_flow_logs_configs(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [OrganizationVpcFlowLogsService](super::stub::OrganizationVpcFlowLogsService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct OrganizationVpcFlowLogsService<T>
+where
+    T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> OrganizationVpcFlowLogsService<T>
+where
+    T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsService<T>
+where
+    T: super::stub::OrganizationVpcFlowLogsService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn list_vpc_flow_logs_configs(
+        &self,
+        req: crate::model::ListVpcFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListVpcFlowLogsConfigsResponse>> {
+        self.inner.list_vpc_flow_logs_configs(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_vpc_flow_logs_config(
+        &self,
+        req: crate::model::GetVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VpcFlowLogsConfig>> {
+        self.inner.get_vpc_flow_logs_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_vpc_flow_logs_config(
+        &self,
+        req: crate::model::CreateVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_vpc_flow_logs_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_vpc_flow_logs_config(
+        &self,
+        req: crate::model::UpdateVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_vpc_flow_logs_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_vpc_flow_logs_config(
+        &self,
+        req: crate::model::DeleteVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_vpc_flow_logs_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

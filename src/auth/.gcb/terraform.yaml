@@ -18,17 +18,7 @@ options:
   logging: CLOUD_LOGGING_ONLY
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/terraform-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'ubuntu:latest'
-    script: |
-      #!/usr/bin/env bash
-      set -e
-      apt-get update && apt-get install -y gnupg software-properties-common wget
-      wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
-      gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint
-      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
-      apt-get update && apt-get install -y terraform
-      echo "Running terraform"
-      cd /workspace/src/auth/.gcb/builds
-      terraform init
-      terraform plan -out /tmp/bootstrap.tplan
-      terraform apply /tmp/bootstrap.tplan
+  - name: 'hashicorp/terraform:latest'
+    entrypoint: '/bin/sh'
+    dir: 'src/auth/.gcb/builds'
+    args: ['-c', 'terraform init && terraform plan -out /tmp/bootstrap.tplan && terraform apply /tmp/bootstrap.tplan']

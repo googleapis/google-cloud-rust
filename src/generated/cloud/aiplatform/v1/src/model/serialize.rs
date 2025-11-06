@@ -29667,6 +29667,118 @@ impl serde::ser::Serialize for super::generate_content_response::UsageMetadata {
     }
 }
 
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EmbedContentRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.model.is_some() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if self.content.is_some() {
+            state.serialize_entry("content", &self.content)?;
+        }
+        if self.title.is_some() {
+            state.serialize_entry("title", &self.title)?;
+        }
+        if self.task_type.is_some() {
+            state.serialize_entry("taskType", &self.task_type)?;
+        }
+        if self.output_dimensionality.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("outputDimensionality", &__With(&self.output_dimensionality))?;
+        }
+        if self.auto_truncate.is_some() {
+            state.serialize_entry("autoTruncate", &self.auto_truncate)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EmbedContentResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.embedding.is_some() {
+            state.serialize_entry("embedding", &self.embedding)?;
+        }
+        if self.usage_metadata.is_some() {
+            state.serialize_entry("usageMetadata", &self.usage_metadata)?;
+        }
+        if !wkt::internal::is_default(&self.truncated) {
+            state.serialize_entry("truncated", &self.truncated)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::embed_content_response::Embedding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.values.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("values", &__With(&self.values))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PublisherModel {
@@ -36564,6 +36676,125 @@ impl serde::ser::Serialize for super::UnmanagedContainerModel {
         }
         if self.container_spec.is_some() {
             state.serialize_entry("containerSpec", &self.container_spec)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UsageMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.prompt_token_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("promptTokenCount", &__With(&self.prompt_token_count))?;
+        }
+        if !wkt::internal::is_default(&self.candidates_token_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "candidatesTokenCount",
+                &__With(&self.candidates_token_count),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.total_token_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalTokenCount", &__With(&self.total_token_count))?;
+        }
+        if !wkt::internal::is_default(&self.tool_use_prompt_token_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "toolUsePromptTokenCount",
+                &__With(&self.tool_use_prompt_token_count),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.thoughts_token_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("thoughtsTokenCount", &__With(&self.thoughts_token_count))?;
+        }
+        if !wkt::internal::is_default(&self.cached_content_token_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "cachedContentTokenCount",
+                &__With(&self.cached_content_token_count),
+            )?;
+        }
+        if !self.prompt_tokens_details.is_empty() {
+            state.serialize_entry("promptTokensDetails", &self.prompt_tokens_details)?;
+        }
+        if !self.cache_tokens_details.is_empty() {
+            state.serialize_entry("cacheTokensDetails", &self.cache_tokens_details)?;
+        }
+        if !self.candidates_tokens_details.is_empty() {
+            state.serialize_entry("candidatesTokensDetails", &self.candidates_tokens_details)?;
+        }
+        if !self.tool_use_prompt_tokens_details.is_empty() {
+            state.serialize_entry(
+                "toolUsePromptTokensDetails",
+                &self.tool_use_prompt_tokens_details,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.traffic_type) {
+            state.serialize_entry("trafficType", &self.traffic_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

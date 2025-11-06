@@ -459,6 +459,7 @@ impl std::fmt::Debug for super::InstancePartition {
         debug_struct.field("name", &self.name);
         debug_struct.field("config", &self.config);
         debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("autoscaling_config", &self.autoscaling_config);
         debug_struct.field("state", &self.state);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);

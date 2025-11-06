@@ -4318,6 +4318,12 @@ pub struct InstancePartition {
     /// UIs. Must be unique per project and between 4 and 30 characters in length.
     pub display_name: std::string::String,
 
+    /// Optional. The autoscaling configuration. Autoscaling is enabled if this
+    /// field is set. When autoscaling is enabled, fields in compute_capacity are
+    /// treated as OUTPUT_ONLY fields and reflect the current compute capacity
+    /// allocated to the instance partition.
+    pub autoscaling_config: std::option::Option<crate::model::AutoscalingConfig>,
+
     /// Output only. The current instance partition state.
     pub state: crate::model::instance_partition::State,
 
@@ -4385,6 +4391,24 @@ impl InstancePartition {
     /// Sets the value of [display_name][crate::model::InstancePartition::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [autoscaling_config][crate::model::InstancePartition::autoscaling_config].
+    pub fn set_autoscaling_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoscalingConfig>,
+    {
+        self.autoscaling_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [autoscaling_config][crate::model::InstancePartition::autoscaling_config].
+    pub fn set_or_clear_autoscaling_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoscalingConfig>,
+    {
+        self.autoscaling_config = v.map(|x| x.into());
         self
     }
 

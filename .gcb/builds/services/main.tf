@@ -62,6 +62,18 @@ resource "google_project_service" "cloudbuild" {
   disable_dependent_services = true
 }
 
+resource "google_project_service" "cloudscheduler" {
+  project = var.project
+  service = "cloudscheduler.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
 resource "google_project_service" "firestore" {
   project = var.project
   service = "firestore.googleapis.com"
@@ -77,6 +89,30 @@ resource "google_project_service" "firestore" {
 resource "google_project_service" "kms" {
   project = var.project
   service = "cloudkms.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "language" {
+  project = var.project
+  service = "language.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "pubsub" {
+  project = var.project
+  service = "pubsub.googleapis.com"
 
   timeouts {
     create = "30m"

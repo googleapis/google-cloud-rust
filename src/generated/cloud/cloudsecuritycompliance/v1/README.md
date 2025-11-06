@@ -13,12 +13,18 @@ should not introduce breaking changes to the client libraries.
 
 The main types to work with this crate are the clients:
 
+- [Audit]
+- [CmEnrollmentService]
 - [Config]
 - [Deployment]
+- [Monitoring]
 
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest/google-cloud-cloudsecuritycompliance-v1)
 
+[Audit]: https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest/google_cloud_cloudsecuritycompliance_v1/client/struct.Audit.html
+[CmEnrollmentService]: https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest/google_cloud_cloudsecuritycompliance_v1/client/struct.CmEnrollmentService.html
 [Config]: https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest/google_cloud_cloudsecuritycompliance_v1/client/struct.Config.html
 [Deployment]: https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest/google_cloud_cloudsecuritycompliance_v1/client/struct.Deployment.html
+[Monitoring]: https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest/google_cloud_cloudsecuritycompliance_v1/client/struct.Monitoring.html

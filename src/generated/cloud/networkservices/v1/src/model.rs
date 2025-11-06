@@ -2021,6 +2021,542 @@ impl wkt::message::Message for DeleteLbRouteExtensionRequest {
     }
 }
 
+/// `LbEdgeExtension` is a resource that lets the extension service influence
+/// the selection of backend services and Cloud CDN cache keys by modifying
+/// request headers.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LbEdgeExtension {
+    /// Required. Identifier. Name of the `LbEdgeExtension` resource in the
+    /// following format:
+    /// `projects/{project}/locations/{location}/lbEdgeExtensions/{lb_edge_extension}`.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A human-readable description of the resource.
+    pub description: std::string::String,
+
+    /// Optional. Set of labels associated with the `LbEdgeExtension` resource.
+    ///
+    /// The format must comply with [the requirements for
+    /// labels](https://cloud.google.com/compute/docs/labeling-resources#requirements)
+    /// for Google Cloud resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. A list of references to the forwarding rules to which this
+    /// service extension is attached. At least one forwarding rule is required.
+    /// Only one `LbEdgeExtension` resource can be associated with a forwarding
+    /// rule.
+    pub forwarding_rules: std::vec::Vec<std::string::String>,
+
+    /// Required. A set of ordered extension chains that contain the match
+    /// conditions and extensions to execute. Match conditions for each extension
+    /// chain are evaluated in sequence for a given request. The first extension
+    /// chain that has a condition that matches the request is executed.
+    /// Any subsequent extension chains do not execute.
+    /// Limited to 5 extension chains per resource.
+    pub extension_chains: std::vec::Vec<crate::model::ExtensionChain>,
+
+    /// Required. All forwarding rules referenced by this extension must
+    /// share the same load balancing scheme.
+    /// Supported values: `EXTERNAL_MANAGED`.
+    pub load_balancing_scheme: crate::model::LoadBalancingScheme,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LbEdgeExtension {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::LbEdgeExtension::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::LbEdgeExtension::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::LbEdgeExtension::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::LbEdgeExtension::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::LbEdgeExtension::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::LbEdgeExtension::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::LbEdgeExtension::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [forwarding_rules][crate::model::LbEdgeExtension::forwarding_rules].
+    pub fn set_forwarding_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.forwarding_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [extension_chains][crate::model::LbEdgeExtension::extension_chains].
+    pub fn set_extension_chains<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ExtensionChain>,
+    {
+        use std::iter::Iterator;
+        self.extension_chains = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [load_balancing_scheme][crate::model::LbEdgeExtension::load_balancing_scheme].
+    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_scheme = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LbEdgeExtension {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.LbEdgeExtension"
+    }
+}
+
+/// Message for requesting list of `LbEdgeExtension` resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListLbEdgeExtensionsRequest {
+    /// Required. The project and location from which the `LbEdgeExtension`
+    /// resources are listed. These values are specified in the following format:
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. The server might return fewer items than
+    /// requested. If unspecified, the server picks an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results that the server returns.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Hint about how to order the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListLbEdgeExtensionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListLbEdgeExtensionsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListLbEdgeExtensionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListLbEdgeExtensionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListLbEdgeExtensionsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListLbEdgeExtensionsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListLbEdgeExtensionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListLbEdgeExtensionsRequest"
+    }
+}
+
+/// Message for response to listing `LbEdgeExtension` resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListLbEdgeExtensionsResponse {
+    /// The list of `LbEdgeExtension` resources.
+    pub lb_edge_extensions: std::vec::Vec<crate::model::LbEdgeExtension>,
+
+    /// A token identifying a page of results that the server returns.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListLbEdgeExtensionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [lb_edge_extensions][crate::model::ListLbEdgeExtensionsResponse::lb_edge_extensions].
+    pub fn set_lb_edge_extensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LbEdgeExtension>,
+    {
+        use std::iter::Iterator;
+        self.lb_edge_extensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLbEdgeExtensionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListLbEdgeExtensionsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListLbEdgeExtensionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListLbEdgeExtensionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListLbEdgeExtensionsResponse {
+    type PageItem = crate::model::LbEdgeExtension;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.lb_edge_extensions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message for getting a `LbEdgeExtension` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetLbEdgeExtensionRequest {
+    /// Required. A name of the `LbEdgeExtension` resource to get. Must be in the
+    /// format
+    /// `projects/{project}/locations/{location}/lbEdgeExtensions/{lb_edge_extension}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetLbEdgeExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetLbEdgeExtensionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetLbEdgeExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetLbEdgeExtensionRequest"
+    }
+}
+
+/// Message for creating a `LbEdgeExtension` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateLbEdgeExtensionRequest {
+    /// Required. The parent resource of the `LbEdgeExtension` resource. Must be in
+    /// the format `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. User-provided ID of the `LbEdgeExtension` resource to be created.
+    pub lb_edge_extension_id: std::string::String,
+
+    /// Required. `LbEdgeExtension` resource to be created.
+    pub lb_edge_extension: std::option::Option<crate::model::LbEdgeExtension>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server ignores the second request This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateLbEdgeExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateLbEdgeExtensionRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [lb_edge_extension_id][crate::model::CreateLbEdgeExtensionRequest::lb_edge_extension_id].
+    pub fn set_lb_edge_extension_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.lb_edge_extension_id = v.into();
+        self
+    }
+
+    /// Sets the value of [lb_edge_extension][crate::model::CreateLbEdgeExtensionRequest::lb_edge_extension].
+    pub fn set_lb_edge_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LbEdgeExtension>,
+    {
+        self.lb_edge_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lb_edge_extension][crate::model::CreateLbEdgeExtensionRequest::lb_edge_extension].
+    pub fn set_or_clear_lb_edge_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LbEdgeExtension>,
+    {
+        self.lb_edge_extension = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateLbEdgeExtensionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateLbEdgeExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.CreateLbEdgeExtensionRequest"
+    }
+}
+
+/// Message for updating a `LbEdgeExtension` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateLbEdgeExtensionRequest {
+    /// Optional. Used to specify the fields to be overwritten in the
+    /// `LbEdgeExtension` resource by the update.
+    /// The fields specified in the `update_mask` are relative to the resource, not
+    /// the full request. A field is overwritten if it is in the mask. If the
+    /// user does not specify a mask, then all fields are overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. `LbEdgeExtension` resource being updated.
+    pub lb_edge_extension: std::option::Option<crate::model::LbEdgeExtension>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server ignores the second request This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateLbEdgeExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateLbEdgeExtensionRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateLbEdgeExtensionRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [lb_edge_extension][crate::model::UpdateLbEdgeExtensionRequest::lb_edge_extension].
+    pub fn set_lb_edge_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LbEdgeExtension>,
+    {
+        self.lb_edge_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lb_edge_extension][crate::model::UpdateLbEdgeExtensionRequest::lb_edge_extension].
+    pub fn set_or_clear_lb_edge_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LbEdgeExtension>,
+    {
+        self.lb_edge_extension = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateLbEdgeExtensionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateLbEdgeExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.UpdateLbEdgeExtensionRequest"
+    }
+}
+
+/// Message for deleting a `LbEdgeExtension` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteLbEdgeExtensionRequest {
+    /// Required. The name of the `LbEdgeExtension` resource to delete. Must be in
+    /// the format
+    /// `projects/{project}/locations/{location}/lbEdgeExtensions/{lb_edge_extension}`.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server ignores the second request This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteLbEdgeExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteLbEdgeExtensionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteLbEdgeExtensionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteLbEdgeExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.DeleteLbEdgeExtensionRequest"
+    }
+}
+
 /// `AuthzExtension` is a resource that allows traffic forwarding
 /// to a callout backend service to make an authorization decision.
 #[derive(Clone, Default, PartialEq)]
