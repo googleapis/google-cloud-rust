@@ -68,57 +68,7 @@ use tokio::time::Instant;
 
 pub mod impersonated;
 pub mod mds;
-
-pub mod service_account {
-    //! Credentials for authenticating with [ID tokens] using [Service Accounts].
-    //!
-    //! The types in this module allow you to create id tokens, based on
-    //! service account keys and can be used for [service to service authentication].
-    //! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-    //! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-    //! for authorization, and therefore cannot be used to access Google Cloud APIs.
-    //!
-    //! While the Google Cloud client libraries for Rust automatically use the types
-    //! in this module when ADC finds a service account key file, you may want to
-    //! use these types directly when the service account key is obtained from
-    //! Cloud Secret Manager or a similar service.
-    //!
-    //! # Example
-    //! ```
-    //! # use google_cloud_auth::credentials::idtoken;
-    //! # use reqwest;
-    //! # tokio_test::block_on(async {
-    //! let service_account_key = serde_json::json!({
-    //!     "client_email": "test-client-email",
-    //!     "private_key_id": "test-private-key-id",
-    //!     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
-    //!     "project_id": "test-project-id",
-    //!     "universe_domain": "test-universe-domain",
-    //! });
-    //! let audience = "https://example.com";
-    //! let credentials: Credentials = idtoken::service_account::Builder::new(audience, service_account_key)
-    //!     .build()?;
-    //! let id_token = credentials.id_token().await?;
-    //!
-    //! // Make request with ID Token as Bearer Token.
-    //! let client = reqwest::Client::new();
-    //! let target_url = format!("{audience}/api/method");
-    //! client.get(target_url)
-    //!     .bearer_auth(id_token)
-    //!     .send()
-    //!     .await?;
-    //! # Ok::<(), anyhow::Error>(())
-    //! # });
-    //! ```
-    //!
-    //! [Best practices for using service accounts]: https://cloud.google.com/iam/docs/best-practices-service-accounts#choose-when-to-use
-    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    //! [create a service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
-    //! [Service Accounts]: https://cloud.google.com/iam/docs/service-account-overview
-    //! [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
-    //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
-    pub use crate::credentials::service_account::idtoken::Builder;
-}
+pub mod service_account;
 pub mod user_account {
     //! Credentials for authenticating with [ID tokens] from an [user account].
     //!
