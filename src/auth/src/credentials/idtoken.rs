@@ -320,7 +320,7 @@ pub(crate) mod tests {
         header.kid = Some(TEST_KEY_ID.to_string());
 
         let mut claims: HashMap<&str, Value> = HashMap::new();
-        claims.insert("aud", Value::String(audience.into()));
+        claims.insert("aud", Value::String(audience));
         claims.insert("iss", "accounts.google.com".into());
         claims.insert("exp", then.as_secs().into());
         claims.insert("iat", now.as_secs().into());
