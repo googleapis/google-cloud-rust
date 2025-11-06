@@ -130,6 +130,7 @@ pub trait Compliance: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Compliance] also implement [Compliance].
@@ -305,6 +306,7 @@ impl<T: super::Compliance> Compliance for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Echo].
@@ -680,6 +682,7 @@ pub trait Identity: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Identity] also implement [Identity].
@@ -810,6 +813,7 @@ impl<T: super::Identity> Identity for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Messaging].
@@ -1230,6 +1234,7 @@ pub trait SequenceService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::SequenceService] also implement [SequenceService].
@@ -1360,6 +1365,7 @@ impl<T: super::SequenceService> SequenceService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Testing].
@@ -1466,6 +1472,7 @@ pub trait Testing: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Testing] also implement [Testing].
@@ -1623,4 +1630,5 @@ impl<T: super::Testing> Testing for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }

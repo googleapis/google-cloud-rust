@@ -24,6 +24,7 @@ use tokio::process::Command;
 mod compliance;
 mod echo;
 mod identity;
+mod tracing_verification;
 
 const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.36.2";
 
@@ -62,6 +63,9 @@ pub async fn run() -> Result<()> {
 
     tracing::info!("running tests for Compliance service");
     compliance::run().await?;
+
+    tracing::info!("running tests for Tracing verification");
+    tracing_verification::run().await?;
 
     Ok(())
 }
