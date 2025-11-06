@@ -3850,7 +3850,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-pubsub"
-version = "0.0.0"
+version = "0.1.0-preview"
 dependencies = [
  "anyhow",
  "async-trait",
