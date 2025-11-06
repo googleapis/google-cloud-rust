@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[allow(dead_code)]
+pub(crate) mod bidi;
 pub(crate) mod checksum;
 pub(crate) mod client;
 pub(crate) mod common_options;
