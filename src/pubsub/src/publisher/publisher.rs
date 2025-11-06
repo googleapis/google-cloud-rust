@@ -221,6 +221,10 @@ impl Worker {
         let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
 
+        let flush = |b: Batch| {
+            tokio::spawn(b.send(self.client.clone(), self.topic_name.clone()));
+        };
+
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
         tokio::pin!(timer);
@@ -230,8 +234,7 @@ impl Worker {
                 // This branch will only be checked when there is a non-empty batch,
                 // so this will not fire continuously.
                 _ = &mut timer, if !batch.is_empty() => {
-                    let batch_to_send = std::mem::take(&mut batch);
-                    tokio::spawn(batch_to_send.send(self.client.clone(), self.topic_name.clone()));
+                    flush(std::mem::take(&mut batch));
                 }
                 // Handle receiving a message from the channel.
                 msg = self.rx.recv() => {
@@ -243,11 +246,7 @@ impl Worker {
                             }
                             batch.push(msg);
                             if batch.len() as u32 >= message_limit {
-                                let batch_to_send = std::mem::take(&mut batch);
-                                // In the future, we may also want to keep track of JoinHandles in order to
-                                // flush the results.
-                                let _handle =
-                                    tokio::spawn(batch_to_send.send(self.client.clone(), self.topic_name.clone()));
+                                flush(std::mem::take(&mut batch));
                             }
                         },
                         None => {
@@ -255,8 +254,7 @@ impl Worker {
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishHandles for the batch and the program ends.
                             if !batch.is_empty() {
-                                let _handle =
-                                        tokio::spawn(batch.send(self.client.clone(), self.topic_name.clone()));
+                                flush(batch);
                             }
                             break;
                         }
@@ -271,7 +269,7 @@ impl Worker {
 struct Batch {
     // TODO(#3686): A batch should also keep track of its total size
     // for improved performance.
-    batch: Vec<BundledMessage>,
+    messages: Vec<BundledMessage>,
 }
 
 impl Default for Batch {
@@ -282,37 +280,42 @@ impl Default for Batch {
 
 impl Batch {
     fn new() -> Self {
-        Batch { batch: Vec::new() }
+        Batch {
+            messages: Vec::new(),
+        }
     }
 
     fn is_empty(&self) -> bool {
-        self.batch.is_empty()
+        self.messages.is_empty()
     }
 
     fn len(&self) -> usize {
-        self.batch.len()
+        self.messages.len()
     }
 
     fn push(&mut self, msg: BundledMessage) {
-        self.batch.push(msg);
+        self.messages.push(msg);
     }
 
     /// Send the batch to the service and process the results.
     async fn send(self, client: GapicPublisher, topic: String) {
-        let (msgs, txs): (Vec<_>, Vec<_>) =
-            self.batch.into_iter().map(|msg| (msg.msg, msg.tx)).unzip();
+        let (msgs, txs): (Vec<_>, Vec<_>) = self
+            .messages
+            .into_iter()
+            .map(|msg| (msg.msg, msg.tx))
+            .unzip();
         let request = client.publish().set_topic(topic).set_messages(msgs);
 
         // Handle the response by extracting the message ID on success.
         match request.send().await {
             Err(e) => {
                 let e = Arc::new(e);
-                txs.into_iter().for_each(move |tx| {
+                for tx in txs {
                     // The user may have dropped the handle, so it is ok if this fails.
                     // TODO(#3689): The error type for this is incorrect, will need to handle
                     // this error propagation more fully.
                     let _ = tx.send(Err(gax::error::Error::io(e.clone())));
-                });
+                }
             }
             Ok(result) => {
                 txs.into_iter()
