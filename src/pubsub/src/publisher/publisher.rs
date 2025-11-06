@@ -384,6 +384,52 @@ mod tests {
         }
     }
 
+    #[tokio::test(start_paused = true)]
+    async fn test_drop_publisher() {
+        // If we hold on to the handles returned from the publisher, it should
+        // be safe to drop the publisher and .await on the handles.
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().return_once({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .with_batching(
+                BatchingOptions::new()
+                    .set_message_count_threshold(1000_u32)
+                    .set_delay_threshold(Duration::from_secs(60)),
+            )
+            .build();
+
+        let start = tokio::time::Instant::now();
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+        drop(publisher); // This should trigger the batch to send, no delay.
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await.expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+            assert_eq!(start.elapsed(), Duration::ZERO);
+        }
+    }
+
     #[tokio::test]
     async fn test_worker_error() {
         let mut mock = MockGapicPublisher::new();
