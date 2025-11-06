@@ -13,7 +13,9 @@
 // limitations under the License.
 
 #[cfg(google_cloud_unstable_tracing)]
-use crate::observability::{create_http_attempt_span, record_http_response_attributes};
+use crate::observability::{
+    create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
+};
 use auth::credentials::{CacheableResource, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
@@ -200,8 +202,12 @@ impl ReqwestClient {
 
         // Record span before parsing result, after parsing error.
         #[cfg(google_cloud_unstable_tracing)]
-        if let Some(s) = span {
-            record_http_response_attributes(&s, intermediate_result.as_ref());
+        if self._tracing_enabled {
+            if let Some(s) = span {
+                record_http_response_attributes(&s, intermediate_result.as_ref());
+            }
+            // Record to the client request span after s exits.
+            record_intermediate_client_request(intermediate_result.as_ref(), _attempt_count);
         }
 
         self::to_http_response(intermediate_result?).await
@@ -354,6 +360,12 @@ mod tests {
     use super::*;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
+    #[cfg(google_cloud_unstable_tracing)]
+    use google_cloud_test_utils::test_layer::TestLayer;
+    #[cfg(google_cloud_unstable_tracing)]
+    use opentelemetry_semantic_conventions::trace as otel_trace;
+    #[cfg(google_cloud_unstable_tracing)]
+    use tracing::{Instrument, field};
 
     #[tokio::test]
     async fn client_http_error_bytes() -> TestResult {
@@ -552,5 +564,67 @@ mod tests {
         assert_eq!(client.host, "localhost");
 
         Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn test_t3_span_enrichment() {
+        let guard = TestLayer::initialize();
+        let t3_span = tracing::info_span!(
+            "t3_span",
+            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
+            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
+            "gax.client.span" = field::Empty,
+        );
+
+        // Simulate T4 span scope ending before calling to_http_response
+        {
+            let t4_span = tracing::info_span!("t4_span");
+            let _t4_enter = t4_span.enter();
+            // T4 work happens here
+        } // T4 exit
+
+        let response = resp_from_code_content(reqwest::StatusCode::OK, "{}").unwrap();
+
+        // Manually call the enrichment function, mimicking request_attempt
+        {
+            let _enter = t3_span.enter();
+            record_intermediate_client_request(Ok(&response), 1);
+        }
+
+        let _ = super::to_http_response::<wkt::Empty>(response)
+            .instrument(t3_span.clone())
+            .await;
+
+        let captured = TestLayer::capture(&guard);
+        // We expect t3_span to be captured, and t4_span.
+        // t3_span should have the attributes.
+        let t3_captured = captured
+            .iter()
+            .find(|s| s.name == "t3_span")
+            .expect("t3_span not found");
+        assert_eq!(
+            t3_captured
+                .attributes
+                .get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(200_i64).into())
+        );
+        // Resend count is set because we passed 1
+        assert_eq!(
+            t3_captured
+                .attributes
+                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
+            Some(&(1_i64).into())
+        );
+
+        let t4_captured = captured
+            .iter()
+            .find(|s| s.name == "t4_span")
+            .expect("t4_span not found");
+        assert!(
+            !t4_captured
+                .attributes
+                .contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE)
+        );
     }
 }

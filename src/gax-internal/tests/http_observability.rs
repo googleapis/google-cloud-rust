@@ -27,6 +27,7 @@ mod tests {
     use serde::Deserialize;
     use std::collections::HashMap;
     use test_case::test_case;
+    use tracing::{Instrument, field};
 
     #[derive(Debug, Deserialize, Default, PartialEq)]
     struct TestResponse {
@@ -212,7 +213,7 @@ mod tests {
                 path("/test"),
                 body("{\"name\":\"test\"}"),
             ])
-            .respond_with(status_code(201).body("{\"status\":\"created\"}")),
+            .respond_with(status_code(201).body("{\"status\": \"created\"}")),
         );
 
         let client = create_client(true, server_url.clone()).await;
@@ -245,7 +246,7 @@ mod tests {
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
-            (otel_trace::HTTP_RESPONSE_BODY_SIZE, 20_i64.into()), // {"status":"created"} is 20 bytes
+            (otel_trace::HTTP_RESPONSE_BODY_SIZE, 21_i64.into()), // {"status": "created"} is 21 bytes
             (
                 otel_trace::SERVER_ADDRESS,
                 server_addr.ip().to_string().into(),
@@ -343,6 +344,112 @@ mod tests {
             OTEL_STATUS_DESCRIPTION,
             description,
             attrs
+        );
+    }
+
+    #[tokio::test]
+    async fn test_t3_span_enrichment_hierarchy() {
+        let server = Server::run();
+        let server_addr = server.addr();
+        let server_url = format!("http://{}", server_addr);
+        server.expect(
+            Expectation::matching(all_of![method("GET"), path("/test"),])
+                .respond_with(status_code(200).body("{\"hello\": \"world\"}")),
+        );
+
+        let client = create_client(true, server_url.clone()).await;
+        let guard = TestLayer::initialize();
+
+        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let request = client.builder(Method::GET, "/test".to_string());
+
+        // Create a parent span (T3) with the marker field
+        let t3_span = tracing::info_span!(
+            "t3_span",
+            { { otel_trace::HTTP_RESPONSE_STATUS_CODE } } = field::Empty,
+            { { otel_trace::HTTP_REQUEST_RESEND_COUNT } } = field::Empty,
+            "gax.client.span" = field::Empty,
+        );
+
+        // Execute the request within the T3 span
+        let _response: gax::Result<Response<TestResponse>> = client
+            .execute(request, None::<NoBody>, options)
+            .instrument(t3_span.clone())
+            .await;
+
+        let captured = TestLayer::capture(&guard);
+        // We expect t3_span to be captured, and the internal http_request span (T4).
+        // t3_span should have the attributes.
+        let t3_captured = captured
+            .iter()
+            .find(|s| s.name == "t3_span")
+            .expect("t3_span not found");
+        assert_eq!(
+            t3_captured
+                .attributes
+                .get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(200_i64).into())
+        );
+        // Resend count is only set if > 0
+        assert!(
+            !t3_captured
+                .attributes
+                .contains_key(otel_trace::HTTP_REQUEST_RESEND_COUNT)
+        );
+
+        let t4_captured = captured
+            .iter()
+            .find(|s| s.name == "http_request")
+            .expect("http_request span not found");
+        // T4 span should also have the status code (it's set in record_http_response_attributes)
+        assert_eq!(
+            t4_captured
+                .attributes
+                .get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(200_i64).into())
+        );
+    }
+
+    #[tokio::test]
+    async fn test_t3_span_enrichment_user_span_with_fields() {
+        let server = Server::run();
+        let server_addr = server.addr();
+        let server_url = format!("http://{}", server_addr);
+        server.expect(
+            Expectation::matching(all_of![method("GET"), path("/test"),])
+                .respond_with(status_code(200).body("{\"hello\": \"world\"}")),
+        );
+
+        let client = create_client(true, server_url.clone()).await;
+        let guard = TestLayer::initialize();
+
+        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let request = client.builder(Method::GET, "/test".to_string());
+
+        // Create a user span that happens to have the same fields, but NO marker
+        let user_span = tracing::info_span!(
+            "user_span",
+            { { otel_trace::HTTP_RESPONSE_STATUS_CODE } } = field::Empty,
+            { { otel_trace::HTTP_REQUEST_RESEND_COUNT } } = field::Empty,
+        );
+
+        // Execute the request within the user span
+        let _response: gax::Result<Response<TestResponse>> = client
+            .execute(request, None::<NoBody>, options)
+            .instrument(user_span.clone())
+            .await;
+
+        let captured = TestLayer::capture(&guard);
+        let user_captured = captured
+            .iter()
+            .find(|s| s.name == "user_span")
+            .expect("user_span not found");
+
+        // Ensure the user span was NOT enriched because it lacked the marker
+        assert!(
+            !user_captured
+                .attributes
+                .contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE)
         );
     }
 }

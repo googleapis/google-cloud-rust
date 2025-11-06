@@ -122,6 +122,65 @@ pub(crate) fn record_http_response_attributes(
     }
 }
 
+/// Records HTTP transport attributes on the current span.
+///
+/// This function is used to enrich the Client Request Span (T3) with attributes
+/// from the transport attempt that are only available before the response is consumed.
+pub(crate) fn record_intermediate_client_request(
+    result: Result<&reqwest::Response, &gax::error::Error>,
+    prior_attempt_count: u32,
+) {
+    let span = Span::current();
+    if span.is_disabled() {
+        return;
+    }
+
+    // Only enrich spans that are explicitly marked as GAX client spans.
+    // This prevents accidental enrichment of user-provided spans that happen to have the same fields.
+    if let Some(metadata) = span.metadata() {
+        if metadata.fields().field("gax.client.span").is_none() {
+            return;
+        }
+    } else {
+        return;
+    }
+
+    match result {
+        Ok(response) => {
+            let url = response.url();
+            span.record(
+                otel_trace::SERVER_ADDRESS,
+                url.host_str()
+                    .map(|h| h.trim_start_matches('[').trim_end_matches(']'))
+                    .unwrap_or(""),
+            );
+            span.record(
+                otel_trace::SERVER_PORT,
+                url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
+            );
+            span.record(otel_trace::URL_FULL, url.as_str());
+            span.record(
+                otel_trace::HTTP_RESPONSE_STATUS_CODE,
+                response.status().as_u16() as i64,
+            );
+        }
+        Err(err) => {
+            if let Some(status) = err.http_status_code() {
+                span.record(otel_trace::HTTP_RESPONSE_STATUS_CODE, status as i64);
+            }
+            // For errors, we might not have the final URL if the request failed before sending.
+            // We rely on the initial URL set on the T3 span.
+        }
+    }
+
+    if prior_attempt_count > 0 {
+        span.record(
+            otel_trace::HTTP_REQUEST_RESEND_COUNT,
+            prior_attempt_count as i64,
+        );
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -458,6 +517,97 @@ mod tests {
             Some(&2_i64.into()),
             "captured spans: {:?}",
             captured
+        );
+    }
+
+    #[tokio::test]
+    async fn test_record_intermediate_client_request() {
+        let guard = TestLayer::initialize();
+        let span = tracing::info_span!(
+            "test_span",
+            { otel_trace::SERVER_ADDRESS } = field::Empty,
+            { otel_trace::SERVER_PORT } = field::Empty,
+            { otel_trace::URL_FULL } = field::Empty,
+            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
+            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
+            "gax.client.span" = field::Empty, // Add marker field
+        );
+        let _enter = span.enter();
+
+        let response = http::Response::builder()
+            .status(StatusCode::OK)
+            .body("")
+            .unwrap();
+        let reqwest_response: reqwest::Response = response.into();
+        record_intermediate_client_request(Ok(&reqwest_response), 1);
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
+        let attributes = &captured[0].attributes;
+
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(200_i64).into())
+        );
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
+            Some(&(1_i64).into())
+        );
+    }
+
+    #[tokio::test]
+    async fn test_record_intermediate_client_request_no_marker() {
+        let guard = TestLayer::initialize();
+        let span = tracing::info_span!(
+            "test_span",
+            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
+            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
+            // Missing "gax.client.span" marker field
+        );
+        let _enter = span.enter();
+
+        let response = http::Response::builder()
+            .status(StatusCode::OK)
+            .body("")
+            .unwrap();
+        let reqwest_response: reqwest::Response = response.into();
+        record_intermediate_client_request(Ok(&reqwest_response), 1);
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
+        let attributes = &captured[0].attributes;
+
+        // Should NOT be recorded
+        assert!(!attributes.contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE));
+        assert!(!attributes.contains_key(otel_trace::HTTP_REQUEST_RESEND_COUNT));
+    }
+
+    #[tokio::test]
+    async fn test_record_intermediate_client_request_error() {
+        let guard = TestLayer::initialize();
+        let span = tracing::info_span!(
+            "test_span",
+            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
+            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
+            "gax.client.span" = field::Empty, // Add marker field
+        );
+        let _enter = span.enter();
+
+        // Simulate a 404 error
+        let error = gax::error::Error::http(404, http::HeaderMap::new(), bytes::Bytes::new());
+        record_intermediate_client_request(Err(&error), 1);
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
+        let attributes = &captured[0].attributes;
+
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(404_i64).into())
+        );
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
+            Some(&(1_i64).into())
         );
     }
 }
