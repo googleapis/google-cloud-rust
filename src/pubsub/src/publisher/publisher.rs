@@ -14,6 +14,8 @@
 
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::options::BatchingOptions;
+use futures::StreamExt as _;
+use futures::stream::FuturesUnordered;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::mpsc::UnboundedSender;
@@ -46,7 +48,7 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 pub struct Publisher {
     #[allow(dead_code)]
     pub(crate) batching_options: BatchingOptions,
-    tx: UnboundedSender<BundledMessage>,
+    tx: UnboundedSender<ToWorker>,
 }
 
 impl Publisher {
@@ -64,10 +66,59 @@ impl Publisher {
 
         // If this fails, the worker is gone, which indicates something bad has happened.
         // The PublishHandle will automatically receive an error when `tx` is dropped.
-        if self.tx.send(BundledMessage { msg, tx }).is_err() {
+        if self
+            .tx
+            .send(ToWorker::Publish(BundledMessage { msg, tx }))
+            .is_err()
+        {
             // `tx` is dropped here if the send errors.
         }
         crate::model_ext::PublishHandle { rx }
+    }
+
+    /// Flushes all outstanding messages.
+    ///
+    /// This method sends any messages that have been published but not yet sent,
+    /// regardless of the configured batching options (`delay_threshold`, etc.).
+    ///
+    /// This method is `async` and returns only after all publish attempts for the
+    /// messages in the snapshot have completed. A "completed" attempt means the
+    /// message has either been successfully sent, or has failed permanently after
+    /// exhausting any applicable retry policies.
+    ///
+    /// After flush()` returns, the final result of each individual publish
+    /// operation (i.e., a success with a message ID or a terminal error) will
+    /// be available on its corresponding [PublishHandle](crate::model_ext::PublishHandle).
+    ///
+    /// Messages published after `flush()` is called will be buffered for a
+    /// subsequent batch and are not included in this flush operation.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
+    /// // Publish some messages. They will be buffered according to batching options.
+    /// let handle1 = publisher.publish(PubsubMessage::new().set_data("foo".to_string()));
+    /// let handle2 = publisher.publish(PubsubMessage::new().set_data("bar".to_string()));
+    ///
+    /// // Flush ensures that these messages are sent immediately and waits for
+    /// // the send to complete.
+    /// publisher.flush().await;
+    ///
+    /// // The results for handle1 and handle2 are available.
+    /// let id1 = handle1.await?;
+    /// let id2 = handle2.await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn flush(&self) {
+        let (tx, rx) = oneshot::channel();
+        if self.tx.send(ToWorker::Flush(tx)).is_err() {
+            // `tx` is dropped here if the send errors.
+        }
+        rx.await
+            .expect("the client library should not release the sender");
     }
 }
 
@@ -192,6 +243,14 @@ impl PublisherBuilder {
     }
 }
 
+/// A command sent from the `Publisher` to the background `Worker`.
+enum ToWorker {
+    /// A request to publish a single message.
+    Publish(BundledMessage),
+    /// A request to flush all outstanding messages.
+    Flush(oneshot::Sender<()>),
+}
+
 /// Object that is passed to the worker task over the
 /// main channel. This represents a single message and the sender
 /// half of the channel to resolve the [PublishHandle].
@@ -209,7 +268,7 @@ struct Worker {
     client: GapicPublisher,
     #[allow(dead_code)]
     batching_options: BatchingOptions,
-    rx: mpsc::UnboundedReceiver<BundledMessage>,
+    rx: mpsc::UnboundedReceiver<ToWorker>,
 }
 
 impl Worker {
@@ -217,7 +276,7 @@ impl Worker {
         topic_name: String,
         client: GapicPublisher,
         batching_options: BatchingOptions,
-        rx: mpsc::UnboundedReceiver<BundledMessage>,
+        rx: mpsc::UnboundedReceiver<ToWorker>,
     ) -> Self {
         Self {
             topic_name,
@@ -227,50 +286,74 @@ impl Worker {
         }
     }
 
+    /// The main loop of the background worker.
+    ///
+    /// This method concurrently handles four main events:
+    ///
+    /// 1. Messages from the `Publisher` are received from the `rx` channel
+    ///    and added to the current `batch`.
+    /// 2. A timer is armed when the first message is added to a batch.
+    ///    If that timer fires, the batch is sent.
+    /// 3. A `Flush` command from the `Publisher` causes the current batch to be
+    ///    sent immediately, and all in-flight send tasks to be awaited.
+    /// 4. The `inflight` set is continuously polled to remove `JoinHandle`s for
+    ///    send tasks that have completed, preventing the set from growing indefinitely.
+    ///
+    /// The loop terminates when the `rx` channel is closed, which happens when all
+    /// `Publisher` clones have been dropped.
     async fn run(mut self) {
         let mut batch = Batch::new();
         let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
-
-        let flush = |b: Batch| {
-            tokio::spawn(b.send(self.client.clone(), self.topic_name.clone()));
-        };
+        let mut inflight = FuturesUnordered::new();
 
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
         tokio::pin!(timer);
         loop {
             tokio::select! {
+                // Remove finished futures from the inflight messages.
+                _ = inflight.next(), if !inflight.is_empty() => {},
                 // Handle timer events.
                 // This branch will only be checked when there is a non-empty batch,
                 // so this will not fire continuously.
                 _ = &mut timer, if !batch.is_empty() => {
-                    flush(std::mem::take(&mut batch));
+                    batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                 }
                 // Handle receiving a message from the channel.
                 msg = self.rx.recv() => {
                     match msg {
-                        Some(msg) => {
+                        Some(ToWorker::Publish(msg)) => {
                             // Reset the timer if this is the first message to be added to the batch.
                             if batch.is_empty() {
                                 timer.as_mut().reset(tokio::time::Instant::now() + delay);
                             }
                             batch.push(msg);
                             if batch.len() as u32 >= message_limit {
-                                flush(std::mem::take(&mut batch));
+                                batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                             }
+                        },
+                        Some(ToWorker::Flush(tx)) => {
+                            batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
+                            // Wait on all the tasks that exist right now.
+                            // We could instead tokio::spawn this as well so the publisher
+                            // can keep working on additional messages. The worker would
+                            // also need to keep track of any pending flushes, and make sure
+                            // all of those resolve as well.
+                            let mut flushing = std::mem::take(&mut inflight);
+                            while let Some(_) = flushing.next().await {}
+                            let _ = tx.send(());
                         },
                         None => {
                             // The sender has been dropped send batch and stop running.
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishHandles for the batch and the program ends.
-                            if !batch.is_empty() {
-                                flush(batch);
-                            }
+                            batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                             break;
                         }
                     }
                 }
+
             }
         }
     }
@@ -306,6 +389,27 @@ impl Batch {
 
     fn push(&mut self, msg: BundledMessage) {
         self.messages.push(msg);
+    }
+
+    /// Drains the batch and spawns a task to send the messages.
+    ///
+    /// This method mutably drains the messages from the current batch, leaving it
+    /// empty, and returns a `JoinHandle` for the spawned send operation. This allows
+    /// the `Worker` to immediately begin creating a new batch while the old one is
+    /// being sent in the background.
+    fn flush(
+        &mut self,
+        client: GapicPublisher,
+        topic: String,
+        inflight: &mut FuturesUnordered<tokio::task::JoinHandle<()>>,
+    ) {
+        if self.is_empty() {
+            return;
+        }
+        let batch_to_send = Self {
+            messages: self.messages.drain(..).collect(),
+        };
+        inflight.push(tokio::spawn(batch_to_send.send(client, topic)));
     }
 
     /// Send the batch to the service and process the results.
@@ -474,6 +578,116 @@ mod tests {
             let got = rx.await;
             assert!(got.is_err());
         }
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_worker_flush() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().returning({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            // Set a long delay.
+            .with_batching(
+                BatchingOptions::new()
+                    .set_message_count_threshold(1000_u32)
+                    .set_delay_threshold(Duration::from_secs(60)),
+            )
+            .build();
+
+        let start = tokio::time::Instant::now();
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+
+        publisher.flush().await;
+        assert_eq!(start.elapsed(), Duration::ZERO);
+
+        let post = publisher.publish(PubsubMessage::new().set_data("after".to_string()));
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await.expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+            assert_eq!(start.elapsed(), Duration::ZERO);
+        }
+
+        // The last message is only sent after the next timeout
+        // (worker does not continue to flush).
+        let got = post.await.expect("expected message id");
+        assert_eq!(got, "after");
+        assert_eq!(start.elapsed(), Duration::from_secs(60));
+    }
+
+    // User's should be able to drop handles and the messages will still send.
+    #[tokio::test(start_paused = true)]
+    async fn test_worker_drop_handles() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().return_once({
+            move |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                assert_eq!(ids.len(), 2);
+                let ids = ids.collect::<Vec<_>>();
+                assert_eq!(ids.clone(), vec!["hello", "world"]);
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            // Set a long delay.
+            .with_batching(
+                BatchingOptions::new()
+                    .set_message_count_threshold(1000_u32)
+                    .set_delay_threshold(Duration::from_secs(60)),
+            )
+            .build();
+
+        let start = tokio::time::Instant::now();
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+        for msg in messages {
+            publisher.publish(msg.clone());
+        }
+
+        publisher.flush().await;
+        assert_eq!(start.elapsed(), Duration::ZERO);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_empty_flush() {
+        let mock = MockGapicPublisher::new();
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string()).build();
+
+        let start = tokio::time::Instant::now();
+        publisher.flush().await;
+        assert_eq!(start.elapsed(), Duration::ZERO);
     }
 
     #[tokio::test]

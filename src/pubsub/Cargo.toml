@@ -28,6 +28,7 @@ rust-version.workspace = true
 [dependencies]
 async-trait.workspace = true
 bytes.workspace       = true
+futures.workspace     = true
 gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 http.workspace        = true
