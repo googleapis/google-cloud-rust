@@ -157,22 +157,8 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use tonic::IntoStreamingRequest;
-
-        let cached_auth_headers = self
-            .credentials
-            .headers(http::Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let mut headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        headers.extend(auth_headers);
+        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let request = tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -239,22 +225,7 @@ impl Client {
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
-        let mut headers = headers;
-        let cached_auth_headers = self
-            .credentials
-            .headers(http::Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let auth_headers = auth_headers?;
-        headers.extend(auth_headers);
+        let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
@@ -298,6 +269,21 @@ impl Client {
         auth::credentials::Builder::default()
             .build()
             .map_err(BuilderError::cred)
+    }
+
+    async fn add_auth_headers(&self, mut headers: http::HeaderMap) -> Result<http::HeaderMap> {
+        let h = self
+            .credentials
+            .headers(http::Extensions::new())
+            .await
+            .map_err(Error::authentication)?;
+
+        let CacheableResource::New { data, .. } = h else {
+            unreachable!("headers are not cached");
+        };
+
+        headers.extend(data);
+        Ok(headers)
     }
 
     async fn make_headers(
